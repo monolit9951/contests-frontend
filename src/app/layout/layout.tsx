@@ -31,7 +31,7 @@ export const Layout = () => {
                 <Header />
                 <main className='layout__content'>
                     <Outlet />
-                    <ContestCard />
+                    <ContestCard tag="for fun"/>
                 </main>
 
                 <Footer className='layout__footer' />
