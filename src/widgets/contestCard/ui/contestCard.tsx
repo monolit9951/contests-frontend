@@ -4,9 +4,9 @@ import { Button } from "shared/ui/button";
 import "./contestCard.scss";
 
 interface ContestCardProps {
-    date: string;
-    name: string;
-    isVerified: boolean;
+    date?: string;
+    name?: string;
+    isVerified?: boolean;
 }
 
 export const ContestCard: React.FC<ContestCardProps> = ({ date, ...rest }) => {

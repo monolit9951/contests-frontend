@@ -3,6 +3,7 @@ import { Outlet, ScrollRestoration } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import clsx from 'clsx'
 import { Theme, useTheme } from 'entities/theme'
+import {ContestCard} from "widgets/contestCard";
 import { Footer } from 'widgets/footer'
 import { Header } from 'widgets/header'
 
@@ -30,6 +31,7 @@ export const Layout = () => {
                 <Header />
                 <main className='layout__content'>
                     <Outlet />
+                    <ContestCard />
                 </main>
 
                 <Footer className='layout__footer' />
