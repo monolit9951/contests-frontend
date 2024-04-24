@@ -1,7 +1,11 @@
+import {ContestCard} from "widgets/contestCard";
+
 import './homePage.scss'
 
 export const HomePage = () => {
     return (
-        <div>Homepage</div>
+        <div>
+            <ContestCard />
+        </div>
     )
 }

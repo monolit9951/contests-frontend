@@ -16,9 +16,7 @@ const BASE_COLOR_DARK = '#202020'
 const HIGHLIGT_COLOR_DARK = '#44444480'
 
 export const Layout = () => {
-    const { theme, toggleTheme } = useTheme()
-
-    console.log(toggleTheme, 'asdasd')
+    const { theme } = useTheme()
 
     const baseColor = theme === Theme.DARK ? BASE_COLOR_LIGHT : BASE_COLOR_DARK
     const highlightColor =
@@ -30,7 +28,6 @@ export const Layout = () => {
                 baseColor={baseColor}
                 highlightColor={highlightColor}>
                 <Header />
-
                 <main className='layout__content'>
                     <Outlet />
                 </main>
