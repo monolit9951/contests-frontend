@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { Theme, useTheme } from 'entities/theme'
 import { Footer } from 'widgets/footer'
 import { Header } from 'widgets/header'
+import { Sidebar } from 'widgets/sidebar'
 
 import 'react-toastify/dist/ReactToastify.css'
 import './layout.scss'
@@ -54,6 +55,7 @@ export const Layout = () => {
                     pauseOnHover
                     theme='colored'
                 />
+                <Sidebar/>
             </SkeletonTheme>
         </div>
     )
