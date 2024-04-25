@@ -1,12 +1,40 @@
 .app.dark {
-    --green: #0ba486;
-    --green-medium: #1b2321;
-    --green-dark: #02140e;
-    --green-light: #393b3b;
-    --body-muted: #dddddd;
-    --danger: #eb5533;
-    --blue-primary: #4429ff;
-    --dark-bg: #0b051a;
-    --dark-medium: #1f1b2b;
+    --white: #ffffff;
+    --white-medium: #f8f8f8;
+    --white-muted: #dddddd;
+    --white-transp-30: #dddddd30;
+    --white-transp-40: #dddddd40;
+    --white-transp-50: #dddddd50;
+
+    --dark: #02140e;
     --dark-light: #383346;
+    --dark-medium: #1f1b2b;
+    --dark-grey: #151515;
+    --dark-bg: #0b051a;
+    --black: #262626;
+    --black-bg: #222222;
+
+    --grey: #393b3b;
+    --grey-very-light: #e8e8e8;
+    --grey-light: #e5e5e5;
+    --grey-medium-light: #c1c1c1;
+    --grey-medium: #454848;
+    --grey-medium-dark: #3b3b3b;
+    --grey-dark: #363636;
+    --grey-placeholder: #a6a7a7;
+    --grey-border: #525856;
+    --grey-dots: #9d9ba3;
+
+    --green: #0ba486;
+    --green-light: #16b391;
+    --green-medium: #099176;
+    --green-dark: #1b2321;
+
+    --blue-primary: #4429ff;
+    --golden: #edb800;
+    --magenta: #da5cef;
+    --purple: #a65cef;
+    --purple-medium: #8438d0;
+    --orange: #f28332;
+    --danger: #eb5533;
 }
