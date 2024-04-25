@@ -9,7 +9,7 @@ export const Header = () => {
             <h1>Logotype</h1>
             <div className="input-box">
                 <Input
-                    placeholder='Input books by title, author, ISBN or keywords'
+                    placeholder='Button books by title, author, ISBN or keywords'
                 />
             </div>
         </nav>
