@@ -3,7 +3,7 @@ import { Outlet, ScrollRestoration } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import clsx from 'clsx'
 import { Theme, useTheme } from 'entities/theme'
-import {ContestCard} from "widgets/contestCard";
+import { ContestCard } from 'widgets/contestCard'
 import { Footer } from 'widgets/footer'
 import { Header } from 'widgets/header'
 import { Sidebar } from 'widgets/sidebar'
@@ -29,17 +29,21 @@ export const Layout = () => {
             <SkeletonTheme
                 baseColor={baseColor}
                 highlightColor={highlightColor}>
-                <Header />
-                <main className='layout__content'>
-                    <Outlet />
-                    <ContestCard />
-                </main>
+                <div className='main_layout'>
+                    <Header />
+                    <Sidebar />
+                    <main className='layout__content'>
+                        <Outlet />
+                        <ContestCard />
+                    </main>
 
-                <Footer className='layout__footer' />
+                    <Footer className='layout__footer' />
+                </div>
 
                 <div
                     className={clsx('layout__toggle-theme', theme)}
-                    title='Change theme' />
+                    title='Change theme'
+                />
 
                 <ScrollRestoration />
                 <ToastContainer
@@ -54,7 +58,6 @@ export const Layout = () => {
                     pauseOnHover
                     theme='colored'
                 />
-                <Sidebar/>
             </SkeletonTheme>
         </div>
     )
