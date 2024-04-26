@@ -5,9 +5,9 @@ module.exports = {
   ignorePatterns: ["dist", ".eslintrc.cjs", "vite.config.ts"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    "project": "./tsconfig.json",
-    "ecmaVersion": 6,
-    "sourceType": "module",
+    project: "tsconfig.json",
+    tsconfigRootDir: __dirname,
+    sourceType: "module",
   },
   plugins: ["jsdoc", "@typescript-eslint", "prettier", "simple-import-sort"],
   rules: {
