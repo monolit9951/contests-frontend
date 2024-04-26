@@ -1,0 +1,77 @@
+$color1: #f4f4f4;
+$color2: #3197ee;
+
+.radio {
+    &__btn {
+        position: absolute;
+        opacity: 0;
+        & + label {
+            display: flex;
+            align-items: center;
+            user-select: none;
+        }
+
+        & + label {
+            &:before {
+                content: '';
+                border: 1px solid var(--grey);
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                position: relative;
+                margin-right: 1em;
+                vertical-align: top;
+                transition: all 250ms ease;
+            }
+        }
+
+        &:checked {
+            & + label {
+                &:before {
+                    border-color: var(--green);
+                    background-color: var(--green);
+                    box-shadow: inset 0 0 0 3px var(--white);
+                }
+            }
+        }
+        &:focus {
+            + .radio-label {
+                &:before {
+                    outline: none;
+                    border-color: $color2;
+                }
+            }
+        }
+        &:disabled {
+            + .radio-label {
+                &:before {
+                    box-shadow: inset 0 0 0 4px $color1;
+                    border-color: darken($color1, 25%);
+                    background: darken($color1, 25%);
+                }
+            }
+        }
+        + label {
+            &:empty {
+                &:before {
+                    margin-right: 0;
+                }
+            }
+        }
+        // &:hover {
+        //     border-color: var(--green-light);
+        // }
+        // &:focus {
+        //     border-color: var(--green-light);
+        // }
+        // &:checked {
+        //     border-color: var(--green);
+        //     background-color: var(--green);
+        // }
+        // &:disabled {
+        //     cursor: not-allowed;
+        //     border-color: var(--grey);
+        //     background-color: var(--grey-medium-light);
+        // }
+    }
+}
