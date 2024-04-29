@@ -1,38 +1,55 @@
-import React, { FC } from 'react'
+import { ReactNode } from 'react'
 import clsx from 'clsx'
+import { useTheme } from 'entities/theme'
 
-import './button.scss'
+import './Button.scss'
 
-interface IButton {
-    readonly children: string
-    readonly Icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
-    readonly theme?: 'blue' | 'transparent-grey' | 'transparent-blue'
-    readonly disabled?: boolean
-    readonly className?: string
-    readonly onClick?: () => void
+type VariantTypes = 'primary' | 'secondary' | 'ghost'
+
+type SizeTypes = 'm' | 's'
+
+const variantClasses: Record<VariantTypes, string> = {
+    primary: 'primary',
+    secondary: 'secondary',
+    ghost: 'ghost',
 }
 
-export const Button: FC<IButton> = (props) => {
+interface IButton {
+    children: string | ReactNode
+    variant: VariantTypes
+    title?: string
+    size?: SizeTypes
+    className?: string
+    disabled?: boolean
+    onClick?: () => void
+}
+
+export default function Button(props: IButton) {
     const {
         children,
-        Icon,
-        theme = 'blue',
-        disabled = false,
+        variant = 'primary',
+        title,
+        size,
         className,
+        disabled = false,
         onClick,
     } = props
+
+    const { theme } = useTheme()
 
     return (
         <button
             type='button'
+            title={title}
+            disabled={disabled}
             onClick={onClick}
             className={clsx(
                 'button',
-                `button_theme_${theme}`,
-                disabled && 'button_disabled',
+                theme,
+                variantClasses[variant],
+                size && `button__${size}`,
                 className
             )}>
-            {Icon && <Icon />}
             {children}
         </button>
     )

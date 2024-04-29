@@ -1,1 +1,3 @@
-export { Button } from './button.tsx'
+import Button from './Button'
+
+export { Button }
