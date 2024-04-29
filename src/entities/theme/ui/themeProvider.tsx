@@ -6,7 +6,7 @@ import {
 } from 'entities/theme'
 
 const defaultTheme =
-    (localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as Theme) || Theme.LIGHT
+    (localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as Theme) || Theme.DARK
 interface IThemeProvider {
     readonly children: JSX.Element
 }
