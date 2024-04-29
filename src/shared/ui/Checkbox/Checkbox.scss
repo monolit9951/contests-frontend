@@ -1,0 +1,28 @@
+.checkbox {
+    margin: 0;
+    width: 20px;
+    height: 20px;
+
+    border: 1px solid var(--grey);
+    border-radius: 4px;
+    appearance: none;
+    cursor: pointer;
+
+    &:hover {
+        border-color: var(--green-light);
+    }
+    &:focus {
+        border-color: var(--green-light);
+    }
+    &:checked {
+        border-color: var(--green);
+        background-color: var(--green);
+        background-image: url('/src/shared/assets/icons/Check.svg');
+        background-position: center;
+    }
+    &:disabled {
+        cursor: not-allowed;
+        border-color: var(--grey);
+        background-color: var(--grey-medium-light);
+    }
+}
