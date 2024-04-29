@@ -1,5 +1,6 @@
-import "./userIcon.scss"
 import userImg from "../../../assets/img/userIMG.jpg"
+
+import "./userIcon.scss"
 
 export const UserIcon = () => {
     return(

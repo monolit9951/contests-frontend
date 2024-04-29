@@ -1,4 +1,4 @@
-import "../ui/logo.scss"
+import "./logo.scss"
 
 export const Logo = () => {
     return (

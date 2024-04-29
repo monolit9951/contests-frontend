@@ -1,5 +1,6 @@
-import './createButton.scss'
 import plus from "../../../assets/icons/plus.svg"
+
+import './createButton.scss'
 
 export const CreateButton = () => {
     return (

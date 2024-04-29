@@ -1,5 +1,6 @@
-import './chatButton.scss'
 import chatCircle from '../../../assets/icons/chatCircle.svg'
+
+import './chatButton.scss'
 
 export const ChatButton = () => {
     return (

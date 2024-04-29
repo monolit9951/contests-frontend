@@ -1,5 +1,6 @@
-import "./searchbar.scss"
 import magnifyingGlass from "../../../assets/icons/magnifyingGlass.svg"
+
+import "./searchbar.scss"
 
 export const Searchbar = () => {
     return (
