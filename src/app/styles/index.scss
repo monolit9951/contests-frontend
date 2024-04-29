@@ -4,17 +4,18 @@
 
 .app {
     height: 100%;
-    background: var(--white);
 
     font-family: 'Manrope', sans-serif;
     font-weight: 400;
     font-style: normal;
 
     &.dark {
+        background: var(--dark);
         color: var(--white-medium);
     }
 
     &.light {
+        background: var(--white);
         color: var(--text-main);
     }
 }

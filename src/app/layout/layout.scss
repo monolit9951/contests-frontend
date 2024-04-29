@@ -1,8 +1,6 @@
 @use 'src/app/styles/breakpoints';
 
 .layout {
-    background: var(--white);
-
     &__wrapper {
         display: flex;
         flex-direction: column;
