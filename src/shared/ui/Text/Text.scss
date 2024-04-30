@@ -1,0 +1,29 @@
+.text {
+    font-size: 16px;
+    line-height: 1.5;
+
+    &__title {
+        font-size: 36px;
+        line-height: 1.17;
+    }
+    &__xs {
+        font-size: 14px;
+        line-height: 1.43;
+    }
+    &__l {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+    &__xl {
+        font-size: 32px;
+        line-height: 1.33;
+    }
+    &__xxl {
+        font-size: 64px;
+        line-height: 1.31;
+    }
+
+    &__bold {
+        font-weight: 600;
+    }
+}

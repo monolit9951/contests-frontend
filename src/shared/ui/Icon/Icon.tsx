@@ -18,6 +18,7 @@ export default function Icon(props: IIcon) {
             width={width}
             height={height}
             className={clsx(className)}
+            // eslint-disable-next-line react/jsx-props-no-spreading
             {...rest}
         />
     )
