@@ -17,8 +17,7 @@
     &:checked {
         border-color: var(--green);
         background-color: var(--green);
-        background-image: url('/src/shared/assets/icons/Check.svg');
-        background-position: center;
+        background-image: url('/src/shared/assets/icons/check.svg');
     }
     &:disabled {
         cursor: not-allowed;
