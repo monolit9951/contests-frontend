@@ -12,9 +12,13 @@
         font-size: 16;
         font-weight: 600;
         font-family: 'Manrope';
+        color: var(--white-muted);
+        background: none;
+        border: none;
         
         &:focus{
             background-color: var(--green);
+            color: var(--white)
         }
     }
 }

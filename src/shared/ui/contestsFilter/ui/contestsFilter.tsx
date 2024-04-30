@@ -1,11 +1,11 @@
-import "../ui/contestsFilter.scss"
+import "./contestsFilter.scss"
 
 export const ContestsFilter = () => {
     return (
         <div className="contestsFilter_container">
-            <div className="filter_option">All</div>
-            <div className="filter_option">For fun</div>
-            <div className="filter_option">For work</div>
+            <button type="button" className="filter_option">All</button>
+            <button type="button" className="filter_option">For fun</button>
+            <button type="button" className="filter_option">For work</button>
         </div>
     )
 }
