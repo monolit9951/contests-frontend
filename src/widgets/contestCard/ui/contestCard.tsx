@@ -16,12 +16,11 @@ import "./contestCard.scss";
 
 interface ContestCardProps {
   date?: string;
-  category?: { des: string, color: string };
   prize?: {
     img: string,
     description: string,
-    background: string
   } | null;
+  category: { des: any },
   title?: string;
   tags?: string[];
   user: {
@@ -36,16 +35,14 @@ interface ContestCardProps {
 
 export const ContestCard: React.FC<ContestCardProps> = ({date, ...rest}) => {
   const {theme} = useTheme()
-  const getCategoryColor = () => {
-    if (rest.category?.des === "fun") {
-      return "green";
-    } if (rest.category?.des === "work") {
-      return "purple";
-    }
-    // Default color if category is not 'fun' or 'work'
-    return "blue";
-  };
 
+  const tagType = rest?.category?.des;
+  const getBgColor = () => {
+    if(tagType === 'fun'){
+      return "#A65CEF"
+    } 
+      return "#0BA486"
+  }
   return (
       <div className={`contest-card-wrapper ${theme}`}>
         <Flex className="justify__between align__center">
@@ -68,32 +65,32 @@ export const ContestCard: React.FC<ContestCardProps> = ({date, ...rest}) => {
               </Flex>
             </VStack>
           </Flex>
-          <Tag type="fun" className="tag"/>
+          <Tag type={tagType} className="tag"/>
         </Flex>
         <div className="contest-card-body">
-          <div className="image-box">
+          <VStack className="image-box align__center">
             <Image alt="" src={contestImg}/>
-            <div className="prize" style={{background: getCategoryColor()}}>
+            <div className="prize" style={{background: getBgColor()}}>
               <PrizeIcon/>
-              <span>{rest.prize?.description}</span>
+              <Text Tag="span">{rest.prize?.description}</Text>
             </div>
-          </div>
+          </VStack>
         </div>
         <div className="contest-card-title">
-          <h4 className="title">{rest.title}</h4>
-          <div className="segments">
+          <Text Tag="h4" bold size="l">{rest.title}</Text>
+          <Flex className="segments align__center">
             {rest.tags?.map((tag, index) => (
                 <div key={index} className={`${theme}`}>{tag}</div>
             ))}
-          </div>
+          </Flex>
         </div>
-        <div className="btn-box">
-          <div className="date">
-            <p>Completing the task</p>
-            <span>until {date}</span>
-          </div>
+        <Flex className="btn-box align__center justify__between">
+          <VStack className="date">
+            <Text Tag="p" bold>Completing the task</Text>
+            <Text Tag="span" size="small">until {date}</Text>
+          </VStack>
           <Button variant="secondary">See details</Button>
-        </div>
+        </Flex>
       </div>
   );
 };

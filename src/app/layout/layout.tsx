@@ -1,11 +1,10 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
-import { Outlet, ScrollRestoration } from 'react-router-dom'
+import { ScrollRestoration } from 'react-router-dom'
 import clsx from 'clsx'
 import { Theme, useTheme } from 'entities/theme'
 import avatar from 'shared/assets/img/userIMG.jpg';
 import {ContestCard} from "widgets/contestCard";
 import { Footer } from 'widgets/footer'
-import { Header } from 'widgets/header'
 
 import 'react-toastify/dist/ReactToastify.css'
 import './layout.scss'
@@ -27,7 +26,7 @@ export const Layout = () => {
         date: "2024-05-10",
         name: "John Doe",
         rating: "4.5",
-        category: { des: "Programming", color: "#FF5733" },
+        category: { des: "fun" },
         prize: {
             img: avatar,
             description: "Win $1000 and a trophy",
@@ -49,21 +48,14 @@ export const Layout = () => {
             <SkeletonTheme
                 baseColor={baseColor}
                 highlightColor={highlightColor}>
-                <Header />
-                <main className='layout__content'>
-                    <Outlet />
-                    <ContestCard {...mockData}/>
-                </main>
-
+                <ContestCard {...mockData}/>
                 <Footer className='layout__footer' />
-
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div
                     className={clsx('layout__toggle-theme', theme)}
                     title='Change theme'
                     onClick={toggleTheme}
                  />
-
                 <ScrollRestoration/>
             </SkeletonTheme>
         </div>

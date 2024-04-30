@@ -14,14 +14,13 @@
     .flex.align__center{
       gap: 8px;
     }
-
+    .user-avatar{
+      border-radius: 50%;
+    }
   }
   .contest-card-body{
     .image-box{
       position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       .prize{
         padding: 4px 12px;
         box-sizing: border-box;
@@ -40,16 +39,10 @@
   }
   .contest-card-title{
     width: 100%;
-    h4{
-      font-size: 20px;
-      font-weight: 600;
-    }
     .segments{
       width: 100%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
       gap: 8px;
+      margin-top: 10px;
       div{
         display: flex;
         box-sizing: border-box;
@@ -70,18 +63,6 @@
     width: 100%;
     padding-top: 16px;
     box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .date{
-      p{
-        font-weight: 600;
-        font-size: 14px;
-      }
-      span{
-        font-size: 12px;
-      }
-    }
   }
   &.light{
     border: 1px solid var(--light-grey);

@@ -11,7 +11,9 @@
   font-size: 16px;
   font-weight: 600;
   display: flex;
+  justify-content: center;
   align-items: center;
+  line-height: 24px;
 }
 
 .button {
@@ -33,7 +35,7 @@
   }
 }
 .button {
-    padding: 16px 32px;
+    padding: 16px;
     border: none;
     border-radius: 26px;
     cursor: pointer;
