@@ -27,7 +27,7 @@ interface IButton {
 export default function Button(props: IButton) {
     const {
         children,
-        variant = 'primary',
+        variant,
         title,
         size,
         className,

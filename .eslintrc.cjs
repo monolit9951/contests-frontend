@@ -5,9 +5,10 @@ module.exports = {
   ignorePatterns: ["dist", ".eslintrc.cjs", "vite.config.ts"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: "tsconfig.json",
+    "project": "./tsconfig.json",
+    "ecmaVersion": 6,
     tsconfigRootDir: __dirname,
-    sourceType: "module",
+    "sourceType": "module",
   },
   plugins: ["jsdoc", "@typescript-eslint", "prettier", "simple-import-sort"],
   rules: {
@@ -107,6 +108,7 @@ module.exports = {
     {
       "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
       "rules": {
+        "react/jsx-props-no-spreading": "off",
         "simple-import-sort/imports": [
           "error",
           {

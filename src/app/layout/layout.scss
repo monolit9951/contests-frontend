@@ -1,6 +1,8 @@
 @use 'src/app/styles/breakpoints';
 
 .layout {
+    background: var(--light-white);
+
     &__wrapper {
         display: flex;
         flex-direction: column;
@@ -38,7 +40,7 @@
     }
 
     &__toggle-theme.light {
-        background-color: var(--primary-bg);
+        background-color: var(--border-grey);
     }
 
     &__toggle-theme.dark {

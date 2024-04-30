@@ -1,24 +1,139 @@
 .contest-card-wrapper{
   width: 408px;
   height: 515px;
-  background: var(--dark-grey);
   padding: 16px;
   box-sizing: border-box;
   z-index: 22;
-  border: 1px solid var(--dark-grey);
   border-radius: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  .contest-card-header{
-    display: flex;
+  align-items: center;
+  .flex.justify__between{
+    width: 100%;
+    .flex.align__center{
+      gap: 8px;
+    }
+
+  }
+  .contest-card-body{
+    .image-box{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .prize{
+        padding: 4px 12px;
+        box-sizing: border-box;
+        display: flex;
+        position: absolute;
+        bottom: -10px;
+        border-radius: 8px;
+        gap: 8px;
+        color: var(--white);
+        svg{
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+  .contest-card-title{
+    width: 100%;
+    h4{
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .segments{
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      div{
+        display: flex;
+        box-sizing: border-box;
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 400;
+        &.dark{
+          background-color: var(--grey-dark);
+        }
+        &.light{
+          background-color: var(--light-white);
+        }
+      }
+    }
   }
   .btn-box{
+    width: 100%;
     padding-top: 16px;
     box-sizing: border-box;
-    border-top: 1px solid var(--dark);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .date{
+      p{
+        font-weight: 600;
+        font-size: 14px;
+      }
+      span{
+        font-size: 12px;
+      }
+    }
+  }
+  &.light{
+    border: 1px solid var(--light-grey);
+    background: #FFF;
+    .btn-box{
+      border-top: 1px solid var(--light-grey);
+    }
+    .contest-card-body{
+      .contest-card-title{
+        h4{
+          color: var(--light-dark);
+        }
+        .segments{
+          color: var(--light-dark);
+        }
+      }
+    }
+  }
+  &.dark{
+    background: var(--green-dark);
+    .btn-box{
+      border-top: 1px solid var(--grey);
+      .date{
+        color: var(--dark-th-white);
+      }
+    }
+    .contest-card-header{
+      .user-box{
+        .user-des{
+          .name-box {
+            color: var(--dark-th-white);
+          }
+          .rating-box{
+            span{
+              color: var(--dark-th-white);
+            }
+          }
+        }
+      }
+    }
+    .contest-card-body{
+      .contest-card-title{
+        h4{
+          color: var(--dark-snowwhite);
+        }
+        .segments{
+          color: var(--dark-snowwhite);
+          div{
+            background: var(--dark-graphite);
+          }
+        }
+      }
+    }
   }
 }

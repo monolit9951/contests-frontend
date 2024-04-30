@@ -6,6 +6,10 @@
     letter-spacing: -0.011rem;
     background-color: var(--grey);
 
+    &.light{
+        background: var(--grey-secondary-light);
+    }
+
     &__fun {
         padding-left: 17px;
         padding-right: 17px;

@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import './Image.scss'
 
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
-    src: string
+    src: string | undefined
     alt: string
     width?: string
     height?: string
@@ -21,7 +21,6 @@ export default function Image(props: ImageProps) {
             width={width}
             height={height}
             className={clsx(className)}
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...rest}
         />
     )

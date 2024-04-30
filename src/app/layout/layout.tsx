@@ -1,8 +1,8 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
 import { Outlet, ScrollRestoration } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
 import clsx from 'clsx'
 import { Theme, useTheme } from 'entities/theme'
+import avatar from 'shared/assets/img/userIMG.jpg';
 import {ContestCard} from "widgets/contestCard";
 import { Footer } from 'widgets/footer'
 import { Header } from 'widgets/header'
@@ -17,11 +17,32 @@ const BASE_COLOR_DARK = '#202020'
 const HIGHLIGT_COLOR_DARK = '#44444480'
 
 export const Layout = () => {
-    const { theme } = useTheme()
+    const { theme, toggleTheme } = useTheme()
 
-    const baseColor = theme === Theme.DARK ? BASE_COLOR_LIGHT : BASE_COLOR_DARK
+    const baseColor = theme === Theme.LIGHT ? BASE_COLOR_LIGHT : BASE_COLOR_DARK
     const highlightColor =
-        theme === Theme.DARK ? HIGHLIGT_COLOR_LIGHT : HIGHLIGT_COLOR_DARK
+        theme === Theme.LIGHT ? HIGHLIGT_COLOR_LIGHT : HIGHLIGT_COLOR_DARK
+
+    const mockData = {
+        date: "2024-05-10",
+        name: "John Doe",
+        rating: "4.5",
+        category: { des: "Programming", color: "#FF5733" },
+        prize: {
+            img: avatar,
+            description: "Win $1000 and a trophy",
+            background: 'var(--green)',
+        },
+        title: "Coding Challenge",
+        tags: ["React", "JavaScript", "Web Development"],
+        user: {
+            name: "John Doe",
+            avatar,
+            isVerified: true,
+            isTop: "Top 3",
+            rate: "4.5",
+        },
+    };
 
     return (
         <div className='layout layout__wrapper'>
@@ -31,28 +52,19 @@ export const Layout = () => {
                 <Header />
                 <main className='layout__content'>
                     <Outlet />
-                    <ContestCard tag="for fun"/>
+                    <ContestCard {...mockData}/>
                 </main>
 
                 <Footer className='layout__footer' />
 
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div
                     className={clsx('layout__toggle-theme', theme)}
-                    title='Change theme' />
+                    title='Change theme'
+                    onClick={toggleTheme}
+                 />
 
-                <ScrollRestoration />
-                <ToastContainer
-                    position='bottom-right'
-                    autoClose={2000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme='colored'
-                />
+                <ScrollRestoration/>
             </SkeletonTheme>
         </div>
     )

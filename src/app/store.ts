@@ -11,7 +11,10 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
+import contestReducer from '../entities/contest/contestCard/model/contestCardSlice'
+
 const rootReducer = combineReducers({
+    contest: contestReducer,
 })
 
 const persistConfig = {
