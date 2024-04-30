@@ -1,11 +1,13 @@
-import chatCircle from '../../../assets/icons/chatCircle.svg'
+import { Icon } from 'shared/ui/Icon'
+
+import chatF from '../../../assets/icons/chatF.svg?react'
 
 import './chatButton.scss'
 
 export const ChatButton = () => {
     return (
         <div>
-            <img src={chatCircle} alt='chatCircle' />
+            <Icon Svg={chatF} />
         </div>
     )
 }

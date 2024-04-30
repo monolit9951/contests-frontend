@@ -1,11 +1,13 @@
-import bell from "../../../assets/icons/Bell.svg"
+import { Icon } from 'shared/ui/Icon'
 
-import "./notificationsButton"
+import bellF from '../../../assets/icons/bellF.svg?react'
+
+import './notificationsButton'
 
 export const NotificationsButton = () => {
     return (
         <div>
-            <img src={bell} alt="bell"/>
+            <Icon Svg={bellF} />
         </div>
     )
 }
