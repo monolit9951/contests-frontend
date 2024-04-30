@@ -8,19 +8,12 @@
     align-items: center;
     justify-content: center;
 
-
-    &:focus{
-        background-color: var(--grey);
-    
-        p{
-            color: var(--white);
-            font-weight: 600;
-        }
+    .svg_main{
+        fill: var(--white-medium)
     }
 
-    img{
-        width: 32px;
-        height: 32px;
+    .svg_filled{
+        display: none;
     }
 
     p{
@@ -30,6 +23,25 @@
         line-height: 16px;
         padding: 2px 0;
         color: var(--white-muted);
+    }
+}
+
+
+.navElement:focus{
+    background-color: var(--grey);
+
+    .svg_main{
+        display: none;
+    }
+
+    .svg_filled{
+        display: block;
+        fill: var(--white-medium)
+    }
+
+    p{
+        color: var(--white);
+        font-weight: 600;
     }
 }
 

@@ -1,14 +1,14 @@
-import plus from "../../../assets/icons/plus.svg"
+import { Icon } from "shared/ui/Icon"
+
+import plus from "../../../assets/icons/plus.svg?react"
 
 import './createButton.scss'
 
 export const CreateButton = () => {
     return (
         <button type="button" className='createBtn'>
-            {/* <div className=''> */}
-                <img src={plus} alt="plus" />
+                <Icon Svg={plus} />
                 <p>Create</p>
-            {/* </div> */}
         </button>
     )
 }
