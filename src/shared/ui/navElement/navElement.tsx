@@ -1,18 +1,22 @@
 import { NavLink } from 'react-router-dom'
 
+import { Icon } from '../Icon'
+
 import './navElement.scss'
 
 interface NavElementProps {
-    imgSrc: string
-    imgAlt: string
+    svgSrc: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+    svgFilledSrc: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
     text: string
     route: string
 }
 
-export const NavElement = ({ imgSrc, imgAlt, text, route }: NavElementProps) => {
+export const NavElement = ({ svgSrc, svgFilledSrc, text, route }: NavElementProps) => {
+
     return (
             <NavLink to={route} className='navElement'>
-                <img src={imgSrc} alt={imgAlt} />
+                <Icon Svg={svgSrc} width={32} height={32} className='svg_main'/>
+                <Icon Svg={svgFilledSrc} width={32} height={32} className='svg_filled'/>
                 <p>{text}</p>
             </NavLink>
     )
