@@ -8,6 +8,16 @@
     align-items: center;
     justify-content: center;
 
+
+    &:focus{
+        background-color: var(--grey);
+    
+        p{
+            color: var(--white);
+            font-weight: 600;
+        }
+    }
+
     img{
         width: 32px;
         height: 32px;
@@ -23,11 +33,3 @@
     }
 }
 
-.navElement:focus{
-    background-color: var(--grey);
-
-    p{
-        color: var(--white);
-        font-weight: 600;
-    }
-}

@@ -1,4 +1,4 @@
-import { Logo } from 'shared/ui/logo/ui/logo'
+import { Logo } from 'shared/ui/logo/'
 import { Searchbar } from 'shared/ui/Searchbar'
 import { UserPanel } from 'shared/ui/UserPanel/ui/userPanel'
 
