@@ -1,11 +1,11 @@
-import burger from "../../../assets/icons/burger.svg"
+import Burger from "../../../assets/icons/burger.svg?react";
 
 import "./burgerMenu.scss"
 
 export const BurgerMenu = () => {
     return(
         <div className="burgerMenu">
-            <img src={burger} alt="b" />
+            <Burger/>
         </div>
     )
 }

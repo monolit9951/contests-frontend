@@ -29,7 +29,7 @@ export const ContestCard: React.FC<ContestCardProps> = ({ date, ...rest }) => {
                     <p>Completing the task</p>
                     <span>{date}</span>
                 </div>
-                <Button>See details</Button>
+                <Button variant="ghost">See details</Button>
             </div>
         </div>
     );
