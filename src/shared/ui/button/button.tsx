@@ -3,7 +3,6 @@ import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 
 import './Button.scss'
-import {Text} from "shared/ui/Text";
 
 type VariantTypes = 'primary' | 'secondary' | 'ghost'
 
@@ -28,7 +27,7 @@ interface IButton {
 export default function Button(props: IButton) {
     const {
         children,
-        variant,
+        variant = 'primary',
         title,
         size,
         className,
@@ -51,7 +50,7 @@ export default function Button(props: IButton) {
                 size && `button__${size}`,
                 className
             )}>
-            <Text Tag="span" bold>{children}</Text>
+            {children}
         </button>
     )
 }

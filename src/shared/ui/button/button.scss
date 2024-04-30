@@ -1,41 +1,5 @@
-.button{
-  border-radius: 999px;
-  border: none;
-  background: transparent;
-  padding: 12px;
-  box-sizing: border-box;
-  font-family: 'Manrope', sans-serif;
-  width: 150px;
-  height: 48px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: 24px;
-}
-
 .button {
-  &.button_theme_dark {
-    background-color: var(--dark-background);
-    color: var(--dark-th-white);
-    border: 1px solid var(--grey-border);
-  }
-
-  &.button_theme_light {
-    background-color: transparent;
-    color: var(--light-dark);
-    border: 1px solid var(--border-grey);
-  }
-
-  &.button_disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-.button {
-    padding: 16px;
+    padding: 16px 32px;
     border: none;
     border-radius: 26px;
     cursor: pointer;
