@@ -1,0 +1,1 @@
+export { BattlesPage } from "./ui/battlesPage"
