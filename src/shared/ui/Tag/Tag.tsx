@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import { Text } from '../Text'
+import { Text } from '../text'
 
 import './Tag.scss'
 

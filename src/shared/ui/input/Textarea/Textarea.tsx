@@ -3,9 +3,9 @@ import clsx from 'clsx'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import infoIcon from 'shared/assets/icons/info.svg?react'
 
-import { Icon } from '../../Icon'
-import { HStack, VStack } from '../../Stack'
-import { Text } from '../../Text'
+import { Icon } from '../../icon'
+import { HStack, VStack } from '../../stack'
+import { Text } from '../../text'
 
 import './Textarea.scss'
 
