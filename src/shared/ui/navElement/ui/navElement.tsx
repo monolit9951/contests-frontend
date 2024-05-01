@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import './navElement.scss'
 
 interface NavElementProps {
-    imgAlt: string | undefined
     text: string
     route: string
 }

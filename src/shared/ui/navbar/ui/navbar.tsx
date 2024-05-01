@@ -9,7 +9,6 @@ export const Navbar = () => {
             {mockNavData.map((navItem) => (
                 <NavElement
                     key={navItem.route}
-                    imgAlt={navItem.imgAlt}
                     text={navItem.text}
                     route={navItem.route}
                 />

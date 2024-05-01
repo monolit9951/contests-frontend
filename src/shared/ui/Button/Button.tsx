@@ -24,7 +24,7 @@ interface IButton {
     onClick?: () => void
 }
 
-export default function Button(props: IButton) {
+export const Button = (props: IButton) => {
     const {
         children,
         variant = 'primary',

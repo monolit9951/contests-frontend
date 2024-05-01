@@ -10,7 +10,7 @@ export const Header = () => {
             <div className="input-box">
                 <Input
                     placeholder='Button books by title, author, ISBN or keywords'
-                    type={'text'}
+                    type='text'
                 />
             </div>
         </nav>
