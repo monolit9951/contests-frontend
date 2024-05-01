@@ -1,6 +1,6 @@
-import house from "shared/assets/icons/house.svg?react"
-import sword from "shared/assets/icons/sword.svg?react"
-import trophy from "shared/assets/icons/trophy.svg?react"
+import house from "../../shared/assets/icons/house.svg?react"
+import sword from "../../shared/assets/icons/sword.svg?react"
+import trophy from "../../shared/assets/icons/trophy.svg?react"
 
 export const  mockNavData = [
     {
