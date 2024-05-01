@@ -1,5 +1,4 @@
-// @ts-ignore
-import prizeIcon from 'shared/assets/icons/Trophy.svg';
+import PrizeIcon from 'shared/assets/icons/Trophy.svg?react';
 
 const mockData = {
   date: "2024-05-10",
@@ -7,7 +6,7 @@ const mockData = {
   rating: "4.5",
   category: { des: "Programming", color: "#FF5733" },
   prize: {
-    img: prizeIcon,
+    img: PrizeIcon,
     description: "Win $1000 and a trophy",
   },
   title: "Coding Challenge",
