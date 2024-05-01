@@ -1,13 +1,12 @@
-import { Input } from 'shared/ui/input'
+import { Input } from 'shared/ui/Input'
 
 import './header.scss'
 
 export const Header = () => {
-
     return (
-        <nav className="header">
+        <nav className='header'>
             <h1>Logotype</h1>
-            <div className="input-box">
+            <div className='input-box'>
                 <Input
                     placeholder='Button books by title, author, ISBN or keywords'
                     type='text'
