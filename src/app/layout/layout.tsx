@@ -2,9 +2,8 @@ import { SkeletonTheme } from 'react-loading-skeleton'
 import { ScrollRestoration } from 'react-router-dom'
 import clsx from 'clsx'
 import { Theme, useTheme } from 'entities/theme'
-import avatar from 'shared/assets/img/userIMG.jpg';
-import {ContestCard} from "widgets/contestCard";
-import { Footer } from 'widgets/footer'
+import mockData from 'shared/consts/contestCard'
+import { ContestCard } from 'widgets/contestCard'
 
 import 'react-toastify/dist/ReactToastify.css'
 import './layout.scss'
@@ -22,39 +21,17 @@ export const Layout = () => {
     const highlightColor =
         theme === Theme.LIGHT ? HIGHLIGT_COLOR_LIGHT : HIGHLIGT_COLOR_DARK
 
-    const mockData = {
-        date: "2024-05-10",
-        name: "John Doe",
-        rating: "4.5",
-        category: { des: "fun" },
-        prize: {
-            img: avatar,
-            description: "Win $1000 and a trophy",
-            background: 'var(--green)',
-        },
-        title: "Coding Challenge",
-        tags: ["React", "JavaScript", "Web Development"],
-        user: {
-            name: "John Doe",
-            avatar,
-            isVerified: true,
-            isTop: "Top 3",
-            rate: "4.5",
-        },
-    };
-
     return (
         <div className='layout layout__wrapper'>
             <SkeletonTheme
                 baseColor={baseColor}
                 highlightColor={highlightColor}>
-                <ContestCard {...mockData}/>
-                <Footer className='layout__footer' />
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                <ContestCard contest={mockData.contests[0]}/>
                 <div
                     className={clsx('layout__toggle-theme', theme)}
                     title='Change theme'
                     onClick={toggleTheme}
+                    role="presentation"
                  />
                 <ScrollRestoration/>
             </SkeletonTheme>
