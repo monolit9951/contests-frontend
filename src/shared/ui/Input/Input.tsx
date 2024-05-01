@@ -7,7 +7,7 @@ import { Icon } from '../Icon'
 import { HStack, VStack } from '../Stack'
 import { Text } from '../Text'
 
-import './input.scss'
+import './Input.scss'
 
 type InputTypes =
     | 'button'

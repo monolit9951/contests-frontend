@@ -1,6 +1,6 @@
 import Burger from 'shared/assets/icons/burger.svg?react'
 
-import './burgerMenu.scss'
+import './BurgerMenu.scss'
 
 export const BurgerMenu = () => {
     return (
