@@ -1,6 +1,3 @@
-$color1: #f4f4f4;
-$color2: #3197ee;
-
 .radio {
     &__btn {
         position: absolute;
@@ -34,23 +31,6 @@ $color2: #3197ee;
                 }
             }
         }
-        &:focus {
-            + .radio-label {
-                &:before {
-                    outline: none;
-                    border-color: $color2;
-                }
-            }
-        }
-        &:disabled {
-            + .radio-label {
-                &:before {
-                    box-shadow: inset 0 0 0 4px $color1;
-                    border-color: darken($color1, 25%);
-                    background: darken($color1, 25%);
-                }
-            }
-        }
         + label {
             &:empty {
                 &:before {
@@ -58,20 +38,5 @@ $color2: #3197ee;
                 }
             }
         }
-        // &:hover {
-        //     border-color: var(--green-light);
-        // }
-        // &:focus {
-        //     border-color: var(--green-light);
-        // }
-        // &:checked {
-        //     border-color: var(--green);
-        //     background-color: var(--green);
-        // }
-        // &:disabled {
-        //     cursor: not-allowed;
-        //     border-color: var(--grey);
-        //     background-color: var(--grey-medium-light);
-        // }
     }
 }

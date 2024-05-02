@@ -1,8 +1,7 @@
-
-import crown from "../../shared/assets/icons/crownSimple.svg" 
-import house from "../../shared/assets/icons/house.svg"
-import sword from "../../shared/assets/icons/sword.svg"
-import trophy from "../../shared/assets/icons/trophy.svg"
+import crown from "../../shared/assets/icons/crown.svg?react"
+import house from "../../shared/assets/icons/house.svg?react"
+import sword from "../../shared/assets/icons/sword.svg?react"
+import trophy from "../../shared/assets/icons/trophy.svg?react"
 
 export const  mockNavData = [
     {
