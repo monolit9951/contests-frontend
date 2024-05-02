@@ -1,4 +1,4 @@
-import { Icon } from "shared/ui/Icon"
+import { Icon } from "shared/ui/icon"
 
 import plus from "../../../assets/icons/plus.svg?react"
 
