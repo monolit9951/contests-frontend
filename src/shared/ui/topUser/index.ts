@@ -1,1 +1,1 @@
-export { TopUser } from './topUser.tsx'
+export { TopUser } from './topUser'

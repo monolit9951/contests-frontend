@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 
-import './Button.scss'
+import './button.scss'
 
 type VariantTypes = 'primary' | 'secondary' | 'ghost'
 

@@ -1,40 +1,15 @@
-import { ChangeEvent, InputHTMLAttributes, useState } from 'react'
+import { ChangeEvent, TextareaHTMLAttributes, useState } from 'react'
 import clsx from 'clsx'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import infoIcon from 'shared/assets/icons/info.svg?react'
 
-import { Icon } from '../icon'
-import { HStack, VStack } from '../stack'
-import { Text } from '../text'
+import { Icon } from '../../icon'
+import { HStack, VStack } from '../../stack'
+import { Text } from '../../text'
 
-import './input.scss'
+import './textarea.scss'
 
-type InputTypes =
-    | 'button'
-    | 'checkbox'
-    | 'color'
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'file'
-    | 'hidden'
-    | 'image'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'radio'
-    | 'range'
-    | 'reset'
-    | 'search'
-    | 'submit'
-    | 'tel'
-    | 'text'
-    | 'time'
-    | 'url'
-    | 'week'
-
-interface IInput extends InputHTMLAttributes<HTMLInputElement> {
-    type: InputTypes
+interface ITextarea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     label?: string
     error?: string
     info?: string
@@ -42,9 +17,8 @@ interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     className?: string
 }
 
-export default function Input(props: IInput) {
+export default function Textarea(props: ITextarea) {
     const {
-        type,
         name,
         label,
         error,
@@ -57,23 +31,27 @@ export default function Input(props: IInput) {
         className,
         ...rest
     } = props
-    const [inputData, setInputData] = useState<string>('')
+    const [textareaData, setTextareaData] = useState<string>('')
 
-    const onChangeInputData = (e: ChangeEvent<HTMLInputElement>) => {
-        setInputData(e.target.value)
+    const onChangeTextareaData = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setTextareaData(e.target.value)
     }
 
     return (
         <VStack className={clsx('input-wrapper', wrapperClassName)}>
             {label && <label htmlFor={name}>{label}</label>}
-            <input
-                type={type}
+            <textarea
                 name={name}
-                value={value ?? inputData}
-                onChange={onChange ?? onChangeInputData}
+                value={value ?? textareaData}
+                onChange={onChange ?? onChangeTextareaData}
                 onBlur={onBlur}
                 placeholder={placeholder}
-                className={clsx('input', error && 'error', className)}
+                className={clsx(
+                    'input',
+                    'textarea',
+                    error && 'error',
+                    className
+                )}
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...rest}
             />
