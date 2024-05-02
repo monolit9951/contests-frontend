@@ -1,5 +1,5 @@
-import { BurgerMenu } from 'shared/ui/BurgerMenu'
-import { Navbar } from 'shared/ui/NavBar/ui/NavBar'
+import { BurgerMenu } from 'shared/ui/burgerMenu'
+import { Navbar } from 'shared/ui/navBar/ui/navBar'
 
 import './sidebar.scss'
 

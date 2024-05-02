@@ -1,1 +1,0 @@
-export { TopUser } from './TopUser'
