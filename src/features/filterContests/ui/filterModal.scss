@@ -29,6 +29,40 @@
                 }
             }
         }
+
+        .filter-block__hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            border: 0;
+            padding: 0;
+
+            white-space: nowrap;
+            clip-path: inset(100%);
+            clip: rect(0 0 0 0);
+            overflow: hidden;
+        }
+
+        .filter-range {
+            &__block {
+                margin-bottom: 12px;
+
+                > div {
+                    gap: 8px;
+                }
+            }
+            &__number {
+                width: 160px;
+                padding: 8px 16px;
+                border-radius: 8px;
+
+                background-color: var(--grey);
+            }
+            &__input {
+                width: 100%;
+            }
+        }
     }
 
     & > hr {
@@ -48,25 +82,19 @@
             fill: var(--white-medium);
         }
 
-        &__title-block {
-        }
-
         &__block {
             gap: 16px;
 
-            & > .filter-block__title {
-            }
-            & > .filter-block__list {
-                .filter-item {
-                    background-color: var(--dark-light);
+            & > .filter-block__list .filter-item {
+                color: var(--white-medium);
+                background-color: var(--dark-light);
 
-                    &.active {
-                        background-color: var(--white-medium);
-                        color: var(--dark-bg);
-                    }
+                &.active {
+                    background-color: var(--white-medium);
+                    color: var(--dark-bg);
 
-                    & > span {
-                        color: var(--text-light);
+                    > span > span {
+                        color: var(--dark-light);
                     }
                 }
             }
@@ -90,26 +118,33 @@
             fill: var(--grey-light);
         }
 
-        &__title-block {
-        }
-
         &__block {
             gap: 16px;
 
-            & > .filter-block__title {
-            }
-            & > .filter-block__list {
-                .filter-item {
-                    background-color: var(--bg-light);
+            & > .filter-block__list .filter-item {
+                background-color: var(--bg-light);
 
-                    &.active {
-                        background-color: var(--text-main);
+                &.active {
+                    background-color: var(--text-main);
+
+                    > span {
                         color: var(--white);
-                    }
+                        font-weight: 600;
 
-                    & > span {
-                        color: var(--text-light);
+                        > span {
+                            font-weight: 400;
+                        }
                     }
+                }
+
+                & > span {
+                    color: var(--text-light);
+                }
+            }
+
+            .filter-range {
+                &__number {
+                    color: var(--white);
                 }
             }
 
