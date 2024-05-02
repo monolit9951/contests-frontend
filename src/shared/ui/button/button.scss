@@ -4,53 +4,69 @@
     border-radius: 26px;
     cursor: pointer;
 
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+
     &__m {
         padding: 12px 32px;
     }
     &__s {
+        font-size: 14px;
+        line-height: 1.71;
         padding: 8px 32px;
     }
 
-    &.dark {
-        color: var(--white);
+    &.primary {
+        background-color: var(--green);
 
-        &.primary {
-            background-color: var(--green);
-
-            &:hover {
-                background-color: var(--green-light);
-            }
-            &:focus {
-                background-color: var(--green-light);
-            }
-            &:active {
-                background-color: var(--green-medium);
-            }
-            &:disabled {
-                color: var(--white-transp-30);
-                background-color: var(--green-dark);
-                cursor: not-allowed;
-            }
+        &.button__s {
+            font-size: 16px;
+            line-height: 1.5;
         }
+
+        &:hover {
+            background-color: var(--green-light);
+        }
+        &:focus {
+            background-color: var(--green-light);
+        }
+        &:active {
+            background-color: var(--green-medium);
+        }
+        &:disabled {
+            color: var(--white-transp-30);
+            background-color: var(--green-dark);
+            cursor: not-allowed;
+        }
+    }
+    &.secondary {
+        background-color: transparent;
+    }
+    &.ghost {
+        background-color: transparent;
+    }
+}
+.dark {
+    .button {
+        color: var(--white);
 
         &.secondary {
             border: 1px solid var(--grey);
-            background-color: var(--dark);
 
             &:hover {
-                border: 1px solid var(--grey);
+                border-color: var(--grey);
                 background-color: var(--grey);
             }
             &:focus {
-                border: 1px solid var(--grey);
+                border-color: var(--grey);
                 background-color: var(--grey);
             }
             &:active {
-                border: 1px solid var(--grey-medium);
+                border-color: var(--grey-medium);
                 background-color: var(--grey-medium);
             }
             &:disabled {
-                border: 1px solid var(--green-dark);
+                border-color: var(--green-dark);
                 color: var(--white-transp-30);
                 background-color: var(--green-dark);
                 cursor: not-allowed;
@@ -58,8 +74,6 @@
         }
 
         &.ghost {
-            background-color: var(--dark);
-
             &:hover {
                 background-color: var(--grey);
             }
@@ -76,37 +90,54 @@
             }
         }
     }
+}
 
-    &.light {
-        color: #0b051a;
+.light {
+    .button {
+        color: var(--text-main);
 
         &.primary {
-            background-color: var(--green);
+            color: var(--white);
         }
 
         &.secondary {
-            background-color: var(--grey);
-            border: 1px solid #e5e5e5;
+            border: 1px solid var(--border-light);
+
+            &:hover {
+                border-color: var(--bg-light-green);
+                background-color: var(--bg-light-green);
+            }
+            &:focus {
+                border-color: var(--bg-light-green);
+                background-color: var(--bg-light-green);
+            }
+            &:active {
+                border-color: var(--bg-light-grey);
+                background-color: var(--bg-light-grey);
+            }
+            &:disabled {
+                border-color: var(--text-placeholder);
+                color: var(--white-transp-30);
+                background-color: var(--text-placeholder);
+                cursor: not-allowed;
+            }
         }
 
         &.ghost {
-            background-color: white;
-        }
-
-        &.disabled {
-            background-color: #1b2321;
-        }
-
-        &:hover {
-            background-color: #e0f1ee;
-        }
-        &:focus {
-            background-color: #e0f1ee;
-        }
-        &:disabled {
-            color: #383346;
-            background-color: #1b2321;
-            cursor: not-allowed;
+            &:hover {
+                background-color: var(--bg-light-green);
+            }
+            &:focus {
+                background-color: var(--bg-light-green);
+            }
+            &:active {
+                background-color: var(--bg-light-grey);
+            }
+            &:disabled {
+                color: var(--white-transp-30);
+                background-color: var(--text-placeholder);
+                cursor: not-allowed;
+            }
         }
     }
 }
