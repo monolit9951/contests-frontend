@@ -1,0 +1,12 @@
+.overlay {
+    position: fixed;
+    inset: 0px;
+    z-index: 998;
+    background-color: #dddddd50;
+}
+
+.modal {
+    position: absolute;
+    z-index: 999;
+    background-color: #ffffff;
+}
