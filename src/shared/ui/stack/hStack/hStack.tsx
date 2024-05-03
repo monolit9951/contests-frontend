@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { forwardRef, ReactNode } from 'react'
 import clsx from 'clsx'
 
 import Flex from '../flex/flex'
@@ -10,6 +10,14 @@ interface HStackProps {
     className?: string
 }
 
-export default function HStack({ children, className }: HStackProps) {
-    return <Flex className={clsx('flex__row', className)}>{children}</Flex>
-}
+const HStack = forwardRef<HTMLDivElement, HStackProps>((props, ref) => {
+    const { children, className } = props
+
+    return (
+        <Flex ref={ref} className={clsx('flex__row', className)}>
+            {children}
+        </Flex>
+    )
+})
+
+export default HStack
