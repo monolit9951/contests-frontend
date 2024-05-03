@@ -9,7 +9,6 @@ export const Navbar = () => {
             {mockNavData.map((navItem) => (
                 <NavElement
                     key={navItem.route}
-                    // eslint-disable-next-line react/jsx-props-no-spreading
                     {...navItem}
                 />
             ))}
