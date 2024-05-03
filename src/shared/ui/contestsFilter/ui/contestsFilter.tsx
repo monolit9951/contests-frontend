@@ -10,7 +10,8 @@ enum FilterOptions {
 }
 
 export const ContestsFilter = () => {
-    const [currFilter, setCurrFilter] =useState<FilterOptions>(FilterOptions.All)
+    // add _ prefix to say yo compiler that this value is intentionally unused(as for now)
+    const [_currFilter, setCurrFilter] =useState<FilterOptions>(FilterOptions.All)
 
     
     return (
