@@ -7,7 +7,7 @@ import { Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
-import { FilterObject } from '../model/types'
+import { FilterObject } from '../../model/types'
 
 import FilterItem from './filterItem'
 
@@ -22,11 +22,7 @@ export default function FilterBlock(props: FilterBlockProps) {
     const [blockShown, setBlockShown] = useState(false)
 
     const onIconClick = () => {
-        if (blockShown) {
-            setBlockShown(false)
-        } else {
-            setBlockShown(true)
-        }
+        setBlockShown(!blockShown)
     }
 
     function renderUI() {

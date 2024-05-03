@@ -1,9 +1,22 @@
+.filter-controller {
+    position: relative;
+}
+
 .filter-wrapper {
     width: 551px;
     padding: 24px;
     border-radius: 16px;
 
     gap: 24px;
+
+    position: absolute;
+    top: 50px;
+    right: 0;
+
+    &.filter-hidden {
+        visibility: hidden;
+        pointer-events: none;
+    }
 
     &__block {
         gap: 16px;
@@ -130,10 +143,6 @@
                     > span {
                         color: var(--white);
                         font-weight: 600;
-
-                        > span {
-                            font-weight: 400;
-                        }
                     }
                 }
 

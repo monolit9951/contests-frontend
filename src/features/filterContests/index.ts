@@ -1,3 +1,4 @@
-import FilterModal from './ui/filterModal'
+import FilterController from './ui/filterController'
+import FilterModal from './ui/filterModal/filterModal'
 
-export { FilterModal }
+export { FilterController, FilterModal }
