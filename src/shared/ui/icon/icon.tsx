@@ -29,7 +29,7 @@ export default function Icon(props: IIcon) {
         <Svg
             width={width}
             height={height}
-            className={clsx(className)}
+            className={clsx('icon', className)}
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...rest}
         />
