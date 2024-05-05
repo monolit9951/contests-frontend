@@ -6,21 +6,45 @@
     height: 320px;
     padding: 42px 65px;
     gap: 24px;
-    background: url("shared/assets/img/bg@1x.jpg") center no-repeat;
     background-size: cover;
     
+    div.app.light & {
+        background: url("shared/assets/img/bg@2x.jpg") center no-repeat;  
+    }
+
+    div.app.dark & {
+        background: url("shared/assets/img/bg@1x.jpg") center no-repeat;
+
+    }
+
+
     h2{
         font-size: 64px;
         line-height: 84px;
         font-weight: 600;
-        color: var(--white);
         text-wrap: nowrap;
+
+        .dark{
+            color: var(--white);
+        }
+    
+        .light{
+            color:var(--text-main)
+        }
     }
 
     p{
         font-size: 16px;
-        color: var(--grey-medium-light);
+       
         line-height: 24px;
         text-align: center;
+
+        .dark{
+             color: var(--grey-medium-light);
+        }
+    
+        .light{
+            color:var(--text-main)
+        }
     }
 }

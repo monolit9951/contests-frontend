@@ -1,9 +1,18 @@
 .contestsFilter_container {
     height: 56px;
-    background-color: var(--dark);
+
     border-radius: 999px;
     padding: 4px;
     display: flex;
+
+    div.app.light & {
+        background-color: var(--white);
+    }
+
+    div.app.dark & {
+        
+        background-color: var(--dark);
+    }
 
     .filter_option {
         padding: 12px 24px;
@@ -12,14 +21,27 @@
         font-size: 16;
         font-weight: 600;
         font-family: 'Manrope';
-        color: var(--white-muted);
         background: none;
         border: none;
-        
+
+        div.app.light & {
+            color: var(--text-light);
+        }
+
+        div.app.dark & {
+            color: var(--white-muted);
+        }
     }
 
-    .activeFilter{
-        background-color: var(--green);
-        color: var(--white)
+    .activeFilter {
+        div.app.light & {
+            background-color: var(--blue-primary);
+            color: var(--white);
+        }
+
+        div.app.dark & {
+            background-color: var(--green);
+            color: var(--white);
+        }
     }
 }
