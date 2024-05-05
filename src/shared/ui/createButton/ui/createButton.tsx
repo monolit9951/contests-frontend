@@ -7,7 +7,7 @@ import './createButton.scss'
 export const CreateButton = () => {
     return (
         <button type="button" className='createBtn'>
-                <Icon Svg={plus} />
+                <Icon className="icon" Svg={plus} />
                 <p>Create</p>
         </button>
     )

@@ -3,15 +3,22 @@
     width: 40%;
     height: 100%;
 
-
     padding: 8px 16px;
     border-radius: 999px;
-    background-color: var(--green-dark);
-    border: 1px solid var(--grey-border);
 
     display: flex;
-    gap:4px;
+    gap: 4px;
     align-items: center;
+
+    div.app.light & {
+        background-color: #F9F9F9;
+        border: none;
+    }
+
+    div.app.dark & {
+        background-color: var(--green-dark);
+        border: 1px solid var(--grey-border);
+    }
 
     .searchbar {
         width: 100%;
@@ -23,15 +30,28 @@
         font-size: 16px;
         font-family: 'Manrope';
         line-height: 24px;
-        color: var(--white-medium);
 
         &::placeholder {
-            color: var(--white-medium);
+            div.app.light & {
+               color: #747474
+            }
+
+            div.app.dark & {
+                color: var(--white-medium);
+            }
         }
     }
 
     .icon {
         height: 24px;
         width: 24px;
+
+        div.app.light & {
+            fill: var(--text-light);
+        }
+
+        div.app.dark & {
+            fill: var(--white-medium);
+        }
     }
 }
