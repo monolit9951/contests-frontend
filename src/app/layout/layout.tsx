@@ -18,7 +18,7 @@ const BASE_COLOR_DARK = '#202020'
 const HIGHLIGT_COLOR_DARK = '#44444480'
 
 export const Layout = () => {
-    const { theme } = useTheme()
+    const { theme, toggleTheme } = useTheme()
 
     const baseColor = theme === Theme.DARK ? BASE_COLOR_LIGHT : BASE_COLOR_DARK
     const highlightColor =
@@ -43,6 +43,8 @@ export const Layout = () => {
                 <div
                     className={clsx('layout__toggle-theme', theme)}
                     title='Change theme'
+                    onClick={toggleTheme}
+                    role="presentation"
                 />
 
                 <ScrollRestoration />

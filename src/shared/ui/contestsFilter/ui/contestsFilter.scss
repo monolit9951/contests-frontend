@@ -16,9 +16,10 @@
         background: none;
         border: none;
         
-        &:focus{
-            background-color: var(--green);
-            color: var(--white)
-        }
+    }
+
+    .activeFilter{
+        background-color: var(--green);
+        color: var(--white)
     }
 }

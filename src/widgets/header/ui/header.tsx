@@ -1,6 +1,6 @@
 import { Logo } from 'shared/ui/logo/'
-import { Searchbar } from 'shared/ui/Searchbar'
-import { UserPanel } from 'shared/ui/UserPanel/ui/userPanel'
+import { Searchbar } from 'shared/ui/searchbar'
+import { UserPanel } from 'widgets/userPanel'
 
 import './header.scss'
 
