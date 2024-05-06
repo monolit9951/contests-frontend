@@ -1,1 +1,17 @@
+.dark {
+    .icon {
+        fill: var(--white-medium);
+    }
+}
+.light {
+    .icon {
+        fill: var(--text-main);
+    }
+}
 
+.icon-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}

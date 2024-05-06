@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { forwardRef, ReactNode } from 'react'
 import clsx from 'clsx'
 
 import Flex from '../flex/flex'
@@ -10,7 +10,14 @@ interface VStackProps {
     className?: string
 }
 
-export default function VStack(props: VStackProps) {
+const VStack = forwardRef<HTMLDivElement, VStackProps>((props, ref) => {
     const { children, className } = props
-    return <Flex className={clsx('flex__col', className)}>{children}</Flex>
-}
+
+    return (
+        <Flex ref={ref} className={clsx('flex__col', className)}>
+            {children}
+        </Flex>
+    )
+})
+
+export default VStack
