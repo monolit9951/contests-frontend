@@ -62,7 +62,14 @@
                 margin-bottom: 12px;
 
                 > div {
+                    position: relative;
                     gap: 8px;
+
+                    > div + span {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                    }
                 }
             }
             &__number {
@@ -165,5 +172,24 @@
         & > hr {
             background-color: var(--white-medium);
         }
+    }
+}
+
+// SLIDER
+
+.rc-slider {
+    .rc-slider-rail {
+        background-color: var(--grey);
+    }
+    .rc-slider-track {
+        background-color: var(--green);
+        cursor: pointer;
+    }
+    .rc-slider-handle {
+        width: 16px;
+        height: 16px;
+        border: none;
+        opacity: 1;
+        background-color: var(--green);
     }
 }
