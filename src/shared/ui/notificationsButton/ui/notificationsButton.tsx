@@ -1,4 +1,4 @@
-import { Icon } from 'shared/ui/Icon'
+import { Icon } from 'shared/ui/icon'
 
 import bellF from '../../../assets/icons/bellF.svg?react'
 

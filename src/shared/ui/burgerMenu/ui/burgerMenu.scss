@@ -4,6 +4,12 @@
     margin: 16px 25px;
 
     svg {
-        fill: var(--white-medium);
+        div.app.dark & {
+            fill: var(--white-medium);
+        }
+
+        div.app.light & {
+            fill: var(--text-main);
+        }
     }
 }

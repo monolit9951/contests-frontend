@@ -1,4 +1,4 @@
-import { Icon } from 'shared/ui/Icon'
+import { Icon } from 'shared/ui/icon'
 
 import chatF from '../../../assets/icons/chatF.svg?react'
 

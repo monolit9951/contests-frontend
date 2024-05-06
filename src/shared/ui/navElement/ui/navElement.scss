@@ -1,4 +1,4 @@
-.navElement{
+.navElement {
     width: 72px;
     height: 72px;
     border-radius: 8px;
@@ -8,38 +8,65 @@
     align-items: center;
     justify-content: center;
 
-    .svg_main{
-        fill: var(--white-medium)
+    .svg_main {
+        div.app.dark & {
+            fill: var(--white-medium);
+        }
+
+        div.app.light & {
+            fill: var(--text-light);
+        }
     }
 
-    .svg_filled{
+    .svg_filled {
         display: none;
     }
 
-    p{
+    p {
         font-family: 'Manrope';
         font-size: 14px;
         font-weight: 400;
         line-height: 16px;
         padding: 2px 0;
-        color: var(--white-muted);
+
+        div.app.dark & {
+            color: var(--white-muted);
+        }
+
+        div.app.light & {
+            color: var(--text-light);
+        }
     }
 }
 
-.navElement:focus{
-    background-color: var(--grey);
+.active_navlink {
+    div.app.dark & {
+        background-color: var(--grey);
+    }
 
-    .svg_main{
+    .svg_main {
         display: none;
     }
 
-    .svg_filled{
+    .svg_filled {
         display: block;
-        fill: var(--white-medium)
+        div.app.dark & {
+            fill: var(--white-medium);
+        }
+
+        div.app.light &{
+            fill: var(--text-main);
+        }
     }
 
-    p{
-        color: var(--white);
+    p {
+        div.app.dark & {
+            color: var(--white-muted);
+        }
+
+        div.app.light &{
+            color: var(--text-light);
+        }
         font-weight: 600;
     }
 }

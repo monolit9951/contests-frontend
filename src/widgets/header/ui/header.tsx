@@ -1,8 +1,9 @@
-import { Logo } from 'shared/ui/logo/ui/logo'
-import { Searchbar } from 'shared/ui/Searchbar'
-import { UserPanel } from 'shared/ui/UserPanel/ui/userPanel'
+import { Logo } from 'shared/ui/logo/'
+import { Searchbar } from 'shared/ui/searchbar'
+import { UserPanel } from 'widgets/userPanel'
 
 import './header.scss'
+
 
 export const Header = () => {
     return (
@@ -14,6 +15,10 @@ export const Header = () => {
                     placeholder='Button books by title, author, ISBN or keywords'
                 />
             </div>
+        <nav className="header">
+            <Logo/>
+            <Searchbar/>
+            <UserPanel/>
         </nav>
     )
 }
