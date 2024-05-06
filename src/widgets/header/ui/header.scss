@@ -1,11 +1,12 @@
 @use 'src/app/styles/breakpoints';
 
 .header {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    h1{
-        color: var(--white);
-    }
+    height: 72px;
+    padding: 12px 65px;
+    background-color: var(--dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 

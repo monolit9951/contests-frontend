@@ -1,0 +1,37 @@
+.searchbar_container {
+    max-width: 800px;
+    width: 40%;
+    height: 100%;
+
+
+    padding: 8px 16px;
+    border-radius: 999px;
+    background-color: var(--green-dark);
+    border: 1px solid var(--grey-border);
+
+    display: flex;
+    gap:4px;
+    align-items: center;
+
+    .searchbar {
+        width: 100%;
+        height: 100%;
+        background-color: inherit;
+        padding: 0;
+        border: none;
+
+        font-size: 16px;
+        font-family: 'Manrope';
+        line-height: 24px;
+        color: var(--white-medium);
+
+        &::placeholder {
+            color: var(--white-medium);
+        }
+    }
+
+    .icon {
+        height: 24px;
+        width: 24px;
+    }
+}

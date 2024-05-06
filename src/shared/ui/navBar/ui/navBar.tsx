@@ -9,6 +9,8 @@ export const Navbar = () => {
             {mockNavData.map((navItem) => (
                 <NavElement
                     key={navItem.route}
+                    svgSrc={navItem.svgSrc}
+                    svgFilledSrc={navItem.svgFilledSrc}
                     text={navItem.text}
                     route={navItem.route}
                 />
