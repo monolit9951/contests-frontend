@@ -9,7 +9,7 @@ export const Header = () => {
     return (
         <nav className="header">
             <Logo/>
-            <Searchbar/>
+            <Searchbar placeholder="Search by any parameters...."/>
             <UserPanel/>
         </nav>
     )
