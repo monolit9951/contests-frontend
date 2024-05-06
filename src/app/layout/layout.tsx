@@ -1,9 +1,10 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
-import { ScrollRestoration } from 'react-router-dom'
+import { Outlet, ScrollRestoration } from 'react-router-dom'
 import clsx from 'clsx'
 import { Theme, useTheme } from 'entities/theme'
-import mockData from 'shared/consts/contestCard'
-import { ContestCard } from 'widgets/contestCard'
+import { Footer } from 'widgets/footer'
+import { Header } from 'widgets/header'
+import { Sidebar } from 'widgets/sidebar'
 
 import 'react-toastify/dist/ReactToastify.css'
 import './layout.scss'
@@ -26,7 +27,15 @@ export const Layout = () => {
             <SkeletonTheme
                 baseColor={baseColor}
                 highlightColor={highlightColor}>
-                <ContestCard contest={mockData.contests[0]} />
+                <div className='main_layout'>
+                    <Header />
+                    <Sidebar />
+                    <main className='layout__content'>
+                        <Outlet />
+                    </main>
+
+                    <Footer className='layout__footer' />
+                </div>
                 <div
                     className={clsx('layout__toggle-theme', theme)}
                     title='Change theme'

@@ -4,21 +4,12 @@ import { UserPanel } from 'widgets/userPanel'
 
 import './header.scss'
 
-
 export const Header = () => {
     return (
         <nav className='header'>
-            <h1>Logotype</h1>
-            <div className='input-box'>
-                <Input
-                    type='search'
-                    placeholder='Button books by title, author, ISBN or keywords'
-                />
-            </div>
-        <nav className="header">
-            <Logo/>
-            <Searchbar/>
-            <UserPanel/>
+            <Logo />
+            <Searchbar />
+            <UserPanel />
         </nav>
     )
 }
