@@ -57,14 +57,7 @@ const FilterController = (props: IFilterController) => {
     }, [showFilter])
 
     return (
-        <div
-            className={clsx('filter-controller', className)}
-            style={{
-                display: 'flex',
-                justifyContent: 'end',
-            }}
-            // ^^ temp inline style - delete after implementing to homePage
-        >
+        <div className={clsx('filter-controller', className)}>
             <Button
                 ref={filterBtnRef}
                 variant='secondary'

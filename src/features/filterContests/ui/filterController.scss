@@ -12,6 +12,7 @@
     position: absolute;
     top: 50px;
     right: 0;
+    z-index: 50;
 
     &.filter-hidden {
         visibility: hidden;
@@ -96,7 +97,7 @@
 .dark {
     .filter-wrapper {
         box-shadow: var(--drop-shadow);
-        background-color: var(--dark-medium);
+        background-color: var(--green-dark);
 
         .close-icon {
             fill: var(--white-medium);
@@ -107,7 +108,8 @@
 
             & > .filter-block__list .filter-item {
                 color: var(--white-medium);
-                background-color: var(--dark-light);
+                background-color: var(--grey);
+                user-select: none;
 
                 &.active {
                     background-color: var(--white-medium);
