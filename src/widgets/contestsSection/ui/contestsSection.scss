@@ -1,0 +1,74 @@
+.contest-gallery {
+    &__section {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    &__head {
+        justify-content: space-between;
+
+        & > div {
+            gap: 16px;
+            align-items: baseline;
+        }
+
+        .title__span {
+            font-size: 24px;
+            line-height: 1;
+        }
+    }
+
+    &__list {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+}
+
+.active-filter {
+    &__block {
+        gap: 8px;
+    }
+
+    &__list {
+        display: flex;
+        gap: 8px;
+
+        & > li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 6px 12px;
+            border-radius: 26px;
+            background-color: var(--green-dark);
+        }
+    }
+
+    &__clear-btn {
+        padding: 6px 8px;
+        > span {
+            font-weight: 400;
+        }
+    }
+}
+
+.dark {
+    .active-filter {
+        &__list {
+            & > li {
+                background-color: var(--green-dark);
+            }
+        }
+    }
+}
+.light {
+    .active-filter {
+        &__list {
+            & > li {
+                background-color: var(--white);
+            }
+        }
+    }
+}
