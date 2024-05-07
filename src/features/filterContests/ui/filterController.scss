@@ -161,6 +161,12 @@
             }
 
             .filter-range {
+                &__block {
+                    & > div > div + span {
+                        color: var(--white);
+                    }
+                }
+
                 &__number {
                     color: var(--white);
                 }
