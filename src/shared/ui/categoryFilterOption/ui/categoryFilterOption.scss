@@ -1,0 +1,30 @@
+.filter_option {
+    padding: 12px 24px;
+    border-radius: 999px;
+    height: 100%;
+    font-size: 16;
+    font-weight: 600;
+    font-family: 'Manrope';
+    background: none;
+    border: none;
+
+    div.app.light & {
+        color: var(--text-light);
+    }
+
+    div.app.dark & {
+        color: var(--white-muted);
+    }
+}
+
+.activeFilter {
+    div.app.light & {
+        background-color: var(--blue-primary);
+        color: var(--white);
+    }
+
+    div.app.dark & {
+        background-color: var(--green);
+        color: var(--white);
+    }
+}

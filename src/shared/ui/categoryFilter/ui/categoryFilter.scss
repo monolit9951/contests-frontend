@@ -1,19 +1,17 @@
-@use 'src/app/styles/breakpoints';
+.categoryFilter_container {
+    height: 56px;
 
-.header {
-    height: 72px;
-    padding: 12px 65px;
+    border-radius: 999px;
+    padding: 4px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
 
     div.app.light & {
         background-color: var(--white);
     }
 
     div.app.dark & {
+        
         background-color: var(--dark);
     }
+
 }
-
-

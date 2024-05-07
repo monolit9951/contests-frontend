@@ -2,4 +2,14 @@
     width: 36px;
     height: 36px;
     margin: 16px 25px;
+
+    svg {
+        div.app.dark & {
+            fill: var(--white-medium);
+        }
+
+        div.app.light & {
+            fill: var(--text-main);
+        }
+    }
 }

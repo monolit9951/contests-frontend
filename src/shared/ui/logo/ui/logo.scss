@@ -1,0 +1,19 @@
+.logo_container{
+    width: 338px;
+
+    h1{
+        font-size: 24px;
+        font-family: "Manrope";
+        font-weight: 800;
+        line-height: 24px;
+
+        div.app.light & {
+            color: var(--text-main);
+        }
+        
+    
+        div.app.dark & {
+            color: var(--white);
+        }
+    }
+}

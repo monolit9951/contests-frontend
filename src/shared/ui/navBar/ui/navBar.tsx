@@ -9,10 +9,10 @@ export const Navbar = () => {
             {mockNavData.map((navItem) => (
                 <NavElement
                     key={navItem.route}
-                    text={navItem.text}
-                    route={navItem.route}
+                    {...navItem}
                 />
             ))}
+
         </nav>
     )
 }
