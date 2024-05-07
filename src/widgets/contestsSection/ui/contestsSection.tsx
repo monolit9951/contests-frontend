@@ -1,8 +1,12 @@
 import { FC } from 'react'
+import { useSelector } from 'react-redux'
 import clsx from 'clsx'
 import { FilterController } from 'features/filterContests'
+import { selectFilters } from 'features/filterContests/model/selectors'
+import { filterActions } from 'features/filterContests/model/slice'
 import cross from 'shared/assets/icons/X.svg?react'
 import avatar from 'shared/assets/img/userIMG.jpg'
+import { useAppDispatch } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { HStack } from 'shared/ui/stack'
@@ -21,11 +25,15 @@ interface Props {
 const ContestsSection: FC<Props> = (props) => {
     const { section, className } = props
 
+    const dispatch = useAppDispatch()
+
+    const filters = useSelector(selectFilters)
+
     const mockData = {
         date: '2024-05-10',
         name: 'John Doe',
         rating: '4.5',
-        category: { des: 'Programming', color: '#FF5733' },
+        category: { des: 'fun', color: '#FF5733' },
         prize: {
             img: avatar,
             description: 'Win $1000 and a trophy',
@@ -44,11 +52,13 @@ const ContestsSection: FC<Props> = (props) => {
 
     const mockArray = [mockData, mockData, mockData, mockData]
 
-    const mockFilters = ['Certificates', 'Verified', '50.1k-100k']
+    const onFilterDeleteClick = (filter: string) => {
+        dispatch(filterActions.removeActiveFilter(filter))
+    }
 
-    const onFilterDeleteClick = () => {}
-
-    const onFilterClearClick = () => {}
+    const onFilterClearClick = () => {
+        dispatch(filterActions.clearFilters())
+    }
 
     return (
         <section className={clsx('contest-gallery__section', className)}>
@@ -70,18 +80,18 @@ const ContestsSection: FC<Props> = (props) => {
                 )}
             </HStack>
 
-            {section === 'all' && (
+            {section === 'all' && filters.active?.length >= 1 && (
                 <HStack className='active-filter__block'>
                     <ul className='active-filter__list'>
-                        {mockFilters.map((item) => (
-                            <li>
-                                <Text Tag='span'>{item}</Text>
+                        {filters.active?.map((filter: string) => (
+                            <li key={filter}>
+                                <Text Tag='span'>{filter}</Text>
                                 <Icon
                                     Svg={cross}
                                     width={16}
                                     height={16}
                                     clickable
-                                    onClick={onFilterDeleteClick}
+                                    onClick={() => onFilterDeleteClick(filter)}
                                 />
                             </li>
                         ))}
@@ -94,13 +104,12 @@ const ContestsSection: FC<Props> = (props) => {
                         <Text Tag='span'>
                             Clear filters{' '}
                             <Text Tag='span' size='xs'>
-                                (10)
+                                ({filters.active.length})
                             </Text>
                         </Text>
                     </Button>
                 </HStack>
             )}
-            {/* ^^ connect filters to this section to show a component */}
 
             <ul className='contest-gallery__list'>
                 {mockArray.map((item, idx) => (

@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { filterReducer } from 'features/filterContests/model/slice'
 import {
     FLUSH,
     PAUSE,
@@ -15,6 +16,7 @@ import contestReducer from '../entities/contest/contestCard/model/contestCardSli
 
 const rootReducer = combineReducers({
     contest: contestReducer,
+    filter: filterReducer,
 })
 
 const persistConfig = {

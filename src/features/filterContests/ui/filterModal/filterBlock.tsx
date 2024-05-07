@@ -1,8 +1,10 @@
 import { ChangeEvent, useState } from 'react'
 import clsx from 'clsx'
+import { filterActions } from 'features/filterContests/model/slice'
 import Slider from 'rc-slider'
 import caretDown from 'shared/assets/icons/caretDown.svg?react'
 import caretUp from 'shared/assets/icons/CaretUp.svg?react'
+import { useAppDispatch } from 'shared/lib/store'
 import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
@@ -27,6 +29,8 @@ export default function FilterBlock(props: FilterBlockProps) {
     const [upperBound, setUpperBound] = useState(100000)
     const [sliderValue, setSliderValue] = useState([lowerBound, upperBound])
 
+    const dispatch = useAppDispatch()
+
     const onLowerBoundChange = (e: ChangeEvent<HTMLInputElement>) => {
         let inputValue = e.target.value
         if (inputValue.length > 6) {
@@ -48,6 +52,7 @@ export default function FilterBlock(props: FilterBlockProps) {
     }
     const onInputBlur = () => {
         setSliderValue([lowerBound, upperBound])
+        dispatch(filterActions.updatePrizeRange([lowerBound, upperBound]))
     }
 
     const onSliderChange = (value: number | number[]) => {
@@ -57,6 +62,7 @@ export default function FilterBlock(props: FilterBlockProps) {
         setUpperBound(inputValue[1])
 
         setSliderValue(inputValue)
+        dispatch(filterActions.updatePrizeRange(inputValue))
     }
 
     const onIconClick = () => {

@@ -1,6 +1,8 @@
 import { forwardRef } from 'react'
 import clsx from 'clsx'
+import { filterActions } from 'features/filterContests/model/slice'
 import cross from 'shared/assets/icons/X.svg?react'
+import { useAppDispatch } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { HStack, VStack } from 'shared/ui/stack'
@@ -19,7 +21,19 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
     (props, ref) => {
         const { onClose, className } = props
 
+        const dispatch = useAppDispatch()
+
         const { status, prize, participants, creators } = mockFilterData
+
+        const onFilterClear = () => {
+            dispatch(filterActions.clearFilters())
+            onClose()
+        }
+
+        const onFilterConfirm = () => {
+            dispatch(filterActions.confirmFilters())
+            onClose()
+        }
 
         return (
             <VStack ref={ref} className={clsx('filter-wrapper', className)}>
@@ -50,13 +64,18 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
                 <hr />
 
                 <HStack className='justify__between'>
-                    <Button variant='secondary' size='s'>
+                    <Button
+                        variant='secondary'
+                        size='s'
+                        onClick={onFilterClear}>
                         Clear all
                     </Button>
-                    <Button variant='primary' size='s'>
-                        Show 1205 contests
+                    <Button
+                        variant='primary'
+                        size='s'
+                        onClick={onFilterConfirm}>
+                        Show contests
                     </Button>
-                    {/* ..... ^^ number from server  */}
                 </HStack>
             </VStack>
         )

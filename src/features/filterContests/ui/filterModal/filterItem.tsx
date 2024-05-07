@@ -1,5 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import clsx from 'clsx'
+import { selectFilters } from 'features/filterContests/model/selectors'
+import { filterActions } from 'features/filterContests/model/slice'
+import { useAppDispatch } from 'shared/lib/store'
 import { Text } from 'shared/ui/text'
 
 interface FilterItemProps {
@@ -9,15 +13,25 @@ interface FilterItemProps {
 }
 
 export default function FilterItem(props: FilterItemProps) {
-    const { name, number, className } = props
-
     const [itemActive, setItemActive] = useState(false)
 
-    const onBtnClick = () => {
+    const filters = useSelector(selectFilters)
+
+    const { name, number, className } = props
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        setItemActive(filters.selected.includes(name))
+    }, [filters])
+
+    const onBtnClick = (filter: string) => {
+        setItemActive(!itemActive)
+
         if (itemActive) {
-            setItemActive(false)
+            dispatch(filterActions.removeFilter(filter))
         } else {
-            setItemActive(true)
+            dispatch(filterActions.addFilter(filter))
         }
     }
 
@@ -25,7 +39,7 @@ export default function FilterItem(props: FilterItemProps) {
         <li>
             <button
                 type='button'
-                onClick={onBtnClick}
+                onClick={() => onBtnClick(name)}
                 aria-label={name}
                 className={clsx(
                     'filter-item',

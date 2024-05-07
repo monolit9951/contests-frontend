@@ -14,3 +14,15 @@ export interface FilterData {
     participants: FilterObject
     creators: FilterObject
 }
+
+export interface FiltersObj {
+    selected: string[]
+    active: string[]
+}
+
+export interface FilterSchema {
+    filters: FiltersObj
+    prizeRange: number[]
+    loading: boolean
+    error: string | null
+}
