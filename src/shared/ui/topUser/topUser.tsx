@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import crown from 'shared/assets/icons/CrownSimple.svg?react'
-import { Icon } from 'shared/ui/Icon'
-import Flex from 'shared/ui/Stack/Flex/Flex'
+import { Icon } from 'shared/ui/icon'
+import { Flex } from 'shared/ui/stack'
 
 import './topUser.scss'
 
