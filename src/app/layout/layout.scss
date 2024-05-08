@@ -1,7 +1,7 @@
 @use 'src/app/styles/breakpoints';
 
 .layout {
-    background: var(--white);
+    background: var(--light-white);
 
     &__wrapper {
         display: flex;
@@ -104,9 +104,9 @@
         cursor: pointer;
         text-decoration: none;
         background-image: linear-gradient(currentColor, currentColor);
-        background-position: 0 100%;
+        background-position: 0% 100%;
         background-repeat: no-repeat;
-        background-size: 0 2px;
+        background-size: 0% 2px;
         transition: background-size 0.3s ease-in-out;
 
         &:hover {
@@ -229,7 +229,7 @@
             flex-direction: column;
             margin-bottom: 20px;
 
-            transition: all 0.4s;
+            transition: all 0.4s allow-discrete;
 
             &_hide {
                 height: 0;
