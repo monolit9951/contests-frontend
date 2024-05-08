@@ -6,8 +6,8 @@ import './navBar.scss'
 export const Navbar = () => {
     return (
         <nav>
-            {mockNavData.map((navItem) => (
-                <NavElement key={navItem.route} {...navItem} />
+            {mockNavData.map((navItem, index) => (
+                <NavElement key={index} {...navItem} />
             ))}
         </nav>
     )
