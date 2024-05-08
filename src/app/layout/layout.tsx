@@ -1,9 +1,7 @@
 import { SkeletonTheme } from 'react-loading-skeleton'
 import { Outlet, ScrollRestoration } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
 import clsx from 'clsx'
 import { Theme, useTheme } from 'entities/theme'
-import { ContestCard } from 'widgets/contestCard'
 import { Footer } from 'widgets/footer'
 import { Header } from 'widgets/header'
 import { Sidebar } from 'widgets/sidebar'
@@ -20,9 +18,9 @@ const HIGHLIGT_COLOR_DARK = '#44444480'
 export const Layout = () => {
     const { theme, toggleTheme } = useTheme()
 
-    const baseColor = theme === Theme.DARK ? BASE_COLOR_LIGHT : BASE_COLOR_DARK
+    const baseColor = theme === Theme.LIGHT ? BASE_COLOR_LIGHT : BASE_COLOR_DARK
     const highlightColor =
-        theme === Theme.DARK ? HIGHLIGT_COLOR_LIGHT : HIGHLIGT_COLOR_DARK
+        theme === Theme.LIGHT ? HIGHLIGT_COLOR_LIGHT : HIGHLIGT_COLOR_DARK
 
     return (
         <div className='layout layout__wrapper'>
@@ -34,32 +32,17 @@ export const Layout = () => {
                     <Sidebar />
                     <main className='layout__content'>
                         <Outlet />
-                        <ContestCard />
                     </main>
 
                     <Footer className='layout__footer' />
                 </div>
-
                 <div
                     className={clsx('layout__toggle-theme', theme)}
                     title='Change theme'
                     onClick={toggleTheme}
-                    role="presentation"
+                    role='presentation'
                 />
-
                 <ScrollRestoration />
-                <ToastContainer
-                    position='bottom-right'
-                    autoClose={2000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme='colored'
-                />
             </SkeletonTheme>
         </div>
     )

@@ -6,6 +6,12 @@
         font-size: 36px;
         line-height: 1.17;
     }
+    &__xxs {
+        font-size: 10px;
+    }
+    &__small{
+        font-size: 12px;
+    }
     &__xs {
         font-size: 14px;
         line-height: 1.43;
@@ -25,5 +31,9 @@
 
     &__bold {
         font-weight: 600;
+    }
+
+    > span {
+        font-weight: 400;
     }
 }
