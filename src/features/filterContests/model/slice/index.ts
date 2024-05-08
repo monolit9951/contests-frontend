@@ -46,9 +46,6 @@ const slice = createSlice({
             state.prizeRange = [0, 100000]
         },
     },
-    // extraReducers:(builder)=>{
-    //     builder.addCase()
-    // },
 })
 
 export const { reducer: filterReducer, actions: filterActions } = slice

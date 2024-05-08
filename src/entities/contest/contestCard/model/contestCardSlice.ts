@@ -1,27 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-// @ts-ignore
-import { RootState } from 'app/types'
 
-export interface ContestState {
-    // eslint-disable-next-line no-use-before-define
-    data: ContestData[] | null
-    loading: boolean
-    error: string | null
-}
-
-interface ContestData {
-    date?: string
-    name?: string
-    isVerified?: boolean
-    rating?: string
-    category: string | null
-    prize?: {
-        img: string
-        description: string
-    } | null
-    title?: string
-    tags?: string
-}
+import { ContestData, ContestState } from './types'
 
 const initialState: ContestState = {
     data: null,

@@ -6,7 +6,6 @@ import swordF from '../../shared/assets/icons/swordF.svg?react'
 import trophy from '../../shared/assets/icons/trophy.svg?react'
 import trophyF from '../../shared/assets/icons/trophyF.svg?react'
 
-// Currently there's only one variant of house svg, so house and houseF have the same path
 const houseF = house
 
 export const mockNavData = [
