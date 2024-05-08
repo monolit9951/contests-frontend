@@ -1,8 +1,6 @@
 @use 'src/app/styles/breakpoints';
 
 .layout {
-    background: var(--white);
-
     &__wrapper {
         display: flex;
         flex-direction: column;
@@ -31,20 +29,20 @@
         z-index: 10;
     }
 
+    &__toggle-theme.light {
+        background-color: var(--white-medium);
+    }
+
+    &__toggle-theme.dark {
+        background-color: var(--black);
+    }
+
     &__icon {
         top: 50%;
         transform: translate(0, -50%);
         display: block;
         margin-left: auto;
         margin-right: auto;
-    }
-
-    &__toggle-theme.light {
-        background-color: var(--white);
-    }
-
-    &__toggle-theme.dark {
-        background-color: var(--black);
     }
 
     /** Navigation menu. */
