@@ -6,10 +6,10 @@ import './header.scss'
 
 export const Header = () => {
     return (
-        <nav className='header'>
-            <Logo />
-            <Searchbar />
-            <UserPanel />
+        <nav className="header">
+            <Logo/>
+            <Searchbar placeholder="Search by any parameters...."/>
+            <UserPanel/>
         </nav>
     )
 }
