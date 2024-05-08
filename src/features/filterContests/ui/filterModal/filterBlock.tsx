@@ -1,6 +1,7 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useCallback, useState } from 'react'
 import clsx from 'clsx'
 import { filterActions } from 'features/filterContests/model/slice'
+import debounce from 'lodash.debounce'
 import Slider from 'rc-slider'
 import caretDown from 'shared/assets/icons/caretDown.svg?react'
 import caretUp from 'shared/assets/icons/CaretUp.svg?react'
@@ -55,6 +56,12 @@ export default function FilterBlock(props: FilterBlockProps) {
         dispatch(filterActions.updatePrizeRange([lowerBound, upperBound]))
     }
 
+    const updatePrizeRange = (inputValue: number[]) => {
+        dispatch(filterActions.updatePrizeRange(inputValue))
+    }
+
+    const updateRange = useCallback(debounce(updatePrizeRange, 500), [])
+
     const onSliderChange = (value: number | number[]) => {
         const inputValue = value as number[]
 
@@ -62,7 +69,7 @@ export default function FilterBlock(props: FilterBlockProps) {
         setUpperBound(inputValue[1])
 
         setSliderValue(inputValue)
-        dispatch(filterActions.updatePrizeRange(inputValue))
+        updateRange(inputValue)
     }
 
     const onIconClick = () => {
