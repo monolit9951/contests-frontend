@@ -7,12 +7,8 @@ export const Navbar = () => {
     return (
         <nav>
             {mockNavData.map((navItem) => (
-                <NavElement
-                    key={navItem.route}
-                    {...navItem}
-                />
+                <NavElement key={navItem.route} {...navItem} />
             ))}
-
         </nav>
     )
 }

@@ -1,4 +1,7 @@
 import { FC } from 'react'
+import crown from 'shared/assets/icons/CrownSimple.svg?react'
+import { Icon } from 'shared/ui/icon'
+import { Flex } from 'shared/ui/stack'
 
 import './topUser.scss'
 
@@ -8,9 +11,9 @@ interface TopUserProps {
 
 export const TopUser: FC<TopUserProps> = ({ topRate }) => {
     return (
-        <div className='topUser'>
-            <img alt='' />
-            <div>TOP {topRate}</div>
-        </div>
+        <Flex className='topUser'>
+            <Icon Svg={crown} width={14} height={14} />
+            <span>TOP {topRate}</span>
+        </Flex>
     )
 }

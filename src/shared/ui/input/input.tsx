@@ -74,7 +74,6 @@ export default function Input(props: IInput) {
                 onBlur={onBlur}
                 placeholder={placeholder}
                 className={clsx('input', error && 'error', className)}
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...rest}
             />
             {info && (

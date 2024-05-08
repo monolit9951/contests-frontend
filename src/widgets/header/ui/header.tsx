@@ -4,7 +4,6 @@ import { UserPanel } from 'widgets/userPanel'
 
 import './header.scss'
 
-
 export const Header = () => {
     return (
         <nav className="header">
