@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import {
     filterActions,
@@ -8,6 +7,7 @@ import {
 } from 'features/filterContests'
 import cross from 'shared/assets/icons/X.svg?react'
 import avatar from 'shared/assets/img/userIMG.jpg'
+import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { HStack } from 'shared/ui/stack'
@@ -26,9 +26,8 @@ interface Props {
 const ContestsSection: FC<Props> = (props) => {
     const { section, className } = props
 
-    const dispatch = useDispatch()
-
-    const filters = useSelector(selectFilters)
+    const dispatch = useAppDispatch()
+    const filters = useAppSelector(selectFilters)
 
     const mockData = {
         date: '2024-05-10',
@@ -51,7 +50,7 @@ const ContestsSection: FC<Props> = (props) => {
         },
     }
 
-    const mockArray = [mockData, mockData, mockData, mockData]
+    const mockArray = [mockData, mockData, mockData, mockData, mockData]
 
     const onFilterDeleteClick = (filter: string) => {
         dispatch(filterActions.removeActiveFilter(filter))
@@ -112,13 +111,23 @@ const ContestsSection: FC<Props> = (props) => {
                 </HStack>
             )}
 
-            <ul className='contest-gallery__list'>
-                {mockArray.map((item, idx) => (
-                    <li key={idx}>
-                        <ContestCard {...item} />
-                    </li>
-                ))}
-            </ul>
+            {section === 'popular' ? (
+                <ul className='contest-gallery__list'>
+                    {mockArray.map((item, idx) => (
+                        <li key={idx}>
+                            <ContestCard {...item} />
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <ul className='contest-gallery__list'>
+                    {mockArray.map((item, idx) => (
+                        <li key={idx}>
+                            <ContestCard {...item} />
+                        </li>
+                    ))}
+                </ul>
+            )}
         </section>
     )
 }
