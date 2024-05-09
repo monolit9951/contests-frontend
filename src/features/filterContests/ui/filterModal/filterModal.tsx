@@ -1,14 +1,13 @@
 import { forwardRef } from 'react'
+import { useDispatch } from 'react-redux'
 import clsx from 'clsx'
 import { filterActions } from 'features/filterContests/model/slice'
 import cross from 'shared/assets/icons/X.svg?react'
-import { useAppDispatch } from 'shared/lib/store'
+import { mockFilterData } from 'shared/consts/filterBlocks'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
-
-import { mockFilterData } from '../../model/mockData'
 
 import FilterBlock from './filterBlock'
 
@@ -21,7 +20,7 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
     (props, ref) => {
         const { onClose, className } = props
 
-        const dispatch = useAppDispatch()
+        const dispatch = useDispatch()
 
         const { status, prize, participants, creators } = mockFilterData
 

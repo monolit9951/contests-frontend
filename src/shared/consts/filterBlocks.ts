@@ -1,4 +1,4 @@
-import { FilterData } from './types'
+import { FilterData } from 'features/filterContests'
 
 export const mockFilterData: FilterData = {
     status: {

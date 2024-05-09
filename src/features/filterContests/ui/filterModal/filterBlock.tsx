@@ -1,17 +1,15 @@
 import { ChangeEvent, useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import clsx from 'clsx'
-import { filterActions } from 'features/filterContests/model/slice'
+import { filterActions, FilterObject } from 'features/filterContests'
 import debounce from 'lodash.debounce'
 import Slider from 'rc-slider'
 import caretDown from 'shared/assets/icons/caretDown.svg?react'
 import caretUp from 'shared/assets/icons/CaretUp.svg?react'
-import { useAppDispatch } from 'shared/lib/store'
 import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
-
-import { FilterObject } from '../../model/types'
 
 import FilterItem from './filterItem'
 
@@ -30,7 +28,7 @@ export default function FilterBlock(props: FilterBlockProps) {
     const [upperBound, setUpperBound] = useState(100000)
     const [sliderValue, setSliderValue] = useState([lowerBound, upperBound])
 
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     const onLowerBoundChange = (e: ChangeEvent<HTMLInputElement>) => {
         let inputValue = e.target.value

@@ -1,12 +1,13 @@
 import { FC } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
-import { FilterController } from 'features/filterContests'
-import { selectFilters } from 'features/filterContests/model/selectors'
-import { filterActions } from 'features/filterContests/model/slice'
+import {
+    filterActions,
+    FilterController,
+    selectFilters,
+} from 'features/filterContests'
 import cross from 'shared/assets/icons/X.svg?react'
 import avatar from 'shared/assets/img/userIMG.jpg'
-import { useAppDispatch } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { HStack } from 'shared/ui/stack'
@@ -25,7 +26,7 @@ interface Props {
 const ContestsSection: FC<Props> = (props) => {
     const { section, className } = props
 
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     const filters = useSelector(selectFilters)
 
