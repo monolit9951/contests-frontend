@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { ContestData, ContestState } from './types'
+import { ContestData, ContestState } from '../types'
 
 const initialState: ContestState = {
     data: null,
@@ -27,14 +27,4 @@ const contestSlice = createSlice({
     },
 })
 
-export const {
-    fetchContestsStart,
-    fetchContestsSuccess,
-    fetchContestsFailure,
-} = contestSlice.actions
-
-export const selectContestData = (state: RootState) => state.contest.data
-export const selectContestLoading = (state: RootState) => state.contest.loading
-export const selectContestError = (state: RootState) => state.contest.error
-
-export default contestSlice.reducer
+export const { reducer: contestReducer, actions: contestActions } = contestSlice

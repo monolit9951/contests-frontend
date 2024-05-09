@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { filterReducer } from 'features/filterContests/model/slice'
+import { contestReducer } from 'entities/contest'
+import { filterReducer } from 'features/filterContests'
 import {
     FLUSH,
     PAUSE,
@@ -11,8 +12,6 @@ import {
     REHYDRATE,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-
-import contestReducer from '../entities/contest/contestCard/model/contestCardSlice'
 
 const rootReducer = combineReducers({
     contest: contestReducer,
