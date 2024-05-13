@@ -1,6 +1,7 @@
-import { FC } from 'react'
+import {FC, useState} from 'react'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
+import {FileUploadComponent} from "features/fileUploader";
 import { FilterController } from 'features/filterContests'
 import { selectFilters } from 'features/filterContests/model/selectors'
 import { filterActions } from 'features/filterContests/model/slice'
@@ -12,6 +13,7 @@ import { Icon } from 'shared/ui/icon'
 import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { ContestCard } from 'widgets/contestCard'
+import Modal from "widgets/modal/ui/modal";
 
 import './contestsSection.scss'
 
@@ -23,6 +25,21 @@ interface Props {
 }
 
 const ContestsSection: FC<Props> = (props) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleDelete = () => {
+        console.log('file deleted')
+    };
+
+    const handleUpload = (file: File) => {
+        console.log('Uploaded file:', file);
+        setIsModalOpen(false);
+    };
+
     const { section, className } = props
 
     const dispatch = useAppDispatch()
@@ -74,7 +91,7 @@ const ContestsSection: FC<Props> = (props) => {
                 {section === 'all' ? (
                     <FilterController />
                 ) : (
-                    <Button variant='secondary' size='s'>
+                    <Button variant='secondary' size='s' onClick={openModal}>
                         See all
                     </Button>
                 )}
@@ -118,6 +135,10 @@ const ContestsSection: FC<Props> = (props) => {
                     </li>
                 ))}
             </ul>
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <Text Tag="h2" className="text__bold">Upload your work to participate in the competition</Text>
+                <FileUploadComponent onUpload={handleUpload} disabled={false} onDelete={handleDelete}/>
+            </Modal>
         </section>
     )
 }

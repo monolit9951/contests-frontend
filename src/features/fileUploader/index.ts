@@ -1,0 +1,1 @@
+export { FileUploadComponent } from 'features/fileUploader/ui/uploadComponent';
