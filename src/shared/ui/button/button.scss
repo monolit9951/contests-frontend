@@ -126,6 +126,10 @@
             }
         }
 
+        &.div{
+            background: transparent;
+        }
+
         &.ghost {
             &:hover {
                 background-color: var(--bg-light-green);

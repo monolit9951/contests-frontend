@@ -4,7 +4,7 @@ import { useTheme } from 'entities/theme'
 
 import './button.scss'
 
-type VariantTypes = 'primary' | 'secondary' | 'ghost'
+type VariantTypes = 'primary' | 'secondary' | 'ghost' | 'div'
 
 type SizeTypes = 'm' | 's'
 
@@ -12,6 +12,7 @@ const variantClasses: Record<VariantTypes, string> = {
     primary: 'primary',
     secondary: 'secondary',
     ghost: 'ghost',
+    div: 'div',
 }
 
 interface IButton {
