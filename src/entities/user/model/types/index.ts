@@ -8,3 +8,5 @@ export interface User {
     verificationStatus: VerificationStatus
     profileImage: string
 }
+
+export type Organizer = Omit<User, 'participantRating'>

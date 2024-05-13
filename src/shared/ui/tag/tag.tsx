@@ -1,12 +1,12 @@
 import clsx from 'clsx'
-import {useTheme} from "entities/theme";
+import { useTheme } from 'entities/theme'
 
 import { Text } from '../text'
 
 import './tag.scss'
 
 interface TagProps {
-    type: 'fun' | 'work'
+    type: 'fun' | 'work' | string
     className?: string
 }
 

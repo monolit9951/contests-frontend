@@ -1,18 +1,19 @@
 import { FC } from 'react'
 import clsx from 'clsx'
+import { ContestCard, ContestPreview } from 'entities/contest'
 import {
     filterActions,
     FilterController,
     selectFilters,
 } from 'features/filterContests'
+import { selectContests } from 'pages/contestsPage/model/selectors'
 import cross from 'shared/assets/icons/X.svg?react'
-import avatar from 'shared/assets/img/userIMG.jpg'
+import { mockContestData } from 'shared/consts'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
-import { ContestCard } from 'widgets/contestCard'
 
 import './contestsSection.scss'
 
@@ -27,30 +28,9 @@ const ContestsSection: FC<Props> = (props) => {
     const { section, className } = props
 
     const dispatch = useAppDispatch()
+
+    const contests = useAppSelector(selectContests).all as ContestPreview[]
     const filters = useAppSelector(selectFilters)
-
-    const mockData = {
-        date: '2024-05-10',
-        name: 'John Doe',
-        rating: '4.5',
-        category: { des: 'fun', color: '#FF5733' },
-        prize: {
-            img: avatar,
-            description: 'Win $1000 and a trophy',
-            background: 'var(--green)',
-        },
-        title: 'Coding Challenge',
-        tags: ['React', 'JavaScript', 'Web Development'],
-        user: {
-            name: 'John Doe',
-            avatar,
-            isVerified: true,
-            isTop: 'Top 3',
-            rate: '4.5',
-        },
-    }
-
-    const mockArray = [mockData, mockData, mockData, mockData, mockData]
 
     const onFilterDeleteClick = (filter: string) => {
         dispatch(filterActions.removeActiveFilter(filter))
@@ -103,7 +83,7 @@ const ContestsSection: FC<Props> = (props) => {
                         className='active-filter__clear-btn'>
                         <Text Tag='span'>
                             Clear filters{' '}
-                            <Text Tag='span' size='xs'>
+                            <Text Tag='span' size='sm'>
                                 ({filters.active.length})
                             </Text>
                         </Text>
@@ -113,7 +93,7 @@ const ContestsSection: FC<Props> = (props) => {
 
             {section === 'popular' ? (
                 <ul className='contest-gallery__list'>
-                    {mockArray.map((item, idx) => (
+                    {mockContestData.map((item, idx) => (
                         <li key={idx}>
                             <ContestCard {...item} />
                         </li>
@@ -121,8 +101,8 @@ const ContestsSection: FC<Props> = (props) => {
                 </ul>
             ) : (
                 <ul className='contest-gallery__list'>
-                    {mockArray.map((item, idx) => (
-                        <li key={idx}>
+                    {contests.map((item) => (
+                        <li key={item.id}>
                             <ContestCard {...item} />
                         </li>
                     ))}

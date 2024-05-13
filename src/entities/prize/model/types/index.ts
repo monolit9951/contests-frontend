@@ -14,6 +14,7 @@ export interface PrizePreview {
     id: string
     prizeType: PrizeType
     prizeText: string
+    prizeAmount: number
 }
 
 export interface PrizeStructure {

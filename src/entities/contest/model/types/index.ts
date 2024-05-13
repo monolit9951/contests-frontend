@@ -1,26 +1,11 @@
-import { PrizeStructure } from 'entities/prize'
-import { User } from 'entities/user'
+import { PrizePreview, PrizeStructure } from 'entities/prize'
+import { Organizer } from 'entities/user'
 
-type Status = 'ACTIVE' | 'INACTIVE' | 'PAUSED'
+type Status = 'ACTIVE' | 'INACTIVE' | 'PAUSED' | 'FINISHED' | 'UPCOMING'
 
 type Category = 'CATEGORY1' | 'CATEGORY2' | 'CATEGORY3'
 
 type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
-
-// delete mock
-export interface ContestData {
-    date?: string
-    name?: string
-    isVerified?: boolean
-    rating?: string
-    category: string | null
-    prize?: {
-        img: string
-        description: string
-    } | null
-    title?: string
-    tags?: string
-}
 
 export interface Contest {
     id: string
@@ -29,18 +14,21 @@ export interface Contest {
     category: Category
     subcategory: SubCategory
     backgroundImage: string
-    participantAmount: number
-    maxAllowedParticipantAmount: number
-    dateStart: string
-    dateEnd: string
+    participantAmount?: number
+    maxAllowedParticipantAmount?: number
+    dateStart: number[]
+    dateEnd: number[]
     description: string
     exampleMedia?: string[]
     prizeStructure: PrizeStructure
-    contestOwner: User
+    contestOwner: Organizer
 }
 
-export interface ContestState {
-    data: ContestData[] | null
-    loading: boolean
-    error: null | string
+export interface ContestPreview
+    extends Omit<
+        Contest,
+        'backgroundImage' | 'description' | 'exampleMedia' | 'prizeStructure'
+    > {
+    previewImage: string | null
+    prizesPreviews: PrizePreview[]
 }

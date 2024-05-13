@@ -46,7 +46,7 @@ export default function FilterItem(props: FilterItemProps) {
                 )}>
                 <Text Tag='span'>
                     {name}
-                    <Text Tag='span' size='xs'>
+                    <Text Tag='span' size='sm'>
                         ({number})
                     </Text>
                 </Text>
