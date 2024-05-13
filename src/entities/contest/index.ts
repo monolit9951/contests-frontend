@@ -1,6 +1,6 @@
-import { contestActions, contestReducer } from './model/slice'
-import { Contest, ContestState } from './model/types'
+import { Contest } from './model/types'
+import { ContestCard } from './ui/contestCard'
 
-export type { Contest, ContestState }
+export type { Contest }
 
-export { contestActions, contestReducer }
+export { ContestCard }
