@@ -1,6 +1,10 @@
 import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit'
 
-import { getContests, getPopularContests } from '../services'
+import {
+    fetchContests,
+    fetchNextContestsPage,
+    fetchPopularContests,
+} from '../services'
 import { ContestsPageSchema } from '../types'
 
 const initialState: ContestsPageSchema = {
@@ -9,8 +13,12 @@ const initialState: ContestsPageSchema = {
         all: [],
     },
 
-    pageSize: 8,
+    page: 0,
+    pageSize: 16,
     sortDirection: 'ASC',
+
+    totalPages: 0,
+    totalElements: 0,
 
     loading: false,
     error: null,
@@ -26,20 +34,35 @@ const slice = createSlice({
     },
     extraReducers: (builder) =>
         builder
-            .addCase(getContests.fulfilled, (state, action) => {
-                state.contests.all = action.payload
+            .addCase(fetchContests.fulfilled, (state, { payload }) => {
+                state.contests.all = payload.content
+                state.totalPages = payload.totalPages
+                state.totalElements = payload.totalElements
             })
-            .addCase(getPopularContests.fulfilled, (state, action) => {
-                state.contests.popular = action.payload
+            .addCase(fetchPopularContests.fulfilled, (state, action) => {
+                state.contests.popular = action.payload.content
+            })
+            .addCase(fetchNextContestsPage.fulfilled, (state, action) => {
+                state.contests.all = state.contests.all.concat(
+                    action.payload.content
+                )
             })
             .addMatcher(
-                isAnyOf(getContests.pending, getContests.pending),
+                isAnyOf(
+                    fetchContests.pending,
+                    fetchPopularContests.pending,
+                    fetchNextContestsPage.pending
+                ),
                 (state) => {
                     state.loading = true
                 }
             )
             .addMatcher(
-                isAnyOf(getContests.rejected, getContests.rejected),
+                isAnyOf(
+                    fetchContests.rejected,
+                    fetchPopularContests.rejected,
+                    fetchNextContestsPage.rejected
+                ),
                 (state, action) => {
                     state.error = action.payload as string
                 }

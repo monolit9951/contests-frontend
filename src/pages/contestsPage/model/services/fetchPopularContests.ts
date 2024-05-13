@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const getPopularContests = createAsyncThunk(
-    'contests/getContests',
+export const fetchPopularContests = createAsyncThunk(
+    'contests/fetchPopularContests',
     async (_, { rejectWithValue }) => {
         try {
             const response = await axios.get(

@@ -4,8 +4,7 @@ import { VStack } from 'shared/ui/stack'
 import { ContestsSection } from 'widgets/contestsSection'
 import { HeroSection } from 'widgets/heroSection/ui/heroSection'
 
-import { getContests } from '../model/services/getContests'
-import { getPopularContests } from '../model/services/getPopularContests'
+import { fetchContests, fetchPopularContests } from '../model/services'
 
 import './contestsPage.scss'
 
@@ -13,8 +12,8 @@ export const ContestsPage = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(getContests())
-        dispatch(getPopularContests())
+        dispatch(fetchContests())
+        dispatch(fetchPopularContests())
     }, [])
 
     return (

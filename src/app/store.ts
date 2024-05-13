@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { contestReducer } from 'entities/contest'
 import { filterReducer } from 'features/filterContests'
+import { contestsPageReducer } from 'pages/contestsPage/model/slice'
 import {
     FLUSH,
     PAUSE,
@@ -14,7 +14,7 @@ import {
 import storage from 'redux-persist/lib/storage'
 
 const rootReducer = combineReducers({
-    contest: contestReducer,
+    contestsPage: contestsPageReducer,
     filter: filterReducer,
 })
 

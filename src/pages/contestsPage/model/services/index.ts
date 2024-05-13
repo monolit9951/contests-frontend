@@ -1,4 +1,5 @@
-import { getContests } from './getContests'
-import { getPopularContests } from './getPopularContests'
+import { fetchContests } from './fetchContests'
+import { fetchNextContestsPage } from './fetchNextContestsPage'
+import { fetchPopularContests } from './fetchPopularContests'
 
-export { getContests, getPopularContests }
+export { fetchContests, fetchNextContestsPage, fetchPopularContests }

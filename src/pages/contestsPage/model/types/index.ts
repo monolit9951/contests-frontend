@@ -5,8 +5,13 @@ export interface ContestsPageSchema {
         popular: Contest[]
         all: Contest[]
     }
+    page: number
     pageSize: number
     sortDirection: 'ASC' | 'DESC'
+
+    totalPages: number
+    totalElements: number
+
     loading: boolean
     error: null | string
 }
