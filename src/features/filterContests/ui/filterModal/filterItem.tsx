@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
-import { selectFilters } from 'features/filterContests/model/selectors'
-import { filterActions } from 'features/filterContests/model/slice'
-import { useAppDispatch } from 'shared/lib/store'
+import { filterActions, selectFilters } from 'features/filterContests'
 import { Text } from 'shared/ui/text'
 
 interface FilterItemProps {
@@ -19,7 +17,7 @@ export default function FilterItem(props: FilterItemProps) {
 
     const { name, number, className } = props
 
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setItemActive(filters.selected.includes(name))
@@ -48,7 +46,7 @@ export default function FilterItem(props: FilterItemProps) {
                 )}>
                 <Text Tag='span'>
                     {name}
-                    <Text Tag='span' size='xs'>
+                    <Text Tag='span' size='sm'>
                         ({number})
                     </Text>
                 </Text>

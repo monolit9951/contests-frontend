@@ -77,7 +77,7 @@ const FilterController = (props: IFilterController) => {
                 <Text Tag='span'>
                     Filter{' '}
                     {filters.active?.length >= 1 && (
-                        <Text Tag='span' size='xs'>
+                        <Text Tag='span' size='sm'>
                             ({filters.active?.length})
                         </Text>
                     )}

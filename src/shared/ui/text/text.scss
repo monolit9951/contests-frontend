@@ -9,12 +9,16 @@
     &__xxs {
         font-size: 10px;
     }
-    &__small{
+    &__xs {
         font-size: 12px;
     }
-    &__xs {
+    &__sm {
         font-size: 14px;
         line-height: 1.43;
+    }
+    &__md {
+        font-size: 16px;
+        line-height: 1.5;
     }
     &__l {
         font-size: 20px;
