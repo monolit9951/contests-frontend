@@ -1,8 +1,10 @@
 import { ContestsPage } from 'pages/contestsPage/ui/contestsPage'
 
-import { fetchContests } from './model/services/fetchContests'
-import { fetchNextContestsPage } from './model/services/fetchNextContestsPage'
-import { fetchPopularContests } from './model/services/fetchPopularContests'
+import {
+    fetchContests,
+    fetchNextContestsPage,
+    fetchPopularContests,
+} from './model/services'
 import { ContestsPageSchema } from './model/types'
 
 export type { ContestsPageSchema }

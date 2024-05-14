@@ -1,12 +1,14 @@
-export const selectContests = (state: RootState) => state.contestsPage.contests
+export const selectPopular = (state: RootState) => state.contestsPage.popular
 
-export const selectPage = (state: RootState) => state.contestsPage.page
+export const selectAll = (state: RootState) => state.contestsPage.all
 
-export const selectPageSize = (state: RootState) => state.contestsPage.pageSize
+export const selectPage = (state: RootState) => state.contestsPage.all.page
+
+export const selectPageSize = (state: RootState) =>
+    state.contestsPage.all.pageSize
 
 export const selectSortDirection = (state: RootState) =>
-    state.contestsPage.sortDirection
+    state.contestsPage.all.sortDirection
 
-export const selectLoading = (state: RootState) => state.contestsPage.loading
-
-export const selectError = (state: RootState) => state.contestsPage.error
+export const selectNextLoading = (state: RootState) =>
+    state.contestsPage.all.nextLoading

@@ -1,17 +1,25 @@
-import { Contest } from 'entities/contest'
+import { ContestPreview } from 'entities/contest'
 
 export interface ContestsPageSchema {
-    contests: {
-        popular: Contest[]
-        all: Contest[]
+    popular: {
+        contests: ContestPreview[]
+
+        loading: boolean
+        error: null | string
     }
-    page: number
-    pageSize: number
-    sortDirection: 'ASC' | 'DESC'
 
-    totalPages: number
-    totalElements: number
+    all: {
+        contests: ContestPreview[]
 
-    loading: boolean
-    error: null | string
+        page: number
+        pageSize: number
+        sortDirection: 'ASC' | 'DESC'
+
+        totalPages: number
+        totalElements: number
+
+        loading: boolean
+        nextLoading: boolean
+        error: null | string
+    }
 }

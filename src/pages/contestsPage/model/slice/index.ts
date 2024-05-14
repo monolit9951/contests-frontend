@@ -8,20 +8,27 @@ import {
 import { ContestsPageSchema } from '../types'
 
 const initialState: ContestsPageSchema = {
-    contests: {
-        popular: [],
-        all: [],
+    popular: {
+        contests: [],
+
+        loading: false,
+        error: null,
     },
 
-    page: 0,
-    pageSize: 16,
-    sortDirection: 'ASC',
+    all: {
+        contests: [],
 
-    totalPages: 0,
-    totalElements: 0,
+        page: 0,
+        pageSize: 16,
+        sortDirection: 'ASC',
 
-    loading: false,
-    error: null,
+        totalPages: 0,
+        totalElements: 0,
+
+        loading: false,
+        nextLoading: false,
+        error: null,
+    },
 }
 
 const slice = createSlice({
@@ -29,42 +36,44 @@ const slice = createSlice({
     initialState,
     reducers: {
         setSortDirection: (state, action: PayloadAction<'ASC' | 'DESC'>) => {
-            state.sortDirection = action.payload
+            state.all.sortDirection = action.payload
         },
     },
     extraReducers: (builder) =>
         builder
             .addCase(fetchContests.fulfilled, (state, { payload }) => {
-                state.contests.all = payload.content
-                state.totalPages = payload.totalPages
-                state.totalElements = payload.totalElements
+                state.all.contests = payload.content
+                state.all.totalPages = payload.totalPages
+                state.all.totalElements = payload.totalElements
+
+                state.all.loading = false
             })
-            .addCase(fetchPopularContests.fulfilled, (state, action) => {
-                state.contests.popular = action.payload.content
+            .addCase(fetchPopularContests.fulfilled, (state, { payload }) => {
+                state.popular.contests = payload.content
+
+                state.popular.loading = false
             })
-            .addCase(fetchNextContestsPage.fulfilled, (state, action) => {
-                state.contests.all = state.contests.all.concat(
-                    action.payload.content
-                )
+            .addCase(fetchNextContestsPage.fulfilled, (state, { payload }) => {
+                state.all.contests = state.all.contests.concat(payload.content)
+                state.all.page = +1
+
+                state.all.nextLoading = false
+            })
+
+            .addCase(fetchContests.pending, (state) => {
+                state.all.loading = true
+            })
+            .addCase(fetchPopularContests.pending, (state) => {
+                state.popular.loading = true
+            })
+
+            .addCase(fetchPopularContests.rejected, (state, { payload }) => {
+                state.popular.error = payload as string
             })
             .addMatcher(
-                isAnyOf(
-                    fetchContests.pending,
-                    fetchPopularContests.pending,
-                    fetchNextContestsPage.pending
-                ),
-                (state) => {
-                    state.loading = true
-                }
-            )
-            .addMatcher(
-                isAnyOf(
-                    fetchContests.rejected,
-                    fetchPopularContests.rejected,
-                    fetchNextContestsPage.rejected
-                ),
-                (state, action) => {
-                    state.error = action.payload as string
+                isAnyOf(fetchContests.rejected, fetchNextContestsPage.rejected),
+                (state, { payload }) => {
+                    state.all.error = payload as string
                 }
             ),
 })
