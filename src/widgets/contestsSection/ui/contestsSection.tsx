@@ -1,7 +1,6 @@
 import {FC, useState} from 'react'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
-import {FileUploadComponent} from "features/fileUploader";
 import { FilterController } from 'features/filterContests'
 import { selectFilters } from 'features/filterContests/model/selectors'
 import { filterActions } from 'features/filterContests/model/slice'
@@ -14,6 +13,7 @@ import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { ContestCard } from 'widgets/contestCard'
 import Modal from "widgets/modal/ui/modal";
+import {TabComponent} from "widgets/tabComponent";
 
 import './contestsSection.scss'
 
@@ -137,7 +137,7 @@ const ContestsSection: FC<Props> = (props) => {
             </ul>
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <Text Tag="h2" className="text__bold">Upload your work to participate in the competition</Text>
-                <FileUploadComponent onUpload={handleUpload} disabled={false} onDelete={handleDelete}/>
+                <TabComponent onFileUpload={handleUpload} onDeleteFile={handleDelete} />
             </Modal>
         </section>
     )

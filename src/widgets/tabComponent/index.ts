@@ -1,0 +1,1 @@
+export {TabComponent} from './ui/tabComponent.tsx'

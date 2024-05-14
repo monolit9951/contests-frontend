@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {Button} from "shared/ui/button";
 import {Flex, VStack} from "shared/ui/stack";
+import {Text} from "shared/ui/text";
 
 import './upload.scss';
-import {Text} from "shared/ui/text";
 
 interface FileUploadProps {
     onUpload: (file: File) => void;
