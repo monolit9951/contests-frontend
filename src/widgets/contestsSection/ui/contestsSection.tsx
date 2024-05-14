@@ -91,23 +91,21 @@ const ContestsSection: FC<Props> = (props) => {
                 </HStack>
             )}
 
-            {section === 'popular' ? (
-                <ul className='contest-gallery__list'>
-                    {mockContestData.map((item, idx) => (
+            <ul className='contest-gallery__list'>
+                {section === 'popular' &&
+                    mockContestData.map((item, idx) => (
                         <li key={idx}>
                             <ContestCard {...item} />
                         </li>
                     ))}
-                </ul>
-            ) : (
-                <ul className='contest-gallery__list'>
-                    {contests.map((item) => (
+
+                {section === 'all' &&
+                    contests.map((item) => (
                         <li key={item.id}>
                             <ContestCard {...item} />
                         </li>
                     ))}
-                </ul>
-            )}
+            </ul>
         </section>
     )
 }
