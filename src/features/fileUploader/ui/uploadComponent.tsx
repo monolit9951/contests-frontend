@@ -6,31 +6,22 @@ import {Text} from "shared/ui/text";
 import './upload.scss';
 
 interface FileUploadProps {
-    onUpload: (file: File) => void;
+    onFileSelect: (file: File) => void;
     onDelete: () => void;
     disabled: boolean;
+    selectedFile: File | null;
 }
 
-export const FileUploadComponent: React.FC<FileUploadProps> = ({ onUpload, disabled, onDelete }) => {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+export const FileUploadComponent: React.FC<FileUploadProps> = ({ onFileSelect, disabled, onDelete, selectedFile }) => {
     const [dragOver, setDragOver] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
-
-    }, [selectedFile])
+    useEffect(() => {}, [selectedFile]);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
             const file = event.target.files[0];
-            setSelectedFile(file);
-        }
-    };
-
-    const handleUpload = () => {
-        if (selectedFile) {
-            onUpload(selectedFile);
-            setSelectedFile(null);
+            onFileSelect(file);
         }
     };
 
@@ -53,11 +44,10 @@ export const FileUploadComponent: React.FC<FileUploadProps> = ({ onUpload, disab
         event.preventDefault();
         setDragOver(false);
         const file = event.dataTransfer.files[0];
-        setSelectedFile(file);
+        onFileSelect(file);
     };
 
     const handleDelete = () => {
-        setSelectedFile(null);
         onDelete();
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
@@ -93,9 +83,6 @@ export const FileUploadComponent: React.FC<FileUploadProps> = ({ onUpload, disab
                     </Flex>
                 )}
             </div>
-            <Button variant="primary" onClick={handleUpload} disabled={disabled} className="upload-button">
-                Upload
-            </Button>
         </VStack>
     );
 };

@@ -48,6 +48,10 @@
     &.ghost {
         background-color: transparent;
     }
+    &.clickable-div{
+        background: transparent;
+        border-radius: 0;
+    }
 }
 .dark {
     .button {
@@ -124,10 +128,6 @@
                 background-color: var(--text-placeholder);
                 cursor: not-allowed;
             }
-        }
-
-        &.clickable-div{
-            background: transparent;
         }
 
         &.ghost {
