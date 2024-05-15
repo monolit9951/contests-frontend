@@ -50,7 +50,6 @@ const ContestsSection: FC<Props> = (props) => {
                 document.documentElement
 
             if (clientHeight + scrollTop >= scrollHeight - 30) {
-                // console.log('first')
                 dispatch(fetchNextContestsPage())
             }
         }
@@ -59,7 +58,7 @@ const ContestsSection: FC<Props> = (props) => {
         return () => {
             window.removeEventListener('scroll', onScroll)
         }
-    }, [])
+    }, [dispatch, all.page])
 
     const onFilterDeleteClick = (filter: string) => {
         dispatch(filterActions.removeActiveFilter(filter))

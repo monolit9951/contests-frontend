@@ -55,7 +55,7 @@ const slice = createSlice({
             })
             .addCase(fetchNextContestsPage.fulfilled, (state, { payload }) => {
                 state.all.contests = state.all.contests.concat(payload.content)
-                state.all.page = +1
+                state.all.page += 1
 
                 state.all.nextLoading = false
             })
@@ -65,6 +65,9 @@ const slice = createSlice({
             })
             .addCase(fetchPopularContests.pending, (state) => {
                 state.popular.loading = true
+            })
+            .addCase(fetchNextContestsPage.pending, (state) => {
+                state.all.nextLoading = true
             })
 
             .addCase(fetchPopularContests.rejected, (state, { payload }) => {
