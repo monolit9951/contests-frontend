@@ -14,7 +14,7 @@ export const ContestsPage = () => {
     useEffect(() => {
         dispatch(fetchContests())
         dispatch(fetchPopularContests())
-    }, [])
+    }, [dispatch])
 
     return (
         <div className='contestsPage_container'>

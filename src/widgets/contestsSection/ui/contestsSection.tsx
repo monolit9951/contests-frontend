@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import clsx from 'clsx'
 import { ContestCard, ContestPreview } from 'entities/contest'
 import {
@@ -6,7 +6,12 @@ import {
     FilterController,
     selectFilters,
 } from 'features/filterContests'
-import { selectContests } from 'pages/contestsPage/model/selectors'
+import { fetchNextContestsPage } from 'pages/contestsPage'
+import {
+    selectAll,
+    selectNextLoading,
+    selectPopular,
+} from 'pages/contestsPage/model/selectors'
 import cross from 'shared/assets/icons/X.svg?react'
 import { mockContestData } from 'shared/consts'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
@@ -29,8 +34,31 @@ const ContestsSection: FC<Props> = (props) => {
 
     const dispatch = useAppDispatch()
 
-    const contests = useAppSelector(selectContests).all as ContestPreview[]
+    const popular = useAppSelector(selectPopular)
+    const all = useAppSelector(selectAll)
+    const nextLoading = useAppSelector(selectNextLoading)
+    const allContests = useAppSelector(selectAll).contests as ContestPreview[]
     const filters = useAppSelector(selectFilters)
+
+    useEffect(() => {
+        const onScroll = () => {
+            if (nextLoading) {
+                return
+            }
+
+            const { scrollTop, clientHeight, scrollHeight } =
+                document.documentElement
+
+            if (clientHeight + scrollTop >= scrollHeight - 30) {
+                dispatch(fetchNextContestsPage())
+            }
+        }
+
+        window.addEventListener('scroll', onScroll)
+        return () => {
+            window.removeEventListener('scroll', onScroll)
+        }
+    }, [dispatch, all.page])
 
     const onFilterDeleteClick = (filter: string) => {
         dispatch(filterActions.removeActiveFilter(filter))
@@ -93,18 +121,31 @@ const ContestsSection: FC<Props> = (props) => {
 
             <ul className='contest-gallery__list'>
                 {section === 'popular' &&
-                    mockContestData.map((item, idx) => (
-                        <li key={idx}>
-                            <ContestCard {...item} />
-                        </li>
+                    (popular.loading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        mockContestData.map((item, idx) => (
+                            <li key={idx}>
+                                <ContestCard {...item} />
+                            </li>
+                        ))
                     ))}
 
-                {section === 'all' &&
-                    contests.map((item) => (
-                        <li key={item.id}>
-                            <ContestCard {...item} />
-                        </li>
-                    ))}
+                {section === 'all' && (
+                    <>
+                        {all.loading ? (
+                            <p>Loading...</p>
+                        ) : (
+                            allContests.map((item) => (
+                                <li key={item.id}>
+                                    <ContestCard {...item} />
+                                </li>
+                            ))
+                        )}
+
+                        {nextLoading && <p>Loading next...</p>}
+                    </>
+                )}
             </ul>
         </section>
     )
