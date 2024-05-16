@@ -22,7 +22,7 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
 
         const dispatch = useDispatch()
 
-        const { status, prize, participants, creators } = mockFilterData
+        const { status, prizeType, participants, creators } = mockFilterData
 
         const onFilterClear = () => {
             dispatch(filterActions.clearFilters())
@@ -52,7 +52,7 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
 
                 <FilterBlock filter={status} />
 
-                <FilterBlock filter={prize} />
+                <FilterBlock filter={prizeType} />
 
                 <FilterBlock />
 

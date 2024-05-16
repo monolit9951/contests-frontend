@@ -4,8 +4,7 @@ import clsx from 'clsx'
 import { filterActions, FilterObject } from 'features/filterContests'
 import debounce from 'lodash.debounce'
 import Slider from 'rc-slider'
-import caretDown from 'shared/assets/icons/caretDown.svg?react'
-import caretUp from 'shared/assets/icons/CaretUp.svg?react'
+import caretRight from 'shared/assets/icons/caretRight.svg?react'
 import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
@@ -83,9 +82,14 @@ export default function FilterBlock(props: FilterBlockProps) {
                             {filter.name}
                         </Text>
                         <Icon
-                            Svg={blockShown ? caretUp : caretDown}
+                            Svg={caretRight}
                             clickable
                             onClick={onIconClick}
+                            className={clsx(
+                                blockShown
+                                    ? 'filter-block__icon opened'
+                                    : 'filter-block__icon closed'
+                            )}
                         />
                     </HStack>
                     <ul
@@ -98,6 +102,7 @@ export default function FilterBlock(props: FilterBlockProps) {
                                 key={name}
                                 name={name}
                                 number={number}
+                                filter={filter}
                             />
                         ))}
                     </ul>
@@ -112,9 +117,14 @@ export default function FilterBlock(props: FilterBlockProps) {
                         Money prize amount
                     </Text>
                     <Icon
-                        Svg={blockShown ? caretUp : caretDown}
+                        Svg={caretRight}
                         clickable
                         onClick={onIconClick}
+                        className={clsx(
+                            blockShown
+                                ? 'filter-block__icon opened'
+                                : 'filter-block__icon closed'
+                        )}
                     />
                 </HStack>
                 <VStack

@@ -4,8 +4,9 @@ import { ContestCard, ContestPreview } from 'entities/contest'
 import {
     filterActions,
     FilterController,
-    selectFilters,
+    selectActiveFilters,
 } from 'features/filterContests'
+import { FilterPayloadObj } from 'features/filterContests/model/types'
 import { fetchNextContestsPage } from 'pages/contestsPage'
 import {
     selectAll,
@@ -38,7 +39,8 @@ const ContestsSection: FC<Props> = (props) => {
     const all = useAppSelector(selectAll)
     const nextLoading = useAppSelector(selectNextLoading)
     const allContests = useAppSelector(selectAll).contests as ContestPreview[]
-    const filters = useAppSelector(selectFilters)
+    const filters = useAppSelector(selectActiveFilters)
+        .filtersList as FilterPayloadObj[]
 
     useEffect(() => {
         const onScroll = () => {
@@ -60,7 +62,7 @@ const ContestsSection: FC<Props> = (props) => {
         }
     }, [dispatch, all.page])
 
-    const onFilterDeleteClick = (filter: string) => {
+    const onFilterDeleteClick = (filter: FilterPayloadObj) => {
         dispatch(filterActions.removeActiveFilter(filter))
     }
 
@@ -88,12 +90,12 @@ const ContestsSection: FC<Props> = (props) => {
                 )}
             </HStack>
 
-            {section === 'all' && filters.active?.length >= 1 && (
+            {section === 'all' && filters?.length >= 1 && (
                 <HStack className='active-filter__block'>
                     <ul className='active-filter__list'>
-                        {filters.active?.map((filter: string) => (
-                            <li key={filter}>
-                                <Text Tag='span'>{filter}</Text>
+                        {filters?.map((filter) => (
+                            <li key={filter.name}>
+                                <Text Tag='span'>{filter.name}</Text>
                                 <Icon
                                     Svg={cross}
                                     width={16}
@@ -112,7 +114,7 @@ const ContestsSection: FC<Props> = (props) => {
                         <Text Tag='span'>
                             Clear filters{' '}
                             <Text Tag='span' size='sm'>
-                                ({filters.active.length})
+                                ({filters.length})
                             </Text>
                         </Text>
                     </Button>

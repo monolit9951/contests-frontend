@@ -1,35 +1,112 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import clsx from 'clsx'
-import { filterActions, selectFilters } from 'features/filterContests'
+import {
+    filterActions,
+    FilterObject,
+    selectSelectedFilters,
+} from 'features/filterContests'
+import { FilterPayloadObj } from 'features/filterContests/model/types'
+import { useAppSelector } from 'shared/lib/store'
 import { Text } from 'shared/ui/text'
 
 interface FilterItemProps {
     name: string
     number: number
+    filter: FilterObject
     className?: string
 }
 
 export default function FilterItem(props: FilterItemProps) {
+    const { name, number, filter, className } = props
+
     const [itemActive, setItemActive] = useState(false)
-
-    const filters = useSelector(selectFilters)
-
-    const { name, number, className } = props
 
     const dispatch = useDispatch()
 
+    const selected = useAppSelector(selectSelectedFilters)
+
     useEffect(() => {
-        setItemActive(filters.selected.includes(name))
-    }, [filters])
+        setItemActive(
+            !!selected.filtersList?.find(
+                (item: FilterPayloadObj) => item.name === name
+            )
+        )
+    }, [selected.filtersList])
 
-    const onBtnClick = (filter: string) => {
-        setItemActive(!itemActive)
+    const onBtnClick = () => {
+        let payload = {
+            filterName: '',
+            name: '',
+        }
+        switch (filter.name) {
+            case 'Status':
+                payload = {
+                    filterName: 'status',
+                    name,
+                }
 
-        if (itemActive) {
-            dispatch(filterActions.removeFilter(filter))
-        } else {
-            dispatch(filterActions.addFilter(filter))
+                if (selected.status) {
+                    if (selected.status === name) {
+                        dispatch(filterActions.removeFilter(payload))
+                        break
+                    }
+                    dispatch(filterActions.addFilter(payload))
+                    break
+                }
+                dispatch(filterActions.addFilter(payload))
+                break
+
+            case 'Prize type':
+                payload = {
+                    filterName: 'prizeType',
+                    name,
+                }
+
+                if (selected.prizeType) {
+                    if (selected.prizeType === name) {
+                        dispatch(filterActions.removeFilter(payload))
+                        break
+                    }
+                    dispatch(filterActions.addFilter(payload))
+                    break
+                }
+                dispatch(filterActions.addFilter(payload))
+                break
+
+            case 'Number of participants':
+                payload = {
+                    filterName: 'participants',
+                    name,
+                }
+
+                if (selected.participants) {
+                    if (selected.participants === name) {
+                        dispatch(filterActions.removeFilter(payload))
+                        break
+                    }
+                    dispatch(filterActions.addFilter(payload))
+                    break
+                }
+                dispatch(filterActions.addFilter(payload))
+                break
+
+            default:
+                payload = {
+                    filterName: 'creators',
+                    name,
+                }
+
+                if (selected.creators) {
+                    if (selected.creators === name) {
+                        dispatch(filterActions.removeFilter(payload))
+                        break
+                    }
+                    dispatch(filterActions.addFilter(payload))
+                    break
+                }
+                dispatch(filterActions.addFilter(payload))
+                break
         }
     }
 
@@ -37,7 +114,7 @@ export default function FilterItem(props: FilterItemProps) {
         <li>
             <button
                 type='button'
-                onClick={() => onBtnClick(name)}
+                onClick={onBtnClick}
                 aria-label={name}
                 className={clsx(
                     'filter-item',
