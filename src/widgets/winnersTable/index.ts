@@ -1,0 +1,1 @@
+export {ContestWinnersTable} from 'widgets/winnersTable/ui/contestWinnersTable'
