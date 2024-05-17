@@ -1,4 +1,4 @@
-type VerificationStatus = 'BLOGGER' | 'STORE' | 'COMPANY'
+export type VerificationStatus = 'BLOGGER' | 'STORE' | 'COMPANY'
 
 export interface User {
     id: string

@@ -1,7 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { selectSortDirection } from 'features/filterContests'
+import { getQueryString } from 'features/filterContests/model/helpers'
+import instance from 'shared/api/api'
 
-import { selectPageSize, selectSortDirection } from '../selectors'
+import { selectPageSize } from '../selectors'
 
 export const fetchContests = createAsyncThunk(
     'contests/fetchContests',
@@ -12,8 +14,8 @@ export const fetchContests = createAsyncThunk(
         const direction = selectSortDirection(getState())
 
         try {
-            const response = await axios.get(
-                `http://localhost:8080/api/contests?page=0&pageSize=${pageSize}&sortDirection=${direction}`
+            const response = await instance.get(
+                `/contests?page=0&pageSize=${pageSize}&sortDirection=${direction}&${getQueryString()}`
             )
 
             if (!response.data) {

@@ -22,7 +22,7 @@ export const mockFilterData: FilterData = {
         name: 'Number of participants',
         items: [
             { name: '1-1k', number: 201 },
-            { name: '1.1k - 10k', number: 201 },
+            { name: '1.1k-10k', number: 201 },
             { name: '10.1k-50k', number: 201 },
             { name: '50.1k-100k', number: 201 },
             { name: '100.1k+', number: 201 },

@@ -13,7 +13,6 @@ export interface ContestsPageSchema {
 
         page: number
         pageSize: number
-        sortDirection: 'ASC' | 'DESC'
 
         totalPages: number
         totalElements: number

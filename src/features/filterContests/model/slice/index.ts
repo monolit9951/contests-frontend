@@ -22,6 +22,8 @@ const initialState: FilterSchema = {
         creators: '',
     },
 
+    sortDirection: 'ASC',
+
     loading: false,
     error: null,
 }
@@ -82,6 +84,10 @@ const slice = createSlice({
         },
         updatePrizeRange: (state, action: PayloadAction<number[]>) => {
             state.selected.prizeRange = action.payload
+        },
+        resetPrizeRange: (state) => {
+            state.selected.prizeRange = [0, 100000]
+            state.active.prizeRange = [0, 100000]
         },
         clearFilters: (state) => {
             state.selected = {

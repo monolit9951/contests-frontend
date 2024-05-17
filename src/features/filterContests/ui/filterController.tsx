@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
 import clsx from 'clsx'
 import filter from 'shared/assets/icons/filter.svg?react'
 import filterF from 'shared/assets/icons/filterF.svg?react'
+import { useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { Text } from 'shared/ui/text'
@@ -22,7 +22,7 @@ const FilterController = (props: IFilterController) => {
 
     const [showFilter, setShowFilter] = useState(false)
 
-    const filters = useSelector(selectActiveFilters).filtersList as string[]
+    const filters = useAppSelector(selectActiveFilters).filtersList as string[]
 
     const filterRef = useRef<HTMLDivElement | null>(null)
     const filterBtnRef = useRef<HTMLButtonElement | null>(null)
