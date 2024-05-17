@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import clsx from 'clsx'
 import {
@@ -35,6 +35,12 @@ export default function FilterBlock(props: FilterBlockProps) {
     const [sliderValue, setSliderValue] = useState([lowerBound, upperBound])
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        setLowerBound(active.prizeRange[0])
+        setUpperBound(active.prizeRange[1])
+        setSliderValue([active.prizeRange[0], active.prizeRange[1]])
+    }, [active.prizeRange])
 
     const onLowerBoundChange = (e: ChangeEvent<HTMLInputElement>) => {
         let inputValue = e.target.value

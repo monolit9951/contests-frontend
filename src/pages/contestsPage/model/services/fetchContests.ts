@@ -1,5 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { selectSortDirection } from 'features/filterContests'
+import {
+    selectActiveFilters,
+    selectSortDirection,
+} from 'features/filterContests'
 import { getQueryString } from 'features/filterContests/model/helpers'
 import instance from 'shared/api/api'
 
@@ -12,10 +15,13 @@ export const fetchContests = createAsyncThunk(
 
         const pageSize = selectPageSize(getState())
         const direction = selectSortDirection(getState())
+        const activeFilters = selectActiveFilters(getState())
 
         try {
             const response = await instance.get(
-                `/contests?page=0&pageSize=${pageSize}&sortDirection=${direction}&${getQueryString()}`
+                `/contests?page=0&pageSize=${pageSize}&sortDirection=${direction}&${getQueryString(
+                    activeFilters
+                )}`
             )
 
             if (!response.data) {

@@ -1,16 +1,9 @@
-import { forwardRef, useEffect } from 'react'
+import { forwardRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { useSearchParams } from 'react-router-dom'
 import clsx from 'clsx'
-import { setParams } from 'features/filterContests/model/helpers'
-import {
-    selectActiveFilters,
-    selectSortDirection,
-} from 'features/filterContests/model/selectors'
 import { filterActions } from 'features/filterContests/model/slice'
 import cross from 'shared/assets/icons/X.svg?react'
 import { mockFilterData } from 'shared/consts/filterBlocks'
-import { useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { HStack, VStack } from 'shared/ui/stack'
@@ -29,26 +22,7 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
 
         const dispatch = useDispatch()
 
-        const sortDirection = useAppSelector(selectSortDirection)
-        const activeFilters = useAppSelector(selectActiveFilters)
-
-        const [searchParams, setSearchParams] = useSearchParams()
-
         const { status, prizeType, participants, creators } = mockFilterData
-
-        useEffect(() => {
-            setParams(
-                searchParams,
-                setSearchParams,
-                sortDirection,
-                activeFilters
-            )
-        }, [
-            searchParams,
-            setSearchParams,
-            activeFilters.filtersList,
-            activeFilters.prizeRange,
-        ])
 
         const onFilterClear = () => {
             dispatch(filterActions.clearFilters())

@@ -43,7 +43,12 @@ const ContestsSection: FC<Props> = (props) => {
     const filters = active.filtersList as FilterPayloadObj[]
 
     const onScroll = useCallback(() => {
-        if (nextLoading || all.loading || all.totalPages === all.page) {
+        if (
+            nextLoading ||
+            all.loading ||
+            all.totalPages === all.page ||
+            !all.totalElements
+        ) {
             return
         }
         const { scrollTop, clientHeight, scrollHeight } =
