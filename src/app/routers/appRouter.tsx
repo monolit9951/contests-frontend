@@ -9,6 +9,7 @@ import { Layout } from 'app/layout'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import { BattlesPage } from 'pages/battlesPage'
+import { ContestsCreationPage } from 'pages/contestsCreationPage'
 import { ContestsPage } from 'pages/contestsPage/ui/contestsPage'
 import { FeedPage } from 'pages/feedPage'
 import { HomePage } from 'pages/homePage'
@@ -27,6 +28,7 @@ export const AppRouter = () => {
             <Route index element={<HomePage />} />
             <Route path="/battles" element={<BattlesPage />} />
             <Route path="/contests" element={<ContestsPage />} />
+            <Route path="/contestsCreate" element={<ContestsCreationPage />} />
             <Route path="/feed" element={<FeedPage />} />
             <Route path="/topUsers" element={<TopUsersPage />} />
         </Route>
