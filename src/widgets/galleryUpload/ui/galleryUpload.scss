@@ -34,25 +34,5 @@
         grid-template-columns: 1fr 1fr 1fr 1fr;
         gap:16px;
 
-        p{
-            height: 40px;
-            width: 164px;
-            text-align: center;
-            font-size: 14px;
-            line-height: 20px;
-        }
-
-        .uploadBtn{
-            width: 140px;
-            height: 36px;
-            display: flex;
-            gap:8px;
-            padding: 6px 32px;
-            background-color: var(--green-dark);
-            
-            .uploadBtn_text{
-                width: 48px;
-            }
-        }
     }
 }

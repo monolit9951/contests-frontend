@@ -1,0 +1,37 @@
+.gallery-upload-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 228px;
+    width: 228px;
+    border: 1px dashed var(--grey);
+    border-radius: 8px;
+    background: var(--green-dark);
+
+    &.is-current {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .is-current_text {
+        height: 40px;
+        width: 164px;
+        text-align: center;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .upload-btn {
+        display: flex;
+        align-items: center;
+        width: 140px;
+        height: 36px;
+        gap: 8px;
+        padding: 6px 32px;
+        background-color: var(--green-dark);
+
+        .uploadBtn_text {
+            width: 48px;
+        }
+    }
+}

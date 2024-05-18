@@ -14,21 +14,9 @@ export const GalleryUploadItem = ({
     isCurrent = true,
 }: GalleryUploadItemProps) => {
     return isCurrent ? (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '228px',
-                width: '228px',
-                border: '1px dashed var(--grey)',
-                borderRadius: '8px',
-                background: 'var(--green-dark)',
-            }}>
-            <Text Tag='p'>Drag and drop your file here or</Text>
-            <Button variant='secondary' className='uploadBtn'>
+        <div className="gallery-upload-item is-current">
+            <Text Tag='p' className='is-current_text'>Drag and drop your file here or</Text>
+            <Button variant='secondary' className='upload-btn'>
                 <Text Tag='p' className='uploadBtn_text'>
                     Upload
                 </Text>
@@ -36,17 +24,7 @@ export const GalleryUploadItem = ({
             </Button>
         </div>
     ) : (
-        <div
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '228px',
-                width: '228px',
-                border: '1px dashed var(--grey)',
-                borderRadius: '8px',
-                background: 'var(--green-dark)',
-            }}>
+        <div className="gallery-upload-item">
             <Icon Svg={placeholderImage} height={56} width={56} />
         </div>
     )
