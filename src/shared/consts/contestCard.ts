@@ -1,0 +1,132 @@
+import { ContestPreview } from 'entities/contest'
+
+const mockData: ContestPreview[] = [
+    {
+        id: '663cd8290e877a4629dc8af1',
+        name: 'Animation Contest',
+        status: 'UPCOMING',
+        category: 'CATEGORY1',
+        subcategory: 'SUBCATEGORY1',
+        previewImage: null,
+        participantAmount: 63,
+        maxAllowedParticipantAmount: 172,
+        dateStart: [2024, 9, 4, 18, 55, 31],
+        dateEnd: [2024, 9, 16, 11, 51, 25],
+        prizesPreviews: [
+            {
+                id: '663cd8280e877a4629dc89ca',
+                prizeType: 'MONEY',
+                prizeText: 'Test Prize',
+                prizeAmount: 801.22,
+            },
+        ],
+        contestOwner: {
+            id: '663cd8280e877a4629dc880d',
+            name: 'Lucas Miller',
+            organizerRating: 4.76,
+            verificationStatus: 'BLOGGER',
+            profileImage: 'https://example.profileImage.com/image11.jpg',
+        },
+    },
+    {
+        id: '6641bcc8c210a51fbdffe3b0',
+        name: 'Acting Talent Search',
+        status: 'UPCOMING',
+        category: 'CATEGORY1',
+        subcategory: 'SUBCATEGORY1',
+        previewImage: null,
+        participantAmount: 76,
+        maxAllowedParticipantAmount: 193,
+        dateStart: [2024, 11, 8, 13, 19, 5],
+        dateEnd: [2024, 12, 6, 7, 5, 17],
+        prizesPreviews: [
+            {
+                id: '6641bcc8c210a51fbdffe1cf',
+                prizeType: 'MONEY',
+                prizeText: 'Test Prize',
+                prizeAmount: 423.92,
+            },
+        ],
+        contestOwner: {
+            id: '663cd8270e877a4629dc87ff',
+            name: 'Benjamin Williams',
+            organizerRating: 5.93,
+            verificationStatus: 'STORE',
+            profileImage: 'https://example.profileImage.com/image3.jpg',
+        },
+    },
+    {
+        id: '6641bcc8c210a51fbdffe3b5',
+        name: 'Acting Talent Search',
+        status: 'UPCOMING',
+        category: 'CATEGORY1',
+        subcategory: 'SUBCATEGORY1',
+        previewImage: null,
+        participantAmount: 53,
+        maxAllowedParticipantAmount: 202,
+        dateStart: [2024, 7, 27, 19, 7, 55],
+        dateEnd: [2024, 8, 12, 6, 21, 46],
+        prizesPreviews: [
+            {
+                id: '6641bcc8c210a51fbdffe1e5',
+                prizeType: 'MONEY',
+                prizeText: 'Test Prize',
+                prizeAmount: 214.3,
+            },
+            {
+                id: '6641bcc8c210a51fbdffe1e7',
+                prizeType: 'MONEY',
+                prizeText: 'Test Prize',
+                prizeAmount: 245.41,
+            },
+            {
+                id: '6641bcc8c210a51fbdffe1e9',
+                prizeType: 'ITEM',
+                prizeText: 'Test Prize',
+                prizeAmount: 940.07,
+            },
+        ],
+        contestOwner: {
+            id: '6641bcc8c210a51fbdffe14b',
+            name: 'Daniel Thompson',
+            organizerRating: 3.48,
+            verificationStatus: 'COMPANY',
+            profileImage: 'https://example.profileImage.com/image7.jpg',
+        },
+    },
+    {
+        id: '663cd8290e877a4629dc8abc',
+        name: 'Acting Talent Search',
+        status: 'FINISHED',
+        category: 'CATEGORY3',
+        subcategory: 'SUBCATEGORY1',
+        previewImage: null,
+        participantAmount: 62,
+        maxAllowedParticipantAmount: 136,
+        dateStart: [2024, 1, 18, 8, 45, 1],
+        dateEnd: [2024, 2, 7, 23, 38, 29],
+        prizesPreviews: [
+            {
+                id: '663cd8280e877a4629dc88e4',
+                prizeType: 'MONEY',
+                prizeText: 'Test Prize',
+                prizeAmount: 992.81,
+            },
+            {
+                id: '663cd8280e877a4629dc88e6',
+                prizeType: 'ITEM',
+                prizeText: 'Test Prize',
+                prizeAmount: 894.62,
+            },
+        ],
+        contestOwner: {
+            id: '663cd8240e877a4629dc87bb',
+            name: 'William Anderson',
+            organizerRating: 3.67,
+            verificationStatus: 'COMPANY',
+            profileImage: 'https://example.profileImage.com/image2.jpg',
+        },
+    },
+]
+
+export default mockData

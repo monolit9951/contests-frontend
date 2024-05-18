@@ -52,7 +52,6 @@ export default function Textarea(props: ITextarea) {
                     error && 'error',
                     className
                 )}
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...rest}
             />
             {info && (

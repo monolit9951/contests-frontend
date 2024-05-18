@@ -6,9 +6,19 @@
         font-size: 36px;
         line-height: 1.17;
     }
+    &__xxs {
+        font-size: 10px;
+    }
     &__xs {
+        font-size: 12px;
+    }
+    &__sm {
         font-size: 14px;
         line-height: 1.43;
+    }
+    &__md {
+        font-size: 16px;
+        line-height: 1.5;
     }
     &__l {
         font-size: 20px;
@@ -25,5 +35,9 @@
 
     &__bold {
         font-weight: 600;
+    }
+
+    > span {
+        font-weight: 400;
     }
 }

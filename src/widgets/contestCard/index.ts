@@ -1,1 +1,0 @@
-export { ContestCard } from './ui/contestCard';

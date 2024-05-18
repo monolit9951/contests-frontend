@@ -1,10 +1,10 @@
-import { ReactNode } from 'react'
+import { forwardRef, ReactNode } from 'react'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 
 import './button.scss'
 
-type VariantTypes = 'primary' | 'secondary' | 'ghost'
+type VariantTypes = 'primary' | 'secondary' | 'ghost' | 'div'
 
 type SizeTypes = 'm' | 's'
 
@@ -12,6 +12,7 @@ const variantClasses: Record<VariantTypes, string> = {
     primary: 'primary',
     secondary: 'secondary',
     ghost: 'ghost',
+    div: 'div',
 }
 
 interface IButton {
@@ -24,7 +25,7 @@ interface IButton {
     onClick?: () => void
 }
 
-export default function Button(props: IButton) {
+const Button = forwardRef<HTMLButtonElement, IButton>((props, ref) => {
     const {
         children,
         variant = 'primary',
@@ -39,6 +40,7 @@ export default function Button(props: IButton) {
 
     return (
         <button
+            ref={ref}
             type='button'
             title={title}
             disabled={disabled}
@@ -53,4 +55,6 @@ export default function Button(props: IButton) {
             {children}
         </button>
     )
-}
+})
+
+export default Button

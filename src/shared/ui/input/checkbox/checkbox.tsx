@@ -15,7 +15,6 @@ export default function Checkbox(props: ICheckbox) {
             type='checkbox'
             disabled={disabled}
             className={clsx('checkbox', className)}
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...rest}
         />
     )

@@ -4,11 +4,15 @@ import magnifyingGlass from "../../../assets/icons/magnifyingGlass.svg?react"
 
 import "./searchbar.scss"
 
-export const Searchbar = () => {
+interface SearchbarProps{
+    placeholder: string
+}
+
+export const Searchbar = ({placeholder}: SearchbarProps) => {
     return (
         <div className="searchbar_container">
             <Icon Svg={magnifyingGlass} className="icon"/>
-            <input className="searchbar" placeholder="Search by any parameters...."/>
+            <input className="searchbar" placeholder={placeholder}/>
         </div>
     )
 } 

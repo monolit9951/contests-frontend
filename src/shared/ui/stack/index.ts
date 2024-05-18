@@ -1,4 +1,5 @@
+import Flex from './flex/flex'
 import HStack from './hStack/hStack'
 import VStack from './vStack/vStack'
 
-export { HStack, VStack }
+export { Flex, HStack, VStack }
