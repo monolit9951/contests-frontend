@@ -20,7 +20,7 @@ const initialState: FilterSchema = {
         creators: '',
     },
 
-    category: 'CATEGORY1',
+    category: 'Category1',
     sortDirection: 'ASC',
 
     loading: false,

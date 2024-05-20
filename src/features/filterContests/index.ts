@@ -1,5 +1,6 @@
 import {
     selectActiveFilters,
+    selectCategory,
     selectSelectedFilters,
     selectSortDirection,
 } from './model/selectors'
@@ -21,6 +22,7 @@ export {
     FilterModal,
     filterReducer,
     selectActiveFilters,
+    selectCategory,
     selectSelectedFilters,
     selectSortDirection,
 }

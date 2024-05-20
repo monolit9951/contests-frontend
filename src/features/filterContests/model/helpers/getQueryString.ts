@@ -27,9 +27,5 @@ export const getQueryString = (filters: FiltersObj) => {
         paramsArr.push(`val=verificationStatus=${filters.creators}`)
     }
 
-    // if (filters.category) {
-    //     paramsArr.push(`val=category=${filters.category}`)
-    // }
-
     return paramsArr.join('&')
 }

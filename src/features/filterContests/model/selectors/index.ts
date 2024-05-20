@@ -2,6 +2,8 @@ export const selectSelectedFilters = (state: RootState) => state.filter.selected
 
 export const selectActiveFilters = (state: RootState) => state.filter.active
 
+export const selectCategory = (state: RootState) => state.filter.category
+
 export const selectSortDirection = (state: RootState) =>
     state.filter.sortDirection
 

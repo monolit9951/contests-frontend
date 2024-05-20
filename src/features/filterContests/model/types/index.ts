@@ -1,4 +1,4 @@
-export type Category = 'CATEGORY1' | 'CATEGORY2' | 'CATEGORY3'
+export type Category = 'Category1' | 'Category2' | 'Category3'
 
 type StatusFilter =
     | ''
