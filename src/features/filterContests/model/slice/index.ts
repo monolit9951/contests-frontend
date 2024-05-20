@@ -10,7 +10,6 @@ const initialState: FilterSchema = {
         status: '',
         prizeType: '',
         prizeRange: [0, 100000],
-        participants: '',
         creators: '',
     },
     active: {
@@ -18,7 +17,6 @@ const initialState: FilterSchema = {
         status: '',
         prizeType: '',
         prizeRange: [0, 100000],
-        participants: '',
         creators: '',
     },
 
@@ -95,7 +93,6 @@ const slice = createSlice({
                 status: '',
                 prizeType: '',
                 prizeRange: [0, 100000],
-                participants: '',
                 creators: '',
             }
             state.active = {
@@ -103,7 +100,6 @@ const slice = createSlice({
                 status: '',
                 prizeType: '',
                 prizeRange: [0, 100000],
-                participants: '',
                 creators: '',
             }
             state.error = null

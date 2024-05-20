@@ -74,23 +74,6 @@ export default function FilterItem(props: FilterItemProps) {
                 dispatch(filterActions.addFilter(payload))
                 break
 
-            case 'Number of participants':
-                payload = {
-                    filterName: 'participants',
-                    name,
-                }
-
-                if (selected.participants) {
-                    if (selected.participants === name) {
-                        dispatch(filterActions.removeFilter(payload))
-                        break
-                    }
-                    dispatch(filterActions.addFilter(payload))
-                    break
-                }
-                dispatch(filterActions.addFilter(payload))
-                break
-
             default:
                 payload = {
                     filterName: 'creators',
