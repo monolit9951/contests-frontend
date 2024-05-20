@@ -1,3 +1,3 @@
-import { Prize, PrizePreview, PrizeStructure } from './model/types'
+import { Prize, PrizePreview, PrizeStructure, PrizeType } from './model/types'
 
-export type { Prize, PrizePreview, PrizeStructure }
+export type { Prize, PrizePreview, PrizeStructure, PrizeType }

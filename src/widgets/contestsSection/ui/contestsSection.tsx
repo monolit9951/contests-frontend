@@ -1,17 +1,18 @@
-import { FC, useEffect } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import clsx from 'clsx'
 import { ContestCard, ContestPreview } from 'entities/contest'
 import {
     filterActions,
     FilterController,
-    selectFilters,
+    selectActiveFilters,
 } from 'features/filterContests'
-import { fetchNextContestsPage } from 'pages/contestsPage'
+import { FilterPayloadObj } from 'features/filterContests/model/types'
 import {
+    fetchNextContestsPage,
     selectAll,
     selectNextLoading,
     selectPopular,
-} from 'pages/contestsPage/model/selectors'
+} from 'pages/contestsPage'
 import cross from 'shared/assets/icons/X.svg?react'
 import { mockContestData } from 'shared/consts'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
@@ -38,35 +39,50 @@ const ContestsSection: FC<Props> = (props) => {
     const all = useAppSelector(selectAll)
     const nextLoading = useAppSelector(selectNextLoading)
     const allContests = useAppSelector(selectAll).contests as ContestPreview[]
-    const filters = useAppSelector(selectFilters)
+    const active = useAppSelector(selectActiveFilters)
+    const filters = active.filtersList as FilterPayloadObj[]
+
+    const onScroll = useCallback(() => {
+        if (
+            nextLoading ||
+            all.loading ||
+            all.totalPages === all.page ||
+            !all.totalElements
+        ) {
+            return
+        }
+        const { scrollTop, clientHeight, scrollHeight } =
+            document.documentElement
+
+        if (clientHeight + scrollTop >= scrollHeight - 30) {
+            dispatch(fetchNextContestsPage())
+        }
+    }, [dispatch, nextLoading, all.loading, all.page])
 
     useEffect(() => {
-        const onScroll = () => {
-            if (nextLoading) {
-                return
-            }
-
-            const { scrollTop, clientHeight, scrollHeight } =
-                document.documentElement
-
-            if (clientHeight + scrollTop >= scrollHeight - 30) {
-                dispatch(fetchNextContestsPage())
-            }
-        }
-
         window.addEventListener('scroll', onScroll)
         return () => {
             window.removeEventListener('scroll', onScroll)
         }
-    }, [dispatch, all.page])
+    }, [onScroll])
 
-    const onFilterDeleteClick = (filter: string) => {
-        dispatch(filterActions.removeActiveFilter(filter))
+    const prizeRangeCondition = () => {
+        return active.prizeRange[0] !== 0 || active.prizeRange[1] !== 100000
+    }
+
+    const onFilterDeleteClick = (filter?: FilterPayloadObj) => {
+        if (filter) {
+            dispatch(filterActions.removeActiveFilter(filter))
+        } else {
+            dispatch(filterActions.resetPrizeRange())
+        }
     }
 
     const onFilterClearClick = () => {
         dispatch(filterActions.clearFilters())
     }
+
+    const onSeeAllClick = () => {}
 
     return (
         <section className={clsx('contest-gallery__section', className)}>
@@ -82,42 +98,64 @@ const ContestsSection: FC<Props> = (props) => {
                 {section === 'all' ? (
                     <FilterController />
                 ) : (
-                    <Button variant='secondary' size='s'>
+                    <Button
+                        variant='secondary'
+                        size='s'
+                        onClick={onSeeAllClick}>
                         See all
                     </Button>
                 )}
             </HStack>
 
-            {section === 'all' && filters.active?.length >= 1 && (
-                <HStack className='active-filter__block'>
-                    <ul className='active-filter__list'>
-                        {filters.active?.map((filter: string) => (
-                            <li key={filter}>
-                                <Text Tag='span'>{filter}</Text>
-                                <Icon
-                                    Svg={cross}
-                                    width={16}
-                                    height={16}
-                                    clickable
-                                    onClick={() => onFilterDeleteClick(filter)}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                    <Button
-                        variant='ghost'
-                        size='s'
-                        onClick={onFilterClearClick}
-                        className='active-filter__clear-btn'>
-                        <Text Tag='span'>
-                            Clear filters{' '}
-                            <Text Tag='span' size='sm'>
-                                ({filters.active.length})
+            {section === 'all' &&
+                (filters?.length >= 1 || prizeRangeCondition()) && (
+                    <HStack className='active-filter__block'>
+                        <ul className='active-filter__list'>
+                            {filters?.map((filter) => (
+                                <li key={filter.name}>
+                                    <Text Tag='span'>{filter.name}</Text>
+                                    <Icon
+                                        Svg={cross}
+                                        width={16}
+                                        height={16}
+                                        clickable
+                                        onClick={() =>
+                                            onFilterDeleteClick(filter)
+                                        }
+                                    />
+                                </li>
+                            ))}
+                            {prizeRangeCondition() && (
+                                <li>
+                                    <Text Tag='span'>Prize Range</Text>
+                                    <Icon
+                                        Svg={cross}
+                                        width={16}
+                                        height={16}
+                                        clickable
+                                        onClick={() => onFilterDeleteClick()}
+                                    />
+                                </li>
+                            )}
+                        </ul>
+                        <Button
+                            variant='ghost'
+                            size='s'
+                            onClick={onFilterClearClick}
+                            className='active-filter__clear-btn'>
+                            <Text Tag='span'>
+                                Clear filters{' '}
+                                <Text Tag='span' size='sm'>
+                                    (
+                                    {prizeRangeCondition()
+                                        ? filters.length + 1
+                                        : filters.length}
+                                    )
+                                </Text>
                             </Text>
-                        </Text>
-                    </Button>
-                </HStack>
-            )}
+                        </Button>
+                    </HStack>
+                )}
 
             <ul className='contest-gallery__list'>
                 {section === 'popular' &&

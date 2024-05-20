@@ -1,6 +1,6 @@
-type PrizeType = 'MONEY' | 'ITEM'
+export type PrizeType = 'MONEY' | 'ITEM'
 
-type Currency = 'USD' | 'EUR' | 'PLN' | 'UAH'
+export type Currency = 'USD' | 'EUR' | 'PLN' | 'UAH'
 
 export interface Prize {
     id: string

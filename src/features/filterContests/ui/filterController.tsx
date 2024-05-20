@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
 import clsx from 'clsx'
 import filter from 'shared/assets/icons/filter.svg?react'
 import filterF from 'shared/assets/icons/filterF.svg?react'
+import { useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { Text } from 'shared/ui/text'
 
-import { selectFilters } from '../model/selectors'
+import { selectActiveFilters } from '../model/selectors'
 
 import FilterModal from './filterModal/filterModal'
 
@@ -22,7 +22,7 @@ const FilterController = (props: IFilterController) => {
 
     const [showFilter, setShowFilter] = useState(false)
 
-    const filters = useSelector(selectFilters)
+    const filters = useAppSelector(selectActiveFilters).filtersList as string[]
 
     const filterRef = useRef<HTMLDivElement | null>(null)
     const filterBtnRef = useRef<HTMLButtonElement | null>(null)
@@ -70,15 +70,15 @@ const FilterController = (props: IFilterController) => {
                 size='s'
                 onClick={onFilterToggle}>
                 <Icon
-                    Svg={filters.active?.length >= 1 ? filterF : filter}
+                    Svg={filters?.length >= 1 ? filterF : filter}
                     width={20}
                     height={20}
                 />
                 <Text Tag='span'>
                     Filter{' '}
-                    {filters.active?.length >= 1 && (
+                    {filters?.length >= 1 && (
                         <Text Tag='span' size='sm'>
-                            ({filters.active?.length})
+                            ({filters?.length})
                         </Text>
                     )}
                 </Text>

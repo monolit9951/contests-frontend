@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 
 import {
     fetchContests,
@@ -18,9 +18,8 @@ const initialState: ContestsPageSchema = {
     all: {
         contests: [],
 
-        page: 0,
+        page: 2,
         pageSize: 16,
-        sortDirection: 'ASC',
 
         totalPages: 0,
         totalElements: 0,
@@ -34,17 +33,14 @@ const initialState: ContestsPageSchema = {
 const slice = createSlice({
     name: 'contestsPage',
     initialState,
-    reducers: {
-        setSortDirection: (state, action: PayloadAction<'ASC' | 'DESC'>) => {
-            state.all.sortDirection = action.payload
-        },
-    },
+    reducers: {},
     extraReducers: (builder) =>
         builder
             .addCase(fetchContests.fulfilled, (state, { payload }) => {
                 state.all.contests = payload.content
                 state.all.totalPages = payload.totalPages
                 state.all.totalElements = payload.totalElements
+                state.all.page = 2
 
                 state.all.loading = false
             })
@@ -55,6 +51,7 @@ const slice = createSlice({
             })
             .addCase(fetchNextContestsPage.fulfilled, (state, { payload }) => {
                 state.all.contests = state.all.contests.concat(payload.content)
+                state.all.totalPages = payload.totalPages
                 state.all.page += 1
 
                 state.all.nextLoading = false

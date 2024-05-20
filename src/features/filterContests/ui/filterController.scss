@@ -44,18 +44,31 @@
             }
         }
 
-        .filter-block__hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            margin: -1px;
-            border: 0;
-            padding: 0;
+        .filter-block {
+            &__icon {
+                transition: all ease 0.25s;
 
-            white-space: nowrap;
-            clip-path: inset(100%);
-            clip: rect(0 0 0 0);
-            overflow: hidden;
+                &.opened {
+                    transform: rotate(45deg);
+                }
+                &.closed {
+                    transform: rotate(-45deg);
+                }
+            }
+
+            &__hidden {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                margin: -1px;
+                border: 0;
+                padding: 0;
+
+                white-space: nowrap;
+                clip-path: inset(100%);
+                clip: rect(0 0 0 0);
+                overflow: hidden;
+            }
         }
 
         .filter-range {

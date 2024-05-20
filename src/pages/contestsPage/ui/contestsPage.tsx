@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { useAppDispatch } from 'shared/lib/store'
+import { selectActiveFilters } from 'features/filterContests'
+import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { VStack } from 'shared/ui/stack'
 import { ContestsSection } from 'widgets/contestsSection'
 import { HeroSection } from 'widgets/heroSection/ui/heroSection'
@@ -11,8 +12,13 @@ import './contestsPage.scss'
 export const ContestsPage = () => {
     const dispatch = useAppDispatch()
 
+    const activeFilters = useAppSelector(selectActiveFilters)
+
     useEffect(() => {
         dispatch(fetchContests())
+    }, [dispatch, activeFilters])
+
+    useEffect(() => {
         dispatch(fetchPopularContests())
     }, [dispatch])
 

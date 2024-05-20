@@ -1,4 +1,8 @@
-import { selectFilters } from './model/selectors'
+import {
+    selectActiveFilters,
+    selectSelectedFilters,
+    selectSortDirection,
+} from './model/selectors'
 import { filterActions, filterReducer } from './model/slice'
 import {
     FilterData,
@@ -16,5 +20,7 @@ export {
     FilterController,
     FilterModal,
     filterReducer,
-    selectFilters,
+    selectActiveFilters,
+    selectSelectedFilters,
+    selectSortDirection,
 }
