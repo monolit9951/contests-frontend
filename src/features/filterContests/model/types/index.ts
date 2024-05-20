@@ -1,3 +1,5 @@
+export type Category = 'CATEGORY1' | 'CATEGORY2' | 'CATEGORY3'
+
 type StatusFilter =
     | ''
     | 'Active'
@@ -43,6 +45,7 @@ export interface FilterSchema {
     selected: FiltersObj
     active: FiltersObj
 
+    category: Category
     sortDirection: 'ASC' | 'DESC'
 
     loading: boolean

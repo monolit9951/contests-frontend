@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { FilterPayloadObj, FilterSchema } from '../types'
+import { Category, FilterPayloadObj, FilterSchema } from '../types'
 
 type FilterPayload = PayloadAction<FilterPayloadObj>
 
@@ -20,6 +20,7 @@ const initialState: FilterSchema = {
         creators: '',
     },
 
+    category: 'CATEGORY1',
     sortDirection: 'ASC',
 
     loading: false,
@@ -30,6 +31,16 @@ const slice = createSlice({
     name: 'filter',
     initialState,
     reducers: {
+        changeCategory: (state, action: PayloadAction<Category>) => {
+            state.category = action.payload
+        },
+        changeSortDirection: (state) => {
+            if (state.sortDirection === 'ASC') {
+                state.sortDirection = 'DESC'
+            } else {
+                state.sortDirection = 'ASC'
+            }
+        },
         addFilter: (state, action: FilterPayload) => {
             state.selected.filtersList.push(action.payload)
             state.selected = {
