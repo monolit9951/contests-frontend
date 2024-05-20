@@ -82,6 +82,8 @@ const ContestsSection: FC<Props> = (props) => {
         dispatch(filterActions.clearFilters())
     }
 
+    const onSeeAllClick = () => {}
+
     return (
         <section className={clsx('contest-gallery__section', className)}>
             <HStack className='contest-gallery__head'>
@@ -96,7 +98,10 @@ const ContestsSection: FC<Props> = (props) => {
                 {section === 'all' ? (
                     <FilterController />
                 ) : (
-                    <Button variant='secondary' size='s'>
+                    <Button
+                        variant='secondary'
+                        size='s'
+                        onClick={onSeeAllClick}>
                         See all
                     </Button>
                 )}

@@ -1,7 +1,7 @@
-import {FC, forwardRef, ReactNode, SVGProps} from 'react'
+import { FC, forwardRef, ReactNode, SVGProps } from 'react'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
-import {Icon} from "shared/ui/icon";
+import { Icon } from 'shared/ui/icon'
 
 import './button.scss'
 
@@ -23,8 +23,8 @@ interface IButton {
     size?: SizeTypes
     className?: string
     disabled?: boolean
-    onClick?: () => void
-    icon: FC<SVGProps<SVGSVGElement>> | string
+    onClick: () => void
+    icon?: FC<SVGProps<SVGSVGElement>> | string
 }
 
 const Button = forwardRef<HTMLButtonElement, IButton>((props, ref) => {
