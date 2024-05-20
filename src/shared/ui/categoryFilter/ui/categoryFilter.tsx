@@ -10,9 +10,24 @@ export const CategoryFilter = () => {
     )
     return (
         <div className='categoryFilter_container'>
-            <CategoryFilterOption _currFilter={_currFilter} setCurrFilter={setCurrFilter} FilterOption={FilterOptions.All} text='All'/>
-            <CategoryFilterOption _currFilter={_currFilter} setCurrFilter={setCurrFilter} FilterOption={FilterOptions.For_fun} text='For fun'/>
-            <CategoryFilterOption _currFilter={_currFilter} setCurrFilter={setCurrFilter} FilterOption={FilterOptions.For_work} text='For work'/>
+            <CategoryFilterOption
+                _currFilter={_currFilter}
+                setCurrFilter={setCurrFilter}
+                FilterOption={FilterOptions.All}
+                text='All'
+            />
+            <CategoryFilterOption
+                _currFilter={_currFilter}
+                setCurrFilter={setCurrFilter}
+                FilterOption={FilterOptions.For_fun}
+                text='For fun'
+            />
+            <CategoryFilterOption
+                _currFilter={_currFilter}
+                setCurrFilter={setCurrFilter}
+                FilterOption={FilterOptions.For_work}
+                text='For work'
+            />
         </div>
     )
 }

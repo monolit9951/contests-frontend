@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
     selectActiveFilters,
+    selectCategory,
     selectSortDirection,
 } from 'features/filterContests'
 import { getQueryString } from 'features/filterContests/model/helpers'
@@ -14,12 +15,13 @@ export const fetchContests = createAsyncThunk(
         const { rejectWithValue, getState } = thunkApi
 
         const pageSize = selectPageSize(getState())
+        const category = selectCategory(getState())
         const direction = selectSortDirection(getState())
         const activeFilters = selectActiveFilters(getState())
 
         try {
             const response = await instance.get(
-                `/contests?page=0&pageSize=${pageSize}&sortDirection=${direction}&${getQueryString(
+                `/contests?page=0&pageSize=${pageSize}&sortDirection=${direction}&val=category=${category}&${getQueryString(
                     activeFilters
                 )}`
             )

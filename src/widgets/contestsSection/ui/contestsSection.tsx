@@ -18,6 +18,7 @@ import { mockContestData } from 'shared/consts'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
+import { SortButton } from 'shared/ui/sortButton'
 import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
@@ -96,7 +97,10 @@ const ContestsSection: FC<Props> = (props) => {
                     </Text>
                 </HStack>
                 {section === 'all' ? (
-                    <FilterController />
+                    <HStack className='align__center'>
+                        <SortButton />
+                        <FilterController />
+                    </HStack>
                 ) : (
                     <Button
                         variant='secondary'

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import crown from 'shared/assets/icons/CrownSimple.svg?react'
+import crown from 'shared/assets/icons/crownSimple.svg?react'
 import { Icon } from 'shared/ui/icon'
 import { Flex } from 'shared/ui/stack'
 
