@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { filterActions, selectSortDirection } from 'features/filterContests'
-import caretDown from 'shared/assets/icons/CaretDown.svg?react'
-import caretUp from 'shared/assets/icons/CaretUp.svg?react'
+import caretDown from 'shared/assets/icons/caretDown.svg?react'
+import caretUp from 'shared/assets/icons/caretUp.svg?react'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Icon } from 'shared/ui/icon'
 
