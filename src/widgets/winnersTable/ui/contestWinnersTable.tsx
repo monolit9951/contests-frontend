@@ -1,19 +1,15 @@
-import React, {useState} from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies,import/no-duplicates
-import {ColDef} from 'ag-grid-community';
-// eslint-disable-next-line import/no-duplicates,import/no-extraneous-dependencies
-// eslint-disable-next-line import/no-extraneous-dependencies
+import React, { useState } from 'react';
+import { ColDef } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import clsx from "clsx";
-import {useTheme} from "entities/theme";
-import {Button} from "shared/ui/button";
-import {HStack, VStack} from "shared/ui/stack";
+import { useTheme } from "entities/theme";
+import { Button } from "shared/ui/button";
+import { Pagination } from "widgets/winnersTable/ui/customPagination/customPagination";
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'ag-grid-community/styles/ag-grid.css';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import './contestWinnersTable.scss';
+
 
 interface ContestWinner {
     place: number;
@@ -39,9 +35,8 @@ export const WorkLinkRenderer: React.FC<{ value: string }> = ({ value }) => {
 
 export const ContestWinnersTable: React.FC = () => {
     const {theme} = useTheme();
-    const [currentPage, setCurrentPage] = useState<number>(1);
     const [rowData] = useState<ContestWinner[]>([
-        { place: 1, author: 'John Doe', prize: '$500', likes: 120, comments: 30, reposts: 15, workLink: 'http://example.com/work1' },
+        { place: 1, author: 'John Doe', prize: '$500', likes: 120, comments: 30, reposts: 15, workLink: 'http://example.com/work1', },
         { place: 2, author: 'Jane Smith', prize: '$300', likes: 100, comments: 20, reposts: 10, workLink: 'http://example.com/work2' },
         { place: 3, author: 'Sam Johnson', prize: '$200', likes: 80, comments: 15, reposts: 5, workLink: 'https://example.com/work3' },
         { place: 4, author: 'Sam Johnson', prize: '$200', likes: 80, comments: 15, reposts: 5, workLink: 'https://example.com/work3' },
@@ -140,52 +135,41 @@ export const ContestWinnersTable: React.FC = () => {
     ])
     const [columnDefs] = useState<ColDef[]>([
         { headerName: 'Place', field: 'place', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell', },
-        { headerName: 'Author', field: 'author', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell' },
-        { headerName: 'Prize', field: 'prize', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell' },
-        { headerName: 'Likes', field: 'likes', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell' },
-        { headerName: 'Comments', field: 'comments', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell' },
-        { headerName: 'Reposts', field: 'reposts', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell'},
+        { headerName: 'Author', field: 'author', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell',  },
+        { headerName: 'Prize', field: 'prize', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell', },
+        { headerName: 'Likes', field: 'likes', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell',  },
+        { headerName: 'Comments', field: 'comments', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell',},
+        { headerName: 'Reposts', field: 'reposts', sortable: true, filter: false, headerClass: 'custom-header', cellClass: 'custom-cell', },
         {
             headerName: '',
             field: 'workLink',
             cellRenderer: WorkLinkRenderer,
             filter: false,
-            sortable: false,
+            sortable: true,
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
         }
     ]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10;
 
-    const rowsPerPage = 10;
-    const totalRows = rowData.length;
-    const totalPages = Math.ceil(totalRows / rowsPerPage);
-
-    const startIndex = (currentPage - 1) * rowsPerPage;
-    const visibleRows = rowData.slice(startIndex, startIndex + rowsPerPage);
-
-    const handlePageChange = (pageNumber: number) => {
-        setCurrentPage(pageNumber);
+    const onPageChange = (page: number) => {
+        setCurrentPage(page);
     };
 
-    const generatePageNumbers = () => {
-        const pages: number[] = [];
-        for (let i = 1; i <= totalPages; i+=1) {
-            pages.push(i);
-        }
-        return pages;
-    };
+    const startIndex = (currentPage - 1) * pageSize;
+    const visibleRows = rowData.slice(startIndex, startIndex + pageSize);
 
     const defaultColDef = {
         flex: 1,
         minWidth: 100,
         resizable: false,
-        sortOrder: ['asc', 'desc'],
     };
 
     const getRowStyle = () => {
         return {
             border: `0.5px solid #393b3b`,
-            background: theme === 'dark' ? '#222' : '#f0f0f0',
+            background: theme === 'dark' ? '#1b2321' : '#f0f0f0',
         };
     };
 
@@ -197,6 +181,7 @@ export const ContestWinnersTable: React.FC = () => {
             color: theme === 'dark' ? '#ffffff' : '#000000',
         };
     };
+
     const getRowHeight = () => {
         return 50;
     };
@@ -204,7 +189,6 @@ export const ContestWinnersTable: React.FC = () => {
     return (
         <div className={clsx(theme,"ag-theme-alpine")} style={{ height: 600, width: '1415px'}}>
             <AgGridReact
-                key={visibleRows.length}
                 rowData={visibleRows}
                 columnDefs={columnDefs.map(col => ({
                     ...col,
@@ -216,25 +200,12 @@ export const ContestWinnersTable: React.FC = () => {
                 domLayout="autoHeight"
                 sortingOrder={['asc', 'desc']}
             />
-            <VStack>
-                <HStack className="pagination-controls flex">
-                    <Button variant="secondary" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-                        &larr;
-                    </Button>
-                    {generatePageNumbers().map(page => (
-                        <Button key={page} variant="secondary" onClick={() => handlePageChange(page)} disabled={currentPage === page}>
-                            {page}
-                        </Button>
-                    ))}
-                    <Button
-                        variant="secondary"
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        disabled={startIndex + rowsPerPage >= rowData.length || currentPage === totalPages}
-                    >
-                        &rarr;
-                    </Button>
-                </HStack>
-            </VStack>
+            <Pagination
+                onPageChange={onPageChange}
+                totalCount={rowData.length}
+                currentPage={currentPage}
+                pageSize={pageSize}
+            />
         </div>
     );
 };

@@ -12,9 +12,10 @@
   color: var(--white);
   border: none;
 }
-.ag-header {
+.ag-header, .ag-pivot-off.ag-header-allow-overflow {
   border: none;
   background: unset;
+  min-height: auto!important;
 }
 .ag-header-cell{
   border: none;
@@ -35,6 +36,10 @@
   &.dark{
     color: var(--white);
   }
+}
+
+.ag-body.ag-layout-auto-height{
+  height: 100%;
 }
 
 .custom-cell {
