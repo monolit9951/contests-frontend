@@ -1,0 +1,22 @@
+.top-prize__wrapper {
+    align-items: center;
+    gap: 14px;
+    padding: 6px 16px;
+    padding-left: 0;
+    border-radius: 26px;
+    background-color: #02140e66;
+
+    > svg {
+        scale: 2.2;
+    }
+
+    & > .top-prize__1st-amount {
+        color: #feee52;
+    }
+    & > .top-prize__2nd-amount {
+        color: var(--white-muted);
+    }
+    & > .top-prize__3rd-amount {
+        color: #f89141;
+    }
+}
