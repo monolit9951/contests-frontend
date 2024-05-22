@@ -1,11 +1,15 @@
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import clsx from 'clsx'
-import { filterActions, FilterObject } from 'features/filterContests'
+import {
+    filterActions,
+    FilterObject,
+    selectActiveFilters,
+} from 'features/filterContests'
 import debounce from 'lodash.debounce'
 import Slider from 'rc-slider'
-import caretDown from 'shared/assets/icons/caretDown.svg?react'
-import caretUp from 'shared/assets/icons/CaretUp.svg?react'
+import caretRight from 'shared/assets/icons/caretRight.svg?react'
+import { useAppSelector } from 'shared/lib/store'
 import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
@@ -23,12 +27,20 @@ interface FilterBlockProps {
 export default function FilterBlock(props: FilterBlockProps) {
     const { filter, className } = props
 
+    const active = useAppSelector(selectActiveFilters)
+
     const [blockShown, setBlockShown] = useState(false)
-    const [lowerBound, setLowerBound] = useState(0)
-    const [upperBound, setUpperBound] = useState(100000)
+    const [lowerBound, setLowerBound] = useState(active.prizeRange[0])
+    const [upperBound, setUpperBound] = useState(active.prizeRange[1])
     const [sliderValue, setSliderValue] = useState([lowerBound, upperBound])
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        setLowerBound(active.prizeRange[0])
+        setUpperBound(active.prizeRange[1])
+        setSliderValue([active.prizeRange[0], active.prizeRange[1]])
+    }, [active.prizeRange])
 
     const onLowerBoundChange = (e: ChangeEvent<HTMLInputElement>) => {
         let inputValue = e.target.value
@@ -58,7 +70,7 @@ export default function FilterBlock(props: FilterBlockProps) {
         dispatch(filterActions.updatePrizeRange(inputValue))
     }
 
-    const updateRange = useCallback(debounce(updatePrizeRange, 500), [])
+    const updateRange = useCallback(debounce(updatePrizeRange, 400), [])
 
     const onSliderChange = (value: number | number[]) => {
         const inputValue = value as number[]
@@ -83,9 +95,14 @@ export default function FilterBlock(props: FilterBlockProps) {
                             {filter.name}
                         </Text>
                         <Icon
-                            Svg={blockShown ? caretUp : caretDown}
+                            Svg={caretRight}
                             clickable
                             onClick={onIconClick}
+                            className={clsx(
+                                blockShown
+                                    ? 'filter-block__icon opened'
+                                    : 'filter-block__icon closed'
+                            )}
                         />
                     </HStack>
                     <ul
@@ -98,6 +115,7 @@ export default function FilterBlock(props: FilterBlockProps) {
                                 key={name}
                                 name={name}
                                 number={number}
+                                filter={filter}
                             />
                         ))}
                     </ul>
@@ -112,9 +130,14 @@ export default function FilterBlock(props: FilterBlockProps) {
                         Money prize amount
                     </Text>
                     <Icon
-                        Svg={blockShown ? caretUp : caretDown}
+                        Svg={caretRight}
                         clickable
                         onClick={onIconClick}
+                        className={clsx(
+                            blockShown
+                                ? 'filter-block__icon opened'
+                                : 'filter-block__icon closed'
+                        )}
                     />
                 </HStack>
                 <VStack

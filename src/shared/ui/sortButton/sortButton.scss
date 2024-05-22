@@ -1,0 +1,12 @@
+.button__sort {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    background-color: transparent;
+    border: none;
+
+    & > svg.active {
+        scale: 1.5;
+    }
+}

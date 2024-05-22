@@ -1,6 +1,11 @@
-export const selectFilters = (state: RootState) => state.filter.filters
+export const selectSelectedFilters = (state: RootState) => state.filter.selected
 
-export const selectPrizeRange = (state: RootState) => state.filter.prizeRange
+export const selectActiveFilters = (state: RootState) => state.filter.active
+
+export const selectCategory = (state: RootState) => state.filter.category
+
+export const selectSortDirection = (state: RootState) =>
+    state.filter.sortDirection
 
 export const selectLoading = (state: RootState) => state.filter.loading
 

@@ -1,6 +1,12 @@
 import { ContestsPage } from 'pages/contestsPage/ui/contestsPage'
 
 import {
+    selectAll,
+    selectNextLoading,
+    selectPage,
+    selectPopular,
+} from './model/selectors'
+import {
     fetchContests,
     fetchNextContestsPage,
     fetchPopularContests,
@@ -14,4 +20,8 @@ export {
     fetchContests,
     fetchNextContestsPage,
     fetchPopularContests,
+    selectAll,
+    selectNextLoading,
+    selectPage,
+    selectPopular,
 }

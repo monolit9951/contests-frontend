@@ -1,7 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import {
+    selectActiveFilters,
+    selectCategory,
+    selectSortDirection,
+} from 'features/filterContests'
+import { getQueryString } from 'features/filterContests/model/helpers'
+import instance from 'shared/api/api'
 
-import { selectPage, selectSortDirection } from '../selectors'
+import { selectPage } from '../selectors'
 
 export const fetchNextContestsPage = createAsyncThunk(
     'contests/fetchNextContestsPage',
@@ -9,13 +15,15 @@ export const fetchNextContestsPage = createAsyncThunk(
         const { rejectWithValue, getState } = thunkApi
 
         const page = selectPage(getState())
+        const category = selectCategory(getState())
         const direction = selectSortDirection(getState())
-
-        const nextPage = page + 2
+        const activeFilters = selectActiveFilters(getState())
 
         try {
-            const response = await axios.get(
-                `http://localhost:8080/api/contests?page=${nextPage}&pageSize=8&sortDirection=${direction}`
+            const response = await instance.get(
+                `/contests?page=${page}&pageSize=8&sortDirection=${direction}&val=category=${category}&${getQueryString(
+                    activeFilters
+                )}`
             )
 
             if (!response.data) {

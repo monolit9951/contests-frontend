@@ -1,3 +1,3 @@
-import { Organizer, User } from './model/types'
+import { Organizer, User, VerificationStatus } from './model/types'
 
-export type { Organizer, User }
+export type { Organizer, User, VerificationStatus }

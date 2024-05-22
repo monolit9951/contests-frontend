@@ -1,6 +1,7 @@
-import { forwardRef, ReactNode } from 'react'
+import { FC, forwardRef, ReactNode, SVGProps } from 'react'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
+import { Icon } from 'shared/ui/icon'
 
 import './button.scss'
 
@@ -22,7 +23,8 @@ interface IButton {
     size?: SizeTypes
     className?: string
     disabled?: boolean
-    onClick?: () => void
+    onClick: () => void
+    icon?: FC<SVGProps<SVGSVGElement>> | string
 }
 
 const Button = forwardRef<HTMLButtonElement, IButton>((props, ref) => {
@@ -34,6 +36,7 @@ const Button = forwardRef<HTMLButtonElement, IButton>((props, ref) => {
         className,
         disabled = false,
         onClick,
+        icon,
     } = props
 
     const { theme } = useTheme()
@@ -52,6 +55,7 @@ const Button = forwardRef<HTMLButtonElement, IButton>((props, ref) => {
                 size && `button__${size}`,
                 className
             )}>
+            {icon && <Icon Svg={icon} className='button__icon' />}
             {children}
         </button>
     )

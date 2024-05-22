@@ -37,6 +37,8 @@ export const ContestCard: React.FC<Props> = (props) => {
         return 'var(--orange)'
     }
 
+    const onDetailsClick = () => {}
+
     return (
         <div className={clsx('contest-card-wrapper', theme, className)}>
             <Flex className='justify__between align__center'>
@@ -111,7 +113,9 @@ export const ContestCard: React.FC<Props> = (props) => {
                         {dateEnd[0]}
                     </Text>
                 </VStack>
-                <Button variant='secondary'>See details</Button>
+                <Button variant='secondary' onClick={onDetailsClick}>
+                    See details
+                </Button>
             </Flex>
         </div>
     )
