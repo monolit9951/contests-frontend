@@ -1,13 +1,12 @@
-import { Image } from "shared/ui/image"
+import userImg from 'shared/assets/img/userIMG.jpg'
+import { Image } from 'shared/ui/image'
 
-import userImg from "../../../assets/img/userIMG.jpg"
-
-import "./userIcon.scss"
+import './userIcon.scss'
 
 export const UserIcon = () => {
-    return(
-        <div className="userImg_container">
-            <Image src={userImg} alt="userIMG" />
+    return (
+        <div className='userImg_container'>
+            <Image src={userImg} alt='userIMG' round />
         </div>
     )
 }

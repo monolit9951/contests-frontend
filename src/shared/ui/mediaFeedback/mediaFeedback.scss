@@ -1,0 +1,11 @@
+.feedback__wrapper {
+    justify-content: space-between;
+
+    > div {
+        gap: 8px;
+    }
+
+    .feedback__button {
+        padding: 8px 16px;
+    }
+}
