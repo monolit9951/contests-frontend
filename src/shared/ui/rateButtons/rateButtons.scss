@@ -1,0 +1,54 @@
+.rate-wrapper {
+    padding: 8px 16px;
+    align-items: center;
+    gap: 8px;
+
+    &__border {
+        border: 1px solid;
+        border-radius: 26px;
+    }
+
+    > button {
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+
+        cursor: pointer;
+
+        &:hover {
+            border-radius: 20px;
+        }
+    }
+
+    > span {
+        font-weight: 600;
+        line-height: 24px;
+    }
+}
+
+.dark {
+    .rate-wrapper {
+        &__border {
+            border: 1px solid var(--grey);
+        }
+        > button {
+            &:hover {
+                background-color: var(--grey);
+            }
+        }
+    }
+}
+.light {
+    .rate-wrapper {
+        &__border {
+            border: 1px solid var(--border-light);
+        }
+        > button {
+            &:hover {
+                background-color: var(--bg-light-green);
+            }
+        }
+    }
+}
