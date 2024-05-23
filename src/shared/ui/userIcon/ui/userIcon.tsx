@@ -1,12 +1,34 @@
+import clsx from 'clsx'
 import userImg from 'shared/assets/img/userIMG.jpg'
 import { Image } from 'shared/ui/image'
+import { HStack } from 'shared/ui/stack'
+import { Text } from 'shared/ui/text'
 
 import './userIcon.scss'
 
-export const UserIcon = () => {
+interface Props {
+    size?: number
+    userName?: string
+    className?: string
+}
+
+export const UserIcon = (props: Props) => {
+    const { size = 44, userName, className } = props
+
     return (
-        <div className='userImg_container'>
-            <Image src={userImg} alt='userIMG' round />
-        </div>
+        <HStack className={clsx('userImg_container', className)}>
+            <Image
+                src={userImg}
+                alt='userIMG'
+                width={size}
+                height={size}
+                round
+            />
+            {userName && (
+                <Text Tag='span' bold size='sm'>
+                    {userName}
+                </Text>
+            )}
+        </HStack>
     )
 }
