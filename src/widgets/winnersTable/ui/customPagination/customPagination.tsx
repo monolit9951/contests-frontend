@@ -66,9 +66,8 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
             </Button>
             {paginationRange.map((pageNumber, index) => {
                 if (pageNumber === DOTS) {
-                    return <Button variant='primary' key={index} className="pagination-item dots">&#8230;</Button>;
+                    return <HStack key={index} className="pagination-item dots">&#8230;</HStack>;
                 }
-
                 return (
                     <Button variant='primary'
                         key={index}
