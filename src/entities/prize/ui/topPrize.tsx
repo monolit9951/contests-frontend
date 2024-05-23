@@ -9,7 +9,7 @@ import { Text } from 'shared/ui/text'
 
 import './topPrize.scss'
 
-type PrizePlaces = '1st' | '2nd' | '3rd'
+export type PrizePlaces = '1st' | '2nd' | '3rd'
 
 interface Props {
     place: PrizePlaces
