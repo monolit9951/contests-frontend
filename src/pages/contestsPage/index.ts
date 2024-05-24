@@ -1,5 +1,3 @@
-import { ContestsPage } from 'pages/contestsPage/ui/contestsPage'
-
 import {
     selectAll,
     selectNextLoading,
@@ -12,6 +10,7 @@ import {
     fetchPopularContests,
 } from './model/services'
 import { ContestsPageSchema } from './model/types'
+import { ContestsPage } from './ui/contestsPage'
 
 export type { ContestsPageSchema }
 

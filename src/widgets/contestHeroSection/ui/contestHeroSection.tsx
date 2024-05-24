@@ -1,3 +1,4 @@
+import { Organizer } from 'entities/user'
 import Verified from 'shared/assets/icons/SealCheck.svg?react'
 import Star from 'shared/assets/icons/Star.svg?react'
 import creatorIMG from 'shared/assets/img/userIMG3.jpg'
@@ -7,7 +8,12 @@ import { Text } from 'shared/ui/text'
 
 import './contestHeroSection.scss'
 
-const ContestHeroSection = () => {
+interface Props {
+    bg: string | undefined
+    owner: Organizer | undefined
+}
+
+const ContestHeroSection = ({ bg, owner }: Props) => {
     const contestHeroIMG =
         'http://localhost:3000/src/shared/assets/img/contest@2x.jpg'
 
@@ -16,31 +22,45 @@ const ContestHeroSection = () => {
             <div
                 className='works-hero__image'
                 style={{
-                    backgroundImage: `url(${contestHeroIMG})`,
+                    backgroundImage: `url(${contestHeroIMG ?? bg})`,
                 }}
             />
 
             <HStack className='works-hero__creator'>
                 <Image
-                    src={creatorIMG}
+                    src={creatorIMG ?? owner?.profileImage}
                     alt='Creator'
                     width={140}
                     height={140}
                 />
                 <VStack>
                     <HStack className='align__center'>
-                        <Text Tag='span' bold size='l'>
-                            {/* {rest.contestOwner?.name} */}
-                            Mitchell O&apos;Connell
-                        </Text>
-                        <Verified />
+                        {owner?.name ? (
+                            <>
+                                <Text Tag='span' bold size='l'>
+                                    {owner?.name}
+                                </Text>
+                                <Verified />
+                            </>
+                        ) : (
+                            <Text Tag='span' bold size='l'>
+                                No name
+                            </Text>
+                        )}
                     </HStack>
                     <HStack className='align__center'>
-                        <Text Tag='span' bold size='sm'>
-                            {/* {rest.contestOwner.organizerRating.toFixed(1)} */}
-                            4.5
-                        </Text>
-                        <Star />
+                        {owner?.organizerRating ? (
+                            <>
+                                <Text Tag='span' bold size='sm'>
+                                    {owner?.organizerRating.toFixed(1)}
+                                </Text>
+                                <Star />
+                            </>
+                        ) : (
+                            <Text Tag='span' bold size='sm'>
+                                No rating
+                            </Text>
+                        )}
                     </HStack>
                 </VStack>
             </HStack>

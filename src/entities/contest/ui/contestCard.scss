@@ -18,6 +18,13 @@
             border-radius: 50%;
         }
     }
+    .user-des {
+        gap: 4px;
+
+        .flex.align__center > .flex.align__center {
+            gap: 4px;
+        }
+    }
     .contest-card-body {
         .image-box {
             position: relative;
