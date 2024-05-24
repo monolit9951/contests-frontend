@@ -21,7 +21,7 @@ const WorksSection: React.FC = () => {
     }
 
     if (error) {
-        return <p>Error: {error}1</p>;
+        return <p>Error: {error}11</p>;
     }
 
     return (
