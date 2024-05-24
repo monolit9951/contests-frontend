@@ -1,0 +1,56 @@
+.work {
+    padding: 16px;
+    border-radius: 24px;
+    width: 458px;
+    gap: 16px;
+
+    background-color: var(--green-dark);
+
+    &__text {
+        color: var(--white);
+    }
+
+    .prize-winner {
+        align-items: center;
+        gap: 8px;
+    }
+}
+
+.media {
+    position: relative;
+
+    gap: 8px;
+    width: 458px;
+
+    &__container {
+        position: relative;
+        height: 612px;
+    }
+
+    &__frame {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 612px;
+        border: none;
+        border-radius: 24px;
+        background: linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0) 90%,
+                rgba(0, 0, 0, 0.55) 100%
+            ),
+            linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0) 95%,
+                rgba(0, 0, 0, 0.55) 100%
+            );
+    }
+}
+
+.dark {
+    .work {
+        &__text {
+            color: var(--white);
+        }
+    }
+}

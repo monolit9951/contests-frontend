@@ -12,6 +12,7 @@ interface IIcon extends SvgProps {
     clickable?: boolean
     onClick?: () => void
     className?: string
+    btnClassName?: string
 }
 
 export default function Icon(props: IIcon) {
@@ -20,8 +21,9 @@ export default function Icon(props: IIcon) {
         width = 24,
         height = 24,
         clickable,
-        className,
         onClick,
+        className,
+        btnClassName,
         ...rest
     } = props
 
@@ -38,7 +40,7 @@ export default function Icon(props: IIcon) {
         return (
             <button
                 type='button'
-                className={clsx('icon-btn', className)}
+                className={clsx('icon-btn', btnClassName)}
                 onClick={onClick}
                 style={{ height, width }}>
                 {icon}
