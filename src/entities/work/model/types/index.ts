@@ -1,18 +1,10 @@
+import {User} from "entities/user";
+
 export interface Media {
     id: string;
     ownerId: string;
     mediaLink: string;
 }
-
-export interface User {
-    id: string;
-    name: string;
-    participantRating: number;
-    organizerRating: number | null;
-    verificationStatus: string;
-    profileImage: string;
-}
-
 export interface Work {
     id: string;
     ownerId: string;
@@ -22,4 +14,33 @@ export interface Work {
     commentAmount: number;
     user: User;
     typeWork: string;
+}
+
+export interface WorksResponse {
+    content: Work[];
+    pageable: {
+        pageNumber: number;
+        pageSize: number;
+        sort: {
+            sorted: boolean;
+            empty: boolean;
+            unsorted: boolean;
+        };
+        offset: number;
+        paged: boolean;
+        unpaged: boolean;
+    };
+    last: boolean;
+    totalElements: number;
+    totalPages: number;
+    size: number;
+    number: number;
+    sort: {
+        sorted: boolean;
+        empty: boolean;
+        unsorted: boolean;
+    };
+    first: boolean;
+    numberOfElements: number;
+    empty: boolean;
 }

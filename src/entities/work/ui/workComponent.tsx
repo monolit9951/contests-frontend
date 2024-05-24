@@ -5,28 +5,25 @@ interface WorkProps {
     work: Work;
 }
 
-export const WorkComponent: React.FC<WorkProps> = ({ work }) => {
+const WorkComponent: React.FC<WorkProps> = ({ work }) => {
     return (
         <div className="work">
             <h2>{work.description}</h2>
-            <div className="owner">
-                <img src={work.user.profileImage} alt={work.user.name} />
-                <h3>{work.user.name}</h3>
-                <p>Rating: {work.user.participantRating}</p>
-                <p>Status: {work.user.verificationStatus}</p>
-            </div>
+            <p>{work.typeWork}</p>
+            <p>Likes: {work.likeAmount}</p>
+            <p>Comments: {work.commentAmount}</p>
             <div className="media">
-                {work.media?.map((mediaItem: any) => (
-                    <img key={mediaItem.id} src={mediaItem.mediaLink} alt={`Media ${mediaItem.id}`} />
+                {work.media?.map((media) => (
+                    <video key={media.id} src={media.mediaLink} autoPlay/>
                 ))}
             </div>
-            <div className="stats">
-                <p>Likes: {work.likeAmount}</p>
-                <p>Comments: {work.commentAmount}</p>
-            </div>
-            <div className="type">
-                <p>Type: {work.typeWork}</p>
+            <div className="user">
+                <img src={work.user.profileImage} alt="user profile" />
+                <p>{work.user.name}</p>
+                <p>Rating: {work.user.participantRating}</p>
             </div>
         </div>
     );
 };
+
+export default WorkComponent;
