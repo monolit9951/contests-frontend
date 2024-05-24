@@ -1,0 +1,39 @@
+.works-hero {
+    width: 100%;
+    padding: 24px 65px 0;
+
+    &__image {
+        width: 100%;
+        height: 390px;
+        border-radius: 8px;
+
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    &__creator {
+        position: relative;
+
+        padding: 16px 132px 0;
+
+        > img {
+            position: absolute;
+            top: -70px;
+            left: 132px;
+
+            border: 4px solid var(--dark);
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        & > div {
+            padding-left: 156px;
+            gap: 4px;
+
+            & > div {
+                gap: 4px;
+            }
+        }
+    }
+}
