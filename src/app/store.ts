@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { filterReducer } from 'features/filterContests'
 import { contestsPageReducer } from 'pages/contestsPage/model/slice'
-import workReducer from "pages/feedPage/model/slice"
+import workReducer from 'pages/feedPage/model/slice'
 import {
     FLUSH,
     PAUSE,

@@ -14,7 +14,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work }) => {
             <p>Comments: {work.commentAmount}</p>
             <div className="media">
                 {work.media?.map((media) => (
-                    <video key={media.id} src={media.mediaLink} autoPlay/>
+                    <img key={media.id} src={media.mediaLink} alt='' />
                 ))}
             </div>
             <div className="user">
