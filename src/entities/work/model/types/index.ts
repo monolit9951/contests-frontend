@@ -7,7 +7,7 @@ export interface Work {
     id: string
     ownerId: string
     description: string
-    media: Media
+    media: Media | null
     likeAmount: number
     commentAmount: number
     user: User
