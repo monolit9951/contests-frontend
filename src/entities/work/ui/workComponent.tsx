@@ -1,13 +1,15 @@
 import React from 'react';
 import {Work} from "entities/work/model/types";
+import {Button} from "shared/ui/button";
 
 interface WorkProps {
     work: Work;
+    openModal: () => void;
 }
 
-const WorkComponent: React.FC<WorkProps> = ({ work }) => {
+const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
     return (
-        <div className="work">
+        <Button variant='div' className="work" onClick={openModal}>
             <h2>{work.description}</h2>
             <p>{work.typeWork}</p>
             <p>Likes: {work.likeAmount}</p>
@@ -22,7 +24,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work }) => {
                 <p>{work.user.name}</p>
                 <p>Rating: {work.user.participantRating}</p>
             </div>
-        </div>
+        </Button>
     );
 };
 

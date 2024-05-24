@@ -1,25 +1,28 @@
-import { ReactNode } from 'react'
-import ReactModal from 'react-modal'
-import clsx from 'clsx'
+import {FC, ReactNode} from 'react';
+import clsx from 'clsx';
+import {useTheme} from "entities/theme";
+import {Button} from "shared/ui/button";
+import {VStack} from "shared/ui/stack";
 
-import './modalWindow.scss'
+import './modalWindow.scss';
 
-interface IModalWindow {
-    isOpen: boolean
-    children: ReactNode
-    className?: string
-    overlayClassName?: string
+interface UploadModalProps {
+    isOpen: boolean,
+    onClose: () => void,
+    children: ReactNode,
 }
 
-export default function ModalWindow(props: IModalWindow) {
-    const { isOpen, children, className, overlayClassName } = props
+const UploadModal: FC<UploadModalProps> = ({isOpen, onClose, children}) => {
+    const {theme} = useTheme()
+
+    const modalClass = clsx('modal', {'modal-open': isOpen,});
 
     return (
-        <ReactModal
-            isOpen={isOpen}
-            className={clsx('modal', className)}
-            overlayClassName={clsx('overlay', overlayClassName)}>
-            {children}
-        </ReactModal>
-    )
-}
+        <VStack className={modalClass}>
+            <Button variant='div' className="modal-overlay" onClick={onClose} />
+            <VStack className={clsx("modal-content", theme)}>{children}</VStack>
+        </VStack>
+    );
+};
+
+export default UploadModal;
