@@ -8,7 +8,7 @@ import "./feedPage.scss"
 export const FeedPage = () => {
     return (
         <VStack className="feed-page-wrapper">
-            <Text Tag='h2'>FeedPage</Text>
+            <Text Tag='h3'>FeedPage</Text>
             <WorksSection />
         </VStack>
     )
