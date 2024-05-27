@@ -9,8 +9,8 @@ import { Text } from 'shared/ui/text'
 import './contestHeroSection.scss'
 
 interface Props {
-    bg: string | undefined
-    owner: Organizer | undefined
+    bg: string
+    owner: Organizer
 }
 
 const ContestHeroSection = ({ bg, owner }: Props) => {
@@ -18,20 +18,21 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
         'http://localhost:3000/src/shared/assets/img/contest@2x.jpg'
 
     return (
-        <section className='works-hero'>
+        <section className='contest-hero'>
             <div
-                className='works-hero__image'
+                className='contest-hero__image'
                 style={{
                     backgroundImage: `url(${contestHeroIMG ?? bg})`,
                 }}
             />
 
-            <HStack className='works-hero__creator'>
+            <HStack className='contest-hero__creator'>
                 <Image
                     src={creatorIMG ?? owner?.profileImage}
                     alt='Creator'
                     width={140}
                     height={140}
+                    round
                 />
                 <VStack>
                     <HStack className='align__center'>

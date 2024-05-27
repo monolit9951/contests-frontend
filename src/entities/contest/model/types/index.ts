@@ -20,7 +20,7 @@ export interface Contest {
     dateEnd: number[]
     description: string
     exampleMedia?: string[]
-    prizeStructure: PrizeStructure
+    prizeStructure: PrizeStructure[]
     contestOwner: Organizer
 }
 
