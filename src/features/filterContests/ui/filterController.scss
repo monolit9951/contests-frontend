@@ -49,10 +49,10 @@
                 transition: all ease 0.25s;
 
                 &.opened {
-                    transform: rotate(45deg);
+                    transform: rotate(90deg);
                 }
                 &.closed {
-                    transform: rotate(-45deg);
+                    transform: rotate(-90deg);
                 }
             }
 
