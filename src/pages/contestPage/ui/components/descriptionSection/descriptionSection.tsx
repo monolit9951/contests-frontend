@@ -3,9 +3,9 @@ import { Contest } from 'entities/contest'
 import calendar from 'shared/assets/icons/calendar.svg?react'
 import moneyIcon from 'shared/assets/icons/currencyCircleDollar.svg?react'
 import itemIcon from 'shared/assets/icons/trophyF.svg?react'
-import first from 'shared/assets/icons/win1.svg?react'
-import second from 'shared/assets/icons/win2.svg?react'
-import third from 'shared/assets/icons/win3.svg?react'
+import first from 'shared/assets/icons/win1.svg'
+import second from 'shared/assets/icons/win2.svg'
+import third from 'shared/assets/icons/win3.svg'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { Image } from 'shared/ui/image'
@@ -45,7 +45,7 @@ const DescriptionSection = ({ data }: Props) => {
                 return third
         }
     }
-    console.log(data.prizeStructure)
+
     const onParticipateClick = () => {}
 
     return (
@@ -144,12 +144,17 @@ const DescriptionSection = ({ data }: Props) => {
                                             </Text>
                                             <HStack className='justify__between'>
                                                 <HStack className='align__center'>
-                                                    <Icon
+                                                    <Image
+                                                        src={prizeIcon(place)}
+                                                        alt='place icon'
+                                                    />
+
+                                                    {/* <Icon
                                                         Svg={prizeIcon(place)}
                                                         width={44}
                                                         height={44}
                                                         unique
-                                                    />
+                                                    /> */}
                                                     <Text
                                                         Tag='span'
                                                         size='xl'

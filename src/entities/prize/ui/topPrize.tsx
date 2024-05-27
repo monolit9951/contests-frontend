@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import clsx from 'clsx'
-import first from 'shared/assets/icons/win1.svg?react'
-import second from 'shared/assets/icons/win2.svg?react'
-import third from 'shared/assets/icons/win3.svg?react'
-import { Icon } from 'shared/ui/icon'
+import first from 'shared/assets/icons/win1.svg'
+import second from 'shared/assets/icons/win2.svg'
+import third from 'shared/assets/icons/win3.svg'
+import { Image } from 'shared/ui/image'
 import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
@@ -33,7 +33,12 @@ const TopPrize: FC<Props> = (props) => {
 
     return (
         <HStack className={clsx('top-prize__wrapper', className)}>
-            <Icon Svg={prizeIcon[place]} width={22} height={22} />
+            <Image
+                src={prizeIcon[place]}
+                alt='place icon'
+                width={22}
+                height={22}
+            />
             <Text
                 Tag='span'
                 size='sm'
