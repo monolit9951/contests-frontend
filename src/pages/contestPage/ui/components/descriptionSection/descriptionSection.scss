@@ -27,14 +27,13 @@
 
     .contest-info {
         gap: 24px;
-        color: white;
 
         &__left-block {
             width: 100%;
             padding: 16px;
             gap: 24px;
 
-            border: 1px solid var(--grey-border);
+            border: 1px solid;
             border-radius: 24px;
 
             & > div > h4 {
@@ -62,12 +61,12 @@
         }
 
         &__right-block {
-            width: 406px;
+            width: 100%;
+            max-width: 406px;
             gap: 20px;
 
             .prize-info__wrapper,
             .deadline-info__wrapper {
-                background-color: var(--green-dark);
                 padding: 16px;
                 border-radius: 24px;
             }
@@ -87,7 +86,6 @@
                     height: 1px;
                     margin: 0;
                     border: none;
-                    background-color: var(--grey-border);
                 }
 
                 & > li {
@@ -121,12 +119,58 @@
 }
 
 .dark {
-    .contest-description .tags-list > li {
-        background-color: var(--grey-dark);
+    .contest-description {
+        .tags-list > li {
+            background-color: var(--grey-dark);
+        }
+
+        .contest-info {
+            color: var(--white);
+
+            &__left-block {
+                border-color: var(--grey-border);
+            }
+
+            &__right-block {
+                border-color: var(--grey-border);
+
+                .prize-info__wrapper,
+                .deadline-info__wrapper {
+                    background-color: var(--green-dark);
+                }
+
+                .prizes-list > hr {
+                    background-color: var(--grey-border);
+                }
+            }
+        }
     }
 }
 .light {
-    .contest-description .tags-list > li {
-        background-color: var(--light-white);
+    .contest-description {
+        .tags-list > li {
+            background-color: var(--bg-light);
+        }
+
+        .contest-info {
+            color: var(--text-main);
+
+            &__left-block {
+                border-color: var(--border-grey);
+            }
+
+            &__right-block {
+                border-color: var(--border-grey);
+
+                .prize-info__wrapper,
+                .deadline-info__wrapper {
+                    background-color: var(--white);
+                }
+
+                .prizes-list > hr {
+                    background-color: var(--border-grey);
+                }
+            }
+        }
     }
 }

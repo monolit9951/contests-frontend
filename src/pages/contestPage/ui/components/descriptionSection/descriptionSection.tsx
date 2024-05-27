@@ -148,13 +148,6 @@ const DescriptionSection = ({ data }: Props) => {
                                                         src={prizeIcon(place)}
                                                         alt='place icon'
                                                     />
-
-                                                    {/* <Icon
-                                                        Svg={prizeIcon(place)}
-                                                        width={44}
-                                                        height={44}
-                                                        unique
-                                                    /> */}
                                                     <Text
                                                         Tag='span'
                                                         size='xl'
