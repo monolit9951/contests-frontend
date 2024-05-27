@@ -4,12 +4,6 @@
     width: 458px;
     gap: 16px;
 
-    background-color: var(--green-dark);
-
-    &__text {
-        color: var(--white);
-    }
-
     .prize-winner {
         align-items: center;
         gap: 8px;
@@ -49,8 +43,14 @@
 
 .dark {
     .work {
+        background-color: var(--green-dark);
         &__text {
             color: var(--white);
         }
+    }
+}
+.light {
+    .work {
+        background-color: var(--white);
     }
 }
