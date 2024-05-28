@@ -31,11 +31,21 @@
 .ag-body-horizontal-scroll-viewport{
   display: none;
 }
+//custom-cols
 .work-link{
   height: 36px;
   &.dark{
     color: var(--white);
   }
+}
+.name-cell{
+  gap: 8px;
+  .avatar-img{
+    border-radius: 50%;
+  }
+}
+.place-col{
+  font-weight: 600;
 }
 
 .ag-body.ag-layout-auto-height{
