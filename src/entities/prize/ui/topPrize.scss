@@ -6,9 +6,8 @@
     padding: 6px 16px;
     padding-left: 0;
     border-radius: 26px;
-    background-color: #02140e66;
 
-    > svg {
+    > img {
         scale: 2;
     }
 
@@ -20,5 +19,16 @@
     }
     & > .top-prize__3rd-amount {
         color: #f89141;
+    }
+}
+
+.dark {
+    .top-prize__wrapper {
+        background-color: #02140e66;
+    }
+}
+.light {
+    .top-prize__wrapper {
+        background-color: var(--text-placeholder);
     }
 }

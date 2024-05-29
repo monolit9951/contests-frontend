@@ -18,6 +18,13 @@
             border-radius: 50%;
         }
     }
+    .user-des {
+        gap: 4px;
+
+        .flex.align__center > .flex.align__center {
+            gap: 4px;
+        }
+    }
     .contest-card-body {
         .image-box {
             position: relative;
@@ -54,7 +61,7 @@
                     background-color: var(--grey-dark);
                 }
                 &.light {
-                    background-color: var(--light-white);
+                    background-color: var(--bg-light);
                 }
             }
         }
@@ -65,20 +72,10 @@
         box-sizing: border-box;
     }
     &.light {
-        border: 1px solid var(--light-grey);
+        border: 1px solid var(--white-medium-light);
         background: var(--white);
         .btn-box {
-            border-top: 1px solid var(--light-grey);
-        }
-        .contest-card-body {
-            .contest-card-title {
-                h4 {
-                    color: var(--light-dark);
-                }
-                .segments {
-                    color: var(--light-dark);
-                }
-            }
+            border-top: 1px solid var(--white-medium-light);
         }
     }
     &.dark {
