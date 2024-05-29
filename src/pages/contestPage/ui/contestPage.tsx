@@ -2,15 +2,20 @@ import { useParams } from 'react-router-dom'
 import { Contest } from 'entities/contest'
 import useAxios from 'shared/lib/hooks/useAxios'
 import { VStack } from 'shared/ui/stack'
-import { ContestHeroSection as HeroSection } from 'widgets/contestHeroSection'
-import { WinnersSection } from 'widgets/winnersSection'
 
 import DescriptionSection from './components/descriptionSection/descriptionSection'
+import HeroSection from './components/heroSection/heroSection'
+import WinnersSection from './components/winnersSection/winnersSection'
+import WorksListSection from './components/worksListSection/worksListSection'
 
 import './contestPage.scss'
 
 const ContestPage = () => {
     const { id } = useParams<{ id: string }>()
+
+    if (!id) {
+        return <p>Something went wrong</p>
+    }
 
     const { data, isLoading } = useAxios<Contest>(`contests/${id}`)
 
@@ -28,7 +33,7 @@ const ContestPage = () => {
             <VStack className='contest__container'>
                 <DescriptionSection data={data} />
                 <WinnersSection />
-                {/* <WorksListSection /> */}
+                <WorksListSection ownerId={id} />
                 {/* <CommentsSection /> */}
             </VStack>
         </VStack>

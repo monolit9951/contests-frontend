@@ -8,7 +8,7 @@ import { UserIcon } from 'shared/ui/userIcon'
 import './mediaOverlay.scss'
 
 interface Props {
-    place: '1st' | '2nd' | '3rd'
+    place?: '1st' | '2nd' | '3rd'
 }
 
 const MediaOverlay = ({ place }: Props) => {
@@ -18,7 +18,7 @@ const MediaOverlay = ({ place }: Props) => {
 
     return (
         <VStack className='media__overlay'>
-            <TopPrize place={place} className='media__overlay__1' />
+            {place && <TopPrize place={place} className='media__overlay__1' />}
             <Icon
                 Svg={cards}
                 clickable

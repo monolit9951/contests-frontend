@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import clsx from 'clsx'
 import { TopPrize } from 'entities/prize'
 import media from 'shared/assets/img/videoCard.webp'
@@ -13,7 +13,7 @@ import MediaOverlay from './overlay/mediaOverlay'
 import './workCard.scss'
 
 interface Props {
-    place: '1st' | '2nd' | '3rd'
+    place?: '1st' | '2nd' | '3rd'
     isText?: boolean
     className?: string
 }
@@ -21,7 +21,16 @@ interface Props {
 const WorkCard: FC<Props> = (props) => {
     const { place, isText, className } = props
 
+    const [isReadMore, setIsReadMore] = useState(false)
+
+    const toggleReadMore = () => {
+        setIsReadMore(!isReadMore)
+    }
+
     const mediaObj = { video: false, mediaLink: 'https://examplemedia.com' }
+
+    const text =
+        'Prepare to be swept away by the whimsical charm of the Tickle Olympics, where hilarity reigns supreme and every tickle is a step closer to victory! As athletes take to the stage, their faces adorned with mischievous grins, you can feel the anticipation building in the air. From the gentlest of touches to the most unexpected tickle tactics, competitors leave no stone unturned in their quest for gold. But it`s not just about the competitive lorem ipsum dolor'
 
     if (isText) {
         return (
@@ -29,13 +38,20 @@ const WorkCard: FC<Props> = (props) => {
                 <VStack className={clsx('work', className)}>
                     <HStack className='justify__between align__center'>
                         <UserIcon size={40} userName='Devin Reynolds' />
-                        <TopPrize place={place} />
+                        {place && <TopPrize place={place} />}
                     </HStack>
                     <Text Tag='p' className='work__text'>
-                        Prepare to be swept away by the whimsical charm of the
-                        Tickle Olympics, where hilarity reigns supreme and every
-                        tickle is a step closer to victory! As athletes take to
-                        the stage, their faces adorned with mischievous.
+                        {(text.length < 430 && text) || (
+                            <>
+                                {!isReadMore ? text.slice(0, 430) : `${text} `}
+                                <button
+                                    type='button'
+                                    className='read-more-btn'
+                                    onClick={toggleReadMore}>
+                                    {!isReadMore ? '... more' : 'show less'}
+                                </button>
+                            </>
+                        )}
                     </Text>
                     <MediaFeedback />
                 </VStack>
