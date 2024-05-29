@@ -50,7 +50,6 @@ export default function Combobox(props: ICombobox) {
                 onBlur={onBlur}
                 className={clsx('combobox', error && 'error', className)}
                 style={{ width }} 
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...rest}
             >
                 {placeholder && (
