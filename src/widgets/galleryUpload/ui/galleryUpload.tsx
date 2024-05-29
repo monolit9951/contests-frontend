@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
 import { GalleryUploadItem } from 'shared/ui/galleryUploadItem'
 import { Icon } from 'shared/ui/icon'
@@ -7,6 +8,18 @@ import { Text } from 'shared/ui/text'
 import './galleryUpload.scss'
 
 export const GalleryUpload = () => {
+
+    const [galleryItems, setGalleryItems] = useState([
+        {id: 0, hasImage: false, imgUrl: ""},
+        {id: 1, hasImage: false, imgUrl: ""},
+        {id: 2, hasImage: false, imgUrl: ""},
+        {id: 3, hasImage: false, imgUrl: ""},
+        {id: 4, hasImage: false, imgUrl: ""},
+        {id: 5, hasImage: false, imgUrl: ""},
+        {id: 6, hasImage: false, imgUrl: ""},
+        {id: 7, hasImage: false, imgUrl: ""},
+    ])
+
     return (
         <VStack className='galleryUpload_container'>
             <VStack className='title_container'>
@@ -24,14 +37,9 @@ export const GalleryUpload = () => {
             </VStack>
 
             <div className='grid_photo_container'>
-                <GalleryUploadItem />
-                <GalleryUploadItem isCurrent={false} />
-                <GalleryUploadItem isCurrent={false} />
-                <GalleryUploadItem isCurrent={false} />
-                <GalleryUploadItem isCurrent={false} />
-                <GalleryUploadItem isCurrent={false} />
-                <GalleryUploadItem isCurrent={false} />
-                <GalleryUploadItem isCurrent={false} />
+                {galleryItems.map((galleryItem) => (
+                    <GalleryUploadItem galleryItem={galleryItem} galleryItems={galleryItems} setGalleryItems={setGalleryItems}/>
+                ))}
             </div>
         </VStack>
     )
