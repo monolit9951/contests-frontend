@@ -36,7 +36,6 @@ export const ImageUpload = ({ text, img, imgAlt }: ImageUploadProps) => {
                     <Icon Svg={X} width={24} height={24}/>
                 </HStack>
                 <Text Tag='p'>Choose basic or upload your custom cover</Text>
-                <HStack />
 
             </VStack>
         </ModalWindow>

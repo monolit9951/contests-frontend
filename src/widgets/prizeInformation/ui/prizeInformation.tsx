@@ -28,7 +28,7 @@ export const PrizeInformation = () => {
                     <PrizePlace key={winPlace.winIcon.toString()} winIcon={winPlace.winIcon} deleteIcon={trash} />
                 ))}
             </VStack>
-            <Button variant='secondary' className='addPrizePlace_btn'>
+            <Button variant='secondary' className='addPrizePlace_btn' onClick={() => console.log("clicked Add prize place")}>
                 <Text Tag='p'>Add prize place</Text>
             </Button>
         </VStack>

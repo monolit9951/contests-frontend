@@ -20,8 +20,8 @@ export const ContestsCreationPage = () => {
             <PrizeInformation/>
             <GalleryUpload/>
             <HStack className="preview_create_container">
-                <Button variant="secondary" className="preview_btn">See preview</Button>
-                <Button variant="primary" className="create_btn">Create a contest</Button>
+                <Button variant="secondary" className="preview_btn" onClick={() => console.log("clicked See preview")}>See preview</Button>
+                <Button variant="primary" className="create_btn" onClick={() => console.log("clicked Create a contest")}>Create a contest</Button>
             </HStack>
             </VStack>
         </VStack>
