@@ -9,9 +9,11 @@ interface IIcon extends SvgProps {
     Svg: FC<SVGProps<SVGSVGElement>> | string
     width?: number
     height?: number
+    unique?: boolean
     clickable?: boolean
     onClick?: () => void
     className?: string
+    btnClassName?: string
 }
 
 export default function Icon(props: IIcon) {
@@ -19,9 +21,11 @@ export default function Icon(props: IIcon) {
         Svg,
         width = 24,
         height = 24,
+        unique,
         clickable,
-        className,
         onClick,
+        className,
+        btnClassName,
         ...rest
     } = props
 
@@ -29,7 +33,7 @@ export default function Icon(props: IIcon) {
         <Svg
             width={width}
             height={height}
-            className={clsx('icon', className)}
+            className={clsx(!unique && 'icon', className)}
             {...rest}
         />
     )
@@ -38,7 +42,7 @@ export default function Icon(props: IIcon) {
         return (
             <button
                 type='button'
-                className={clsx('icon-btn', className)}
+                className={clsx('icon-btn', btnClassName)}
                 onClick={onClick}
                 style={{ height, width }}>
                 {icon}

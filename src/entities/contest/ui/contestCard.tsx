@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import Verified from 'shared/assets/icons/SealCheck.svg?react'
@@ -8,7 +9,7 @@ import contestImg from 'shared/assets/img/contestBG.png'
 import avatar from 'shared/assets/img/userIMG.jpg'
 import { Button } from 'shared/ui/button'
 import { Image } from 'shared/ui/image'
-import { Flex, VStack } from 'shared/ui/stack'
+import { Flex, HStack, VStack } from 'shared/ui/stack'
 import { Tag } from 'shared/ui/tag'
 import { Text } from 'shared/ui/text'
 import { TopUser } from 'shared/ui/topUser'
@@ -24,6 +25,7 @@ interface Props extends ContestPreview {
 export const ContestCard: React.FC<Props> = (props) => {
     const { className, dateEnd, ...rest } = props
 
+    const navigate = useNavigate()
     const { theme } = useTheme()
 
     const tagType = rest.category
@@ -37,7 +39,9 @@ export const ContestCard: React.FC<Props> = (props) => {
         return 'var(--orange)'
     }
 
-    const onDetailsClick = () => {}
+    const onDetailsClick = () => {
+        navigate(`./${rest.id}`)
+    }
 
     return (
         <div className={clsx('contest-card-wrapper', theme, className)}>
@@ -54,22 +58,24 @@ export const ContestCard: React.FC<Props> = (props) => {
                     />
                     <VStack className='user-des'>
                         <Flex className='align__center'>
-                            <Text Tag='span'>{rest.contestOwner?.name}</Text>
+                            <Text Tag='span' bold size='sm'>
+                                {rest.contestOwner?.name}
+                            </Text>
                             {rest.contestOwner.verificationStatus && (
                                 <Verified />
                             )}
                         </Flex>
-                        <Flex className=' align__center'>
+                        <Flex className='align__center'>
                             <TopUser topRate={3} />
                             {rest.contestOwner.organizerRating && (
-                                <Flex className='align__center'>
-                                    <span>
+                                <HStack className='align__center'>
+                                    <Text Tag='span' bold size='xs'>
                                         {rest.contestOwner.organizerRating.toFixed(
                                             1
                                         )}
-                                    </span>
+                                    </Text>
                                     <Star />
-                                </Flex>
+                                </HStack>
                             )}
                         </Flex>
                     </VStack>

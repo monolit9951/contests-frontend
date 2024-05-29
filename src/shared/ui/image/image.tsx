@@ -6,13 +6,14 @@ import './image.scss'
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     src: string | undefined
     alt: string
-    width?: string
-    height?: string
+    width?: number
+    height?: number
+    round?: boolean
     className?: string
 }
 
 export default function Image(props: ImageProps) {
-    const { src, alt, width, height, className, ...rest } = props
+    const { src, alt, width, height, className, round, ...rest } = props
 
     return (
         <img
@@ -20,7 +21,7 @@ export default function Image(props: ImageProps) {
             alt={alt}
             width={width}
             height={height}
-            className={clsx(className)}
+            className={clsx(round && 'image__round', className)}
             {...rest}
         />
     )

@@ -1,0 +1,22 @@
+.winners {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    &__title {
+        line-height: 28px;
+    }
+
+    &__list {
+        display: flex;
+        gap: 20px;
+    }
+
+    &__other {
+        gap: 24px;
+    }
+
+    &__other-title {
+        line-height: 24px;
+    }
+}

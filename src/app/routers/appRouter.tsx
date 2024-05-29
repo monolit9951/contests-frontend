@@ -9,8 +9,9 @@ import { Layout } from 'app/layout'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import { BattlesPage } from 'pages/battlesPage'
+import { ContestPage } from 'pages/contestPage'
 import { ContestsCreationPage } from 'pages/contestsCreationPage'
-import { ContestsPage } from 'pages/contestsPage/ui/contestsPage'
+import { ContestsPage } from 'pages/contestsPage'
 import { FeedPage } from 'pages/feedPage'
 import { HomePage } from 'pages/homePage'
 import { TopUsersPage } from 'pages/topUsersPage'
@@ -27,6 +28,7 @@ export const AppRouter = () => {
             handle={{ crumb: <Link to='/'>Home</Link> }}>
             <Route index element={<HomePage />} />
             <Route path="/battles" element={<BattlesPage />} />
+            <Route path='/contests/:id' element={<ContestPage />} />
             <Route path="/contests" element={<ContestsPage />} />
             <Route path="/contestsCreate" element={<ContestsCreationPage />} />
             <Route path="/feed" element={<FeedPage />} />
@@ -34,7 +36,7 @@ export const AppRouter = () => {
         </Route>
     )
 
-    const router = createBrowserRouter(routers, {}) 
+    const router = createBrowserRouter(routers, {})
 
     return (
         <div className={clsx('app', theme)}>
