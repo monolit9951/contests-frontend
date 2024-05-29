@@ -10,6 +10,13 @@ import { Text } from 'shared/ui/text'
 
 import './prizeInformation.scss'
 
+const winPlaces =[
+    {winIcon: win1},
+    {winIcon: win2},
+    {winIcon: win3},
+    {winIcon: win4}
+]
+
 export const PrizeInformation = () => {
     return (
         <VStack className='prizeInformation_container'>
@@ -17,10 +24,9 @@ export const PrizeInformation = () => {
                 Prize Information
             </Text>
             <VStack className='prizePlaces_container'>
-                <PrizePlace winIcon={win1} deleteIcon={trash} />
-                <PrizePlace winIcon={win2} deleteIcon={trash} />
-                <PrizePlace winIcon={win3} deleteIcon={trash} />
-                <PrizePlace winIcon={win4} deleteIcon={trash} />
+                {winPlaces.map((winPlace) => (
+                    <PrizePlace key={winPlace.winIcon.toString()} winIcon={winPlace.winIcon} deleteIcon={trash} />
+                ))}
             </VStack>
             <Button variant='secondary' className='addPrizePlace_btn'>
                 <Text Tag='p'>Add prize place</Text>
