@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import './flex.scss';
 
 interface FlexProps {
-    children: ReactNode;
+    children?: ReactNode;
     className?: string;
     clickFunction?: () => void;
 }
