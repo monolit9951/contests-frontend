@@ -38,3 +38,19 @@
         }
     }
 }
+
+.cover_selection{
+    background: var(--dark) !important;
+    color: var(--white);
+
+    .cover_selection_container{
+        align-items: center;
+        .header{
+            justify-content: space-between;
+        }
+    }
+}
+
+.cover_selection_overlay{
+    background-color: rgba($color: #010604, $alpha: 0.6) !important;
+}
