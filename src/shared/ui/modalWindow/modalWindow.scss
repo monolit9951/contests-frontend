@@ -17,8 +17,8 @@
         align-items: center;
         justify-content: center;
         .flex.flex__row{
+            width: 100%;
             svg{
-                margin-left: 32px;
                 z-index: 999;
                 cursor: pointer;
                 fill: var(--primary-dark);

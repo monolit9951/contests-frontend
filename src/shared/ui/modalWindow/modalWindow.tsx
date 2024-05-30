@@ -33,6 +33,3 @@ export const ModalWindow: FC<UploadModalProps> = ({ width, height, ...rest}) => 
         </VStack>
     );
 };
-
-
-export default UploadModal;

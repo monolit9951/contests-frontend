@@ -1,0 +1,15 @@
+.works-section{
+  .modal.modal-open{
+    .flex.flex__row{
+      .modal-content{
+        padding: 0;
+        .flex.flex__col{
+          width: 100%;
+          .work-preview{
+            background: transparent;
+          }
+        }
+      }
+    }
+  }
+}

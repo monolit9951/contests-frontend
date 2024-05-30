@@ -5,6 +5,8 @@ import {useAppDispatch, useAppSelector} from "shared/lib/store";
 import {ModalWindow} from "shared/ui/modalWindow";
 import {WorkPreview} from "widgets/worksSection/ui/workPreview/workPreview";
 
+import './worksSection.scss'
+
 const WorksSection: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -30,10 +32,8 @@ const WorksSection: React.FC = () => {
             {works.map((work: any) => (
                 <WorkComponent key={work.id} work={work} openModal={() => setIsModalOpen(true)} />
             ))}
-            <ModalWindow isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                {works.map((work: any) => (
-                    <WorkPreview work={work} />
-                ))}
+            <ModalWindow isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} isOuterClose width='1180px' height='900px'>
+                <WorkPreview work={works[0]} />
             </ModalWindow>
         </div>
     );
