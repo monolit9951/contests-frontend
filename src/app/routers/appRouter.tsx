@@ -4,8 +4,10 @@ import {
     Link,
     Navigate,
     Route,
+    RouterProvider,
 } from 'react-router-dom'
 import { Layout } from 'app/layout'
+import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import { BattlesPage } from 'pages/battlesPage'
 import { ContestPage } from 'pages/contestPage'
@@ -26,11 +28,11 @@ export const AppRouter = () => {
             element={<Layout />}
             handle={{ crumb: <Link to='/'>Home</Link> }}>
             <Route index element={<HomePage />} />
+            <Route path='/feed' element={<FeedPage />} />
             <Route path='/battles' element={<BattlesPage />} />
             <Route path='/contests' element={<ContestsPage />} />
             <Route path='/contests/:id' element={<ContestPage />} />
             <Route path='/contestsCreate' element={<ContestsCreationPage />} />
-            <Route path='/feed' element={<FeedPage />} />
             <Route path='/topUsers' element={<TopUsersPage />} />
             <Route path='*' element={<Navigate to='/' />} />
         </Route>
