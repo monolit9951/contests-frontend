@@ -2,6 +2,7 @@ import {
     createBrowserRouter,
     createRoutesFromElements,
     Link,
+    Navigate,
     Route,
     RouterProvider,
 } from 'react-router-dom'
@@ -31,6 +32,7 @@ export const AppRouter = () => {
             <Route path='/contests/:id' element={<ContestPage />} />
             <Route path='/feed' element={<FeedPage />} />
             <Route path='/topUsers' element={<TopUsersPage />} />
+            <Route path='*' element={<Navigate to='/' />} />
         </Route>
     )
 
