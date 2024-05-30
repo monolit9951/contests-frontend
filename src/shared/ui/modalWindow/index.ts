@@ -1,3 +1,1 @@
-import ModalWindow from './modalWindow'
-
-export { ModalWindow }
+export {ModalWindow} from 'shared/ui/modalWindow/modalWindow';

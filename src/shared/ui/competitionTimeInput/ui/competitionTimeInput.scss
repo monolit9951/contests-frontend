@@ -1,0 +1,30 @@
+.competitionTimeInput_container {
+    gap: 20px;
+
+    .dateInput_container {
+        p {
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 8px;
+        }
+
+        .dateInput {
+            width: 240px;
+            height: 48px;
+            padding: 12px;
+            border-radius: 8px;
+        }
+    }
+
+    .timeInput_container {
+        p {
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 8px;
+        }
+        .timeInput {
+            width: 108px;
+            height: 48px;
+        }
+    }
+}

@@ -1,0 +1,38 @@
+.combobox-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 8px;
+    width: 100%; 
+
+    select {
+        appearance: none; 
+        -webkit-appearance: none; 
+        -moz-appearance: none; 
+        width: 100%;
+        border-radius: 4px; 
+        padding-right: 30px; 
+        box-sizing: border-box; 
+        color: #FFF; 
+        background-color: #333; 
+    }
+
+    select option {
+        color: #FFF; 
+    }
+
+    select .placeholder-option {
+        color: #585D5C; 
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 10px; 
+        width: 16px; 
+        height: 16px; 
+        background: url('/src/shared/assets/icons/arrowCombo.svg') center no-repeat;
+        pointer-events: none; 
+        transform: translateY(-50%); 
+    }
+}

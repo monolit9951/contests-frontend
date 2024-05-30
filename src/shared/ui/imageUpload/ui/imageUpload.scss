@@ -1,0 +1,56 @@
+.imageUpload_container {
+    gap: 20px;
+    height: 261px;
+
+    .text_icon_container {
+        gap: 4px;
+    }
+    p {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 8px;
+    }
+
+    .imagePreview_container {
+        width: 470px;
+    }
+
+    .text_btn_container {
+        margin-top: 28px ;
+        width: 490px;
+        gap: 20px;
+
+        .text{
+            color: var(--white-muted);
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 0;
+        }
+
+        .uploadBtn{
+            width: 140px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            gap:8px;
+            padding: 6px 32px;
+            
+        }
+    }
+}
+
+.cover_selection{
+    background: var(--dark) !important;
+    color: var(--white);
+
+    .cover_selection_container{
+        align-items: center;
+        .header{
+            justify-content: space-between;
+        }
+    }
+}
+
+.cover_selection_overlay{
+    background-color: rgba($color: #010604, $alpha: 0.6) !important;
+}

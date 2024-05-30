@@ -1,25 +1,36 @@
-import { ReactNode } from 'react'
-import ReactModal from 'react-modal'
-import clsx from 'clsx'
+import {FC, ReactNode} from 'react';
+import clsx from 'clsx';
+import {useTheme} from "entities/theme";
+import xIcon from "shared/assets/icons/Secondary_btn.svg?react"
+import {Icon} from "shared/ui/icon";
+import {Flex, HStack, VStack} from "shared/ui/stack";
 
-import './modalWindow.scss'
+import './modalWindow.scss';
 
-interface IModalWindow {
-    isOpen: boolean
-    children: ReactNode
-    className?: string
-    overlayClassName?: string
+interface UploadModalProps {
+    isOpen: boolean,
+    onClose: () => void,
+    children: ReactNode,
+    isOuterClose?: boolean | undefined,
+    width?: string;
+    height?: string;
 }
 
-export default function ModalWindow(props: IModalWindow) {
-    const { isOpen, children, className, overlayClassName } = props
+export const ModalWindow: FC<UploadModalProps> = ({ width, height, ...rest}) => {
+    const {theme} = useTheme()
+
+    const modalClass = clsx('modal', {'modal-open': rest.isOpen});
 
     return (
-        <ReactModal
-            isOpen={isOpen}
-            className={clsx('modal', className)}
-            overlayClassName={clsx('overlay', overlayClassName)}>
-            {children}
-        </ReactModal>
-    )
-}
+        <VStack className={modalClass}>
+            <div className='flex flex__row' style={{ width, height }}>
+                <Flex className="modal-overlay" clickFunction={rest.onClose} />
+                <HStack className={clsx("modal-content", theme)}>
+                    <VStack>{rest.children}</VStack>
+                </HStack>
+                { rest.isOuterClose && <Icon Svg={xIcon} clickable onClick={rest.onClose} /> }
+            </div>
+        </VStack>
+    );
+};
+

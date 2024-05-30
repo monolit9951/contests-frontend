@@ -1,0 +1,1 @@
+export {PrizePlace} from "./ui/prizePlace"

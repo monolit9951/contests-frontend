@@ -1,0 +1,67 @@
+.gallery-upload-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 228px;
+    width: 228px;
+    border: 1px dashed var(--grey);
+    border-radius: 8px;
+    background: var(--green-dark);
+
+    &.is-current {
+        flex-direction: column;
+        gap: 10px;
+     
+        .gallery-upload-item_image{
+            border-radius: 8px;
+            object-fit: "fill";
+        }
+
+        .remove_btn{
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            right: 0;
+            transform: translate(50%, -50%);
+            height: 36px;
+            width: 36px;
+            padding: 6px;
+            background-color: var(--grey);
+            
+            .remove_btn_icon{
+                fill:var(--white-muted);
+            }
+        }
+    }
+
+    .is-current_text {
+        height: 40px;
+        width: 164px;
+        text-align: center;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    input[type="file"] {
+        display: none;
+      }
+
+    .upload-btn {
+        display: flex;
+        align-items: center;
+        width: 140px;
+        height: 36px;
+        gap: 8px;
+        padding: 6px 32px;
+        margin: 10px 12px 0px;
+        background-color: var(--green-dark);
+        cursor: pointer;
+        border: 1px solid var(--grey);
+        border-radius: 999px;
+
+        .uploadBtn_text {
+            width: 48px;
+            font-size: 14px;
+        }
+    }
+}
