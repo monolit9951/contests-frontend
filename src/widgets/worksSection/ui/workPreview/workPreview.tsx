@@ -9,16 +9,16 @@ import {Text} from "shared/ui/text";
 
 interface WorkProps {
     work: Work;
-    openModal: () => void;
 }
 
-export const WorkPreview: React.FC<WorkProps> = ({ work, openModal }) => {
+export const WorkPreview: React.FC<WorkProps> = ({ work, }) => {
+    console.log(work, 'work')
 
     const handleClick = () => {
         alert('clicked');
     }
     return (
-        <Flex className="work" clickFunction={openModal}>
+        <Flex className="work">
             <HStack>
                 <Image src={workMedia} alt=''/>
                 <VStack className='contest_desc'>
