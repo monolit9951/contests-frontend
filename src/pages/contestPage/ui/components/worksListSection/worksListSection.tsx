@@ -1,9 +1,10 @@
 import { FC, useState } from 'react'
 import clsx from 'clsx'
+import { selectContestMedia } from 'pages/contestPage/model/selectors'
+import { useAppSelector } from 'shared/lib/store'
 import { Text } from 'shared/ui/text'
 
-import { MediaWorksList } from './worksListTypes/mediaList'
-import { TextWorksList } from './worksListTypes/textList'
+import { WorksList } from './worksList'
 
 import './worksListSection.scss'
 
@@ -12,17 +13,19 @@ interface Props {
 }
 
 const WorksListSection: FC<Props> = ({ ownerId }) => {
-    const [workType, setWorkType] = useState('media')
-    const [selectedSort, setSelectedSort] = useState('new')
+    const [workType, setWorkType] = useState<'media' | 'text'>('media')
+    const [selectedSort, setSelectedSort] = useState<'new' | 'popular'>('new')
 
-    const onWorkTypesClick = (type: string) => {
+    const media = useAppSelector(selectContestMedia)
+
+    const onWorkTypesClick = (type: 'media' | 'text') => {
         if (type === workType) {
             return
         }
         setWorkType(type)
     }
 
-    const onSortClick = (sort: string) => {
+    const onSortClick = (sort: 'new' | 'popular') => {
         if (sort === selectedSort) {
             return
         }
@@ -38,7 +41,7 @@ const WorksListSection: FC<Props> = ({ ownerId }) => {
                 className='participants-works__title'>
                 Participants&apos; works
                 <Text Tag='span' size='xl'>
-                    (works.length)
+                    ({media.totalElements})
                 </Text>
             </Text>
 
@@ -80,11 +83,11 @@ const WorksListSection: FC<Props> = ({ ownerId }) => {
                 </li>
             </ul>
 
-            {workType === 'media' ? (
-                <MediaWorksList ownerId={ownerId} />
-            ) : (
-                <TextWorksList ownerId={ownerId} />
-            )}
+            <WorksList
+                ownerId={ownerId}
+                workType={workType}
+                sort={selectedSort}
+            />
         </section>
     )
 }
