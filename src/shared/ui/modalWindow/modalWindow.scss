@@ -16,6 +16,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        .flex.flex__row{
+            svg{
+                margin-left: 32px;
+                z-index: 999;
+                cursor: pointer;
+                fill: var(--primary-dark);
+            }
+        }
     }
     &-overlay {
         cursor: default;

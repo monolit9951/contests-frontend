@@ -1,8 +1,9 @@
 import {FC, ReactNode} from 'react';
 import clsx from 'clsx';
 import {useTheme} from "entities/theme";
-import {Button} from "shared/ui/button";
-import {VStack} from "shared/ui/stack";
+import xIcon from "shared/assets/icons/Secondary_btn.svg?react"
+import {Icon} from "shared/ui/icon";
+import {Flex, HStack, VStack} from "shared/ui/stack";
 
 import './modalWindow.scss';
 
@@ -10,19 +11,28 @@ interface UploadModalProps {
     isOpen: boolean,
     onClose: () => void,
     children: ReactNode,
+    isOuterClose?: boolean | undefined,
+    width?: string;
+    height?: string;
 }
 
-const UploadModal: FC<UploadModalProps> = ({isOpen, onClose, children}) => {
+export const ModalWindow: FC<UploadModalProps> = ({ width, height, ...rest}) => {
     const {theme} = useTheme()
 
-    const modalClass = clsx('modal', {'modal-open': isOpen,});
+    const modalClass = clsx('modal', {'modal-open': rest.isOpen});
 
     return (
         <VStack className={modalClass}>
-            <Button variant='div' className="modal-overlay" onClick={onClose} />
-            <VStack className={clsx("modal-content", theme)}>{children}</VStack>
+            <div className='flex flex__row' style={{ width, height }}>
+                <Flex className="modal-overlay" clickFunction={rest.onClose} />
+                <HStack className={clsx("modal-content", theme)}>
+                    <VStack>{rest.children}</VStack>
+                </HStack>
+                { rest.isOuterClose && <Icon Svg={xIcon} clickable onClick={rest.onClose} /> }
+            </div>
         </VStack>
     );
 };
+
 
 export default UploadModal;
