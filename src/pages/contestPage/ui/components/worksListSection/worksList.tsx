@@ -39,12 +39,20 @@ export const WorksList: FC<Props> = (props) => {
 
         if (workType === 'media') {
             return sort === 'new'
-                ? newMediaWorks?.map((item) => <WorkCard key={item.id} />)
-                : popularMediaWorks?.map((item) => <WorkCard key={item.id} />)
+                ? newMediaWorks?.map((item) => (
+                      <WorkCard key={item.id} data={item} />
+                  ))
+                : popularMediaWorks?.map((item) => (
+                      <WorkCard key={item.id} data={item} />
+                  ))
         }
         return sort === 'new'
-            ? newTextWorks?.map((item) => <WorkCard key={item.id} isText />)
-            : popularTextWorks?.map((item) => <WorkCard key={item.id} isText />)
+            ? newTextWorks?.map((item) => (
+                  <WorkCard key={item.id} data={item} isText />
+              ))
+            : popularTextWorks?.map((item) => (
+                  <WorkCard key={item.id} data={item} isText />
+              ))
     }
 
     const loadMoreCondition = () => {
