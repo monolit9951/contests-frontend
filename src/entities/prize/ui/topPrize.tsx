@@ -9,7 +9,7 @@ import { Text } from 'shared/ui/text'
 
 import './topPrize.scss'
 
-export type PrizePlaces = '1st' | '2nd' | '3rd'
+export type PrizePlaces = 1 | 2 | 3
 
 interface Props {
     place: PrizePlaces
@@ -20,15 +20,15 @@ const TopPrize: FC<Props> = (props) => {
     const { place, className } = props
 
     const prizeIcon = {
-        '1st': first,
-        '2nd': second,
-        '3rd': third,
+        1: first,
+        2: second,
+        3: third,
     }
 
     const prizeAmount = {
-        '1st': '10000 $',
-        '2nd': '5000 $',
-        '3rd': '2000 $',
+        1: '10000 $',
+        2: '5000 $',
+        3: '2000 $',
     }
 
     return (

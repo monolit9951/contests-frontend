@@ -4,6 +4,24 @@
     width: 458px;
     gap: 16px;
 
+    &__text {
+        & > .read-more-btn {
+            padding: 0;
+
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 1.5;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
     .prize-winner {
         align-items: center;
         gap: 8px;
@@ -46,11 +64,20 @@
         background-color: var(--green-dark);
         &__text {
             color: var(--white);
+
+            & > .read-more-btn {
+                color: var(--white);
+            }
         }
     }
 }
 .light {
     .work {
         background-color: var(--white);
+        &__text {
+            & > .read-more-btn {
+                color: var(--main-dark);
+            }
+        }
     }
 }

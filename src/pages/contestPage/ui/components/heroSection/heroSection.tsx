@@ -6,7 +6,7 @@ import { Image } from 'shared/ui/image'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
-import './contestHeroSection.scss'
+import './heroSection.scss'
 
 interface Props {
     bg: string

@@ -12,10 +12,11 @@ import { Text } from '../text'
 import './rateButtons.scss'
 
 interface Props {
+    likes: number
     border?: boolean
 }
 
-const RateButtons = ({ border }: Props) => {
+const RateButtons = ({ border, likes }: Props) => {
     const [liked, setLiked] = useState(false)
     const [disliked, setDisliked] = useState(false)
 
@@ -40,7 +41,7 @@ const RateButtons = ({ border }: Props) => {
                 <Icon Svg={liked ? likeF : like} width={20} height={20} />
             </button>
             <Text Tag='span' size='sm'>
-                10.3k
+                {likes >= 1000 ? `${(likes / 1000).toFixed(1)}k` : likes}
             </Text>
             <button type='button' aria-label='dislike' onClick={onDislikeClick}>
                 <Icon

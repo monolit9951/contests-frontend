@@ -1,4 +1,5 @@
 import { TopPrize } from 'entities/prize'
+import { PrizePlaces } from 'entities/prize/ui/topPrize'
 import cards from 'shared/assets/icons/cards.svg?react'
 import action from 'shared/assets/icons/tripleDot.svg?react'
 import { Icon } from 'shared/ui/icon'
@@ -8,7 +9,7 @@ import { UserIcon } from 'shared/ui/userIcon'
 import './mediaOverlay.scss'
 
 interface Props {
-    place: '1st' | '2nd' | '3rd'
+    place?: PrizePlaces
 }
 
 const MediaOverlay = ({ place }: Props) => {
@@ -18,7 +19,7 @@ const MediaOverlay = ({ place }: Props) => {
 
     return (
         <VStack className='media__overlay'>
-            <TopPrize place={place} className='media__overlay__1' />
+            {place && <TopPrize place={place} className='media__overlay__1' />}
             <Icon
                 Svg={cards}
                 clickable
