@@ -1,5 +1,15 @@
-import { fetchContests } from './fetchContests'
-import { fetchNextContestsPage } from './fetchNextContestsPage'
-import { fetchPopularContests } from './fetchPopularContests'
-
-export { fetchContests, fetchNextContestsPage, fetchPopularContests }
+export {
+    setContestBackgroundImage,
+    setContestCategory,
+    setContestDateEnd,
+    setContestDateStart,
+    setContestDescription,
+    setContestExampleMedia,
+    setContestMaxAllowedParticipantAmount,
+    setContestName,
+    setContestOwner,
+    setContestParticipantAmount,
+    setContestPrizeStructure,
+    setContestStatus,
+    setContestSubcategory,
+} from './dataSetters'

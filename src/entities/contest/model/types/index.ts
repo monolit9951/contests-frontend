@@ -3,9 +3,9 @@ import { Organizer } from 'entities/user'
 
 type Status = 'ACTIVE' | 'INACTIVE' | 'PAUSED' | 'FINISHED' | 'UPCOMING'
 
-type Category = 'CATEGORY1' | 'CATEGORY2' | 'CATEGORY3'
+export type Category = 'CATEGORY1' | 'CATEGORY2' | 'CATEGORY3'
 
-type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
+export type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
 
 export interface Contest {
     id: string

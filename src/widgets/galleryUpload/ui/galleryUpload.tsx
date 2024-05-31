@@ -6,19 +6,27 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './galleryUpload.scss'
+import { useDispatch } from 'react-redux'
+import { setContestExampleMedia } from 'pages/contestsCreationPage/model/services'
 
 export const GalleryUpload = () => {
-
     const [galleryItems, setGalleryItems] = useState([
-        {id: 0, hasImage: false, imgUrl: ""},
-        {id: 1, hasImage: false, imgUrl: ""},
-        {id: 2, hasImage: false, imgUrl: ""},
-        {id: 3, hasImage: false, imgUrl: ""},
-        {id: 4, hasImage: false, imgUrl: ""},
-        {id: 5, hasImage: false, imgUrl: ""},
-        {id: 6, hasImage: false, imgUrl: ""},
-        {id: 7, hasImage: false, imgUrl: ""},
+        { id: 0, hasImage: false, imgUrl: '' },
+        { id: 1, hasImage: false, imgUrl: '' },
+        { id: 2, hasImage: false, imgUrl: '' },
+        { id: 3, hasImage: false, imgUrl: '' },
+        { id: 4, hasImage: false, imgUrl: '' },
+        { id: 5, hasImage: false, imgUrl: '' },
+        { id: 6, hasImage: false, imgUrl: '' },
+        { id: 7, hasImage: false, imgUrl: '' },
     ])
+
+    const dispatch: AppDispatch = useDispatch()
+    const mediaUrls = galleryItems
+        .filter((item) => item.imgUrl !== '')
+        .map((item) => item.imgUrl)
+
+    dispatch(setContestExampleMedia(mediaUrls))
 
     return (
         <VStack className='galleryUpload_container'>
@@ -38,7 +46,11 @@ export const GalleryUpload = () => {
 
             <div className='grid_photo_container'>
                 {galleryItems.map((galleryItem) => (
-                    <GalleryUploadItem galleryItem={galleryItem} galleryItems={galleryItems} setGalleryItems={setGalleryItems}/>
+                    <GalleryUploadItem
+                        galleryItem={galleryItem}
+                        galleryItems={galleryItems}
+                        setGalleryItems={setGalleryItems}
+                    />
                 ))}
             </div>
         </VStack>

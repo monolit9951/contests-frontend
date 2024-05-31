@@ -20,25 +20,43 @@ interface ImageUploadProps {
 
 export const ImageUpload = ({ text, img, imgAlt }: ImageUploadProps) => {
     const [isOpen, setIsOpen] = useState(false)
+
+    const imgClassName = img==="/src/shared/assets/img/cardIMGPlaceholder.jpg" ||
+                    img === "/src/shared/assets/img/coverIMGPlaceholder.jpg" ? "defaultImg" : "" 
     return (
+        <>
+        <ModalWindow isOpen={isOpen} 
+        // className='cover_selection' 
+        overlayClassName='cover_selection_overlay'>
+            <VStack className='cover_selection_container'>
+                <HStack className='header'>
+                    <Text Tag="h3">Cover selection</Text>
+                    <Icon Svg={X} width={24} height={24} 
+                    // onClick={() => setIsOpen(false)}
+                    onClick={() => console.log("Click")}
+                    />
+                </HStack>
+                <Text Tag='p'>Choose basic or upload your custom cover</Text>
+
+            </VStack>
+        </ModalWindow>
+
+
+
+        
         <HStack className='imageUpload_container'>
             <VStack className='imagePreview_container'>
                 <HStack className='text_icon_container'>
                     <Text Tag='p'>{text}</Text>
                     <Icon Svg={info} height={20} width={20} />
                 </HStack>
-                <Image src={img} alt={imgAlt} />
-            </VStack>
-        <ModalWindow isOpen={isOpen} className='cover_selection' overlayClassName='cover_selection_overlay'>
-            <VStack className='cover_selection_container'>
-                <HStack className='header'>
-                    <Text Tag="h3">Cover selection</Text>
-                    <Icon Svg={X} width={24} height={24}/>
-                </HStack>
-                <Text Tag='p'>Choose basic or upload your custom cover</Text>
+                <HStack className='imageUpload_imagecontainer'>
+        
+                    <Image src={img} alt={imgAlt} className={imgClassName}/>
 
+                </HStack>
             </VStack>
-        </ModalWindow>
+           
             <VStack className='text_btn_container'>
                 <Text Tag='p' className='text'>
                     To make your cover look attractive on all devices,
@@ -57,5 +75,6 @@ export const ImageUpload = ({ text, img, imgAlt }: ImageUploadProps) => {
                 </Button>
             </VStack>
         </HStack>
+        </>
     )
 }
