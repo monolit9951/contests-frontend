@@ -41,7 +41,9 @@ const RateButtons = ({ border, likes }: Props) => {
                 <Icon Svg={liked ? likeF : like} width={20} height={20} />
             </button>
             <Text Tag='span' size='sm'>
-                {likes >= 1000 ? `${(likes / 1000).toFixed(1)}k` : likes}
+                {likes >= 1000
+                    ? `${Number((likes / 1000).toFixed(1))}k`
+                    : likes}
             </Text>
             <button type='button' aria-label='dislike' onClick={onDislikeClick}>
                 <Icon
