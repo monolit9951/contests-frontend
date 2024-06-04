@@ -9,22 +9,25 @@ import './modalWindow.scss';
 
 interface UploadModalProps {
     isOpen: boolean,
-    onClose: () => void,
+    onClose?: () => void,
     children: ReactNode,
     isOuterClose?: boolean | undefined,
     width?: string;
     height?: string;
+    className?: string;
+    overlayClassName?: string;
 }
 
 export const ModalWindow: FC<UploadModalProps> = ({ width, height, ...rest}) => {
     const {theme} = useTheme()
 
-    const modalClass = clsx('modal', {'modal-open': rest.isOpen});
+    const modalClass = clsx('modal', { 'modal-open': rest.isOpen }, rest.className);
+    const overlayClass = clsx('modal-overlay', rest.overlayClassName);
 
     return (
         <VStack className={modalClass}>
             <div className='flex flex__row' style={{ width, height }}>
-                <Flex className="modal-overlay" clickFunction={rest.onClose} />
+                <Flex className={overlayClass} clickFunction={rest.onClose} />
                 <HStack className={clsx("modal-content", theme)}>
                     <VStack>{rest.children}</VStack>
                 </HStack>
