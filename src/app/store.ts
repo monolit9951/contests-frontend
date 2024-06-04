@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { filterReducer } from 'features/filterContests'
+import { contestWorksReducer } from 'pages/contestPage/model/slice'
 import { contestsCreationPageReducer } from 'pages/contestsCreationPage/model/slice'
 import { contestsPageReducer } from 'pages/contestsPage/model/slice'
 import {
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     contestsPage: contestsPageReducer,
     contestsCreationPage: contestsCreationPageReducer,
     filter: filterReducer,
+    contestWorks: contestWorksReducer,
 })
 
 const persistConfig = {
@@ -44,8 +46,6 @@ const store = configureStore({
             },
         }),
 })
-
-export type RootState = ReturnType<typeof store.getState>
 
 export const persistor = persistStore(store)
 export default store

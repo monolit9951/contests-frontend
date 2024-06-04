@@ -1,15 +1,13 @@
+import { useDispatch, useSelector } from 'react-redux'
+import { setContestDescription } from 'pages/contestsCreationPage/model/services'
 import { Textarea } from 'shared/ui/input'
 import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './descriptionInput.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import { setContestDescription } from 'pages/contestsCreationPage/model/services'
 
 export const DescriptionInput = () => {
     const dispatch: AppDispatch = useDispatch()
-    // const value = useSelector((state: RootState) => state.contestCreationState.description) 
-
     
     const value = useSelector((state: RootState) => {
         return state.contestsCreationPage.description;

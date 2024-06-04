@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "app/store"
 import { Category, SubCategory } from "entities/contest/model/types"
 import {setContestCategory, setContestSubcategory} from "pages/contestsCreationPage/model/services"
 import { Combobox } from "shared/ui/input"

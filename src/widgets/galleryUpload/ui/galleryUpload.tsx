@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setContestExampleMedia } from 'pages/contestsCreationPage/model/services'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
 import { GalleryUploadItem } from 'shared/ui/galleryUploadItem'
 import { Icon } from 'shared/ui/icon'
@@ -6,8 +8,6 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './galleryUpload.scss'
-import { useDispatch } from 'react-redux'
-import { setContestExampleMedia } from 'pages/contestsCreationPage/model/services'
 
 export const GalleryUpload = () => {
     const [galleryItems, setGalleryItems] = useState([

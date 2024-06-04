@@ -22,7 +22,7 @@ const WinnersSection: FC<Props> = (props) => {
 
     const contestObj: ContestObj = {
         worksType: 'text',
-        worksArr: ['1st', '2nd', '3rd'],
+        worksArr: [1, 2, 3],
     }
 
     const isText = contestObj.worksType === 'text'
@@ -34,8 +34,30 @@ const WinnersSection: FC<Props> = (props) => {
             </Text>
 
             <ul className='winners__list'>
-                {contestObj.worksArr.map((item) => (
-                    <WorkCard key={item} place={item} isText={isText} />
+                {contestObj.worksArr.map((item, idx) => (
+                    <WorkCard
+                        key={item}
+                        data={{
+                            id: '66447084974544731c52eeac',
+                            ownerId: '66447082974544731c52eba4',
+                            description: 'Test Description for Work 333',
+                            media: null,
+                            likeAmount: 866,
+                            commentAmount: 198,
+                            user: {
+                                id: '6644707e974544731c52e1cd',
+                                name: 'Mia Harris',
+                                participantRating: 5.35,
+                                organizerRating: null,
+                                verificationStatus: 'STORE',
+                                profileImage:
+                                    'https://example.profileImage.com/image19.jpg',
+                            },
+                            typeWork: 'IMAGE',
+                        }}
+                        place={idx + 1}
+                        isText={isText}
+                    />
                 ))}
             </ul>
             <VStack className='winners__other'>

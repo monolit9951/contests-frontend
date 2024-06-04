@@ -1,36 +1,3 @@
-// import { createSlice } from '@reduxjs/toolkit'
-
-// import { Contest, ContestPreview } from 'entities/contest'
-
-// const initialState: Contest = {
-//     id: "",
-//     name: "",
-//     status: "INACTIVE",
-//     category: "CATEGORY1",
-//     subcategory: "SUBCATEGORY1",
-//     backgroundImage: "",
-//     participantAmount: 0,
-//     maxAllowedParticipantAmount: 0,
-//     dateStart: [],
-//     dateEnd: [],
-//     description: "",
-//     exampleMedia: [],
-//     prizeStructure: {id: "", place: 0, prize: {id:"", currency:"EUR", prizeAmount: 0, prizeText: "" , prizeType:"MONEY"}, winnersAmount: 0},
-//     contestOwner: {id: "", name: "", organizerRating: 0,  profileImage: "", verificationStatus: "BLOGGER"},
-// }
-
-// const slice = createSlice({
-//     name: 'contestsCreationPage',
-//     initialState,
-//     reducers: {},
-//     extraReducers: (builder) =>
-//         builder
-//             .addCase()
-
-// })
-
-// export const { reducer: contestsCreationPageReducer, actions: contestsCreationPageActions } =
-//     slice
 import { createSlice } from '@reduxjs/toolkit';
 import { Contest } from 'entities/contest';
 

@@ -3,7 +3,9 @@ import { ColDef } from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
-import { Button } from 'shared/ui/button'
+import {NameRenderer} from "widgets/winnersTable/ui/customColumns/customAuthorCol";
+import {FirstColumnRenderer} from "widgets/winnersTable/ui/customColumns/customPlaceCol";
+import {WorkLinkRenderer} from "widgets/winnersTable/ui/customColumns/customWorksCol";
 import { Pagination } from 'widgets/winnersTable/ui/customPagination/customPagination'
 
 import 'ag-grid-community/styles/ag-grid.css'
@@ -18,21 +20,6 @@ interface ContestWinner {
     comments: number
     reposts: number
     workLink: string
-}
-export const WorkLinkRenderer: React.FC<{ value: string }> = ({ value }) => {
-    const { theme } = useTheme()
-    const handleClick = () => {
-        window.open(value, '_blank')
-    }
-
-    return (
-        <Button
-            variant='secondary'
-            onClick={handleClick}
-            className={clsx(theme, 'work-link')}>
-            View Work
-        </Button>
-    )
 }
 
 export const ContestWinnersTable: React.FC = () => {
@@ -911,9 +898,11 @@ export const ContestWinnersTable: React.FC = () => {
             filter: false,
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
+            cellRenderer: FirstColumnRenderer,
         },
         {
             headerName: 'Author',
+            cellRenderer: NameRenderer,
             field: 'author',
             sortable: true,
             filter: false,
