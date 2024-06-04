@@ -9,10 +9,11 @@ import { UserIcon } from 'shared/ui/userIcon'
 import './mediaOverlay.scss'
 
 interface Props {
-    place?: PrizePlaces
+    place?: PrizePlaces,
+    userImage: string;
 }
 
-const MediaOverlay = ({ place }: Props) => {
+const MediaOverlay = ({ place, userImage }: Props) => {
     const onCardsClick = () => {}
 
     const onAction = () => {}
@@ -27,6 +28,7 @@ const MediaOverlay = ({ place }: Props) => {
                 btnClassName='media__overlay__2'
             />
             <UserIcon
+                userImage={userImage}
                 size={40}
                 userName='Devin Reynolds'
                 className='media__overlay__3'
