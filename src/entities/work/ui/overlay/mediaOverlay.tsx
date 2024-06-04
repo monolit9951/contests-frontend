@@ -10,7 +10,7 @@ import './mediaOverlay.scss'
 
 interface Props {
     place?: PrizePlaces,
-    userImage: string;
+    userImage?: string;
 }
 
 const MediaOverlay = ({ place, userImage }: Props) => {

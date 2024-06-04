@@ -7,7 +7,7 @@ import { Text } from 'shared/ui/text'
 import './userIcon.scss'
 
 interface Props {
-    userImage: string
+    userImage?: string
     size?: number
     userName?: string
     className?: string
