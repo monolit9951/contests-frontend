@@ -18,6 +18,7 @@ const MediaOverlay = ({ place, userImage }: Props) => {
 
     const onAction = () => {}
 
+
     return (
         <VStack className='media__overlay'>
             {place && <TopPrize place={place} className='media__overlay__1' />}
