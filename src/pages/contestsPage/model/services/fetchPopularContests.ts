@@ -14,8 +14,8 @@ export const fetchPopularContests = createAsyncThunk(
             }
 
             return response.data
-        } catch (err) {
-            return rejectWithValue('error')
+        } catch (e) {
+            return rejectWithValue(`Request error: ${e as string}`)
         }
     }
 )

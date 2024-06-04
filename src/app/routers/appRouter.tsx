@@ -2,6 +2,7 @@ import {
     createBrowserRouter,
     createRoutesFromElements,
     Link,
+    Navigate,
     Route,
     RouterProvider,
 } from 'react-router-dom'
@@ -27,12 +28,13 @@ export const AppRouter = () => {
             element={<Layout />}
             handle={{ crumb: <Link to='/'>Home</Link> }}>
             <Route index element={<HomePage />} />
-            <Route path="/battles" element={<BattlesPage />} />
+            <Route path='/feed' element={<FeedPage />} />
+            <Route path='/battles' element={<BattlesPage />} />
+            <Route path='/contests' element={<ContestsPage />} />
             <Route path='/contests/:id' element={<ContestPage />} />
-            <Route path="/contests" element={<ContestsPage />} />
-            <Route path="/contestsCreate" element={<ContestsCreationPage />} />
-            <Route path="/feed" element={<FeedPage />} />
-            <Route path="/topUsers" element={<TopUsersPage />} />
+            <Route path='/contestsCreate' element={<ContestsCreationPage />} />
+            <Route path='/topUsers' element={<TopUsersPage />} />
+            <Route path='*' element={<Navigate to='/' />} />
         </Route>
     )
 

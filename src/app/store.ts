@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { filterReducer } from 'features/filterContests'
+import { contestWorksReducer } from 'pages/contestPage/model/slice'
 import { contestsPageReducer } from 'pages/contestsPage/model/slice'
 import {
     FLUSH,
@@ -16,6 +17,7 @@ import storage from 'redux-persist/lib/storage'
 const rootReducer = combineReducers({
     contestsPage: contestsPageReducer,
     filter: filterReducer,
+    contestWorks: contestWorksReducer,
 })
 
 const persistConfig = {
@@ -42,8 +44,6 @@ const store = configureStore({
             },
         }),
 })
-
-export type RootState = ReturnType<typeof store.getState>
 
 export const persistor = persistStore(store)
 export default store

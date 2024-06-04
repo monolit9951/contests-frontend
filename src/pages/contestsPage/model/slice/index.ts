@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 import {
     fetchContests,
@@ -59,23 +59,29 @@ const slice = createSlice({
 
             .addCase(fetchContests.pending, (state) => {
                 state.all.loading = true
+                state.all.error = null
             })
             .addCase(fetchPopularContests.pending, (state) => {
                 state.popular.loading = true
+                state.popular.error = null
             })
             .addCase(fetchNextContestsPage.pending, (state) => {
                 state.all.nextLoading = true
+                state.all.error = null
             })
 
             .addCase(fetchPopularContests.rejected, (state, { payload }) => {
                 state.popular.error = payload as string
+                state.popular.loading = false
             })
-            .addMatcher(
-                isAnyOf(fetchContests.rejected, fetchNextContestsPage.rejected),
-                (state, { payload }) => {
-                    state.all.error = payload as string
-                }
-            ),
+            .addCase(fetchContests.rejected, (state, { payload }) => {
+                state.all.error = payload as string
+                state.all.loading = false
+            })
+            .addCase(fetchNextContestsPage.rejected, (state, { payload }) => {
+                state.all.error = payload as string
+                state.all.nextLoading = false
+            }),
 })
 
 export const { reducer: contestsPageReducer, actions: contestsPageActions } =
