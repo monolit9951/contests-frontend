@@ -38,7 +38,6 @@ const WorksSection: React.FC = () => {
         }
         return '520px';
     };
-    console.log(works, 'works')
     return (
         <div className="works-section">
             {works.map((work: any) => (
