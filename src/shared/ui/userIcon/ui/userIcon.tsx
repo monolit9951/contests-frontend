@@ -7,18 +7,19 @@ import { Text } from 'shared/ui/text'
 import './userIcon.scss'
 
 interface Props {
+    userImage?: string
     size?: number
     userName?: string
     className?: string
 }
 
 export const UserIcon = (props: Props) => {
-    const { size = 44, userName, className } = props
+    const { userImage, size = 44, userName, className } = props
 
     return (
         <HStack className={clsx('userImg_container', className)}>
             <Image
-                src={userImg}
+                src={userImg ?? userImage}
                 alt='userIMG'
                 width={size}
                 height={size}

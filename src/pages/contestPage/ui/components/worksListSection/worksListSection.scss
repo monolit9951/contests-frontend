@@ -1,0 +1,153 @@
+.participants-works {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    &__title {
+        & > span {
+            padding-left: 16px;
+        }
+    }
+
+    &__types {
+        display: flex;
+        border-bottom: 1px solid;
+
+        > li > button {
+            position: relative;
+
+            padding: 14px 24px;
+            border: none;
+            background-color: transparent;
+
+            font-size: 24px;
+            line-height: 1;
+
+            cursor: pointer;
+
+            &.active {
+                font-weight: 600;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 50px;
+                    left: 0;
+                    width: 100%;
+                    border-bottom: 3px solid;
+                }
+            }
+        }
+    }
+
+    &__sort {
+        display: flex;
+        gap: 16px;
+
+        > li > button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 20px;
+            letter-spacing: -0.011em;
+
+            cursor: pointer;
+        }
+    }
+
+    &__list-wrapper {
+        gap: 24px;
+    }
+
+    &__list {
+        display: flex;
+        gap: 20px 32px;
+        flex-wrap: wrap;
+    }
+}
+
+.dark {
+    .participants-works {
+        &__title {
+            & > span {
+                color: var(--white-muted);
+            }
+        }
+
+        &__types {
+            border-color: var(--grey-border);
+
+            > li > button {
+                color: var(--white-muted);
+
+                &.active {
+                    color: var(--white);
+
+                    &:before {
+                        border-color: var(--white);
+                    }
+                }
+
+                &:hover:not(.active) {
+                    color: var(--white);
+                }
+            }
+        }
+
+        &__sort {
+            > li > button {
+                color: var(--white-muted);
+                background-color: var(--green-dark);
+
+                &.active {
+                    color: var(--dark-medium);
+                    background-color: var(--white);
+                }
+            }
+        }
+    }
+}
+.light {
+    .participants-works {
+        &__title {
+            & > span {
+                color: var(--grey-light);
+            }
+        }
+
+        &__types {
+            border-color: var(--border-grey);
+
+            > li > button {
+                color: var(--grey-light);
+
+                &.active {
+                    color: var(--main-dark);
+
+                    &:before {
+                        border-color: var(--main-dark);
+                    }
+                }
+
+                &:hover:not(.active) {
+                    color: var(--green-dark);
+                }
+            }
+        }
+
+        &__sort {
+            > li > button {
+                color: var(--text-light);
+                background-color: var(--white);
+
+                &.active {
+                    color: var(--white);
+                    background-color: var(--green-dark);
+                }
+            }
+        }
+    }
+}
