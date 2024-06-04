@@ -3,49 +3,69 @@ import clsx from "clsx";
 import {useTheme} from "entities/theme";
 import workMedia  from 'entities/work/assets/Frame 144.jpg';
 import {Work} from "entities/work/model/types";
+import commentIcon from 'shared/assets/icons/chat.svg?react'
+import shareIcon from 'shared/assets/icons/share.svg?react'
 import prize from 'shared/assets/icons/trophyF.svg?react'
 import userIcon from 'shared/assets/img/userIMG.jpg';
 import {Button} from "shared/ui/button";
+import {Icon} from "shared/ui/icon";
 import {Image} from "shared/ui/image";
+import {RateButtons} from "shared/ui/rateButtons";
 import {Flex, HStack, VStack} from "shared/ui/stack";
 import {Text} from "shared/ui/text";
 
 import './workPreview.scss'
-import {Icon} from "shared/ui/icon";
 
 interface WorkProps {
     work: Work;
 }
 
-export const WorkPreview: React.FC<WorkProps> = ({ work, }) => {
+export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
     const {theme} = useTheme();
     console.log(work, 'work')
 
     const handleClick = () => {
         alert('clicked');
     }
+
     return (
         <Flex className="work-preview">
             <HStack>
-                <Image src={workMedia} alt=''/>
+                {work.typeWork !== "TEXT" && <Image src={workMedia} alt=''/>}
                 <VStack className='contest_desc'>
                     <VStack>
                         <HStack className='upper-desc'>
                             <HStack className='align__center'>
                                 <Image src={userIcon} alt=''/>
-                                <Text Tag='span'>name</Text>
+                                <Text Tag='span' bold>name</Text>
                                 <Text Tag='span' className='date'>1d</Text>
                             </HStack>
-                            <Button variant="ghost" onClick={handleClick}>...</Button>
+                            <Button variant="ghost" onClick={handleClick} className='dots'>...</Button>
                         </HStack>
                         <Text Tag='p'>asdfasdfasdfadas</Text>
                         <HStack className={clsx(theme, 'tag-contest align__center')}>
                             <div className='icon-box'>
-                                <Icon Svg={prize} className='icon-work__prev' />
+                                <Icon Svg={prize} className='icon-work__prev'/>
                             </div>
-                            <Text Tag='span'>asdasd</Text>
+                            <Text Tag='p' size='xs' bold>asdasd</Text>
+                            <Text Tag='span' size='xs'>&#8226;</Text>
+                            <Text Tag='span' size='xs'>Active</Text>
                         </HStack>
                     </VStack>
+                    <HStack className='btn-box justify__between'>
+                        <HStack>
+                            <RateButtons border/>
+                            <Button variant="secondary" onClick={handleClick} className='comment-btn'>
+                                <Icon Svg={commentIcon}/>
+                                203
+                            </Button>
+                        </HStack>
+                        <Button variant='secondary' onClick={handleClick} className='share-btn'>
+                            <Icon Svg={shareIcon}/>
+                            Share
+                        </Button>
+                    </HStack>
+                    <div className='hr'/>
                 </VStack>
             </HStack>
         </Flex>

@@ -18,10 +18,11 @@
         justify-content: center;
         .flex.flex__row{
             width: 100%;
-            svg{
+            .modal-x{
+                margin-left: 32px;
                 z-index: 999;
                 cursor: pointer;
-                fill: var(--primary-dark);
+                fill: var(--primary-dark)!important;
             }
         }
     }

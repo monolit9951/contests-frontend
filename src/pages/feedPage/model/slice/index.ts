@@ -18,7 +18,7 @@ export const fetchWorks = createAsyncThunk(
     'works/fetchWorks',
     async (page: number) => {
         const response = await axios.get<WorksResponse>(
-            `http://localhost:8080/api/works?page=${page}&pageSize=2&sortDirection=ASC`
+            `http://localhost:8080/api/works?page=${page}&pageSize=8&sortDirection=ASC`
         );
         return response.data;
     }

@@ -4,12 +4,12 @@ import {Button} from "shared/ui/button";
 
 interface WorkProps {
     work: Work;
-    openModal: () => void;
+    openModal: (work: Work) => void;
 }
 
 const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
     return (
-        <Button variant='div' className="work" onClick={openModal}>
+        <Button variant='div' className="work" onClick={() => openModal(work)}>
             <h2>{work.description}</h2>
             <p>{work.typeWork}</p>
             <p>Likes: {work.likeAmount}</p>

@@ -5,9 +5,16 @@
   height: 100%;
   .flex.flex__row{
     .contest_desc {
-      padding: 10px;
+      padding: 16px;
       box-sizing: border-box;
       width: 100%;
+      gap: 16px;
+      .hr{
+        background: #525856;
+        width: 100%;
+        height: 1px;
+        margin: 16px 0;
+      }
       .flex__col{
         gap: 16px;
         .upper-desc{
@@ -16,12 +23,26 @@
             img{
               border-radius: 50%;
             }
-            .date{
-
-            }
           }
+          .button.ghost.dots{
+            padding: 0;
+          }:hover{
+          background: transparent;
+                     }
         }
         .tag-contest{
+          width: -webkit-fit-content;
+          padding: 4px;
+          box-sizing: border-box;
+          border-radius: 4px;
+          font-size: 12px;
+          gap: 3px;
+          &.light{
+            background: var(--white-medium-light);
+          }
+          &.dark{
+            background: #1b2321;
+          }
           .icon-box{
             display: flex;
             flex-direction: column;
@@ -35,9 +56,30 @@
             background: var(--purple);
             .icon-work__prev{
               width: 13px;
-              fill:var(--white);
+              fill:var(--white)!important;
             }
           }
+        }
+      }
+      .btn-box{
+        .flex{
+          gap: 8px;
+          .rate-wrapper__border{
+            width: auto;
+            height: 40px;
+            padding: 6px 16px;
+          }
+          .comment-btn{
+            height: 40px;
+            width: auto;
+            padding: 6px 16px;
+
+          }
+        }
+        .share-btn{
+          height: 40px;
+          padding: 6px 16px;
+
         }
       }
     }
