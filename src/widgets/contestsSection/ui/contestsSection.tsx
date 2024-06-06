@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import clsx from 'clsx'
 import { ContestCard, ContestPreview } from 'entities/contest'
 import {
@@ -15,6 +15,7 @@ import {
 } from 'pages/contestsPage'
 import cross from 'shared/assets/icons/X.svg?react'
 import { mockContestData } from 'shared/consts'
+import useOnScreen from 'shared/lib/hooks/useOnScreen'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
@@ -43,7 +44,11 @@ const ContestsSection: FC<Props> = (props) => {
     const active = useAppSelector(selectActiveFilters)
     const filters = active.filtersList as FilterPayloadObj[]
 
-    const onScroll = useCallback(() => {
+    const { isIntersecting, measureRef, observer } = useOnScreen({
+        threshold: 0.8,
+    })
+
+    useEffect(() => {
         if (
             nextLoading ||
             all.loading ||
@@ -52,20 +57,11 @@ const ContestsSection: FC<Props> = (props) => {
         ) {
             return
         }
-        const { scrollTop, clientHeight, scrollHeight } =
-            document.documentElement
-
-        if (clientHeight + scrollTop >= scrollHeight - 30) {
+        if (isIntersecting && observer) {
             dispatch(fetchNextContestsPage())
+            observer.disconnect()
         }
-    }, [dispatch, nextLoading, all.loading, all.page])
-
-    useEffect(() => {
-        window.addEventListener('scroll', onScroll)
-        return () => {
-            window.removeEventListener('scroll', onScroll)
-        }
-    }, [onScroll])
+    }, [isIntersecting])
 
     const prizeRangeCondition = () => {
         return active.prizeRange[0] !== 0 || active.prizeRange[1] !== 100000
@@ -178,11 +174,20 @@ const ContestsSection: FC<Props> = (props) => {
                         {all.loading ? (
                             <p>Loading...</p>
                         ) : (
-                            allContests.map((item) => (
-                                <li key={item.id}>
-                                    <ContestCard {...item} />
-                                </li>
-                            ))
+                            allContests.map((item, idx) => {
+                                if (idx === allContests.length - 1) {
+                                    return (
+                                        <li key={item.id} ref={measureRef}>
+                                            <ContestCard {...item} />
+                                        </li>
+                                    )
+                                }
+                                return (
+                                    <li key={item.id}>
+                                        <ContestCard {...item} />
+                                    </li>
+                                )
+                            })
                         )}
 
                         {nextLoading && <p>Loading next...</p>}
