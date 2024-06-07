@@ -1,6 +1,6 @@
-import { Comment } from './model/types'
+import { Comment, PagedComments } from './model/types'
 import CommentEl from './ui/commentEl'
 
-export type { Comment }
+export type { Comment, PagedComments }
 
 export { CommentEl }
