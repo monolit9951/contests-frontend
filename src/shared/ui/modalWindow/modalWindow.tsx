@@ -16,6 +16,7 @@ interface UploadModalProps {
     height?: string;
     className?: string;
     overlayClassName?: string;
+    modalContentClass?: string;
 }
 
 export const ModalWindow: FC<UploadModalProps> = ({ width, height, ...rest}) => {
@@ -23,12 +24,13 @@ export const ModalWindow: FC<UploadModalProps> = ({ width, height, ...rest}) => 
 
     const modalClass = clsx('modal', { 'modal-open': rest.isOpen }, rest.className);
     const overlayClass = clsx('modal-overlay', rest.overlayClassName);
+    const modalContentClass = clsx("modal-content", rest.modalContentClass , theme)
 
     return (
         <VStack className={modalClass}>
             <div className='flex flex__row' style={{ width, height }}>
                 <Flex className={overlayClass} clickFunction={rest.onClose} />
-                <HStack className={clsx("modal-content", theme)}>
+                <HStack className={modalContentClass}>
                     <VStack>{rest.children}</VStack>
                 </HStack>
                 { rest.isOuterClose && <Icon Svg={xIcon} clickable onClick={rest.onClose} /> }

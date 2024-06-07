@@ -19,7 +19,7 @@ const types = [
 
 export const PrizePlace = ({ winIcon, deleteIcon }: PrizePlaceProps) => {
     return (
-        <VStack>
+        <VStack className='prizePlace_outercontainer'>
             <HStack className='prizePlace_container'>
                 <Icon
                     Svg={winIcon}

@@ -14,10 +14,10 @@ import { Text } from 'shared/ui/text'
 
 import info from '../../../assets/icons/question-mark.svg?react'
 import upload from '../../../assets/icons/upload.svg?react'
+import questionMark from 'shared/assets/icons/question-mark.svg?react'
 
 import './imageUpload.scss'
 
-// import upload from "shared/assets/icons/upload.svg?react"
 
 interface ImageUploadProps {
     text: string
@@ -26,14 +26,15 @@ interface ImageUploadProps {
 }
 
 const covers = [
-    {img: basicCover1},
-    {img: basicCover2},
-    {img: basicCover3},
-    {img: basicCover4}
+    { img: basicCover1 },
+    { img: basicCover2 },
+    { img: basicCover3 },
+    { img: basicCover4 },
 ]
 
 export const ImageUpload = ({ text, img, imgAlt }: ImageUploadProps) => {
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [isUploading, setIsUploading] = useState<boolean>(false)
 
     const imgClassName =
         img === '/src/shared/assets/img/cardIMGPlaceholder.jpg' ||
@@ -42,65 +43,114 @@ export const ImageUpload = ({ text, img, imgAlt }: ImageUploadProps) => {
             : ''
     return (
         <>
-
             <ModalWindow
                 isOpen={isOpen}
                 className='cover_selection'
-                overlayClassName='cover_selection_overlay'>
+                overlayClassName='cover_selection_overlay'
+                // contentClassName='cover_selection_content'
+                modalContentClass='cover_selection_content'>
                 <VStack className='cover_selection_container'>
                     <HStack className='header'>
-                        <Text Tag='h3'>Cover selection</Text>
+                        <Text Tag='h3' className='header_text'>
+                            Cover selection
+                        </Text>
                         <Icon
                             Svg={X}
-                            className='x-icon'
+                            className='header_icon'
                             clickable
-                            onClick={()=> setIsOpen(false)}
+                            onClick={() => setIsOpen(false)}
                             width={24}
                             height={24}
                         />
                     </HStack>
 
-                    <Divider marginX={16} marginY={24}/>
+                    <Divider
+                        marginX={0}
+                        marginY={24}
+                    />
 
-                    <Text Tag='p' className='basic-covers_header'>
-                        Choose basic or upload your custom cover
-                    </Text>
-
-                    <HStack className='basic-covers_container'>
-                        {covers.map((cover) => (
-                              <Image
-                              src={cover.img}
-                              alt='img not found'
-                              className='basic-cover'
-                          />
-                        ))}
-                    </HStack>
-
-                    <Divider marginX={16} marginY={16}/>
-
-                    <VStack className='custom-cover-upload_container'>
-                        <Text Tag='p' className='semibold text'>
-                            Drag and drop your file here or upload
-                        </Text>
-                        <Text Tag='p' className='text'>
-                            We recommend uploading an image that is at least<br/>
-                            1704 x 390 pixels in size. File size – no more than
-                            6 MB
-                        </Text>
-                        <Button variant='secondary' className='upload-btn' onClick={() => console.log("Upload custom cover")}>
-                            <Text Tag="p" className='upload-btn_text'>
-                                Upload custom cover
+                    {isUploading ? (
+                        <VStack className='uploading__cover'>
+                            <HStack className='uploading__cover__label'>
+                                <Icon
+                                    Svg={questionMark}
+                                    width={20}
+                                    height={20}
+                                    className='uploading__cover__label__icon'
+                                />
+                                <Text Tag='p' className='uploading__cover__label__text'>
+                                    We recommend uploading an image that is at
+                                    least 1704 x 390 pixels in size.
                                 </Text>
-                                <Icon Svg={upload} className='upload-btn_icon'/>
-                             </Button>
-                    </VStack>
+                            </HStack>
 
+                            <VStack className='uploading__cover__preview'>
 
-                    <Divider marginX={16} marginY={24}/>
+                            </VStack>
+                        </VStack>
+                    ) : (
+                        <>
+                            <Text Tag='p' className='basic-covers_header'>
+                                Choose basic or upload your custom cover
+                            </Text>
+
+                            <HStack className='basic-covers_container'>
+                                {covers.map((cover) => (
+                                    <Image
+                                        src={cover.img}
+                                        alt='img not found'
+                                        className='basic-cover'
+                                    />
+                                ))}
+                            </HStack>
+
+                            <Divider
+                                marginX={0}
+                                marginY={16}
+                            />
+
+                            <VStack className='custom-cover-upload_container'>
+                                <Text Tag='p' className='semibold text'>
+                                    Drag and drop your file here or upload
+                                </Text>
+                                <Text Tag='p' className='text'>
+                                    We recommend uploading an image that is at
+                                    least
+                                    <br />
+                                    1704 x 390 pixels in size. File size – no
+                                    more than 6 MB
+                                </Text>
+                                <Button
+                                    variant='secondary'
+                                    className='upload-btn'
+                                    onClick={() => setIsUploading(true)}>
+                                    <Text Tag='p' className='upload-btn_text'>
+                                        Upload custom cover
+                                    </Text>
+                                    <Icon
+                                        Svg={upload}
+                                        className='upload-btn_icon'
+                                    />
+                                </Button>
+                            </VStack>
+                        </>
+                    )}
+
+                    <Divider marginX={16} marginY={24} />
 
                     <HStack className='btns_container'>
-                        <Button className='btn cancel' variant='secondary' onClick={() => setIsOpen(false)}>Cancel</Button>
-                        <Button className='btn upload' variant='primary' onClick={() => console.log("Upload")}>Upload</Button>
+                        <Button
+                            className='btn cancel'
+                            variant='secondary'
+                            onClick={() => setIsOpen(false)}>
+                            Cancel
+                        </Button>
+                        <Button
+                            className='btn upload'
+                            variant='primary'
+                            onClick={() => console.log('Upload')}>
+                            Upload
+                        </Button>
                     </HStack>
                 </VStack>
             </ModalWindow>
