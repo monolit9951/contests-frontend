@@ -69,8 +69,8 @@ const ContestPage = () => {
             <VStack className='contest__container'>
                 <DescriptionSection data={data} />
                 <WinnersSection />
-                <WorksListSection ownerId={id} />
-                <СommentsSection />
+                <WorksListSection />
+                <СommentsSection ownerId={id} />
             </VStack>
         </VStack>
     )

@@ -27,6 +27,7 @@
                     right: -125px;
                     z-index: 1;
 
+                    gap: 4px;
                     border-radius: 12px;
                 }
 
@@ -53,6 +54,22 @@
             > .button {
                 padding: 6px 10px;
                 border-radius: 16px;
+            }
+        }
+
+        .comment-reply {
+            gap: 8px;
+
+            &__input-box {
+                width: 100%;
+                gap: 8px;
+            }
+
+            &__input {
+                width: 100%;
+                > input {
+                    width: 100%;
+                }
             }
         }
     }

@@ -1,8 +1,18 @@
 import { VStack } from 'shared/ui/stack'
 
-const CommentController = () => {
+interface Props {
+    onClose: () => void
+}
+
+const CommentController = ({ onClose }: Props) => {
     const onReportAction = () => {
         console.log('comment reported')
+        onClose()
+    }
+
+    const onEditAction = () => {
+        console.log('comment editor called')
+        onClose()
     }
 
     return (
@@ -12,6 +22,12 @@ const CommentController = () => {
                 onClick={onReportAction}
                 className='comment-action__button'>
                 Report comment
+            </button>
+            <button
+                type='button'
+                onClick={onEditAction}
+                className='comment-action__button'>
+                Edit comment
             </button>
         </VStack>
     )

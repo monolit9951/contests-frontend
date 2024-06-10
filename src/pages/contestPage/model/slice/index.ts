@@ -7,6 +7,11 @@ import {
     fetchPopularTextWorks,
     fetchTextWorks,
 } from '../services'
+import { createContestComment } from '../services/createContestComment'
+import {
+    fetchContestComments,
+    fetchNextContestComments,
+} from '../services/fetchContestComments'
 import { fetchNextMediaWorks } from '../services/fetchMediaWorks'
 import { ContestWorksSchema } from '../types'
 
@@ -17,7 +22,7 @@ const initialState: ContestWorksSchema = {
         new: [],
         popular: [],
 
-        page: 0,
+        page: 1,
 
         totalPages: 0,
         totalElements: 0,
@@ -40,6 +45,19 @@ const initialState: ContestWorksSchema = {
         nextLoading: false,
         error: null,
     },
+
+    comments: {
+        content: [],
+
+        page: 1,
+
+        totalPages: 0,
+        totalElements: 0,
+
+        loading: false,
+        nextLoading: false,
+        error: null,
+    },
 }
 
 const slice = createSlice({
@@ -52,7 +70,7 @@ const slice = createSlice({
                 state.media.new = payload.content
                 state.media.totalPages = payload.totalPages
                 state.media.totalElements = payload.totalElements
-                state.text.page = 0
+                state.text.page = 1
 
                 state.media.loading = false
 
@@ -89,6 +107,33 @@ const slice = createSlice({
 
                 state.text.loading = false
             })
+            .addCase(fetchContestComments.fulfilled, (state, { payload }) => {
+                state.comments.content = payload.content
+                state.comments.totalPages = payload.totalPages
+                state.comments.totalElements = payload.totalElements
+                state.comments.page = 1
+
+                state.comments.loading = false
+            })
+            .addCase(
+                fetchNextContestComments.fulfilled,
+                (state, { payload }) => {
+                    state.comments.content = state.comments.content.concat(
+                        payload.content
+                    )
+                    state.comments.page += 1
+
+                    state.comments.nextLoading = false
+                }
+            )
+            .addCase(createContestComment.fulfilled, (state, { payload }) => {
+                state.comments.content = [
+                    payload.content,
+                    ...state.comments.content,
+                ]
+
+                state.comments.nextLoading = false
+            })
 
             .addCase(fetchNextMediaWorks.pending, (state) => {
                 state.media.nextLoading = true
@@ -98,6 +143,10 @@ const slice = createSlice({
                 state.text.nextLoading = true
                 state.text.error = null
             })
+            .addCase(fetchContestComments.pending, (state) => {
+                state.comments.loading = true
+                state.comments.error = null
+            })
 
             .addCase(fetchNextMediaWorks.rejected, (state, { payload }) => {
                 state.media.error = payload as string
@@ -106,6 +155,11 @@ const slice = createSlice({
             .addCase(fetchNextTextWorks.rejected, (state, { payload }) => {
                 state.text.error = payload as string
                 state.text.nextLoading = false
+            })
+            .addCase(fetchContestComments.rejected, (state, { payload }) => {
+                state.comments.error = payload as string
+
+                state.comments.loading = false
             })
 
             .addMatcher(
@@ -123,6 +177,16 @@ const slice = createSlice({
                 (state) => {
                     state.text.loading = true
                     state.text.error = null
+                }
+            )
+            .addMatcher(
+                isAnyOf(
+                    fetchNextContestComments.pending,
+                    createContestComment.pending
+                ),
+                (state) => {
+                    state.comments.nextLoading = true
+                    state.comments.error = null
                 }
             )
 
@@ -144,6 +208,17 @@ const slice = createSlice({
                 (state, { payload }) => {
                     state.text.error = payload as string
                     state.text.loading = false
+                }
+            )
+            .addMatcher(
+                isAnyOf(
+                    fetchNextContestComments.rejected,
+                    createContestComment.rejected
+                ),
+                (state, { payload }) => {
+                    state.comments.error = payload as string
+
+                    state.comments.nextLoading = false
                 }
             ),
 })
