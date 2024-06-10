@@ -189,8 +189,7 @@ const ContestsSection: FC<Props> = (props) => {
                                 )
                             })
                         )}
-
-                        {nextLoading && <p>Loading next...</p>}
+                        {nextLoading && <p />}
                     </>
                 )}
             </ul>
