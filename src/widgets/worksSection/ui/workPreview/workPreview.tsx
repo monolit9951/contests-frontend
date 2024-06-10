@@ -54,7 +54,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                     </VStack>
                     <HStack className='btn-box justify__between'>
                         <HStack>
-                            <RateButtons border/>
+                            <RateButtons border likes={work.likeAmount}/>
                             <Button variant="secondary" onClick={handleClick} className='comment-btn'>
                                 <Icon Svg={commentIcon}/>
                                 203
