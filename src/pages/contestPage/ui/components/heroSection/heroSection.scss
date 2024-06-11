@@ -38,16 +38,20 @@
 }
 
 .dark {
-    &__creator {
-        > img {
-            border-color: var(--dark);
+    .contest-hero {
+        &__creator {
+            > img {
+                border-color: var(--dark);
+            }
         }
     }
 }
 .light {
-    &__creator {
-        > img {
-            border-color: var(--text-main);
+    .contest-hero {
+        &__creator {
+            > img {
+                border-color: var(--white-medium-light);
+            }
         }
     }
 }
