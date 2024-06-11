@@ -51,8 +51,8 @@ const CommentEl: FC<Props> = (props) => {
 
             const response = await instance.post('comment/subComment', {
                 parentId: data.id,
-                commentText: 'inputData',
-                userId: '123456879',
+                commentText: inputData,
+                userId: '66671513e15b363b51c0eef1',
             })
 
             setSubComments((prev) => [...prev, response.data])
