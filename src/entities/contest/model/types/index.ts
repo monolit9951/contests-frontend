@@ -44,7 +44,7 @@ export interface ContestPreview
         | 'backgroundImage'
         | 'description'
         | 'exampleMedia'
-        | 'prizeStructure'
+        | 'prizes'
         | 'winners'
     > {
     previewImage: string | null

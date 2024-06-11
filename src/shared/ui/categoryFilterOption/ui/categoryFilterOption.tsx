@@ -1,5 +1,5 @@
+import { Category } from 'entities/contest'
 import { filterActions } from 'features/filterContests'
-import { Category } from 'features/filterContests/model/types'
 import { FilterOptions } from 'shared/consts'
 import { useAppDispatch } from 'shared/lib/store'
 
