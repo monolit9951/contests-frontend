@@ -39,21 +39,30 @@ export const WorksList: FC<Props> = (props) => {
         }
 
         if (workType === 'media') {
-            return sort === 'new'
-                ? newMediaWorks?.map((item) => (
-                      <WorkCard key={item.id} data={item} />
-                  ))
-                : popularMediaWorks?.map((item) => (
-                      <WorkCard key={item.id} data={item} />
-                  ))
+            if (sort === 'new') {
+                if (!newMediaWorks.length) {
+                    return <li>No works here</li>
+                }
+                return newMediaWorks?.map((item) => (
+                    <WorkCard key={item.id} data={item} />
+                ))
+            }
+            if (!popularMediaWorks.length) {
+                return <li>No works here</li>
+            }
+            return popularMediaWorks?.map((item) => (
+                <WorkCard key={item.id} data={item} />
+            ))
         }
         return sort === 'new'
-            ? newTextWorks?.map((item) => (
-                  <WorkCard key={item.id} data={item} isText />
-              ))
-            : popularTextWorks?.map((item) => (
-                  <WorkCard key={item.id} data={item} isText />
-              ))
+            ? (!newTextWorks.length && <li>No works here</li>) ||
+                  newMediaWorks?.map((item) => (
+                      <WorkCard key={item.id} data={item} />
+                  ))
+            : (!popularTextWorks.length && <li>No works here</li>) ||
+                  popularTextWorks?.map((item) => (
+                      <WorkCard key={item.id} data={item} isText />
+                  ))
     }
 
     const loadMoreCondition = () => {
@@ -89,7 +98,7 @@ export const WorksList: FC<Props> = (props) => {
             {loadMoreCondition() ||
                 (sort === 'new' && (
                     <Button variant='secondary' onClick={onLoadMore}>
-                        See more works
+                        Show more works
                     </Button>
                 ))}
         </VStack>
