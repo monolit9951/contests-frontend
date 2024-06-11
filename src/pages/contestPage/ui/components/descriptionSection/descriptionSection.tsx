@@ -104,7 +104,7 @@ const DescriptionSection = ({ data }: Props) => {
                         </Text>
                         <ul className='example-list'>
                             {data.exampleMedia?.map((item, idx) => (
-                                <li key={item}>
+                                <li key={item + idx}>
                                     <Image
                                         src={item}
                                         alt={`Example ${idx + 1}`}

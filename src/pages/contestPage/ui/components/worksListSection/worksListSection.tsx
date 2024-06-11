@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import clsx from 'clsx'
 import { selectContestMedia } from 'pages/contestPage/model/selectors'
 import { useAppSelector } from 'shared/lib/store'
@@ -8,11 +8,7 @@ import { WorksList } from './worksList'
 
 import './worksListSection.scss'
 
-interface Props {
-    ownerId: string
-}
-
-const WorksListSection: FC<Props> = ({ ownerId }) => {
+const WorksListSection = () => {
     const [workType, setWorkType] = useState<'media' | 'text'>('media')
     const [selectedSort, setSelectedSort] = useState<'new' | 'popular'>('new')
 
@@ -83,11 +79,7 @@ const WorksListSection: FC<Props> = ({ ownerId }) => {
                 </li>
             </ul>
 
-            <WorksList
-                ownerId={ownerId}
-                workType={workType}
-                sort={selectedSort}
-            />
+            <WorksList workType={workType} sort={selectedSort} />
         </section>
     )
 }
