@@ -20,9 +20,8 @@ const useAxios = <T>(
                 )
 
                 setData(response.data)
-                // eslint-disable-next-line @typescript-eslint/no-shadow
-            } catch (error) {
-                setError(error as Error)
+            } catch (err) {
+                setError(err as Error)
             } finally {
                 setIsLoading(false)
             }

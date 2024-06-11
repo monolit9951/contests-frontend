@@ -29,15 +29,15 @@ export const CategoryFilterOption = ({
 
         switch (FilterOption) {
             case 1:
-                category = 'Category2'
+                category = 'FOR_FUN'
                 break
 
             case 2:
-                category = 'Category3'
+                category = 'FOR_WORK'
                 break
 
             default:
-                category = 'Category1'
+                category = ''
                 break
         }
         dispatch(filterActions.changeCategory(category))

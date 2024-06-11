@@ -3,7 +3,7 @@ import { Organizer } from 'entities/user'
 
 type Status = 'ACTIVE' | 'INACTIVE' | 'PAUSED' | 'FINISHED' | 'UPCOMING'
 
-type Category = 'CATEGORY1' | 'CATEGORY2' | 'CATEGORY3'
+export type Category = '' | 'FOR_FUN' | 'FOR_WORK'
 
 type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
 
@@ -16,8 +16,8 @@ export interface Contest {
     backgroundImage: string
     participantAmount?: number
     maxAllowedParticipantAmount?: number
-    dateStart: number[]
-    dateEnd: number[]
+    dateStart: string
+    dateEnd: string
     description: string
     exampleMedia?: string[]
     prizeStructure: PrizeStructure[]
