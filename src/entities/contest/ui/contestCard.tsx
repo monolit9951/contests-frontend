@@ -6,13 +6,13 @@ import Verified from 'shared/assets/icons/SealCheck.svg?react'
 import Star from 'shared/assets/icons/Star.svg?react'
 import PrizeIcon from 'shared/assets/icons/trophyF.svg?react'
 import contestImg from 'shared/assets/img/contestBG.png'
-import avatar from 'shared/assets/img/userIMG.jpg'
 import { Button } from 'shared/ui/button'
 import { Image } from 'shared/ui/image'
 import { Flex, HStack, VStack } from 'shared/ui/stack'
 import { Tag } from 'shared/ui/tag'
 import { Text } from 'shared/ui/text'
 import { TopUser } from 'shared/ui/topUser'
+import { UserIcon } from 'shared/ui/userIcon'
 
 import { ContestPreview } from '../model/types'
 
@@ -47,14 +47,10 @@ export const ContestCard: React.FC<Props> = (props) => {
         <div className={clsx('contest-card-wrapper', theme, className)}>
             <Flex className='justify__between align__center'>
                 <Flex className='align__center'>
-                    <Image
-                        alt='Creator`s profile'
+                    <UserIcon
                         src={rest.contestOwner.profileImage}
+                        alt='Creator`s profile'
                         className='user-avatar'
-                        onError={(e) => {
-                            e.currentTarget.src = avatar
-                            e.currentTarget.onerror = null
-                        }}
                     />
                     <VStack className='user-des'>
                         <Flex className='align__center'>
@@ -85,8 +81,10 @@ export const ContestCard: React.FC<Props> = (props) => {
             <div className='contest-card-body'>
                 <VStack className='image-box align__center'>
                     <Image
-                        alt=''
+                        alt='Contest preview image'
                         src={rest.previewImage ?? contestImg}
+                        width={377}
+                        height={212}
                         onError={(e) => {
                             e.currentTarget.src = contestImg
                             e.currentTarget.onerror = null
@@ -95,7 +93,7 @@ export const ContestCard: React.FC<Props> = (props) => {
                     <div className='prize' style={{ background: getBgColor() }}>
                         <PrizeIcon />
                         <Text Tag='span'>
-                            {rest.prizesPreviews[0]?.prizeAmount}
+                            {rest.prizesPreviews[0]?.prizeType}
                         </Text>
                     </div>
                 </VStack>
