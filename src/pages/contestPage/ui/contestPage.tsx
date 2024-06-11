@@ -17,6 +17,7 @@ import {
     fetchTextWorks,
 } from '../model/services'
 
+import СommentsSection from './components/commentsSection/commentsSection'
 import DescriptionSection from './components/descriptionSection/descriptionSection'
 import HeroSection from './components/heroSection/heroSection'
 import WinnersSection from './components/winnersSection/winnersSection'
@@ -68,8 +69,8 @@ const ContestPage = () => {
             <VStack className='contest__container'>
                 <DescriptionSection data={data} />
                 <WinnersSection />
-                <WorksListSection ownerId={id} />
-                {/* <CommentsSection /> */}
+                <WorksListSection />
+                <СommentsSection ownerId={id} />
             </VStack>
         </VStack>
     )
