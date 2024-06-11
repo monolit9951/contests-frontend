@@ -123,14 +123,16 @@ const DescriptionSection = ({ data }: Props) => {
                             Prize information
                         </Text>
                         <ul className='prizes-list'>
-                            {data.prizeStructure.map((item, idx) => {
-                                const { id, place, winnersAmount } = item
+                            {data.prizes.map((item, idx) => {
                                 const {
+                                    id,
+                                    place,
+                                    winnersAmount,
                                     currency,
                                     prizeAmount,
                                     prizeType,
                                     prizeText,
-                                } = item.prize
+                                } = item
 
                                 return (
                                     <Fragment key={id}>
@@ -182,9 +184,10 @@ const DescriptionSection = ({ data }: Props) => {
                         <HStack className='align__center'>
                             <Icon Svg={calendar} width={36} height={36} />
                             <Text Tag='span' bold={contestInactive()} size='xl'>
-                                {contestInactive()
-                                    ? 'Inactive'
-                                    : `${deadline[2]}.${
+                                {
+                                    contestInactive()
+                                        ? 'Inactive'
+                                        : `${deadline}` /* `${deadline[2]}.${
                                           deadline[1] < 10
                                               ? `0${deadline[1]}`
                                               : deadline[1]
@@ -192,7 +195,8 @@ const DescriptionSection = ({ data }: Props) => {
                                           deadline[3] > 12
                                               ? `${deadline[3] - 12} pm`
                                               : `${deadline[3]} am`
-                                      }`}
+                                      }` */
+                                }
                             </Text>
                         </HStack>
                     </VStack>
