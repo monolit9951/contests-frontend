@@ -2,6 +2,8 @@ import React from 'react';
 import {Work} from "entities/work/model/types";
 import {Button} from "shared/ui/button";
 
+import './workComponent.scss'
+
 interface WorkProps {
     work: Work;
     openModal: (work: Work) => void;
