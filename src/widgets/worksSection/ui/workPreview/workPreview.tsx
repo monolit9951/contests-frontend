@@ -7,12 +7,14 @@ import commentIcon from 'shared/assets/icons/chat.svg?react'
 import shareIcon from 'shared/assets/icons/share.svg?react'
 import prize from 'shared/assets/icons/trophyF.svg?react'
 import userIcon from 'shared/assets/img/userIMG.jpg';
+import img1 from 'shared/assets/img/userIMG3.jpg'
 import {Button} from "shared/ui/button";
 import {Icon} from "shared/ui/icon";
 import {Image} from "shared/ui/image";
 import {RateButtons} from "shared/ui/rateButtons";
 import {Flex, HStack, VStack} from "shared/ui/stack";
 import {Text} from "shared/ui/text";
+import {ImageSlider} from "widgets/worksSection/ui/workPreview/imageSlider/imageSlider";
 
 import './workPreview.scss'
 
@@ -28,10 +30,15 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
         alert('clicked');
     }
 
+    const mockImages = [img1, img1, img1]
+
+    // const imageUrls = work.media.map((mediaItem) => mediaItem.mediaLink);
+
     return (
         <Flex className="work-preview">
             <HStack>
-                {work.typeWork !== "TEXT" && <Image src={workMedia} alt=''/>}
+                {work.typeWork === "IMAGE" && <ImageSlider images={mockImages}/>}
+                {work.typeWork === "VIDEO" && <Image src={workMedia} alt=''/>}
                 <VStack className='contest_desc'>
                     <VStack>
                         <HStack className='upper-desc'>
@@ -54,7 +61,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                     </VStack>
                     <HStack className='btn-box justify__between'>
                         <HStack>
-                            <RateButtons border/>
+                            <RateButtons border likes={0}/>
                             <Button variant="secondary" onClick={handleClick} className='comment-btn'>
                                 <Icon Svg={commentIcon}/>
                                 203
