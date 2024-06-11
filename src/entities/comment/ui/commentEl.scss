@@ -1,0 +1,112 @@
+.comment {
+    &__wrapper {
+        align-items: start;
+        gap: 8px;
+
+        padding-top: 16px;
+        margin-bottom: 8px;
+    }
+
+    &__body {
+        gap: 8px;
+        width: 100%;
+
+        & > .comment-info {
+            position: relative;
+            justify-content: space-between;
+            padding-left: 8px;
+
+            span {
+                padding-left: 8px;
+            }
+
+            .comment-action {
+                &__box {
+                    position: absolute;
+                    top: 0;
+                    right: -125px;
+                    z-index: 1;
+
+                    gap: 4px;
+                    border-radius: 12px;
+                }
+
+                &__button {
+                    padding: 6px 10px;
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        & > .comment-text {
+            padding-left: 8px;
+        }
+
+        & > .comment-feedback {
+            gap: 24px;
+
+            > .button {
+                padding: 6px 10px;
+                border-radius: 16px;
+            }
+        }
+
+        .comment-reply {
+            gap: 8px;
+
+            &__input-box {
+                width: 100%;
+                gap: 8px;
+            }
+
+            &__input {
+                width: 100%;
+                > input {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.dark {
+    .comment-info {
+        span {
+            color: var(--white-muted);
+        }
+
+        .comment-action {
+            &__box {
+                background-color: var(--green-dark);
+            }
+
+            &__button {
+                color: var(--white);
+                background-color: transparent;
+            }
+        }
+    }
+}
+.light {
+    .comment-info {
+        span {
+            color: var(--grey-light);
+        }
+
+        .comment-action {
+            &__box {
+                background-color: var(--white);
+            }
+
+            &__button {
+                background-color: transparent;
+            }
+        }
+    }
+}

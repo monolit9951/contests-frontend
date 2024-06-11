@@ -1,0 +1,19 @@
+.comment-replies {
+    &__wrapper {
+        padding-left: 48px;
+    }
+
+    &__button {
+        width: fit-content;
+        padding: 8px;
+    }
+
+    &__icon {
+        &.opened {
+            transform: rotate(90deg);
+        }
+        &.closed {
+            transform: rotate(-90deg);
+        }
+    }
+}
