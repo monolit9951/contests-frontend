@@ -22,7 +22,7 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
             <div
                 className='contest-hero__image'
                 style={{
-                    backgroundImage: `url(${contestHeroIMG ?? bg})`,
+                    backgroundImage: `url(${bg ?? contestHeroIMG})`,
                 }}
             />
 

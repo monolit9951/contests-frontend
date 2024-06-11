@@ -104,7 +104,7 @@ const DescriptionSection = ({ data }: Props) => {
                         </Text>
                         <ul className='example-list'>
                             {data.exampleMedia?.map((item, idx) => (
-                                <li key={item}>
+                                <li key={item + idx}>
                                     <Image
                                         src={item}
                                         alt={`Example ${idx + 1}`}
@@ -123,14 +123,14 @@ const DescriptionSection = ({ data }: Props) => {
                             Prize information
                         </Text>
                         <ul className='prizes-list'>
-                            {data.prizeStructure.map((item, idx) => {
+                            {data.prizes.map((item, idx) => {
                                 const { id, place, winnersAmount } = item
                                 const {
                                     currency,
                                     prizeAmount,
                                     prizeType,
                                     prizeText,
-                                } = item.prize
+                                } = item
 
                                 return (
                                     <Fragment key={id}>

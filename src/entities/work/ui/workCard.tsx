@@ -62,6 +62,7 @@ const WorkCard: FC<Props> = (props) => {
                         )}
                     </Text>
                     <MediaFeedback
+                        id={data.id}
                         likes={data.likeAmount}
                         comments={data.commentAmount}
                     />
@@ -80,13 +81,13 @@ const WorkCard: FC<Props> = (props) => {
                             title='media'
                             width={458}
                             height={612}
-                            src={mediaLink ?? data.media?.mediaLink}
+                            src={data.media?.[0].mediaLink ?? mediaLink}
                             className='media__frame'
                         />
                     )}
                     {data?.typeWork === 'IMAGE' && (
                         <Image
-                            src={media}
+                            src={data.media?.[0].mediaLink ?? media}
                             alt='media'
                             width={458}
                             height={612}
@@ -95,6 +96,7 @@ const WorkCard: FC<Props> = (props) => {
                     )}
                 </div>
                 <MediaFeedback
+                    id={data.id}
                     likes={data.likeAmount}
                     comments={data.commentAmount}
                 />
