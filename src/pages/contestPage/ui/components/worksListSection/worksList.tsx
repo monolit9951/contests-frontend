@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Work, WorkCard } from 'entities/work'
 import {
     selectContestMedia,
+    selectContestOwnerId,
     selectContestText,
 } from 'pages/contestPage/model/selectors'
 import {
@@ -13,16 +14,16 @@ import { Button } from 'shared/ui/button'
 import { VStack } from 'shared/ui/stack'
 
 interface Props {
-    ownerId: string
     workType: 'media' | 'text'
     sort: 'new' | 'popular'
 }
 
 export const WorksList: FC<Props> = (props) => {
-    const { ownerId, sort, workType } = props
+    const { sort, workType } = props
 
     const dispatch = useAppDispatch()
 
+    const ownerId = useAppSelector(selectContestOwnerId)
     const media = useAppSelector(selectContestMedia)
     const text = useAppSelector(selectContestText)
 
@@ -86,7 +87,7 @@ export const WorksList: FC<Props> = (props) => {
             <ul className='participants-works__list'>{renderList()}</ul>
 
             {loadMoreCondition() ||
-                (sort !== 'new' && (
+                (sort === 'new' && (
                     <Button variant='secondary' onClick={onLoadMore}>
                         See more works
                     </Button>

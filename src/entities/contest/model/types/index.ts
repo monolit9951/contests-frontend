@@ -4,7 +4,7 @@ import { PageEntityDTO } from 'shared/lib/types'
 
 type Status = 'ACTIVE' | 'INACTIVE' | 'PAUSED' | 'FINISHED' | 'UPCOMING'
 
-type Category = 'CATEGORY1' | 'CATEGORY2' | 'CATEGORY3'
+export type Category = '' | 'FOR_FUN' | 'FOR_WORK'
 
 type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
 
@@ -28,8 +28,8 @@ export interface Contest {
     backgroundImage: string
     participantAmount?: number
     maxAllowedParticipantAmount?: number
-    dateStart: number[]
-    dateEnd: number[]
+    dateStart: string
+    dateEnd: string
     description: string
     prizes: Prize[]
     exampleMedia?: string[]
@@ -44,7 +44,7 @@ export interface ContestPreview
         | 'backgroundImage'
         | 'description'
         | 'exampleMedia'
-        | 'prizeStructure'
+        | 'prizes'
         | 'winners'
     > {
     previewImage: string | null

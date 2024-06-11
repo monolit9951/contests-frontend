@@ -12,13 +12,14 @@ import { Text } from '../text'
 import './mediaFeedback.scss'
 
 interface Props {
+    id: string
     likes: number
     comments: number
     className?: string
 }
 
 const MediaFeedback: FC<Props> = (props) => {
-    const { likes, comments, className } = props
+    const { id, likes, comments, className } = props
 
     const onComment = () => {}
 
@@ -27,7 +28,7 @@ const MediaFeedback: FC<Props> = (props) => {
     return (
         <HStack className={clsx('feedback__wrapper', className)}>
             <HStack>
-                <RateButtons likes={likes} border />
+                <RateButtons id={id} likes={likes} border />
                 <Button
                     variant='secondary'
                     size='s'

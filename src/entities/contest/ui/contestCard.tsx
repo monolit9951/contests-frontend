@@ -30,10 +30,10 @@ export const ContestCard: React.FC<Props> = (props) => {
 
     const tagType = rest.category
     const getBgColor = () => {
-        if (tagType === 'CATEGORY1') {
+        if (tagType === 'FOR_FUN') {
             return 'var(--purple)'
         }
-        if (tagType === 'CATEGORY2') {
+        if (tagType === 'FOR_WORK') {
             return 'var(--green)'
         }
         return 'var(--orange)'
@@ -95,7 +95,7 @@ export const ContestCard: React.FC<Props> = (props) => {
                     <div className='prize' style={{ background: getBgColor() }}>
                         <PrizeIcon />
                         <Text Tag='span'>
-                            {rest.prizesPreviews[0]?.prizeText}
+                            {rest.prizesPreviews[0]?.prizeAmount}
                         </Text>
                     </div>
                 </VStack>
@@ -114,9 +114,10 @@ export const ContestCard: React.FC<Props> = (props) => {
                         Completing the task
                     </Text>
                     <Text Tag='span' size='xs'>
-                        until {dateEnd[2]}.
+                        until {dateEnd}
+                        {/* {dateEnd[2]}.
                         {dateEnd[1] < 10 ? `0${dateEnd[1]}` : dateEnd[1]}.
-                        {dateEnd[0]}
+                        {dateEnd[0]} */}
                     </Text>
                 </VStack>
                 <Button variant='secondary' onClick={onDetailsClick}>
