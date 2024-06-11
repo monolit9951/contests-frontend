@@ -6,6 +6,7 @@ interface ImageSliderProps {
     images: string[];
 }
 
+
 export const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
