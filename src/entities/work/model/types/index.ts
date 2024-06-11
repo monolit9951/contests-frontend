@@ -6,14 +6,15 @@ export interface Media {
     mediaLink: string;
 }
 export interface Work {
-    id: string;
-    ownerId: string;
-    description: string;
-    media: Media[] | null;
-    likeAmount: number;
-    commentAmount: number;
-    user: User;
-    typeWork: string;
+    id: string
+    ownerId: string
+    description: string
+    media: Media[] | null
+    likeAmount: number
+    commentAmount: number
+    user: User
+    typeWork: WorkType
+    popularity: number
 }
 
 export interface WorksResponse {

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Category } from 'entities/contest'
 
-import { Category, FilterPayloadObj, FilterSchema } from '../types'
+import { FilterPayloadObj, FilterSchema } from '../types'
 
 type FilterPayload = PayloadAction<FilterPayloadObj>
 
@@ -20,7 +21,7 @@ const initialState: FilterSchema = {
         creators: '',
     },
 
-    category: 'Category1',
+    category: '',
     sortDirection: 'ASC',
 
     loading: false,

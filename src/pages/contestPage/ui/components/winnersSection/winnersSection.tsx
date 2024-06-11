@@ -53,6 +53,7 @@ const WinnersSection: FC<Props> = (props) => {
                                 profileImage:
                                     'https://example.profileImage.com/image19.jpg',
                             },
+                            popularity: 1,
                             typeWork: 'IMAGE',
                         }}
                         place={idx + 1}
