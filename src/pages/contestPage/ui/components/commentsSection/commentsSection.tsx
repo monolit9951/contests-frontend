@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { selectContestComments } from 'pages/contestPage/model/selectors'
 import { createContestComment } from 'pages/contestPage/model/services/createContestComment'
 import { fetchContestComments } from 'pages/contestPage/model/services/fetchContestComments'
+import { contestWorksActions } from 'pages/contestPage/model/slice'
+import instance from 'shared/api/api'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Input } from 'shared/ui/input'
@@ -23,6 +25,26 @@ const СommentsSection = ({ ownerId }: Props) => {
     const dispatch = useAppDispatch()
 
     const commentData = useAppSelector(selectContestComments)
+    const userId = useAppSelector(
+        (state: RootState) => state.contestWorks.userId
+    )
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const { data } = await instance.get(
+                    'users?page=0&pageSize=8&sortDirection=ASC'
+                )
+
+                dispatch(contestWorksActions.setUserId(data.content[0].id))
+            } catch (err) {
+                // eslint-disable-next-line no-console
+                console.error(err)
+            }
+        }
+
+        fetchUser()
+    }, [])
 
     useEffect(() => {
         dispatch(fetchContestComments(ownerId))
@@ -42,7 +64,7 @@ const СommentsSection = ({ ownerId }: Props) => {
             createContestComment({
                 parentId: ownerId,
                 commentText: inputData.trim(),
-                userId: '123456879',
+                userId,
             })
         )
 

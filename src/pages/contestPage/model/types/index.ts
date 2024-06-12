@@ -1,3 +1,4 @@
+import { Comment } from 'entities/comment'
 import { Work } from 'entities/work'
 
 interface ContestWorksObj {
@@ -16,6 +17,8 @@ interface ContestWorksObj {
 
 export interface ContestWorksSchema {
     ownerId: string
+    userId: string
+
     media: ContestWorksObj
     text: ContestWorksObj
 

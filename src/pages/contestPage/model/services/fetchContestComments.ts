@@ -9,7 +9,7 @@ export const fetchContestComments = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `comment?page=0&pageSize=8&sortDirection=ASC&parentId=${id}`
+                `comment?page=0&pageSize=8&sortDirection=DESC&parentId=${id}`
             )
 
             if (!response.data) {
@@ -32,7 +32,7 @@ export const fetchNextContestComments = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `comment?page=${page}&pageSize=8&sortDirection=ASC&parentId=${id}`
+                `comment?page=${page}&pageSize=8&sortDirection=DESC&parentId=${id}`
             )
 
             if (!response.data) {

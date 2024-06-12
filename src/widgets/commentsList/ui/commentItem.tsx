@@ -16,19 +16,22 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
     const { data } = props
 
     const [repliesShown, setRepliesShown] = useState(false)
+    const [repliesNum, setRepliesNum] = useState(data.subCommentsAmount)
     const [subComments, setSubComments] = useState<Comment[]>([])
-    const [page, setPage] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
+    const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
     const [nextLoading, setNextLoading] = useState(false)
     const [error, setError] = useState<Error | null>(null)
 
-    const repliesCount = 1
-
-    const params = `pageSize=8&sortDirection=ASC&parentId=${data.id}`
+    const params = `pageSize=8&sortDirection=DESC&parentId=${data.id}`
 
     const onRepliesClick = async () => {
         setRepliesShown(!repliesShown)
+
+        if (subComments.length) {
+            return
+        }
 
         try {
             setLoading(true)
@@ -45,9 +48,6 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
     }
 
     const onLoadMore = async () => {
-        // eslint-disable-next-line no-return-assign
-        setPage((prev) => (prev += 1))
-
         try {
             setNextLoading(true)
 
@@ -55,7 +55,9 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                 `comment?page=${page}&${params}`
             )
 
-            setSubComments(response.data)
+            setSubComments((prev) => [...prev, ...response.data.content])
+            // eslint-disable-next-line no-return-assign
+            setPage((prev) => (prev += 1))
         } catch (err) {
             setError(err as Error)
         } finally {
@@ -67,11 +69,13 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         <li ref={ref}>
             <CommentEl
                 data={data}
+                setRepliesShown={setRepliesShown}
+                setRepliesNum={setRepliesNum}
                 setSubComments={setSubComments}
                 setNextLoading={setNextLoading}
                 setError={setError}
             />
-            {repliesCount && (
+            {!!repliesNum && (
                 <VStack className='comment-replies__wrapper'>
                     <Button
                         variant='ghost'
@@ -88,7 +92,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                             )}
                         />
                         <Text Tag='p' size='sm' bold>
-                            View replies ({repliesCount})
+                            View replies ({repliesNum})
                         </Text>
                     </Button>
 
@@ -102,6 +106,8 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                                 <li>
                                     <CommentEl
                                         data={item}
+                                        setRepliesShown={setRepliesShown}
+                                        setRepliesNum={setRepliesNum}
                                         setSubComments={setSubComments}
                                         setNextLoading={setNextLoading}
                                         setError={setError}
@@ -115,7 +121,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                                     <Button
                                         variant='ghost'
                                         onClick={onLoadMore}>
-                                        See more
+                                        Show more replies
                                     </Button>
                                 ))}
 

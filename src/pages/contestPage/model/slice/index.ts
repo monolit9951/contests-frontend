@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit'
 
 import {
     fetchMediaWorks,
@@ -17,6 +17,7 @@ import { ContestWorksSchema } from '../types'
 
 const initialState: ContestWorksSchema = {
     ownerId: '',
+    userId: '',
 
     media: {
         new: [],
@@ -63,7 +64,11 @@ const initialState: ContestWorksSchema = {
 const slice = createSlice({
     name: 'contestWorks',
     initialState,
-    reducers: {},
+    reducers: {
+        setUserId: (state, action: PayloadAction<string>) => {
+            state.userId = action.payload
+        },
+    },
     extraReducers: (builder) =>
         builder
             .addCase(fetchMediaWorks.fulfilled, (state, { payload }) => {
@@ -127,10 +132,8 @@ const slice = createSlice({
                 }
             )
             .addCase(createContestComment.fulfilled, (state, { payload }) => {
-                state.comments.content = [
-                    payload.content,
-                    ...state.comments.content,
-                ]
+                state.comments.content = [payload, ...state.comments.content]
+                state.comments.totalElements += 1
 
                 state.comments.nextLoading = false
             })

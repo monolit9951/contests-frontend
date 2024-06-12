@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react'
 import instance from 'shared/api/api'
 import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
+import { useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { RateButtons } from 'shared/ui/rateButtons'
@@ -17,17 +18,30 @@ import './commentEl.scss'
 
 interface Props {
     data: Comment
+    setRepliesShown: (bool: boolean) => void
+    setRepliesNum: (num: number) => void
     setSubComments: Dispatch<SetStateAction<Comment[]>>
     setNextLoading: (bool: boolean) => void
-    setError: (err: Error) => void
+    setError: (err: Error | null) => void
 }
 
 const CommentEl: FC<Props> = (props) => {
-    const { data, setSubComments, setNextLoading, setError } = props
+    const {
+        data,
+        setRepliesShown,
+        setRepliesNum,
+        setSubComments,
+        setNextLoading,
+        setError,
+    } = props
 
     const [actionsShown, setActionsShown] = useState(false)
     const [replyInputShown, setReplyInputShown] = useState(false)
     const [inputData, setInputData] = useState('')
+
+    const userId = useAppSelector(
+        (state: RootState) => state.contestWorks.userId
+    )
 
     const { user, commentDate, commentText, id, likeAmount } = data
 
@@ -47,15 +61,21 @@ const CommentEl: FC<Props> = (props) => {
         }
 
         try {
+            setError(null)
             setNextLoading(true)
 
             const response = await instance.post('comment/subComment', {
                 parentId: data.id,
-                commentText: 'inputData',
-                userId: '123456879',
+                commentText: inputData.trim(),
+                userId,
             })
 
-            setSubComments((prev) => [...prev, response.data])
+            const subCommentsArr = response.data.subComments.content
+            const newSubComment = subCommentsArr[subCommentsArr.length - 1]
+
+            setRepliesNum(subCommentsArr.length)
+            setRepliesShown(true)
+            setSubComments((prev) => [...prev, newSubComment])
         } catch (err) {
             setError(err as Error)
         } finally {
@@ -70,7 +90,7 @@ const CommentEl: FC<Props> = (props) => {
             <VStack className='comment__body'>
                 <HStack className='comment-info'>
                     <Text Tag='p' bold>
-                        {user.name ?? 'Deborah Kertzmann'}
+                        {user?.name ?? 'Deborah Kertzmann'}
                         <Text Tag='span' size='sm'>
                             {/*  TODO reformat date and implement time-ago component */}
                             {'1 d' ?? commentDate}
