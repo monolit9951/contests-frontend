@@ -63,7 +63,7 @@ const СommentsSection = ({ ownerId }: Props) => {
             </Text>
 
             <HStack className='participants-comments__input-wrapper'>
-                <UserIcon size={40} className='align__start' />
+                <UserIcon size={40} wrapperClassName='align__start' />
                 <VStack className='participants-comments__input-box'>
                     <Input
                         type='text'
