@@ -13,7 +13,7 @@ import { Text } from '../text'
 import './rateButtons.scss'
 
 interface Props {
-    id: string
+    id?: string
     likes: number
     border?: boolean
 }

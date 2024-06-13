@@ -5,6 +5,9 @@ export interface Media {
     ownerId: string;
     mediaLink: string;
 }
+
+type WorkType = 'TEXT' | 'IMAGE' | 'VIDEO'
+
 export interface Work {
     id: string
     ownerId: string
@@ -13,7 +16,7 @@ export interface Work {
     likeAmount: number
     commentAmount: number
     user: User
-    typeWork: WorkType
+    typeWork: WorkType | string
     popularity: number
 }
 
