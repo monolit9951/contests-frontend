@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useCallback,useEffect, useRef, useState } from 'react';
 import { Work } from 'entities/work';
 import WorkComponent from 'entities/work/ui/workComponent';
 import { fetchWorks, incrementPage } from 'pages/feedPage/model/slice';

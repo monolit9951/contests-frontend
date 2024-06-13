@@ -14,8 +14,8 @@ const initialState: WorksState = {
     works: [],
     loading: false,
     error: null,
-    page: 1,
-    hasMore: true,
+    page: 0,
+    hasMore: false,
 };
 
 export const fetchWorks = createAsyncThunk(
@@ -34,6 +34,7 @@ const worksSlice = createSlice({
     reducers: {
         incrementPage(state) {
             state.page += 1;
+            state.hasMore = false
         },
     },
     extraReducers: (builder) => {
@@ -41,6 +42,7 @@ const worksSlice = createSlice({
             .addCase(fetchWorks.pending, (state) => {
                 state.loading = true;
                 state.error = null;
+                state.hasMore = false
             })
             .addCase(fetchWorks.fulfilled, (state, action) => {
                 state.loading = false;
