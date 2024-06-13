@@ -20,6 +20,7 @@ interface Props {
     data: Comment
     setRepliesShown: (bool: boolean) => void
     setRepliesNum: (num: number) => void
+    setTotalPages: (num: number) => void
     setSubComments: Dispatch<SetStateAction<Comment[]>>
     setNextLoading: (bool: boolean) => void
     setError: (err: Error | null) => void
@@ -30,6 +31,7 @@ const CommentEl: FC<Props> = (props) => {
         data,
         setRepliesShown,
         setRepliesNum,
+        setTotalPages,
         setSubComments,
         setNextLoading,
         setError,
@@ -70,10 +72,12 @@ const CommentEl: FC<Props> = (props) => {
                 userId,
             })
 
-            const subCommentsArr = response.data.subComments.content
+            const subCommentsObj = response.data.subComments
+            const subCommentsArr = subCommentsObj.content
             const newSubComment = subCommentsArr[subCommentsArr.length - 1]
 
-            setRepliesNum(subCommentsArr.length)
+            setRepliesNum(subCommentsObj.totalElements)
+            setTotalPages(subCommentsObj.totalPages)
             setRepliesShown(true)
             setSubComments((prev) => [...prev, newSubComment])
         } catch (err) {

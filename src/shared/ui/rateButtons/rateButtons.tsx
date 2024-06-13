@@ -25,55 +25,44 @@ const RateButtons = (props: Props) => {
     const [liked, setLiked] = useState(false)
     const [disliked, setDisliked] = useState(false)
 
-    const onLike = async () => {
+    const onRate = async (action: string) => {
         try {
             const response = await instance.patch(
-                `comment/addLike/${id}?likeOrDislike=like`
+                `comment/addLike/${id}?likeOrDislike=${action}`
             )
 
             setLikesNum(response.data)
-            setLiked(true)
         } catch (err) {
+            // eslint-disable-next-line no-console
             console.error(err)
-            setLiked(false)
-        }
-    }
-
-    const onDislike = async () => {
-        try {
-            const response = await instance.patch(
-                `comment/addLike/${id}?likeOrDislike=dislike`
-            )
-
-            setLikesNum(response.data)
-            setDisliked(true)
-        } catch (err) {
-            console.error(err)
-            setDisliked(false)
         }
     }
 
     const onLikeClick = () => {
         if (disliked) {
-            setDisliked(false)
-            onLike()
+            setDisliked(!disliked)
+            onRate('-dislike')
         }
         if (liked) {
-            onDislike()
+            onRate('-like')
+            setLiked(!liked)
         } else {
-            onLike()
+            onRate('like')
+            setLiked(!liked)
         }
     }
 
     const onDislikeClick = () => {
         if (liked) {
-            setLiked(false)
-            onDislike()
+            setLiked(!liked)
+            onRate('-like')
         }
         if (disliked) {
-            onLike()
+            onRate('-like')
+            setDisliked(!disliked)
         } else {
-            onDislike()
+            onRate('dislike')
+            setDisliked(!disliked)
         }
     }
 
