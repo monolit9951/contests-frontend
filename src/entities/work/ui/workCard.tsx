@@ -42,7 +42,7 @@ const WorkCard: FC<Props> = (props) => {
                 <VStack className={clsx('work', className)}>
                     <HStack className='justify__between align__center'>
                         <UserIcon
-                            userImage={data.user.profileImage}
+                            src={data.user.profileImage}
                             size={40}
                             userName={data.user.name}
                         />
