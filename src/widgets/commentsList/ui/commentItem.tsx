@@ -16,7 +16,9 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
     const { data } = props
 
     const [repliesShown, setRepliesShown] = useState(false)
-    const [repliesNum, setRepliesNum] = useState(data.subCommentsAmount)
+    const [repliesNum, setRepliesNum] = useState(
+        data.subCommentsAmount ? data.subCommentsAmount : 0
+    )
     const [subComments, setSubComments] = useState<Comment[]>([])
     const [totalPages, setTotalPages] = useState(0)
     const [page, setPage] = useState(1)

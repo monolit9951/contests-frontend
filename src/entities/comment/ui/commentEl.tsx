@@ -19,7 +19,7 @@ import './commentEl.scss'
 interface Props {
     data: Comment
     setRepliesShown: (bool: boolean) => void
-    setRepliesNum: (num: number) => void
+    setRepliesNum: Dispatch<SetStateAction<number>>
     setTotalPages: (num: number) => void
     setSubComments: Dispatch<SetStateAction<Comment[]>>
     setNextLoading: (bool: boolean) => void
@@ -76,7 +76,8 @@ const CommentEl: FC<Props> = (props) => {
             const subCommentsArr = subCommentsObj.content
             const newSubComment = subCommentsArr[subCommentsArr.length - 1]
 
-            setRepliesNum(subCommentsObj.totalElements)
+            // eslint-disable-next-line no-return-assign
+            setRepliesNum((prev) => (prev += 1))
             setTotalPages(subCommentsObj.totalPages)
             setRepliesShown(true)
             setSubComments((prev) => [...prev, newSubComment])
