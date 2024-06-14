@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
+import moment from 'moment'
 import Verified from 'shared/assets/icons/SealCheck.svg?react'
 import Star from 'shared/assets/icons/Star.svg?react'
 import PrizeIcon from 'shared/assets/icons/trophyF.svg?react'
@@ -28,7 +29,10 @@ export const ContestCard: React.FC<Props> = (props) => {
     const navigate = useNavigate()
     const { theme } = useTheme()
 
+    const deadline = moment(dateEnd).format('DD.MM.YYYY')
+
     const tagType = rest.category
+
     const getBgColor = () => {
         if (tagType === 'FOR_FUN') {
             return 'var(--purple)'
@@ -103,7 +107,11 @@ export const ContestCard: React.FC<Props> = (props) => {
                     {rest.name}
                 </Text>
                 <Flex className='segments align__center'>
+                    <div className={`${theme}`}>{rest.status}</div>
                     <div className={`${theme}`}>{rest.subcategory}</div>
+                    <div className={`${theme}`}>
+                        {rest.maxAllowedParticipantAmount} participants
+                    </div>
                 </Flex>
             </div>
             <Flex className='btn-box align__center justify__between'>
@@ -112,7 +120,7 @@ export const ContestCard: React.FC<Props> = (props) => {
                         Completing the task
                     </Text>
                     <Text Tag='span' size='xs'>
-                        until {dateEnd}
+                        until {deadline}
                         {/* {dateEnd[2]}.
                         {dateEnd[1] < 10 ? `0${dateEnd[1]}` : dateEnd[1]}.
                         {dateEnd[0]} */}
