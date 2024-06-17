@@ -47,6 +47,7 @@ export interface ContestPreview
         | 'exampleMedia'
         | 'prizes'
         | 'winners'
+        | 'contestOpen'
     > {
     previewImage: string | null
     prizesPreviews: PrizePreview[]
