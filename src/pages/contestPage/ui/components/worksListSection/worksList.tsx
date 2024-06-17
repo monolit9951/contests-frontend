@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import clsx from 'clsx'
 import { Work, WorkCard } from 'entities/work'
 import {
     selectContestMedia,
@@ -47,6 +48,7 @@ export const WorksList: FC<Props> = (props) => {
                     <WorkCard key={item.id} data={item} />
                 ))
             }
+
             if (!popularMediaWorks.length) {
                 return <li>No works here</li>
             }
@@ -56,25 +58,31 @@ export const WorksList: FC<Props> = (props) => {
         }
         return sort === 'new'
             ? (!newTextWorks.length && <li>No works here</li>) ||
-                  newMediaWorks?.map((item) => (
+                  newTextWorks?.map((item) => (
                       <WorkCard key={item.id} data={item} />
                   ))
             : (!popularTextWorks.length && <li>No works here</li>) ||
                   popularTextWorks?.map((item) => (
-                      <WorkCard key={item.id} data={item} isText />
+                      <WorkCard key={item.id} data={item} />
                   ))
     }
 
     const loadMoreCondition = () => {
         if (
-            text.nextLoading ||
-            text.loading ||
-            text.totalPages >= text.page ||
-            !text.totalElements ||
-            media.nextLoading ||
-            media.loading ||
-            media.totalPages >= media.page ||
-            !media.totalElements
+            workType === 'media' &&
+            (media.nextLoading ||
+                media.loading ||
+                media.totalPages <= media.page ||
+                !media.totalElements)
+        ) {
+            return true
+        }
+        if (
+            workType === 'text' &&
+            (text.nextLoading ||
+                text.loading ||
+                text.totalPages <= text.page ||
+                !text.totalElements)
         ) {
             return true
         }
@@ -93,7 +101,18 @@ export const WorksList: FC<Props> = (props) => {
 
     return (
         <VStack className='participants-works__list-wrapper align__center '>
-            <ul className='participants-works__list'>{renderList()}</ul>
+            <ul
+                className={clsx(
+                    'participants-works__list',
+                    newTextWorks.length > 4 && `${workType}-works`,
+                    popularTextWorks.length > 4 && `${workType}-works`
+                )}>
+                {renderList()}
+
+                {(media.nextLoading || text.nextLoading) && (
+                    <p>Loading next...</p>
+                )}
+            </ul>
 
             {loadMoreCondition() ||
                 (sort === 'new' && (

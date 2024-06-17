@@ -21,7 +21,11 @@ import './worksListSection.scss'
 type WorkType = 'media' | 'text'
 type WorkSort = 'new' | 'popular'
 
-const WorksListSection = () => {
+interface Props {
+    worksAmount: number
+}
+
+const WorksListSection = ({ worksAmount }: Props) => {
     const [workType, setWorkType] = useState<WorkType>('media')
     const [selectedSort, setSelectedSort] = useState<WorkSort>('new')
 
@@ -76,7 +80,7 @@ const WorksListSection = () => {
                 className='participants-works__title'>
                 Participants&apos; works
                 <Text Tag='span' size='xl'>
-                    ({media.totalElements})
+                    ({worksAmount})
                 </Text>
             </Text>
 
@@ -105,7 +109,11 @@ const WorksListSection = () => {
                         type='button'
                         className={clsx(selectedSort === 'new' && 'active')}
                         onClick={() => onSortClick('new')}>
-                        New
+                        New (
+                        {workType === 'media'
+                            ? media.totalElements
+                            : text.totalElements}
+                        )
                     </button>
                 </li>
                 <li>

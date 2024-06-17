@@ -37,7 +37,7 @@ const ContestPage = () => {
             dispatch(contestWorksActions.resetState())
         }
 
-        if (!media.new.length) {
+        if (id !== ownerId || !media.new.length) {
             dispatch(fetchMediaWorks(id))
         }
     }, [dispatch])
@@ -55,8 +55,10 @@ const ContestPage = () => {
             <HeroSection bg={data.backgroundImage} owner={data.contestOwner} />
             <VStack className='contest__container'>
                 <DescriptionSection data={data} />
-                <WinnersSection />
-                <WorksListSection />
+                {!data.contestOpen && data.winners.content.length && (
+                    <WinnersSection />
+                )}
+                <WorksListSection worksAmount={data.participantAmount} />
                 <СommentsSection ownerId={id} />
             </VStack>
         </VStack>
