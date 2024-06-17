@@ -10,7 +10,7 @@ export const fetchTextWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byOwnerId/${id}?page=0&pageSize=24&sortDirection=ASC`
+                `/works/byOwnerId/${id}?page=0&pageSize=24&sortDirection=ASC&typeOfWork=text&sortBy=new`
             )
 
             if (!response.data) {
@@ -33,7 +33,7 @@ export const fetchNextTextWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byOwnerId/${id}?page=${page}&pageSize=12&sortDirection=ASC`
+                `/works/byOwnerId/${id}?page=${page}&pageSize=12&sortDirection=ASC&typeOfWork=text&sortBy=new`
             )
 
             if (!response.data) {
@@ -54,7 +54,7 @@ export const fetchPopularTextWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byOwnerId/${id}?page=0&pageSize=24&sortDirection=DESC`
+                `/works/byOwnerId/${id}?page=0&pageSize=24&sortDirection=ASC&typeOfWork=text&sortBy=popular`
             )
 
             if (!response.data) {
