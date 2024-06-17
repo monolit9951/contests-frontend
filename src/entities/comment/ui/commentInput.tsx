@@ -16,7 +16,7 @@ const CommentInput: FC<Props> = (props) => {
 
     return (
         <HStack className='comment-reply'>
-            <UserIcon size={40} className='align__start' />
+            <UserIcon size={40} wrapperClassName='align__start' />
             <VStack className='comment-reply__input-box'>
                 <Input
                     type='text'

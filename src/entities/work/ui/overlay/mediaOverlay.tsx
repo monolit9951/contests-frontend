@@ -9,15 +9,14 @@ import { UserIcon } from 'shared/ui/userIcon'
 import './mediaOverlay.scss'
 
 interface Props {
-    place?: PrizePlaces,
-    userImage?: string;
+    place?: PrizePlaces
+    userImage?: string
 }
 
 const MediaOverlay = ({ place, userImage }: Props) => {
     const onCardsClick = () => {}
 
     const onAction = () => {}
-
 
     return (
         <VStack className='media__overlay'>
@@ -29,10 +28,10 @@ const MediaOverlay = ({ place, userImage }: Props) => {
                 btnClassName='media__overlay__2'
             />
             <UserIcon
-                userImage={userImage}
+                src={userImage}
                 size={40}
                 userName='Devin Reynolds'
-                className='media__overlay__3'
+                wrapperClassName='media__overlay__3'
             />
             <Icon
                 Svg={action}

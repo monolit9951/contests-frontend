@@ -1,4 +1,6 @@
 .image {
+    object-fit: cover;
+
     &__round {
         border-radius: 50%;
     }

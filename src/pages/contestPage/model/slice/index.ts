@@ -17,6 +17,7 @@ import { ContestWorksSchema } from '../types'
 
 const initialState: ContestWorksSchema = {
     ownerId: '',
+    userId: '',
 
     media: {
         new: [],
@@ -64,6 +65,9 @@ const slice = createSlice({
     name: 'contestWorks',
     initialState,
     reducers: {
+        setUserId: (state, action: PayloadAction<string>) => {
+            state.userId = action.payload
+        },
         setOwnerId: (state, action: PayloadAction<string>) => {
             state.ownerId = action.payload
         },
@@ -145,10 +149,8 @@ const slice = createSlice({
                 }
             )
             .addCase(createContestComment.fulfilled, (state, { payload }) => {
-                state.comments.content = [
-                    payload.content,
-                    ...state.comments.content,
-                ]
+                state.comments.content = [payload, ...state.comments.content]
+                state.comments.totalElements += 1
 
                 state.comments.nextLoading = false
             })

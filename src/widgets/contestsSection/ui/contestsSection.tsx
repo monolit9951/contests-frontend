@@ -52,7 +52,7 @@ const ContestsSection: FC<Props> = (props) => {
         if (
             nextLoading ||
             all.loading ||
-            all.totalPages === all.page ||
+            all.totalPages <= all.page ||
             !all.totalElements
         ) {
             return
@@ -89,7 +89,7 @@ const ContestsSection: FC<Props> = (props) => {
                         {section === 'all' ? 'All contests' : 'TOP in popular'}
                     </Text>
                     <Text Tag='span' className='title__span'>
-                        {section === 'all' ? '(2063)' : '(104)'}
+                        {section === 'all' ? `(${all.totalElements})` : '(24)'}
                     </Text>
                 </HStack>
                 {section === 'all' ? (
