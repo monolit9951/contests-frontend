@@ -7,6 +7,7 @@ import Verified from 'shared/assets/icons/SealCheck.svg?react'
 import Star from 'shared/assets/icons/Star.svg?react'
 import PrizeIcon from 'shared/assets/icons/trophyF.svg?react'
 import contestImg from 'shared/assets/img/contestBG.png'
+import { capitalizeStr } from 'shared/helpers'
 import { Button } from 'shared/ui/button'
 import { Image } from 'shared/ui/image'
 import { Flex, HStack, VStack } from 'shared/ui/stack'
@@ -107,8 +108,12 @@ export const ContestCard: React.FC<Props> = (props) => {
                     {rest.name}
                 </Text>
                 <Flex className='segments align__center'>
-                    <div className={`${theme}`}>{rest.status}</div>
-                    <div className={`${theme}`}>{rest.subcategory}</div>
+                    <div className={`${theme}`}>
+                        {capitalizeStr(rest.status)}
+                    </div>
+                    <div className={`${theme}`}>
+                        {capitalizeStr(rest.subcategory)}
+                    </div>
                     <div className={`${theme}`}>
                         {rest.maxAllowedParticipantAmount} participants
                     </div>
@@ -121,9 +126,6 @@ export const ContestCard: React.FC<Props> = (props) => {
                     </Text>
                     <Text Tag='span' size='xs'>
                         until {deadline}
-                        {/* {dateEnd[2]}.
-                        {dateEnd[1] < 10 ? `0${dateEnd[1]}` : dateEnd[1]}.
-                        {dateEnd[0]} */}
                     </Text>
                 </VStack>
                 <Button variant='secondary' onClick={onDetailsClick}>
