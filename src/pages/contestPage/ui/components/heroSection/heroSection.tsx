@@ -41,7 +41,7 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
                                 <Text Tag='span' bold size='l'>
                                     {owner?.name}
                                 </Text>
-                                <Verified />
+                                {owner.verificationStatus && <Verified />}
                             </>
                         ) : (
                             <Text Tag='span' bold size='l'>

@@ -64,8 +64,19 @@
 
     &__list {
         display: flex;
-        gap: 20px 32px;
         flex-wrap: wrap;
+        gap: 20px 32px;
+
+        &.text-works {
+            display: inline-block;
+            column-count: 3;
+            column-gap: 0;
+
+            > li {
+                display: inline-block;
+                margin-bottom: 20px;
+            }
+        }
     }
 }
 

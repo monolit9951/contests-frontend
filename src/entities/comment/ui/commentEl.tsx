@@ -1,4 +1,5 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react'
+import moment from 'moment'
 import instance from 'shared/api/api'
 import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
 import { useAppSelector } from 'shared/lib/store'
@@ -46,6 +47,8 @@ const CommentEl: FC<Props> = (props) => {
     )
 
     const { user, commentDate, commentText, id, likeAmount } = data
+
+    const timeAgo = moment(commentDate).fromNow()
 
     const onActionClick = () => {
         setActionsShown(!actionsShown)
@@ -97,8 +100,7 @@ const CommentEl: FC<Props> = (props) => {
                     <Text Tag='p' bold>
                         {user?.name ?? 'Deborah Kertzmann'}
                         <Text Tag='span' size='sm'>
-                            {/*  TODO reformat date and implement time-ago component */}
-                            {'1 d' ?? commentDate}
+                            {timeAgo}
                         </Text>
                     </Text>
                     <Icon Svg={tripleDot} clickable onClick={onActionClick} />

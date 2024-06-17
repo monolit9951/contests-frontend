@@ -125,6 +125,13 @@
             background-color: var(--grey-dark);
         }
 
+        .participate-btn {
+            &:disabled {
+                color: var(--white-muted);
+                background-color: var(--grey);
+            }
+        }
+
         .contest-info {
             color: var(--white);
 

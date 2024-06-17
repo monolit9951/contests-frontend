@@ -18,12 +18,11 @@ import './workCard.scss'
 interface Props {
     data: Work
     place?: number
-    isText?: boolean
     className?: string
 }
 
 const WorkCard: FC<Props> = (props) => {
-    const { data, place, isText, className } = props
+    const { data, place, className } = props
 
     const [isReadMore, setIsReadMore] = useState(false)
 
@@ -31,12 +30,7 @@ const WorkCard: FC<Props> = (props) => {
         setIsReadMore(!isReadMore)
     }
 
-    const mediaLink = 'https://examplemedia.com'
-
-    const text =
-        'Prepare to be swept away by the whimsical charm of the Tickle Olympics, where hilarity reigns supreme and every tickle is a step closer to victory! As athletes take to the stage, their faces adorned with mischievous grins, you can feel the anticipation building in the air. From the gentlest of touches to the most unexpected tickle tactics, competitors leave no stone unturned in their quest for gold. But it`s not just about the competitive lorem ipsum dolor'
-
-    if (data?.typeWork === 'TEXT' || isText) {
+    if (data.typeWork === 'TEXT') {
         return (
             <li>
                 <VStack className={clsx('work', className)}>
@@ -49,9 +43,12 @@ const WorkCard: FC<Props> = (props) => {
                         {place && <TopPrize place={place as PrizePlaces} />}
                     </HStack>
                     <Text Tag='p' className='work__text'>
-                        {(text.length < 430 && text) || (
+                        {(data.description.length < 430 &&
+                            data.description) || (
                             <>
-                                {!isReadMore ? text.slice(0, 430) : `${text} `}
+                                {!isReadMore
+                                    ? data.description.slice(0, 430)
+                                    : `${data.description} `}
                                 <button
                                     type='button'
                                     className='read-more-btn'
@@ -81,7 +78,7 @@ const WorkCard: FC<Props> = (props) => {
                             title='media'
                             width={458}
                             height={612}
-                            src={data.media?.[0].mediaLink ?? mediaLink}
+                            src={data.media?.[0].mediaLink}
                             className='media__frame'
                         />
                     )}
