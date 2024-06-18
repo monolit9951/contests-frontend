@@ -1,11 +1,14 @@
 import { Fragment } from 'react'
 import { Contest } from 'entities/contest'
+import moment from 'moment'
 import calendar from 'shared/assets/icons/calendar.svg?react'
 import moneyIcon from 'shared/assets/icons/currencyCircleDollar.svg?react'
 import itemIcon from 'shared/assets/icons/trophyF.svg?react'
 import first from 'shared/assets/icons/win1.svg'
 import second from 'shared/assets/icons/win2.svg'
 import third from 'shared/assets/icons/win3.svg'
+import fourth from 'shared/assets/icons/win4.svg'
+import { capitalizeStr } from 'shared/helpers'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { Image } from 'shared/ui/image'
@@ -19,16 +22,24 @@ interface Props {
 }
 
 const DescriptionSection = ({ data }: Props) => {
-    const deadline = data.dateEnd
+    const deadline = moment(data.dateEnd).format('DD.MM.YYYY, h a')
 
-    const contestInactive = () => {
+    const contestStatus = () => {
         switch (data.status) {
             case 'FINISHED':
-                return true
+                return 'Completed'
+
             case 'INACTIVE':
-                return true
+                return 'Inactive'
+
+            case 'PAUSED':
+                return 'Paused'
+
+            case 'UPCOMING':
+                return 'Upcoming'
+
             default:
-                return false
+                return 'Participate'
         }
     }
 
@@ -40,8 +51,11 @@ const DescriptionSection = ({ data }: Props) => {
             case 2:
                 return second
 
-            default:
+            case 3:
                 return third
+
+            default:
+                return fourth
         }
     }
 
@@ -57,7 +71,12 @@ const DescriptionSection = ({ data }: Props) => {
                     <ul className='tags-list'>
                         <li>
                             <Text Tag='span' size='sm'>
-                                {data.subcategory}
+                                {capitalizeStr(data.status)}
+                            </Text>
+                        </li>
+                        <li>
+                            <Text Tag='span' size='sm'>
+                                {capitalizeStr(data.subcategory)}
                             </Text>
                         </li>
                         <li>
@@ -69,11 +88,10 @@ const DescriptionSection = ({ data }: Props) => {
                 </VStack>
                 <Button
                     variant='primary'
-                    disabled={contestInactive()}
-                    onClick={onParticipateClick}>
-                    <Text Tag='span'>
-                        {contestInactive() ? 'Inactive' : 'Participate'}
-                    </Text>
+                    disabled={!data.contestOpen}
+                    onClick={onParticipateClick}
+                    className='participate-btn'>
+                    <Text Tag='span'>{contestStatus()}</Text>
                 </Button>
             </HStack>
             <HStack className='contest-info'>
@@ -182,20 +200,10 @@ const DescriptionSection = ({ data }: Props) => {
                         </Text>
                         <HStack className='align__center'>
                             <Icon Svg={calendar} width={36} height={36} />
-                            <Text Tag='span' bold={contestInactive()} size='xl'>
-                                {
-                                    contestInactive()
-                                        ? 'Inactive'
-                                        : `${deadline}` /* `${deadline[2]}.${
-                                          deadline[1] < 10
-                                              ? `0${deadline[1]}`
-                                              : deadline[1]
-                                      }.${deadline[0]}, ${
-                                          deadline[3] > 12
-                                              ? `${deadline[3] - 12} pm`
-                                              : `${deadline[3]} am`
-                                      }` */
-                                }
+                            <Text Tag='span' bold={!data.contestOpen} size='xl'>
+                                {data.contestOpen
+                                    ? `${deadline}`
+                                    : contestStatus()}
                             </Text>
                         </HStack>
                     </VStack>

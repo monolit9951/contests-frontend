@@ -26,8 +26,8 @@ export interface Contest {
     category: Category
     subcategory: SubCategory
     backgroundImage: string
-    participantAmount?: number
-    maxAllowedParticipantAmount?: number
+    participantAmount: number
+    maxAllowedParticipantAmount: number
     dateStart: string
     dateEnd: string
     description: string
@@ -36,6 +36,7 @@ export interface Contest {
     popularity: number
     contestOwner: Organizer
     winners: PagedWinners
+    contestOpen: boolean
 }
 
 export interface ContestPreview
@@ -46,6 +47,7 @@ export interface ContestPreview
         | 'exampleMedia'
         | 'prizes'
         | 'winners'
+        | 'contestOpen'
     > {
     previewImage: string | null
     prizesPreviews: PrizePreview[]

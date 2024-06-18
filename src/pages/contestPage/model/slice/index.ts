@@ -68,6 +68,25 @@ const slice = createSlice({
         setUserId: (state, action: PayloadAction<string>) => {
             state.userId = action.payload
         },
+        setOwnerId: (state, action: PayloadAction<string>) => {
+            state.ownerId = action.payload
+        },
+        resetState: (state) => {
+            state.media = {
+                ...state.media,
+                new: [],
+                popular: [],
+            }
+            state.text = {
+                ...state.text,
+                new: [],
+                popular: [],
+            }
+            state.comments = {
+                ...state.comments,
+                content: [],
+            }
+        },
     },
     extraReducers: (builder) =>
         builder
@@ -78,8 +97,6 @@ const slice = createSlice({
                 state.text.page = 1
 
                 state.media.loading = false
-
-                state.ownerId = payload.content[0].ownerId
             })
             .addCase(fetchTextWorks.fulfilled, (state, { payload }) => {
                 state.text.new = payload.content
