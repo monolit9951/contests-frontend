@@ -27,7 +27,6 @@ const DescriptionSection = ({ data }: Props) => {
                 return true
             case 'INACTIVE':
                 return true
-
             default:
                 return false
         }
