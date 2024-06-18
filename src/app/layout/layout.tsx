@@ -22,6 +22,7 @@ export const Layout = () => {
     const highlightColor =
         theme === Theme.LIGHT ? HIGHLIGT_COLOR_LIGHT : HIGHLIGT_COLOR_DARK
 
+
     return (
         <div className='layout layout__wrapper'>
             <SkeletonTheme
