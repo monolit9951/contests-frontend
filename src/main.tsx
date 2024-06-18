@@ -6,7 +6,6 @@ import './index.css'
 
 const container = document.querySelector('#root') as HTMLElement
 const root = createRoot(container)
-
 root.render(
     <React.StrictMode>
         <App />
