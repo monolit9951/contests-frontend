@@ -90,7 +90,7 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
 
                 <hr />
 
-                <FilterBlock filter={status} /* itemsData={data} */ />
+                <FilterBlock filter={status} />
 
                 <FilterBlock filter={prizeType} />
 
