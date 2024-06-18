@@ -276,6 +276,14 @@
     grid-template-columns: 86px auto;
 }
 
+.main_layout--light {
+    background: var(--white);
+}
+
+.main_layout--dark {
+    background: var(--black);
+}
+
 .layout__content {
     grid-row: 2/2;
     grid-column: 2/2;

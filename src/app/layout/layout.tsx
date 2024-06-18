@@ -22,12 +22,13 @@ export const Layout = () => {
     const highlightColor =
         theme === Theme.LIGHT ? HIGHLIGT_COLOR_LIGHT : HIGHLIGT_COLOR_DARK
 
+
     return (
         <div className='layout layout__wrapper'>
             <SkeletonTheme
                 baseColor={baseColor}
                 highlightColor={highlightColor}>
-                <div className='main_layout'>
+                <div className={clsx('main_layout', theme === Theme.LIGHT ? 'main_layout--light' : 'main_layout--dark')}>
                     <Header />
                     <Sidebar />
                     <main className='layout__content'>
