@@ -41,7 +41,7 @@ export interface Contest {
     exampleMedia?: string[]
     popularity: number
     contestOwner: Organizer
-    topWinners?: TopWinners[]
+    topWinners: TopWinners[] | null
     contestOpen: boolean
 }
 

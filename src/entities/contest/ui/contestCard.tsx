@@ -25,7 +25,7 @@ interface Props extends ContestPreview {
 }
 
 export const ContestCard: React.FC<Props> = (props) => {
-    const { className, dateEnd, ...rest } = props
+    const { className, contestOwner, prizesPreviews, dateEnd, ...rest } = props
 
     const navigate = useNavigate()
     const { theme } = useTheme()
@@ -33,6 +33,8 @@ export const ContestCard: React.FC<Props> = (props) => {
     const deadline = moment(dateEnd).format('DD.MM.YYYY')
 
     const tagType = rest.category
+
+    const { currency, prizeAmount, prizeText, prizeType } = prizesPreviews[0]
 
     const getBgColor = () => {
         if (tagType === 'FOR_FUN') {
@@ -53,25 +55,23 @@ export const ContestCard: React.FC<Props> = (props) => {
             <Flex className='justify__between align__center'>
                 <Flex className='align__center'>
                     <UserIcon
-                        src={rest.contestOwner.profileImage}
+                        src={contestOwner.profileImage}
                         alt='Creator`s profile'
                         className='user-avatar'
                     />
                     <VStack className='user-des'>
                         <Flex className='align__center'>
                             <Text Tag='span' bold size='sm'>
-                                {rest.contestOwner?.name}
+                                {contestOwner?.name}
                             </Text>
-                            {rest.contestOwner.verificationStatus && (
-                                <Verified />
-                            )}
+                            {contestOwner.verificationStatus && <Verified />}
                         </Flex>
                         <Flex className='align__center'>
                             <TopUser topRate={3} />
-                            {rest.contestOwner.organizerRating && (
+                            {contestOwner.organizerRating && (
                                 <HStack className='align__center'>
                                     <Text Tag='span' bold size='xs'>
-                                        {rest.contestOwner.organizerRating.toFixed(
+                                        {contestOwner.organizerRating.toFixed(
                                             1
                                         )}
                                     </Text>
@@ -98,7 +98,9 @@ export const ContestCard: React.FC<Props> = (props) => {
                     <div className='prize' style={{ background: getBgColor() }}>
                         <PrizeIcon />
                         <Text Tag='span'>
-                            {rest.prizesPreviews[0]?.prizeType}
+                            {prizeType === 'ITEM'
+                                ? prizeText
+                                : `${prizeAmount} ${currency}`}
                         </Text>
                     </div>
                 </VStack>
