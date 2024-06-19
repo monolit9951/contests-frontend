@@ -42,6 +42,12 @@ const ContestPage = () => {
         }
     }, [dispatch])
 
+    useEffect(() => {
+        if (data) {
+            dispatch(contestWorksActions.setPrizes(data.prizes))
+        }
+    }, [dispatch, data])
+
     if (isLoading) {
         return <p>Loading...</p>
     }
@@ -55,8 +61,8 @@ const ContestPage = () => {
             <HeroSection bg={data.backgroundImage} owner={data.contestOwner} />
             <VStack className='contest__container'>
                 <DescriptionSection data={data} />
-                {!data.contestOpen && data.winners.content.length && (
-                    <WinnersSection />
+                {data.status === 'FINISHED' && data.topWinners?.length && (
+                    <WinnersSection data={data.topWinners} />
                 )}
                 <WorksListSection worksAmount={data.participantAmount} />
                 <СommentsSection ownerId={id} />
