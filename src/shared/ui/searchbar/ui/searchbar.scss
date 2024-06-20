@@ -28,9 +28,15 @@
         border: none;
 
         font-size: 16px;
-        font-family: 'Manrope';
+        font-family: 'Manrope', 'sans-serif';
         line-height: 24px;
+        div.app.light & {
+            color: #747474
+        }
 
+        div.app.dark & {
+            color: var(--white-medium);
+        }
         &::placeholder {
             div.app.light & {
                color: #747474

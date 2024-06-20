@@ -1,3 +1,5 @@
+import clsx from "clsx";
+import {useTheme} from "entities/theme";
 import { Icon } from "shared/ui/icon"
 
 import magnifyingGlass from "../../../assets/icons/magnifyingGlass.svg?react"
@@ -9,8 +11,9 @@ interface SearchbarProps{
 }
 
 export const Searchbar = ({placeholder}: SearchbarProps) => {
+    const {theme} = useTheme()
     return (
-        <div className="searchbar_container">
+        <div className={clsx("searchbar_container", theme)}>
             <Icon Svg={magnifyingGlass} className="icon"/>
             <input className="searchbar" placeholder={placeholder}/>
         </div>
