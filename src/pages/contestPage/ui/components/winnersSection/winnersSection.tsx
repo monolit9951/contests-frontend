@@ -25,8 +25,6 @@ const WinnersSection: FC<Props> = (props) => {
         worksArr: [1, 2, 3],
     }
 
-    const isText = contestObj.worksType === 'text'
-
     return (
         <section className={clsx('winners', className)}>
             <Text Tag='h2' size='title' bold className='winners__title'>
@@ -53,10 +51,10 @@ const WinnersSection: FC<Props> = (props) => {
                                 profileImage:
                                     'https://example.profileImage.com/image19.jpg',
                             },
-                            typeWork: 'IMAGE',
+                            popularity: 1,
+                            typeWork: 'TEXT',
                         }}
                         place={idx + 1}
-                        isText={isText}
                     />
                 ))}
             </ul>

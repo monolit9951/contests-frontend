@@ -4,26 +4,26 @@ export const mockFilterData: FilterData = {
     status: {
         name: 'Status',
         items: [
-            { name: 'Active', number: 201 },
-            { name: 'Inactive', number: 201 },
-            { name: 'Paused', number: 201 },
-            { name: 'Finished', number: 201 },
-            { name: 'Upcoming', number: 201 },
+            { name: 'Active', number: 0 },
+            { name: 'Inactive', number: 0 },
+            { name: 'Paused', number: 0 },
+            { name: 'Finished', number: 0 },
+            { name: 'Upcoming', number: 0 },
         ],
     },
     prizeType: {
         name: 'Prize type',
         items: [
-            { name: 'Money prize', number: 601 },
-            { name: 'Item prize', number: 21 },
+            { name: 'Money prize', number: 0 },
+            { name: 'Item prize', number: 0 },
         ],
     },
     creators: {
         name: 'Creators of contest',
         items: [
-            { name: 'Blogger', number: 201 },
-            { name: 'Store', number: 201 },
-            { name: 'Company', number: 201 },
+            { name: 'Blogger', number: 0 },
+            { name: 'Store', number: 0 },
+            { name: 'Company', number: 0 },
         ],
     },
 }

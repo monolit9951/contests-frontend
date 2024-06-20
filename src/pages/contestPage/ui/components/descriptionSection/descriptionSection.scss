@@ -30,6 +30,7 @@
 
         &__left-block {
             width: 100%;
+            height: fit-content;
             padding: 16px;
             gap: 24px;
 
@@ -122,6 +123,13 @@
     .contest-description {
         .tags-list > li {
             background-color: var(--grey-dark);
+        }
+
+        .participate-btn {
+            &:disabled {
+                color: var(--white-muted);
+                background-color: var(--grey);
+            }
         }
 
         .contest-info {

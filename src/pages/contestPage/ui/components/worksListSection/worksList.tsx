@@ -1,7 +1,9 @@
 import { FC } from 'react'
+import clsx from 'clsx'
 import { Work, WorkCard } from 'entities/work'
 import {
     selectContestMedia,
+    selectContestOwnerId,
     selectContestText,
 } from 'pages/contestPage/model/selectors'
 import {
@@ -13,16 +15,16 @@ import { Button } from 'shared/ui/button'
 import { VStack } from 'shared/ui/stack'
 
 interface Props {
-    ownerId: string
     workType: 'media' | 'text'
     sort: 'new' | 'popular'
 }
 
 export const WorksList: FC<Props> = (props) => {
-    const { ownerId, sort, workType } = props
+    const { sort, workType } = props
 
     const dispatch = useAppDispatch()
 
+    const ownerId = useAppSelector(selectContestOwnerId)
     const media = useAppSelector(selectContestMedia)
     const text = useAppSelector(selectContestText)
 
@@ -38,33 +40,49 @@ export const WorksList: FC<Props> = (props) => {
         }
 
         if (workType === 'media') {
-            return sort === 'new'
-                ? newMediaWorks?.map((item) => (
-                      <WorkCard key={item.id} data={item} />
-                  ))
-                : popularMediaWorks?.map((item) => (
-                      <WorkCard key={item.id} data={item} />
-                  ))
+            if (sort === 'new') {
+                if (!newMediaWorks.length) {
+                    return <li>No works here</li>
+                }
+                return newMediaWorks?.map((item) => (
+                    <WorkCard key={item.id} data={item} />
+                ))
+            }
+
+            if (!popularMediaWorks.length) {
+                return <li>No works here</li>
+            }
+            return popularMediaWorks?.map((item) => (
+                <WorkCard key={item.id} data={item} />
+            ))
         }
         return sort === 'new'
-            ? newTextWorks?.map((item) => (
-                  <WorkCard key={item.id} data={item} isText />
-              ))
-            : popularTextWorks?.map((item) => (
-                  <WorkCard key={item.id} data={item} isText />
-              ))
+            ? (!newTextWorks.length && <li>No works here</li>) ||
+                  newTextWorks?.map((item) => (
+                      <WorkCard key={item.id} data={item} />
+                  ))
+            : (!popularTextWorks.length && <li>No works here</li>) ||
+                  popularTextWorks?.map((item) => (
+                      <WorkCard key={item.id} data={item} />
+                  ))
     }
 
     const loadMoreCondition = () => {
         if (
-            text.nextLoading ||
-            text.loading ||
-            text.totalPages >= text.page ||
-            !text.totalElements ||
-            media.nextLoading ||
-            media.loading ||
-            media.totalPages >= media.page ||
-            !media.totalElements
+            workType === 'media' &&
+            (media.nextLoading ||
+                media.loading ||
+                media.totalPages <= media.page ||
+                !media.totalElements)
+        ) {
+            return true
+        }
+        if (
+            workType === 'text' &&
+            (text.nextLoading ||
+                text.loading ||
+                text.totalPages <= text.page ||
+                !text.totalElements)
         ) {
             return true
         }
@@ -83,12 +101,23 @@ export const WorksList: FC<Props> = (props) => {
 
     return (
         <VStack className='participants-works__list-wrapper align__center '>
-            <ul className='participants-works__list'>{renderList()}</ul>
+            <ul
+                className={clsx(
+                    'participants-works__list',
+                    newTextWorks.length > 4 && `${workType}-works`,
+                    popularTextWorks.length > 4 && `${workType}-works`
+                )}>
+                {renderList()}
+
+                {(media.nextLoading || text.nextLoading) && (
+                    <p>Loading next...</p>
+                )}
+            </ul>
 
             {loadMoreCondition() ||
-                (sort !== 'new' && (
+                (sort === 'new' && (
                     <Button variant='secondary' onClick={onLoadMore}>
-                        See more works
+                        Show more works
                     </Button>
                 ))}
         </VStack>

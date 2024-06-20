@@ -1,35 +1,74 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import clsx from 'clsx'
-import { selectContestMedia } from 'pages/contestPage/model/selectors'
-import { useAppSelector } from 'shared/lib/store'
+import {
+    selectContestMedia,
+    selectContestOwnerId,
+    selectContestText,
+} from 'pages/contestPage/model/selectors'
+import {
+    fetchMediaWorks,
+    fetchPopularMediaWorks,
+    fetchPopularTextWorks,
+    fetchTextWorks,
+} from 'pages/contestPage/model/services'
+import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Text } from 'shared/ui/text'
 
 import { WorksList } from './worksList'
 
 import './worksListSection.scss'
 
+type WorkType = 'media' | 'text'
+type WorkSort = 'new' | 'popular'
+
 interface Props {
-    ownerId: string
+    worksAmount: number
 }
 
-const WorksListSection: FC<Props> = ({ ownerId }) => {
-    const [workType, setWorkType] = useState<'media' | 'text'>('media')
-    const [selectedSort, setSelectedSort] = useState<'new' | 'popular'>('new')
+const WorksListSection = ({ worksAmount }: Props) => {
+    const [workType, setWorkType] = useState<WorkType>('media')
+    const [selectedSort, setSelectedSort] = useState<WorkSort>('new')
 
+    const dispatch = useAppDispatch()
+
+    const ownerId = useAppSelector(selectContestOwnerId)
     const media = useAppSelector(selectContestMedia)
+    const text = useAppSelector(selectContestText)
 
-    const onWorkTypesClick = (type: 'media' | 'text') => {
+    const onFetch = (type: WorkType, sort: WorkSort) => {
+        if (sort === 'popular') {
+            if (type === 'media' && !media.popular.length) {
+                dispatch(fetchPopularMediaWorks(ownerId))
+            }
+            if (type === 'text' && !text.popular.length) {
+                dispatch(fetchPopularTextWorks(ownerId))
+            }
+        } else {
+            if (type === 'media' && !media.new.length) {
+                dispatch(fetchMediaWorks(ownerId))
+            }
+            if (type === 'text' && !text.new.length) {
+                dispatch(fetchTextWorks(ownerId))
+            }
+        }
+    }
+
+    const onWorkTypesClick = (type: WorkType) => {
         if (type === workType) {
             return
         }
         setWorkType(type)
+
+        onFetch(type, selectedSort)
     }
 
-    const onSortClick = (sort: 'new' | 'popular') => {
+    const onSortClick = (sort: WorkSort) => {
         if (sort === selectedSort) {
             return
         }
         setSelectedSort(sort)
+
+        onFetch(workType, sort)
     }
 
     return (
@@ -41,7 +80,7 @@ const WorksListSection: FC<Props> = ({ ownerId }) => {
                 className='participants-works__title'>
                 Participants&apos; works
                 <Text Tag='span' size='xl'>
-                    ({media.totalElements})
+                    ({worksAmount})
                 </Text>
             </Text>
 
@@ -70,7 +109,11 @@ const WorksListSection: FC<Props> = ({ ownerId }) => {
                         type='button'
                         className={clsx(selectedSort === 'new' && 'active')}
                         onClick={() => onSortClick('new')}>
-                        New
+                        New (
+                        {workType === 'media'
+                            ? media.totalElements
+                            : text.totalElements}
+                        )
                     </button>
                 </li>
                 <li>
@@ -83,11 +126,7 @@ const WorksListSection: FC<Props> = ({ ownerId }) => {
                 </li>
             </ul>
 
-            <WorksList
-                ownerId={ownerId}
-                workType={workType}
-                sort={selectedSort}
-            />
+            <WorksList workType={workType} sort={selectedSort} />
         </section>
     )
 }

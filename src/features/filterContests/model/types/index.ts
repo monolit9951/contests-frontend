@@ -1,4 +1,4 @@
-export type Category = 'Category1' | 'Category2' | 'Category3'
+import { Category } from 'entities/contest'
 
 type StatusFilter =
     | ''

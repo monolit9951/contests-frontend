@@ -1,5 +1,5 @@
+import { Category } from 'entities/contest'
 import { filterActions } from 'features/filterContests'
-import { Category } from 'features/filterContests/model/types'
 import { FilterOptions } from 'shared/consts'
 import { useAppDispatch } from 'shared/lib/store'
 
@@ -29,15 +29,15 @@ export const CategoryFilterOption = ({
 
         switch (FilterOption) {
             case 1:
-                category = 'Category2'
+                category = 'FOR_FUN'
                 break
 
             case 2:
-                category = 'Category3'
+                category = 'FOR_WORK'
                 break
 
             default:
-                category = 'Category1'
+                category = ''
                 break
         }
         dispatch(filterActions.changeCategory(category))

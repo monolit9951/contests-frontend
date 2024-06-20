@@ -5,18 +5,11 @@ import useAxios from 'shared/lib/hooks/useAxios'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { VStack } from 'shared/ui/stack'
 
-import {
-    selectContestMedia,
-    selectContestOwnerId,
-    selectContestText,
-} from '../model/selectors'
-import {
-    fetchMediaWorks,
-    fetchPopularMediaWorks,
-    fetchPopularTextWorks,
-    fetchTextWorks,
-} from '../model/services'
+import { selectContestMedia, selectContestOwnerId } from '../model/selectors'
+import { fetchMediaWorks } from '../model/services'
+import { contestWorksActions } from '../model/slice'
 
+import СommentsSection from './components/commentsSection/commentsSection'
 import DescriptionSection from './components/descriptionSection/descriptionSection'
 import HeroSection from './components/heroSection/heroSection'
 import WinnersSection from './components/winnersSection/winnersSection'
@@ -31,7 +24,6 @@ const ContestPage = () => {
 
     const ownerId = useAppSelector(selectContestOwnerId)
     const media = useAppSelector(selectContestMedia)
-    const text = useAppSelector(selectContestText)
 
     if (!id) {
         return <p>Something went wrong</p>
@@ -40,17 +32,13 @@ const ContestPage = () => {
     const { data, isLoading } = useAxios<Contest>(`contests/${id}`)
 
     useEffect(() => {
-        if (!media.new.length || id !== ownerId) {
+        if (id !== ownerId) {
+            dispatch(contestWorksActions.setOwnerId(id))
+            dispatch(contestWorksActions.resetState())
+        }
+
+        if (id !== ownerId || !media.new.length) {
             dispatch(fetchMediaWorks(id))
-        }
-        if (!media.popular.length || id !== ownerId) {
-            dispatch(fetchPopularMediaWorks(id))
-        }
-        if (!text.new.length || id !== ownerId) {
-            dispatch(fetchTextWorks(id))
-        }
-        if (!text.popular.length || id !== ownerId) {
-            dispatch(fetchPopularTextWorks(id))
         }
     }, [dispatch])
 
@@ -67,9 +55,11 @@ const ContestPage = () => {
             <HeroSection bg={data.backgroundImage} owner={data.contestOwner} />
             <VStack className='contest__container'>
                 <DescriptionSection data={data} />
-                <WinnersSection />
-                <WorksListSection ownerId={id} />
-                {/* <CommentsSection /> */}
+                {!data.contestOpen && data.winners.content.length && (
+                    <WinnersSection />
+                )}
+                <WorksListSection worksAmount={data.participantAmount} />
+                <СommentsSection ownerId={id} />
             </VStack>
         </VStack>
     )

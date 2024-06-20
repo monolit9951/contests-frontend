@@ -21,7 +21,7 @@ export default function Image(props: ImageProps) {
             alt={alt}
             width={width}
             height={height}
-            className={clsx(round && 'image__round', className)}
+            className={clsx('image', round && 'image__round', className)}
             {...rest}
         />
     )

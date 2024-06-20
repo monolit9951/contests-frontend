@@ -22,7 +22,7 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
             <div
                 className='contest-hero__image'
                 style={{
-                    backgroundImage: `url(${contestHeroIMG ?? bg})`,
+                    backgroundImage: `url(${bg ?? contestHeroIMG})`,
                 }}
             />
 
@@ -41,7 +41,7 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
                                 <Text Tag='span' bold size='l'>
                                     {owner?.name}
                                 </Text>
-                                <Verified />
+                                {owner.verificationStatus && <Verified />}
                             </>
                         ) : (
                             <Text Tag='span' bold size='l'>

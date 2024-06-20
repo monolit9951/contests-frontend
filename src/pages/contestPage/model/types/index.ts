@@ -1,23 +1,29 @@
+import { Comment } from 'entities/comment'
 import { Work } from 'entities/work'
+
+interface ContestWorksObj {
+    new: Work[]
+    popular: Work[]
+
+    page: number
+
+    totalPages: number
+    totalElements: number
+
+    loading: boolean
+    nextLoading: boolean
+    error: string | null
+}
 
 export interface ContestWorksSchema {
     ownerId: string
-    media: {
-        new: Work[]
-        popular: Work[]
+    userId: string
 
-        page: number
+    media: ContestWorksObj
+    text: ContestWorksObj
 
-        totalPages: number
-        totalElements: number
-
-        loading: boolean
-        nextLoading: boolean
-        error: string | null
-    }
-    text: {
-        new: Work[]
-        popular: Work[]
+    comments: {
+        content: Comment[]
 
         page: number
 
