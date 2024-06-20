@@ -4,12 +4,24 @@ import clsx from 'clsx'
 import { filterActions } from 'features/filterContests/model/slice'
 import cross from 'shared/assets/icons/X.svg?react'
 import { mockFilterData } from 'shared/consts/filterBlocks'
+import useAxios from 'shared/lib/hooks/useAxios'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import FilterBlock from './filterBlock'
+
+interface FiltersData {
+    ITEM: number
+    MONEY: number
+    UPCOMING: number
+    ACTIVE: number
+    BLOGGER: number
+    STORE: number
+    FINISHED: number
+    COMPANY: number
+}
 
 interface FilterModalProps {
     onClose: () => void
@@ -23,6 +35,34 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
         const dispatch = useDispatch()
 
         const { status, prizeType, creators } = mockFilterData
+
+        const { data } = useAxios<FiltersData>(
+            'contests/amountContestsByFilters'
+        )
+
+        if (data) {
+            for (const item of status.items) {
+                for (const [key, value] of Object.entries(data)) {
+                    if (item.name.toUpperCase() === key) {
+                        item.number = Number(value)
+                    }
+                }
+            }
+            for (const item of prizeType.items) {
+                for (const [key, value] of Object.entries(data)) {
+                    if (item.name.split(' ')[0].toUpperCase() === key) {
+                        item.number = Number(value)
+                    }
+                }
+            }
+            for (const item of creators.items) {
+                for (const [key, value] of Object.entries(data)) {
+                    if (item.name.toUpperCase() === key) {
+                        item.number = Number(value)
+                    }
+                }
+            }
+        }
 
         const onFilterClear = () => {
             dispatch(filterActions.clearFilters())
