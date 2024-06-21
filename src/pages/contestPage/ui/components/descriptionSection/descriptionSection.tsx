@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { FC, Fragment } from 'react'
 import { Contest } from 'entities/contest'
 import moment from 'moment'
 import calendar from 'shared/assets/icons/calendar.svg?react'
@@ -21,7 +21,7 @@ interface Props {
     data: Contest
 }
 
-const DescriptionSection = ({ data }: Props) => {
+const DescriptionSection: FC<Props> = ({ data }) => {
     const deadline = moment(data.dateEnd).format('DD.MM.YYYY, h a')
 
     const contestStatus = () => {
@@ -166,6 +166,7 @@ const DescriptionSection = ({ data }: Props) => {
                                                     <Image
                                                         src={prizeIcon(place)}
                                                         alt='place icon'
+                                                        className='image__no-select'
                                                     />
                                                     <Text
                                                         Tag='span'

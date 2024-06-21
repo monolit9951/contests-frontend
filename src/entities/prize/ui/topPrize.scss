@@ -10,21 +10,21 @@
     > img {
         scale: 2;
     }
-
-    & > .top-prize__1st-amount {
-        color: #feee52;
-    }
-    & > .top-prize__2nd-amount {
-        color: var(--white-muted);
-    }
-    & > .top-prize__3rd-amount {
-        color: #f89141;
-    }
 }
 
 .dark {
     .top-prize__wrapper {
         background-color: #02140e66;
+
+        & > .top-prize__1-amount {
+            color: #feee52;
+        }
+        & > .top-prize__2-amount {
+            color: var(--white-muted);
+        }
+        & > .top-prize__3-amount {
+            color: #f89141;
+        }
     }
 }
 .light {

@@ -5,7 +5,7 @@ export type Currency = 'USD' | 'EUR' | 'PLN' | 'UAH'
 export interface Prize {
     id: string
     prizeType: PrizeType
-    currency: Currency
+    currency: Currency | null
     prizeText: string
     prizeAmount: number
     place: number
@@ -15,7 +15,8 @@ export interface Prize {
 export interface PrizePreview {
     id: string
     prizeType: PrizeType
-    winnersAmount?: number
-    currency?: Currency
-    prizeAmount?: number
+    winnersAmount: number
+    currency: Currency | null
+    prizeText: string
+    prizeAmount: number
 }

@@ -1,8 +1,9 @@
 import { FC, useState } from 'react'
 import clsx from 'clsx'
-import { TopPrize } from 'entities/prize'
-import { PrizePlaces } from 'entities/prize/ui/topPrize'
+import { Prize, TopPrize } from 'entities/prize'
+import { selectContestPrizes } from 'pages/contestPage/model/selectors'
 import media from 'shared/assets/img/videoCard.webp'
+import { useAppSelector } from 'shared/lib/store'
 import { Image } from 'shared/ui/image'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { HStack, VStack } from 'shared/ui/stack'
@@ -17,14 +18,18 @@ import './workCard.scss'
 
 interface Props {
     data: Work
-    place?: number
+    prizeId?: string
     className?: string
 }
 
 const WorkCard: FC<Props> = (props) => {
-    const { data, place, className } = props
+    const { data, prizeId, className } = props
 
     const [isReadMore, setIsReadMore] = useState(false)
+
+    const prizes = useAppSelector(selectContestPrizes) as Prize[]
+
+    const prize = prizes.find((item) => item.id === prizeId)
 
     const toggleReadMore = () => {
         setIsReadMore(!isReadMore)
@@ -40,7 +45,7 @@ const WorkCard: FC<Props> = (props) => {
                             size={40}
                             userName={data.user.name}
                         />
-                        {place && <TopPrize place={place as PrizePlaces} />}
+                        {prize && <TopPrize data={prize} />}
                     </HStack>
                     <Text Tag='p' className='work__text'>
                         {(data.description.length < 430 &&
@@ -72,7 +77,7 @@ const WorkCard: FC<Props> = (props) => {
         <li>
             <VStack className={clsx('media', className)}>
                 <div className='media__container'>
-                    <MediaOverlay place={place as PrizePlaces} />
+                    <MediaOverlay prize={prize} />
                     {data?.typeWork === 'VIDEO' && (
                         <iframe
                             title='media'
