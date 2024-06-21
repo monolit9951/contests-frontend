@@ -33,8 +33,8 @@
             display: flex;
             align-items: center;
             gap:8px;
-            padding: 6px 32px;
-            
+            padding: 6px 28px;
+            justify-content: center;
         }
     }
 }
@@ -53,4 +53,15 @@
 
 .cover_selection_overlay{
     background-color: rgba($color: #010604, $alpha: 0.6) !important;
+}
+
+@media (max-width: 1920px) {
+    .imageUpload_container{
+        .text_btn_container{
+            .uploadBtn{
+                padding: 6px 24px;
+                justify-content: center;
+            }
+        }
+    }
 }

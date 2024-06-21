@@ -162,3 +162,31 @@
         }
     }
 }
+@media (max-width: 1920px) {
+    .participants-works{
+        &__list{
+            gap: 14px;
+            justify-content: space-between;
+            li{
+                width: 32%;
+                .media, .work{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 1700px) {
+    .participants-works{
+        &__list{
+            gap: 14px;
+            justify-content: space-between;
+            li{
+                width: 32%;
+                .media, .work{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
