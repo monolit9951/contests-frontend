@@ -1,4 +1,5 @@
 import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit'
+import { Prize } from 'entities/prize'
 
 import {
     fetchMediaWorks,
@@ -18,6 +19,8 @@ import { ContestWorksSchema } from '../types'
 const initialState: ContestWorksSchema = {
     ownerId: '',
     userId: '',
+
+    prizes: [],
 
     media: {
         new: [],
@@ -71,7 +74,11 @@ const slice = createSlice({
         setOwnerId: (state, action: PayloadAction<string>) => {
             state.ownerId = action.payload
         },
+        setPrizes: (state, action: PayloadAction<Prize[]>) => {
+            state.prizes = action.payload
+        },
         resetState: (state) => {
+            state.prizes = []
             state.media = {
                 ...state.media,
                 new: [],

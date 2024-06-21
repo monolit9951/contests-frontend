@@ -13,4 +13,5 @@ export interface Work {
     user: User
     typeWork: WorkType
     popularity: number
+    workAddingDate: string
 }
