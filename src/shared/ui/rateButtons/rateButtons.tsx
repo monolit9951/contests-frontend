@@ -15,11 +15,12 @@ import './rateButtons.scss'
 interface Props {
     id: string
     likes: number
+    work?: boolean
     border?: boolean
 }
 
 const RateButtons = (props: Props) => {
-    const { id, border, likes } = props
+    const { id, border, likes, work } = props
 
     const [likesNum, setLikesNum] = useState(likes)
     const [liked, setLiked] = useState(false)
@@ -28,7 +29,9 @@ const RateButtons = (props: Props) => {
     const onRate = async (action: string) => {
         try {
             const response = await instance.patch(
-                `comment/addLike/${id}?likeOrDislike=${action}`
+                `${
+                    work ? 'works' : 'comment'
+                }/addLike/${id}?likeOrDislike=${action}`
             )
 
             setLikesNum(response.data)
