@@ -1,17 +1,13 @@
-import React from "react";
-import clsx from "clsx";
-import {useTheme} from "entities/theme";
-import avatar from "shared/assets/img/userIMG.jpg";
-import {Image} from "shared/ui/image";
-import {HStack} from "shared/ui/stack";
+import { FC } from 'react'
+import { HStack } from 'shared/ui/stack'
+import { UserIcon } from 'shared/ui/userIcon'
 
-export const NameRenderer: React.FC<{ value: string }> = ({ value }) => {
-    const { theme } = useTheme();
+export const NameRenderer: FC<{ value: string }> = ({ value }) => {
+    const [image, name] = value.split(',')
 
     return (
-        <HStack className={clsx(theme, 'name-cell')}>
-            <Image src={avatar} alt='avatar' className='avatar-img' />
-            {value}
+        <HStack className='name-cell'>
+            <UserIcon src={image} userName={name} size={40} />
         </HStack>
-    );
-};
+    )
+}

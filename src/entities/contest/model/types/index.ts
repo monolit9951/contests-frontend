@@ -1,5 +1,6 @@
 import { Prize, PrizePreview } from 'entities/prize'
 import { Organizer } from 'entities/user'
+import { Work } from 'entities/work'
 import { PageEntityDTO } from 'shared/lib/types'
 
 type Status = 'ACTIVE' | 'INACTIVE' | 'PAUSED' | 'FINISHED' | 'UPCOMING'
@@ -8,15 +9,20 @@ export type Category = '' | 'FOR_FUN' | 'FOR_WORK'
 
 export type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
 
-export interface Winners {
+export interface WinnersRequest {
     contestId: string
     userId: string
     prizeId: string
-    done?: boolean
+    done: boolean
 }
 
 export interface PagedWinners extends PageEntityDTO {
-    content: Winners[]
+    content: WinnersRequest[]
+}
+
+export interface TopWinners {
+    work: Work
+    prizeId: string
 }
 
 export interface Contest {
@@ -35,7 +41,7 @@ export interface Contest {
     exampleMedia?: string[]
     popularity: number
     contestOwner: Organizer
-    winners: PagedWinners
+    topWinners: TopWinners[] | null
     contestOpen: boolean
 }
 
@@ -46,7 +52,7 @@ export interface ContestPreview
         | 'description'
         | 'exampleMedia'
         | 'prizes'
-        | 'winners'
+        | 'topWinners'
         | 'contestOpen'
     > {
     previewImage: string | null

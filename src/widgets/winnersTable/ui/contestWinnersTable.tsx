@@ -1,895 +1,38 @@
-import React, { useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { ColDef } from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
+import { Prize } from 'entities/prize'
 import { useTheme } from 'entities/theme'
-import {NameRenderer} from "widgets/winnersTable/ui/customColumns/customAuthorCol";
-import {FirstColumnRenderer} from "widgets/winnersTable/ui/customColumns/customPlaceCol";
-import {WorkLinkRenderer} from "widgets/winnersTable/ui/customColumns/customWorksCol";
+import { selectContestOwnerId } from 'pages/contestPage/model/selectors'
+import instance from 'shared/api/api'
+import { useAppSelector } from 'shared/lib/store'
 import { Pagination } from 'widgets/winnersTable/ui/customPagination/customPagination'
+
+import {
+    FirstColumnRenderer,
+    NameRenderer,
+    PrizeRenderer,
+    WorkLinkRenderer,
+} from './customColumns'
 
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 import './contestWinnersTable.scss'
 
-interface ContestWinner {
-    place: number
-    author: string
-    prize: string
-    likes: number
-    comments: number
-    reposts: number
-    workLink: string
+interface ContestWinner extends Omit<Prize, 'id' | 'winnersAmount'> {
+    userId: string
+    name: string
+    profileImage: string
+    likeAmount: number
+    commentAmount: number
+    workId: string
 }
 
-export const ContestWinnersTable: React.FC = () => {
+export const ContestWinnersTable: FC = () => {
     const { theme } = useTheme()
-    const [rowData] = useState<ContestWinner[]>([
-        {
-            place: 1,
-            author: 'John Doe',
-            prize: '$500',
-            likes: 120,
-            comments: 30,
-            reposts: 15,
-            workLink: 'http://example.com/work1',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 3,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 4,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 5,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 6,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 7,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 8,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 9,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 10,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 11,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 12,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 13,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 14,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 15,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 16,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 17,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 18,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 19,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 20,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 21,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 22,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 23,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 24,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 25,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 26,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 27,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 28,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 29,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 30,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 31,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 32,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 33,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 34,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 35,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 36,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 37,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 38,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 11,
-            author: 'John Doe',
-            prize: '$500',
-            likes: 120,
-            comments: 30,
-            reposts: 15,
-            workLink: 'http://example.com/work1',
-        },
-        {
-            place: 2,
-            author: 'Jane Smith',
-            prize: '$300',
-            likes: 100,
-            comments: 20,
-            reposts: 10,
-            workLink: 'http://example.com/work2',
-        },
-        {
-            place: 3,
-            author: 'Sam Johnson',
-            prize: '$200',
-            likes: 80,
-            comments: 15,
-            reposts: 5,
-            workLink: 'https://example.com/work3',
-        },
-        {
-            place: 4,
-            author: 'Emily Brown',
-            prize: '$150',
-            likes: 70,
-            comments: 12,
-            reposts: 8,
-            workLink: 'https://example.com/work4',
-        },
-        {
-            place: 5,
-            author: 'Chris Anderson',
-            prize: '$100',
-            likes: 60,
-            comments: 10,
-            reposts: 7,
-            workLink: 'https://example.com/work5',
-        },
-        {
-            place: 6,
-            author: 'Sophia Wilson',
-            prize: '$50',
-            likes: 50,
-            comments: 8,
-            reposts: 5,
-            workLink: 'https://example.com/work6',
-        },
-        {
-            place: 7,
-            author: 'David Martinez',
-            prize: '$30',
-            likes: 40,
-            comments: 6,
-            reposts: 3,
-            workLink: 'https://example.com/work7',
-        },
-        {
-            place: 8,
-            author: 'Emma Taylor',
-            prize: '$20',
-            likes: 30,
-            comments: 5,
-            reposts: 2,
-            workLink: 'https://example.com/work8',
-        },
-        {
-            place: 9,
-            author: 'Noah Thomas',
-            prize: '$10',
-            likes: 20,
-            comments: 4,
-            reposts: 1,
-            workLink: 'https://example.com/work9',
-        },
-        {
-            place: 10,
-            author: 'Olivia Harris',
-            prize: '$5',
-            likes: 10,
-            comments: 2,
-            reposts: 0,
-            workLink: 'https://example.com/work10',
-        },
-    ])
+
+    const [rowData, setRowData] = useState<ContestWinner[]>([])
     const [columnDefs] = useState<ColDef[]>([
         {
             headerName: 'Place',
@@ -897,13 +40,16 @@ export const ContestWinnersTable: React.FC = () => {
             sortable: true,
             filter: false,
             headerClass: 'custom-header',
-            cellClass: 'custom-cell',
+            cellClass: 'custom-cell__place',
             cellRenderer: FirstColumnRenderer,
         },
         {
             headerName: 'Author',
             cellRenderer: NameRenderer,
-            field: 'author',
+            field: 'profileImage&name',
+            valueGetter: (p) => {
+                return `${p.data.profileImage},${p.data.name}`
+            },
             sortable: true,
             filter: false,
             headerClass: 'custom-header',
@@ -911,15 +57,20 @@ export const ContestWinnersTable: React.FC = () => {
         },
         {
             headerName: 'Prize',
-            field: 'prize',
+            field: 'prizeType&prizeText&prizeAmount&currency',
+            valueGetter: (p) => {
+                const { prizeType, prizeText, prizeAmount, currency } = p.data
+                return `${prizeType},${prizeText},${prizeAmount},${currency}`
+            },
             sortable: true,
             filter: false,
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
+            cellRenderer: PrizeRenderer,
         },
         {
             headerName: 'Likes',
-            field: 'likes',
+            field: 'likeAmount',
             sortable: true,
             filter: false,
             headerClass: 'custom-header',
@@ -927,7 +78,7 @@ export const ContestWinnersTable: React.FC = () => {
         },
         {
             headerName: 'Comments',
-            field: 'comments',
+            field: 'commentAmount',
             sortable: true,
             filter: false,
             headerClass: 'custom-header',
@@ -935,7 +86,7 @@ export const ContestWinnersTable: React.FC = () => {
         },
         {
             headerName: 'Reposts',
-            field: 'reposts',
+            field: 'commentAmount',
             sortable: true,
             filter: false,
             headerClass: 'custom-header',
@@ -943,7 +94,7 @@ export const ContestWinnersTable: React.FC = () => {
         },
         {
             headerName: '',
-            field: 'workLink',
+            field: 'workId',
             cellRenderer: WorkLinkRenderer,
             filter: false,
             sortable: true,
@@ -952,7 +103,31 @@ export const ContestWinnersTable: React.FC = () => {
         },
     ])
     const [currentPage, setCurrentPage] = useState(1)
+    const [totalWinners, setTotalWinners] = useState(0)
+
     const pageSize = 10
+
+    const ownerId = useAppSelector(selectContestOwnerId)
+
+    useEffect(() => {
+        const fetchOtherPrizes = async () => {
+            try {
+                const { data } = await instance.get(
+                    `contests/winners/${ownerId}?page=${
+                        currentPage - 1
+                    }&pageSize=${pageSize}&sortDirection=ASC`
+                )
+
+                setRowData(data.content)
+                setTotalWinners(data.totalElements)
+            } catch (err) {
+                // eslint-disable-next-line no-console
+                console.error(err)
+            }
+        }
+
+        fetchOtherPrizes()
+    }, [currentPage])
 
     const onPageChange = (page: number) => {
         setCurrentPage(page)
@@ -990,7 +165,7 @@ export const ContestWinnersTable: React.FC = () => {
     return (
         <div
             className={clsx(theme, 'ag-theme-alpine')}
-            style={{ height: 600, width: '1415px' }}>
+            style={{ width: '1415px' }}>
             <AgGridReact
                 rowData={visibleRows}
                 columnDefs={columnDefs.map((col) => ({
@@ -1005,7 +180,7 @@ export const ContestWinnersTable: React.FC = () => {
             />
             <Pagination
                 onPageChange={onPageChange}
-                totalCount={rowData.length}
+                totalCount={totalWinners}
                 currentPage={currentPage}
                 pageSize={pageSize}
             />

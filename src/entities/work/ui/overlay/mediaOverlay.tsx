@@ -1,5 +1,4 @@
-import { TopPrize } from 'entities/prize'
-import { PrizePlaces } from 'entities/prize/ui/topPrize'
+import { Prize, TopPrize } from 'entities/prize'
 import cards from 'shared/assets/icons/cards.svg?react'
 import action from 'shared/assets/icons/tripleDot.svg?react'
 import { Icon } from 'shared/ui/icon'
@@ -9,18 +8,18 @@ import { UserIcon } from 'shared/ui/userIcon'
 import './mediaOverlay.scss'
 
 interface Props {
-    place?: PrizePlaces
+    prize?: Prize
     userImage?: string
 }
 
-const MediaOverlay = ({ place, userImage }: Props) => {
+const MediaOverlay = ({ prize, userImage }: Props) => {
     const onCardsClick = () => {}
 
     const onAction = () => {}
 
     return (
         <VStack className='media__overlay'>
-            {place && <TopPrize place={place} className='media__overlay__1' />}
+            {prize && <TopPrize data={prize} className='media__overlay__1' />}
             <Icon
                 Svg={cards}
                 clickable
