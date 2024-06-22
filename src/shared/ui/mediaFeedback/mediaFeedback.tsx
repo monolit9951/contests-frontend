@@ -28,7 +28,7 @@ const MediaFeedback: FC<Props> = (props) => {
     return (
         <HStack className={clsx('feedback__wrapper', className)}>
             <HStack>
-                <RateButtons id={id} likes={likes} border />
+                <RateButtons id={id} likes={likes} work border />
                 <Button
                     variant='secondary'
                     size='s'

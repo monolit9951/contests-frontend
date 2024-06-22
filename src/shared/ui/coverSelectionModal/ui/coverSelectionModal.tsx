@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import ReactCrop from 'react-image-crop'
 import { useDispatch } from 'react-redux'
 import clsx from 'clsx'
 import { setContestBackgroundImage, setContestPreivewImage } from 'pages/contestsCreationPage/model/services'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
-// import check from 'shared/assets/icons/check.svg?react'
 import check from 'shared/assets/icons/select-check.svg?react'
 import X from 'shared/assets/icons/X.svg?react'
 import { Button } from 'shared/ui/button'
@@ -58,11 +56,9 @@ export const CoverSelectionModal = ({
 
     const setDefaultImage = (image) => {
         setImgName(image)
-        // setCurrImg(URL.createObjectURL(image))
         setCurrImg(image)
         console.log(currImg)
         setIsDisabledUploadBtn(false)
-        // console.log(currImg)
     }
 
     const confirmImage = () => {
@@ -84,7 +80,6 @@ export const CoverSelectionModal = ({
             isOpen={isOpen}
             className='cover_selection'
             overlayClassName='cover_selection_overlay'
-            // contentClassName='cover_selection_content'
             modalContentClass='cover_selection_content'>
             <VStack className='cover_selection_container'>
                 <HStack className='header'>
@@ -141,7 +136,6 @@ export const CoverSelectionModal = ({
                                 className='btn upload'
                                 variant='primary'
                                 onClick={() => confirmImage()}>
-                                {/* Continue */}
                                 Confirm
                             </Button>
                         </HStack>

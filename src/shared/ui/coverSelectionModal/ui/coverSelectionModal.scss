@@ -41,7 +41,6 @@
             }
 
             &__preview{
-                // height: 360px;
                 min-height: 360px;
                 height: auto;
                 max-height: 550px;
@@ -83,7 +82,7 @@
                         display: block;
                         position: absolute;
                         top: 8px;
-                        right: 8px; /* Adjusted to be closer to the edge */
+                        right: 8px;
                         fill: var(--white) !important;
                     }
                 }

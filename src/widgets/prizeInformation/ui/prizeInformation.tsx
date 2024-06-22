@@ -136,7 +136,6 @@ export const PrizeInformation: React.FC = () => {
                         index={index}
                         winIcon={prize.winIcon}
                         place={prize.place}
-                        // handlePrizeTypeChange = {handlePrizeTypeChange}
                         onDelete={() => deletePrize(index)}
                     />
                 ))}

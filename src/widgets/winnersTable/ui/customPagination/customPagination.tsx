@@ -72,7 +72,9 @@ export const Pagination: FC<PaginationProps> = (props) => {
                 }
                 return (
                     <Button
-                        variant='primary'
+                        variant={
+                            pageNumber === currentPage ? 'primary' : 'secondary'
+                        }
                         key={index}
                         className={clsx('pagination-item', {
                             selected: pageNumber === currentPage,

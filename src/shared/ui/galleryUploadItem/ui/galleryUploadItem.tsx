@@ -87,7 +87,6 @@ export const GalleryUploadItem = ({
                             id='upload-btn_id'
                             accept='image/*'
                             onChange={(event) => {
-                                console.log("fdssvdvdfv")
                                 uploadImage(event)
                             }}
                         />

@@ -6,6 +6,9 @@ import { Prize } from 'entities/prize'
 import { useTheme } from 'entities/theme'
 import { selectContestOwnerId } from 'pages/contestPage/model/selectors'
 import instance from 'shared/api/api'
+import desc from 'shared/assets/icons/caretDown.svg'
+import asc from 'shared/assets/icons/caretUp.svg'
+import none from 'shared/assets/icons/caretUpDown.svg'
 import { useAppSelector } from 'shared/lib/store'
 import { Pagination } from 'widgets/winnersTable/ui/customPagination/customPagination'
 
@@ -37,11 +40,11 @@ export const ContestWinnersTable: FC = () => {
         {
             headerName: 'Place',
             field: 'place',
-            sortable: true,
-            filter: false,
             headerClass: 'custom-header',
-            cellClass: 'custom-cell__place',
+            cellClass: 'custom-cell custom-cell__place',
             cellRenderer: FirstColumnRenderer,
+            maxWidth: 100,
+            unSortIcon: true,
         },
         {
             headerName: 'Author',
@@ -50,8 +53,7 @@ export const ContestWinnersTable: FC = () => {
             valueGetter: (p) => {
                 return `${p.data.profileImage},${p.data.name}`
             },
-            sortable: true,
-            filter: false,
+            sortable: false,
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
         },
@@ -62,44 +64,43 @@ export const ContestWinnersTable: FC = () => {
                 const { prizeType, prizeText, prizeAmount, currency } = p.data
                 return `${prizeType},${prizeText},${prizeAmount},${currency}`
             },
-            sortable: true,
-            filter: false,
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
             cellRenderer: PrizeRenderer,
+            unSortIcon: true,
         },
         {
             headerName: 'Likes',
             field: 'likeAmount',
-            sortable: true,
-            filter: false,
             headerClass: 'custom-header',
-            cellClass: 'custom-cell',
+            cellClass: 'custom-cell custom-cell__likes',
+            maxWidth: 100,
+            unSortIcon: true,
         },
         {
             headerName: 'Comments',
             field: 'commentAmount',
-            sortable: true,
-            filter: false,
             headerClass: 'custom-header',
-            cellClass: 'custom-cell',
+            cellClass: 'custom-cell custom-cell__comments',
+            maxWidth: 150,
+            unSortIcon: true,
         },
         {
             headerName: 'Reposts',
             field: 'commentAmount',
-            sortable: true,
-            filter: false,
             headerClass: 'custom-header',
-            cellClass: 'custom-cell',
+            cellClass: 'custom-cell custom-cell__reposts',
+            maxWidth: 150,
+            unSortIcon: true,
         },
         {
             headerName: '',
             field: 'workId',
             cellRenderer: WorkLinkRenderer,
-            filter: false,
-            sortable: true,
+            sortable: false,
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
+            maxWidth: 194,
         },
     ])
     const [currentPage, setCurrentPage] = useState(1)
@@ -133,8 +134,13 @@ export const ContestWinnersTable: FC = () => {
         setCurrentPage(page)
     }
 
-    const startIndex = (currentPage - 1) * pageSize
-    const visibleRows = rowData.slice(startIndex, startIndex + pageSize)
+    const gridOptions = {
+        icons: {
+            sortAscending: `<img src="${asc}" alt="Sort Ascending" width="24px" height="24px" style="filter: invert(1)" />`,
+            sortDescending: `<img src="${desc}" alt="Sort Descending" width="24px" height="24px" style="filter: invert(1)" />`,
+            sortUnSort: `<img src="${none}" alt="Sort None" width="24px" height="24px" style="filter: invert(1)" />`,
+        },
+    }
 
     const defaultColDef = {
         flex: 1,
@@ -151,15 +157,12 @@ export const ContestWinnersTable: FC = () => {
 
     const cellStyle = () => {
         return {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
             color: theme === 'dark' ? '#ffffff' : '#000000',
         }
     }
 
     const getRowHeight = () => {
-        return 50
+        return 56
     }
 
     return (
@@ -167,7 +170,7 @@ export const ContestWinnersTable: FC = () => {
             className={clsx(theme, 'ag-theme-alpine')}
             style={{ width: '1415px' }}>
             <AgGridReact
-                rowData={visibleRows}
+                rowData={rowData}
                 columnDefs={columnDefs.map((col) => ({
                     ...col,
                     cellStyle,
@@ -177,6 +180,7 @@ export const ContestWinnersTable: FC = () => {
                 getRowHeight={getRowHeight}
                 domLayout='autoHeight'
                 sortingOrder={['asc', 'desc']}
+                gridOptions={gridOptions}
             />
             <Pagination
                 onPageChange={onPageChange}

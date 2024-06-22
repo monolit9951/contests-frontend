@@ -1,8 +1,6 @@
 export interface PrizeData {
-    // id: string;
     place: number;
     prize: {
-        // id: string;
         currency: string;
         prizeAmount: number;
         prizeText: string;

@@ -22,12 +22,6 @@ export const GalleryUpload = () => {
     ])
 
     const dispatch: AppDispatch = useDispatch()
-    // const mediaUrls = galleryItems
-    //     .filter((item) => item.imgUrl !== '')
-    //     .map((item) => item.imgUrl)
-
-    // dispatch(setContestExampleMedia(mediaUrls))
-    // console.log("Dispatch setContestExampleMedia")
 
     useEffect(() => {
         const mediaUrls = galleryItems
