@@ -8,11 +8,16 @@
             align-self: flex-end;
         }
 
-        .deleteIcon {
-            margin-left: auto;
+        .iconBtn_wrapper {
+            background: none !important;
+            padding: 0;
             align-self: flex-end;
             justify-self: flex-end;
-            fill: var(--white-muted);
+
+            .deleteIcon {
+                margin-left: auto;
+                fill: var(--white-muted);
+            }
         }
 
         .inputTitle {
@@ -30,6 +35,10 @@
                 height: 48px;
                 padding: 12px;
             }
+        }
+
+        &__combobox{
+            background-color: red;
         }
 
         .prizeType_input_container {

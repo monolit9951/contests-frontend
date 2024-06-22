@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Contest } from 'entities/contest'
 
 import {
     setContestBackgroundImage,
@@ -10,47 +9,105 @@ import {
     setContestExampleMedia,
     setContestMaxAllowedParticipantAmount,
     setContestName,
-    setContestOwner,
+    setContestOpen,
     setContestParticipantAmount,
-    setContestPrizeStructure,
+    setContestPreivewImage,
     setContestStatus,
     setContestSubcategory,
+    setSelectionType,
 } from '../services/dataSetters'
 
-const initialState: Contest = {
+
+interface Prize {
+    id: string;
+    place: number;
+    currency: string;
+    prizeAmount: number;
+    prizeText: string;
+    prizeType: string;
+    winnersAmount: number;
+}
+
+interface ContestCreationState {
+    id: string;
+    name: string;
+    status: string;
+    category: string;
+    subcategory: string;
+    backgroundImage: string;
+    previewImage: string;
+    participantAmount: number;
+    maxAllowedParticipantAmount: number;
+    selectionType: string;
+    dateStart: string;
+    dateEnd: string;
+    description: string;
+    exampleMedia: string[];
+    prizes: Prize[];
+    popularity: number;
+    contestOwnerId: string;
+    contestOpen: boolean;
+}
+
+const initialState: ContestCreationState  = {
     id: '',
     name: '',
     status: 'INACTIVE',
-    category: 'CATEGORY1',
+    category: 'FOR_FUN',
     subcategory: 'SUBCATEGORY1',
     backgroundImage: '',
+    previewImage: '',
     participantAmount: 0,
     maxAllowedParticipantAmount: 0,
-    dateStart: [0, 0, 0, 0, 0, 0],
-    dateEnd: [0, 0, 0, 0, 0, 0],
+    selectionType: "RANDOM",
+    dateStart: '',
+    dateEnd: '',
     description: '',
     exampleMedia: [],
-    prizeStructure: [
+    prizes: [
         {
             id: '',
-            place: 0,
-            prize: {
-                id: '',
-                currency: 'EUR',
-                prizeAmount: 0,
-                prizeText: '',
-                prizeType: 'MONEY',
-            },
+            place: 1,
+            currency: 'EUR',
+            prizeAmount: 0,
+            prizeText: '',
+            prizeType: 'MONEY',
+            winnersAmount: 0,
+        },
+        {
+            id: '',
+            place: 2,
+            currency: 'EUR',
+            prizeAmount: 0,
+            prizeText: '',
+            prizeType: 'MONEY',
+            winnersAmount: 0,
+        },
+        {
+            id: '',
+            place: 3,
+            currency: 'EUR',
+            prizeAmount: 0,
+            prizeText: '',
+            prizeType: 'MONEY',
+            winnersAmount: 0,
+        },
+        {
+            id: '',
+            place: 4,
+            currency: 'EUR',
+            prizeAmount: 0,
+            prizeText: '',
+            prizeType: 'MONEY',
             winnersAmount: 0,
         },
     ],
-    contestOwner: {
-        id: '',
-        name: '',
-        organizerRating: 0,
-        profileImage: '',
-        verificationStatus: 'BLOGGER',
-    },
+    popularity: 0,
+    // topWinners: [
+    //     {}
+    // ],
+    contestOwnerId: "",
+    contestOpen: true
 }
 
 const slice = createSlice({
@@ -61,6 +118,9 @@ const slice = createSlice({
         builder
             .addCase(setContestName.fulfilled, (state, action) => {
                 state.name = action.payload
+            })
+            .addCase(setSelectionType.fulfilled, (state, action) => {
+                state.selectionType = action.payload;
             })
             .addCase(setContestDescription.fulfilled, (state, action) => {
                 state.description = action.payload
@@ -76,6 +136,9 @@ const slice = createSlice({
             })
             .addCase(setContestBackgroundImage.fulfilled, (state, action) => {
                 state.backgroundImage = action.payload
+            })
+            .addCase(setContestPreivewImage.fulfilled, (state, action) => {
+                state.previewImage = action.payload
             })
             .addCase(setContestParticipantAmount.fulfilled, (state, action) => {
                 state.participantAmount = action.payload
@@ -95,15 +158,10 @@ const slice = createSlice({
             .addCase(setContestExampleMedia.fulfilled, (state, action) => {
                 state.exampleMedia = action.payload
             })
-            .addCase(setContestPrizeStructure.fulfilled, () => {
-                
+            .addCase(setContestOpen.fulfilled, (state, action) => {
+                state.contestOpen = action.payload;
             })
-            // .addCase(setContestPrizeStructure.fulfilled, (state, action) => {
-            //     state.prizeStructure = action.payload
-            // })
-            .addCase(setContestOwner.fulfilled, (state, action) => {
-                state.contestOwner = action.payload
-            })
+            
     },
 })
 

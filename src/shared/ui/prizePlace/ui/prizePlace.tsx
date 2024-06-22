@@ -1,14 +1,22 @@
+import React, { useState } from 'react'
+import trash from 'shared/assets/icons/trash.svg?react'
+import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
-import { Input } from 'shared/ui/input'
+import { Combobox, Input } from 'shared/ui/input'
 import { MainInformationCombobox } from 'shared/ui/mainInformationCombobox/ui/mainInformationCombobox'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
+import { WinPlace } from 'widgets/prizeInformation/entities/entities'
 
 import './prizePlace.scss'
+import { PrizeInformationCombobox } from 'shared/ui/prizeInformationCombobox'
 
 interface PrizePlaceProps {
     winIcon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
-    deleteIcon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+    place: number
+    onDelete: (index: number) => void
+    index: number
+    // handlePrizeTypeChange: (index: number, value: string) => void
 }
 
 const types = [
@@ -17,7 +25,20 @@ const types = [
     { value: 'type3', label: 'Type 3' },
 ]
 
-export const PrizePlace = ({ winIcon, deleteIcon }: PrizePlaceProps) => {
+export const PrizePlace: React.FC<PrizePlaceProps> = ({
+    winIcon,
+    place,
+    onDelete,
+    // handlePrizeTypeChange,
+    index,
+}) => {
+
+    const [comboValue, setComboValue] = useState()
+
+    // const handlePrizeTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    //     setComboValue
+    // }
+
     return (
         <VStack className='prizePlace_outercontainer'>
             <HStack className='prizePlace_container'>
@@ -38,11 +59,16 @@ export const PrizePlace = ({ winIcon, deleteIcon }: PrizePlaceProps) => {
                         className='winnersNum_input'
                     />
                 </VStack>
-                <MainInformationCombobox
+                {/* <MainInformationCombobox */}
+                <PrizeInformationCombobox
                     title='Prize type'
                     placeholder='Select type'
+                    // className='prizePlace_container__combobox'
                     options={types}
                     width={164}
+                    value={comboValue}
+                    onChange={(e) => setComboValue(e.target.value)}
+                    // onChange={(e) => console.log(e)}
                 />
                 <VStack className='prizeName_input_container'>
                     <Text Tag='p' className='inputTitle'>
@@ -54,12 +80,17 @@ export const PrizePlace = ({ winIcon, deleteIcon }: PrizePlaceProps) => {
                         className='prizeName_input'
                     />
                 </VStack>
-                <Icon
-                    Svg={deleteIcon}
-                    height={48}
-                    width={24}
-                    className='deleteIcon'
-                />
+                <Button
+                    variant='div'
+                    className='iconBtn_wrapper'
+                    onClick={() => onDelete(index)}>
+                    <Icon
+                        Svg={trash}
+                        height={48}
+                        width={24}
+                        className='deleteIcon'
+                    />
+                </Button>
             </HStack>
 
             <div className='divider' />

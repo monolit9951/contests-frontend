@@ -1,7 +1,6 @@
 export const categories = [
-    { value: 'CATEGORY1', label: 'Category 1' },
-    { value: 'CATEGORY2', label: 'Category 2' },
-    { value: 'CATEGORY3', label: 'Category 3' }
+    { value: 'FOR_FUN', label: 'For fun' },
+    { value: 'FOR_WORK', label: 'For work' },
 ]
 
 export const subcategories = [

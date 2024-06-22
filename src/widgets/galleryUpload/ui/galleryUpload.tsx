@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setContestExampleMedia } from 'pages/contestsCreationPage/model/services'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
@@ -22,11 +22,22 @@ export const GalleryUpload = () => {
     ])
 
     const dispatch: AppDispatch = useDispatch()
-    const mediaUrls = galleryItems
-        .filter((item) => item.imgUrl !== '')
-        .map((item) => item.imgUrl)
+    // const mediaUrls = galleryItems
+    //     .filter((item) => item.imgUrl !== '')
+    //     .map((item) => item.imgUrl)
 
-    dispatch(setContestExampleMedia(mediaUrls))
+    // dispatch(setContestExampleMedia(mediaUrls))
+    // console.log("Dispatch setContestExampleMedia")
+
+    useEffect(() => {
+        const mediaUrls = galleryItems
+            .filter(item => item.imgUrl !== '')
+            .map(item => item.imgUrl);
+
+        dispatch(setContestExampleMedia(mediaUrls));
+        console.log("Dispatch setContestExampleMedia");
+    }, [galleryItems, dispatch]);
+
 
     return (
         <VStack className='galleryUpload_container'>

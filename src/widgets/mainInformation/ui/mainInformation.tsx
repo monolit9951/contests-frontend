@@ -24,8 +24,6 @@ import './mainInformation.scss'
 
 export const MainInformation = React.memo(() => {
     const dispatch: AppDispatch = useDispatch();
-    const contestCreationState = useSelector((state: RootState) => state.contestsCreationPage);
-    console.log(contestCreationState)
 
 
     const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

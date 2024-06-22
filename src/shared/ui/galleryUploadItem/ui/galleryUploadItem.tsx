@@ -36,7 +36,6 @@ export const GalleryUploadItem = ({
     galleryItems,
     setGalleryItems,
 }: GalleryUploadItemProps) => {
-
     const removeImage = () => {
         setGalleryItems((prevItems) => {
             const updatedItems = prevItems.map((item) =>
@@ -88,6 +87,7 @@ export const GalleryUploadItem = ({
                             id='upload-btn_id'
                             accept='image/*'
                             onChange={(event) => {
+                                console.log("fdssvdvdfv")
                                 uploadImage(event)
                             }}
                         />
