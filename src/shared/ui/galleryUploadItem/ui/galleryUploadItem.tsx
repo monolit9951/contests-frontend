@@ -39,29 +39,38 @@ export const GalleryUploadItem = ({
     const removeImage = () => {
         setGalleryItems((prevItems) => {
             const updatedItems = prevItems.map((item) =>
-                item.id === galleryItem.id ? { ...item, hasImage: false, imgUrl: '' } : item
-            );
+                item.id === galleryItem.id
+                    ? { ...item, hasImage: false, imgUrl: '' }
+                    : item
+            )
 
             const sortedItems = updatedItems
-                .sort((a, b) => (a.hasImage === b.hasImage ? 0 : a.hasImage ? -1 : 1))
-                .map((item, index) => ({ ...item, id: index }));
+                .sort((a, b) =>
+                    // eslint-disable-next-line no-nested-ternary
+                    a.hasImage === b.hasImage ? 0 : a.hasImage ? -1 : 1
+                )
+                .map((item, index) => ({ ...item, id: index }))
 
-            return sortedItems;
-        });
-    };
+            return sortedItems
+        })
+    }
 
     const uploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
+        const file = event.target.files?.[0]
         if (file) {
             setGalleryItems((prevItems) =>
                 prevItems.map((item) =>
                     item.id === galleryItem.id
-                        ? { ...item, hasImage: true, imgUrl: URL.createObjectURL(file) }
+                        ? {
+                              ...item,
+                              hasImage: true,
+                              imgUrl: URL.createObjectURL(file),
+                          }
                         : item
                 )
-            );
+            )
         }
-    };
+    }
 
     if (galleryItem.hasImage === false) {
         const isCurrentOrPreviousHasImage =
@@ -75,13 +84,13 @@ export const GalleryUploadItem = ({
                         <Text Tag='p' className='is-current_text'>
                             Drag and drop your file here or
                         </Text>
-
+                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                         <label htmlFor='upload-btn_id' className='upload-btn'>
                             <Text Tag='p' className='uploadBtn_text'>
                                 Upload
                             </Text>
                             <Icon Svg={upload} width={20} height={20} />
-                            </label>
+                        </label>
                         <Input
                             type='file'
                             id='upload-btn_id'
@@ -90,7 +99,6 @@ export const GalleryUploadItem = ({
                                 uploadImage(event)
                             }}
                         />
-                        
                     </VStack>
                 ) : (
                     <div className='gallery-upload-item'>

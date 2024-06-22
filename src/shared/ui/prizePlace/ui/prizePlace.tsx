@@ -3,11 +3,11 @@ import trash from 'shared/assets/icons/trash.svg?react'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
+import { PrizeInformationCombobox } from 'shared/ui/prizeInformationCombobox'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './prizePlace.scss'
-import { PrizeInformationCombobox } from 'shared/ui/prizeInformationCombobox'
 
 interface PrizePlaceProps {
     winIcon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
