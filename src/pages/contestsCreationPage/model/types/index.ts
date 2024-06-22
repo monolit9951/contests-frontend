@@ -1,24 +1,26 @@
-import { ContestPreview } from 'entities/contest'
+// export interface ContestsCreationPageSchema {
+//     title: string
+//     category: string
+//     subcategory: string
+//     backgroundImage: string
+//     participantAmount: number
+//     maxAllowedParticipantAmount: number
+//     dateStart: string
+//     dateEnd: string
+//     description: string
+//     exampleMedia: string[]
 
-export interface ContestsPageSchema {
-    popular: {
-        contests: ContestPreview[]
+// }
 
-        loading: boolean
-        error: null | string
-    }
+// interface PrizeStructureDTO {
+//     place: number
+//     winnersAmount: number 
+//     prize:
+// }
 
-    all: {
-        contests: ContestPreview[]
-
-        page: number
-        pageSize: number
-
-        totalPages: number
-        totalElements: number
-
-        loading: boolean
-        nextLoading: boolean
-        error: null | string
-    }
-}
+// interface PrizeDto {
+//     prizeType: string
+//     currency: string
+//     prizeText:string 
+//     prizeAmount: number
+// }

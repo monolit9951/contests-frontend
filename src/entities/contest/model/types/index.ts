@@ -7,7 +7,7 @@ type Status = 'ACTIVE' | 'INACTIVE' | 'PAUSED' | 'FINISHED' | 'UPCOMING'
 
 export type Category = '' | 'FOR_FUN' | 'FOR_WORK'
 
-type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
+export type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
 
 export interface WinnersRequest {
     contestId: string

@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setContestExampleMedia } from 'pages/contestsCreationPage/model/services'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
 import { GalleryUploadItem } from 'shared/ui/galleryUploadItem'
 import { Icon } from 'shared/ui/icon'
@@ -8,17 +10,28 @@ import { Text } from 'shared/ui/text'
 import './galleryUpload.scss'
 
 export const GalleryUpload = () => {
-
     const [galleryItems, setGalleryItems] = useState([
-        {id: 0, hasImage: false, imgUrl: ""},
-        {id: 1, hasImage: false, imgUrl: ""},
-        {id: 2, hasImage: false, imgUrl: ""},
-        {id: 3, hasImage: false, imgUrl: ""},
-        {id: 4, hasImage: false, imgUrl: ""},
-        {id: 5, hasImage: false, imgUrl: ""},
-        {id: 6, hasImage: false, imgUrl: ""},
-        {id: 7, hasImage: false, imgUrl: ""},
+        { id: 0, hasImage: false, imgUrl: '' },
+        { id: 1, hasImage: false, imgUrl: '' },
+        { id: 2, hasImage: false, imgUrl: '' },
+        { id: 3, hasImage: false, imgUrl: '' },
+        { id: 4, hasImage: false, imgUrl: '' },
+        { id: 5, hasImage: false, imgUrl: '' },
+        { id: 6, hasImage: false, imgUrl: '' },
+        { id: 7, hasImage: false, imgUrl: '' },
     ])
+
+    const dispatch: AppDispatch = useDispatch()
+
+    useEffect(() => {
+        const mediaUrls = galleryItems
+            .filter(item => item.imgUrl !== '')
+            .map(item => item.imgUrl);
+
+        dispatch(setContestExampleMedia(mediaUrls));
+        console.log("Dispatch setContestExampleMedia");
+    }, [galleryItems, dispatch]);
+
 
     return (
         <VStack className='galleryUpload_container'>
@@ -38,7 +51,11 @@ export const GalleryUpload = () => {
 
             <div className='grid_photo_container'>
                 {galleryItems.map((galleryItem) => (
-                    <GalleryUploadItem galleryItem={galleryItem} galleryItems={galleryItems} setGalleryItems={setGalleryItems}/>
+                    <GalleryUploadItem
+                        galleryItem={galleryItem}
+                        galleryItems={galleryItems}
+                        setGalleryItems={setGalleryItems}
+                    />
                 ))}
             </div>
         </VStack>

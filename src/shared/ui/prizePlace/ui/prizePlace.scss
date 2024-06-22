@@ -1,59 +1,70 @@
-.prizePlace_container {
-    width: 960px;
-    gap: 20px;
-    align-items: center;
+.prizePlace_outercontainer {
+    .prizePlace_container {
+        width: 960px;
+        gap: 20px;
+        align-items: center;
 
-    .winIcon {
-        align-self: flex-end;
-    }
+        .winIcon {
+            align-self: flex-end;
+        }
 
-    .deleteIcon {
-        margin-left: auto;
-        align-self: flex-end;
-        justify-self: flex-end;
-        fill: var(--white-muted);
-    }
+        .iconBtn_wrapper {
+            background: none !important;
+            padding: 0;
+            align-self: flex-end;
+            justify-self: flex-end;
 
-    .inputTitle {
-        font-size: 14px;
-        line-height: 20px;
-        margin-bottom: 8px;
-        letter-spacing: -0.5px;
-    }
+            .deleteIcon {
+                margin-left: auto;
+                fill: var(--white-muted);
+            }
+        }
 
-    .winnersNum_input_container {
-        width: 120px;
+        .inputTitle {
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
 
-        .winnersNum_input {
-            width: 100%;
-            height: 48px;
-            padding: 12px;
+        .winnersNum_input_container {
+            width: 120px;
+
+            .winnersNum_input {
+                width: 100%;
+                height: 48px;
+                padding: 12px;
+            }
+        }
+
+        &__combobox{
+            background-color: red;
+        }
+
+        .prizeType_input_container {
+            width: 164px;
+
+            .prizeType_input {
+                width: 100%;
+                height: 48px;
+                padding: 12px;
+            }
+        }
+
+        .prizeName_input_container {
+            flex: 1;
+            .prizeName_input {
+                width: 100%;
+                height: 48px;
+                padding: 12px;
+            }
         }
     }
 
-    .prizeType_input_container {
-        width: 164px;
-
-        .prizeType_input {
-            width: 100%;
-            height: 48px;
-            padding: 12px;
-        }
+    .divider {
+        background-color: var(--grey-medium-dark);
+        height: 1px;
+        width: 960px;
+        margin: 20px 0;
     }
-
-    .prizeName_input_container {
-        flex: 1;
-        .prizeName_input {
-            width: 100%;
-            height: 48px;
-            padding: 12px;
-        }
-    }
-}
-
-.divider {
-    background-color: var(--grey-medium-dark);
-    height: 1px;
-    width: 960px;
-    margin: 20px 0;
 }

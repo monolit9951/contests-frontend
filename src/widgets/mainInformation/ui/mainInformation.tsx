@@ -1,3 +1,6 @@
+import React, { useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setContestName } from 'pages/contestsCreationPage/model/services';
 import creatorsDecision from 'shared/assets/icons/creatorsDecision.svg?react'
 import eye from 'shared/assets/icons/eye.svg?react'
 import heart from 'shared/assets/icons/heart.svg?react'
@@ -15,22 +18,17 @@ import { MainInformationCombobox } from 'shared/ui/mainInformationCombobox/ui/ma
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
+import {categories, subcategories} from "../mockData"
+
 import './mainInformation.scss'
 
+export const MainInformation = React.memo(() => {
+    const dispatch: AppDispatch = useDispatch();
 
-const categories = [
-    { value: 'cat1', label: 'Category 1' },
-    { value: 'cat2', label: 'Category 2' },
-    { value: 'cat3', label: 'Category 3' }
-]
 
-const subcategories = [
-    { value: 'subcat1', label: 'Subcategory 1' },
-    { value: 'subcat2', label: 'Subcategory 2' },
-    { value: 'subcat3', label: 'Subcategory 3' }
-]
-
-export const MainInformation = () => {
+    const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(setContestName(e.target.value));
+    }, [dispatch]);
     return (
         <VStack className='mainInformation_container'>
             <VStack className='mainInformation_title_categories_container'>
@@ -45,6 +43,8 @@ export const MainInformation = () => {
                         type='text'
                         placeholder="Placeholder"
                         className='input'
+                        value={useSelector((state: RootState) => state.contestsCreationPage.name)}
+                        onChange={(e) => handleNameChange(e)}
                     />
                 </VStack>
                 <HStack className='categoryInputs_container'>
@@ -88,4 +88,4 @@ export const MainInformation = () => {
             </VStack>
         </VStack>
     )
-}
+})

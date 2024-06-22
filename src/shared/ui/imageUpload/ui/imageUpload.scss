@@ -13,54 +13,47 @@
 
     .imagePreview_container {
         width: 470px;
+
+        .imageUpload_imagecontainer {
+            width: 100%;
+            height: 233px;
+            background-color: var(--green-dark);
+            border-radius: 8px;
+            justify-content: center;
+            align-items: center;
+
+            .defaultImg {
+                width: 120px;
+                height: 120px;
+            }
+        }
     }
 
     .text_btn_container {
-        margin-top: 28px ;
+        margin-top: 28px;
         width: 490px;
         gap: 20px;
 
-        .text{
+        &_text {
             color: var(--white-muted);
             font-size: 14px;
             line-height: 20px;
             margin-bottom: 0;
+            
         }
 
-        .uploadBtn{
+        &_uploadBtn {
             width: 140px;
             height: 36px;
             display: flex;
             align-items: center;
-            gap:8px;
-            padding: 6px 28px;
-            justify-content: center;
-        }
-    }
-}
+            gap: 8px;
+            padding: 6px 32px;
 
-.cover_selection{
-    background: var(--dark) !important;
-    color: var(--white);
-
-    .cover_selection_container{
-        align-items: center;
-        .header{
-            justify-content: space-between;
-        }
-    }
-}
-
-.cover_selection_overlay{
-    background-color: rgba($color: #010604, $alpha: 0.6) !important;
-}
-
-@media (max-width: 1920px) {
-    .imageUpload_container{
-        .text_btn_container{
-            .uploadBtn{
-                padding: 6px 24px;
-                justify-content: center;
+            &_text{
+                width: 48px;
+                text-wrap: nowrap;
+                margin-bottom: 0px;
             }
         }
     }

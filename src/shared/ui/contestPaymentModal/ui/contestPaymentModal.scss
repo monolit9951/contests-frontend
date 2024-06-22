@@ -1,0 +1,93 @@
+.paymentModal {
+    width: 698px;
+    height: 545px;
+    gap: 0px;
+
+    &__content {
+        flex: 1;
+        align-items: center;
+
+        &__header {
+            align-items: center;
+            justify-content: space-between;
+
+            &__icontextContainer {
+                gap: 8px;
+                align-items: center;
+
+                &__alertIcon {
+                    fill: var(--white) !important;
+                    margin-left: 0px !important;
+                }
+
+                &__text {
+                    font-size: 20px;
+                    line-height: 28px;
+                    font-weight: 600;
+                }
+            }
+
+            &__xIcon {
+                fill: var(--white) !important;
+                margin-left: 0px !important;
+            }
+        }
+    }
+
+    &__body {
+        width: 658px;
+        align-items: center;
+        gap: 16px;
+
+        &__iconWrapper {
+            width: 88px;
+            height: 88px;
+            background-color: var(--green-dark);
+            padding: 16px;
+            border-radius: 99px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &__icon {
+            margin-left: 0px !important;
+            cursor: default !important;
+        }
+
+        &__boldText {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            text-align: center;
+            color: var(--white-muted);
+        }
+
+        &__balanceInfo {
+            height: 123px;
+            width: 100%;
+            background-color: var(--green-dark);
+            align-items: center;
+            justify-content: center;
+
+            &__text {
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+                color: var(--grey);
+            }
+        }
+
+        &__text {
+            color: var(--white-muted);
+        }
+    }
+
+    &__btnsContainer {
+        margin-left: auto;
+        gap: 24px;
+
+        &__btn {
+            padding: 8px 32px;
+        }
+    }
+}

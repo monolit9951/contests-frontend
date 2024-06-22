@@ -1,82 +1,171 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 import {
-    fetchContests,
-    fetchNextContestsPage,
-    fetchPopularContests,
-} from '../services'
-import { ContestsPageSchema } from '../types'
+    setContestBackgroundImage,
+    setContestCategory,
+    setContestDateEnd,
+    setContestDateStart,
+    setContestDescription,
+    setContestExampleMedia,
+    setContestMaxAllowedParticipantAmount,
+    setContestName,
+    setContestOpen,
+    setContestParticipantAmount,
+    setContestPreivewImage,
+    setContestStatus,
+    setContestSubcategory,
+    setSelectionType,
+} from '../services/dataSetters'
 
-const initialState: ContestsPageSchema = {
-    popular: {
-        contests: [],
 
-        loading: false,
-        error: null,
-    },
+interface Prize {
+    id: string;
+    place: number;
+    currency: string;
+    prizeAmount: number;
+    prizeText: string;
+    prizeType: string;
+    winnersAmount: number;
+}
 
-    all: {
-        contests: [],
+interface ContestCreationState {
+    id: string;
+    name: string;
+    status: string;
+    category: string;
+    subcategory: string;
+    backgroundImage: string | undefined;
+    previewImage: string | undefined;
+    participantAmount: number;
+    maxAllowedParticipantAmount: number;
+    selectionType: string;
+    dateStart: string;
+    dateEnd: string;
+    description: string;
+    exampleMedia: string[];
+    prizes: Prize[];
+    popularity: number;
+    contestOwnerId: string;
+    contestOpen: boolean;
+}
 
-        page: 2,
-        pageSize: 16,
-
-        totalPages: 0,
-        totalElements: 0,
-
-        loading: false,
-        nextLoading: false,
-        error: null,
-    },
+const initialState: ContestCreationState  = {
+    id: '',
+    name: '',
+    status: 'INACTIVE',
+    category: 'FOR_FUN',
+    subcategory: 'SUBCATEGORY1',
+    backgroundImage: '',
+    previewImage: '',
+    participantAmount: 0,
+    maxAllowedParticipantAmount: 0,
+    selectionType: "RANDOM",
+    dateStart: '',
+    dateEnd: '',
+    description: '',
+    exampleMedia: [],
+    prizes: [
+        {
+            id: '',
+            place: 1,
+            currency: 'EUR',
+            prizeAmount: 0,
+            prizeText: '',
+            prizeType: 'MONEY',
+            winnersAmount: 0,
+        },
+        {
+            id: '',
+            place: 2,
+            currency: 'EUR',
+            prizeAmount: 0,
+            prizeText: '',
+            prizeType: 'MONEY',
+            winnersAmount: 0,
+        },
+        {
+            id: '',
+            place: 3,
+            currency: 'EUR',
+            prizeAmount: 0,
+            prizeText: '',
+            prizeType: 'MONEY',
+            winnersAmount: 0,
+        },
+        {
+            id: '',
+            place: 4,
+            currency: 'EUR',
+            prizeAmount: 0,
+            prizeText: '',
+            prizeType: 'MONEY',
+            winnersAmount: 0,
+        },
+    ],
+    popularity: 0,
+    // topWinners: [
+    //     {}
+    // ],
+    contestOwnerId: "",
+    contestOpen: true
 }
 
 const slice = createSlice({
-    name: 'contestsPage',
+    name: 'contestsCreationPage',
     initialState,
     reducers: {},
-    extraReducers: (builder) =>
+    extraReducers: (builder) => {
         builder
-            .addCase(fetchContests.fulfilled, (state, { payload }) => {
-                state.all.contests = payload.content
-                state.all.totalPages = payload.totalPages
-                state.all.totalElements = payload.totalElements
-                state.all.page = 2
-
-                state.all.loading = false
+            .addCase(setContestName.fulfilled, (state, action) => {
+                state.name = action.payload
             })
-            .addCase(fetchPopularContests.fulfilled, (state, { payload }) => {
-                state.popular.contests = payload.content
-
-                state.popular.loading = false
+            .addCase(setSelectionType.fulfilled, (state, action) => {
+                state.selectionType = action.payload;
             })
-            .addCase(fetchNextContestsPage.fulfilled, (state, { payload }) => {
-                state.all.contests = state.all.contests.concat(payload.content)
-                state.all.totalPages = payload.totalPages
-                state.all.page += 1
-
-                state.all.nextLoading = false
+            .addCase(setContestDescription.fulfilled, (state, action) => {
+                state.description = action.payload
             })
-
-            .addCase(fetchContests.pending, (state) => {
-                state.all.loading = true
+            .addCase(setContestStatus.fulfilled, (state, action) => {
+                state.status = action.payload
             })
-            .addCase(fetchPopularContests.pending, (state) => {
-                state.popular.loading = true
+            .addCase(setContestCategory.fulfilled, (state, action) => {
+                state.category = action.payload
             })
-            .addCase(fetchNextContestsPage.pending, (state) => {
-                state.all.nextLoading = true
+            .addCase(setContestSubcategory.fulfilled, (state, action) => {
+                state.subcategory = action.payload
             })
-
-            .addCase(fetchPopularContests.rejected, (state, { payload }) => {
-                state.popular.error = payload as string
+            .addCase(setContestBackgroundImage.fulfilled, (state, action) => {
+                state.backgroundImage = action.payload
             })
-            .addMatcher(
-                isAnyOf(fetchContests.rejected, fetchNextContestsPage.rejected),
-                (state, { payload }) => {
-                    state.all.error = payload as string
+            .addCase(setContestPreivewImage.fulfilled, (state, action) => {
+                state.previewImage = action.payload
+            })
+            .addCase(setContestParticipantAmount.fulfilled, (state, action) => {
+                state.participantAmount = action.payload
+            })
+            .addCase(
+                setContestMaxAllowedParticipantAmount.fulfilled,
+                (state, action) => {
+                    state.maxAllowedParticipantAmount = action.payload
                 }
-            ),
+            )
+            .addCase(setContestDateStart.fulfilled, (state, action) => {
+                state.dateStart = action.payload
+            })
+            .addCase(setContestDateEnd.fulfilled, (state, action) => {
+                state.dateEnd = action.payload
+            })
+            .addCase(setContestExampleMedia.fulfilled, (state, action) => {
+                state.exampleMedia = action.payload
+            })
+            .addCase(setContestOpen.fulfilled, (state, action) => {
+                state.contestOpen = action.payload;
+            })
+            
+    },
 })
 
-export const { reducer: contestsPageReducer, actions: contestsPageActions } =
-    slice
+export const {
+    reducer: contestsCreationPageReducer,
+    actions: contestsCreationPageActions,
+} = slice
