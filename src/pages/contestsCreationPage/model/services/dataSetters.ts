@@ -39,14 +39,14 @@ export const setContestSubcategory = createAsyncThunk(
 
 export const setContestBackgroundImage = createAsyncThunk(
     'contestsCreationPage/setContestBackgroundImage',
-    async (backgroundImage: string) => {
+    async (backgroundImage: string | undefined) => {
         return backgroundImage;
     }
 );
 
 export const setContestPreivewImage = createAsyncThunk(
     'contestsCreationPage/setContestPreivewImage',
-    async (preivewImage: string) => {
+    async (preivewImage: string | undefined) => {
         return preivewImage;
     }
 );

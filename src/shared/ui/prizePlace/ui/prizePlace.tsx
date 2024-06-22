@@ -26,7 +26,7 @@ export const PrizePlace: React.FC<PrizePlaceProps> = ({
     onDelete,
     index,
 }) => {
-    const [comboValue, setComboValue] = useState()
+    const [comboValue, setComboValue] = useState("")
 
     return (
         <VStack className='prizePlace_outercontainer'>

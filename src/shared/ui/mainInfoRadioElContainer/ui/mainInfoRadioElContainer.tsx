@@ -55,9 +55,9 @@ export const MainInfoRadioElContainer: React.FC<MainInfoRadioElContainerProps> =
                     if (React.isValidElement(child)) {
                         return React.cloneElement(
                             child,
-                            { currSelected, handleClick }
+                            { currSelected, handleClick } as any
                         );
-                    }
+                    } 
                     return null;
                 })}
             </HStack>

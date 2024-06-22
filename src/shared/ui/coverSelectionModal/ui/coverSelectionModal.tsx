@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import clsx from 'clsx'
-import { setContestBackgroundImage, setContestPreivewImage } from 'pages/contestsCreationPage/model/services'
+import {
+    setContestBackgroundImage,
+    setContestPreivewImage,
+} from 'pages/contestsCreationPage/model/services'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
 import check from 'shared/assets/icons/select-check.svg?react'
 import X from 'shared/assets/icons/X.svg?react'
@@ -17,7 +20,6 @@ import { Text } from 'shared/ui/text'
 import upload from '../../../assets/icons/upload.svg?react'
 
 import './coverSelectionModal.scss'
-
 
 interface CoverSelectionModalProps {
     isOpen: boolean
@@ -42,36 +44,35 @@ export const CoverSelectionModal = ({
     setIsUploading,
     imgAlt,
 }: CoverSelectionModalProps) => {
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch()
     const [imgName, setImgName] = useState<string>()
     const [isDisabledUploadBtn, setIsDisabledUploadBtn] =
         useState<boolean>(true)
 
     const setImage = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0]
-        setImgName(file.name)
-        setCurrImg(URL.createObjectURL(file))
-        setIsDisabledUploadBtn(false)
+        if (file) {
+            setImgName(file.name)
+            setCurrImg(URL.createObjectURL(file))
+            setIsDisabledUploadBtn(false)
+        }
     }
 
-    const setDefaultImage = (image) => {
+    const setDefaultImage = (image: string) => {
         setImgName(image)
         setCurrImg(image)
-        console.log(currImg)
         setIsDisabledUploadBtn(false)
     }
 
     const confirmImage = () => {
-        console.log(imgAlt)
-        if(imgAlt === "coverIMGPlaceholder"){
-            
-            dispatch(setContestBackgroundImage(currImg))
-        } else{
+        if (imgAlt === 'coverIMGPlaceholder') {
+             dispatch(setContestBackgroundImage(currImg))
+        } else {
             dispatch(setContestPreivewImage(currImg))
         }
-        setIsUploading(false);
-        setCurrImg()
-        setImgName()
+        setIsUploading(false)
+        setCurrImg(undefined)
+        setImgName(undefined)
         setIsOpen(false)
     }
 
@@ -146,16 +147,13 @@ export const CoverSelectionModal = ({
                             Choose basic or upload your custom cover
                         </Text>
 
-
                         <HStack className='basic-covers_container'>
                             {covers.map((cover) => {
                                 const imgClassname = clsx('basic-cover', {
                                     'is-active': currImg === cover.img,
                                 })
                                 return (
-                                    <Flex
-                                        className={imgClassname}
-                                       >
+                                    <Flex className={imgClassname}>
                                         <Image
                                             src={cover.img}
                                             alt='img not found'
@@ -192,6 +190,7 @@ export const CoverSelectionModal = ({
                                         1704 x 390 pixels in size. File size –
                                         no more than 6 MB
                                     </Text>
+                                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                                     <label
                                         htmlFor='custom-cover-upload-btn_id'
                                         className='custom-cover-upload-btn'>

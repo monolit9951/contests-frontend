@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import win1 from 'shared/assets/icons/win1.svg?react'
 import win2 from 'shared/assets/icons/win2.svg?react'
 import win3 from 'shared/assets/icons/win3.svg?react'
@@ -135,7 +134,6 @@ export const PrizeInformation: React.FC = () => {
                         key={index}
                         index={index}
                         winIcon={prize.winIcon}
-                        place={prize.place}
                         onDelete={() => deletePrize(index)}
                     />
                 ))}

@@ -34,8 +34,8 @@ interface ContestCreationState {
     status: string;
     category: string;
     subcategory: string;
-    backgroundImage: string;
-    previewImage: string;
+    backgroundImage: string | undefined;
+    previewImage: string | undefined;
     participantAmount: number;
     maxAllowedParticipantAmount: number;
     selectionType: string;
