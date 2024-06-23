@@ -55,67 +55,57 @@ export const ContestsCreationPage = () => {
         return date.toISOString()
     }
 
-    const CreateContest = useCallback(() => {
+    const CreateContest = useCallback(async () => {
         if (isFormComplete) {
+            const response = await axios.get(
+                `http://localhost:8080/api/users?page=1&pageSize=1&sortDirection=ASC`
+            )
+            const userId = response.data.content[0].id
+
+            const payload = {
+                name: contestCreationState.name,
+                status: 'ACTIVE',
+                category: contestCreationState.category,
+                subcategory: contestCreationState.subcategory,
+                backgroundImage: contestCreationState.backgroundImage,
+                previewImage: contestCreationState.backgroundImage,
+                selectionType: 'RANDOM',
+                participantAmount: contestCreationState.participantAmount,
+                // maxAllowedParticipantAmount: contestCreationState.maxAllowedParticipantAmount,
+                maxAllowedParticipantAmount: 100,
+                dateStart: formatDateTime(contestCreationState.dateStart),
+                dateEnd: formatDateTime(contestCreationState.dateEnd),
+
+                description: contestCreationState.description,
+                exampleMedia: contestCreationState.exampleMedia,
+                prizes: contestCreationState.prizes.map((prize: any) => ({
+                    id: prize.id,
+                    place: prize.place,
+                    winnersAmount: prize.winnersAmount,
+                    prizeType: prize.prizeType,
+                    currency: prize.currency,
+                    prizeText: prize.prizeText,
+                    prizeAmount: prize.prizeAmount,
+                })),
+                topWinners: contestCreationState.topWinners,
+                popularity: contestCreationState.popularity,
+                contestOpen: contestCreationState.contestOpen,
+                contestOwnerId: userId,
+            }
+
             axios
-                .get(`http://localhost:8080/api/users/6676af77e5ce770c96627956`)
+                .post('http://localhost:8080/api/contests', payload)
                 .then((response) => {
-                    const user = response.data
-
-                    const payload = {
-                        name: contestCreationState.name,
-                        status: 'ACTIVE',
-                        category: contestCreationState.category,
-                        subcategory: contestCreationState.subcategory,
-                        backgroundImage: contestCreationState.backgroundImage,
-                        previewImage: contestCreationState.backgroundImage,
-                        selectionType: 'RANDOM',
-                        participantAmount:
-                            contestCreationState.participantAmount,
-                        // maxAllowedParticipantAmount: contestCreationState.maxAllowedParticipantAmount,
-                        maxAllowedParticipantAmount: 100,
-                        dateStart: formatDateTime(
-                            contestCreationState.dateStart
-                        ),
-                        dateEnd: formatDateTime(contestCreationState.dateEnd),
-
-                        description: contestCreationState.description,
-                        exampleMedia: contestCreationState.exampleMedia,
-                        prizes: contestCreationState.prizes.map((prize: any) => ({
-                            id: prize.id,
-                            place: prize.place,
-                            winnersAmount: prize.winnersAmount,
-                            prizeType: prize.prizeType,
-                            currency: prize.currency,
-                            prizeText: prize.prizeText,
-                            prizeAmount: prize.prizeAmount,
-                        })),
-                        topWinners: contestCreationState.topWinners,
-                        popularity: contestCreationState.popularity,
-                        contestOpen: contestCreationState.contestOpen,
-                        contestOwnerId: user.id,
-                    }
-
-                    axios
-                        .post('http://localhost:8080/api/contests', payload)
-                        .then((response) => {
-                            swal(
-                                'Good job!',
-                                'Contest created successfully!',
-                                'success'
-                            )
-                            navigate(`/contests/${response.data.id}`)
-                        })
-                        .catch((error) => {
-                            console.error(
-                                'Error posting contest data:',
-                                error.response?.data || error.message
-                            )
-                        })
+                    swal(
+                        'Good job!',
+                        'Contest created successfully!',
+                        'success'
+                    )
+                    navigate(`/contests/${response.data.id}`)
                 })
                 .catch((error) => {
                     console.error(
-                        'Error fetching user data: ',
+                        'Error posting contest data:',
                         error.response?.data || error.message
                     )
                 })
