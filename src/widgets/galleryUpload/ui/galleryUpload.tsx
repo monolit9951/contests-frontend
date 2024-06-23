@@ -29,7 +29,6 @@ export const GalleryUpload = () => {
             .map(item => item.imgUrl);
 
         dispatch(setContestExampleMedia(mediaUrls));
-        console.log("Dispatch setContestExampleMedia");
     }, [galleryItems, dispatch]);
 
 
