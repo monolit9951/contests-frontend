@@ -1,6 +1,8 @@
 import { ContestPreview } from 'entities/contest'
 
 export interface ContestsPageSchema {
+    searchString: string
+
     popular: {
         contests: ContestPreview[]
 

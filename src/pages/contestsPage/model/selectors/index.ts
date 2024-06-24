@@ -1,3 +1,6 @@
+export const selectSearchString = (state: RootState) =>
+    state.contestsPage.searchString
+
 export const selectPopular = (state: RootState) => state.contestsPage.popular
 
 export const selectAll = (state: RootState) => state.contestsPage.all

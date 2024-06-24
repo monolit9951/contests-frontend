@@ -63,31 +63,46 @@ export default function Input(props: IInput) {
         setInputData(e.target.value)
     }
 
+    if (label ?? info ?? error) {
+        return (
+            <VStack className={clsx('input-wrapper', wrapperClassName)}>
+                {label && <label htmlFor={name}>{label}</label>}
+                <input
+                    type={type}
+                    name={name}
+                    value={value ?? inputData}
+                    onChange={onChange ?? onChangeInputData}
+                    onBlur={onBlur}
+                    placeholder={placeholder}
+                    className={clsx('input', error && 'error', className)}
+                    {...rest}
+                />
+                {info && (
+                    <HStack className='input-wrapper__info'>
+                        <Icon Svg={infoIcon} />
+                        <Text Tag='span'>{info}</Text>
+                    </HStack>
+                )}
+                {error && (
+                    <HStack className='input-wrapper__error'>
+                        <Icon Svg={alertIcon} />
+                        <Text Tag='span'>{error}</Text>
+                    </HStack>
+                )}
+            </VStack>
+        )
+    }
+
     return (
-        <VStack className={clsx('input-wrapper', wrapperClassName)}>
-            {label && <label htmlFor={name}>{label}</label>}
-            <input
-                type={type}
-                name={name}
-                value={value ?? inputData}
-                onChange={onChange ?? onChangeInputData}
-                onBlur={onBlur}
-                placeholder={placeholder}
-                className={clsx('input', error && 'error', className)}
-                {...rest}
-            />
-            {info && (
-                <HStack className='input-wrapper__info'>
-                    <Icon Svg={infoIcon} />
-                    <Text Tag='span'>{info}</Text>
-                </HStack>
-            )}
-            {error && (
-                <HStack className='input-wrapper__error'>
-                    <Icon Svg={alertIcon} />
-                    <Text Tag='span'>{error}</Text>
-                </HStack>
-            )}
-        </VStack>
+        <input
+            type={type}
+            name={name}
+            value={value ?? inputData}
+            onChange={onChange ?? onChangeInputData}
+            onBlur={onBlur}
+            placeholder={placeholder}
+            className={clsx('input', error && 'error', className)}
+            {...rest}
+        />
     )
 }
