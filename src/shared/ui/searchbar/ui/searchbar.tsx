@@ -34,19 +34,3 @@ export const Searchbar = (props: SearchbarProps) => {
         </div>
     )
 }
-
-//    <div className={clsx('searchbar_container', theme)}>
-//         <Icon Svg={magnifyingGlass} clickable onClick={onSubmit} />
-//         <Input
-//             type='text'
-//             value={searchData}
-//             onChange={(e) => onChange(e.target.value)}
-//             onKeyDown={(e) => {
-//                 if (e.key === 'Enter') {
-//                     onSubmit()
-//                 }
-//             }}
-//             placeholder={placeholder}
-//             className={clsx('searchbar', className)}
-//         />
-//     </div>
