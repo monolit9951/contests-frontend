@@ -9,6 +9,7 @@ import { VStack } from 'shared/ui/stack'
 import { ContestsSection } from 'widgets/contestsSection'
 import { HeroSection } from 'widgets/heroSection/ui/heroSection'
 
+import { selectSearchString } from '../model/selectors'
 import { fetchContests, fetchPopularContests } from '../model/services'
 
 import './contestsPage.scss'
@@ -19,10 +20,11 @@ export const ContestsPage = () => {
     const activeFilters = useAppSelector(selectActiveFilters)
     const category = useAppSelector(selectCategory)
     const sortDirection = useAppSelector(selectSortDirection)
+    const searchString = useAppSelector(selectSearchString)
 
     useEffect(() => {
         dispatch(fetchContests())
-    }, [dispatch, activeFilters, category, sortDirection])
+    }, [dispatch, activeFilters, category, sortDirection, searchString])
 
     useEffect(() => {
         dispatch(fetchPopularContests())

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import {
     fetchContests,
@@ -8,6 +8,8 @@ import {
 import { ContestsPageSchema } from '../types'
 
 const initialState: ContestsPageSchema = {
+    searchString: '',
+
     popular: {
         contests: [],
 
@@ -33,7 +35,14 @@ const initialState: ContestsPageSchema = {
 const slice = createSlice({
     name: 'contestsPage',
     initialState,
-    reducers: {},
+    reducers: {
+        setSearchString: (state, action: PayloadAction<string>) => {
+            state.searchString = action.payload
+        },
+        resetSearchString: (state) => {
+            state.searchString = ''
+        },
+    },
     extraReducers: (builder) =>
         builder
             .addCase(fetchContests.fulfilled, (state, { payload }) => {

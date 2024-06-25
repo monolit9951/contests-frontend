@@ -7,7 +7,7 @@ import {
 import { getQueryString } from 'features/filterContests/model/helpers'
 import instance from 'shared/api/api'
 
-import { selectPageSize } from '../selectors'
+import { selectPageSize, selectSearchString } from '../selectors'
 
 export const fetchContests = createAsyncThunk(
     'contests/fetchContests',
@@ -15,15 +15,18 @@ export const fetchContests = createAsyncThunk(
         const { rejectWithValue, getState } = thunkApi
 
         const pageSize = selectPageSize(getState())
-        const category = selectCategory(getState())
         const direction = selectSortDirection(getState())
+        const searchStr = selectSearchString(getState())
+        const category = selectCategory(getState())
         const activeFilters = selectActiveFilters(getState())
 
         try {
             const response = await instance.get(
                 `/contests?page=0&pageSize=${pageSize}&sortDirection=${direction}${
-                    category && `&val=category=${category}`
-                }&${getQueryString(activeFilters)}`
+                    searchStr && `&val=searchString=${searchStr}`
+                }${category && `&val=category=${category}`}&${getQueryString(
+                    activeFilters
+                )}`
             )
 
             if (!response.data) {

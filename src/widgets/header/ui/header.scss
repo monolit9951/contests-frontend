@@ -6,6 +6,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
 
     div.app.light & {
         background-color: var(--white);
@@ -15,5 +16,3 @@
         background-color: var(--dark);
     }
 }
-
-

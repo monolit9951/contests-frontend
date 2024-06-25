@@ -8,11 +8,13 @@ import {
 } from 'features/filterContests'
 import { FilterPayloadObj } from 'features/filterContests/model/types'
 import {
+    contestsPageActions,
     fetchNextContestsPage,
     selectAll,
     selectNextLoading,
     selectPopular,
 } from 'pages/contestsPage'
+import { selectSearchString } from 'pages/contestsPage/model/selectors'
 import cross from 'shared/assets/icons/X.svg?react'
 import { mockContestData } from 'shared/consts'
 import useOnScreen from 'shared/lib/hooks/useOnScreen'
@@ -39,8 +41,9 @@ const ContestsSection: FC<Props> = (props) => {
 
     const popular = useAppSelector(selectPopular)
     const all = useAppSelector(selectAll)
-    const nextLoading = useAppSelector(selectNextLoading)
     const allContests = useAppSelector(selectAll).contests as ContestPreview[]
+    const searchString = useAppSelector(selectSearchString)
+    const nextLoading = useAppSelector(selectNextLoading)
     const active = useAppSelector(selectActiveFilters)
     const filters = active.filtersList as FilterPayloadObj[]
 
@@ -108,9 +111,27 @@ const ContestsSection: FC<Props> = (props) => {
             </HStack>
 
             {section === 'all' &&
-                (filters?.length >= 1 || prizeRangeCondition()) && (
+                (filters?.length >= 1 ||
+                    prizeRangeCondition() ||
+                    searchString) && (
                     <HStack className='active-filter__block'>
                         <ul className='active-filter__list'>
+                            {searchString && (
+                                <li>
+                                    <Text Tag='span'>{searchString}</Text>
+                                    <Icon
+                                        Svg={cross}
+                                        width={16}
+                                        height={16}
+                                        clickable
+                                        onClick={() =>
+                                            dispatch(
+                                                contestsPageActions.resetSearchString()
+                                            )
+                                        }
+                                    />
+                                </li>
+                            )}
                             {filters?.map((filter) => (
                                 <li key={filter.name}>
                                     <Text Tag='span'>{filter.name}</Text>
@@ -147,9 +168,9 @@ const ContestsSection: FC<Props> = (props) => {
                                 Clear filters{' '}
                                 <Text Tag='span' size='sm'>
                                     (
-                                    {prizeRangeCondition()
-                                        ? filters.length + 1
-                                        : filters.length}
+                                    {filters.length +
+                                        (searchString ? 1 : 0) +
+                                        (prizeRangeCondition() ? 1 : 0)}
                                     )
                                 </Text>
                             </Text>

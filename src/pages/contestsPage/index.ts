@@ -9,6 +9,7 @@ import {
     fetchNextContestsPage,
     fetchPopularContests,
 } from './model/services'
+import { contestsPageActions, contestsPageReducer } from './model/slice'
 import { ContestsPageSchema } from './model/types'
 import { ContestsPage } from './ui/contestsPage'
 
@@ -16,6 +17,8 @@ export type { ContestsPageSchema }
 
 export {
     ContestsPage,
+    contestsPageActions,
+    contestsPageReducer,
     fetchContests,
     fetchNextContestsPage,
     fetchPopularContests,
