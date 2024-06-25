@@ -1,9 +1,14 @@
-import "./logo.scss"
+import { Link } from 'react-router-dom'
+import { Text } from 'shared/ui/text'
+
+import './logo.scss'
 
 export const Logo = () => {
     return (
-        <div className="logo_container">
-            <h1>Logotype</h1>
-        </div>
+        <Link to='/' className='logo-link'>
+            <Text Tag='h2' size='xl'>
+                Logotype
+            </Text>
+        </Link>
     )
 }
