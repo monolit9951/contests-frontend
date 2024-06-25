@@ -63,20 +63,24 @@ export default function Input(props: IInput) {
         setInputData(e.target.value)
     }
 
+    const input = (
+        <input
+            type={type}
+            name={name}
+            value={value ?? inputData}
+            onChange={onChange ?? onChangeInputData}
+            onBlur={onBlur}
+            placeholder={placeholder}
+            className={clsx('input', error && 'error', className)}
+            {...rest}
+        />
+    )
+
     if (label ?? info ?? error) {
         return (
             <VStack className={clsx('input-wrapper', wrapperClassName)}>
                 {label && <label htmlFor={name}>{label}</label>}
-                <input
-                    type={type}
-                    name={name}
-                    value={value ?? inputData}
-                    onChange={onChange ?? onChangeInputData}
-                    onBlur={onBlur}
-                    placeholder={placeholder}
-                    className={clsx('input', error && 'error', className)}
-                    {...rest}
-                />
+                {input}
                 {info && (
                     <HStack className='input-wrapper__info'>
                         <Icon Svg={infoIcon} />
@@ -93,16 +97,5 @@ export default function Input(props: IInput) {
         )
     }
 
-    return (
-        <input
-            type={type}
-            name={name}
-            value={value ?? inputData}
-            onChange={onChange ?? onChangeInputData}
-            onBlur={onBlur}
-            placeholder={placeholder}
-            className={clsx('input', error && 'error', className)}
-            {...rest}
-        />
-    )
+    return input
 }

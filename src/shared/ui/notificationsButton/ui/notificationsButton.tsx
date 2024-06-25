@@ -1,13 +1,8 @@
+import bellF from 'shared/assets/icons/bellF.svg?react'
 import { Icon } from 'shared/ui/icon'
 
-import bellF from '../../../assets/icons/bellF.svg?react'
-
-import './notificationsButton'
+import './notificationsButton.scss'
 
 export const NotificationsButton = () => {
-    return (
-        <div>
-            <Icon Svg={bellF} />
-        </div>
-    )
+    return <Icon Svg={bellF} clickable />
 }

@@ -8,7 +8,7 @@ input[type='number']::-webkit-outer-spin-button {
     right: 12px;
     bottom: 12px;
     width: 1em;
-    color: #fff;
+    color: var(--white);
     opacity: 1;
 }
 
@@ -20,23 +20,18 @@ input[type='date']::-webkit-calendar-picker-indicator {
     height: 24px;
 }
 
-input[type="time"]::-webkit-calendar-picker-indicator {
+input[type='time']::-webkit-calendar-picker-indicator {
     filter: invert(100%) brightness(100%) contrast(100%);
 }
-
 
 .input {
     width: 246px;
     padding: 12px;
-    border: 1px solid var(--green-dark);
     border-radius: 8px;
 
     font-family: 'Manrope', sans-serif;
     font-size: 16px;
     line-height: 1.5;
-
-    color: var(--white);
-    background-color: var(--green-dark);
 
     &.error {
         border: 1px solid var(--danger);
@@ -67,7 +62,6 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         & > span {
             font-size: 12px;
             line-height: 1.33;
-            color: var(--white-muted);
         }
     }
     & > .input-wrapper__error {
@@ -79,5 +73,43 @@ input[type="time"]::-webkit-calendar-picker-indicator {
             line-height: 1.33;
             color: var(--danger);
         }
+    }
+}
+
+.dark {
+    .input {
+        border: 1px solid var(--green-dark);
+        color: var(--white);
+        background-color: var(--green-dark);
+
+        &:disabled {
+            color: var(--white-transp-30);
+        }
+
+        &::placeholder {
+            color: var(--white-transp-50);
+        }
+    }
+
+    .input-wrapper > .input-wrapper__info > span {
+        color: var(--white-muted);
+    }
+}
+.light {
+    .input {
+        color: var(--white);
+        background-color: var(--green-dark);
+
+        &:disabled {
+            color: var(--white-transp-30);
+        }
+
+        &::placeholder {
+            color: var(--text-placeholder);
+        }
+    }
+
+    .input-wrapper > .input-wrapper__info > span {
+        color: var(--grey-light);
     }
 }
