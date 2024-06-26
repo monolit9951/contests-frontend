@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import { useState } from 'react'
 import clsx from 'clsx'
 import instance from 'shared/api/api'
@@ -28,44 +29,58 @@ const RateButtons = (props: Props) => {
 
     const onRate = async (action: string) => {
         try {
-            const response = await instance.patch(
+            await instance.patch(
                 `${
                     work ? 'works' : 'comment'
                 }/addLike/${id}?likeOrDislike=${action}`
             )
-
-            setLikesNum(response.data)
         } catch (err) {
             // eslint-disable-next-line no-console
             console.error(err)
         }
     }
 
-    const onLikeClick = () => {
+    const onLikeClick = async () => {
         if (disliked) {
             setDisliked(!disliked)
-            onRate('-dislike')
+            setLiked(true)
+            setLikesNum((_prev) => (_prev += 2))
+
+            await onRate('-dislike')
+            onRate('like')
         }
         if (liked) {
+            setLiked(!liked)
+            setLikesNum((_prev) => (_prev -= 1))
+
             onRate('-like')
+        } else if (!disliked && !liked) {
             setLiked(!liked)
-        } else {
+            setLikesNum((_prev) => (_prev += 1))
+
             onRate('like')
-            setLiked(!liked)
         }
     }
 
-    const onDislikeClick = () => {
+    const onDislikeClick = async () => {
         if (liked) {
             setLiked(!liked)
-            onRate('-like')
+            setDisliked(true)
+            setLikesNum((_prev) => (_prev -= 2))
+
+            await onRate('-like')
+            onRate('dislike')
         }
         if (disliked) {
-            onRate('-like')
             setDisliked(!disliked)
-        } else {
+            setLikesNum((_prev) => (_prev += 1))
+
+            onRate('-dislike')
+        } else if (!disliked && !liked) {
+            setDisliked(!disliked)
+            setLikesNum((_prev) => (_prev -= 1))
+
             onRate('dislike')
-            setDisliked(!disliked)
         }
     }
 
