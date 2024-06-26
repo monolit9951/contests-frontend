@@ -43,7 +43,7 @@
 
         .filter-block {
             &__icon {
-                transition: all ease 0.25s;
+                transition: rotate ease 0.25s;
 
                 &.opened {
                     transform: rotate(90deg);
