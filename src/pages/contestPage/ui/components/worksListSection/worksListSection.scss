@@ -162,14 +162,13 @@
         }
     }
 }
+
 @media (max-width: 1920px) {
-    .participants-works{
-        &__list{
-            gap: 14px;
-            justify-content: space-between;
-            li{
+    .participants-works {
+        &__list.media-works {
+            li {
                 width: 32%;
-                .media, .work{
+                .media {
                     width: 100%;
                 }
             }
@@ -177,13 +176,13 @@
     }
 }
 @media (max-width: 1700px) {
-    .participants-works{
-        &__list{
+    .participants-works {
+        &__list.media-works {
             gap: 14px;
             justify-content: space-between;
-            li{
+            li {
                 width: 32%;
-                .media, .work{
+                .media {
                     width: 100%;
                 }
             }
