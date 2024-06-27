@@ -104,8 +104,8 @@ export const WorksList: FC<Props> = (props) => {
             <ul
                 className={clsx(
                     'participants-works__list',
-                    newTextWorks.length > 4 && `${workType}-works`,
-                    popularTextWorks.length > 4 && `${workType}-works`
+                    (newTextWorks.length > 4 && `${workType}-works`) ||
+                        (popularTextWorks.length > 4 && `${workType}-works`)
                 )}>
                 {renderList()}
 
