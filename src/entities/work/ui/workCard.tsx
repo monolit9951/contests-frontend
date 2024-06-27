@@ -9,6 +9,7 @@ import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { UserIcon } from 'shared/ui/userIcon'
+import { Video } from 'shared/ui/videoPlayer'
 
 import { Work } from '../model/types'
 
@@ -78,18 +79,15 @@ const WorkCard: FC<Props> = (props) => {
             <VStack className={clsx('media', className)}>
                 <div className='media__container'>
                     <MediaOverlay prize={prize} />
-                    {data?.typeWork === 'VIDEO' && (
-                        <iframe
-                            title='media'
-                            width={458}
-                            height={612}
-                            src={data.media?.[0].mediaLink}
-                            className='media__frame'
+                    {data.typeWork === 'VIDEO' && data.media && (
+                        <Video
+                            url={data.media[0].mediaLink}
+                            className='media__video'
                         />
                     )}
-                    {data?.typeWork === 'IMAGE' && (
+                    {data.typeWork === 'IMAGE' && data.media && (
                         <Image
-                            src={data.media?.[0].mediaLink ?? media}
+                            src={data.media[0].mediaLink ?? media}
                             alt='media'
                             width={458}
                             height={612}
