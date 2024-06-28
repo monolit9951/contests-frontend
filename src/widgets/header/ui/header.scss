@@ -1,12 +1,16 @@
 @use 'src/app/styles/breakpoints';
 
 .header {
-    height: 72px;
-    padding: 12px 65px;
+    position: sticky;
+    z-index: 4;
+    top: 0;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
+    height: 72px;
+    padding: 12px 65px;
 
     div.app.light & {
         background-color: var(--white);

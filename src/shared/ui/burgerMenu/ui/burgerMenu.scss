@@ -1,7 +1,9 @@
 .burgerMenu {
-    width: 36px;
-    height: 36px;
-    margin: 16px 25px;
+    position: sticky;
+    z-index: 4;
+    top: 0;
+
+    padding: 16px 25px;
 
     svg {
         div.app.dark & {
