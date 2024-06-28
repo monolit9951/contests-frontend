@@ -90,6 +90,7 @@ export const ContestCard: React.FC<Props> = (props) => {
                         src={rest.previewImage ?? contestImg}
                         width={377}
                         height={212}
+                        onClick={onDetailsClick}
                         onError={(e) => {
                             e.currentTarget.src = contestImg
                             e.currentTarget.onerror = null

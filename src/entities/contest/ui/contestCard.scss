@@ -25,6 +25,11 @@
     .contest-card-body {
         .image-box {
             position: relative;
+
+            .image {
+                cursor: pointer;
+            }
+
             .prize {
                 padding: 4px 12px;
                 box-sizing: border-box;
@@ -114,18 +119,19 @@
 }
 
 @media (max-width: 1920px) {
-    .contest-card-wrapper{
+    .contest-card-wrapper {
         max-width: 370px;
-        .contest-card-body{
-            .image-box{
-                img{
+        .contest-card-body {
+            .image-box {
+                img {
                     max-width: 320px;
                 }
             }
         }
-        .contest-card-title{
-            .segments{
-                .dark, .light{
+        .contest-card-title {
+            .segments {
+                .dark,
+                .light {
                     font-size: 12px;
                 }
             }
@@ -134,18 +140,19 @@
 }
 
 @media (max-width: 1770px) {
-    .contest-card-wrapper{
+    .contest-card-wrapper {
         max-width: 20vw;
-        .contest-card-body{
-            .image-box{
-                img{
+        .contest-card-body {
+            .image-box {
+                img {
                     max-width: 18vw;
                 }
             }
         }
-        .contest-card-title{
-            .segments{
-                .dark, .light{
+        .contest-card-title {
+            .segments {
+                .dark,
+                .light {
                     font-size: 10px;
                 }
             }
@@ -154,36 +161,37 @@
 }
 
 @media (max-width: 1560px) {
-    .contest-card-wrapper{
+    .contest-card-wrapper {
         max-width: 20vw;
         justify-content: flex-start;
         gap: 20px;
         height: auto;
-        .flex.justify__between.align__center{
-            .flex{
-                img{
+        .flex.justify__between.align__center {
+            .flex {
+                img {
                     width: 28px;
                     height: 28px;
                 }
-                .flex.flex__col.user-des{
-                    .flex{
-                        span{
+                .flex.flex__col.user-des {
+                    .flex {
+                        span {
                             font-size: 10px;
                         }
                     }
                 }
             }
         }
-        .contest-card-body{
-            .image-box{
-                img{
+        .contest-card-body {
+            .image-box {
+                img {
                     max-width: 17vw;
                 }
             }
         }
-        .contest-card-title{
-            .segments{
-                .dark, .light{
+        .contest-card-title {
+            .segments {
+                .dark,
+                .light {
                     font-size: 8px;
                 }
             }
