@@ -16,6 +16,7 @@ export interface PageableObject {
 export interface PageEntityDTO {
     totalElements: number
     totalPages: number
+    pageable: PageableObject
     first: boolean
     last: boolean
     size: number

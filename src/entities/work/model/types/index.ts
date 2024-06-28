@@ -1,9 +1,10 @@
-import {User} from "entities/user";
+import { User } from 'entities/user'
+import { PageEntityDTO } from 'shared/lib/types'
 
 export interface Media {
-    id: string;
-    ownerId: string;
-    mediaLink: string;
+    id: string
+    ownerId: string
+    mediaLink: string
 }
 
 type WorkType = 'TEXT' | 'IMAGE' | 'VIDEO'
@@ -21,31 +22,6 @@ export interface Work {
     workAddingDate: string
 }
 
-export interface WorksResponse {
-    content: Work[];
-    pageable: {
-        pageNumber: number;
-        pageSize: number;
-        sort: {
-            sorted: boolean;
-            empty: boolean;
-            unsorted: boolean;
-        };
-        offset: number;
-        paged: boolean;
-        unpaged: boolean;
-    };
-    last: boolean;
-    totalElements: number;
-    totalPages: number;
-    size: number;
-    number: number;
-    sort: {
-        sorted: boolean;
-        empty: boolean;
-        unsorted: boolean;
-    };
-    first: boolean;
-    numberOfElements: number;
-    empty: boolean;
+export interface WorksResponse extends PageEntityDTO {
+    content: Work[]
 }
