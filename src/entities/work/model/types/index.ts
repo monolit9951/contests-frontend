@@ -1,5 +1,10 @@
-import { Media } from 'entities/media'
-import { User } from 'entities/user'
+import {User} from "entities/user";
+
+export interface Media {
+    id: string;
+    ownerId: string;
+    mediaLink: string;
+}
 
 type WorkType = 'TEXT' | 'IMAGE' | 'VIDEO'
 
@@ -11,7 +16,36 @@ export interface Work {
     likeAmount: number
     commentAmount: number
     user: User
-    typeWork: WorkType
+    typeWork: WorkType | string
     popularity: number
     workAddingDate: string
+}
+
+export interface WorksResponse {
+    content: Work[];
+    pageable: {
+        pageNumber: number;
+        pageSize: number;
+        sort: {
+            sorted: boolean;
+            empty: boolean;
+            unsorted: boolean;
+        };
+        offset: number;
+        paged: boolean;
+        unpaged: boolean;
+    };
+    last: boolean;
+    totalElements: number;
+    totalPages: number;
+    size: number;
+    number: number;
+    sort: {
+        sorted: boolean;
+        empty: boolean;
+        unsorted: boolean;
+    };
+    first: boolean;
+    numberOfElements: number;
+    empty: boolean;
 }

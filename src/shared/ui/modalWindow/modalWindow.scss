@@ -18,13 +18,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
-        .flex.flex__row {
-            svg {
+        .flex.flex__row{
+            width: 100%;
+            .modal-x{
                 margin-left: 32px;
                 z-index: 1060;
                 cursor: pointer;
-                fill: var(--primary-dark);
+                fill: var(--primary-dark)!important;
             }
         }
     }

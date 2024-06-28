@@ -33,9 +33,8 @@ export const ModalWindow: FC<UploadModalProps> = ({ width, height, ...rest}) => 
                 <HStack className={modalContentClass}>
                     <VStack>{rest.children}</VStack>
                 </HStack>
-                { rest.isOuterClose && <Icon Svg={xIcon} clickable onClick={rest.onClose} /> }
+                { rest.isOuterClose && <Icon Svg={xIcon} clickable onClick={rest.onClose}  className='modal-x'/> }
             </div>
         </VStack>
     );
 };
-

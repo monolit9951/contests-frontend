@@ -3,6 +3,7 @@ import { filterReducer } from 'features/filterContests'
 import { contestWorksReducer } from 'pages/contestPage/model/slice'
 import { contestsCreationPageReducer } from 'pages/contestsCreationPage/model/slice'
 import { contestsPageReducer } from 'pages/contestsPage'
+import workReducer from 'pages/feedPage/model/slice'
 import {
     FLUSH,
     PAUSE,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     contestsPage: contestsPageReducer,
     contestsCreationPage: contestsCreationPageReducer,
     filter: filterReducer,
+    works: workReducer,
     contestWorks: contestWorksReducer,
 })
 
