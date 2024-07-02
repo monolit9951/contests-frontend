@@ -22,18 +22,19 @@
 }
 
 @media (max-width: 1920px) {
-    .winners{
-        &__list{
+    .winners {
+        &__list {
             justify-content: space-between;
-            li{
+            li {
                 width: 33%;
-                .media, .work{
+                .media-work,
+                .text-work {
                     width: 100%;
                 }
             }
         }
-        &__other{
-            .ag-theme-alpine{
+        &__other {
+            .ag-theme-alpine {
                 width: 100% !important;
             }
         }
@@ -41,18 +42,19 @@
 }
 
 @media (max-width: 1700px) {
-    .winners{
-        &__list{
+    .winners {
+        &__list {
             justify-content: space-between;
-            li{
+            li {
                 width: 33%;
-                .media, .work{
+                .media-work,
+                .text-work {
                     width: 100%;
                 }
             }
         }
-        &__other{
-            .ag-theme-alpine{
+        &__other {
+            .ag-theme-alpine {
                 width: 100% !important;
             }
         }

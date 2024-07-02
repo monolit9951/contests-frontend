@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import clsx from 'clsx'
 import bubble from 'shared/assets/icons/chat.svg?react'
 import share from 'shared/assets/icons/share.svg?react'
@@ -21,6 +21,8 @@ interface Props {
 const MediaFeedback: FC<Props> = (props) => {
     const { id, likes, comments, className } = props
 
+    const [likesNum] = useState(likes)
+
     const onComment = () => {}
 
     const onShare = () => {}
@@ -28,7 +30,7 @@ const MediaFeedback: FC<Props> = (props) => {
     return (
         <HStack className={clsx('feedback__wrapper', className)}>
             <HStack>
-                <RateButtons id={id} likes={likes} work border />
+                <RateButtons id={id} likes={likesNum} work border />
                 <Button
                     variant='secondary'
                     size='s'

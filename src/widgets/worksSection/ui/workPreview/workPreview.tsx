@@ -1,81 +1,131 @@
-import React from 'react';
-import clsx from "clsx";
-import {useTheme} from "entities/theme";
-import workMedia  from 'entities/work/assets/Frame 144.jpg';
-import {Work} from "entities/work/model/types";
-import commentIcon from 'shared/assets/icons/chat.svg?react'
-import shareIcon from 'shared/assets/icons/share.svg?react'
+import React, { useState } from 'react'
+import clsx from 'clsx'
+import { useTheme } from 'entities/theme'
+import { Work } from 'entities/work/model/types'
+import moment from 'moment'
+import Verified from 'shared/assets/icons/SealCheck.svg?react'
+import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
 import prize from 'shared/assets/icons/trophyF.svg?react'
-import userIcon from 'shared/assets/img/userIMG.jpg';
-import img1 from 'shared/assets/img/userIMG3.jpg'
-import {Button} from "shared/ui/button";
-import {Icon} from "shared/ui/icon";
-import {Image} from "shared/ui/image";
-import {RateButtons} from "shared/ui/rateButtons";
-import {Flex, HStack, VStack} from "shared/ui/stack";
-import {Text} from "shared/ui/text";
-import {ImageSlider} from "widgets/worksSection/ui/workPreview/imageSlider/imageSlider";
+import { Icon } from 'shared/ui/icon'
+import { MediaFeedback } from 'shared/ui/mediaFeedback'
+import { Flex, HStack, VStack } from 'shared/ui/stack'
+import { Text } from 'shared/ui/text'
+import { UserIcon } from 'shared/ui/userIcon'
+import { ImageSlider } from 'widgets/worksSection/ui/workPreview/imageSlider/imageSlider'
 
 import './workPreview.scss'
 
 interface WorkProps {
-    work: Work;
+    work: Work
 }
 
 export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
-    const {theme} = useTheme();
-    console.log(work, 'work')
+    const { theme } = useTheme()
 
-    const handleClick = () => {
-        alert('clicked');
+    const [isReadMore, setIsReadMore] = useState(false)
+
+    const { media, workAddingDate, description, user } = work as Work
+
+    const timeAgo = moment(workAddingDate).fromNow()
+
+    const toggleReadMore = () => {
+        setIsReadMore(!isReadMore)
     }
 
-    const mockImages = [img1, img1, img1]
-
-    // const imageUrls = work.media.map((mediaItem) => mediaItem.mediaLink);
+    const onActionClick = () => {
+        // eslint-disable-next-line no-alert
+        alert('action clicked')
+    }
 
     return (
-        <Flex className="work-preview">
+        <Flex className='work-preview'>
             <HStack>
-                {work.typeWork === "IMAGE" && <ImageSlider images={mockImages}/>}
-                {work.typeWork === "VIDEO" && <Image src={workMedia} alt=''/>}
-                <VStack className='contest_desc'>
+                {work.typeWork === 'IMAGE' && media && (
+                    <ImageSlider images={media} />
+                )}
+                {work.typeWork === 'VIDEO' && media && (
+                    <video
+                        width={668}
+                        src={media[0].mediaLink}
+                        autoPlay
+                        controls
+                        muted
+                        loop
+                    />
+                )}
+                <VStack
+                    className={clsx(
+                        'work-desc',
+                        work.typeWork === 'TEXT' && 'type-text'
+                    )}>
                     <VStack>
                         <HStack className='upper-desc'>
                             <HStack className='align__center'>
-                                <Image src={userIcon} alt=''/>
-                                <Text Tag='span' bold>name</Text>
-                                <Text Tag='span' className='date'>1d</Text>
+                                <UserIcon
+                                    src={user.profileImage}
+                                    userName={user.name}
+                                    alt={`Creator's profile picture`}
+                                    size={40}
+                                />
+                                {user.verificationStatus && <Verified />}
+                                <Text
+                                    Tag='span'
+                                    className='upper-desc__timeago'>
+                                    {timeAgo}
+                                </Text>
                             </HStack>
-                            <Button variant="ghost" onClick={handleClick} className='dots'>...</Button>
+                            <Icon
+                                Svg={tripleDot}
+                                clickable
+                                onClick={onActionClick}
+                            />
                         </HStack>
-                        <Text Tag='p'>asdfasdfasdfadas</Text>
-                        <HStack className={clsx(theme, 'tag-contest align__center')}>
+                        <Text Tag='p' className='work-desc__text'>
+                            {(description.length < 250 && description) || (
+                                <>
+                                    {!isReadMore
+                                        ? description.slice(0, 250)
+                                        : `${description} `}
+                                    <button
+                                        type='button'
+                                        className='read-more-btn'
+                                        onClick={toggleReadMore}>
+                                        <Text Tag='span'>
+                                            {!isReadMore
+                                                ? '... more'
+                                                : 'show less'}
+                                        </Text>
+                                    </button>
+                                </>
+                            )}
+                        </Text>
+                        <HStack
+                            className={clsx(
+                                theme,
+                                'tag-contest align__center'
+                            )}>
                             <div className='icon-box'>
-                                <Icon Svg={prize} className='icon-work__prev'/>
+                                <Icon Svg={prize} className='icon-work__prev' />
                             </div>
-                            <Text Tag='p' size='xs' bold>asdasd</Text>
-                            <Text Tag='span' size='xs'>&#8226;</Text>
-                            <Text Tag='span' size='xs'>Active</Text>
+                            <Text Tag='p' size='xs' bold>
+                                Acting Talent Search
+                            </Text>
+                            <Text Tag='span' size='xs'>
+                                &#8226;
+                            </Text>
+                            <Text Tag='span' size='xs'>
+                                Active
+                            </Text>
                         </HStack>
                     </VStack>
-                    <HStack className='btn-box justify__between'>
-                        <HStack>
-                            <RateButtons border likes={0}/>
-                            <Button variant="secondary" onClick={handleClick} className='comment-btn'>
-                                <Icon Svg={commentIcon}/>
-                                203
-                            </Button>
-                        </HStack>
-                        <Button variant='secondary' onClick={handleClick} className='share-btn'>
-                            <Icon Svg={shareIcon}/>
-                            Share
-                        </Button>
-                    </HStack>
-                    <div className='hr'/>
+                    <MediaFeedback
+                        id={work.id}
+                        likes={work.likeAmount}
+                        comments={work.commentAmount}
+                    />
+                    <hr />
                 </VStack>
             </HStack>
         </Flex>
-    );
-};
-
+    )
+}

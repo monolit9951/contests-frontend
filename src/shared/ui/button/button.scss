@@ -132,10 +132,6 @@
             }
         }
 
-        &.div {
-            background: transparent;
-        }
-
         &.ghost {
             &:hover {
                 background-color: var(--bg-light-green);
@@ -154,14 +150,14 @@
     }
 }
 @media (max-width: 1590px) {
-    .button{
+    .button {
         padding: 12px 20px;
         font-size: 12px;
     }
 }
 
 @media (max-width: 1920px) {
-    .button{
+    .button {
         padding: 12px 28px;
         font-size: 12px;
     }

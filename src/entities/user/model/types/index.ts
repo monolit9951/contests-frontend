@@ -5,7 +5,7 @@ export interface User {
     name: string
     organizerRating: number | null
     participantRating: number
-    verificationStatus: VerificationStatus
+    verificationStatus: VerificationStatus | null
     profileImage: string
 }
 

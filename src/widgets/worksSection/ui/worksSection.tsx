@@ -70,7 +70,7 @@ const WorksSection: React.FC = () => {
 
     return (
         <div className='works-section'>
-            {works.map((work: any, index: number) => (
+            {works.map((work: Work, index: number) => (
                 <div
                     key={work.id}
                     ref={works.length === index + 1 ? lastWorkElementRef : null}
@@ -83,7 +83,8 @@ const WorksSection: React.FC = () => {
                 onClose={() => setIsModalOpen(false)}
                 isOuterClose
                 width={getModalWidth(selectedWork)}
-                height='900px'>
+                height='83%'
+                modalContentClass='work-preview-modal'>
                 {selectedWork && <WorkPreview work={selectedWork} />}
             </ModalWindow>
             {loading && <p>Loading more works...</p>}
