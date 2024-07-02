@@ -1,4 +1,4 @@
-.participants-comments {
+.comments {
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -21,9 +21,6 @@
 
     &__input {
         width: 100%;
-        > input {
-            width: 100%;
-        }
     }
 
     &__list {
@@ -32,7 +29,7 @@
 }
 
 .dark {
-    .participants-comments {
+    .comments {
         &__title {
             & > span {
                 color: var(--white-muted);
@@ -41,7 +38,7 @@
     }
 }
 .light {
-    .participants-comments {
+    .comments {
         &__title {
             & > span {
                 color: var(--grey-light);
