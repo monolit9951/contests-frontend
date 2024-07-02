@@ -4,12 +4,12 @@ import { Contest } from 'entities/contest'
 import useAxios from 'shared/lib/hooks/useAxios'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { VStack } from 'shared/ui/stack'
+import { CommentsSection } from 'widgets/commentsSection'
 
 import { selectContestMedia, selectContestOwnerId } from '../model/selectors'
 import { fetchMediaWorks } from '../model/services'
 import { contestWorksActions } from '../model/slice'
 
-import СommentsSection from './components/commentsSection/commentsSection'
 import DescriptionSection from './components/descriptionSection/descriptionSection'
 import HeroSection from './components/heroSection/heroSection'
 import WinnersSection from './components/winnersSection/winnersSection'
@@ -65,7 +65,7 @@ const ContestPage = () => {
                     <WinnersSection data={data.topWinners} />
                 )}
                 <WorksListSection worksAmount={data.participantAmount} />
-                <СommentsSection ownerId={id} />
+                <CommentsSection ownerId={id} />
             </VStack>
         </VStack>
     )

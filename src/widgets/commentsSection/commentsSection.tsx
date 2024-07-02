@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react'
-import { selectContestComments } from 'pages/contestPage/model/selectors'
-import { createContestComment } from 'pages/contestPage/model/services/createContestComment'
-import { fetchContestComments } from 'pages/contestPage/model/services/fetchContestComments'
-import { contestWorksActions } from 'pages/contestPage/model/slice'
+import { Comment } from 'entities/comment'
 import instance from 'shared/api/api'
-import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { UserIcon } from 'shared/ui/userIcon'
-import { CommentsList } from 'widgets/commentsList'
+
+import { CommentsList } from './commentsList'
 
 import './commentsSection.scss'
 
@@ -22,21 +19,21 @@ const СommentsSection = ({ ownerId }: Props) => {
     const [commentInputFocused, setCommentInputFocused] = useState(false)
     const [inputData, setInputData] = useState('')
 
-    const dispatch = useAppDispatch()
+    const [userId, setUserId] = useState('')
 
-    const commentData = useAppSelector(selectContestComments)
-    const userId = useAppSelector(
-        (state: RootState) => state.contestWorks.userId
-    )
+    const [comments, setComments] = useState<Comment[]>([])
+    const [totalElements, setTotalElements] = useState(0)
+    const [nextLoading, setNextLoading] = useState(false)
+    const [error, setError] = useState<Error | null>(null)
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const { data } = await instance.get(
-                    'users?page=0&pageSize=8&sortDirection=ASC'
+                    'users?page=0&pageSize=1&sortDirection=ASC'
                 )
 
-                dispatch(contestWorksActions.setUserId(data.content[0].id))
+                setUserId(data.content[0].id)
             } catch (err) {
                 // eslint-disable-next-line no-console
                 console.error(err)
@@ -46,51 +43,54 @@ const СommentsSection = ({ ownerId }: Props) => {
         fetchUser()
     }, [])
 
-    useEffect(() => {
-        dispatch(fetchContestComments(ownerId))
-    }, [dispatch])
-
     const toggleCommentInput = () => {
         setCommentInputFocused(false)
         setInputData('')
     }
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         if (!inputData.trim()) {
             return
         }
 
-        dispatch(
-            createContestComment({
+        try {
+            setError(null)
+            setNextLoading(true)
+
+            const { data } = await instance.post('comment', {
                 parentId: ownerId,
                 commentText: inputData.trim(),
                 userId,
             })
-        )
+
+            // eslint-disable-next-line no-return-assign
+            setTotalElements((prev) => (prev += 1))
+            setComments((prev) => [data, ...prev])
+        } catch (err) {
+            setError(err as Error)
+        } finally {
+            setNextLoading(false)
+        }
 
         toggleCommentInput()
     }
 
     return (
-        <section className='participants-comments'>
-            <Text
-                Tag='h2'
-                size='title'
-                bold
-                className='participants-comments__title'>
+        <section className='comments'>
+            <Text Tag='h2' size='title' bold className='comments__title'>
                 Comments
                 <Text Tag='span' size='xl'>
-                    ({commentData.totalElements})
+                    ({totalElements})
                 </Text>
             </Text>
 
-            <HStack className='participants-comments__input-wrapper'>
+            <HStack className='comments__input-wrapper'>
                 <UserIcon size={40} wrapperClassName='align__start' />
-                <VStack className='participants-comments__input-box'>
+                <VStack className='comments__input-box'>
                     <Input
                         type='text'
                         placeholder='Add a comment...'
-                        wrapperClassName='participants-comments__input'
+                        className='comments__input'
                         value={inputData}
                         onFocus={() => setCommentInputFocused(true)}
                         onChange={(e) => setInputData(e.target.value)}
@@ -119,7 +119,18 @@ const СommentsSection = ({ ownerId }: Props) => {
                 </VStack>
             </HStack>
 
-            <CommentsList className='participants-comments__list' />
+            <CommentsList
+                ownerId={ownerId}
+                userId={userId} // TODO delete upon integrating login feature
+                comments={comments}
+                setComments={setComments}
+                setTotalElements={setTotalElements}
+                nextLoading={nextLoading}
+                setNextLoading={setNextLoading}
+                error={error}
+                setError={setError}
+                className='comments__list'
+            />
         </section>
     )
 }
