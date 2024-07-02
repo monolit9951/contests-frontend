@@ -10,15 +10,14 @@ import { Text } from 'shared/ui/text'
 
 interface Props {
     data: Comment
+    userId: string
 }
 
 const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
-    const { data } = props
+    const { data, userId } = props
 
     const [repliesShown, setRepliesShown] = useState(false)
-    const [repliesNum, setRepliesNum] = useState(
-        data.subCommentsAmount ? data.subCommentsAmount : 0
-    )
+    const [repliesNum, setRepliesNum] = useState(data.subCommentsAmount ?? 0)
     const [subComments, setSubComments] = useState<Comment[]>([])
     const [totalPages, setTotalPages] = useState(0)
     const [page, setPage] = useState(1)
@@ -36,6 +35,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         }
 
         try {
+            setError(null)
             setLoading(true)
 
             const response = await instance.get(`comment?page=0&${params}`)
@@ -51,6 +51,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
 
     const onLoadMore = async () => {
         try {
+            setError(null)
             setNextLoading(true)
 
             const response = await instance.get(
@@ -71,6 +72,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         <li ref={ref}>
             <CommentEl
                 data={data}
+                userId={userId}
                 setRepliesShown={setRepliesShown}
                 setRepliesNum={setRepliesNum}
                 setTotalPages={setTotalPages}
@@ -109,6 +111,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                                 <li key={item.id}>
                                     <CommentEl
                                         data={item}
+                                        userId={userId}
                                         setRepliesShown={setRepliesShown}
                                         setRepliesNum={setRepliesNum}
                                         setTotalPages={setTotalPages}

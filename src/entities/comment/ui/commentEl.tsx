@@ -2,7 +2,6 @@ import { Dispatch, FC, SetStateAction, useState } from 'react'
 import moment from 'moment'
 import instance from 'shared/api/api'
 import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
-import { useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { RateButtons } from 'shared/ui/rateButtons'
@@ -19,6 +18,7 @@ import './commentEl.scss'
 
 interface Props {
     data: Comment
+    userId: string
     setRepliesShown: (bool: boolean) => void
     setRepliesNum: Dispatch<SetStateAction<number>>
     setTotalPages: (num: number) => void
@@ -30,6 +30,7 @@ interface Props {
 const CommentEl: FC<Props> = (props) => {
     const {
         data,
+        userId,
         setRepliesShown,
         setRepliesNum,
         setTotalPages,
@@ -41,10 +42,6 @@ const CommentEl: FC<Props> = (props) => {
     const [actionsShown, setActionsShown] = useState(false)
     const [replyInputShown, setReplyInputShown] = useState(false)
     const [inputData, setInputData] = useState('')
-
-    const userId = useAppSelector(
-        (state: RootState) => state.contestWorks.userId
-    )
 
     const { user, commentDate, commentText, id, likeAmount } = data
 
@@ -94,11 +91,11 @@ const CommentEl: FC<Props> = (props) => {
 
     return (
         <HStack className='comment__wrapper'>
-            <UserIcon size={40} />
+            <UserIcon src={user.profileImage} size={40} />
             <VStack className='comment__body'>
                 <HStack className='comment-info'>
                     <Text Tag='p' bold>
-                        {user?.name ?? 'Deborah Kertzmann'}
+                        {user.name}
                         <Text Tag='span' size='sm'>
                             {timeAgo}
                         </Text>
@@ -110,8 +107,7 @@ const CommentEl: FC<Props> = (props) => {
                 </HStack>
 
                 <Text Tag='p' className='comment-text'>
-                    {commentText ??
-                        'Welcome to the uproarious arena of the Tickle Olympics, where humor and athleticism collide in a whirlwind of laughter and lighthearted competition! Picture this: athletes from around the globe, each armed with a tickling strategy, vying for the coveted gold medal in the art of inducing laughter.'}
+                    {commentText}
                 </Text>
 
                 <HStack className='comment-feedback'>
