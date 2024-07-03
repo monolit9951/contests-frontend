@@ -13,9 +13,10 @@ import './commentsSection.scss'
 
 interface Props {
     ownerId: string
+    work?: boolean
 }
 
-const СommentsSection = ({ ownerId }: Props) => {
+const СommentsSection = ({ ownerId, work }: Props) => {
     const [commentInputFocused, setCommentInputFocused] = useState(false)
     const [inputData, setInputData] = useState('')
 
@@ -77,16 +78,58 @@ const СommentsSection = ({ ownerId }: Props) => {
 
     return (
         <section className='comments'>
-            <Text Tag='h2' size='title' bold className='comments__title'>
+            <Text
+                Tag='h2'
+                size={work ? 'l' : 'title'}
+                bold
+                className='comments__title'>
                 Comments
-                <Text Tag='span' size='xl'>
+                <Text Tag='span' size={work ? 'md' : 'xl'}>
                     ({totalElements})
                 </Text>
             </Text>
 
-            <HStack className='comments__input-wrapper'>
-                <UserIcon size={40} wrapperClassName='align__start' />
-                <VStack className='comments__input-box'>
+            {!work && (
+                <HStack className='comments__input-wrapper-contest'>
+                    <UserIcon size={40} wrapperClassName='align__start' />
+                    <VStack className='comments__input-box'>
+                        <Input
+                            type='text'
+                            placeholder='Add a comment...'
+                            className='comments__input'
+                            value={inputData}
+                            onFocus={() => setCommentInputFocused(true)}
+                            onChange={(e) => setInputData(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    onSubmit()
+                                }
+                            }}
+                        />
+                        {commentInputFocused && (
+                            <HStack className='justify__end'>
+                                <Button
+                                    variant='ghost'
+                                    size='s'
+                                    onClick={toggleCommentInput}>
+                                    Cancel
+                                </Button>
+                                <Button
+                                    variant='secondary'
+                                    size='s'
+                                    disabled={!inputData.trim()}
+                                    onClick={onSubmit}>
+                                    Reply
+                                </Button>
+                            </HStack>
+                        )}
+                    </VStack>
+                </HStack>
+            )}
+
+            {work && (
+                <HStack className='comments__input-wrapper-work align__center'>
+                    <UserIcon size={40} />
                     <Input
                         type='text'
                         placeholder='Add a comment...'
@@ -100,24 +143,15 @@ const СommentsSection = ({ ownerId }: Props) => {
                             }
                         }}
                     />
-                    {commentInputFocused && (
-                        <HStack className='justify__end'>
-                            <Button
-                                variant='ghost'
-                                size='s'
-                                onClick={toggleCommentInput}>
-                                Cancel
-                            </Button>
-                            <Button
-                                variant='secondary'
-                                size='s'
-                                onClick={onSubmit}>
-                                Reply
-                            </Button>
-                        </HStack>
-                    )}
-                </VStack>
-            </HStack>
+                    <Button
+                        variant='ghost'
+                        size='m'
+                        disabled={!inputData.trim()}
+                        onClick={onSubmit}>
+                        Reply
+                    </Button>
+                </HStack>
+            )}
 
             <CommentsList
                 ownerId={ownerId}

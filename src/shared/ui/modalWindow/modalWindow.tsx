@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect } from 'react'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import xIcon from 'shared/assets/icons/Secondary_btn.svg?react'
@@ -11,9 +11,11 @@ interface UploadModalProps {
     isOpen: boolean
     onClose?: () => void
     children: ReactNode
-    isOuterClose?: boolean | undefined
+    isOuterClose?: boolean
     width?: string
     height?: string
+    maxWidth?: string
+    maxHeight?: string
     className?: string
     overlayClassName?: string
     modalContentClass?: string
@@ -22,6 +24,8 @@ interface UploadModalProps {
 export const ModalWindow: FC<UploadModalProps> = ({
     width,
     height,
+    maxWidth,
+    maxHeight,
     ...rest
 }) => {
     const { theme } = useTheme()
@@ -38,13 +42,27 @@ export const ModalWindow: FC<UploadModalProps> = ({
         theme
     )
 
+    useEffect(() => {
+        const body = document.body as HTMLElement
+
+        if (rest.isOpen) {
+            body.classList.add('no-scroll')
+        }
+
+        return () => {
+            body.classList.remove('no-scroll')
+        }
+    }, [rest.isOpen])
+
     if (!rest.isOpen) {
         return null
     }
 
     return (
         <VStack className={modalClass}>
-            <div className='modal-wrapper' style={{ width, height }}>
+            <div
+                className='modal-wrapper'
+                style={{ width, height, maxWidth, maxHeight }}>
                 <Flex className={overlayClass} clickFunction={rest.onClose} />
                 <HStack className={modalContentClass}>
                     <VStack>{rest.children}</VStack>

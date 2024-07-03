@@ -23,23 +23,20 @@
             .comment-action {
                 &__box {
                     position: absolute;
+                    z-index: 1;
                     top: 0;
                     right: -125px;
-                    z-index: 1;
 
-                    gap: 4px;
+                    padding: 10px 0;
                     border-radius: 12px;
                 }
 
                 &__button {
-                    padding: 6px 10px;
+                    padding: 8px 10px;
                     border: none;
                     background-color: transparent;
                     cursor: pointer;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
+                    transition: all ease 0.3ms;
                 }
             }
         }
@@ -89,6 +86,10 @@
             &__button {
                 color: var(--white);
                 background-color: transparent;
+
+                &:hover {
+                    background-color: var(--grey);
+                }
             }
         }
     }
@@ -101,11 +102,15 @@
 
         .comment-action {
             &__box {
-                background-color: var(--white);
+                background-color: var(--white-medium-light);
             }
 
             &__button {
                 background-color: transparent;
+
+                &:hover {
+                    background-color: var(--bg-light-green);
+                }
             }
         }
     }

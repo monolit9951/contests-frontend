@@ -84,6 +84,7 @@ const WorksSection: React.FC = () => {
                 isOuterClose
                 width={getModalWidth(selectedWork)}
                 height='83%'
+                maxHeight='900px'
                 modalContentClass='work-preview-modal'>
                 {selectedWork && <WorkPreview work={selectedWork} />}
             </ModalWindow>

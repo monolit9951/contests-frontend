@@ -11,6 +11,7 @@ import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { Flex, HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { UserIcon } from 'shared/ui/userIcon'
+import { CommentsSection } from 'widgets/commentsSection'
 import { ImageSlider } from 'widgets/worksSection/ui/workPreview/imageSlider/imageSlider'
 
 import './workPreview.scss'
@@ -53,13 +54,14 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                         loop
                     />
                 )}
+
                 <VStack
                     className={clsx(
                         'work-desc',
                         work.typeWork === 'TEXT' && 'type-text'
                     )}>
-                    <VStack>
-                        <HStack className='upper-desc'>
+                    <VStack className='upper-desc'>
+                        <HStack className='creator-desc'>
                             <HStack className='align__center'>
                                 <UserIcon
                                     src={user.profileImage}
@@ -118,12 +120,14 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                             </Text>
                         </HStack>
                     </VStack>
+
                     <MediaFeedback
                         id={work.id}
                         likes={work.likeAmount}
                         comments={work.commentAmount}
                     />
-                    <hr />
+
+                    <CommentsSection ownerId={work.id} work />
                 </VStack>
             </HStack>
         </Flex>

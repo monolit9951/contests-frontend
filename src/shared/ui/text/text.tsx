@@ -5,7 +5,7 @@ import './text.scss'
 
 type TagTypes = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span'
 
-type SizeTypes = 'title' | 'xs' | 'l' | 'xl' | 'xxl' | 'xxs' | 'sm'
+type SizeTypes = 'title' | 'xxl' | 'xl' | 'l' | 'md' | 'sm' | 'xs' | 'xxs'
 
 interface TextProps {
     Tag: TagTypes

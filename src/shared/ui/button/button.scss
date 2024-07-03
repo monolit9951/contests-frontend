@@ -127,7 +127,7 @@
             }
             &:disabled {
                 border-color: var(--text-placeholder);
-                color: var(--white-transp-30);
+                color: var(--text-placeholder);
                 background-color: var(--text-placeholder);
             }
         }
@@ -143,8 +143,8 @@
                 background-color: var(--bg-light-grey);
             }
             &:disabled {
-                color: var(--white-transp-30);
-                background-color: var(--text-placeholder);
+                color: var(--text-placeholder);
+                background-color: var(--border-grey);
             }
         }
     }
