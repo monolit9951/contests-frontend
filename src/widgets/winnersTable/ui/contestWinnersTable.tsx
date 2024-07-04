@@ -4,6 +4,7 @@ import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
 import { Prize } from 'entities/prize'
 import { useTheme } from 'entities/theme'
+import { Work } from 'entities/work'
 import { selectContestOwnerId } from 'pages/contestPage/model/selectors'
 import instance from 'shared/api/api'
 import desc from 'shared/assets/icons/caretDown.svg'
@@ -32,7 +33,11 @@ interface ContestWinner extends Omit<Prize, 'id' | 'winnersAmount'> {
     workId: string
 }
 
-export const ContestWinnersTable: FC = () => {
+interface Props {
+    openModal: (work: Work) => void
+}
+
+export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
     const { theme } = useTheme()
 
     const [rowData, setRowData] = useState<ContestWinner[]>([])
@@ -97,6 +102,9 @@ export const ContestWinnersTable: FC = () => {
             headerName: '',
             field: 'workId',
             cellRenderer: WorkLinkRenderer,
+            cellRendererParams: {
+                openModal,
+            },
             sortable: false,
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
