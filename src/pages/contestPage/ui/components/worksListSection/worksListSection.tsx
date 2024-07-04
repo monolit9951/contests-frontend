@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import clsx from 'clsx'
+import { Work } from 'entities/work'
 import {
     selectContestMedia,
     selectContestOwnerId,
@@ -23,9 +24,10 @@ type WorkSort = 'new' | 'popular'
 
 interface Props {
     worksAmount: number
+    openModal: (work: Work) => void
 }
 
-const WorksListSection = ({ worksAmount }: Props) => {
+const WorksListSection = ({ worksAmount, openModal }: Props) => {
     const [workType, setWorkType] = useState<WorkType>('media')
     const [selectedSort, setSelectedSort] = useState<WorkSort>('new')
 
@@ -126,7 +128,11 @@ const WorksListSection = ({ worksAmount }: Props) => {
                 </li>
             </ul>
 
-            <WorksList workType={workType} sort={selectedSort} />
+            <WorksList
+                workType={workType}
+                sort={selectedSort}
+                openModal={openModal}
+            />
         </section>
     )
 }

@@ -1,4 +1,4 @@
-.work {
+.text-work {
     padding: 16px;
     border-radius: 24px;
     width: 458px;
@@ -28,7 +28,7 @@
     }
 }
 
-.media {
+.media-work {
     position: relative;
 
     gap: 8px;
@@ -59,8 +59,9 @@
 }
 
 .dark {
-    .work {
+    .text-work {
         background-color: var(--green-dark);
+
         &__text {
             color: var(--white);
 
@@ -71,8 +72,9 @@
     }
 }
 .light {
-    .work {
+    .text-work {
         background-color: var(--white);
+
         &__text {
             & > .read-more-btn {
                 color: var(--main-dark);

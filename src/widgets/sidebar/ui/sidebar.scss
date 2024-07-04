@@ -9,11 +9,15 @@
     align-items: center;
 
     nav {
+        position: sticky;
+        z-index: 4;
+        top: 74px;
+
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 24px;
-        margin: 20px 7px 0px;
+        padding: 20px 7px 0px;
     }
 }
 .dark {

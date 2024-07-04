@@ -21,7 +21,7 @@ const CommentInput: FC<Props> = (props) => {
                 <Input
                     type='text'
                     placeholder='Add a reply...'
-                    wrapperClassName='comment-reply__input'
+                    className='comment-reply__input'
                     value={inputData}
                     autoFocus
                     onChange={(e) => setInputData(e.target.value)}
@@ -35,7 +35,11 @@ const CommentInput: FC<Props> = (props) => {
                     <Button variant='ghost' size='s' onClick={onClose}>
                         Cancel
                     </Button>
-                    <Button variant='secondary' size='s' onClick={onSubmit}>
+                    <Button
+                        variant='secondary'
+                        size='s'
+                        disabled={!inputData.trim()}
+                        onClick={onSubmit}>
                         Reply
                     </Button>
                 </HStack>

@@ -5,18 +5,19 @@ import './text.scss'
 
 type TagTypes = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span'
 
-type SizeTypes = 'title' | 'xs' | 'l' | 'xl' | 'xxl' | 'xxs' | 'sm'
+type SizeTypes = 'title' | 'xxl' | 'xl' | 'l' | 'md' | 'sm' | 'xs' | 'xxs'
 
 interface TextProps {
     Tag: TagTypes
     children: string | ReactNode
     size?: SizeTypes
     bold?: boolean
+    onClick?: () => void
     className?: string
 }
 
 export default function Text(props: TextProps) {
-    const { Tag, size, bold, className, children } = props
+    const { Tag, size, bold, className, onClick, children } = props
 
     return (
         <Tag
@@ -25,7 +26,8 @@ export default function Text(props: TextProps) {
                 size && `text__${size}`,
                 bold && 'text__bold',
                 className
-            )}>
+            )}
+            onClick={onClick}>
             {children}
         </Tag>
     )

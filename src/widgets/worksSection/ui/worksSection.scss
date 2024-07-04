@@ -1,0 +1,40 @@
+.works-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.works-section::-webkit-scrollbar {
+    display: none;
+}
+
+.observer {
+    height: 20px;
+}
+
+.work-preview-modal {
+    height: 100%;
+    align-self: center;
+}
+
+.modal.modal-open {
+    .flex.flex__row {
+        .modal-content {
+            padding: 0;
+            .flex.flex__col {
+                width: 100%;
+                .work-preview {
+                    background: transparent;
+                }
+            }
+        }
+    }
+}

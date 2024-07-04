@@ -55,7 +55,6 @@ const slice = createSlice({
             })
             .addCase(fetchPopularContests.fulfilled, (state, { payload }) => {
                 state.popular.contests = payload.content
-
                 state.popular.loading = false
             })
             .addCase(fetchNextContestsPage.fulfilled, (state, { payload }) => {
