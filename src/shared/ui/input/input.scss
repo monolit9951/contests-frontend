@@ -28,6 +28,7 @@ input[type='time']::-webkit-calendar-picker-indicator {
     width: 246px;
     padding: 12px;
     border-radius: 8px;
+    border: 1px solid;
 
     font-family: 'Manrope', sans-serif;
     font-size: 16px;
@@ -38,7 +39,6 @@ input[type='time']::-webkit-calendar-picker-indicator {
     }
 
     &:disabled {
-        color: var(--white-transp-30);
         cursor: not-allowed;
     }
 
@@ -78,7 +78,7 @@ input[type='time']::-webkit-calendar-picker-indicator {
 
 .dark {
     .input {
-        border: 1px solid var(--green-dark);
+        border-color: var(--green-dark);
         color: var(--white);
         background-color: var(--green-dark);
 
@@ -97,11 +97,12 @@ input[type='time']::-webkit-calendar-picker-indicator {
 }
 .light {
     .input {
-        color: var(--white);
-        background-color: var(--green-dark);
+        border-color: var(--border-grey);
+        color: var(--text-main);
+        background-color: var(--white-medium-light);
 
         &:disabled {
-            color: var(--white-transp-30);
+            color: var(--text-placeholder);
         }
 
         &::placeholder {

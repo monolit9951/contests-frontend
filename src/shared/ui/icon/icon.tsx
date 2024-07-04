@@ -1,5 +1,6 @@
 import { FC, SVGProps } from 'react'
 import clsx from 'clsx'
+import {useTheme} from "entities/theme";
 
 import './icon.scss'
 
@@ -17,6 +18,7 @@ interface IIcon extends SvgProps {
 }
 
 export default function Icon(props: IIcon) {
+    const {theme} = useTheme()
     const {
         Svg,
         width = 24,
@@ -33,7 +35,7 @@ export default function Icon(props: IIcon) {
         <Svg
             width={width}
             height={height}
-            className={clsx(!unique && 'icon', className)}
+            className={clsx(!unique && 'icon', className, theme)}
             {...rest}
         />
     )
@@ -42,7 +44,7 @@ export default function Icon(props: IIcon) {
         return (
             <button
                 type='button'
-                className={clsx('icon-btn', btnClassName)}
+                className={clsx('icon-btn', btnClassName, theme)}
                 onClick={onClick}
                 style={{ height, width }}>
                 {icon}

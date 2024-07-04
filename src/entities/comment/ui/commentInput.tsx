@@ -35,7 +35,11 @@ const CommentInput: FC<Props> = (props) => {
                     <Button variant='ghost' size='s' onClick={onClose}>
                         Cancel
                     </Button>
-                    <Button variant='secondary' size='s' onClick={onSubmit}>
+                    <Button
+                        variant='secondary'
+                        size='s'
+                        disabled={!inputData.trim()}
+                        onClick={onSubmit}>
                         Reply
                     </Button>
                 </HStack>

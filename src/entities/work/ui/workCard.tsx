@@ -38,7 +38,7 @@ const WorkCard: FC<Props> = (props) => {
     if (data.typeWork === 'TEXT') {
         return (
             <li>
-                <VStack className={clsx('work', className)}>
+                <VStack className={clsx('text-work', className)}>
                     <HStack className='justify__between align__center'>
                         <UserIcon
                             src={data.user.profileImage}
@@ -47,7 +47,7 @@ const WorkCard: FC<Props> = (props) => {
                         />
                         {prize && <TopPrize data={prize} />}
                     </HStack>
-                    <Text Tag='p' className='work__text'>
+                    <Text Tag='p' className='text-work__text'>
                         {(data.description.length < 430 &&
                             data.description) || (
                             <>
@@ -75,8 +75,8 @@ const WorkCard: FC<Props> = (props) => {
 
     return (
         <li>
-            <VStack className={clsx('media', className)}>
-                <div className='media__container'>
+            <VStack className={clsx('media-work', className)}>
+                <div className='media-work__container'>
                     <MediaOverlay prize={prize} />
                     {data?.typeWork === 'VIDEO' && (
                         <iframe
@@ -84,7 +84,7 @@ const WorkCard: FC<Props> = (props) => {
                             width={458}
                             height={612}
                             src={data.media?.[0].mediaLink}
-                            className='media__frame'
+                            className='media-work__frame'
                         />
                     )}
                     {data?.typeWork === 'IMAGE' && (
@@ -93,7 +93,7 @@ const WorkCard: FC<Props> = (props) => {
                             alt='media'
                             width={458}
                             height={612}
-                            className='media__frame'
+                            className='media-work__frame'
                         />
                     )}
                 </div>

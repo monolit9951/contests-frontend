@@ -17,7 +17,7 @@ const variantClasses: Record<VariantTypes, string> = {
 }
 
 interface IButton {
-    children: string | ReactNode
+    children?: string | ReactNode
     variant: VariantTypes
     title?: string
     size?: SizeTypes

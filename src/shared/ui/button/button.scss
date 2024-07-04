@@ -127,13 +127,9 @@
             }
             &:disabled {
                 border-color: var(--text-placeholder);
-                color: var(--white-transp-30);
+                color: var(--text-placeholder);
                 background-color: var(--text-placeholder);
             }
-        }
-
-        &.div {
-            background: transparent;
         }
 
         &.ghost {
@@ -147,21 +143,21 @@
                 background-color: var(--bg-light-grey);
             }
             &:disabled {
-                color: var(--white-transp-30);
-                background-color: var(--text-placeholder);
+                color: var(--text-placeholder);
+                background-color: var(--border-grey);
             }
         }
     }
 }
 @media (max-width: 1590px) {
-    .button{
+    .button {
         padding: 12px 20px;
         font-size: 12px;
     }
 }
 
 @media (max-width: 1920px) {
-    .button{
+    .button {
         padding: 12px 28px;
         font-size: 12px;
     }
