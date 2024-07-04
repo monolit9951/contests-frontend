@@ -2,7 +2,6 @@ import { FC, useState } from 'react'
 import clsx from 'clsx'
 import { Prize, TopPrize } from 'entities/prize'
 import { selectContestPrizes } from 'pages/contestPage/model/selectors'
-import media from 'shared/assets/img/videoCard.webp'
 import { useAppSelector } from 'shared/lib/store'
 import { Image } from 'shared/ui/image'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
@@ -18,12 +17,13 @@ import './workCard.scss'
 
 interface Props {
     data: Work
+    openModal: (work: Work) => void
     prizeId?: string
     className?: string
 }
 
 const WorkCard: FC<Props> = (props) => {
-    const { data, prizeId, className } = props
+    const { data, openModal, prizeId, className } = props
 
     const [isReadMore, setIsReadMore] = useState(false)
 
@@ -33,6 +33,10 @@ const WorkCard: FC<Props> = (props) => {
 
     const toggleReadMore = () => {
         setIsReadMore(!isReadMore)
+    }
+
+    const onOpenModal = () => {
+        openModal(data)
     }
 
     if (data.typeWork === 'TEXT') {
@@ -47,7 +51,10 @@ const WorkCard: FC<Props> = (props) => {
                         />
                         {prize && <TopPrize data={prize} />}
                     </HStack>
-                    <Text Tag='p' className='text-work__text'>
+                    <Text
+                        Tag='p'
+                        className='text-work__text'
+                        onClick={onOpenModal}>
                         {(data.description.length < 430 &&
                             data.description) || (
                             <>
@@ -67,6 +74,7 @@ const WorkCard: FC<Props> = (props) => {
                         id={data.id}
                         likes={data.likeAmount}
                         comments={data.commentAmount}
+                        onCommentsClick={onOpenModal}
                     />
                 </VStack>
             </li>
@@ -78,7 +86,7 @@ const WorkCard: FC<Props> = (props) => {
             <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
                     <MediaOverlay prize={prize} />
-                    {data?.typeWork === 'VIDEO' && (
+                    {data.typeWork === 'VIDEO' && (
                         <iframe
                             title='media'
                             width={458}
@@ -87,12 +95,13 @@ const WorkCard: FC<Props> = (props) => {
                             className='media-work__frame'
                         />
                     )}
-                    {data?.typeWork === 'IMAGE' && (
+                    {data.typeWork === 'IMAGE' && (
                         <Image
-                            src={data.media?.[0].mediaLink ?? media}
+                            src={data.media?.[0].mediaLink}
                             alt='media'
                             width={458}
                             height={612}
+                            onClick={onOpenModal}
                             className='media-work__frame'
                         />
                     )}
@@ -101,6 +110,7 @@ const WorkCard: FC<Props> = (props) => {
                     id={data.id}
                     likes={data.likeAmount}
                     comments={data.commentAmount}
+                    onCommentsClick={onOpenModal}
                 />
             </VStack>
         </li>

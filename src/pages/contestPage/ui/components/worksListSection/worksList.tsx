@@ -17,10 +17,11 @@ import { VStack } from 'shared/ui/stack'
 interface Props {
     workType: 'media' | 'text'
     sort: 'new' | 'popular'
+    openModal: (work: Work) => void
 }
 
 export const WorksList: FC<Props> = (props) => {
-    const { sort, workType } = props
+    const { sort, workType, openModal } = props
 
     const dispatch = useAppDispatch()
 
@@ -33,39 +34,6 @@ export const WorksList: FC<Props> = (props) => {
 
     const popularMediaWorks = media.popular as Work[]
     const newMediaWorks = media.new as Work[]
-
-    const renderList = () => {
-        if (media.loading || text.loading) {
-            return <p>Loading...</p>
-        }
-
-        if (workType === 'media') {
-            if (sort === 'new') {
-                if (!newMediaWorks.length) {
-                    return <li>No works here</li>
-                }
-                return newMediaWorks?.map((item) => (
-                    <WorkCard key={item.id} data={item} />
-                ))
-            }
-
-            if (!popularMediaWorks.length) {
-                return <li>No works here</li>
-            }
-            return popularMediaWorks?.map((item) => (
-                <WorkCard key={item.id} data={item} />
-            ))
-        }
-        return sort === 'new'
-            ? (!newTextWorks.length && <li>No works here</li>) ||
-                  newTextWorks?.map((item) => (
-                      <WorkCard key={item.id} data={item} />
-                  ))
-            : (!popularTextWorks.length && <li>No works here</li>) ||
-                  popularTextWorks?.map((item) => (
-                      <WorkCard key={item.id} data={item} />
-                  ))
-    }
 
     const loadMoreCondition = () => {
         if (
@@ -97,6 +65,47 @@ export const WorksList: FC<Props> = (props) => {
         } else {
             dispatch(fetchNextTextWorks(ownerId))
         }
+    }
+
+    const renderList = () => {
+        if (media.loading || text.loading) {
+            return <p>Loading...</p>
+        }
+
+        if (workType === 'media') {
+            if (sort === 'new') {
+                if (!newMediaWorks.length) {
+                    return <li>No works here</li>
+                }
+                return newMediaWorks?.map((item) => (
+                    <WorkCard key={item.id} data={item} openModal={openModal} />
+                ))
+            }
+
+            if (!popularMediaWorks.length) {
+                return <li>No works here</li>
+            }
+            return popularMediaWorks?.map((item) => (
+                <WorkCard key={item.id} data={item} openModal={openModal} />
+            ))
+        }
+        return sort === 'new'
+            ? (!newTextWorks.length && <li>No works here</li>) ||
+                  newTextWorks?.map((item) => (
+                      <WorkCard
+                          key={item.id}
+                          data={item}
+                          openModal={openModal}
+                      />
+                  ))
+            : (!popularTextWorks.length && <li>No works here</li>) ||
+                  popularTextWorks?.map((item) => (
+                      <WorkCard
+                          key={item.id}
+                          data={item}
+                          openModal={openModal}
+                      />
+                  ))
     }
 
     return (

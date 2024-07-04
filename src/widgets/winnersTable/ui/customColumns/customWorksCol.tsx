@@ -1,22 +1,23 @@
 import { FC } from 'react'
+import { Work } from 'entities/work'
 import instance from 'shared/api/api'
 import arrow from 'shared/assets/icons/arrowUpRight.svg?react'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 
-export const WorkLinkRenderer: FC<{ value: string }> = ({ value }) => {
+export const WorkLinkRenderer: FC<{
+    value: string
+    openModal: (work: Work) => void
+}> = ({ value, openModal }) => {
     const handleClick = async () => {
         try {
             const { data } = await instance.get(`works/${value}`)
 
-            // eslint-disable-next-line no-console
-            console.log(data)
+            openModal(data)
         } catch (err) {
             // eslint-disable-next-line no-console
             console.error(err)
         }
-
-        // window.open(value, '_blank')
     }
 
     return (

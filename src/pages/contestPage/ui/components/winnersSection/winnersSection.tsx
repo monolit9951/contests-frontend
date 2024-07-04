@@ -2,7 +2,7 @@ import { FC } from 'react'
 import clsx from 'clsx'
 import { TopWinners } from 'entities/contest'
 import { Prize } from 'entities/prize'
-import { WorkCard } from 'entities/work'
+import { Work, WorkCard } from 'entities/work'
 import { selectContestPrizes } from 'pages/contestPage/model/selectors'
 import { useAppSelector } from 'shared/lib/store'
 import { VStack } from 'shared/ui/stack'
@@ -13,11 +13,12 @@ import './winnersSection.scss'
 
 interface Props {
     data: TopWinners[]
+    openModal: (work: Work) => void
     className?: string
 }
 
 const WinnersSection: FC<Props> = (props) => {
-    const { data, className } = props
+    const { data, openModal, className } = props
 
     const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
@@ -32,7 +33,12 @@ const WinnersSection: FC<Props> = (props) => {
 
             <ul className='winners__list'>
                 {data.map(({ work, prizeId }) => (
-                    <WorkCard key={work.id} data={work} prizeId={prizeId} />
+                    <WorkCard
+                        key={work.id}
+                        data={work}
+                        prizeId={prizeId}
+                        openModal={openModal}
+                    />
                 ))}
             </ul>
 
@@ -45,7 +51,7 @@ const WinnersSection: FC<Props> = (props) => {
                         className='winners__other-title'>
                         Other places
                     </Text>
-                    <ContestWinnersTable />
+                    <ContestWinnersTable openModal={openModal} />
                 </VStack>
             )}
         </section>
