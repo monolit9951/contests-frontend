@@ -66,12 +66,6 @@
                     font-size: 12px;
                     gap: 3px;
 
-                    &.light {
-                        background: var(--white-medium-light);
-                    }
-                    &.dark {
-                        background: #1b2321;
-                    }
                     .icon-box {
                         display: flex;
                         flex-direction: column;
@@ -129,13 +123,18 @@
     .work-desc {
         &__text {
             & > .read-more-btn {
-                color: var(--main-dark);
+                color: var(--white-medium);
             }
         }
+
         .creator-desc {
             &__timeago {
                 color: var(--grey-dots);
             }
+        }
+
+        .tag-contest {
+            background-color: var(--green-dark);
         }
     }
 }
@@ -155,6 +154,10 @@
             &__timeago {
                 color: var(--grey-light);
             }
+        }
+
+        .tag-contest {
+            background-color: var(--white-medium-light);
         }
     }
 }

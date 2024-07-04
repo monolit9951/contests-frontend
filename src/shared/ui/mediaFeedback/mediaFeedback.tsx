@@ -14,16 +14,15 @@ import './mediaFeedback.scss'
 interface Props {
     id: string
     likes: number
-    comments: number
+    comments?: number
+    onCommentsClick?: () => void
     className?: string
 }
 
 const MediaFeedback: FC<Props> = (props) => {
-    const { id, likes, comments, className } = props
+    const { id, likes, comments, onCommentsClick, className } = props
 
     const [likesNum] = useState(likes)
-
-    const onComment = () => {}
 
     const onShare = () => {}
 
@@ -31,17 +30,19 @@ const MediaFeedback: FC<Props> = (props) => {
         <HStack className={clsx('feedback__wrapper', className)}>
             <HStack>
                 <RateButtons id={id} likes={likesNum} work border />
-                <Button
-                    variant='secondary'
-                    size='s'
-                    aria-label='comment'
-                    onClick={onComment}
-                    className='feedback__button'>
-                    <Icon Svg={bubble} width={20} height={20} />
-                    <Text Tag='span' size='sm'>
-                        {comments}
-                    </Text>
-                </Button>
+                {comments && onCommentsClick && (
+                    <Button
+                        variant='secondary'
+                        size='s'
+                        aria-label='comment'
+                        onClick={onCommentsClick}
+                        className='feedback__button'>
+                        <Icon Svg={bubble} width={20} height={20} />
+                        <Text Tag='span' size='sm'>
+                            {comments}
+                        </Text>
+                    </Button>
+                )}
             </HStack>
             <Button
                 variant='secondary'

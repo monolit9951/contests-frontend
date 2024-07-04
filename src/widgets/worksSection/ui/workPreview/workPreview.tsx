@@ -121,11 +121,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                         </HStack>
                     </VStack>
 
-                    <MediaFeedback
-                        id={work.id}
-                        likes={work.likeAmount}
-                        comments={work.commentAmount}
-                    />
+                    <MediaFeedback id={work.id} likes={work.likeAmount} />
 
                     <CommentsSection ownerId={work.id} work />
                 </VStack>
