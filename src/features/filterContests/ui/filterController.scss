@@ -213,3 +213,28 @@
         background-color: var(--green);
     }
 }
+
+.all {
+    .rc-slider-track {
+        background-color: var(--green);
+    }
+    .rc-slider-handle {
+        background-color: var(--green);
+    }
+}
+.fun {
+    .rc-slider-track {
+        background-color: var(--purple);
+    }
+    .rc-slider-handle {
+        background-color: var(--purple);
+    }
+}
+.work {
+    .rc-slider-track {
+        background-color: var(--orange);
+    }
+    .rc-slider-handle {
+        background-color: var(--orange);
+    }
+}

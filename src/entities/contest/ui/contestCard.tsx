@@ -41,9 +41,9 @@ export const ContestCard: React.FC<Props> = (props) => {
             return 'var(--purple)'
         }
         if (tagType === 'FOR_WORK') {
-            return 'var(--green)'
+            return 'var(--orange)'
         }
-        return 'var(--orange)'
+        return 'var(--green)'
     }
 
     const onDetailsClick = () => {

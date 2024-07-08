@@ -20,7 +20,7 @@ import { TopUsersPage } from 'pages/topUsersPage'
 import '../styles/index.scss'
 
 export const AppRouter = () => {
-    const { theme } = useTheme()
+    const { theme, categoryTheme } = useTheme()
 
     const routers = createRoutesFromElements(
         <Route
@@ -41,7 +41,7 @@ export const AppRouter = () => {
     const router = createBrowserRouter(routers, {})
 
     return (
-        <div className={clsx('app', theme)}>
+        <div className={clsx('app', theme, categoryTheme)}>
             <RouterProvider router={router} />
         </div>
     )
