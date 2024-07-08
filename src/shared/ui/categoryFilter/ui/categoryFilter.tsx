@@ -1,31 +1,34 @@
 import { useState } from 'react'
-import { FilterOptions } from 'shared/consts'
+import { Category } from 'entities/contest'
+import { selectCategory } from 'features/filterContests'
+import { useAppSelector } from 'shared/lib/store'
 import { CategoryFilterOption } from 'shared/ui/categoryFilterOption'
 
 import './categoryFilter.scss'
 
 export const CategoryFilter = () => {
-    const [_currFilter, setCurrFilter] = useState<FilterOptions>(
-        FilterOptions.All
-    )
+    const category = useAppSelector(selectCategory)
+
+    const [_currFilter, setCurrFilter] = useState<Category>(category)
+
     return (
         <div className='categoryFilter_container'>
             <CategoryFilterOption
                 _currFilter={_currFilter}
                 setCurrFilter={setCurrFilter}
-                FilterOption={FilterOptions.All}
+                FilterOption=''
                 text='All'
             />
             <CategoryFilterOption
                 _currFilter={_currFilter}
                 setCurrFilter={setCurrFilter}
-                FilterOption={FilterOptions.For_fun}
+                FilterOption='FOR_FUN'
                 text='For fun'
             />
             <CategoryFilterOption
                 _currFilter={_currFilter}
                 setCurrFilter={setCurrFilter}
-                FilterOption={FilterOptions.For_work}
+                FilterOption='FOR_WORK'
                 text='For work'
             />
         </div>

@@ -25,7 +25,18 @@
     }
 
     div.app.dark & {
-        background-color: var(--green);
         color: var(--white);
+    }
+
+    .dark.all & {
+        background-color: var(--green);
+    }
+
+    .dark.fun & {
+        background-color: var(--purple);
+    }
+
+    .dark.work & {
+        background-color: var(--orange);
     }
 }

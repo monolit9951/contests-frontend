@@ -20,8 +20,6 @@
     }
 
     &.primary {
-        background-color: var(--green);
-
         &.button__s {
             font-size: 16px;
             line-height: 1.5;
@@ -149,6 +147,53 @@
         }
     }
 }
+
+.all {
+    .button.primary {
+        background-color: var(--green);
+
+        &:hover {
+            background-color: var(--green-light);
+        }
+        &:focus {
+            background-color: var(--green-light);
+        }
+        &:active {
+            background-color: var(--green-medium);
+        }
+    }
+}
+.fun {
+    .button.primary {
+        background-color: var(--purple);
+
+        &:hover {
+            background-color: var(--purple-light);
+        }
+        &:focus {
+            background-color: var(--purple-light);
+        }
+        &:active {
+            background-color: var(--purple-medium);
+        }
+    }
+}
+.work {
+    .button.primary {
+        background-color: var(--orange);
+
+        &:hover {
+            background-color: var(--orange-light);
+        }
+        &:focus {
+            background-color: var(--orange-light);
+        }
+        &:active {
+            background-color: var(--orange-medium);
+        }
+    }
+}
+
 @media (max-width: 1590px) {
     .button {
         padding: 12px 20px;

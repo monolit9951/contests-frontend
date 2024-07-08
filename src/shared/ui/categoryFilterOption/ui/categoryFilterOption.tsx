@@ -1,14 +1,14 @@
 import { Category } from 'entities/contest'
+import { CategoryTheme, useTheme } from 'entities/theme'
 import { filterActions } from 'features/filterContests'
-import { FilterOptions } from 'shared/consts'
 import { useAppDispatch } from 'shared/lib/store'
 
 import './categoryFilterOption.scss'
 
 interface CategoryFilterOptionProps {
-    _currFilter: FilterOptions
-    FilterOption: FilterOptions
-    setCurrFilter: React.Dispatch<React.SetStateAction<FilterOptions>>
+    _currFilter: Category
+    FilterOption: Category
+    setCurrFilter: React.Dispatch<React.SetStateAction<Category>>
     text: string
 }
 
@@ -18,6 +18,7 @@ export const CategoryFilterOption = ({
     setCurrFilter,
     text,
 }: CategoryFilterOptionProps) => {
+    const { toggleCategoryTheme } = useTheme()
     const dispatch = useAppDispatch()
 
     const onBtnClick = () => {
@@ -26,22 +27,27 @@ export const CategoryFilterOption = ({
         }
 
         let category: Category
+        let categoryTheme: CategoryTheme
 
         switch (FilterOption) {
-            case 1:
+            case 'FOR_FUN':
                 category = 'FOR_FUN'
+                categoryTheme = CategoryTheme.FOR_FUN
                 break
 
-            case 2:
+            case 'FOR_WORK':
                 category = 'FOR_WORK'
+                categoryTheme = CategoryTheme.FOR_WORK
                 break
 
             default:
                 category = ''
+                categoryTheme = CategoryTheme.ALL
                 break
         }
         dispatch(filterActions.changeCategory(category))
         setCurrFilter(FilterOption)
+        toggleCategoryTheme(categoryTheme)
     }
 
     return (

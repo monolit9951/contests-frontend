@@ -1,5 +1,6 @@
 import { FC, useMemo, useState } from 'react'
 import {
+    CategoryTheme,
     LOCAL_STORAGE_THEME_KEY,
     Theme,
     ThemeContext,
@@ -13,13 +14,18 @@ interface IThemeProvider {
 
 export const ThemeProvider: FC<IThemeProvider> = ({ children }) => {
     const [theme, setTheme] = useState<Theme>(defaultTheme)
+    const [categoryTheme, setCategoryTheme] = useState<CategoryTheme>(
+        CategoryTheme.ALL
+    )
 
     const defaultValue = useMemo(
         () => ({
             theme,
+            categoryTheme,
             setTheme,
+            setCategoryTheme,
         }),
-        [theme]
+        [theme, categoryTheme]
     )
 
     return (
