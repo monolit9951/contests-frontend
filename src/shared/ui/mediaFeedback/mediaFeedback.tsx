@@ -30,7 +30,7 @@ const MediaFeedback: FC<Props> = (props) => {
         <HStack className={clsx('feedback__wrapper', className)}>
             <HStack>
                 <RateButtons id={id} likes={likesNum} work border />
-                {comments && onCommentsClick && (
+                {onCommentsClick && (
                     <Button
                         variant='secondary'
                         size='s'
@@ -39,7 +39,7 @@ const MediaFeedback: FC<Props> = (props) => {
                         className='feedback__button'>
                         <Icon Svg={bubble} width={20} height={20} />
                         <Text Tag='span' size='sm'>
-                            {comments}
+                            {comments && comments}
                         </Text>
                     </Button>
                 )}

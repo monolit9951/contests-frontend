@@ -11,6 +11,7 @@ import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { UserIcon } from 'shared/ui/userIcon'
+import { Video } from 'shared/ui/videoPlayer'
 
 import './workComponent.scss'
 
@@ -98,14 +99,11 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                 <Image src={media[0].mediaLink} alt={`User's image`} />
             )}
             {work.typeWork === 'VIDEO' && media && (
-                <video
+                <Video
+                    url={media[0].mediaLink}
                     width={420}
                     height={720}
-                    src={media[0].mediaLink}
-                    autoPlay
-                    controls
-                    muted
-                    loop
+                    className='work-component__video'
                 />
             )}
 

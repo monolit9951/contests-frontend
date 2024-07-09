@@ -3,11 +3,13 @@ import clsx from 'clsx'
 import { Prize, TopPrize } from 'entities/prize'
 import { selectContestPrizes } from 'pages/contestPage/model/selectors'
 import { useAppSelector } from 'shared/lib/store'
+import { Button } from 'shared/ui/button'
 import { Image } from 'shared/ui/image'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { UserIcon } from 'shared/ui/userIcon'
+import { Video } from 'shared/ui/videoPlayer'
 
 import { Work } from '../model/types'
 
@@ -29,6 +31,8 @@ const WorkCard: FC<Props> = (props) => {
 
     const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
+    const { description, typeWork, media, user } = data
+
     const prize = prizes.find((item) => item.id === prizeId)
 
     const toggleReadMore = () => {
@@ -39,15 +43,15 @@ const WorkCard: FC<Props> = (props) => {
         openModal(data)
     }
 
-    if (data.typeWork === 'TEXT') {
+    if (typeWork === 'TEXT') {
         return (
             <li>
                 <VStack className={clsx('text-work', className)}>
                     <HStack className='justify__between align__center'>
                         <UserIcon
-                            src={data.user.profileImage}
+                            src={user.profileImage}
                             size={40}
-                            userName={data.user.name}
+                            userName={user.name}
                         />
                         {prize && <TopPrize data={prize} />}
                     </HStack>
@@ -55,12 +59,11 @@ const WorkCard: FC<Props> = (props) => {
                         Tag='p'
                         className='text-work__text'
                         onClick={onOpenModal}>
-                        {(data.description.length < 430 &&
-                            data.description) || (
+                        {(description.length < 430 && description) || (
                             <>
                                 {!isReadMore
-                                    ? data.description.slice(0, 430)
-                                    : `${data.description} `}
+                                    ? description.slice(0, 430)
+                                    : `${description}`}
                                 <button
                                     type='button'
                                     className='read-more-btn'
@@ -85,19 +88,22 @@ const WorkCard: FC<Props> = (props) => {
         <li>
             <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
-                    <MediaOverlay prize={prize} />
-                    {data.typeWork === 'VIDEO' && (
-                        <iframe
-                            title='media'
-                            width={458}
-                            height={612}
-                            src={data.media?.[0].mediaLink}
-                            className='media-work__frame'
-                        />
+                    <MediaOverlay
+                        prize={prize}
+                        user={user}
+                        imageCards={typeWork === 'IMAGE'}
+                    />
+                    {typeWork === 'VIDEO' && media && (
+                        <Button
+                            variant='div'
+                            onClick={onOpenModal}
+                            className='media-work__video'>
+                            <Video url={media[0].mediaLink} light />
+                        </Button>
                     )}
-                    {data.typeWork === 'IMAGE' && (
+                    {typeWork === 'IMAGE' && (
                         <Image
-                            src={data.media?.[0].mediaLink}
+                            src={media?.[0].mediaLink}
                             alt='media'
                             width={458}
                             height={612}

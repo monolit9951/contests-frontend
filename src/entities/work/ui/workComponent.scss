@@ -44,6 +44,10 @@
         }
     }
 
+    &__video {
+        border-radius: 24px;
+    }
+
     .tag-contest {
         width: -webkit-fit-content;
         padding: 4px;
@@ -70,10 +74,6 @@
             }
         }
     }
-
-    video {
-        border-radius: 24px;
-    }
 }
 
 .dark {
@@ -91,11 +91,11 @@
             }
         }
 
-        .tag-contest {
+        &__video {
             background-color: var(--green-dark);
         }
 
-        video {
+        .tag-contest {
             background-color: var(--green-dark);
         }
     }
@@ -115,12 +115,12 @@
             }
         }
 
-        .tag-contest {
-            background-color: var(--white-medium-light);
+        &__video {
+            background-color: var(--white);
         }
 
-        video {
-            background-color: var(--white);
+        .tag-contest {
+            background-color: var(--white-medium-light);
         }
     }
 }
