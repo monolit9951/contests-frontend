@@ -42,3 +42,15 @@
         pointer-events: all;
     }
 }
+
+.light {
+    .media__overlay {
+        .icon {
+            fill: var(--white-medium-light);
+        }
+
+        &__3 span {
+            color: var(--white-medium-light);
+        }
+    }
+}

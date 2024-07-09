@@ -11,6 +11,7 @@ import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { Flex, HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { UserIcon } from 'shared/ui/userIcon'
+import { Video } from 'shared/ui/videoPlayer'
 import { CommentsSection } from 'widgets/commentsSection'
 import { ImageSlider } from 'widgets/worksSection/ui/workPreview/imageSlider/imageSlider'
 
@@ -45,13 +46,10 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                     <ImageSlider images={media} />
                 )}
                 {work.typeWork === 'VIDEO' && media && (
-                    <video
+                    <Video
+                        url={media[0].mediaLink}
                         width={668}
-                        src={media[0].mediaLink}
-                        autoPlay
-                        controls
-                        muted
-                        loop
+                        className='preview__video'
                     />
                 )}
 
