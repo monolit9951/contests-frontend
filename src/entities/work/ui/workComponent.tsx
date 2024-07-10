@@ -103,6 +103,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                     url={media[0].mediaLink}
                     width={420}
                     height={720}
+                    light
                     className='work-component__video'
                 />
             )}
