@@ -1,6 +1,8 @@
 .react-player {
     &__preview {
         border-radius: 24px;
+        background-size: contain !important;
+        background-repeat: no-repeat;
 
         img {
             object-fit: contain;

@@ -18,7 +18,6 @@ const Video: FC<Props> = (props) => {
     const videoRef = useRef<HTMLVideoElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const [previewImage, setPreviewImage] = useState('')
-    useEffect(() => {}, [])
 
     if (light) {
         useEffect(() => {
@@ -67,6 +66,23 @@ const Video: FC<Props> = (props) => {
                 }
             }
         }, [url])
+
+        useEffect(() => {
+            if (previewImage) {
+                const previewDiv = document.querySelector(
+                    '.react-player__preview'
+                ) as HTMLDivElement
+
+                if (previewDiv) {
+                    const backgroundImage = window
+                        .getComputedStyle(previewDiv)
+                        .getPropertyValue('background-image')
+                    if (!backgroundImage || backgroundImage === 'none') {
+                        previewDiv.style.backgroundImage = `url(${previewImage})`
+                    }
+                }
+            }
+        }, [previewImage])
     }
 
     return (
@@ -75,22 +91,7 @@ const Video: FC<Props> = (props) => {
                 url={url}
                 width={width}
                 height={height}
-                light={
-                    light &&
-                    (previewImage ? (
-                        <img
-                            src={previewImage}
-                            alt='Video preview'
-                            width={width}
-                            height={height}
-                        />
-                    ) : (
-                        <div
-                            className='video-preview-skeleton'
-                            style={{ width, height }}
-                        />
-                    ))
-                }
+                light={light}
                 playing
                 loop
                 controls
