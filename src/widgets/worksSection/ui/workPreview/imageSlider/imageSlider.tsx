@@ -10,17 +10,27 @@ interface ImageSliderProps {
 
 export const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
     const [currentSlide, setCurrentSlide] = useState(0)
+    const [showButton, setShowButton] = useState(true)
 
     const nextSlide = () => {
+        setShowButton(false)
+
         setCurrentSlide((_prev) =>
             _prev === images.length - 1 ? 0 : _prev + 1
         )
+        setTimeout(() => {
+            setShowButton(true)
+        }, 550)
     }
 
     const prevSlide = () => {
+        setShowButton(false)
         setCurrentSlide((_prev) =>
             _prev === 0 ? images.length - 1 : _prev - 1
         )
+        setTimeout(() => {
+            setShowButton(true)
+        }, 550)
     }
 
     const handleDotClick = (index: number) => {
@@ -53,12 +63,16 @@ export const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
                     />
                 ))}
             </div>
-            <button type='button' className='prev-btn' onClick={prevSlide}>
-                &#x25C0;
-            </button>
-            <button type='button' className='next-btn' onClick={nextSlide}>
-                &#x25B6;
-            </button>
+            {currentSlide !== 0 && showButton && (
+                <button type='button' className='prev-btn' onClick={prevSlide}>
+                    &#x25C0;
+                </button>
+            )}
+            {currentSlide !== images.length - 1 && showButton && (
+                <button type='button' className='next-btn' onClick={nextSlide}>
+                    &#x25B6;
+                </button>
+            )}
         </div>
     )
 }
