@@ -94,6 +94,7 @@ const СommentsSection = ({ ownerId, work }: Props) => {
                     <UserIcon size={40} wrapperClassName='align__start' />
                     <VStack className='comments__input-box'>
                         <Input
+                            name='comment'
                             type='text'
                             placeholder='Add a comment...'
                             className='comments__input'
@@ -131,6 +132,7 @@ const СommentsSection = ({ ownerId, work }: Props) => {
                 <HStack className='comments__input-wrapper-work align__center'>
                     <UserIcon size={40} />
                     <Input
+                        name='comment'
                         type='text'
                         placeholder='Add a comment...'
                         className='comments__input'

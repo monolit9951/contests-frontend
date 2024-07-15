@@ -73,6 +73,10 @@ input[type='time']::-webkit-calendar-picker-indicator {
             line-height: 1.33;
             color: var(--danger);
         }
+
+        svg {
+            fill: var(--danger);
+        }
     }
 }
 

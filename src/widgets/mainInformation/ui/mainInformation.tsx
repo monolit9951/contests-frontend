@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setContestName } from 'pages/contestsCreationPage/model/services';
+import { setContestName } from 'pages/contestsCreationPage/model/services'
 import creatorsDecision from 'shared/assets/icons/creatorsDecision.svg?react'
 import eye from 'shared/assets/icons/eye.svg?react'
 import heart from 'shared/assets/icons/heart.svg?react'
@@ -18,17 +18,19 @@ import { MainInformationCombobox } from 'shared/ui/mainInformationCombobox/ui/ma
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
-import {categories, subcategories} from "../mockData"
+import { categories, subcategories } from '../mockData'
 
 import './mainInformation.scss'
 
 export const MainInformation = React.memo(() => {
-    const dispatch: AppDispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch()
 
-
-    const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setContestName(e.target.value));
-    }, [dispatch]);
+    const handleNameChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch(setContestName(e.target.value))
+        },
+        [dispatch]
+    )
     return (
         <VStack className='mainInformation_container'>
             <VStack className='mainInformation_title_categories_container'>
@@ -37,19 +39,33 @@ export const MainInformation = React.memo(() => {
                 </Text>
                 <VStack className='mainInformationInput_container'>
                     <Text Tag='p' className='title'>
-                    Title
+                        Title
                     </Text>
                     <Input
+                        name='name'
                         type='text'
-                        placeholder="Placeholder"
+                        placeholder='Placeholder'
                         className='input'
-                        value={useSelector((state: RootState) => state.contestsCreationPage.name)}
+                        value={useSelector(
+                            (state: RootState) =>
+                                state.contestsCreationPage.name
+                        )}
                         onChange={(e) => handleNameChange(e)}
                     />
                 </VStack>
                 <HStack className='categoryInputs_container'>
-                    <MainInformationCombobox title='Category' placeholder='Select category' options={categories} width="100%"/>
-                    <MainInformationCombobox title='Subcategory' placeholder='Select subcategory' options={subcategories} width="100%"/>
+                    <MainInformationCombobox
+                        title='Category'
+                        placeholder='Select category'
+                        options={categories}
+                        width='100%'
+                    />
+                    <MainInformationCombobox
+                        title='Subcategory'
+                        placeholder='Select subcategory'
+                        options={subcategories}
+                        width='100%'
+                    />
                 </HStack>
             </VStack>
 
