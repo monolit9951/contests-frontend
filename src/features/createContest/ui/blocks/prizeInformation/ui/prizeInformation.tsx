@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import win1 from 'shared/assets/icons/win1.svg?react'
 import win2 from 'shared/assets/icons/win2.svg?react'
 import win3 from 'shared/assets/icons/win3.svg?react'
@@ -12,7 +12,7 @@ import { WinPlace } from '../entities/entities'
 
 import './prizeInformation.scss'
 
-export const PrizeInformation: React.FC = () => {
+export const PrizeInformation = () => {
     const [prizes, setPrizes] = useState<WinPlace[]>([
         {
             winIcon: win1,
@@ -96,32 +96,33 @@ export const PrizeInformation: React.FC = () => {
 
     const deletePrize = (index: number) => {
         setPrizes((prevPrizes) => {
-            const updatedPrizes = prevPrizes.filter((_, i) => i !== index).map((prize, i) => {
-                let winIcon;
-                switch (i + 1) {
-                    case 1:
-                        winIcon = win1;
-                        break;
-                    case 2:
-                        winIcon = win2;
-                        break;
-                    case 3:
-                        winIcon = win3;
-                        break;
-                    default:
-                        winIcon = win4;
-                        break;
-                }
-                return {
-                    ...prize,
-                    winIcon,
-                    place: i + 1,
-                };
-            });
-            return updatedPrizes;
-        });
-    };
-    
+            const updatedPrizes = prevPrizes
+                .filter((_, i) => i !== index)
+                .map((prize, i) => {
+                    let winIcon
+                    switch (i + 1) {
+                        case 1:
+                            winIcon = win1
+                            break
+                        case 2:
+                            winIcon = win2
+                            break
+                        case 3:
+                            winIcon = win3
+                            break
+                        default:
+                            winIcon = win4
+                            break
+                    }
+                    return {
+                        ...prize,
+                        winIcon,
+                        place: i + 1,
+                    }
+                })
+            return updatedPrizes
+        })
+    }
 
     return (
         <VStack className='prizeInformation_container'>

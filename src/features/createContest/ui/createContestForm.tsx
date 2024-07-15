@@ -6,6 +6,11 @@ import { HStack } from 'shared/ui/stack'
 
 import { ContestCreationFormData } from '../model/types'
 
+import { GalleryUpload } from './blocks/galleryUpload'
+import { MainInformation } from './blocks/mainInformation'
+import { PrizeInformation } from './blocks/prizeInformation'
+import { StageOfTheCompetition } from './blocks/stageOfTheCompetition'
+
 const CreateContestForm = () => {
     const navigate = useNavigate()
 
@@ -67,6 +72,11 @@ const CreateContestForm = () => {
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className='contest-form'>
+                <MainInformation />
+                <StageOfTheCompetition />
+                <PrizeInformation />
+                <GalleryUpload />
+
                 <HStack className='preview_create_container'>
                     <Button
                         variant='primary'

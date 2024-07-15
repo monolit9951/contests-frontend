@@ -1,6 +1,4 @@
-import React, { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { setContestName } from 'pages/contestsCreationPage/model/services';
+import { useFormContext } from 'react-hook-form'
 import creatorsDecision from 'shared/assets/icons/creatorsDecision.svg?react'
 import eye from 'shared/assets/icons/eye.svg?react'
 import heart from 'shared/assets/icons/heart.svg?react'
@@ -9,47 +7,64 @@ import questionMark from 'shared/assets/icons/question-mark.svg?react'
 import random from 'shared/assets/icons/random.svg?react'
 import cardIMGPlaceholder from 'shared/assets/img/cardIMGPlaceholder.jpg'
 import coverIMGPlaceholder from 'shared/assets/img/coverIMGPlaceholder.jpg'
-import { DescriptionInput } from 'shared/ui/descriptionInput'
 import { ImageUpload } from 'shared/ui/imageUpload'
-import { Input } from 'shared/ui/input'
+import { Input, Textarea } from 'shared/ui/input'
 import { MainInfoRadioEl } from 'shared/ui/mainInfoRadioEl'
 import { MainInfoRadioElContainer } from 'shared/ui/mainInfoRadioElContainer'
 import { MainInformationCombobox } from 'shared/ui/mainInformationCombobox/ui/mainInformationCombobox'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
-import {categories, subcategories} from "../mockData"
+import { categories, subcategories } from '../mockData'
 
 import './mainInformation.scss'
 
-export const MainInformation = React.memo(() => {
-    const dispatch: AppDispatch = useDispatch();
+export const MainInformation = () => {
+    const {
+        register,
+        formState: { errors },
+    } = useFormContext()
 
-
-    const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setContestName(e.target.value));
-    }, [dispatch]);
     return (
         <VStack className='mainInformation_container'>
             <VStack className='mainInformation_title_categories_container'>
                 <Text Tag='h2' className='mainInformation_container_header'>
                     Main information
                 </Text>
+
                 <VStack className='mainInformationInput_container'>
                     <Text Tag='p' className='title'>
-                    Title
+                        Title
                     </Text>
                     <Input
                         type='text'
-                        placeholder="Placeholder"
+                        placeholder='Enter contest name'
                         className='input'
-                        value={useSelector((state: RootState) => state.contestsCreationPage.name)}
-                        onChange={(e) => handleNameChange(e)}
+                        {...register('name', {
+                            required: 'Contest name is required',
+                            minLength: {
+                                value: 4,
+                                message: 'Enter minimum of 4 symbols',
+                            },
+                        })}
+                        maxLength={70}
+                        error={errors?.name && (errors.name.message as string)}
                     />
                 </VStack>
+
                 <HStack className='categoryInputs_container'>
-                    <MainInformationCombobox title='Category' placeholder='Select category' options={categories} width="100%"/>
-                    <MainInformationCombobox title='Subcategory' placeholder='Select subcategory' options={subcategories} width="100%"/>
+                    <MainInformationCombobox
+                        title='Category'
+                        placeholder='Select category'
+                        options={categories}
+                        width='100%'
+                    />
+                    <MainInformationCombobox
+                        title='Subcategory'
+                        placeholder='Select subcategory'
+                        options={subcategories}
+                        width='100%'
+                    />
                 </HStack>
             </VStack>
 
@@ -63,7 +78,26 @@ export const MainInformation = React.memo(() => {
                 img={cardIMGPlaceholder}
                 imgAlt='cardIMGPlaceholder'
             />
-            <DescriptionInput />
+
+            {/* <DescriptionInput /> */}
+            <VStack className='descriptionInput_container'>
+                <Text Tag='p' className='title'>
+                    Description
+                </Text>
+                <Textarea
+                    className='description_placeholder'
+                    placeholder='Write more information...'
+                    {...register('description', {
+                        required: 'Desciption is required',
+                        minLength: 16,
+                    })}
+                    maxLength={200}
+                    error={errors?.name && (errors.name.message as string)}
+                />
+                <Text Tag='p' className='description_requirements'>
+                    Please enter at least 40 characters
+                </Text>
+            </VStack>
 
             <VStack className='mainInfoRadioElContainers_container'>
                 <MainInfoRadioElContainer
@@ -88,4 +122,4 @@ export const MainInformation = React.memo(() => {
             </VStack>
         </VStack>
     )
-})
+}
