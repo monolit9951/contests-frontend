@@ -20,6 +20,7 @@ export const Searchbar = (props: SearchbarProps) => {
         <div className='searchbar_container'>
             <Icon Svg={magnifyingGlass} clickable onClick={onSubmit} />
             <Input
+                name='search'
                 type='text'
                 value={searchData}
                 onChange={(e) => onChange(e.target.value)}

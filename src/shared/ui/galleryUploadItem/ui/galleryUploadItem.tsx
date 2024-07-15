@@ -3,7 +3,6 @@ import upload from 'shared/assets/icons/upload.svg?react'
 import X from 'shared/assets/icons/X.svg?react'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
-import { Input } from 'shared/ui/input'
 import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
@@ -91,7 +90,7 @@ export const GalleryUploadItem = ({
                             </Text>
                             <Icon Svg={upload} width={20} height={20} />
                         </label>
-                        <Input
+                        <input
                             type='file'
                             id='upload-btn_id'
                             accept='image/*'
