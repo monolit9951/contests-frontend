@@ -1,4 +1,4 @@
-import { FC, forwardRef, ReactNode, SVGProps } from 'react'
+import React from 'react'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import { Icon } from 'shared/ui/icon'
@@ -16,27 +16,25 @@ const variantClasses: Record<VariantTypes, string> = {
     div: 'div',
 }
 
-interface IButton {
-    children?: string | ReactNode
+interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    children?: string | React.ReactNode
     variant: VariantTypes
-    title?: string
     size?: SizeTypes
     className?: string
-    disabled?: boolean
-    onClick: () => void
-    icon?: FC<SVGProps<SVGSVGElement>> | string
+    onClick?: () => void
+    icon?: React.FC<React.SVGProps<SVGSVGElement>> | string
 }
 
-const Button = forwardRef<HTMLButtonElement, IButton>((props, ref) => {
+const Button = React.forwardRef<HTMLButtonElement, IButton>((props, ref) => {
     const {
         children,
         variant = 'primary',
-        title,
         size,
+        type,
         className,
-        disabled = false,
         onClick,
         icon,
+        ...rest
     } = props
 
     const { theme } = useTheme()
@@ -44,9 +42,9 @@ const Button = forwardRef<HTMLButtonElement, IButton>((props, ref) => {
     return (
         <button
             ref={ref}
-            type='button'
-            title={title}
-            disabled={disabled}
+            {...rest}
+            // eslint-disable-next-line react/button-has-type
+            type={type ?? 'button'}
             onClick={onClick}
             className={clsx(
                 'button',
