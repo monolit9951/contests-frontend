@@ -3,7 +3,7 @@ import { Organizer } from 'entities/user'
 import { Work } from 'entities/work'
 import { PageEntityDTO } from 'shared/lib/types'
 
-type Status = 'ACTIVE' | 'INACTIVE' | 'PAUSED' | 'FINISHED' | 'UPCOMING'
+export type Status = 'ACTIVE' | 'INACTIVE' | 'PAUSED' | 'FINISHED' | 'UPCOMING'
 
 export type Category = '' | 'FOR_FUN' | 'FOR_WORK'
 
