@@ -26,7 +26,7 @@ export const PrizePlace: React.FC<PrizePlaceProps> = ({
     onDelete,
     index,
 }) => {
-    const [comboValue, setComboValue] = useState("")
+    const [comboValue, setComboValue] = useState('')
 
     return (
         <VStack className='prizePlace_outercontainer'>
@@ -43,6 +43,7 @@ export const PrizePlace: React.FC<PrizePlaceProps> = ({
                         Number of winners
                     </Text>
                     <Input
+                        name='winners'
                         type='number'
                         placeholder='10'
                         className='winnersNum_input'
@@ -61,6 +62,7 @@ export const PrizePlace: React.FC<PrizePlaceProps> = ({
                         Prize name
                     </Text>
                     <Input
+                        name='prizeName'
                         type='text'
                         placeholder='10 000 $'
                         className='prizeName_input'

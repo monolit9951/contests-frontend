@@ -1,4 +1,4 @@
-import { ChangeEvent, InputHTMLAttributes, useState } from 'react'
+import React, { ChangeEvent, forwardRef } from 'react'
 import clsx from 'clsx'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import infoIcon from 'shared/assets/icons/info.svg?react'
@@ -8,6 +8,17 @@ import { HStack, VStack } from '../stack'
 import { Text } from '../text'
 
 import './input.scss'
+
+type HTMLInputProps = Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    | 'name'
+    | 'onChange'
+    | 'onBlur'
+    | 'placeholder'
+    | 'type'
+    | 'value'
+    | 'className'
+>
 
 type InputTypes =
     | 'button'
@@ -33,7 +44,12 @@ type InputTypes =
     | 'url'
     | 'week'
 
-interface IInput extends InputHTMLAttributes<HTMLInputElement> {
+interface IInput extends HTMLInputProps {
+    name: string
+    onBlur?: (event: ChangeEvent<HTMLInputElement>) => void
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void
+    placeholder?: string
+    value?: string
     type: InputTypes
     label?: string
     error?: string
@@ -42,7 +58,7 @@ interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     className?: string
 }
 
-export default function Input(props: IInput) {
+const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
     const {
         type,
         name,
@@ -57,19 +73,15 @@ export default function Input(props: IInput) {
         className,
         ...rest
     } = props
-    const [inputData, setInputData] = useState<string>('')
-
-    const onChangeInputData = (e: ChangeEvent<HTMLInputElement>) => {
-        setInputData(e.target.value)
-    }
 
     const input = (
         <input
             type={type}
             name={name}
-            value={value ?? inputData}
-            onChange={onChange ?? onChangeInputData}
+            value={value}
+            onChange={onChange}
             onBlur={onBlur}
+            ref={ref}
             placeholder={placeholder}
             className={clsx('input', error && 'error', className)}
             {...rest}
@@ -98,4 +110,5 @@ export default function Input(props: IInput) {
     }
 
     return input
-}
+})
+export default Input

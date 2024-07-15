@@ -8,10 +8,10 @@ import './descriptionInput.scss'
 
 export const DescriptionInput = () => {
     const dispatch: AppDispatch = useDispatch()
-    
+
     const value = useSelector((state: RootState) => {
-        return state.contestsCreationPage.description;
-    });
+        return state.contestsCreationPage.description
+    })
 
     const TextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         dispatch(setContestDescription(e.target.value))
@@ -23,6 +23,7 @@ export const DescriptionInput = () => {
                 Description
             </Text>
             <Textarea
+                name='description'
                 className='description_placeholder'
                 placeholder='Write more information...'
                 value={value}

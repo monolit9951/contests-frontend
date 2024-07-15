@@ -19,6 +19,7 @@ const CommentInput: FC<Props> = (props) => {
             <UserIcon size={40} wrapperClassName='align__start' />
             <VStack className='comment-reply__input-box'>
                 <Input
+                    name='commentReply'
                     type='text'
                     placeholder='Add a reply...'
                     className='comment-reply__input'

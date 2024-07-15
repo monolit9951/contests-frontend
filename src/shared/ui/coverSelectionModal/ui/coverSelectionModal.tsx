@@ -12,7 +12,6 @@ import { Button } from 'shared/ui/button'
 import { Divider } from 'shared/ui/divider'
 import { Icon } from 'shared/ui/icon'
 import { Image } from 'shared/ui/image'
-import { Input } from 'shared/ui/input'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import { Flex, HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
@@ -66,7 +65,7 @@ export const CoverSelectionModal = ({
 
     const confirmImage = () => {
         if (imgAlt === 'coverIMGPlaceholder') {
-             dispatch(setContestBackgroundImage(currImg))
+            dispatch(setContestBackgroundImage(currImg))
         } else {
             dispatch(setContestPreivewImage(currImg))
         }
@@ -206,7 +205,7 @@ export const CoverSelectionModal = ({
                                             className='custom-cover-upload-btn-icon'
                                         />
                                     </label>
-                                    <Input
+                                    <input
                                         type='file'
                                         id='custom-cover-upload-btn_id'
                                         accept='image/*'

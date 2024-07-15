@@ -149,6 +149,7 @@ export default function FilterBlock(props: FilterBlockProps) {
                         <HStack className='align__center'>
                             <Text Tag='span'>From</Text>
                             <Input
+                                name='prizeFrom'
                                 type='number'
                                 value={lowerBound}
                                 step={1000}
@@ -164,6 +165,7 @@ export default function FilterBlock(props: FilterBlockProps) {
                         <HStack className='align__center '>
                             <Text Tag='span'>To</Text>
                             <Input
+                                name='prizeTo'
                                 type='number'
                                 value={upperBound}
                                 step={1000}
