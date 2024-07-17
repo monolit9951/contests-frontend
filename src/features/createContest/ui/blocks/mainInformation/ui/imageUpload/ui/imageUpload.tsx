@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import basicCover1 from 'shared/assets/img/basicCover1.png'
-import basicCover2 from 'shared/assets/img/basicCover2.png'
-import basicCover3 from 'shared/assets/img/basicCover3.png'
-import basicCover4 from 'shared/assets/img/basicCover4.png'
+import clsx from 'clsx'
+import info from 'shared/assets/icons/question-mark.svg?react'
+import upload from 'shared/assets/icons/upload.svg?react'
+import cardIMGPlaceholder from 'shared/assets/img/cardIMGPlaceholder.jpg'
+import coverIMGPlaceholder from 'shared/assets/img/coverIMGPlaceholder.jpg'
 import { Button } from 'shared/ui/button'
 import { CoverSelectionModal } from 'shared/ui/coverSelectionModal'
 import { Icon } from 'shared/ui/icon'
@@ -10,37 +11,26 @@ import Image from 'shared/ui/image/image'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
-import info from '../../../assets/icons/question-mark.svg?react'
-import upload from '../../../assets/icons/upload.svg?react'
-
 import './imageUpload.scss'
 
 interface ImageUploadProps {
     text: string
-    img: string
-    imgAlt: string
 }
 
-const covers = [
-    { img: basicCover1 },
-    { img: basicCover2 },
-    { img: basicCover3 },
-    { img: basicCover4 },
-]
-
-export const ImageUpload = ({ text, img, imgAlt }: ImageUploadProps) => {
+export const ImageUpload = ({ text }: ImageUploadProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const [isUploading, setIsUploading] = useState<boolean>(false)
-    const [currImg, setCurrImg] = useState<string>()
+    const [chosenImg, setChosenImg] = useState<string>('')
+    const [imageValidationMessage, setImageValidationMessage] = useState('')
 
-    const imgClassName =
-        img === '/src/shared/assets/img/cardIMGPlaceholder.jpg' ||
-        img === '/src/shared/assets/img/coverIMGPlaceholder.jpg'
-            ? 'defaultImg'
-            : ''
     return (
         <>
-            <CoverSelectionModal covers={covers} isOpen={isOpen} isUploading={isUploading} setCurrImg={setCurrImg} setIsOpen={setIsOpen} setIsUploading={setIsUploading} currImg={currImg} imgAlt={imgAlt}/>        
+            <CoverSelectionModal
+                isOpen={isOpen}
+                setChosenImg={setChosenImg}
+                setIsOpen={setIsOpen}
+                isCover={text === 'Cover image'}
+                setImageValidationMessage={setImageValidationMessage}
+            />
 
             <HStack className='imageUpload_container'>
                 <VStack className='imagePreview_container'>
@@ -50,9 +40,17 @@ export const ImageUpload = ({ text, img, imgAlt }: ImageUploadProps) => {
                     </HStack>
                     <HStack className='imageUpload_imagecontainer'>
                         <Image
-                            src={img}
-                            alt={imgAlt}
-                            className={imgClassName}
+                            src={
+                                chosenImg ||
+                                (text === 'Cover image'
+                                    ? coverIMGPlaceholder
+                                    : cardIMGPlaceholder)
+                            }
+                            alt='Preview image'
+                            className={clsx(
+                                !chosenImg && 'defaultImg',
+                                text === 'Cover image' && 'coverImg'
+                            )}
                         />
                     </HStack>
                 </VStack>
@@ -67,11 +65,21 @@ export const ImageUpload = ({ text, img, imgAlt }: ImageUploadProps) => {
                         <br />
                         File size – no more than 6 MB
                     </Text>
+                    {imageValidationMessage && (
+                        <Text Tag='p' className='text_btn_container_error'>
+                            {imageValidationMessage}
+                        </Text>
+                    )}
+
                     <Button
                         variant='secondary'
                         className='text_btn_container_uploadBtn'
                         onClick={() => setIsOpen(true)}>
-                        <Text Tag='p' className='text_btn_container_uploadBtn_text'>Upload</Text>
+                        <Text
+                            Tag='p'
+                            className='text_btn_container_uploadBtn_text'>
+                            Upload
+                        </Text>
                         <Icon Svg={upload} width={20} height={20} />
                     </Button>
                 </VStack>

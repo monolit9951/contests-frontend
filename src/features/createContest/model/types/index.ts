@@ -5,7 +5,7 @@ export interface ContestCreationRequestBody {
     name: string
     status: Status
     category: Category
-    subcategory: SubCategory
+    subcategory: SubCategory | ''
     backgroundImage: string
     previewImage: string
     selectionType: 'RANDOM' | 'VIEWER_VOTING' | 'CREATOR_DECISION'
