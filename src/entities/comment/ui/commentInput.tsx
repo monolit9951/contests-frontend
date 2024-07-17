@@ -22,7 +22,6 @@ const CommentInput: FC<Props> = (props) => {
                     name='commentReply'
                     type='text'
                     placeholder='Add a reply...'
-                    className='comment-reply__input'
                     value={inputData}
                     autoFocus
                     onChange={(e) => setInputData(e.target.value)}

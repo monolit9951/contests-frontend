@@ -11,13 +11,7 @@ import './input.scss'
 
 type HTMLInputProps = Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    | 'name'
-    | 'onChange'
-    | 'onBlur'
-    | 'placeholder'
-    | 'type'
-    | 'value'
-    | 'className'
+    'onChange' | 'onBlur' | 'placeholder' | 'type' | 'value' | 'className'
 >
 
 type InputTypes =
@@ -45,7 +39,6 @@ type InputTypes =
     | 'week'
 
 interface IInput extends HTMLInputProps {
-    name: string
     onBlur?: (event: ChangeEvent<HTMLInputElement>) => void
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void
     placeholder?: string
@@ -91,7 +84,11 @@ const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
     if (label ?? info ?? error) {
         return (
             <VStack className={clsx('input-wrapper', wrapperClassName)}>
-                {label && <label htmlFor={name}>{label}</label>}
+                {label && (
+                    <label className='input-wrapper__label' htmlFor={name}>
+                        {label}
+                    </label>
+                )}
                 {input}
                 {info && (
                     <HStack className='input-wrapper__info'>

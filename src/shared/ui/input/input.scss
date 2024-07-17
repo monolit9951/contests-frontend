@@ -25,7 +25,7 @@ input[type='time']::-webkit-calendar-picker-indicator {
 }
 
 .input {
-    width: 246px;
+    width: 100%;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid;
@@ -82,9 +82,12 @@ input[type='time']::-webkit-calendar-picker-indicator {
 
 .dark {
     .input {
-        border-color: var(--green-dark);
         color: var(--white);
         background-color: var(--green-dark);
+
+        &:not(.error) {
+            border-color: var(--green-dark);
+        }
 
         &:disabled {
             color: var(--white-transp-30);
@@ -101,9 +104,12 @@ input[type='time']::-webkit-calendar-picker-indicator {
 }
 .light {
     .input {
-        border-color: var(--border-grey);
         color: var(--text-main);
         background-color: var(--white-medium-light);
+
+        &:not(.error) {
+            border-color: var(--border-grey);
+        }
 
         &:disabled {
             color: var(--text-placeholder);

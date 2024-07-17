@@ -57,7 +57,11 @@ const Textarea = forwardRef<HTMLTextAreaElement, ITextarea>((props, ref) => {
     if (label ?? info ?? error) {
         return (
             <VStack className={clsx('input-wrapper', wrapperClassName)}>
-                {label && <label htmlFor={name}>{label}</label>}
+                {label && (
+                    <label className='input-wrapper__label' htmlFor={name}>
+                        {label}
+                    </label>
+                )}
                 {textarea}
                 {info && (
                     <HStack className='input-wrapper__info'>
