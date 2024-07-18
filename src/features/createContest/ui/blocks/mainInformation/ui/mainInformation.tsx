@@ -99,7 +99,7 @@ export const MainInformation = ({ submitError }: Props) => {
             {submitError &&
                 (!getValues('backgroundImage') ||
                     !getValues('previewImage')) && (
-                    <HStack className='imageInputs_error'>
+                    <HStack className='input-error-container'>
                         <Icon Svg={alertIcon} />
                         <Text Tag='p'>Images are required</Text>
                     </HStack>

@@ -28,21 +28,6 @@
         gap: 28px;
     }
 
-    .imageInputs_error {
-        align-items: center;
-        gap: 4px;
-
-        & > p {
-            font-size: 12px;
-            line-height: 1.33;
-            color: var(--danger);
-        }
-
-        svg {
-            fill: var(--danger);
-        }
-    }
-
     .descriptionInput_container {
         max-width: 960px;
 

@@ -1,8 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux'
-import {
-    setContestDateEnd,
-    setContestDateStart,
-} from 'pages/contestsCreationPage/model/services'
+import { Controller, useFormContext } from 'react-hook-form'
+import alertIcon from 'shared/assets/icons/alert.svg?react'
+import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
@@ -10,67 +8,141 @@ import { Text } from 'shared/ui/text'
 import './competitionTimeInput.scss'
 
 interface CompetitionTimeInputProps {
-    dateTitle: string
-    timeTitle: string
+    isStart?: boolean
 }
 
 export const CompetitionTimeInput = ({
-    dateTitle,
-    timeTitle,
+    isStart,
 }: CompetitionTimeInputProps) => {
-    const dispatch: AppDispatch = useDispatch()
+    const {
+        control,
+        watch,
+        formState: { errors },
+        setValue,
+        getValues,
+    } = useFormContext()
 
-    const dateFull = useSelector((state: RootState) =>
-        dateTitle === 'Start date'
-            ? state.contestsCreationPage.dateStart
-            : state.contestsCreationPage.dateEnd
-    )
+    const startingDate = getValues('startDate')
 
-    const [dateValue, timeValue] = dateFull.split(' ')
+    const combineDateTimeStart = () => {
+        const dateStart = watch('startDate')
+        const timeStart = watch('startTime')
 
-    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const dateValues = e.target.value
-        const newDateFull = `${dateValues} ${timeValue}`
-        if (dateTitle === 'Start date') {
-            dispatch(setContestDateStart(newDateFull))
-        } else {
-            dispatch(setContestDateEnd(newDateFull))
+        if (dateStart && timeStart) {
+            const combinedStart = new Date(`${dateStart}T${timeStart}`)
+            setValue('dateStart', combinedStart.toISOString())
         }
     }
 
-    const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const timeValues = e.target.value
-        const newDateFull = `${dateValue} ${timeValues}`
-        if (dateTitle === 'Start date') {
-            dispatch(setContestDateStart(newDateFull))
-        } else {
-            dispatch(setContestDateEnd(newDateFull))
+    const combineDateTimeEnd = () => {
+        const dateEnd = watch('endDate')
+        const timeEnd = watch('endTime')
+
+        if (dateEnd && timeEnd) {
+            const combinedEnd = new Date(`${dateEnd}T${timeEnd}`)
+            setValue('dateEnd', combinedEnd.toISOString())
         }
     }
 
     return (
         <HStack className='competitionTimeInput_container'>
             <VStack className='dateInput_container'>
-                <Text Tag='p'>{dateTitle}</Text>
-                <Input
-                    name='date'
-                    type='date'
-                    placeholder='Placeholder'
-                    className='dateInput'
-                    value={dateValue}
-                    onChange={handleDateChange}
+                <Text Tag='p'>{isStart ? 'Start' : 'Deadline'} date</Text>
+                <Controller
+                    name={`${isStart ? 'start' : 'end'}Date`}
+                    control={control}
+                    defaultValue={new Date().toISOString().split('T')[0]}
+                    rules={{
+                        required: `${
+                            isStart ? 'Start ' : 'Deadline'
+                        } date is required`,
+                    }}
+                    render={({ field }) => (
+                        <Input
+                            type='date'
+                            {...field}
+                            min={
+                                isStart
+                                    ? new Date().toISOString().split('T')[0]
+                                    : startingDate
+                            }
+                            placeholder='Placeholder'
+                            className='dateInput'
+                            onChange={(e) => {
+                                field.onChange(e)
+                                if (isStart) {
+                                    combineDateTimeStart()
+                                } else {
+                                    combineDateTimeEnd()
+                                }
+                            }}
+                        />
+                    )}
                 />
+                {isStart
+                    ? errors.startDate && (
+                          <HStack className='input-error-container'>
+                              <Icon Svg={alertIcon} />
+                              <Text Tag='p'>
+                                  {errors.startDate.message as string}
+                              </Text>
+                          </HStack>
+                      )
+                    : errors.endDate && (
+                          <HStack className='input-error-container'>
+                              <Icon Svg={alertIcon} />
+                              <Text Tag='p'>
+                                  {errors.endDate.message as string}
+                              </Text>
+                          </HStack>
+                      )}
             </VStack>
             <VStack className='timeInput_container'>
-                <Text Tag='p'>{timeTitle}</Text>
-                <Input
-                    name='time'
-                    type='time'
-                    placeholder='Placeholder'
-                    className='timeInput'
-                    value={timeValue}
-                    onChange={handleTimeChange}
+                <Text Tag='p'>{isStart ? 'Start' : 'Deadline'} time</Text>
+
+                <Controller
+                    name={`${isStart ? 'start' : 'end'}Time`}
+                    control={control}
+                    rules={{
+                        required: `${
+                            isStart ? 'Start ' : 'Deadline'
+                        } time is required`,
+                    }}
+                    render={({ field }) => (
+                        <Input
+                            name={field.name}
+                            type='time'
+                            value={field.value || ''}
+                            placeholder='Placeholder'
+                            className='timeInput'
+                            onChange={(e) => {
+                                field.onChange(e)
+                                if (isStart) {
+                                    combineDateTimeStart()
+                                } else {
+                                    combineDateTimeEnd()
+                                }
+                            }}
+                        />
+                    )}
                 />
+                {isStart
+                    ? errors.startTime && (
+                          <HStack className='input-error-container'>
+                              <Icon Svg={alertIcon} />
+                              <Text Tag='p'>
+                                  {errors.startTime.message as string}
+                              </Text>
+                          </HStack>
+                      )
+                    : errors.startEnd && (
+                          <HStack className='input-error-container'>
+                              <Icon Svg={alertIcon} />
+                              <Text Tag='p'>
+                                  {errors.startEnd.message as string}
+                              </Text>
+                          </HStack>
+                      )}
             </VStack>
         </HStack>
     )
