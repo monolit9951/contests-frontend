@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setContestExampleMedia } from 'pages/contestsCreationPage/model/services'
+import { useFormContext } from 'react-hook-form'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
 import { GalleryUploadItem } from 'shared/ui/galleryUploadItem'
 import { Icon } from 'shared/ui/icon'
@@ -9,8 +8,15 @@ import { Text } from 'shared/ui/text'
 
 import './galleryUpload.scss'
 
+interface GalleryItem {
+    id: number
+    hasImage: boolean
+    file?: File
+    imgUrl: string
+}
+
 export const GalleryUpload = () => {
-    const [galleryItems, setGalleryItems] = useState([
+    const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([
         { id: 0, hasImage: false, imgUrl: '' },
         { id: 1, hasImage: false, imgUrl: '' },
         { id: 2, hasImage: false, imgUrl: '' },
@@ -21,16 +27,15 @@ export const GalleryUpload = () => {
         { id: 7, hasImage: false, imgUrl: '' },
     ])
 
-    const dispatch: AppDispatch = useDispatch()
+    const { setValue } = useFormContext()
 
     useEffect(() => {
         const mediaUrls = galleryItems
-            .filter(item => item.imgUrl !== '')
-            .map(item => item.imgUrl);
+            .filter((item) => item.file)
+            .map((item) => item.file)
 
-        dispatch(setContestExampleMedia(mediaUrls));
-    }, [galleryItems, dispatch]);
-
+        setValue('exampleMedia', mediaUrls)
+    }, [galleryItems])
 
     return (
         <VStack className='galleryUpload_container'>
@@ -51,6 +56,7 @@ export const GalleryUpload = () => {
             <div className='grid_photo_container'>
                 {galleryItems.map((galleryItem) => (
                     <GalleryUploadItem
+                        key={galleryItem.id}
                         galleryItem={galleryItem}
                         galleryItems={galleryItems}
                         setGalleryItems={setGalleryItems}

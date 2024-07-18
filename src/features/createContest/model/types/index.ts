@@ -13,7 +13,7 @@ export interface ContestCreationRequestBody {
     dateStart: string
     dateEnd: string
     description: string
-    exampleMedia?: string[]
+    exampleMedia: string[]
     prizes: Prize[]
     contestOpen: boolean
     contestOwnerId: string
