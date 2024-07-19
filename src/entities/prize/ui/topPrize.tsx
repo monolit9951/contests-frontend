@@ -1,14 +1,11 @@
 import { FC } from 'react'
 import clsx from 'clsx'
-import first from 'shared/assets/icons/win1.svg'
-import second from 'shared/assets/icons/win2.svg'
-import third from 'shared/assets/icons/win3.svg'
-import fourth from 'shared/assets/icons/win4.svg'
-import { Image } from 'shared/ui/image'
 import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import { Prize } from '../model/types'
+
+import { PrizeIcon } from './prizeIcon'
 
 import './topPrize.scss'
 
@@ -20,21 +17,7 @@ interface Props {
 const TopPrize: FC<Props> = (props) => {
     const { data, className } = props
 
-    const { prizeAmount, prizeType, prizeText, currency } = data
-
-    const prizeIcon = () => {
-        switch (data.place) {
-            case 1:
-                return first
-            case 2:
-                return second
-            case 3:
-                return third
-
-            default:
-                return fourth
-        }
-    }
+    const { place, prizeAmount, prizeType, prizeText, currency } = data
 
     const currencySymbol = () => {
         switch (currency) {
@@ -52,9 +35,8 @@ const TopPrize: FC<Props> = (props) => {
 
     return (
         <HStack className={clsx('top-prize__wrapper', className)}>
-            <Image
-                src={prizeIcon()}
-                alt='place icon'
+            <PrizeIcon
+                place={place}
                 width={22}
                 height={22}
                 className='image__no-select'
@@ -63,7 +45,7 @@ const TopPrize: FC<Props> = (props) => {
                 Tag='span'
                 size='sm'
                 bold
-                className={`top-prize__${data.place}-amount`}>
+                className={`top-prize__${place}-amount`}>
                 {prizeType === 'ITEM'
                     ? `${prizeText}`
                     : `${prizeAmount} ${currencySymbol()}`}

@@ -1,5 +1,9 @@
 import { Category, Status, SubCategory } from 'entities/contest'
-import { Prize } from 'entities/prize'
+import { Prize, PrizeType } from 'entities/prize'
+
+export interface PrizeData extends Omit<Prize, 'prizeType'> {
+    prizeType: '' | PrizeType
+}
 
 export interface ContestCreationRequestBody {
     name: string
@@ -14,7 +18,7 @@ export interface ContestCreationRequestBody {
     dateEnd: string
     description: string
     exampleMedia: string[]
-    prizes: Prize[]
+    prizes: PrizeData[]
     contestOpen: boolean
     contestOwnerId: string
 }
