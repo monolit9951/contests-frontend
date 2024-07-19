@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import instance from 'shared/api/api'
@@ -11,14 +12,19 @@ import { MainInformation } from './blocks/mainInformation'
 import { PrizeInformation } from './blocks/prizeInformation'
 import { StageOfTheCompetition } from './blocks/stageOfTheCompetition'
 
+import './createContestForm.scss'
+
 const CreateContestForm = () => {
+    const [submitError, setSubmitError] = useState(false)
+    const [dateValidation, setDateValidation] = useState('')
+
     const navigate = useNavigate()
 
     const methods = useForm<ContestCreationFormData>({
         defaultValues: {
             name: '',
             status: 'ACTIVE',
-            category: '',
+            category: 'FOR_FUN',
             subcategory: 'SUBCATEGORY1',
             backgroundImage: '',
             previewImage: '',
@@ -28,7 +34,35 @@ const CreateContestForm = () => {
             dateEnd: new Date().toISOString(),
             description: '',
             exampleMedia: [],
-            prizes: [],
+            prizes: [
+                {
+                    id: crypto.randomUUID(),
+                    place: 1,
+                    winnersAmount: 1,
+                    prizeType: '',
+                    prizeText: '',
+                    currency: 'USD',
+                    prizeAmount: 0,
+                },
+                {
+                    id: crypto.randomUUID(),
+                    place: 2,
+                    winnersAmount: 1,
+                    prizeType: '',
+                    prizeText: '',
+                    currency: 'USD',
+                    prizeAmount: 0,
+                },
+                {
+                    id: crypto.randomUUID(),
+                    place: 3,
+                    winnersAmount: 1,
+                    prizeType: '',
+                    prizeText: '',
+                    currency: 'USD',
+                    prizeAmount: 0,
+                },
+            ],
             contestOpen: true,
         },
     })
@@ -36,6 +70,37 @@ const CreateContestForm = () => {
     const { handleSubmit } = methods
 
     const onSubmit = async (data: ContestCreationFormData) => {
+        const hasExampleMedia = data.exampleMedia?.some((file) => file)
+
+        if (data.dateStart >= data.dateEnd) {
+            setDateValidation('Deadline cannot be before starting date')
+
+            return
+        }
+
+        setDateValidation('')
+
+        const formData = new FormData()
+
+        formData.append('name', data.name)
+        formData.append('status', data.status)
+        formData.append('category', data.category)
+        formData.append('subcategory', data.subcategory)
+        formData.append('backgroundImage', data.backgroundImage)
+        formData.append('previewImage', data.previewImage)
+        formData.append('selectionType', data.selectionType)
+        formData.append('dateStart', data.dateStart)
+        formData.append('dateEnd', data.dateEnd)
+        formData.append('description', data.description)
+        formData.append('prizes', JSON.stringify(data.prizes))
+        formData.append('contestOpen', JSON.stringify(data.contestOpen))
+
+        if (hasExampleMedia) {
+            data.exampleMedia.forEach((file) => {
+                formData.append('exampleMedia', file)
+            })
+        }
+
         let contestOwnerId: string
 
         try {
@@ -50,13 +115,10 @@ const CreateContestForm = () => {
             return
         }
 
-        const body = {
-            ...data,
-            contestOwnerId,
-        }
+        formData.append('contestOwnerId', contestOwnerId)
 
         await instance
-            .post('contests', body)
+            .post('contests', formData)
             .then((res) => {
                 navigate(`/contests/${res.data.id}`)
             })
@@ -69,11 +131,17 @@ const CreateContestForm = () => {
             })
     }
 
+    const onError = () => {
+        setSubmitError(true)
+    }
+
     return (
         <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)} className='contest-form'>
-                <MainInformation />
-                <StageOfTheCompetition />
+            <form
+                onSubmit={handleSubmit(onSubmit, onError)}
+                className='contest-form'>
+                <MainInformation submitError={submitError} />
+                <StageOfTheCompetition dateValidation={dateValidation} />
                 <PrizeInformation />
                 <GalleryUpload />
 

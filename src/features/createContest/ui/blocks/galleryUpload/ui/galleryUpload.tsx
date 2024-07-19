@@ -8,15 +8,8 @@ import { Text } from 'shared/ui/text'
 
 import './galleryUpload.scss'
 
-interface GalleryItem {
-    id: number
-    hasImage: boolean
-    file?: File
-    imgUrl: string
-}
-
 export const GalleryUpload = () => {
-    const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([
+    const [galleryItems, setGalleryItems] = useState([
         { id: 0, hasImage: false, imgUrl: '' },
         { id: 1, hasImage: false, imgUrl: '' },
         { id: 2, hasImage: false, imgUrl: '' },
@@ -31,8 +24,8 @@ export const GalleryUpload = () => {
 
     useEffect(() => {
         const mediaUrls = galleryItems
-            .filter((item) => item.file)
-            .map((item) => item.file)
+            .filter((item) => item.imgUrl !== '')
+            .map((item) => item.imgUrl)
 
         setValue('exampleMedia', mediaUrls)
     }, [galleryItems])

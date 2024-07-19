@@ -56,6 +56,8 @@ export const GalleryUploadItem = ({
 
             if (file.size > maxSize) {
                 setErrorMessage('File size exceeds 6 MB')
+
+                return
             }
 
             if (file) {

@@ -51,6 +51,8 @@ export const CoverSelectionModal = ({
 
             if (file.size > maxSize) {
                 setImageValidationMessage('File size exceeds 6 MB')
+
+                return
             }
 
             setImgName(file.name)
