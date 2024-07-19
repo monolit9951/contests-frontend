@@ -196,20 +196,17 @@ const ContestsSection: FC<Props> = (props) => {
                         {all.loading ? (
                             <p>Loading...</p>
                         ) : (
-                            allContests.map((item, idx) => {
-                                if (idx === allContests.length - 1) {
-                                    return (
-                                        <li key={item.id} ref={measureRef}>
-                                            <ContestCard {...item} />
-                                        </li>
-                                    )
-                                }
-                                return (
-                                    <li key={item.id}>
-                                        <ContestCard {...item} />
-                                    </li>
-                                )
-                            })
+                            allContests.map((item, idx) => (
+                                <li
+                                    key={item.id}
+                                    ref={
+                                        idx === allContests.length - 1
+                                            ? measureRef
+                                            : null
+                                    }>
+                                    <ContestCard {...item} />
+                                </li>
+                            ))
                         )}
 
                         {nextLoading && <p>Loading next...</p>}
