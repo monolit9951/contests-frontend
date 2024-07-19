@@ -1,4 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form'
+import moment from 'moment'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
@@ -29,8 +30,12 @@ export const CompetitionTimeInput = ({
         const timeStart = watch('startTime')
 
         if (dateStart && timeStart) {
-            const combinedStart = new Date(`${dateStart}T${timeStart}`)
-            setValue('dateStart', combinedStart.toISOString())
+            const combinedStart = new Date(`${dateStart} ${timeStart}`)
+
+            const formattedStart = moment(combinedStart).format(
+                'YYYY-MM-DD[T]HH:mm:ss[Z]'
+            )
+            setValue('dateStart', formattedStart)
         }
     }
 
@@ -39,8 +44,12 @@ export const CompetitionTimeInput = ({
         const timeEnd = watch('endTime')
 
         if (dateEnd && timeEnd) {
-            const combinedEnd = new Date(`${dateEnd}T${timeEnd}`)
-            setValue('dateEnd', combinedEnd.toISOString())
+            const combinedEnd = new Date(`${dateEnd} ${timeEnd}`)
+
+            const formattedEnd = moment(combinedEnd).format(
+                'YYYY-MM-DD[T]HH:mm:ss[Z]'
+            )
+            setValue('dateEnd', formattedEnd)
         }
     }
 

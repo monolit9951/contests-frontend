@@ -1,8 +1,9 @@
 import { Category, Status, SubCategory } from 'entities/contest'
-import { Prize, PrizeType } from 'entities/prize'
+import { Currency, Prize, PrizeType } from 'entities/prize'
 
-export interface PrizeData extends Omit<Prize, 'prizeType'> {
+export interface PrizeData extends Omit<Prize, 'prizeType' | 'currency'> {
     prizeType: '' | PrizeType
+    currency: Currency
 }
 
 export interface ContestCreationRequestBody {
