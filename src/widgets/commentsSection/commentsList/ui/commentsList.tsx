@@ -102,19 +102,14 @@ const CommentsList: React.FC<Props> = (props) => {
 
             {error && <p>{error.message}</p>}
 
-            {comments.map((item, idx) => {
-                if (idx === comments.length - 1) {
-                    return (
-                        <CommentItem
-                            key={item.id}
-                            ref={measureRef}
-                            userId={userId}
-                            data={item}
-                        />
-                    )
-                }
-                return <CommentItem key={item.id} userId={userId} data={item} />
-            })}
+            {comments.map((item, idx) => (
+                <CommentItem
+                    key={item.id}
+                    ref={idx === comments.length - 1 ? measureRef : null}
+                    userId={userId}
+                    data={item}
+                />
+            ))}
 
             {nextLoading && <p>Loading next...</p>}
         </ul>
