@@ -16,7 +16,6 @@ import {
 } from 'pages/contestsPage'
 import { selectSearchString } from 'pages/contestsPage/model/selectors'
 import cross from 'shared/assets/icons/X.svg?react'
-import { mockContestData } from 'shared/consts'
 import useOnScreen from 'shared/lib/hooks/useOnScreen'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
@@ -41,11 +40,13 @@ const ContestsSection: FC<Props> = (props) => {
 
     const popular = useAppSelector(selectPopular)
     const all = useAppSelector(selectAll)
-    const allContests = useAppSelector(selectAll).contests as ContestPreview[]
     const searchString = useAppSelector(selectSearchString)
     const nextLoading = useAppSelector(selectNextLoading)
     const active = useAppSelector(selectActiveFilters)
     const filters = active.filtersList as FilterPayloadObj[]
+
+    const allContests = all.contests as ContestPreview[]
+    const popularContests = popular.contests as ContestPreview[]
 
     const { isIntersecting, measureRef, observer } = useOnScreen({
         threshold: 0.8,
@@ -183,7 +184,7 @@ const ContestsSection: FC<Props> = (props) => {
                     (popular.loading ? (
                         <p>Loading...</p>
                     ) : (
-                        mockContestData.map((item, idx) => (
+                        popularContests.map((item, idx) => (
                             <li key={idx}>
                                 <ContestCard {...item} />
                             </li>
