@@ -1,0 +1,33 @@
+.prizeInformation_container {
+    border-radius: 24px;
+    border: 1px solid var(--grey-border);
+    padding: 24px;
+
+    .prizeInformation_header {
+        font-size: 24px;
+        line-height: 32px;
+        padding: 4px 0;
+        margin-bottom: 28px;
+    }
+
+    .addPrizePlace_btn {
+        height: 36px;
+        width: 168px;
+        border-radius: 999px;
+        padding: 6px 32px;
+
+        p {
+            font-size: 14px;
+            line-height: 24px;
+            font-weight: 600;
+            font-family: 'Manrope';
+            color: var(--white-medium);
+            align-self: center;
+            justify-self: center;
+        }
+    }
+
+    .input-error-container {
+        margin-top: 10px;
+    }
+}

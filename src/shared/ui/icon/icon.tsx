@@ -1,6 +1,6 @@
 import { FC, SVGProps } from 'react'
 import clsx from 'clsx'
-import {useTheme} from "entities/theme";
+import { useTheme } from 'entities/theme'
 
 import './icon.scss'
 
@@ -18,7 +18,7 @@ interface IIcon extends SvgProps {
 }
 
 export default function Icon(props: IIcon) {
-    const {theme} = useTheme()
+    const { theme } = useTheme()
     const {
         Svg,
         width = 24,

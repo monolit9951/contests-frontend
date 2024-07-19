@@ -1,13 +1,14 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useFormContext } from 'react-hook-form'
 import clsx from 'clsx'
-import {
-    setContestBackgroundImage,
-    setContestPreivewImage,
-} from 'pages/contestsCreationPage/model/services'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
 import check from 'shared/assets/icons/select-check.svg?react'
+import upload from 'shared/assets/icons/upload.svg?react'
 import X from 'shared/assets/icons/X.svg?react'
+import basicCover1 from 'shared/assets/img/basicCover1.png'
+import basicCover2 from 'shared/assets/img/basicCover2.png'
+import basicCover3 from 'shared/assets/img/basicCover3.png'
+import basicCover4 from 'shared/assets/img/basicCover4.png'
 import { Button } from 'shared/ui/button'
 import { Divider } from 'shared/ui/divider'
 import { Icon } from 'shared/ui/icon'
@@ -16,68 +17,85 @@ import { ModalWindow } from 'shared/ui/modalWindow'
 import { Flex, HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
-import upload from '../../../assets/icons/upload.svg?react'
-
 import './coverSelectionModal.scss'
 
 interface CoverSelectionModalProps {
     isOpen: boolean
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-    isUploading: boolean
-    setIsUploading: React.Dispatch<React.SetStateAction<boolean>>
-    covers: {
-        img: any
-    }[]
-    currImg: string | undefined
-    setCurrImg: React.Dispatch<React.SetStateAction<string | undefined>>
-    imgAlt: string
+    setChosenImg: React.Dispatch<React.SetStateAction<string>>
+    isCover: boolean
+    setImageValidationMessage: (str: string) => void
 }
+
+const covers = [basicCover1, basicCover2, basicCover3, basicCover4]
 
 export const CoverSelectionModal = ({
     isOpen,
     setIsOpen,
-    isUploading,
-    covers,
-    currImg,
-    setCurrImg,
-    setIsUploading,
-    imgAlt,
+    setChosenImg,
+    isCover,
+    setImageValidationMessage,
 }: CoverSelectionModalProps) => {
-    const dispatch: AppDispatch = useDispatch()
-    const [imgName, setImgName] = useState<string>()
+    const [currImg, setCurrImg] = useState<string>('')
+    const [imgName, setImgName] = useState<string>('')
     const [isDisabledUploadBtn, setIsDisabledUploadBtn] =
         useState<boolean>(true)
+    const [isUploading, setIsUploading] = useState<boolean>(false)
 
-    const setImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]
-        if (file) {
+    const { setValue } = useFormContext()
+
+    const setImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0]
+            const maxSize = 6 * 1024 * 1024 // 6MB
+
+            if (file.size > maxSize) {
+                setImageValidationMessage('File size exceeds 6 MB')
+
+                return
+            }
+
             setImgName(file.name)
             setCurrImg(URL.createObjectURL(file))
             setIsDisabledUploadBtn(false)
+            setImageValidationMessage('')
         }
     }
 
     const setDefaultImage = (image: string) => {
-        setImgName(image)
-        setCurrImg(image)
-        setIsDisabledUploadBtn(false)
+        if (currImg === image) {
+            setImgName('')
+            setCurrImg('')
+            setIsDisabledUploadBtn(true)
+        } else {
+            setImgName(image)
+            setCurrImg(image)
+            setIsDisabledUploadBtn(false)
+        }
+    }
+
+    const onCancel = () => {
+        setImgName('')
+        setCurrImg('')
+        setIsUploading(false)
+        setIsOpen(false)
+        setIsDisabledUploadBtn(true)
     }
 
     const confirmImage = () => {
-        if (imgAlt === 'coverIMGPlaceholder') {
-            dispatch(setContestBackgroundImage(currImg))
+        if (isCover) {
+            setValue('backgroundImage', currImg)
         } else {
-            dispatch(setContestPreivewImage(currImg))
+            setValue('previewImage', currImg)
         }
-        setIsUploading(false)
-        setCurrImg(undefined)
-        setImgName(undefined)
-        setIsOpen(false)
+        setChosenImg(currImg)
+        onCancel()
     }
 
     return (
         <ModalWindow
             isOpen={isOpen}
+            onClose={onCancel}
             className='cover_selection'
             overlayClassName='cover_selection_overlay'
             modalContentClass='cover_selection_content'>
@@ -147,33 +165,26 @@ export const CoverSelectionModal = ({
                         </Text>
 
                         <HStack className='basic-covers_container'>
-                            {covers.map((cover) => {
-                                const imgClassname = clsx('basic-cover', {
-                                    'is-active': currImg === cover.img,
-                                })
-                                return (
-                                    <Flex className={imgClassname}>
-                                        <Image
-                                            src={cover.img}
-                                            alt='img not found'
-                                            onClick={() =>
-                                                setDefaultImage(cover.img)
-                                            }
-                                        />
-                                        <Icon
-                                            Svg={check}
-                                            width={20}
-                                            height={20}
-                                        />
-                                    </Flex>
-                                )
-                            })}
+                            {covers.map((cover) => (
+                                <Flex
+                                    key={cover}
+                                    className={clsx('basic-cover', {
+                                        'is-active': currImg === cover,
+                                    })}>
+                                    <Image
+                                        src={cover}
+                                        alt='img not found'
+                                        onClick={() => setDefaultImage(cover)}
+                                    />
+                                    <Icon Svg={check} width={20} height={20} />
+                                </Flex>
+                            ))}
                         </HStack>
 
                         <Divider marginX={0} marginY={16} />
 
                         <VStack className='custom-cover-upload_container'>
-                            {currImg && currImg !== '' ? (
+                            {currImg !== '' ? (
                                 <Text Tag='p'>
                                     Loaded {imgName} successfuly!
                                 </Text>
@@ -208,9 +219,9 @@ export const CoverSelectionModal = ({
                                     <input
                                         type='file'
                                         id='custom-cover-upload-btn_id'
-                                        accept='image/*'
-                                        onChange={(event) => {
-                                            setImage(event)
+                                        accept='.webp,.png,.jpg,.jpeg'
+                                        onChange={(e) => {
+                                            setImage(e)
                                         }}
                                     />
                                 </>
@@ -223,7 +234,7 @@ export const CoverSelectionModal = ({
                             <Button
                                 className='btn cancel'
                                 variant='secondary'
-                                onClick={() => setIsOpen(false)}>
+                                onClick={onCancel}>
                                 Cancel
                             </Button>
                             <Button

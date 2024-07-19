@@ -1,5 +1,5 @@
 .cover_selection {
-    .cover_selection_container {
+    &_container {
         align-items: center;
         .header {
             width: 100%;
@@ -7,40 +7,40 @@
             justify-content: space-between;
             padding: 0;
 
-            &_text{
+            &_text {
                 font-size: 20px;
                 line-height: 28px;
                 font-weight: 600;
                 margin-top: 0;
             }
 
-            .header_icon {
+            &_icon {
                 fill: var(--grey-light);
                 margin: 0;
             }
         }
 
-        .uploading__cover{
+        .uploading__cover {
             width: 100%;
 
-            &__label{
+            &__label {
                 gap: 8px;
                 justify-content: start;
 
-                .uploading__cover__label__icon{
+                .uploading__cover__label__icon {
                     fill: var(--white-muted);
                     margin-left: 0;
                 }
 
-                &__text{
+                &__text {
                     font-size: 14px;
                     line-height: 20px;
                     font-weight: 400;
-                    color: var(--white-muted)
+                    color: var(--white-muted);
                 }
             }
 
-            &__preview{
+            &__preview {
                 min-height: 360px;
                 height: auto;
                 max-height: 550px;
@@ -49,45 +49,46 @@
                 background-color: var(--green-dark);
                 padding: 75px 0px 75px 0px;
 
-                &__image{
+                &__image {
                     height: 100%;
                     object-fit: contain;
                 }
             }
         }
 
-        .basic-covers_header {
-            font-weight: 600;
-        }
+        .basic-covers {
+            &_header {
+                font-weight: 600;
+            }
 
-        .basic-covers_container {
-            gap: 16px;
-            margin-top: 16px;
+            &_container {
+                gap: 16px;
+                margin-top: 16px;
 
+                .basic-cover {
+                    width: 219px;
+                    height: 140px;
+                    position: relative;
+                    cursor: pointer;
 
-            .basic-cover {
-                width: 219px;
-                height: 140px;
-                position: relative;
-                
-                svg {
-                    display: none;
-                }
-            
-                &.is-active {
-                    border: 1px solid var(--white);
-                    border-radius: 8px;
-            
                     svg {
-                        display: block;
-                        position: absolute;
-                        top: 8px;
-                        right: 8px;
-                        fill: var(--white) !important;
+                        display: none;
+                    }
+
+                    &.is-active {
+                        border: 1px solid var(--white);
+                        border-radius: 8px;
+
+                        svg {
+                            display: block;
+                            position: absolute;
+                            top: 8px;
+                            right: 8px;
+                            fill: var(--white) !important;
+                        }
                     }
                 }
             }
-            
         }
 
         .custom-cover-upload_container {
@@ -112,15 +113,15 @@
             .upload-btn {
                 padding: 6px 32px;
                 margin-top: 10px;
-                gap:8px;
+                gap: 8px;
 
-                &_text{
+                &_text {
                     font-size: 16px;
                 }
 
-                .upload-btn_icon{
+                &_icon {
                     fill: var(--white);
-                    margin:0;
+                    margin: 0;
                 }
             }
         }
@@ -145,24 +146,21 @@
             }
         }
     }
-   
-    &_content{
+
+    &_content {
         padding: 24px 16px;
         width: 957px;
-
     }
 }
 
-
-
-input[type="file"] {
+input[type='file'] {
     display: none;
-  }
+}
 
 .custom-cover-upload-btn {
     display: flex;
     align-items: center;
-    width: 259px;
+    width: fit-content;
     height: 36px;
     gap: 8px;
     padding: 6px 32px;
@@ -172,13 +170,12 @@ input[type="file"] {
     border: 1px solid var(--grey);
     border-radius: 999px;
 
-    .custom-cover-upload-btn-text {
-        width: 161px;
+    &-text {
         font-size: 16px !important;
         font-weight: 600;
     }
 
-    .custom-cover-upload-btn-icon{
+    &-icon {
         fill: var(--white) !important;
         margin-left: 0px !important;
     }

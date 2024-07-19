@@ -1,38 +1,23 @@
-.combobox-wrapper {
+.input-wrapper {
     position: relative;
-    display: inline-block;
-    border-radius: 8px;
-    width: 100%; 
 
     select {
-        appearance: none; 
-        -webkit-appearance: none; 
-        -moz-appearance: none; 
+        box-sizing: border-box;
         width: 100%;
-        border-radius: 4px; 
-        padding-right: 30px; 
-        box-sizing: border-box; 
-        color: #FFF; 
-        background-color: #333; 
-    }
+        padding-right: 30px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
 
-    select option {
-        color: #FFF; 
+        background-color: var(--green-dark);
+        background-image: url('/src/shared/assets/icons/arrowCombo.svg');
+        background-repeat: no-repeat;
+        background-position-x: calc(100% - 12px);
+        background-position-y: 50%;
     }
 
     select .placeholder-option {
-        color: #585D5C; 
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: 10px; 
-        width: 16px; 
-        height: 16px; 
-        background: url('/src/shared/assets/icons/arrowCombo.svg') center no-repeat;
-        pointer-events: none; 
-        transform: translateY(-50%); 
+        color: #585d5c;
     }
 }

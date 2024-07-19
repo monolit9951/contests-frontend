@@ -1,40 +1,35 @@
+import { useState } from 'react'
+import alertIcon from 'shared/assets/icons/alert.svg?react'
 import placeholderImage from 'shared/assets/icons/placeholder-image.svg?react'
 import upload from 'shared/assets/icons/upload.svg?react'
 import X from 'shared/assets/icons/X.svg?react'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
-import { VStack } from 'shared/ui/stack'
+import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './galleryUploadItem.scss'
 
-interface GalleryUploadItemProps {
-    galleryItem: {
-        id: number
-        hasImage: boolean
-        imgUrl: string
-    }
-    galleryItems: {
-        id: number
-        hasImage: boolean
-        imgUrl: string
-    }[]
-    setGalleryItems: React.Dispatch<
-        React.SetStateAction<
-            {
-                id: number
-                hasImage: boolean
-                imgUrl: string
-            }[]
-        >
-    >
+interface GalleryItem {
+    id: number
+    hasImage: boolean
+    file?: File
+    imgUrl: string
+}
+
+interface Props {
+    galleryItem: GalleryItem
+    galleryItems: GalleryItem[]
+    setGalleryItems: React.Dispatch<React.SetStateAction<GalleryItem[]>>
 }
 
 export const GalleryUploadItem = ({
     galleryItem,
     galleryItems,
     setGalleryItems,
-}: GalleryUploadItemProps) => {
+}: Props) => {
+    const [errorMessage, setErrorMessage] = useState('')
+
     const removeImage = () => {
         setGalleryItems((prevItems) => {
             const updatedItems = prevItems.map((item) =>
@@ -54,20 +49,31 @@ export const GalleryUploadItem = ({
         })
     }
 
-    const uploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]
-        if (file) {
-            setGalleryItems((prevItems) =>
-                prevItems.map((item) =>
-                    item.id === galleryItem.id
-                        ? {
-                              ...item,
-                              hasImage: true,
-                              imgUrl: URL.createObjectURL(file),
-                          }
-                        : item
+    const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files?.[0]
+            const maxSize = 6 * 1024 * 1024 // 6MB
+
+            if (file.size > maxSize) {
+                setErrorMessage('File size exceeds 6 MB')
+
+                return
+            }
+
+            if (file) {
+                setGalleryItems((prevItems) =>
+                    prevItems.map((item) =>
+                        item.id === galleryItem.id
+                            ? {
+                                  ...item,
+                                  hasImage: true,
+                                  file,
+                                  imgUrl: URL.createObjectURL(file),
+                              }
+                            : item
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -89,6 +95,12 @@ export const GalleryUploadItem = ({
                                 Upload
                             </Text>
                             <Icon Svg={upload} width={20} height={20} />
+                            {errorMessage && (
+                                <HStack className='input-error-container'>
+                                    <Icon Svg={alertIcon} />
+                                    <Text Tag='p'>{errorMessage}</Text>
+                                </HStack>
+                            )}
                         </label>
                         <input
                             type='file'

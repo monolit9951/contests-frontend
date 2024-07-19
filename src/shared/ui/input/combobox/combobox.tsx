@@ -1,4 +1,4 @@
-import { ChangeEvent, SelectHTMLAttributes, useState } from 'react'
+import { SelectHTMLAttributes } from 'react'
 import clsx from 'clsx'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import infoIcon from 'shared/assets/icons/info.svg?react'
@@ -15,7 +15,7 @@ interface ICombobox extends SelectHTMLAttributes<HTMLSelectElement> {
     options: { value: string; label: string }[]
     wrapperClassName?: string
     className?: string
-    width?: string | number 
+    width?: string | number
 }
 
 export default function Combobox(props: ICombobox) {
@@ -31,29 +31,27 @@ export default function Combobox(props: ICombobox) {
         onBlur,
         wrapperClassName,
         className,
-        width, 
+        width,
         ...rest
     } = props
-    const [selectedValue, setSelectedValue] = useState<string>('')
-
-    const onChangeSelectedValue = (e: ChangeEvent<HTMLSelectElement>) => {
-        setSelectedValue(e.target.value)
-    }
 
     return (
-        <VStack className={clsx('combobox-wrapper', wrapperClassName)}>
-            {label && <label htmlFor={name}>{label}</label>}
+        <VStack className={clsx('input-wrapper', wrapperClassName)}>
+            {label && (
+                <label className='input-wrapper__label' htmlFor={name}>
+                    {label}
+                </label>
+            )}
             <select
                 name={name}
-                value={value ?? selectedValue}
-                onChange={onChange ?? onChangeSelectedValue}
+                value={value}
+                onChange={onChange}
                 onBlur={onBlur}
                 className={clsx('combobox', error && 'error', className)}
-                style={{ width }} 
-                {...rest}
-            >
+                style={{ width }}
+                {...rest}>
                 {placeholder && (
-                    <option value="" disabled className="placeholder-option">
+                    <option value='' disabled className='placeholder-option'>
                         {placeholder}
                     </option>
                 )}
@@ -64,13 +62,13 @@ export default function Combobox(props: ICombobox) {
                 ))}
             </select>
             {info && (
-                <HStack className='combobox-wrapper__info'>
+                <HStack className='input-wrapper__info'>
                     <Icon Svg={infoIcon} />
                     <Text Tag='span'>{info}</Text>
                 </HStack>
             )}
             {error && (
-                <HStack className='combobox-wrapper__error'>
+                <HStack className='input-wrapper__error'>
                     <Icon Svg={alertIcon} />
                     <Text Tag='span'>{error}</Text>
                 </HStack>

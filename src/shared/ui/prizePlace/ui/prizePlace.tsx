@@ -1,84 +1,108 @@
-import React, { useState } from 'react'
+import { FC } from 'react'
+import { Controller, useFormContext } from 'react-hook-form'
+import { PrizeIcon } from 'entities/prize'
 import trash from 'shared/assets/icons/trash.svg?react'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
-import { Input } from 'shared/ui/input'
-import { PrizeInformationCombobox } from 'shared/ui/prizeInformationCombobox'
+import { Combobox, Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
-import { Text } from 'shared/ui/text'
 
 import './prizePlace.scss'
 
 interface PrizePlaceProps {
-    winIcon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
-    onDelete: (index: number) => void
     index: number
+    place: number
+    last: boolean
+    onDelete: (place: number) => void
 }
 
 const types = [
-    { value: 'type1', label: 'Type 1' },
-    { value: 'type2', label: 'Type 2' },
-    { value: 'type3', label: 'Type 3' },
+    { value: 'MONEY', label: 'Money' },
+    { value: 'ITEM', label: 'Item' },
 ]
 
-export const PrizePlace: React.FC<PrizePlaceProps> = ({
-    winIcon,
-    onDelete,
+export const PrizePlace: FC<PrizePlaceProps> = ({
     index,
+    place,
+    last,
+    onDelete,
 }) => {
-    const [comboValue, setComboValue] = useState('')
+    const { register, control, setValue } = useFormContext()
 
     return (
         <VStack className='prizePlace_outercontainer'>
-            <HStack className='prizePlace_container'>
-                <Icon
-                    Svg={winIcon}
-                    height={44}
-                    width={44}
-                    className='winIcon'
-                />
+            <HStack>
+                <HStack className='prizePlace_container'>
+                    <PrizeIcon
+                        place={place}
+                        width={44}
+                        height={44}
+                        className='winIcon image__no-select'
+                    />
 
-                <VStack className='winnersNum_input_container'>
-                    <Text Tag='p' className='inputTitle'>
-                        Number of winners
-                    </Text>
                     <Input
+                        label='Number of winners'
+                        {...register(`prizes.${index}.winnersAmount`, {
+                            required: true,
+                        })}
                         name='winners'
                         type='number'
+                        defaultValue={1}
+                        min={1}
                         placeholder='10'
                         className='winnersNum_input'
+                        wrapperClassName='winnersNum_input_container'
                     />
-                </VStack>
-                <PrizeInformationCombobox
-                    title='Prize type'
-                    placeholder='Select type'
-                    options={types}
-                    width={164}
-                    value={comboValue}
-                    onChange={(e) => setComboValue(e.target.value)}
-                />
-                <VStack className='prizeName_input_container'>
-                    <Text Tag='p' className='inputTitle'>
-                        Prize name
-                    </Text>
+
+                    <Controller
+                        name={`prizes.${index}.prizeType`}
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field }) => (
+                            <Combobox
+                                name={field.name}
+                                label='Prize type'
+                                options={types}
+                                placeholder='Select type'
+                                className='input'
+                                width={164}
+                                value={field.value}
+                                onChange={field.onChange}
+                            />
+                        )}
+                    />
+
                     <Input
-                        name='prizeName'
+                        label='Prize name'
+                        {...register(`prizes.${index}.prizeText`, {
+                            required: true,
+                        })}
                         type='text'
                         placeholder='10 000 $'
+                        onChange={(e) =>
+                            setValue(
+                                `prizes.${index}.prizeAmount`,
+                                Number(e.target.value)
+                            )
+                        }
                         className='prizeName_input'
+                        wrapperClassName='prizeName_input_container'
                     />
-                </VStack>
-                <Button
-                    variant='div'
-                    className='iconBtn_wrapper'
-                    onClick={() => onDelete(index)}>
-                    <Icon
-                        Svg={trash}
-                        height={48}
-                        width={24}
-                        className='deleteIcon'
-                    />
-                </Button>
+                </HStack>
+
+                {last && (
+                    <Button
+                        variant='div'
+                        className='iconBtn_wrapper'
+                        onClick={() => onDelete(place)}>
+                        <Icon
+                            Svg={trash}
+                            height={48}
+                            width={24}
+                            className='deleteIcon'
+                        />
+                    </Button>
+                )}
             </HStack>
 
             <div className='divider' />

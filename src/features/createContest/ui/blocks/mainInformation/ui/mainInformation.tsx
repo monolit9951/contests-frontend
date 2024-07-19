@@ -1,0 +1,157 @@
+import { useState } from 'react'
+import { Controller, useFormContext } from 'react-hook-form'
+import clsx from 'clsx'
+import alertIcon from 'shared/assets/icons/alert.svg?react'
+import { Icon } from 'shared/ui/icon'
+import { Combobox, Input, Textarea } from 'shared/ui/input'
+import { HStack, VStack } from 'shared/ui/stack'
+import { Text } from 'shared/ui/text'
+
+import { categories, subcategories } from '../mockData'
+
+import { ImageUpload } from './imageUpload'
+import { RadioContainer, RadioEl } from './radioContainer'
+
+import './mainInformation.scss'
+
+interface Props {
+    submitError: boolean
+}
+
+export const MainInformation = ({ submitError }: Props) => {
+    const [quantity, setQuantity] = useState(0)
+
+    const {
+        register,
+        control,
+        formState: { errors },
+        getValues,
+    } = useFormContext()
+
+    return (
+        <VStack className='mainInformation_container'>
+            <VStack className='mainInformation_title_categories_container'>
+                <Text Tag='h2' className='mainInformation_container_header'>
+                    Main information
+                </Text>
+
+                <Input
+                    label='Title'
+                    type='text'
+                    placeholder='Enter contest name'
+                    {...register('name', {
+                        required: 'Contest name is required',
+                        minLength: {
+                            value: 4,
+                            message: 'Enter minimum of 4 symbols',
+                        },
+                    })}
+                    maxLength={70}
+                    error={errors.name && (errors.name.message as string)}
+                />
+
+                <HStack className='categoryInputs_container'>
+                    <Controller
+                        name='category'
+                        control={control}
+                        rules={{ required: 'Select category' }}
+                        render={({ field }) => (
+                            <Combobox
+                                label='Category'
+                                placeholder='Select category'
+                                options={categories}
+                                className='input'
+                                name={field.name}
+                                value={field.value}
+                                onChange={field.onChange}
+                                error={
+                                    errors.category &&
+                                    (errors.category.message as string)
+                                }
+                            />
+                        )}
+                    />
+                    <Controller
+                        name='subcategory'
+                        control={control}
+                        rules={{ required: 'Select subcategory' }}
+                        render={({ field }) => (
+                            <Combobox
+                                label='Subcategory'
+                                placeholder='Select subcategory'
+                                options={subcategories}
+                                className='input'
+                                name={field.name}
+                                value={field.value}
+                                onChange={field.onChange}
+                                error={
+                                    errors.subcategory &&
+                                    (errors.subcategory.message as string)
+                                }
+                            />
+                        )}
+                    />
+                </HStack>
+            </VStack>
+
+            <ImageUpload text='Cover image' />
+            <ImageUpload text='Card image' />
+            {submitError &&
+                (!getValues('backgroundImage') ||
+                    !getValues('previewImage')) && (
+                    <HStack className='input-error-container'>
+                        <Icon Svg={alertIcon} />
+                        <Text Tag='p'>Images are required</Text>
+                    </HStack>
+                )}
+
+            <VStack className='descriptionInput_container'>
+                <Textarea
+                    label='Description'
+                    className={clsx(
+                        'description_placeholder',
+                        errors.description && quantity < 40 && 'error'
+                    )}
+                    placeholder='Write more information...'
+                    {...register('description', {
+                        required: 'Desciption is required',
+                        minLength: 40,
+                        onChange: (e) => {
+                            setQuantity(e.target.value.length)
+                        },
+                    })}
+                    maxLength={300}
+                    error={
+                        errors.description &&
+                        (errors.description.message as string)
+                    }
+                />
+                <HStack className='description_requirements'>
+                    <Text
+                        Tag='p'
+                        className={clsx(
+                            errors.description && quantity < 40 && 'error'
+                        )}>
+                        Please enter at least 40 characters
+                    </Text>
+                    <Text Tag='p'>{quantity}/300</Text>
+                </HStack>
+            </VStack>
+
+            <VStack className='mainInfoRadioElContainers_container'>
+                <RadioContainer text='Type of competition' currActive='Open'>
+                    <RadioEl text='Open' />
+                    <RadioEl text='Close' />
+                </RadioContainer>
+
+                <RadioContainer
+                    text='Winner selection type'
+                    currActive='Random'>
+                    <RadioEl text='Random' />
+                    <RadioEl text='Viewer voting' />
+                    <RadioEl text="Creator's decision" />
+                </RadioContainer>
+            </VStack>
+        </VStack>
+    )
+}

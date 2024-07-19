@@ -1,7 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { filterReducer } from 'features/filterContests'
 import { contestWorksReducer } from 'pages/contestPage'
-import { contestsCreationPageReducer } from 'pages/contestsCreationPage/model/slice'
 import { contestsPageReducer } from 'pages/contestsPage'
 import { worksReducer } from 'pages/feedPage'
 import {
@@ -18,7 +17,6 @@ import storage from 'redux-persist/lib/storage'
 
 const rootReducer = combineReducers({
     contestsPage: contestsPageReducer,
-    contestsCreationPage: contestsCreationPageReducer,
     filter: filterReducer,
     works: worksReducer,
     contestWorks: contestWorksReducer,

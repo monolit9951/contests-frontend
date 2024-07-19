@@ -1,0 +1,65 @@
+.mainInformation_container {
+    border: 1px solid var(--grey-border);
+    border-radius: 24px;
+    padding: 24px;
+    gap: 20px;
+
+    .mainInformation_title_categories_container {
+        width: 960px;
+        gap: 20px;
+
+        .mainInformation_container_header {
+            font-size: 24px;
+            line-height: 32px;
+            padding: 4px 0;
+            margin-bottom: 8px;
+        }
+
+        .categoryInputs_container {
+            gap: 20px;
+
+            > * {
+                flex: 1;
+            }
+        }
+    }
+
+    .mainInfoRadioElContainers_container {
+        gap: 28px;
+    }
+
+    .descriptionInput_container {
+        max-width: 960px;
+
+        .description_placeholder {
+            width: 100%;
+            min-height: 96px;
+            max-height: 300px;
+
+            &.error {
+                border: 1px solid var(--danger);
+            }
+        }
+
+        .description_requirements {
+            justify-content: space-between;
+
+            > p {
+                margin-top: 8px;
+                font-size: 12px;
+                line-height: 16px;
+
+                &.error {
+                    color: var(--danger);
+                }
+
+                .dark & + p {
+                    color: var(--white-transp-50);
+                }
+                .light & + p {
+                    color: var(--text-placeholder);
+                }
+            }
+        }
+    }
+}

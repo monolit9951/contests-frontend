@@ -1,23 +1,13 @@
 .prizePlace_outercontainer {
+    > .flex__row {
+        gap: 20px;
+    }
     .prizePlace_container {
         width: 960px;
         gap: 20px;
-        align-items: center;
 
         .winIcon {
-            align-self: flex-end;
-        }
-
-        .iconBtn_wrapper {
-            background: none !important;
-            padding: 0;
-            align-self: flex-end;
-            justify-self: flex-end;
-
-            .deleteIcon {
-                margin-left: auto;
-                fill: var(--white-muted);
-            }
+            margin-bottom: 4px;
         }
 
         .inputTitle {
@@ -28,7 +18,7 @@
         }
 
         .winnersNum_input_container {
-            width: 120px;
+            width: 122px;
 
             .winnersNum_input {
                 width: 100%;
@@ -37,7 +27,7 @@
             }
         }
 
-        &__combobox{
+        &__combobox {
             background-color: red;
         }
 
@@ -58,6 +48,18 @@
                 height: 48px;
                 padding: 12px;
             }
+        }
+    }
+
+    .iconBtn_wrapper {
+        background: none !important;
+        padding: 0;
+        align-self: flex-end;
+        justify-self: flex-end;
+
+        .deleteIcon {
+            margin-left: auto;
+            fill: var(--white-muted);
         }
     }
 

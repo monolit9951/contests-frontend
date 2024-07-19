@@ -1,0 +1,25 @@
+.radioEl_container {
+    width: 160px;
+    height: 86px;
+    background-color: var(--green-dark);
+    border-radius: 8px;
+    padding: 13px 16px;
+    gap: 4px;
+
+    cursor: pointer;
+
+    .radioEl_container_text {
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: -0.5px;
+        color: var(--white-muted);
+    }
+
+    &.active {
+        border: 1px solid var(--white);
+
+        .radioEl_container_text {
+            font-weight: 600;
+        }
+    }
+}
