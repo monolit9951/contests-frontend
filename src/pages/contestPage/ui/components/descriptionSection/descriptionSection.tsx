@@ -115,24 +115,26 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                             </li>
                         </ul>
                     </VStack>
-                    <VStack>
-                        <Text Tag='h4' bold size='l'>
-                            Examples
-                        </Text>
-                        <ul className='example-list'>
-                            {data.exampleMedia?.map((item, idx) => (
-                                <li key={item + idx}>
-                                    <Image
-                                        src={item}
-                                        alt={`Example ${idx + 1}`}
-                                        width={135}
-                                        height={132}
-                                        className='example-media'
-                                    />
-                                </li>
-                            ))}
-                        </ul>
-                    </VStack>
+                    {data.exampleMedia && (
+                        <VStack>
+                            <Text Tag='h4' bold size='l'>
+                                Examples
+                            </Text>
+                            <ul className='example-list'>
+                                {data.exampleMedia?.map((item, idx) => (
+                                    <li key={item + idx}>
+                                        <Image
+                                            src={item}
+                                            alt={`Example ${idx + 1}`}
+                                            width={135}
+                                            height={132}
+                                            className='example-media'
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
+                        </VStack>
+                    )}
                 </VStack>
                 <VStack className='contest-info__right-block'>
                     <VStack className='prize-info__wrapper'>
