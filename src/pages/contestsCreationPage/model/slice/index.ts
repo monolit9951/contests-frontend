@@ -17,39 +17,38 @@ import {
     setSelectionType,
 } from '../services/dataSetters'
 
-
 interface Prize {
-    id: string;
-    place: number;
-    currency: string;
-    prizeAmount: number;
-    prizeText: string;
-    prizeType: string;
-    winnersAmount: number;
+    // id: string;
+    place: number
+    currency: string
+    prizeAmount: number
+    prizeText: string
+    prizeType: string
+    winnersAmount: number
 }
 
 interface ContestCreationState {
-    id: string;
-    name: string;
-    status: string;
-    category: string;
-    subcategory: string;
-    backgroundImage: string | undefined;
-    previewImage: string | undefined;
-    participantAmount: number;
-    maxAllowedParticipantAmount: number;
-    selectionType: string;
-    dateStart: string;
-    dateEnd: string;
-    description: string;
-    exampleMedia: string[];
-    prizes: Prize[];
-    popularity: number;
-    contestOwnerId: string;
-    contestOpen: boolean;
+    id: string
+    name: string
+    status: string
+    category: string
+    subcategory: string
+    backgroundImage: string | undefined
+    previewImage: string | undefined
+    participantAmount: number
+    maxAllowedParticipantAmount: number
+    selectionType: string
+    dateStart: string
+    dateEnd: string
+    description: string
+    exampleMedia: string[]
+    prizes: Prize[]
+    popularity: number
+    contestOwnerId: string
+    contestOpen: boolean
 }
 
-const initialState: ContestCreationState  = {
+const initialState: ContestCreationState = {
     id: '',
     name: '',
     status: 'INACTIVE',
@@ -59,14 +58,13 @@ const initialState: ContestCreationState  = {
     previewImage: '',
     participantAmount: 0,
     maxAllowedParticipantAmount: 0,
-    selectionType: "RANDOM",
+    selectionType: 'RANDOM',
     dateStart: '',
     dateEnd: '',
     description: '',
     exampleMedia: [],
     prizes: [
         {
-            id: '',
             place: 1,
             currency: 'EUR',
             prizeAmount: 0,
@@ -75,7 +73,6 @@ const initialState: ContestCreationState  = {
             winnersAmount: 0,
         },
         {
-            id: '',
             place: 2,
             currency: 'EUR',
             prizeAmount: 0,
@@ -84,7 +81,6 @@ const initialState: ContestCreationState  = {
             winnersAmount: 0,
         },
         {
-            id: '',
             place: 3,
             currency: 'EUR',
             prizeAmount: 0,
@@ -93,7 +89,6 @@ const initialState: ContestCreationState  = {
             winnersAmount: 0,
         },
         {
-            id: '',
             place: 4,
             currency: 'EUR',
             prizeAmount: 0,
@@ -106,21 +101,46 @@ const initialState: ContestCreationState  = {
     // topWinners: [
     //     {}
     // ],
-    contestOwnerId: "",
-    contestOpen: true
+    contestOwnerId: '',
+    contestOpen: true,
 }
 
 const slice = createSlice({
     name: 'contestsCreationPage',
     initialState,
-    reducers: {},
+    reducers: {
+        "addPrizePlace": (state, action) => {
+            state.prizes.push(action.payload)
+        },
+        "updatePrizePlace": (state, action) => {
+            const { place, updates } = action.payload;
+            const prize = state.prizes.find(item => item.place === place);
+            if (prize) {
+                Object.assign(prize, updates);
+            }
+        },
+        "deletePrizePlace": (state, action) => {
+            const placeToRemove = action.payload
+            state.prizes = state.prizes
+                .filter(item => item.place !== placeToRemove)
+                .map(item => {
+                    if (item.place > placeToRemove) {
+                        return {
+                            ...item,
+                            place: item.place - 1
+                        }
+                    }
+                    return item
+                })
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(setContestName.fulfilled, (state, action) => {
                 state.name = action.payload
             })
             .addCase(setSelectionType.fulfilled, (state, action) => {
-                state.selectionType = action.payload;
+                state.selectionType = action.payload
             })
             .addCase(setContestDescription.fulfilled, (state, action) => {
                 state.description = action.payload
@@ -159,9 +179,11 @@ const slice = createSlice({
                 state.exampleMedia = action.payload
             })
             .addCase(setContestOpen.fulfilled, (state, action) => {
-                state.contestOpen = action.payload;
+                state.contestOpen = action.payload
             })
-            
+            // .addCase(addPrizePlace, (state, action) => {
+            //     state.prizes = state.prizes.push(action.payload)
+            // })
     },
 })
 

@@ -113,3 +113,25 @@ export const setSelectionType = createAsyncThunk(
         return selectionType;
     }
 );
+
+export const addPrizePlace = createAsyncThunk(
+    'contestsCreationPage/addPrizePlace',
+    async (winPlace) => {
+        return winPlace
+    }
+);
+
+
+export const updatePrizePlace = createAsyncThunk(
+    'contestsCreationPage/updatePrizePlace',
+    async () => {
+        
+    }
+);
+
+export const deletePrizePlace = createAsyncThunk(
+    'contestsCreationPage/deletePrizePlace',
+    async () => {
+        
+    }
+);

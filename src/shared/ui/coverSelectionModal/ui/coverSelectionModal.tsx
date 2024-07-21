@@ -153,7 +153,7 @@ export const CoverSelectionModal = ({
                                     'is-active': currImg === cover.img,
                                 })
                                 return (
-                                    <Flex className={imgClassname}>
+                                    <Flex key={cover.img} className={imgClassname}>
                                         <Image
                                             src={cover.img}
                                             alt='img not found'

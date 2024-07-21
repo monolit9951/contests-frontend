@@ -51,6 +51,7 @@ export const GalleryUpload = () => {
             <div className='grid_photo_container'>
                 {galleryItems.map((galleryItem) => (
                     <GalleryUploadItem
+                        key={galleryItem.id}
                         galleryItem={galleryItem}
                         galleryItems={galleryItems}
                         setGalleryItems={setGalleryItems}

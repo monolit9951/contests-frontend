@@ -1,127 +1,33 @@
-import React, { useState } from 'react'
-import win1 from 'shared/assets/icons/win1.svg?react'
-import win2 from 'shared/assets/icons/win2.svg?react'
-import win3 from 'shared/assets/icons/win3.svg?react'
-import win4 from 'shared/assets/icons/win4.svg?react'
+import React from 'react'
+import { useDispatch,useSelector } from 'react-redux'
+import { Prize } from 'entities/prize'
+import { contestsCreationPageActions } from 'pages/contestsCreationPage/model/slice/index'
 import { Button } from 'shared/ui/button'
 import { PrizePlace } from 'shared/ui/prizePlace'
 import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
-import { WinPlace } from '../entities/entities'
-
 import './prizeInformation.scss'
 
 export const PrizeInformation: React.FC = () => {
-    const [prizes, setPrizes] = useState<WinPlace[]>([
-        {
-            winIcon: win1,
-            place: 1,
-            winnersAmount: 0,
-            prize: {
-                prizeType: '',
-                prizeText: '',
-                currency: '',
-                prizeAmount: 0,
-            },
-        },
-        {
-            winIcon: win2,
-            place: 2,
-            winnersAmount: 0,
-            prize: {
-                prizeType: '',
-                prizeText: '',
-                currency: '',
-                prizeAmount: 0,
-            },
-        },
-        {
-            winIcon: win3,
-            place: 3,
-            winnersAmount: 0,
-            prize: {
-                prizeType: '',
-                prizeText: '',
-                currency: '',
-                prizeAmount: 0,
-            },
-        },
-        {
-            winIcon: win4,
-            place: 4,
-            winnersAmount: 0,
-            prize: {
-                prizeType: '',
-                prizeText: '',
-                currency: '',
-                prizeAmount: 0,
-            },
-        },
-    ])
+    const prizes: Prize[] = useSelector(
+        (state: RootState) => state.contestsCreationPage.prizes
+    )
+
+    const dispatch = useDispatch()
 
     const addPrize = () => {
-        setPrizes((prevPrizes) => {
-            let winIcon
-            switch (prevPrizes.length + 1) {
-                case 1:
-                    winIcon = win1
-                    break
-                case 2:
-                    winIcon = win2
-                    break
-                case 3:
-                    winIcon = win3
-                    break
-                default:
-                    winIcon = win4
-                    break
-            }
-            return [
-                ...prevPrizes,
-                {
-                    winIcon,
-                    place: prevPrizes.length + 1,
-                    winnersAmount: 0,
-                    prize: {
-                        prizeType: '',
-                        prizeText: '',
-                        currency: '',
-                        prizeAmount: 0,
-                    },
-                },
-            ]
-        })
-    }
+        const newPrize = {
+            place: prizes.length + 1,
+            winnersAmount: 0,
+            prizeType: '',
+            prizeText: '',
+            currency: '',
+            prizeAmount: 0,
+        }
 
-    const deletePrize = (index: number) => {
-        setPrizes((prevPrizes) => {
-            const updatedPrizes = prevPrizes.filter((_, i) => i !== index).map((prize, i) => {
-                let winIcon;
-                switch (i + 1) {
-                    case 1:
-                        winIcon = win1;
-                        break;
-                    case 2:
-                        winIcon = win2;
-                        break;
-                    case 3:
-                        winIcon = win3;
-                        break;
-                    default:
-                        winIcon = win4;
-                        break;
-                }
-                return {
-                    ...prize,
-                    winIcon,
-                    place: i + 1,
-                };
-            });
-            return updatedPrizes;
-        });
-    };
-    
+        dispatch(contestsCreationPageActions.addPrizePlace(newPrize))
+    }
 
     return (
         <VStack className='prizeInformation_container'>
@@ -129,13 +35,8 @@ export const PrizeInformation: React.FC = () => {
                 Prize Information
             </Text>
             <VStack className='prizePlaces_container'>
-                {prizes.map((prize, index) => (
-                    <PrizePlace
-                        key={index}
-                        index={index}
-                        winIcon={prize.winIcon}
-                        onDelete={() => deletePrize(index)}
-                    />
+                {prizes.map((prize) => (
+                    <PrizePlace key={prize.place} prize={prize} />
                 ))}
             </VStack>
             <Button
