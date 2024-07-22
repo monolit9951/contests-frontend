@@ -1,11 +1,13 @@
 import { Controller, useFormContext } from 'react-hook-form'
 import moment from 'moment'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
+import { CustomDatePicker } from 'shared/ui/customDatePicker'
 import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
+import 'react-datepicker/dist/react-datepicker.css'
 import './competitionTimeInput.scss'
 
 interface CompetitionTimeInputProps {
@@ -30,7 +32,8 @@ export const CompetitionTimeInput = ({
         const timeStart = watch('startTime')
 
         if (dateStart && timeStart) {
-            const combinedStart = new Date(`${dateStart} ${timeStart}`)
+            const dateStartString = moment(dateStart).format('yyyy-MM-DD')
+            const combinedStart = new Date(`${dateStartString} ${timeStart}`)
 
             const formattedStart = moment(combinedStart).format(
                 'YYYY-MM-DD[T]HH:mm:ss[Z]'
@@ -44,11 +47,13 @@ export const CompetitionTimeInput = ({
         const timeEnd = watch('endTime')
 
         if (dateEnd && timeEnd) {
-            const combinedEnd = new Date(`${dateEnd} ${timeEnd}`)
+            const dateEndString = moment(dateEnd).format('yyyy-MM-DD')
+            const combinedEnd = new Date(`${dateEndString} ${timeEnd}`)
 
             const formattedEnd = moment(combinedEnd).format(
                 'YYYY-MM-DD[T]HH:mm:ss[Z]'
             )
+
             setValue('dateEnd', formattedEnd)
         }
     }
@@ -67,24 +72,24 @@ export const CompetitionTimeInput = ({
                         } date is required`,
                     }}
                     render={({ field }) => (
-                        <Input
-                            type='date'
-                            {...field}
-                            min={
-                                isStart
-                                    ? new Date().toISOString().split('T')[0]
-                                    : startingDate
-                            }
-                            placeholder='Placeholder'
-                            className='dateInput'
-                            onChange={(e) => {
-                                field.onChange(e)
+                        <CustomDatePicker
+                            value={field.value}
+                            onChange={(date) => {
+                                // console.log(new Date(date))
+                                field.onChange(date)
                                 if (isStart) {
                                     combineDateTimeStart()
                                 } else {
                                     combineDateTimeEnd()
                                 }
                             }}
+                            min={
+                                isStart
+                                    ? new Date().toISOString().split('T')[0]
+                                    : startingDate
+                            }
+                            onBlur={field.onBlur}
+                            className='input dateInput'
                         />
                     )}
                 />
