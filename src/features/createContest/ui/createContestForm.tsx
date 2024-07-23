@@ -127,7 +127,7 @@ const CreateContestForm = () => {
 
         if (hasExampleMedia) {
             data.exampleMedia.forEach((file) => {
-                formData.append('exampleMedia', file)
+                formData.append('exampleMedia[]', file)
             })
         }
 
