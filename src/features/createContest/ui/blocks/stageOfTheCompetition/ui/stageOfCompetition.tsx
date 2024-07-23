@@ -1,3 +1,4 @@
+import { useFormContext } from 'react-hook-form'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import { CompetitionTimeInput } from 'shared/ui/competitionTimeInput'
 import { Icon } from 'shared/ui/icon'
@@ -11,6 +12,17 @@ interface Props {
 }
 
 export const StageOfTheCompetition = ({ dateValidation }: Props) => {
+    const {
+        formState: { errors },
+    } = useFormContext()
+
+    const validationMessage = () => {
+        if (errors.startTime ?? errors.endTime) {
+            return 'Time is required'
+        }
+        return dateValidation
+    }
+
     return (
         <VStack className='stageOfTheCompetition_container'>
             <Text Tag='h2' className='stageOfTheCompetition_header'>
@@ -19,10 +31,11 @@ export const StageOfTheCompetition = ({ dateValidation }: Props) => {
 
             <CompetitionTimeInput isStart />
             <CompetitionTimeInput />
-            {dateValidation && (
+
+            {(dateValidation || (errors.startTime ?? errors.endTime)) && (
                 <HStack className='input-error-container'>
                     <Icon Svg={alertIcon} />
-                    <Text Tag='p'>{dateValidation}</Text>
+                    <Text Tag='p'>{validationMessage()}</Text>
                 </HStack>
             )}
         </VStack>

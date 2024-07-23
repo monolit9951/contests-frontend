@@ -1,0 +1,159 @@
+.react-datepicker-wrapper {
+    .react-datepicker {
+        &__input-container {
+            input {
+                background-image: url('shared/assets/icons/calendar.svg');
+                background-repeat: no-repeat;
+                background-position-x: 204px;
+                background-position-y: 12px;
+
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.react-datepicker-popper {
+    .react-datepicker {
+        font-family: 'Manrope', sans-serif;
+        font-size: 14px;
+        line-height: 1.43;
+        letter-spacing: -0.011em;
+
+        color: var(--white);
+        background-color: var(--green-dark);
+
+        border: none;
+        border-radius: 8px;
+
+        &__header {
+            color: var(--white);
+            background-color: var(--green-dark);
+
+            padding: 16px;
+            padding-bottom: 0;
+            border: none;
+
+            > .flex {
+                margin-bottom: 8px;
+            }
+
+            &--time {
+                display: none;
+            }
+
+            .datepicker-header__button-wrapper {
+                height: 32px;
+                gap: 8px;
+
+                .button {
+                    justify-content: center;
+                    padding: 9px;
+
+                    &:hover {
+                        background: transparent;
+                    }
+
+                    &:disabled {
+                        cursor: default;
+
+                        svg {
+                            fill: var(--white-transp-50);
+                        }
+                    }
+                }
+            }
+        }
+
+        &__day-names {
+            margin: 0;
+        }
+
+        .react-datepicker__day {
+            width: 48px;
+            height: 48px;
+            margin: 0;
+
+            color: inherit;
+            line-height: 1.43;
+            align-content: center;
+            transition: background-color ease 0.4s;
+
+            border-radius: 50%;
+            outline: none;
+
+            &--selected {
+                border: 1px solid var(--white);
+                background-color: var(--grey);
+            }
+            &--keyboard-selected {
+                background-color: var(--grey-medium);
+            }
+            &--outside-month {
+                color: var(--white-muted);
+                opacity: 0.75;
+            }
+            &--disabled {
+                color: var(--white-transp-30);
+            }
+            &:hover:not(.react-datepicker__day--disabled) {
+                background-color: var(--grey);
+            }
+        }
+        .react-datepicker__day-name {
+            width: 48px;
+            height: 48px;
+            margin: 0;
+
+            color: inherit;
+            font-weight: 600;
+            line-height: 1.43;
+            align-content: center;
+        }
+
+        .react-datepicker__time-container {
+            width: 100%;
+
+            .react-datepicker__time {
+                border-radius: 8px;
+                background-color: var(--green-dark);
+
+                .react-datepicker__time-box {
+                    width: 100%;
+                    border-radius: 8px;
+                }
+
+                ul.react-datepicker__time-list {
+                    height: 120px;
+                    border-radius: 8px;
+
+                    li.react-datepicker__time-list-item {
+                        color: var(--white);
+                        background-color: transparent;
+
+                        font-size: 16px;
+                        line-height: 1.5;
+
+                        height: unset;
+                        padding: 8px 22px 8px 8px;
+
+                        &:hover {
+                            background-color: var(--grey);
+                        }
+                    }
+
+                    &::-webkit-scrollbar {
+                        width: 4px;
+                    }
+
+                    /* Handle */
+                    &::-webkit-scrollbar-thumb {
+                        height: 42px;
+                        background: var(--grey);
+                        border-radius: 8px;
+                    }
+                }
+            }
+        }
+    }
+}

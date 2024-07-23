@@ -18,6 +18,7 @@ import './createContestForm.scss'
 const CreateContestForm = () => {
     const [submitError, setSubmitError] = useState(false)
     const [dateValidation, setDateValidation] = useState('')
+    const [pending, setPending] = useState(false)
 
     const navigate = useNavigate()
 
@@ -106,7 +107,7 @@ const CreateContestForm = () => {
         formData.append('dateStart', data.dateStart)
         formData.append('dateEnd', data.dateEnd)
         formData.append('description', data.description)
-        // formData.append('prizes', JSON.stringify(data.prizes))
+
         data.prizes.forEach((prize, index) => {
             formData.append(`prizes[${index}][id]`, prize.id)
             formData.append(`prizes[${index}][prizeType]`, prize.prizeType)
@@ -146,22 +147,20 @@ const CreateContestForm = () => {
 
         formData.append('contestOwnerId', contestOwnerId)
 
-        // for (const [key, value] of formData.entries()) {
-        //     console.log(`${key}: ${value}`)
-        // }
+        try {
+            setPending(true)
+            const response = await instance.post('contests', formData)
 
-        await instance
-            .post('contests', formData)
-            .then((res) => {
-                navigate(`/contests/${res.data.id}`)
-            })
-            .catch((error) => {
-                // eslint-disable-next-line no-console
-                console.error(
-                    'Error posting contest data:',
-                    error.response?.data ?? error.message
-                )
-            })
+            navigate(`/contests/${response.data.id}`)
+        } catch (error: Error | any) {
+            // eslint-disable-next-line no-console
+            console.error(
+                'Error posting contest data:',
+                error.response?.data ?? error.message
+            )
+        } finally {
+            setPending(false)
+        }
     }
 
     const onError = () => {
@@ -182,8 +181,9 @@ const CreateContestForm = () => {
                     <Button
                         variant='primary'
                         type='submit'
+                        disabled={pending}
                         className='create_btn'>
-                        Create a contest
+                        {pending ? 'Pending...' : 'Create a contest'}
                     </Button>
                 </HStack>
             </form>
