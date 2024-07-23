@@ -45,7 +45,6 @@ export const PrizePlace: FC<PrizePlaceProps> = ({
                         {...register(`prizes.${index}.winnersAmount`, {
                             required: true,
                         })}
-                        name='winners'
                         type='number'
                         defaultValue={1}
                         min={1}
@@ -80,11 +79,12 @@ export const PrizePlace: FC<PrizePlaceProps> = ({
                         type='text'
                         placeholder='10 000 $'
                         onChange={(e) => {
-                            if (!Number.isNaN(Number(e.target.value)))
+                            if (!Number.isNaN(Number(e.target.value))) {
                                 setValue(
                                     `prizes.${index}.prizeAmount`,
                                     Number(e.target.value)
                                 )
+                            }
                         }}
                         className='prizeName_input'
                         wrapperClassName='prizeName_input_container'
