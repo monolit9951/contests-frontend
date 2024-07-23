@@ -107,6 +107,7 @@ const CreateContestForm = () => {
         formData.append('dateStart', data.dateStart)
         formData.append('dateEnd', data.dateEnd)
         formData.append('description', data.description)
+
         data.prizes.forEach((prize, index) => {
             formData.append(`prizes[${index}][id]`, prize.id)
             formData.append(`prizes[${index}][prizeType]`, prize.prizeType)

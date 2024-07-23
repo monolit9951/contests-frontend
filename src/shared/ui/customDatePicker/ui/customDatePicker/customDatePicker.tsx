@@ -5,7 +5,8 @@ import clsx from 'clsx'
 
 import { CustomHeader } from './customHeader'
 
-import './customDatePicker.scss'
+import 'react-datepicker/dist/react-datepicker.css'
+import '../customDatePicker.scss'
 
 interface Props {
     value: Date

@@ -7,7 +7,7 @@
                 background-position-x: 204px;
                 background-position-y: 12px;
 
-                cursor: default;
+                cursor: pointer;
             }
         }
     }
@@ -36,6 +36,10 @@
 
             > .flex {
                 margin-bottom: 8px;
+            }
+
+            &--time {
+                display: none;
             }
 
             .datepicker-header__button-wrapper {
@@ -105,6 +109,51 @@
             font-weight: 600;
             line-height: 1.43;
             align-content: center;
+        }
+
+        .react-datepicker__time-container {
+            width: 100%;
+
+            .react-datepicker__time {
+                border-radius: 8px;
+                background-color: var(--green-dark);
+
+                .react-datepicker__time-box {
+                    width: 100%;
+                    border-radius: 8px;
+                }
+
+                ul.react-datepicker__time-list {
+                    height: 120px;
+                    border-radius: 8px;
+
+                    li.react-datepicker__time-list-item {
+                        color: var(--white);
+                        background-color: transparent;
+
+                        font-size: 16px;
+                        line-height: 1.5;
+
+                        height: unset;
+                        padding: 8px 22px 8px 8px;
+
+                        &:hover {
+                            background-color: var(--grey);
+                        }
+                    }
+
+                    &::-webkit-scrollbar {
+                        width: 4px;
+                    }
+
+                    /* Handle */
+                    &::-webkit-scrollbar-thumb {
+                        height: 42px;
+                        background: var(--grey);
+                        border-radius: 8px;
+                    }
+                }
+            }
         }
     }
 }
