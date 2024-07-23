@@ -79,7 +79,7 @@ const ContestPage = () => {
             <HeroSection bg={data.backgroundImage} owner={data.contestOwner} />
             <VStack className='contest__container'>
                 <DescriptionSection data={data} />
-                {data.status === 'FINISHED' && data.topWinners?.length && (
+                {data.status === 'FINISHED' && !!data.topWinners?.length && (
                     <WinnersSection
                         data={data.topWinners}
                         openModal={openModal}

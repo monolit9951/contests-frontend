@@ -1,13 +1,10 @@
 import { FC, Fragment } from 'react'
 import { Contest } from 'entities/contest'
+import { PrizeIcon } from 'entities/prize'
 import moment from 'moment'
 import calendar from 'shared/assets/icons/calendar.svg?react'
 import moneyIcon from 'shared/assets/icons/currencyCircleDollar.svg?react'
 import itemIcon from 'shared/assets/icons/trophyF.svg?react'
-import first from 'shared/assets/icons/win1.svg'
-import second from 'shared/assets/icons/win2.svg'
-import third from 'shared/assets/icons/win3.svg'
-import fourth from 'shared/assets/icons/win4.svg'
 import { capitalizeStr } from 'shared/helpers'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
@@ -40,22 +37,6 @@ const DescriptionSection: FC<Props> = ({ data }) => {
 
             default:
                 return 'Participate'
-        }
-    }
-
-    const prizeIcon = (place: number) => {
-        switch (place) {
-            case 1:
-                return first
-
-            case 2:
-                return second
-
-            case 3:
-                return third
-
-            default:
-                return fourth
         }
     }
 
@@ -165,9 +146,10 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                                             </Text>
                                             <HStack className='justify__between'>
                                                 <HStack className='align__center'>
-                                                    <Image
-                                                        src={prizeIcon(place)}
-                                                        alt='place icon'
+                                                    <PrizeIcon
+                                                        place={place}
+                                                        width={44}
+                                                        height={44}
                                                         className='image__no-select'
                                                     />
                                                     <Text
