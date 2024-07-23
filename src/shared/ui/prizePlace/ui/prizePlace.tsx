@@ -79,12 +79,13 @@ export const PrizePlace: FC<PrizePlaceProps> = ({
                         })}
                         type='text'
                         placeholder='10 000 $'
-                        onChange={(e) =>
-                            setValue(
-                                `prizes.${index}.prizeAmount`,
-                                Number(e.target.value)
-                            )
-                        }
+                        onChange={(e) => {
+                            if (!Number.isNaN(Number(e.target.value)))
+                                setValue(
+                                    `prizes.${index}.prizeAmount`,
+                                    Number(e.target.value)
+                                )
+                        }}
                         className='prizeName_input'
                         wrapperClassName='prizeName_input_container'
                     />
