@@ -58,3 +58,14 @@
         }
     }
 }
+
+.image-upload__error {
+    align-items: center;
+    gap: 4px;
+
+    & > span {
+        font-size: 12px;
+        line-height: 1.33;
+        color: var(--danger);
+    }
+}

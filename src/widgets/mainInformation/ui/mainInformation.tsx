@@ -25,6 +25,7 @@ import './mainInformation.scss'
 export const MainInformation = React.memo(() => {
     const dispatch: AppDispatch = useDispatch();
 
+    const errors = useSelector((state: RootState) => state.contestsCreationPage.errors)
 
     const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setContestName(e.target.value));
@@ -45,11 +46,12 @@ export const MainInformation = React.memo(() => {
                         className='input'
                         value={useSelector((state: RootState) => state.contestsCreationPage.name)}
                         onChange={(e) => handleNameChange(e)}
+                        error={errors.name}
                     />
                 </VStack>
                 <HStack className='categoryInputs_container'>
-                    <MainInformationCombobox title='Category' placeholder='Select category' options={categories} width="100%"/>
-                    <MainInformationCombobox title='Subcategory' placeholder='Select subcategory' options={subcategories} width="100%"/>
+                    <MainInformationCombobox title='Category' placeholder='Select category' options={categories} width="100%" error={errors.category}/>
+                    <MainInformationCombobox title='Subcategory' placeholder='Select subcategory' options={subcategories} width="100%" error={errors.subcategory}/>
                 </HStack>
             </VStack>
 
@@ -57,13 +59,15 @@ export const MainInformation = React.memo(() => {
                 text='Cover image'
                 img={coverIMGPlaceholder}
                 imgAlt='coverIMGPlaceholder'
+                error={errors.backgroundImage}
             />
             <ImageUpload
                 text='Card image'
                 img={cardIMGPlaceholder}
                 imgAlt='cardIMGPlaceholder'
+                error={errors.previewImage}
             />
-            <DescriptionInput />
+            <DescriptionInput error={errors.description}/>
 
             <VStack className='mainInfoRadioElContainers_container'>
                 <MainInfoRadioElContainer

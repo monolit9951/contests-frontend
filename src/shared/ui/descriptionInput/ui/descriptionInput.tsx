@@ -6,7 +6,11 @@ import { Text } from 'shared/ui/text'
 
 import './descriptionInput.scss'
 
-export const DescriptionInput = () => {
+interface DescriptionInputProps{
+    error: string
+}
+
+export const DescriptionInput = ({error}: DescriptionInputProps) => {
     const dispatch: AppDispatch = useDispatch()
     
     const value = useSelector((state: RootState) => {
@@ -27,6 +31,7 @@ export const DescriptionInput = () => {
                 placeholder='Write more information...'
                 value={value}
                 onChange={(e) => TextareaChange(e)}
+                error={error}
             />
             <Text Tag='p' className='description_requirements'>
                 Please enter at least 40 characters

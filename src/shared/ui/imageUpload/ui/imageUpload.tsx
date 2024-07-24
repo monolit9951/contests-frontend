@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import alertIcon from 'shared/assets/icons/alert.svg?react'
 import basicCover1 from 'shared/assets/img/basicCover1.png'
 import basicCover2 from 'shared/assets/img/basicCover2.png'
 import basicCover3 from 'shared/assets/img/basicCover3.png'
@@ -19,6 +20,7 @@ interface ImageUploadProps {
     text: string
     img: string
     imgAlt: string
+    error?: string
 }
 
 const covers = [
@@ -28,7 +30,7 @@ const covers = [
     { img: basicCover4 },
 ]
 
-export const ImageUpload = ({ text, img, imgAlt }: ImageUploadProps) => {
+export const ImageUpload = ({ text, img, imgAlt, error }: ImageUploadProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [isUploading, setIsUploading] = useState<boolean>(false)
     const [currImg, setCurrImg] = useState<string>()
@@ -76,6 +78,12 @@ export const ImageUpload = ({ text, img, imgAlt }: ImageUploadProps) => {
                     </Button>
                 </VStack>
             </HStack>
+            {error && (
+                <HStack className='image-upload__error'>
+                    <Icon Svg={alertIcon} />
+                    <Text Tag='span'>{error}</Text>
+                </HStack>
+            )}
         </>
     )
 }

@@ -28,3 +28,15 @@
     }
 
 }
+
+.prize-information__error {
+    align-items: center;
+    margin-top: 24px;
+    gap: 4px;
+
+    & > span {
+        font-size: 12px;
+        line-height: 1.33;
+        color: var(--danger);
+    }
+}

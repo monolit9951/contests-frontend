@@ -12,9 +12,10 @@ interface MainInformationComboboxProps{
     placeholder: string
     options: { value: string; label: string }[]
     width?: string | number
+    error?: string
 }
 
-export const MainInformationCombobox = ({title, placeholder, options, width}: MainInformationComboboxProps) => {
+export const MainInformationCombobox = ({title, placeholder, options, width, error}: MainInformationComboboxProps) => {
     const dispatch: AppDispatch = useDispatch();
     const value = useSelector((state: RootState) =>
         title.toLowerCase() === 'category'
@@ -43,6 +44,7 @@ export const MainInformationCombobox = ({title, placeholder, options, width}: Ma
             className='input'
             width={width}
             value={value}
+            error={error}
             onChange={(e) => ComboboxChange(e)}
         />
     </VStack>

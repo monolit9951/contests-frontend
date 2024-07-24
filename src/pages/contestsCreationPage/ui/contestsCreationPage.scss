@@ -1,34 +1,29 @@
-.contestsCreationPage_container{
-    padding: 32px 65px 56px;
+.contestsCreationPage {
+    &__container {
+        padding: 32px 65px 56px;
+    }
 
-    h2{
+    &__header {
         font-size: 36px;
         font-weight: 600;
         line-height: 42px;
         margin-bottom: 32px;
     }
 
-    .sections_container{
-        gap:32px;
+    &__sections {
+        gap: 32px;
+    }
 
-        .preview_create_container{
-            gap:24px;
-            justify-content: end;
-            .preview_btn{
-                height:48px;
-                font-size: 16px;
-                font-weight: 600;
-                font-family: "Manrope";
-                padding: 12px 32px;
-            }
+    &__btns-container {
+        gap: 24px;
+        justify-content: end;
 
-            .create_btn{
-                height: 48px;
-                font-size: 16px;
-                font-weight: 600;
-                font-family: "Manrope";
-                padding: 12px 32px;
-            }
+        .btn {
+            height: 48px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Manrope';
+            padding: 12px 32px;
         }
     }
 }

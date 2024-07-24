@@ -1,15 +1,20 @@
-import React from 'react'
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Prize } from 'entities/prize'
 import { contestsCreationPageActions } from 'pages/contestsCreationPage/model/slice/index'
+import alertIcon from 'shared/assets/icons/alert.svg?react'
 import { Button } from 'shared/ui/button'
+import { Icon } from 'shared/ui/icon'
 import { PrizePlace } from 'shared/ui/prizePlace'
-import { VStack } from 'shared/ui/stack'
+import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './prizeInformation.scss'
 
-export const PrizeInformation: React.FC = () => {
+interface PrizeInformationProps {
+    error: string
+}
+
+export const PrizeInformation = ({ error }: PrizeInformationProps) => {
     const prizes: Prize[] = useSelector(
         (state: RootState) => state.contestsCreationPage.prizes
     )
@@ -45,6 +50,12 @@ export const PrizeInformation: React.FC = () => {
                 onClick={() => addPrize()}>
                 <Text Tag='p'>Add prize place</Text>
             </Button>
+            {error && (
+                <HStack className='prize-information__error'>
+                    <Icon Svg={alertIcon} />
+                    <Text Tag='span'>{error}</Text>
+                </HStack>
+            )}
         </VStack>
     )
 }

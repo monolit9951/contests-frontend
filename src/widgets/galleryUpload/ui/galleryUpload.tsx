@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setContestExampleMedia } from 'pages/contestsCreationPage/model/services'
+import alertIcon from 'shared/assets/icons/alert.svg?react'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
 import { GalleryUploadItem } from 'shared/ui/galleryUploadItem'
 import { Icon } from 'shared/ui/icon'
@@ -9,7 +10,11 @@ import { Text } from 'shared/ui/text'
 
 import './galleryUpload.scss'
 
-export const GalleryUpload = () => {
+interface GalleryUploadProps{
+    error: string
+}
+
+export const GalleryUpload = ({error}: GalleryUploadProps) => {
     const [galleryItems, setGalleryItems] = useState([
         { id: 0, hasImage: false, imgUrl: '' },
         { id: 1, hasImage: false, imgUrl: '' },
@@ -58,6 +63,12 @@ export const GalleryUpload = () => {
                     />
                 ))}
             </div>
+            {error && (
+                <HStack className='gallery-upload__error'>
+                    <Icon Svg={alertIcon} />
+                    <Text Tag='span'>{error}</Text>
+                </HStack>
+            )}
         </VStack>
     )
 }
