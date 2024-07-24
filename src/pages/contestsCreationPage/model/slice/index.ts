@@ -46,6 +46,18 @@ interface ContestCreationState {
     popularity: number
     contestOwnerId: string
     contestOpen: boolean
+    errors: {
+        name: string,
+        category: string,
+        subcategory: string,
+        backgroundImage: string,
+        previewImage: string,
+        dateStart: string,
+        dateEnd: string,
+        description: string,
+        exampleMedia: string,
+        prizes: string
+    }
 }
 
 const initialState: ContestCreationState = {
@@ -103,6 +115,18 @@ const initialState: ContestCreationState = {
     // ],
     contestOwnerId: '',
     contestOpen: true,
+    errors: {
+        name: "",
+        category: "",
+        subcategory: "",
+        backgroundImage: "",
+        previewImage: "",
+        dateStart: "",
+        dateEnd: "",
+        description: "",
+        exampleMedia: "",
+        prizes: ""
+    }
 }
 
 const slice = createSlice({
@@ -132,6 +156,9 @@ const slice = createSlice({
                     }
                     return item
                 })
+        },
+        "setErrors": (state, action) => {
+            state.errors = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -181,9 +208,6 @@ const slice = createSlice({
             .addCase(setContestOpen.fulfilled, (state, action) => {
                 state.contestOpen = action.payload
             })
-            // .addCase(addPrizePlace, (state, action) => {
-            //     state.prizes = state.prizes.push(action.payload)
-            // })
     },
 })
 
