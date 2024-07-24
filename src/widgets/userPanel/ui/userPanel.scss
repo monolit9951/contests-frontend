@@ -1,6 +1,22 @@
-.userPanel_container{
+.userPanel_container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap:32px;
+    gap: 32px;
+}
+
+@media (max-width: 1059px) {
+    .userPanel_container {
+        .createBtn {
+            width: unset;
+            padding: 12px 20px;
+
+            p {
+                display: none;
+            }
+        }
+        > button {
+            display: none;
+        }
+    }
 }
