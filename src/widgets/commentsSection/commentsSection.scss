@@ -69,3 +69,12 @@
         }
     }
 }
+
+@media (max-width: 1200px) {
+    .comments {
+        &__input-wrapper-contest,
+        &__list {
+            width: 100%;
+        }
+    }
+}

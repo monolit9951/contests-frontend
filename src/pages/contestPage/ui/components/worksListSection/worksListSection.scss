@@ -164,28 +164,22 @@
 }
 
 @media (max-width: 1920px) {
-    .participants-works {
-        &__list.media-works {
-            li {
-                width: 32%;
-                .media {
-                    width: 100%;
-                }
-            }
+    .participants-works__list {
+        gap: 20px;
+
+        li {
+            width: calc((100% * 1 / 3) - 20px);
         }
     }
 }
-@media (max-width: 1700px) {
-    .participants-works {
-        &__list.media-works {
-            gap: 14px;
-            justify-content: space-between;
-            li {
-                width: 32%;
-                .media {
-                    width: 100%;
-                }
-            }
+
+@media (max-width: 1200px) {
+    .participants-works__list {
+        justify-content: space-evenly;
+        gap: 20px;
+
+        li {
+            width: calc((100% * 1 / 2) - 20px);
         }
     }
 }
