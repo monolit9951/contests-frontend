@@ -4,6 +4,7 @@ import instance from 'shared/api/api'
 import arrow from 'shared/assets/icons/arrowUpRight.svg?react'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
+import { Text } from 'shared/ui/text'
 
 export const WorkLinkRenderer: FC<{
     value: string
@@ -22,7 +23,9 @@ export const WorkLinkRenderer: FC<{
 
     return (
         <Button variant='secondary' onClick={handleClick} className='work-link'>
-            View Work
+            <Text Tag='span' size='sm'>
+                View Work
+            </Text>
             <Icon Svg={arrow} width={20} />
         </Button>
     )

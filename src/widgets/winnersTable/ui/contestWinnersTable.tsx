@@ -77,7 +77,7 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
         {
             headerName: 'Likes',
             field: 'likeAmount',
-            headerClass: 'custom-header',
+            headerClass: 'custom-header custom-header__likes',
             cellClass: 'custom-cell custom-cell__likes',
             maxWidth: 100,
             unSortIcon: true,
@@ -85,7 +85,7 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
         {
             headerName: 'Comments',
             field: 'commentAmount',
-            headerClass: 'custom-header',
+            headerClass: 'custom-header custom-header__comments',
             cellClass: 'custom-cell custom-cell__comments',
             maxWidth: 150,
             unSortIcon: true,
@@ -93,7 +93,7 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
         {
             headerName: 'Reposts',
             field: 'commentAmount',
-            headerClass: 'custom-header',
+            headerClass: 'custom-header custom-header__reposts',
             cellClass: 'custom-cell custom-cell__reposts',
             maxWidth: 150,
             unSortIcon: true,
@@ -106,8 +106,8 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
                 openModal,
             },
             sortable: false,
-            headerClass: 'custom-header',
-            cellClass: 'custom-cell',
+            headerClass: 'custom-header custom__work-link',
+            cellClass: 'custom-cell custom__work-link',
             maxWidth: 194,
         },
     ])
@@ -148,19 +148,19 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
             sortDescending: `<img src="${desc}" alt="Sort Descending" width="24px" height="24px" style="filter: invert(1)" />`,
             sortUnSort: `<img src="${none}" alt="Sort None" width="24px" height="24px" style="filter: invert(1)" />`,
         },
+        suppressMovableColumns: true,
+        rowStyle: {
+            width: '100%',
+            border: `0.5px solid #393b3b`,
+            background: theme === 'dark' ? '#1b2321' : '#f0f0f0',
+        },
     }
 
     const defaultColDef = {
         flex: 1,
         minWidth: 100,
         resizable: false,
-    }
-
-    const getRowStyle = () => {
-        return {
-            border: `0.5px solid #393b3b`,
-            background: theme === 'dark' ? '#1b2321' : '#f0f0f0',
-        }
+        rowDrag: false,
     }
 
     const cellStyle = () => {
@@ -184,7 +184,6 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
                     cellStyle,
                 }))}
                 defaultColDef={defaultColDef}
-                getRowStyle={getRowStyle}
                 getRowHeight={getRowHeight}
                 domLayout='autoHeight'
                 sortingOrder={['asc', 'desc']}

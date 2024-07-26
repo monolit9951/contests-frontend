@@ -165,21 +165,33 @@
 
 @media (max-width: 1920px) {
     .participants-works__list {
-        gap: 20px;
+        &.media-works {
+            gap: 20px;
 
-        li {
-            width: calc((100% * 1 / 3) - 20px);
+            li {
+                width: calc((100% * 1 / 3) - 20px);
+            }
+        }
+
+        &.text-works {
+            gap: 20px;
         }
     }
 }
 
 @media (max-width: 1200px) {
     .participants-works__list {
-        justify-content: space-evenly;
-        gap: 20px;
+        &.media-works {
+            justify-content: space-evenly;
+            gap: 20px;
 
-        li {
-            width: calc((100% * 1 / 2) - 20px);
+            li {
+                width: calc((100% * 1 / 2) - 20px);
+            }
+        }
+
+        &.text-works {
+            column-count: 2;
         }
     }
 }

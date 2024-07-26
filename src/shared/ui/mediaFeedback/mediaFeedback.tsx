@@ -50,7 +50,9 @@ const MediaFeedback: FC<Props> = (props) => {
                 icon={share}
                 onClick={onShare}
                 className='feedback__button'>
-                Share
+                <Text Tag='p' size='sm' bold>
+                    Share
+                </Text>
             </Button>
         </HStack>
     )

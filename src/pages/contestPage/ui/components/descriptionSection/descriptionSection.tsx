@@ -91,9 +91,6 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                             <li>
                                 <Text Tag='p'>{data.description}</Text>
                             </li>
-                            <li>
-                                <Text Tag='p'>{data.description}</Text>
-                            </li>
                         </ul>
                     </VStack>
                     {data.exampleMedia && (

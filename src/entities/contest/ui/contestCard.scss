@@ -230,5 +230,12 @@
         .contest-card-body .image-box img {
             max-width: 50vw;
         }
+
+        .contest-card-title .segments {
+            .dark,
+            .light {
+                font-size: 12px;
+            }
+        }
     }
 }

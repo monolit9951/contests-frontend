@@ -17,6 +17,14 @@
     &__place {
         width: 100px;
     }
+
+    &__likes,
+    &__comments,
+    &__reposts {
+        .ag-header-cell-label {
+            justify-content: flex-end;
+        }
+    }
 }
 .ag-header {
     height: 56px !important;
@@ -45,9 +53,11 @@
 .ag-body-horizontal-scroll-viewport {
     display: none;
 }
+
 //custom-cols
 .work-link {
     height: 36px;
+
     &.dark {
         color: var(--white);
     }
@@ -85,5 +95,14 @@
     &__comments,
     &__reposts {
         justify-content: flex-end;
+        padding-right: 23px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .work-link {
+        span {
+            display: none;
+        }
     }
 }
