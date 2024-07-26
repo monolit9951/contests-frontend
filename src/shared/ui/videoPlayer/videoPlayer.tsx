@@ -17,6 +17,7 @@ const Video: FC<Props> = (props) => {
 
     const videoRef = useRef<HTMLVideoElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
+    const previewDivRef = useRef<HTMLDivElement>(null)
     const [previewImage, setPreviewImage] = useState('')
 
     if (light) {
@@ -24,6 +25,7 @@ const Video: FC<Props> = (props) => {
             const captureFirstFrame = () => {
                 const video = videoRef.current
                 const canvas = canvasRef.current
+
                 if (video && canvas) {
                     const context = canvas.getContext('2d')
                     if (context) {
@@ -44,17 +46,13 @@ const Video: FC<Props> = (props) => {
                 const video = videoRef.current
                 if (video) {
                     video.currentTime = 0
-                    video.addEventListener('seeked', captureFirstFrame, {
-                        once: true,
-                    })
+                    video.addEventListener('seeked', captureFirstFrame)
                 }
             }
 
             const video = videoRef.current
             if (video) {
-                video.addEventListener('loadedmetadata', handleLoadedMetadata, {
-                    once: true,
-                })
+                video.addEventListener('loadedmetadata', handleLoadedMetadata)
             }
 
             return () => {
@@ -66,24 +64,22 @@ const Video: FC<Props> = (props) => {
                 }
             }
         }, [url])
+    }
 
-        useEffect(() => {
-            if (previewImage) {
-                const previewDiv = document.querySelector(
-                    '.react-player__preview'
-                ) as HTMLDivElement
+    useEffect(() => {
+        if (previewImage) {
+            const previewDiv = previewDivRef.current
 
-                if (previewDiv) {
-                    const backgroundImage = window
-                        .getComputedStyle(previewDiv)
-                        .getPropertyValue('background-image')
-                    if (!backgroundImage || backgroundImage === 'none') {
-                        previewDiv.style.backgroundImage = `url(${previewImage})`
-                    }
+            if (previewDiv) {
+                const backgroundImage = window
+                    .getComputedStyle(previewDiv)
+                    .getPropertyValue('background-image')
+                if (!backgroundImage || backgroundImage === 'none') {
+                    previewDiv.style.backgroundImage = `url(${previewImage})`
                 }
             }
-        }, [previewImage])
-    }
+        }
+    }, [previewImage])
 
     return (
         <>
@@ -91,7 +87,14 @@ const Video: FC<Props> = (props) => {
                 url={url}
                 width={width}
                 height={height}
-                light={light}
+                light={
+                    light && (
+                        <div
+                            ref={previewDivRef}
+                            className='react-player__preview'
+                        />
+                    )
+                }
                 playing
                 loop
                 controls
