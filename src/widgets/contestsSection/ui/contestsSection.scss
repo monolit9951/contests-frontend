@@ -73,3 +73,9 @@
         }
     }
 }
+
+@media (max-width: 1439px) {
+    .contest-gallery__list {
+        justify-content: space-evenly;
+    }
+}

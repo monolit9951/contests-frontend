@@ -54,3 +54,20 @@
         }
     }
 }
+
+@media (max-width: 1560px) {
+    .media__overlay {
+        height: 520px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .media__overlay {
+        height: 612px;
+    }
+    .winners__list {
+        & .media__overlay {
+            height: 520px;
+        }
+    }
+}

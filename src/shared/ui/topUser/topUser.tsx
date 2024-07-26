@@ -11,7 +11,7 @@ interface TopUserProps {
 
 export const TopUser: FC<TopUserProps> = ({ topRate }) => {
     return (
-        <Flex className='topUser'>
+        <Flex className='topUser align__center'>
             <Icon Svg={crown} width={14} height={14} />
             <span>TOP {topRate}</span>
         </Flex>

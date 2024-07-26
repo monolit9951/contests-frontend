@@ -9,14 +9,15 @@
 }
 
 @media (max-width: 1920px) {
-    .contest{
+    .contest {
         &__container {
             padding: 0 5vw 0;
         }
     }
 }
+
 @media (max-width: 1700px) {
-    .contest{
+    .contest {
         &__container {
             padding: 0 3vw 0;
         }

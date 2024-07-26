@@ -97,3 +97,34 @@
         }
     }
 }
+
+@media (max-width: 1920px) {
+    .text-work,
+    .media-work {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1560px) {
+    .media-work {
+        &__container,
+        &__frame,
+        &__video {
+            height: 520px;
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .media-work {
+        &__container {
+            height: 612px;
+        }
+        &__frame {
+            height: 612px;
+        }
+        &__video {
+            height: 612px;
+        }
+    }
+}
