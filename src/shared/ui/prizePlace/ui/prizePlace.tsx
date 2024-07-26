@@ -48,6 +48,7 @@ export const PrizePlace: FC<PrizePlaceProps> = ({
                         type='number'
                         defaultValue={1}
                         min={1}
+                        max={1000}
                         placeholder='10'
                         className='winnersNum_input'
                         wrapperClassName='winnersNum_input_container'

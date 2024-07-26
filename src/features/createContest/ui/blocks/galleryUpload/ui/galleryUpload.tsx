@@ -40,13 +40,13 @@ export const GalleryUpload = () => {
     return (
         <VStack className='galleryUpload_container'>
             <VStack className='title_container'>
-                <HStack className='header_container'>
-                    <Text Tag='h2' className='header'>
+                <HStack className='galleryUpload__header_container'>
+                    <Text Tag='h2' className='galleryUpload__header'>
                         Gallery
                     </Text>
                     <Icon Svg={questionMark} height={20} width={21} />
                 </HStack>
-                <Text Tag='p' className='header_label'>
+                <Text Tag='p' className='galleryUpload__header_label'>
                     You can upload to this gallery examples of robots to be
                     performed by competition participants, as well as
                     photographs of prizes
