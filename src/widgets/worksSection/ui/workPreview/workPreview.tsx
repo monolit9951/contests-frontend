@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import { Work } from 'entities/work/model/types'
@@ -25,6 +25,17 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
     const { theme } = useTheme()
 
     const [isReadMore, setIsReadMore] = useState(false)
+    const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth)
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [windowWidth])
 
     const { media, workAddingDate, description, user } = work as Work
 
@@ -42,16 +53,17 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
     return (
         <Flex className='work-preview'>
             <HStack>
-                {work.typeWork === 'IMAGE' && media && (
-                    <ImageSlider images={media} />
-                )}
-                {work.typeWork === 'VIDEO' && media && (
-                    <Video
-                        url={media[0].mediaLink}
-                        width={668}
-                        className='preview__video'
-                    />
-                )}
+                {windowWidth > 1024 &&
+                    media &&
+                    (work.typeWork === 'IMAGE' ? (
+                        <ImageSlider images={media} />
+                    ) : (
+                        <Video
+                            url={media[0].mediaLink}
+                            width={windowWidth >= 1280 ? 668 : 500}
+                            className='preview__video'
+                        />
+                    ))}
 
                 <VStack
                     className={clsx(
@@ -80,25 +92,41 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                                 onClick={onActionClick}
                             />
                         </HStack>
-                        <Text Tag='p' className='work-desc__text'>
-                            {(description.length < 250 && description) || (
-                                <>
-                                    {!isReadMore
-                                        ? description.slice(0, 250)
-                                        : `${description} `}
-                                    <button
-                                        type='button'
-                                        className='read-more-btn'
-                                        onClick={toggleReadMore}>
-                                        <Text Tag='span'>
-                                            {!isReadMore
-                                                ? '... more'
-                                                : 'show less'}
-                                        </Text>
-                                    </button>
-                                </>
-                            )}
-                        </Text>
+
+                        {windowWidth <= 1024 &&
+                            media &&
+                            (work.typeWork === 'IMAGE' ? (
+                                <ImageSlider images={media} />
+                            ) : (
+                                <Video
+                                    url={media[0].mediaLink}
+                                    width={500}
+                                    className='preview__video'
+                                />
+                            ))}
+
+                        {description && (
+                            <Text Tag='p' className='work-desc__text'>
+                                {(description.length < 250 && description) || (
+                                    <>
+                                        {!isReadMore
+                                            ? description.slice(0, 250)
+                                            : `${description} `}
+                                        <button
+                                            type='button'
+                                            className='read-more-btn'
+                                            onClick={toggleReadMore}>
+                                            <Text Tag='span'>
+                                                {!isReadMore
+                                                    ? '... more'
+                                                    : 'show less'}
+                                            </Text>
+                                        </button>
+                                    </>
+                                )}
+                            </Text>
+                        )}
+
                         <HStack
                             className={clsx(
                                 theme,

@@ -19,6 +19,7 @@ import './worksSection.scss'
 const WorksSection: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
     const [selectedWork, setSelectedWork] = useState<Work | null>(null)
+    const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
 
     const dispatch = useAppDispatch()
 
@@ -45,6 +46,16 @@ const WorksSection: React.FC = () => {
     )
 
     useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth)
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [windowWidth])
+
+    useEffect(() => {
         dispatch(fetchWorks(page))
     }, [dispatch, page])
 
@@ -61,11 +72,11 @@ const WorksSection: React.FC = () => {
         return <p>Error: {error}</p>
     }
 
-    const getModalWidth = (work: Work | null): string => {
+    const getModalMaxWidth = (work: Work | null): string => {
         if (work?.typeWork === 'TEXT') {
             return '520px'
         }
-        return '1190px'
+        return '100%'
     }
 
     return (
@@ -82,9 +93,9 @@ const WorksSection: React.FC = () => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 isOuterClose
-                width={getModalWidth(selectedWork)}
-                height='83%'
-                maxHeight='900px'
+                maxWidth={getModalMaxWidth(selectedWork)}
+                height={windowWidth > 1024 ? '83%' : '88%'}
+                maxHeight={windowWidth >= 1024 ? '900px' : ''}
                 modalContentClass='work-preview-modal'>
                 {selectedWork && <WorkPreview work={selectedWork} />}
             </ModalWindow>

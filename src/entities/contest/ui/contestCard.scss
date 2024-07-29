@@ -120,12 +120,12 @@
     }
 }
 
-@media (max-width: 1920px) {
+@media (max-width: 1919px) {
     .contest-card-wrapper {
-        max-width: 370px;
+        max-width: 21vw;
 
-        .contest-card-body .image-box img {
-            max-width: 320px;
+        .contest-card-body .image-box .image {
+            max-width: 19vw;
         }
 
         .contest-card-title .segments {
@@ -137,24 +137,26 @@
     }
 }
 
-@media (max-width: 1770px) {
+@media (max-width: 1800px) {
     .contest-card-wrapper {
         max-width: 20vw;
 
-        .contest-card-body .image-box img {
+        .contest-card-body .image-box .image {
             max-width: 18vw;
-        }
-
-        .contest-card-title .segments {
-            .dark,
-            .light {
-                font-size: 10px;
-            }
         }
     }
 }
 
-@media (max-width: 1560px) {
+@media (max-width: 1769px) {
+    .contest-card-wrapper .contest-card-title .segments {
+        .dark,
+        .light {
+            font-size: 10px;
+        }
+    }
+}
+
+@media (max-width: 1559px) {
     .contest-card-wrapper {
         justify-content: flex-start;
         gap: 20px;
@@ -200,7 +202,7 @@
             }
         }
 
-        .contest-card-body .image-box img {
+        .contest-card-body .image-box .image {
             max-width: unset;
         }
 
@@ -217,7 +219,7 @@
     .contest-card-wrapper {
         max-width: 35vw;
 
-        .contest-card-body .image-box img {
+        .contest-card-body .image-box .image {
             max-width: 32vw;
         }
     }
@@ -227,7 +229,7 @@
     .contest-card-wrapper {
         max-width: 52vw;
 
-        .contest-card-body .image-box img {
+        .contest-card-body .image-box .image {
             max-width: 50vw;
         }
 

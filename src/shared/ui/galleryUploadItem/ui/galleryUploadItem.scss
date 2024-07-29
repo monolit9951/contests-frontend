@@ -11,13 +11,13 @@
     &.is-current {
         flex-direction: column;
         gap: 10px;
-     
-        .gallery-upload-item_image{
+
+        .gallery-upload-item_image {
             border-radius: 8px;
-            object-fit: "fill";
+            object-fit: 'fill';
         }
 
-        .remove_btn{
+        .remove_btn {
             position: absolute;
             z-index: 10;
             top: 0;
@@ -27,9 +27,9 @@
             width: 36px;
             padding: 6px;
             background-color: var(--grey);
-            
-            .remove_btn_icon{
-                fill:var(--white-muted);
+
+            .remove_btn_icon {
+                fill: var(--white-muted);
             }
         }
     }
@@ -42,9 +42,9 @@
         line-height: 20px;
     }
 
-    input[type="file"] {
+    input[type='file'] {
         display: none;
-      }
+    }
 
     .upload-btn {
         display: flex;
@@ -65,3 +65,10 @@
         }
     }
 }
+
+// @media (max-width: 1280px) {
+//     .gallery-upload-item {
+//          width: 200px;
+//          height: 200px;
+//     }
+// }

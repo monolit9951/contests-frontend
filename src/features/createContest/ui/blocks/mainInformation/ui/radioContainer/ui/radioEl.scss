@@ -9,9 +9,7 @@
     cursor: pointer;
 
     .radioEl_container_text {
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: -0.5px;
+        letter-spacing: -0.011em;
         color: var(--white-muted);
     }
 
@@ -21,5 +19,15 @@
         .radioEl_container_text {
             font-weight: 600;
         }
+    }
+}
+
+@media (max-width: 1280px) {
+    .radioEl_container {
+        width: 135px;
+    }
+
+    .radioEl_container_text {
+        font-size: 12px;
     }
 }
