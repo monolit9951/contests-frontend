@@ -21,11 +21,15 @@
                 max-height: 9rem;
                 overflow-y: scroll;
 
-                /* Hide scrollbar */
-                -ms-overflow-style: none; /* IE and Edge */
-                scrollbar-width: none; /* Firefox */
                 &::-webkit-scrollbar {
-                    display: none; /* Chrome, Safari and Opera */
+                    width: 4px;
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    height: 12px;
+                    background: var(--grey);
+                    border-radius: 8px;
                 }
 
                 & > .read-more-btn {
@@ -77,6 +81,7 @@
                         height: 18px;
                         border-radius: 2px;
                         background: var(--purple);
+
                         .icon-work__prev {
                             width: 13px;
                             fill: var(--white) !important;
@@ -85,6 +90,10 @@
                 }
             }
         }
+    }
+
+    .image-slider {
+        width: 668px;
     }
 
     .feedback__wrapper {
@@ -158,6 +167,62 @@
 
         .tag-contest {
             background-color: var(--white-medium-light);
+        }
+    }
+}
+
+@media (max-width: 1439px) {
+    .work-preview > .flex__row .work-desc {
+        width: 440px;
+    }
+
+    .work-preview {
+        .image-slider {
+            width: 500px;
+        }
+    }
+}
+
+@media (max-width: 1280px) {
+    .work-preview > .flex__row .work-desc {
+        width: 350px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .work-preview {
+        .image-slider {
+            width: 500px;
+            height: 70vh;
+        }
+
+        .comments {
+            overflow: unset;
+        }
+
+        .preview__video + .work-desc__text {
+            height: 100%;
+        }
+    }
+
+    .work-preview > .flex__row .work-desc {
+        width: 100%;
+        overflow-y: scroll;
+        position: static;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            height: 42px;
+            background: var(--grey);
+            border-radius: 8px;
+        }
+
+        &__text {
+            max-width: 500px;
         }
     }
 }
