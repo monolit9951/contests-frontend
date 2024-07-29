@@ -200,32 +200,32 @@ export const CoverSelectionModal = ({
                                         1704 x 390 pixels in size. File size –
                                         no more than 6 MB
                                     </Text>
-                                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                                    <label
-                                        htmlFor='custom-cover-upload-btn_id'
-                                        className='custom-cover-upload-btn'>
-                                        <Text
-                                            Tag='p'
-                                            className='custom-cover-upload-btn-text'>
-                                            Upload custom cover
-                                        </Text>
-                                        <Icon
-                                            Svg={upload}
-                                            width={24}
-                                            height={24}
-                                            className='custom-cover-upload-btn-icon'
-                                        />
-                                    </label>
-                                    <input
-                                        type='file'
-                                        id='custom-cover-upload-btn_id'
-                                        accept='.webp,.png,.jpg,.jpeg'
-                                        onChange={(e) => {
-                                            setImage(e)
-                                        }}
-                                    />
                                 </>
                             )}
+                            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                            <label
+                                htmlFor='custom-cover-upload-btn_id'
+                                className='custom-cover-upload-btn'>
+                                <Text
+                                    Tag='p'
+                                    className='custom-cover-upload-btn-text'>
+                                    Upload custom cover
+                                </Text>
+                                <Icon
+                                    Svg={upload}
+                                    width={24}
+                                    height={24}
+                                    className='custom-cover-upload-btn-icon'
+                                />
+                            </label>
+                            <input
+                                type='file'
+                                id='custom-cover-upload-btn_id'
+                                accept='.webp,.png,.jpg,.jpeg'
+                                onChange={(e) => {
+                                    setImage(e)
+                                }}
+                            />
                         </VStack>
 
                         <Divider marginX={16} marginY={24} />
