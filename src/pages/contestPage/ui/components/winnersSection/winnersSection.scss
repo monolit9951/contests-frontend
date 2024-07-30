@@ -62,3 +62,24 @@
         }
     }
 }
+
+@media (max-width: 1200px) {
+    .winners__list {
+        flex-wrap: wrap;
+
+        > li:first-child {
+            flex: 1 1 100%;
+            text-align: center;
+            text-align: -moz-center;
+            text-align: -webkit-center;
+
+            .first-place {
+                max-width: 768px;
+            }
+        }
+
+        li:not(:first-child) {
+            flex: 1;
+        }
+    }
+}

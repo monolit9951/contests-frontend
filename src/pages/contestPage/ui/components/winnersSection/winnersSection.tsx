@@ -32,12 +32,13 @@ const WinnersSection: FC<Props> = (props) => {
             </Text>
 
             <ul className='winners__list'>
-                {data.map(({ work, prizeId }) => (
+                {data.map(({ work, prizeId }, idx) => (
                     <WorkCard
                         key={work.id}
                         data={work}
                         prizeId={prizeId}
                         openModal={openModal}
+                        className={clsx(idx === 0 && 'first-place')}
                     />
                 ))}
             </ul>

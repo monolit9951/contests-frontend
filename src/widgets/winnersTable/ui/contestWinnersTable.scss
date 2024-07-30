@@ -28,7 +28,7 @@
 }
 .ag-header {
     height: 56px !important;
-
+    &-row,
     &-container {
         width: 100% !important;
     }
@@ -51,7 +51,17 @@
     }
 }
 .ag-body-horizontal-scroll-viewport {
-    display: none;
+    &::-webkit-scrollbar {
+        width: 4px;
+        height: 6px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        height: 42px;
+        background: var(--grey);
+        border-radius: 8px;
+    }
 }
 
 //custom-cols
@@ -64,9 +74,6 @@
 }
 .name-cell {
     gap: 8px;
-    .avatar-img {
-        border-radius: 50%;
-    }
 }
 .place-col {
     font-weight: 600;
@@ -96,13 +103,5 @@
     &__reposts {
         justify-content: flex-end;
         padding-right: 23px;
-    }
-}
-
-@media (max-width: 1100px) {
-    .work-link {
-        span {
-            display: none;
-        }
     }
 }

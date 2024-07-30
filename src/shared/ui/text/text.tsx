@@ -12,12 +12,13 @@ interface TextProps {
     children: string | ReactNode
     size?: SizeTypes
     bold?: boolean
+    title?: string
     onClick?: () => void
     className?: string
 }
 
 export default function Text(props: TextProps) {
-    const { Tag, size, bold, className, onClick, children } = props
+    const { Tag, size, bold, className, title, onClick, children } = props
 
     return (
         <Tag
@@ -27,6 +28,7 @@ export default function Text(props: TextProps) {
                 bold && 'text__bold',
                 className
             )}
+            title={title}
             onClick={onClick}>
             {children}
         </Tag>
