@@ -18,9 +18,20 @@
     }
 }
 @media (max-width: 1115px) {
-    .winners__list .feedback__wrapper .feedback__button {
+    .winners__list
+        .text-work:not(.first-place)
+        .feedback__wrapper
+        .feedback__button {
         p {
             display: none;
         }
+    }
+
+    .participants-works__list
+        .text-work
+        .feedback__wrapper
+        .feedback__button
+        p {
+        display: none;
     }
 }

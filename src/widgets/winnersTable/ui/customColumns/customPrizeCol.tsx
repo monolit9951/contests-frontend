@@ -21,7 +21,11 @@ export const PrizeRenderer: FC<{ value: string }> = ({ value }) => {
 
     return (
         <HStack>
-            <Text Tag='p'>
+            <Text
+                Tag='p'
+                title={
+                    type === 'ITEM' ? text : `${amount} ${currencySymbol()}`
+                }>
                 {type === 'ITEM' ? text : `${amount} ${currencySymbol()}`}
             </Text>
         </HStack>

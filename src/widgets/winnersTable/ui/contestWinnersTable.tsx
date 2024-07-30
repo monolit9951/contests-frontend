@@ -48,7 +48,7 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
             headerClass: 'custom-header',
             cellClass: 'custom-cell custom-cell__place',
             cellRenderer: FirstColumnRenderer,
-            maxWidth: 100,
+            minWidth: 100,
             unSortIcon: true,
         },
         {
@@ -61,6 +61,7 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
             sortable: false,
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
+            minWidth: 200,
         },
         {
             headerName: 'Prize',
@@ -72,6 +73,8 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
             cellRenderer: PrizeRenderer,
+            minWidth: 200,
+            maxWidth: 500,
             unSortIcon: true,
         },
         {
@@ -79,7 +82,7 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
             field: 'likeAmount',
             headerClass: 'custom-header custom-header__likes',
             cellClass: 'custom-cell custom-cell__likes',
-            maxWidth: 100,
+            minWidth: 150,
             unSortIcon: true,
         },
         {
@@ -87,7 +90,7 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
             field: 'commentAmount',
             headerClass: 'custom-header custom-header__comments',
             cellClass: 'custom-cell custom-cell__comments',
-            maxWidth: 150,
+            minWidth: 150,
             unSortIcon: true,
         },
         {
@@ -95,7 +98,7 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
             field: 'commentAmount',
             headerClass: 'custom-header custom-header__reposts',
             cellClass: 'custom-cell custom-cell__reposts',
-            maxWidth: 150,
+            minWidth: 150,
             unSortIcon: true,
         },
         {
@@ -108,7 +111,7 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
             sortable: false,
             headerClass: 'custom-header custom__work-link',
             cellClass: 'custom-cell custom__work-link',
-            maxWidth: 194,
+            minWidth: 194,
         },
     ])
     const [currentPage, setCurrentPage] = useState(1)
@@ -158,7 +161,6 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
 
     const defaultColDef = {
         flex: 1,
-        minWidth: 100,
         resizable: false,
         rowDrag: false,
     }
