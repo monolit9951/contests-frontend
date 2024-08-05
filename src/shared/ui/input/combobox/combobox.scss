@@ -1,23 +1,110 @@
 .input-wrapper {
     position: relative;
 
-    select {
-        box-sizing: border-box;
-        width: 100%;
-        padding-right: 30px;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        cursor: pointer;
+    .error .Select__control {
+        border-color: var(--danger);
 
-        background-color: var(--green-dark);
-        background-image: url('/src/shared/assets/icons/arrowCombo.svg');
-        background-repeat: no-repeat;
-        background-position-x: calc(100% - 12px);
-        background-position-y: 50%;
+        &:hover {
+            border-color: var(--danger);
+        }
     }
 
-    select .placeholder-option {
-        color: #585d5c;
+    .Select {
+        &__control {
+            font-size: 16px;
+            line-height: 1.5;
+
+            color: var(--white);
+            background-color: var(--green-dark);
+
+            height: 48px;
+            border-radius: 8px;
+            border: 1px solid var(--dark);
+            box-shadow: none;
+            cursor: pointer;
+
+            &:hover {
+                border-color: var(--dark);
+            }
+        }
+
+        &__value-container {
+            color: var(--white);
+            padding-right: 30px;
+        }
+
+        &__single-value {
+            color: var(--white);
+        }
+
+        &__input-container {
+            padding: 0;
+            margin: 0;
+        }
+        &__placeholder {
+            color: var(--white-transp-50);
+        }
+
+        &__indicator-separator {
+            display: none;
+        }
+
+        &__dropdown-indicator {
+            color: var(--white);
+
+            &:hover {
+                color: var(--white-muted);
+            }
+        }
+        &__menu {
+            border-radius: 8px;
+
+            &-list {
+                max-height: 120px;
+                padding: 0;
+                border-radius: 8px;
+
+                color: var(--white);
+                background-color: var(--green-dark);
+
+                &::-webkit-scrollbar {
+                    width: 4px;
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    height: 42px;
+                    background: var(--grey);
+                    border-radius: 8px;
+                }
+            }
+        }
+
+        &__option {
+            padding: 8px;
+            padding-right: 10px;
+            cursor: pointer;
+
+            &:active {
+                background-color: var(--grey-medium);
+            }
+
+            &--is-focused {
+                background-color: var(--grey);
+            }
+
+            &--is-selected {
+                font-weight: 700;
+                background-color: var(--green-dark);
+
+                &.Select__option--is-focused {
+                    background-color: var(--grey);
+                }
+            }
+        }
+    }
+
+    .css-t3ipsp-control {
+        box-shadow: none;
     }
 }

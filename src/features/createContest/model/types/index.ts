@@ -9,7 +9,7 @@ export interface PrizeData extends Omit<Prize, 'prizeType' | 'currency'> {
 export interface ContestCreationRequestBody {
     name: string
     status: Status
-    category: Category
+    category: Category | ''
     subcategory: SubCategory | ''
     backgroundImage: string
     previewImage: string

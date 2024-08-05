@@ -26,8 +26,8 @@ const CreateContestForm = () => {
         defaultValues: {
             name: '',
             status: 'ACTIVE',
-            category: 'FOR_FUN',
-            subcategory: 'SUBCATEGORY1',
+            category: '',
+            subcategory: '',
             backgroundImage: '',
             previewImage: '',
             selectionType: 'RANDOM',

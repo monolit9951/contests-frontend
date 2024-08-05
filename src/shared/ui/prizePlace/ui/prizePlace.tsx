@@ -60,14 +60,14 @@ export const PrizePlace: FC<PrizePlaceProps> = ({
                         rules={{ required: true }}
                         render={({ field }) => (
                             <Combobox
-                                name={field.name}
-                                label='Prize type'
                                 options={types}
+                                name={field.name}
+                                value={types.find(
+                                    (c) => c.value === field.value
+                                )}
+                                onChange={(val) => field.onChange(val?.value)}
+                                label='Prize type'
                                 placeholder='Select type'
-                                className='input'
-                                width={164}
-                                value={field.value}
-                                onChange={field.onChange}
                             />
                         )}
                     />
