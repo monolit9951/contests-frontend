@@ -57,13 +57,14 @@ export const MainInformation = ({ submitError }: Props) => {
                         rules={{ required: 'Select category' }}
                         render={({ field }) => (
                             <Combobox
+                                options={categories}
+                                name={field.name}
+                                value={categories.find(
+                                    (c) => c.value === field.value
+                                )}
+                                onChange={(val) => field.onChange(val?.value)}
                                 label='Category'
                                 placeholder='Select category'
-                                options={categories}
-                                className='input'
-                                name={field.name}
-                                value={field.value}
-                                onChange={field.onChange}
                                 error={
                                     errors.category &&
                                     (errors.category.message as string)
@@ -77,13 +78,14 @@ export const MainInformation = ({ submitError }: Props) => {
                         rules={{ required: 'Select subcategory' }}
                         render={({ field }) => (
                             <Combobox
+                                options={subcategories}
+                                name={field.name}
+                                value={subcategories.find(
+                                    (c) => c.value === field.value
+                                )}
+                                onChange={(val) => field.onChange(val?.value)}
                                 label='Subcategory'
                                 placeholder='Select subcategory'
-                                options={subcategories}
-                                className='input'
-                                name={field.name}
-                                value={field.value}
-                                onChange={field.onChange}
                                 error={
                                     errors.subcategory &&
                                     (errors.subcategory.message as string)
