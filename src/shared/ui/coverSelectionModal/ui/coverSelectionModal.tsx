@@ -108,7 +108,7 @@ export const CoverSelectionModal = ({
                         Svg={X}
                         className='header_icon'
                         clickable
-                        onClick={() => setIsOpen(false)}
+                        onClick={onCancel}
                         width={24}
                         height={24}
                     />
