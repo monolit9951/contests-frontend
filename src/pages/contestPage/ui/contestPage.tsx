@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Contest } from 'entities/contest'
 import { Work } from 'entities/work'
 import useAxios from 'shared/lib/hooks/useAxios'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
+import { Button } from 'shared/ui/button'
 import { ModalWindow } from 'shared/ui/modalWindow'
+import Spinner from 'shared/ui/spinner'
 import { VStack } from 'shared/ui/stack'
+import { Text } from 'shared/ui/text'
 import { CommentsSection } from 'widgets/commentsSection'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
@@ -25,6 +28,9 @@ const ContestPage = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedWork, setSelectedWork] = useState<Work | null>(null)
+    const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
+
+    const navigate = useNavigate()
 
     const dispatch = useAppDispatch()
 
@@ -32,10 +38,19 @@ const ContestPage = () => {
     const media = useAppSelector(selectContestMedia)
 
     if (!id) {
-        return <p>Something went wrong</p>
+        return (
+            <div className='contest__error-message'>
+                <Text Tag='p' bold size='xl'>
+                    Something went wrong
+                </Text>
+                <Button variant='secondary' onClick={() => navigate(-1)}>
+                    Go back
+                </Button>
+            </div>
+        )
     }
 
-    const { data, isLoading } = useAxios<Contest>(`contests/${id}`)
+    const { data, isLoading, error } = useAxios<Contest>(`contests/${id}`)
 
     useEffect(() => {
         if (id !== ownerId) {
@@ -54,12 +69,31 @@ const ContestPage = () => {
         }
     }, [dispatch, data])
 
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth)
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [windowWidth])
+
     if (isLoading) {
-        return <p>Loading...</p>
+        return <Spinner center />
     }
 
     if (!data) {
-        return <p>Request error</p>
+        return (
+            <div className='contest__error-message'>
+                <Text Tag='p' bold size='xl'>
+                    Request error{`: ${error?.message}`}
+                </Text>
+                <Button variant='secondary' onClick={() => navigate(-1)}>
+                    Go back
+                </Button>
+            </div>
+        )
     }
 
     const openModal = (work: Work) => {
@@ -67,11 +101,11 @@ const ContestPage = () => {
         setIsModalOpen(true)
     }
 
-    const getModalWidth = (work: Work | null): string => {
+    const getModalMaxWidth = (work: Work | null): string => {
         if (work?.typeWork === 'TEXT') {
             return '520px'
         }
-        return '1190px'
+        return '100%'
     }
 
     return (
@@ -97,9 +131,9 @@ const ContestPage = () => {
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     isOuterClose
-                    width={getModalWidth(selectedWork)}
-                    height='83%'
-                    maxHeight='900px'
+                    maxWidth={getModalMaxWidth(selectedWork)}
+                    height={windowWidth > 1024 ? '83%' : '88%'}
+                    maxHeight={windowWidth >= 1024 ? '900px' : ''}
                     modalContentClass='work-preview-modal'>
                     {selectedWork && <WorkPreview work={selectedWork} />}
                 </ModalWindow>

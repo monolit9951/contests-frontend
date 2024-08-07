@@ -1,4 +1,5 @@
 .comments {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -37,7 +38,13 @@
     }
 
     &__list {
+        min-height: 50px;
         width: 985px;
+    }
+
+    &__error-message {
+        text-align: center;
+        text-align: -webkit-center;
     }
 }
 

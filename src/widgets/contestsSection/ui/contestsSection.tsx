@@ -21,6 +21,7 @@ import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { SortButton } from 'shared/ui/sortButton'
+import Spinner from 'shared/ui/spinner'
 import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
@@ -182,7 +183,7 @@ const ContestsSection: FC<Props> = (props) => {
             <ul className='contest-gallery__list'>
                 {section === 'popular' &&
                     (popular.loading ? (
-                        <p>Loading...</p>
+                        <Spinner top />
                     ) : (
                         popularContests.map((item, idx) => (
                             <li key={idx}>
@@ -194,7 +195,7 @@ const ContestsSection: FC<Props> = (props) => {
                 {section === 'all' && (
                     <>
                         {all.loading ? (
-                            <p>Loading...</p>
+                            <Spinner top />
                         ) : (
                             allContests.map((item, idx) => (
                                 <li
@@ -209,7 +210,7 @@ const ContestsSection: FC<Props> = (props) => {
                             ))
                         )}
 
-                        {nextLoading && <p>Loading next...</p>}
+                        {nextLoading && <Spinner bottom />}
                     </>
                 )}
             </ul>

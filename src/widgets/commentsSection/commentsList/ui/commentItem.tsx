@@ -5,6 +5,7 @@ import instance from 'shared/api/api'
 import caretRight from 'shared/assets/icons/caretRight.svg?react'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
+import Spinner from 'shared/ui/spinner'
 import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
@@ -101,9 +102,13 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                         </Text>
                     </Button>
 
-                    {loading && <p>Loading...</p>}
+                    {loading && <Spinner />}
 
-                    {error && <p>{error.message}</p>}
+                    {error && (
+                        <Text Tag='p' bold size='xl'>
+                            {error.message}
+                        </Text>
+                    )}
 
                     {repliesShown && !loading && (
                         <ul className='subcomments-list'>
@@ -123,7 +128,6 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                             ))}
 
                             {nextLoading ||
-                                loading ||
                                 (totalPages !== page && (
                                     <Button
                                         variant='ghost'
@@ -132,7 +136,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                                     </Button>
                                 ))}
 
-                            {nextLoading && <p>Loading next...</p>}
+                            {nextLoading && <Spinner />}
                         </ul>
                     )}
                 </VStack>
