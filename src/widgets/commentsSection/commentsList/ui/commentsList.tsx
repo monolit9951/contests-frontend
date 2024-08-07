@@ -3,6 +3,8 @@ import clsx from 'clsx'
 import { Comment } from 'entities/comment'
 import instance from 'shared/api/api'
 import useOnScreen from 'shared/lib/hooks/useOnScreen'
+import Spinner from 'shared/ui/spinner'
+import { Text } from 'shared/ui/text'
 
 import CommentItem from './commentItem'
 
@@ -96,11 +98,21 @@ const CommentsList: React.FC<Props> = (props) => {
         }
     }, [isIntersecting])
 
+    if (loading) {
+        return <Spinner />
+    }
+
+    if (error) {
+        return (
+            <Text Tag='p' bold size='xl'>
+                Request error{`: ${error?.message}`}
+            </Text>
+        )
+    }
+
     return (
         <ul className={clsx(className)}>
-            {loading && <p>Loading comments...</p>}
-
-            {error && <p>{error.message}</p>}
+            {loading && <Spinner center />}
 
             {comments.map((item, idx) => (
                 <CommentItem
@@ -111,7 +123,17 @@ const CommentsList: React.FC<Props> = (props) => {
                 />
             ))}
 
-            {nextLoading && <p>Loading next...</p>}
+            {!loading && comments.length < 1 && (
+                <Text
+                    Tag='p'
+                    bold
+                    size='xl'
+                    className='comments__error-message'>
+                    No comments yet
+                </Text>
+            )}
+
+            {nextLoading && <Spinner />}
         </ul>
     )
 }

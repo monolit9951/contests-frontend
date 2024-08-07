@@ -1,10 +1,23 @@
 .contest {
+    position: relative;
     gap: 48px;
     box-sizing: border-box;
+
     &__container {
         gap: 48px;
         padding: 0 197px 56px;
         box-sizing: border-box;
+    }
+
+    &__error-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
     }
 }
 
@@ -22,4 +35,9 @@
             padding: 0 3vw 0;
         }
     }
+}
+
+.work-preview-modal {
+    height: 100%;
+    align-self: center;
 }

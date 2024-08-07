@@ -12,6 +12,7 @@ import {
 } from 'pages/contestPage/model/services'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
+import Spinner from 'shared/ui/spinner'
 import { VStack } from 'shared/ui/stack'
 
 interface Props {
@@ -69,7 +70,7 @@ export const WorksList: FC<Props> = (props) => {
 
     const renderList = () => {
         if (media.loading || text.loading) {
-            return <p>Loading...</p>
+            return <Spinner />
         }
 
         if (workType === 'media') {
@@ -117,12 +118,9 @@ export const WorksList: FC<Props> = (props) => {
                         (popularTextWorks.length > 4 && `${workType}-works`)
                 )}>
                 {renderList()}
-
-                {(media.nextLoading || text.nextLoading) && (
-                    <p>Loading next...</p>
-                )}
             </ul>
 
+            {(media.nextLoading || text.nextLoading) && <Spinner />}
             {loadMoreCondition() ||
                 (sort === 'new' && (
                     <Button variant='secondary' onClick={onLoadMore}>

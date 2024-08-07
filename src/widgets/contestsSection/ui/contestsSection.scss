@@ -20,8 +20,9 @@
     }
 
     &__list {
+        position: relative;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         gap: 24px;
         flex-wrap: wrap;
     }
@@ -75,7 +76,7 @@
     }
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 1440px) {
     .contest-gallery__list {
         justify-content: space-evenly;
     }

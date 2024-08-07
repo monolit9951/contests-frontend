@@ -1,0 +1,41 @@
+.loader-wrapper {
+    text-align: center;
+    text-align: -webkit-center;
+
+    span {
+        border-color: var(--white) !important;
+    }
+}
+
+.spinner {
+    position: absolute !important;
+    z-index: 50;
+    left: 50%;
+    transform: translateY(-50%);
+
+    &.top {
+        top: 0%;
+    }
+
+    &.center {
+        top: 50%;
+    }
+
+    &.bottom {
+        bottom: 100px;
+    }
+
+    span {
+        border-color: var(--white) !important;
+    }
+}
+.fun {
+    .spinner span {
+        border-color: var(--purple) !important;
+    }
+}
+.work {
+    .spinner span {
+        border-color: var(--orange) !important;
+    }
+}
