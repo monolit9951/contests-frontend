@@ -6,7 +6,8 @@ import {
     SubCategory,
     TopWinners,
 } from './model/types'
-import { ContestCard } from './ui/contestCard'
+import ContestCard from './ui/contestCard'
+import ContestCardSkeleton from './ui/contestCardSkeleton'
 
 export type {
     Category,
@@ -17,4 +18,4 @@ export type {
     TopWinners,
 }
 
-export { ContestCard }
+export { ContestCard, ContestCardSkeleton }

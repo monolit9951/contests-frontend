@@ -6,13 +6,14 @@ import { Footer } from 'widgets/footer'
 import { Header } from 'widgets/header'
 import { Sidebar } from 'widgets/sidebar'
 
+import 'react-loading-skeleton/dist/skeleton.css'
 import 'react-toastify/dist/ReactToastify.css'
 import './layout.scss'
 
 const BASE_COLOR_LIGHT = '#ebebeb'
 const HIGHLIGT_COLOR_LIGHT = '#f5f5f5'
 
-const BASE_COLOR_DARK = '#202020'
+const BASE_COLOR_DARK = '#262626'
 const HIGHLIGT_COLOR_DARK = '#44444480'
 
 export const Layout = () => {

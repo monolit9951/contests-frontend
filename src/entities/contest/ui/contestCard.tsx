@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
-import { useTheme } from 'entities/theme'
 import moment from 'moment'
 import Verified from 'shared/assets/icons/SealCheck.svg?react'
 import Star from 'shared/assets/icons/Star.svg?react'
@@ -24,11 +23,10 @@ interface Props extends ContestPreview {
     className?: string
 }
 
-export const ContestCard: React.FC<Props> = (props) => {
+const ContestCard: React.FC<Props> = (props) => {
     const { className, contestOwner, prizesPreviews, dateEnd, ...rest } = props
 
     const navigate = useNavigate()
-    const { theme } = useTheme()
 
     const deadline = moment(dateEnd).format('DD.MM.YYYY')
 
@@ -51,7 +49,7 @@ export const ContestCard: React.FC<Props> = (props) => {
     }
 
     return (
-        <div className={clsx('contest-card-wrapper', theme, className)}>
+        <div className={clsx('contest-card-wrapper', className)}>
             <Flex className='justify__between align__center'>
                 <Flex className='align__center'>
                     <UserIcon
@@ -111,15 +109,9 @@ export const ContestCard: React.FC<Props> = (props) => {
                     {rest.name}
                 </Text>
                 <Flex className='segments align__center'>
-                    <div className={`${theme}`}>
-                        {capitalizeStr(rest.status)}
-                    </div>
-                    <div className={`${theme}`}>
-                        {capitalizeStr(rest.subcategory)}
-                    </div>
-                    <div className={`${theme}`}>
-                        {rest.maxAllowedParticipantAmount} participants
-                    </div>
+                    <div>{capitalizeStr(rest.status)}</div>
+                    <div>{capitalizeStr(rest.subcategory)}</div>
+                    <div>{rest.maxAllowedParticipantAmount} participants</div>
                 </Flex>
             </div>
             <Flex className='btn-box align__center justify__between'>
@@ -138,3 +130,5 @@ export const ContestCard: React.FC<Props> = (props) => {
         </div>
     )
 }
+
+export default ContestCard

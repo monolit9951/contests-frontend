@@ -62,13 +62,6 @@
                 border-radius: 8px;
                 font-size: 14px;
                 font-weight: 400;
-
-                &.dark {
-                    background-color: var(--grey-dark);
-                }
-                &.light {
-                    background-color: var(--bg-light);
-                }
             }
         }
     }
@@ -76,20 +69,37 @@
         width: 100%;
         padding-top: 16px;
         box-sizing: border-box;
+        border-top: 1px solid;
     }
-    &.light {
-        border: 1px solid var(--white-medium-light);
-        background: var(--white);
+}
 
-        .btn-box {
-            border-top: 1px solid var(--white-medium-light);
+.contest-card-skeleton {
+    .user-box {
+        display: flex;
+        gap: 8px;
+    }
+
+    .contest-title-box {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .contest-title {
+            height: 28px;
         }
     }
-    &.dark {
+
+    div {
+        width: 100%;
+    }
+}
+
+.dark {
+    .contest-card-wrapper {
         background: var(--green-dark);
 
         .btn-box {
-            border-top: 1px solid var(--grey);
+            border-top-color: var(--grey);
 
             .date {
                 color: var(--white-medium);
@@ -105,17 +115,31 @@
                 }
             }
         }
-        .contest-card-body .contest-card-title {
+        .contest-card-title {
             h4 {
                 color: var(--white);
             }
 
             .segments {
                 color: var(--white);
+
                 div {
                     background: var(--grey-dark);
                 }
             }
+        }
+    }
+}
+.light {
+    .contest-card-wrapper {
+        border: 1px solid var(--white-medium-light);
+        background: var(--white);
+
+        .btn-box {
+            border-top-color: var(--white-medium-light);
+        }
+        .contest-card-body .contest-card-title .segments div {
+            background-color: var(--bg-light);
         }
     }
 }
@@ -129,10 +153,19 @@
         }
 
         .contest-card-title .segments {
-            .dark,
-            .light {
+            div {
                 font-size: 12px;
             }
+        }
+    }
+
+    .contest-card-skeleton {
+        .image {
+            max-width: 19vw;
+        }
+
+        .contest-title-box .contest-title {
+            height: 24px;
         }
     }
 }
@@ -145,14 +178,23 @@
             max-width: 18vw;
         }
     }
+
+    .contest-card-skeleton {
+        .image {
+            max-width: 18vw;
+        }
+    }
 }
 
 @media (max-width: 1769px) {
     .contest-card-wrapper .contest-card-title .segments {
-        .dark,
-        .light {
+        div {
             font-size: 10px;
         }
+    }
+
+    .contest-card-skeleton .contest-title-box .contest-title {
+        height: 20px;
     }
 }
 
@@ -178,15 +220,25 @@
         }
 
         .contest-card-title .segments {
-            .dark,
-            .light {
+            div {
                 font-size: 8px;
             }
         }
     }
+
+    .contest-card-skeleton {
+        .user-img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .image {
+            max-width: 17vw;
+        }
+    }
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 1440px) {
     .contest-card-wrapper {
         width: 100%;
         max-width: unset;
@@ -207,10 +259,15 @@
         }
 
         .contest-card-title .segments {
-            .dark,
-            .light {
+            div {
                 font-size: 10px;
             }
+        }
+    }
+
+    .contest-card-skeleton {
+        .image {
+            max-width: unset;
         }
     }
 }
@@ -220,6 +277,12 @@
         max-width: 35vw;
 
         .contest-card-body .image-box .image {
+            max-width: 32vw;
+        }
+    }
+
+    .contest-card-skeleton {
+        .image {
             max-width: 32vw;
         }
     }
@@ -234,10 +297,15 @@
         }
 
         .contest-card-title .segments {
-            .dark,
-            .light {
+            div {
                 font-size: 12px;
             }
+        }
+    }
+
+    .contest-card-skeleton {
+        .image {
+            max-width: 50vw;
         }
     }
 }

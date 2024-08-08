@@ -1,6 +1,10 @@
 import { FC, useEffect } from 'react'
 import clsx from 'clsx'
-import { ContestCard, ContestPreview } from 'entities/contest'
+import {
+    ContestCard,
+    ContestCardSkeleton,
+    ContestPreview,
+} from 'entities/contest'
 import {
     filterActions,
     FilterController,
@@ -183,7 +187,20 @@ const ContestsSection: FC<Props> = (props) => {
             <ul className='contest-gallery__list'>
                 {section === 'popular' &&
                     (popular.loading ? (
-                        <Spinner top />
+                        <>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                        </>
                     ) : (
                         popularContests.map((item, idx) => (
                             <li key={idx}>
@@ -195,7 +212,32 @@ const ContestsSection: FC<Props> = (props) => {
                 {section === 'all' && (
                     <>
                         {all.loading ? (
-                            <Spinner top />
+                            <>
+                                <li>
+                                    <ContestCardSkeleton />
+                                </li>
+                                <li>
+                                    <ContestCardSkeleton />
+                                </li>
+                                <li>
+                                    <ContestCardSkeleton />
+                                </li>
+                                <li>
+                                    <ContestCardSkeleton />
+                                </li>
+                                <li>
+                                    <ContestCardSkeleton />
+                                </li>
+                                <li>
+                                    <ContestCardSkeleton />
+                                </li>
+                                <li>
+                                    <ContestCardSkeleton />
+                                </li>
+                                <li>
+                                    <ContestCardSkeleton />
+                                </li>
+                            </>
                         ) : (
                             allContests.map((item, idx) => (
                                 <li
