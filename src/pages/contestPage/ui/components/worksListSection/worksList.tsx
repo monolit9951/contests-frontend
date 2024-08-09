@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import clsx from 'clsx'
-import { Work, WorkCard } from 'entities/work'
+import { Work, WorkCard, WorkCardSkeleton } from 'entities/work'
 import {
     selectContestMedia,
     selectContestOwnerId,
@@ -24,6 +24,8 @@ interface Props {
 export const WorksList: FC<Props> = (props) => {
     const { sort, workType, openModal } = props
 
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
     const dispatch = useAppDispatch()
 
     const ownerId = useAppSelector(selectContestOwnerId)
@@ -35,6 +37,16 @@ export const WorksList: FC<Props> = (props) => {
 
     const popularMediaWorks = media.popular as Work[]
     const newMediaWorks = media.new as Work[]
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth)
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [windowWidth])
 
     const loadMoreCondition = () => {
         if (
@@ -70,7 +82,31 @@ export const WorksList: FC<Props> = (props) => {
 
     const renderList = () => {
         if (media.loading || text.loading) {
-            return <Spinner />
+            if (windowWidth > 1200) {
+                return (
+                    <>
+                        <li>
+                            <WorkCardSkeleton media={workType === 'media'} />
+                        </li>
+                        <li>
+                            <WorkCardSkeleton media={workType === 'media'} />
+                        </li>
+                        <li>
+                            <WorkCardSkeleton media={workType === 'media'} />
+                        </li>
+                    </>
+                )
+            }
+            return (
+                <>
+                    <li>
+                        <WorkCardSkeleton media={workType === 'media'} />
+                    </li>
+                    <li>
+                        <WorkCardSkeleton media={workType === 'media'} />
+                    </li>
+                </>
+            )
         }
 
         if (workType === 'media') {
