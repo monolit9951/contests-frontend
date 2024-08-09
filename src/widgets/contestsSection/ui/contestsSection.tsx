@@ -227,7 +227,7 @@ const ContestsSection: FC<Props> = (props) => {
 
                 {section === 'all' && (
                     <>
-                        {true ? (
+                        {all.loading ? (
                             <>
                                 <li>
                                     <ContestCardSkeleton />
