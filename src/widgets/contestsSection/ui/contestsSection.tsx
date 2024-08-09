@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import clsx from 'clsx'
 import {
     ContestCard,
@@ -41,6 +41,8 @@ interface Props {
 const ContestsSection: FC<Props> = (props) => {
     const { section, className } = props
 
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
     const dispatch = useAppDispatch()
 
     const popular = useAppSelector(selectPopular)
@@ -71,6 +73,16 @@ const ContestsSection: FC<Props> = (props) => {
             observer.disconnect()
         }
     }, [isIntersecting])
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth)
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [windowWidth])
 
     const prizeRangeCondition = () => {
         return active.prizeRange[0] !== 0 || active.prizeRange[1] !== 100000
@@ -194,12 +206,16 @@ const ContestsSection: FC<Props> = (props) => {
                             <li>
                                 <ContestCardSkeleton />
                             </li>
-                            <li>
-                                <ContestCardSkeleton />
-                            </li>
-                            <li>
-                                <ContestCardSkeleton />
-                            </li>
+                            {windowWidth > 1440 && (
+                                <>
+                                    <li>
+                                        <ContestCardSkeleton />
+                                    </li>
+                                    <li>
+                                        <ContestCardSkeleton />
+                                    </li>
+                                </>
+                            )}
                         </>
                     ) : (
                         popularContests.map((item, idx) => (
@@ -211,7 +227,7 @@ const ContestsSection: FC<Props> = (props) => {
 
                 {section === 'all' && (
                     <>
-                        {all.loading ? (
+                        {true ? (
                             <>
                                 <li>
                                     <ContestCardSkeleton />
@@ -225,18 +241,22 @@ const ContestsSection: FC<Props> = (props) => {
                                 <li>
                                     <ContestCardSkeleton />
                                 </li>
-                                <li>
-                                    <ContestCardSkeleton />
-                                </li>
-                                <li>
-                                    <ContestCardSkeleton />
-                                </li>
-                                <li>
-                                    <ContestCardSkeleton />
-                                </li>
-                                <li>
-                                    <ContestCardSkeleton />
-                                </li>
+                                {windowWidth > 1440 && (
+                                    <>
+                                        <li>
+                                            <ContestCardSkeleton />
+                                        </li>
+                                        <li>
+                                            <ContestCardSkeleton />
+                                        </li>
+                                        <li>
+                                            <ContestCardSkeleton />
+                                        </li>
+                                        <li>
+                                            <ContestCardSkeleton />
+                                        </li>
+                                    </>
+                                )}
                             </>
                         ) : (
                             allContests.map((item, idx) => (
