@@ -9,17 +9,34 @@
     align-items: center;
 
     nav {
-        position: sticky;
-        z-index: 4;
-        top: 74px;
-
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 24px;
         padding: 20px 7px 0px;
+
+        transition: left 0.3s ease-in-out;
     }
 }
+
+.burgerMenu {
+    position: sticky;
+    z-index: 4;
+    top: 0;
+
+    padding: 16px 25px;
+
+    svg {
+        div.app.dark & {
+            fill: var(--white-medium);
+        }
+
+        div.app.light & {
+            fill: var(--text-main);
+        }
+    }
+}
+
 .dark {
     .sidebar {
         background-color: var(--dark);
@@ -28,5 +45,30 @@
 .light {
     .sidebar {
         background-color: var(--white);
+    }
+}
+
+@media (max-width: 1920px) {
+    .sidebar {
+        nav {
+            position: fixed;
+            z-index: 4;
+            left: -86px;
+            top: 74px;
+        }
+
+        &.open {
+            nav {
+                left: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .sidebar {
+        &.open {
+            left: 0;
+        }
     }
 }

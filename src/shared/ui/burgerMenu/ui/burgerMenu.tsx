@@ -1,6 +1,5 @@
+import burger from 'shared/assets/icons/burger.svg?react'
 import { Icon } from 'shared/ui/icon'
-
-import burger from '../../../assets/icons/burger.svg?react'
 
 import './burgerMenu.scss'
 
