@@ -24,7 +24,7 @@ export const Header = () => {
     }
 
     return (
-        <nav className='header'>
+        <header className='header'>
             <Logo />
             <Searchbar
                 searchData={inputData}
@@ -33,6 +33,6 @@ export const Header = () => {
                 placeholder='Search by any parameters....'
             />
             <UserPanel />
-        </nav>
+        </header>
     )
 }

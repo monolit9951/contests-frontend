@@ -8,7 +8,7 @@
         min-height: 100%;
     }
     &__content {
-        min-height: 100vh;
+        min-height: calc(100vh - 72px);
         height: 100%;
         flex: 1 0 auto;
     }
