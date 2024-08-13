@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import Spinner from 'shared/ui/spinner'
 import { VStack } from 'shared/ui/stack'
+import { Text } from 'shared/ui/text'
 
 interface Props {
     workType: 'media' | 'text'
@@ -112,7 +113,13 @@ export const WorksList: FC<Props> = (props) => {
         if (workType === 'media') {
             if (sort === 'new') {
                 if (!newMediaWorks.length) {
-                    return <li>No works here</li>
+                    return (
+                        <li className='participants-works__message media-works'>
+                            <Text Tag='p' size='xl'>
+                                No works yet.
+                            </Text>
+                        </li>
+                    )
                 }
                 return newMediaWorks?.map((item) => (
                     <WorkCard key={item.id} data={item} openModal={openModal} />
@@ -120,14 +127,27 @@ export const WorksList: FC<Props> = (props) => {
             }
 
             if (!popularMediaWorks.length) {
-                return <li>No works here</li>
+                return (
+                    <li className='participants-works__message media-works'>
+                        <Text Tag='p' size='xl'>
+                            No popular works yet.
+                        </Text>
+                    </li>
+                )
             }
             return popularMediaWorks?.map((item) => (
                 <WorkCard key={item.id} data={item} openModal={openModal} />
             ))
         }
+
         return sort === 'new'
-            ? (!newTextWorks.length && <li>No works here</li>) ||
+            ? (!newTextWorks.length && (
+                  <li className='participants-works__message'>
+                      <Text Tag='p' size='xl'>
+                          No works yet.
+                      </Text>
+                  </li>
+              )) ||
                   newTextWorks?.map((item) => (
                       <WorkCard
                           key={item.id}
@@ -135,7 +155,13 @@ export const WorksList: FC<Props> = (props) => {
                           openModal={openModal}
                       />
                   ))
-            : (!popularTextWorks.length && <li>No works here</li>) ||
+            : (!popularTextWorks.length && (
+                  <li className='participants-works__message'>
+                      <Text Tag='p' size='xl'>
+                          No popular works yet.
+                      </Text>
+                  </li>
+              )) ||
                   popularTextWorks?.map((item) => (
                       <WorkCard
                           key={item.id}

@@ -111,11 +111,12 @@ const WorksListSection = ({ worksAmount, openModal }: Props) => {
                         type='button'
                         className={clsx(selectedSort === 'new' && 'active')}
                         onClick={() => onSortClick('new')}>
-                        New (
+                        New
                         {workType === 'media'
-                            ? media.totalElements
-                            : text.totalElements}
-                        )
+                            ? !!media.totalElements &&
+                              ` (${media.totalElements})`
+                            : !!text.totalElements &&
+                              ` (${text.totalElements})`}
                     </button>
                 </li>
                 <li>

@@ -102,6 +102,104 @@ const ContestsSection: FC<Props> = (props) => {
 
     const onSeeAllClick = () => {}
 
+    const renderPopular = () => {
+        if (popular.loading) {
+            return (
+                <>
+                    <li>
+                        <ContestCardSkeleton />
+                    </li>
+                    <li>
+                        <ContestCardSkeleton />
+                    </li>
+                    {windowWidth > 1440 && (
+                        <>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                        </>
+                    )}
+                </>
+            )
+        }
+        if (popularContests.length === 0) {
+            return (
+                <li>
+                    <Text
+                        Tag='p'
+                        size='xl'
+                        className='contests-gallery__message'>
+                        No popular contests yet.
+                    </Text>
+                </li>
+            )
+        }
+        return popularContests.map((item, idx) => (
+            <li key={idx}>
+                <ContestCard {...item} />
+            </li>
+        ))
+    }
+
+    const renderAll = () => {
+        if (all.loading) {
+            return (
+                <>
+                    <li>
+                        <ContestCardSkeleton />
+                    </li>
+                    <li>
+                        <ContestCardSkeleton />
+                    </li>
+                    <li>
+                        <ContestCardSkeleton />
+                    </li>
+                    <li>
+                        <ContestCardSkeleton />
+                    </li>
+                    {windowWidth > 1440 && (
+                        <>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                        </>
+                    )}
+                </>
+            )
+        }
+        if (allContests.length === 0) {
+            return (
+                <li>
+                    <Text
+                        Tag='p'
+                        size='xl'
+                        className='contests-gallery__message'>
+                        No contests yet.
+                    </Text>
+                </li>
+            )
+        }
+        return allContests.map((item, idx) => (
+            <li
+                key={item.id}
+                ref={idx === allContests.length - 1 ? measureRef : null}>
+                <ContestCard {...item} />
+            </li>
+        ))
+    }
+
     return (
         <section className={clsx('contest-gallery__section', className)}>
             <HStack className='contest-gallery__head'>
@@ -197,80 +295,11 @@ const ContestsSection: FC<Props> = (props) => {
                 )}
 
             <ul className='contest-gallery__list'>
-                {section === 'popular' &&
-                    (popular.loading ? (
-                        <>
-                            <li>
-                                <ContestCardSkeleton />
-                            </li>
-                            <li>
-                                <ContestCardSkeleton />
-                            </li>
-                            {windowWidth > 1440 && (
-                                <>
-                                    <li>
-                                        <ContestCardSkeleton />
-                                    </li>
-                                    <li>
-                                        <ContestCardSkeleton />
-                                    </li>
-                                </>
-                            )}
-                        </>
-                    ) : (
-                        popularContests.map((item, idx) => (
-                            <li key={idx}>
-                                <ContestCard {...item} />
-                            </li>
-                        ))
-                    ))}
+                {section === 'popular' && renderPopular()}
 
                 {section === 'all' && (
                     <>
-                        {all.loading ? (
-                            <>
-                                <li>
-                                    <ContestCardSkeleton />
-                                </li>
-                                <li>
-                                    <ContestCardSkeleton />
-                                </li>
-                                <li>
-                                    <ContestCardSkeleton />
-                                </li>
-                                <li>
-                                    <ContestCardSkeleton />
-                                </li>
-                                {windowWidth > 1440 && (
-                                    <>
-                                        <li>
-                                            <ContestCardSkeleton />
-                                        </li>
-                                        <li>
-                                            <ContestCardSkeleton />
-                                        </li>
-                                        <li>
-                                            <ContestCardSkeleton />
-                                        </li>
-                                        <li>
-                                            <ContestCardSkeleton />
-                                        </li>
-                                    </>
-                                )}
-                            </>
-                        ) : (
-                            allContests.map((item, idx) => (
-                                <li
-                                    key={item.id}
-                                    ref={
-                                        idx === allContests.length - 1
-                                            ? measureRef
-                                            : null
-                                    }>
-                                    <ContestCard {...item} />
-                                </li>
-                            ))
-                        )}
+                        {renderAll()}
 
                         {nextLoading && <Spinner bottom />}
                     </>
