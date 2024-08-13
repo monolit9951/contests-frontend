@@ -129,7 +129,7 @@ const CommentsList: React.FC<Props> = (props) => {
                     bold
                     size='xl'
                     className='comments__error-message'>
-                    No comments yet
+                    No comments yet.
                 </Text>
             )}
 

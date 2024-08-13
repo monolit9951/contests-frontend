@@ -87,6 +87,7 @@ export const PrizePlace: FC<PrizePlaceProps> = ({
                                 )
                             }
                         }}
+                        autoComplete='off'
                         className='prizeName_input'
                         wrapperClassName='prizeName_input_container'
                     />

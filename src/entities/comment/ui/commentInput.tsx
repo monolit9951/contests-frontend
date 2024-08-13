@@ -21,8 +21,8 @@ const CommentInput: FC<Props> = (props) => {
                 <Input
                     name='commentReply'
                     type='text'
-                    placeholder='Add a reply...'
                     value={inputData}
+                    autoComplete='off'
                     autoFocus
                     onChange={(e) => setInputData(e.target.value)}
                     onKeyDown={(e) => {
@@ -30,6 +30,7 @@ const CommentInput: FC<Props> = (props) => {
                             onSubmit()
                         }
                     }}
+                    placeholder='Add a reply...'
                 />
                 <HStack className='justify__end'>
                     <Button variant='ghost' size='s' onClick={onClose}>

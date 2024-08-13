@@ -96,9 +96,8 @@ const СommentsSection = ({ ownerId, work }: Props) => {
                         <Input
                             name='comment'
                             type='text'
-                            placeholder='Add a comment...'
-                            className='comments__input'
                             value={inputData}
+                            autoComplete='off'
                             onFocus={() => setCommentInputFocused(true)}
                             onChange={(e) => setInputData(e.target.value)}
                             onKeyDown={(e) => {
@@ -106,6 +105,8 @@ const СommentsSection = ({ ownerId, work }: Props) => {
                                     onSubmit()
                                 }
                             }}
+                            placeholder='Add a comment...'
+                            className='comments__input'
                         />
                         {commentInputFocused && (
                             <HStack className='justify__end'>
@@ -134,9 +135,8 @@ const СommentsSection = ({ ownerId, work }: Props) => {
                     <Input
                         name='comment'
                         type='text'
-                        placeholder='Add a comment...'
-                        className='comments__input'
                         value={inputData}
+                        autoComplete='off'
                         onFocus={() => setCommentInputFocused(true)}
                         onChange={(e) => setInputData(e.target.value)}
                         onKeyDown={(e) => {
@@ -144,6 +144,8 @@ const СommentsSection = ({ ownerId, work }: Props) => {
                                 onSubmit()
                             }
                         }}
+                        placeholder='Add a comment...'
+                        className='comments__input'
                     />
                     <Button
                         variant='ghost'

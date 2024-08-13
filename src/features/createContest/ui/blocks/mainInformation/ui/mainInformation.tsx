@@ -46,6 +46,7 @@ export const MainInformation = ({ submitError }: Props) => {
                             message: 'Enter minimum of 4 symbols',
                         },
                     })}
+                    autoComplete='off'
                     maxLength={70}
                     error={errors.name && (errors.name.message as string)}
                 />
