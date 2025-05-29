@@ -26,6 +26,12 @@ To get the frontend running locally:
 
 Clone this repo
 
+`npm install` to install all the dependencies defined in a `package.json` file.
+
+`npm run dev` to start Vite dev server.
+
+
+# If you want to run the app on your phone
 # Create a .env.local file in the root with the following content:
 VITE_HOST=0.0.0.0
 VITE_API_URL=http://YOUR_LOCAL_IP:8080/api
@@ -36,8 +42,12 @@ VITE_API_URL=http://YOUR_LOCAL_IP:8080/api
 # Windows:
 `ipconfig`
 
+# then
 `npm install` to install all the dependencies defined in a `package.json` file.
 
 `npm run dev` to start Vite dev server.
 
-App will be available on http://localhost:3000 and http://YOUR_LOCAL_IP:3000
+The application will be available
+for the browser at http://localhost:3000
+
+for browser and phone at http://YOUR_LOCAL_IP:3000
