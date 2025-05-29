@@ -26,6 +26,18 @@ To get the frontend running locally:
 
 Clone this repo
 
+# Create a .env.local file in the root with the following content:
+VITE_HOST=0.0.0.0
+VITE_API_URL=http://YOUR_LOCAL_IP:8080/api
+
+# Replace YOUR_LOCAL_IP with your actual IP address:
+# macOS / Linux:
+`ip addr show`or`ifconfig`
+# Windows:
+`ipconfig`
+
 `npm install` to install all the dependencies defined in a `package.json` file.
 
 `npm run dev` to start Vite dev server.
+
+App will be available on http://localhost:3000 and http://YOUR_LOCAL_IP:3000
