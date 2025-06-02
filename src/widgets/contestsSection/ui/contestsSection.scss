@@ -7,15 +7,20 @@
 
     &__head {
         justify-content: space-between;
+        align-items: center;
 
         & > div {
-            gap: 16px;
+            gap: 1rem;
             align-items: baseline;
         }
 
         .title__span {
             font-size: 24px;
             line-height: 1;
+
+            @media (max-width: 768px) {
+                font-size: 18px;
+            }
         }
     }
 
@@ -23,7 +28,7 @@
         position: relative;
         display: flex;
         justify-content: center;
-        gap: 24px;
+        gap: 1.5rem;
         flex-wrap: wrap;
     }
 }
@@ -79,5 +84,11 @@
 @media (max-width: 1440px) {
     .contest-gallery__list {
         justify-content: space-evenly;
+    }
+}
+
+@media (max-width: 768px) {
+    .contest-gallery__list {
+        display: block;
     }
 }

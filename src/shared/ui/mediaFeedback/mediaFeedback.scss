@@ -35,3 +35,9 @@
         display: none;
     }
 }
+
+@media (max-width: 768px) {
+    .feedback__wrapper {
+        margin-top: 0.5rem;
+    }
+}

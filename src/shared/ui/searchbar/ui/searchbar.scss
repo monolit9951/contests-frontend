@@ -2,7 +2,6 @@
     max-width: 800px;
     width: 40%;
     height: 100%;
-
     position: relative;
 
     .icon-btn {
@@ -21,6 +20,13 @@
     padding-right: 16px;
     border-radius: 26px;
 }
+
+@media (max-width: 768px) {
+    .searchbar_container {
+        width: auto;
+    }
+}
+
 
 .dark {
     .searchbar {

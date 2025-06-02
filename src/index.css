@@ -6,7 +6,7 @@ body {
     min-height: 100vh;
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
-    width: 100vw;
+    width: 100%;
     overflow-x: hidden;
 }
 
@@ -21,10 +21,15 @@ body,
 
 ._container {
     max-width: 1230px;
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+    margin: 0 auto;
+    padding: 0 15px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    ._container {
+        padding: 0 10px;
+    }
 }
 
 *,
@@ -72,4 +77,11 @@ button {
 
 a {
     text-decoration: none;
+}
+
+img,
+video {
+    max-width: 90%;
+    height: auto;
+    display: block;
 }

@@ -5,7 +5,12 @@
 
 .contest-gallery {
     &__container {
-        padding: 56px 65px;
-        gap: 48px;
+        padding: 3rem 4rem;
+        gap: 4rem;
+
+        @media (max-width: 768px) {
+            padding: 1rem;
+            gap: 1.3rem;
+        }
     }
 }

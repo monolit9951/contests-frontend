@@ -288,12 +288,15 @@
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .contest-card-wrapper {
-        max-width: 52vw;
+        max-width: 100%;
+        padding: 0;
+        margin-bottom: 2rem;
 
         .contest-card-body .image-box .image {
-            max-width: 50vw;
+            width: 100%;
+            max-width: 100%;
         }
 
         .contest-card-title .segments {

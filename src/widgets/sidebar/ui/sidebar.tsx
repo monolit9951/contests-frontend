@@ -10,21 +10,25 @@ import './sidebar.scss'
 export const Sidebar = () => {
     const [open, setOpen] = useState(true)
 
+    const isMobile = window.innerWidth <= 768
+
     const toggleSidebar = () => {
         setOpen(!open)
     }
 
     return (
         <aside className={clsx('sidebar', open && 'open')}>
-            <div className='burgerMenu'>
-                <Icon
-                    Svg={burger}
-                    height={36}
-                    width={36}
-                    clickable
-                    onClick={toggleSidebar}
-                />
-            </div>
+            {!isMobile && (
+                <div className='burgerMenu'>
+                    <Icon
+                        Svg={burger}
+                        height={36}
+                        width={36}
+                        clickable
+                        onClick={toggleSidebar}
+                    />
+                </div>
+            )}
             <nav>
                 {mockNavData.map((navItem, index) => (
                     <NavElement key={index} {...navItem} />

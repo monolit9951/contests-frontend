@@ -83,3 +83,54 @@
         }
     }
 }
+
+@media (max-width: 768px) {
+    .winners__list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        li {
+            width: 100%;
+            flex: 0;
+
+            .text-work {
+                width: 100%;
+            }
+            .media-work {
+                width: 100%;
+                height: auto;
+                min-height: 50%;
+                max-height: 50%;
+
+                &__container {
+                    min-height: 50%;
+                    max-height: 50%;
+
+                    .media-work__frame {
+                        position: relative;
+                        width: 100%;
+                        max-width: 100%;
+
+                        img {
+
+                        }
+
+                    }
+                }
+            }
+        }
+        li:first-child {
+            flex: 0;
+
+            .first-place {
+                max-width: 100%;
+            }
+        }
+
+        li:not(:first-child) {
+            flex: 0;
+        }
+    }
+}
+

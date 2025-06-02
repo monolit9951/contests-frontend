@@ -2,13 +2,11 @@
     position: sticky;
     z-index: 50;
     top: 0;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    height: 72px;
-    padding: 12px 65px;
+    gap: 0.75rem;
+    height: 4.5rem;
 
     div.app.light & {
         background-color: var(--white);
@@ -16,5 +14,72 @@
 
     div.app.dark & {
         background-color: var(--dark);
+    }
+
+    @media (max-width: 48rem) {
+        display: flex;
+        align-items: center;
+    }
+
+    .mobile-menu-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+
+        svg {
+            fill: var(--primary-color);
+        }
+    }
+
+    @media (min-width: 769px) {
+        .mobile-menu-button {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        position: relative;
+    }
+
+    .mobile-menu-button {
+        flex-shrink: 0;
+    }
+
+    .userPanel_container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.75rem;
+        margin-left: 0.75rem;
+    }
+
+    .mobile-right-header {
+        float: right;
+        justify-content: end;
+    }
+}
+
+.userPanel_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+@media (max-width: 1059px) {
+    .userPanel_container {
+        .createBtn {
+            width: unset;
+            padding: 12px 20px;
+        }
+        .createBtn p {
+            display: none;
+        }
+        > button {
+            display: none;
+        }
     }
 }

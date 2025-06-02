@@ -47,6 +47,26 @@
     }
 }
 
+@media (max-width: 768px) {
+    .heroSection_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        padding: 1rem 1.5rem;
+        gap: 1.3rem;
+        background-size: cover;
+    }
+
+    h2 {
+        font-size: 30px;
+        line-height: 1;
+        text-wrap: wrap;
+        text-align: center;
+    }
+}
+
 @media (max-width: 1059px) {
     .heroSection_container {
         h2 {

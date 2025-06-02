@@ -82,3 +82,42 @@
         }
     }
 }
+
+@media (max-width: 768px) {
+    .text {
+        font-size: 14px;
+        &__title {
+            font-size: 24px;
+            line-height: 1.1;
+        }
+        &__xxs {
+            font-size: 10px;
+        }
+        &__xs {
+            font-size: 12px;
+        }
+        &__sm {
+            font-size: 14px;
+            line-height: 1.43;
+        }
+        &__md {
+            font-size: 14px;
+        }
+        &__l {
+            font-size: 16px;
+            line-height: 1;
+        }
+        &__xl {
+            font-size: 18px;
+            line-height: 1.15;
+        }
+        &__xxl {
+            font-size: 24px;
+            line-height: 1.2;
+        }
+
+        > span {
+            line-height: normal;
+        }
+    }
+}
