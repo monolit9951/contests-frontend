@@ -23,6 +23,7 @@ export const Layout = () => {
     const highlightColor =
         theme === Theme.LIGHT ? HIGHLIGT_COLOR_LIGHT : HIGHLIGT_COLOR_DARK
 
+
     return (
         <div className='layout layout__wrapper'>
             <SkeletonTheme
@@ -36,10 +37,10 @@ export const Layout = () => {
                             : 'main_layout--dark'
                     )}>
                     <Header />
-                    <Sidebar />
-                    <main className='layout__content'>
+                    {/* <Sidebar /> */}
+                    {/* <main className='layout__content'>
                         <Outlet />
-                    </main>
+                    </main> */}
 
                     <Footer className='layout__footer' />
                 </div>

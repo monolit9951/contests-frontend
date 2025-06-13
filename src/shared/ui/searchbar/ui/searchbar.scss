@@ -32,3 +32,10 @@
         background-color: #f9f9f9;
     }
 }
+
+@media (max-width: 1060px) {
+    .searchbar_container{
+        flex: 1;
+        max-width: none;
+    }
+}
