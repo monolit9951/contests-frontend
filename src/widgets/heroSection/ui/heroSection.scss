@@ -7,7 +7,9 @@
     padding: 42px 65px;
     gap: 24px;
     background-size: cover;
-
+    background-position: center;
+    background-repeat: no-repeat;
+    
     div.app.light & {
         background: url('shared/assets/img/bg@2x.jpg') center no-repeat;
     }
