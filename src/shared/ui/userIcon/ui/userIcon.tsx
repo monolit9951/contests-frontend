@@ -28,7 +28,7 @@ export const UserIcon = (props: Props) => {
 
     if (userName) {
         return (
-            <HStack className={clsx('userImg_container', wrapperClassName)}>
+            <HStack className={clsx('userImg userImg_container', wrapperClassName)}>
                 <Image
                     src={src ?? userImg}
                     alt={alt ?? 'User`s image'}

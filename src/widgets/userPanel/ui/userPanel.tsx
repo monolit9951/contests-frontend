@@ -4,6 +4,8 @@ import { NotificationsButton } from 'shared/ui/notificationsButton/ui/notificati
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './userPanel.scss'
+import burger from 'shared/assets/icons/burger.svg?react'
+import { Icon } from 'shared/ui/icon'
 
 export const UserPanel = () => {
     return (
@@ -12,6 +14,14 @@ export const UserPanel = () => {
             <NotificationsButton/>
             <ChatButton/>
             <UserIcon/>
+            <div className="userPanel_burger">
+                <Icon
+                    Svg={burger}
+                    height={36}
+                    width={36}
+                    clickable
+                />
+            </div>
         </div>
     )
 }

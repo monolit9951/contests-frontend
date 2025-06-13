@@ -3,6 +3,10 @@
     align-items: center;
     justify-content: space-between;
     gap: 32px;
+
+    > .userPanel_burger{
+        display: none;
+    }
 }
 
 @media (max-width: 1060px) {
@@ -16,6 +20,14 @@
             }
         }
         > button {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .userPanel_container {
+        > .createBtn{
             display: none;
         }
     }
