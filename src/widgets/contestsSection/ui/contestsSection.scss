@@ -21,10 +21,13 @@
 
     &__list {
         position: relative;
-        display: flex;
-        justify-content: center;
         gap: 24px;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+
+        > li{
+            width: 100%;
+        }
     }
 }
 
@@ -79,5 +82,13 @@
 @media (max-width: 1440px) {
     .contest-gallery__list {
         justify-content: space-evenly;
+    }
+}
+
+@media (max-width: 880px) {
+    .contest-gallery{
+        &__list {
+            grid-template-columns: 1fr;
+        }
     }
 }

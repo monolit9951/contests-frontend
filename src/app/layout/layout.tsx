@@ -38,9 +38,9 @@ export const Layout = () => {
                     )}>
                     <Header />
                     {/* <Sidebar /> */}
-                    {/* <main className='layout__content'>
+                    <main className='layout__content'>
                         <Outlet />
-                    </main> */}
+                    </main>
 
                     <Footer className='layout__footer' />
                 </div>

@@ -63,3 +63,15 @@
         }
     }
 }
+
+@media (max-width: 1060px) {
+    .heroSection_container{
+        padding: 42px 20px;
+    }
+}
+
+@media (max-width: 650px) {
+    .heroSection_container{
+        padding: 42px 10px;
+    }
+}
