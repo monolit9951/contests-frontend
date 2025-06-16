@@ -12,3 +12,11 @@
         margin-bottom: 0px;
     }
 }
+
+@media (max-width: 650px) {
+    .stageOfTheCompetition_container{
+        .competitionTimeInput_container{
+            display: block;
+        }
+    }
+}
