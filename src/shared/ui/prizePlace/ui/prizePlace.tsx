@@ -33,82 +33,86 @@ export const PrizePlace: FC<PrizePlaceProps> = ({
         <VStack className='prizePlace_outercontainer'>
             <HStack>
                 <HStack className='prizePlace_container'>
-                    <PrizeIcon
-                        place={place}
-                        width={44}
-                        height={44}
-                        className='winIcon image__no-select'
-                    />
-
-                    <Input
-                        label='Number of winners'
-                        {...register(`prizes.${index}.winnersAmount`, {
-                            required: true,
-                        })}
-                        type='number'
-                        defaultValue={1}
-                        min={1}
-                        max={1000}
-                        placeholder='10'
-                        className='winnersNum_input'
-                        wrapperClassName='winnersNum_input_container'
-                    />
-
-                    <Controller
-                        name={`prizes.${index}.prizeType`}
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field }) => (
-                            <Combobox
-                                options={types}
-                                name={field.name}
-                                value={types.find(
-                                    (c) => c.value === field.value
-                                )}
-                                onChange={(val) => field.onChange(val?.value)}
-                                label='Prize type'
-                                placeholder='Select type'
-                            />
-                        )}
-                    />
-
-                    <Input
-                        label='Prize name'
-                        {...register(`prizes.${index}.prizeText`, {
-                            required: true,
-                        })}
-                        type='text'
-                        placeholder='10 000 $'
-                        onChange={(e) => {
-                            if (!Number.isNaN(Number(e.target.value))) {
-                                setValue(
-                                    `prizes.${index}.prizeAmount`,
-                                    Number(e.target.value)
-                                )
-                            }
-                        }}
-                        autoComplete='off'
-                        className='prizeName_input'
-                        wrapperClassName='prizeName_input_container'
-                    />
-                </HStack>
-
-                {last && (
-                    <Button
-                        variant='div'
-                        className='iconBtn_wrapper'
-                        onClick={() => onDelete(place)}>
-                        <Icon
-                            Svg={trash}
-                            height={48}
-                            width={24}
-                            className='deleteIcon'
+                    <div className="prizePlace_firstPart">
+                        <PrizeIcon
+                            place={place}
+                            width={44}
+                            height={44}
+                            className='winIcon image__no-select'
                         />
-                    </Button>
-                )}
+
+                        <Input
+                            label='Number of winners'
+                            {...register(`prizes.${index}.winnersAmount`, {
+                                required: true,
+                            })}
+                            type='number'
+                            defaultValue={1}
+                            min={1}
+                            max={1000}
+                            placeholder='10'
+                            className='winnersNum_input'
+                            wrapperClassName='winnersNum_input_container'
+                        />
+
+                        <Controller
+                            name={`prizes.${index}.prizeType`}
+                            control={control}
+                            rules={{ required: true }}
+                            render={({ field }) => (
+                                <Combobox
+                                    options={types}
+                                    name={field.name}
+                                    value={types.find(
+                                        (c) => c.value === field.value
+                                    )}
+                                    onChange={(val) => field.onChange(val?.value)}
+                                    label='Prize type'
+                                    placeholder='Select type'
+                                />
+                            )}
+                        />
+                    </div>
+
+                    <div className="prizePlace_secondPart">
+                        <Input
+                            label='Prize name'
+                            {...register(`prizes.${index}.prizeText`, {
+                                required: true,
+                            })}
+                            type='text'
+                            placeholder='10 000 $'
+                            onChange={(e) => {
+                                if (!Number.isNaN(Number(e.target.value))) {
+                                    setValue(
+                                        `prizes.${index}.prizeAmount`,
+                                        Number(e.target.value)
+                                    )
+                                }
+                            }}
+                            autoComplete='off'
+                            className='prizeName_input'
+                            wrapperClassName='prizeName_input_container'
+                        />
+
+                        {last && (
+                        <Button
+                            variant='div'
+                            className='iconBtn_wrapper'
+                            onClick={() => onDelete(place)}>
+                            <Icon
+                                Svg={trash}
+                                height={48}
+                                width={24}
+                                className='deleteIcon'
+                            />
+                        </Button>
+                    )}
+                    </div>
+                </HStack>
             </HStack>
 
-            <div className='divider' />
+            {/* <div className='divider' /> */}
         </VStack>
     )
 }
