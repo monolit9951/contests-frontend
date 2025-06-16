@@ -5,7 +5,7 @@
 
     &__container {
         gap: 48px;
-        padding: 0 197px 56px;
+        padding: 0 65px 56px;
         box-sizing: border-box;
     }
 
@@ -21,18 +21,18 @@
     }
 }
 
-@media (max-width: 1920px) {
-    .contest {
+@media (max-width: 1060px) {
+    .contest{
         &__container {
-            padding: 0 5vw 0;
+            padding: 0 20px 56px;
         }
     }
 }
 
-@media (max-width: 1700px) {
-    .contest {
+@media (max-width: 650px) {
+    .contest{
         &__container {
-            padding: 0 3vw 0;
+            padding: 0 10px 56px;
         }
     }
 }

@@ -67,6 +67,7 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                         </li>
                     </ul>
                 </VStack>
+                
                 <Button
                     variant='primary'
                     disabled={!data.contestOpen}
@@ -75,6 +76,7 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                     <Text Tag='span'>{contestStatus()}</Text>
                 </Button>
             </HStack>
+            
             <HStack className='contest-info'>
                 <VStack className='contest-info__left-block'>
                     <VStack>

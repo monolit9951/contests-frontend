@@ -14,15 +14,20 @@
 
         width: 100%;
         margin-top: 24px;
-
+        flex-wrap: wrap;
         & > li {
             padding: 4px 12px;
             border-radius: 8px;
 
             & > span {
                 letter-spacing: -0.011em;
+                white-space: nowrap;
             }
         }
+    }
+
+    .participate-btn{
+        white-space: nowrap;
     }
 
     .contest-info {
@@ -178,6 +183,23 @@
                 .prizes-list > hr {
                     background-color: var(--border-grey);
                 }
+            }
+        }
+    }
+}
+
+@media (max-width: 1060px) {
+    .contest-description{
+        > .contest-info{
+            display: block;
+
+            > .contest-info__left-block{
+                margin-bottom: 24px;
+            }
+
+            > .contest-info__right-block{
+                width: 100%;
+                max-width: none;
             }
         }
     }

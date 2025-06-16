@@ -15,12 +15,12 @@
     &__creator {
         position: relative;
 
-        padding: 16px 132px 0;
+        padding: 16px 65px 0;
 
         > img {
             position: absolute;
             top: -70px;
-            left: 132px;
+            left: 65px;
 
             border: 4px solid;
             object-fit: cover;
@@ -51,6 +51,40 @@
         &__creator {
             > img {
                 border-color: var(--white-medium-light);
+            }
+        }
+    }
+}
+
+@media (max-width: 1060px) {
+    .contest-hero{
+        &__creator{
+            padding: 16px 20px 0;
+        
+            > img {
+                position: absolute;
+                top: -70px;
+                left: 20px;
+
+                border: 4px solid;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .contest-hero{
+        &__creator{
+            padding: 16px 10px 0;
+
+            > img {
+                position: absolute;
+                top: -70px;
+                left: 10px;
+
+                border: 4px solid;
+                object-fit: cover;
             }
         }
     }
