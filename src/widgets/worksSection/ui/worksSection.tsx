@@ -99,7 +99,7 @@ const WorksSection: React.FC = () => {
         <VStack className='works-section'>
             {works.map((work: Work, index: number) => (
                 <div
-                    key={work.id}
+                    key={index}
                     ref={works.length === index + 1 ? lastWorkElementRef : null}
                     className='works-section__content'>
                     <WorkComponent work={work} openModal={openModal} />
