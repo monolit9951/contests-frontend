@@ -74,18 +74,15 @@ const CreateContestForm = () => {
     const onSubmit = async (data: ContestCreationFormData) => {
         const hasExampleMedia = data.exampleMedia?.some((file) => file)
 
-        if (
-            moment(data.dateStart).toDate().toISOString() <
-            moment().format('YYYY-MM-DD[T]HH:mm:ss[Z]')
-        ) {
+        // дата начала больше текущей даты
+        if (moment(data.dateStart).isSameOrBefore(moment())) {
             setDateValidation('Starting date must be greater than current date')
-
             return
         }
 
-        if (data.dateStart >= data.dateEnd) {
-            setDateValidation('Deadline cannot be before starting date')
-
+        // дата окончания больше даты начала
+        if (moment(data.dateEnd).isSameOrBefore(moment(data.dateStart))) {
+            setDateValidation('Deadline cannot be before or equal to starting date')
             return
         }
 
@@ -131,25 +128,33 @@ const CreateContestForm = () => {
             })
         }
 
-        let contestOwnerId: string
+        // ПОЛЬЗОВАТЕЛЬ ПОЛУЧАЕТСЯ ПУТЁМ АВТОРИЗАЦИИ
+        // let contestOwnerId: string
 
-        try {
-            const response = await instance.get(
-                'users?page=0&pageSize=1&sortDirection=ASC'
-            )
+        // try {
+        //     const response = await instance.get(
+        //         'users?page=0&pageSize=1&sortDirection=ASC'
+        //     )
 
-            contestOwnerId = response.data.content[0].id
-        } catch (err) {
-            // eslint-disable-next-line no-console
-            console.error('Something went wrong: ', err)
-            return
+        //     contestOwnerId = response.data.content[0].id
+        // } catch (err) {
+        //     // eslint-disable-next-line no-console
+        //     console.error('Something went wrong: ', err)
+        //     return
+        // }
+
+        // formData.append('contestOwnerId', contestOwnerId)
+
+        // вывод формдаты для теста
+        console.log('--- FormData содержимое ---');
+        for (const [key, value] of formData.entries()) {
+            console.log(key, value);
         }
-
-        formData.append('contestOwnerId', contestOwnerId)
 
         try {
             setPending(true)
-            const response = await instance.post('contests', formData)
+
+            const response = await instance.post('contests', formData, {headers: {Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyXzEiLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTc1MDE1ODU5NiwiZXhwIjoxNzUwMjQ0OTk2fQ.DXvSoStBXXVXni0h6EEVdenPiQrQ4FHFWMJpBhX0ZEo`}})
 
             navigate(`/contests/${response.data.id}`)
         } catch (error: Error | any) {
