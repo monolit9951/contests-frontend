@@ -53,7 +53,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
     return (
         <Flex className='work-preview'>
             <HStack>
-                {/* {windowWidth > 1024 &&
+                {windowWidth > 1024 &&
                     media &&
                     (work.typeWork === 'IMAGE' ? (
                         <ImageSlider images={media} />
@@ -63,7 +63,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                             width={windowWidth >= 1280 ? 668 : 500}
                             className='preview__video'
                         />
-                    ))} */}
+                    ))}
 
                 <VStack
                     className={clsx(
@@ -73,13 +73,13 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                     <VStack className='upper-desc'>
                         <HStack className='creator-desc'>
                             <HStack className='align__center'>
-                                {/* <UserIcon
+                                <UserIcon
                                     src={user.profileImage}
                                     userName={user.name}
                                     alt={`Creator's profile picture`}
                                     size={40}
-                                /> */}
-                                {/* {user.verificationStatus && <Verified />} */}
+                                />
+                                {user.verificationStatus && <Verified />}
                                 <Text
                                     Tag='span'
                                     className='upper-desc__timeago'>
@@ -93,7 +93,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                             />
                         </HStack>
 
-                        {/* {windowWidth <= 1024 &&
+                        {windowWidth <= 1024 &&
                             media &&
                             (work.typeWork === 'IMAGE' ? (
                                 <ImageSlider images={media} />
@@ -103,7 +103,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                                     width={500}
                                     className='preview__video'
                                 />
-                            ))} */}
+                            ))}
 
                         {description && (
                             <Text Tag='p' className='work-desc__text'>

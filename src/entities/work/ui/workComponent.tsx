@@ -49,7 +49,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
             variant='div'
             className='work-component'
             onClick={() => openModal(work)}>
-            {/* <HStack className='align__center justify__start'>
+            <HStack className='align__center justify__start'>
                 <UserIcon
                     src={user.profileImage}
                     userName={user.name}
@@ -60,7 +60,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                 <Text Tag='span' className='work-component__timeago'>
                     {timeAgo}
                 </Text>
-            </HStack> */}
+            </HStack>
 
             <Text Tag='p' className='work-component__text'>
                 {(description.length < 250 && description) || (
@@ -95,7 +95,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                 </Text>
             </HStack>
 
-            {/* {typeWork === 'IMAGE' && media && (
+            {typeWork === 'IMAGE' && media && (
                 <Image
                     src={media[0].mediaLink}
                     alt={`User's image`}
@@ -103,8 +103,8 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                     height={720}
                     className='work-component__image'
                 />
-            )} */}
-            {/* {work.typeWork === 'VIDEO' && media && (
+            )}
+            {work.typeWork === 'VIDEO' && media?.[0]?.mediaLink && (
                 <Video
                     url={media[0].mediaLink}
                     width={420}
@@ -112,7 +112,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                     light
                     className='work-component__video'
                 />
-            )} */}
+            )}
 
             <MediaFeedback
                 id={id}
