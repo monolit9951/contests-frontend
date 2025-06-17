@@ -37,7 +37,7 @@ export const Layout = () => {
                             : 'main_layout--dark'
                     )}>
                     <Header />
-                    {/* <Sidebar /> */}
+                    <Sidebar />
                     <main className='layout__content'>
                         <Outlet />
                     </main>

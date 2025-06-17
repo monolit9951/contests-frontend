@@ -272,9 +272,9 @@
 
 // ГРИД ДЛЯ ОТОБРАЖЕНИЯ АСАЙДА
 .main_layout {
-    // display: grid;
-    // grid-template-rows: auto 1fr;
-    // grid-template-columns: 86px auto;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 86px auto;
 }
 
 .main_layout--light {

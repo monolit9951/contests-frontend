@@ -22,10 +22,11 @@
         position: relative;
         gap: 24px;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-
+        grid-template-columns: repeat(auto-fit, minmax(408px, max-content));
+        justify-content: start;
         > li{
             width: 100%;
+            max-width: 408px;
         }
     }
 }
@@ -87,7 +88,7 @@
 @media (max-width: 880px) {
     .contest-gallery{
         &__list {
-             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+             grid-template-columns: repeat(auto-fill, minmax(408px, 1fr));
         }
 
         &__head{

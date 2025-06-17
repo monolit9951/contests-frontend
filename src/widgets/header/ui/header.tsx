@@ -28,16 +28,16 @@ export const Header = () => {
     }
 
     // открытие навигационного меню
-    const [sidebar, setSideBar] = useState<boolean>(false)
+    // const [sidebar, setSideBar] = useState<boolean>(false)
 
-    const toggleSideBar = () => {
-        setSideBar(!sidebar)
-    }
+    // const toggleSideBar = () => {
+    //     setSideBar(!sidebar)
+    // }
 
     return (
         <header className='header'>
             <div className="header_logoGroup">
-                <div className='burgerMenu'>
+                {/* <div className='burgerMenu'>
                     <Icon
                         Svg={burger}
                         height={36}
@@ -45,7 +45,7 @@ export const Header = () => {
                         clickable
                         onClick={toggleSideBar}
                     />
-                </div>
+                </div> */}
 
                 <Logo />
             </div>
@@ -57,13 +57,13 @@ export const Header = () => {
             />
             <UserPanel />
 
-            <div className={clsx('header_sideNavBar', { open: sidebar })}>
+            {/* <div className={clsx('header_sideNavBar', { open: sidebar })}>
                 <nav>
                     {mockNavData.map((navItem, index) => (
                         <NavElement key={index} {...navItem} />
                     ))}
                 </nav>
-            </div>
+            </div> */}
         </header>
     )
 }
