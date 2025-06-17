@@ -25,6 +25,7 @@ interface CoverSelectionModalProps {
     setChosenImg: React.Dispatch<React.SetStateAction<string>>
     isCover: boolean
     setImageValidationMessage: (str: string) => void
+    extra: string
 }
 
 const covers = [basicCover1, basicCover2, basicCover3, basicCover4]
@@ -35,6 +36,7 @@ export const CoverSelectionModal = ({
     setChosenImg,
     isCover,
     setImageValidationMessage,
+    extra
 }: CoverSelectionModalProps) => {
     const [currImg, setCurrImg] = useState<string>('')
     const [imgName, setImgName] = useState<string>('')
@@ -129,7 +131,7 @@ export const CoverSelectionModal = ({
                                 Tag='p'
                                 className='uploading__cover__label__text'>
                                 We recommend uploading an image that is at least
-                                1704 x 390 pixels in size.
+                                {extra} pixels in size.
                             </Text>
                         </HStack>
 
@@ -197,7 +199,7 @@ export const CoverSelectionModal = ({
                                         We recommend uploading an image that is
                                         at least
                                         <br />
-                                        1704 x 390 pixels in size. File size –
+                                        {extra} pixels in size. File size –
                                         no more than 6 MB
                                     </Text>
                                 </>

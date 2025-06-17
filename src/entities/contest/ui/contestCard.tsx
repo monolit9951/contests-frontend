@@ -14,8 +14,11 @@ import { Tag } from 'shared/ui/tag'
 import { Text } from 'shared/ui/text'
 import { TopUser } from 'shared/ui/topUser'
 import { UserIcon } from 'shared/ui/userIcon'
-
 import { ContestPreview } from '../model/types'
+
+import testImage from '../../../shared/assets/testImages/contestPreviewSample.png'
+import testImageNonFormat from '../../../shared/assets/testImages/contestRedSquare.png'
+
 
 import './contestCard.scss'
 
@@ -81,11 +84,13 @@ const ContestCard: React.FC<Props> = (props) => {
                 </Flex>
                 <Tag type={tagType} className='tag' />
             </Flex>
+
             <div className='contest-card-body'>
                 <VStack className='image-box align__center'>
-                    <Image
+                    {/* <Image
                         alt='Contest preview image'
-                        src={rest.previewImage ?? contestImg}
+                        // src={rest.previewImage ?? contestImg}
+                        src={testImage}
                         width={377}
                         height={212}
                         onClick={onDetailsClick}
@@ -93,7 +98,10 @@ const ContestCard: React.FC<Props> = (props) => {
                             e.currentTarget.src = contestImg
                             e.currentTarget.onerror = null
                         }}
-                    />
+                    /> */}
+
+                    <img src={rest.previewImage ?? contestImg} alt="contest preview img" />
+
                     <div className='prize' style={{ background: getBgColor() }}>
                         <PrizeIcon />
                         <Text Tag='span'>
@@ -104,11 +112,13 @@ const ContestCard: React.FC<Props> = (props) => {
                     </div>
                 </VStack>
             </div>
+
             <div className='contest-card-title'>
                 <Text Tag='h4' bold size='l'>
                     {rest.name}
                 </Text>
-                <Flex className='segments align__center'>
+
+                <Flex className='segments align__center contest-card-tags'>
                     <div>{capitalizeStr(rest.status)}</div>
                     <div>{capitalizeStr(rest.subcategory)}</div>
                     <div>{rest.maxAllowedParticipantAmount} participants</div>
