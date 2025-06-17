@@ -95,7 +95,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                 </Text>
             </HStack>
 
-            {typeWork === 'IMAGE' && media && (
+            {typeWork === 'IMAGE' && media?.[0].mediaLink && (
                 <Image
                     src={media[0].mediaLink}
                     alt={`User's image`}
