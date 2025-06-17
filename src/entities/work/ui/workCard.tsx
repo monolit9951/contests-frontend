@@ -35,6 +35,8 @@ const WorkCard: FC<Props> = (props) => {
 
     const prize = prizes.find((item) => item.id === prizeId)
 
+    console.log(data)
+
     const toggleReadMore = () => {
         setIsReadMore(!isReadMore)
     }
@@ -93,7 +95,7 @@ const WorkCard: FC<Props> = (props) => {
                         user={user}
                         imageCards={typeWork === 'IMAGE'}
                     />
-                    {typeWork === 'VIDEO' && media && (
+                    {typeWork === 'VIDEO' && media?.[0]?.mediaLink && (
                         <Button
                             variant='div'
                             onClick={onOpenModal}
@@ -101,7 +103,7 @@ const WorkCard: FC<Props> = (props) => {
                             <Video url={media[0].mediaLink} light />
                         </Button>
                     )}
-                    {typeWork === 'IMAGE' && (
+                    {typeWork === 'IMAGE' && media?.[0]?.mediaLink && (
                         <Image
                             src={media?.[0].mediaLink}
                             alt='media'

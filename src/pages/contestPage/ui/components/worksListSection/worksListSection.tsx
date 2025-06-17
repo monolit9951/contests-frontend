@@ -18,6 +18,7 @@ import { Text } from 'shared/ui/text'
 import { WorksList } from './worksList'
 
 import './worksListSection.scss'
+import { useParams } from 'react-router-dom'
 
 type WorkType = 'media' | 'text'
 type WorkSort = 'new' | 'popular'
@@ -34,16 +35,17 @@ const WorksListSection = ({ worksAmount, openModal }: Props) => {
     const dispatch = useAppDispatch()
 
     const ownerId = useAppSelector(selectContestOwnerId)
+    const { id: contestId } = useParams() as { id: string };
     const media = useAppSelector(selectContestMedia)
     const text = useAppSelector(selectContestText)
 
     const onFetch = (type: WorkType, sort: WorkSort) => {
         if (sort === 'popular') {
             if (type === 'media' && !media.popular.length) {
-                dispatch(fetchPopularMediaWorks(ownerId))
+                dispatch(fetchPopularMediaWorks(contestId))
             }
             if (type === 'text' && !text.popular.length) {
-                dispatch(fetchPopularTextWorks(ownerId))
+                dispatch(fetchPopularTextWorks(contestId))
             }
         } else {
             if (type === 'media' && !media.new.length) {
