@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
 import clsx from 'clsx'
 import { Work } from 'entities/work'
 import {
@@ -19,6 +18,7 @@ import { Text } from 'shared/ui/text'
 import { WorksList } from './worksList'
 
 import './worksListSection.scss'
+import { useParams } from 'react-router-dom'
 
 type WorkType = 'media' | 'text'
 type WorkSort = 'new' | 'popular'
