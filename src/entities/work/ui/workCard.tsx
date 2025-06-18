@@ -10,7 +10,7 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { UserIcon } from 'shared/ui/userIcon'
 import { Video } from 'shared/ui/videoPlayer'
-
+import videoSample from 'shared/assets/testVideos/testVideo.mp4'
 import { Work } from '../model/types'
 
 import MediaOverlay from './overlay/mediaOverlay'
@@ -43,82 +43,91 @@ const WorkCard: FC<Props> = (props) => {
         openModal(data)
     }
 
-    if (typeWork === 'TEXT') {
-        return (
-            <li>
-                <VStack className={clsx('text-work', className)}>
-                    <HStack className='justify__between align__center'>
-                        <UserIcon
-                            src={user.profileImage}
-                            size={40}
-                            userName={user.name}
-                        />
-                        {prize && <TopPrize data={prize} />}
-                    </HStack>
-                    <Text
-                        Tag='p'
-                        className='text-work__text'
-                        onClick={onOpenModal}>
-                        {(description.length < 430 && description) || (
-                            <>
-                                {!isReadMore
-                                    ? description.slice(0, 430)
-                                    : `${description}`}
-                                <button
-                                    type='button'
-                                    className='read-more-btn'
-                                    onClick={toggleReadMore}>
-                                    {!isReadMore ? '... more' : 'show less'}
-                                </button>
-                            </>
-                        )}
-                    </Text>
-                    <MediaFeedback
-                        id={data.id}
-                        likes={data.likeAmount}
-                        comments={data.commentAmount}
-                        onCommentsClick={onOpenModal}
-                    />
-                </VStack>
-            </li>
-        )
-    }
+    // if (typeWork === 'TEXT') {
+    //     return (
+    //         <li>
+    //             <VStack className={clsx('text-work', className)}>
+    //                 <HStack className='justify__between align__center'>
+    //                     <UserIcon
+    //                         src={user.profileImage}
+    //                         size={40}
+    //                         userName={user.name}
+    //                     />
+    //                     {prize && <TopPrize data={prize} />}
+    //                 </HStack>
+    //                 <Text
+    //                     Tag='p'
+    //                     className='text-work__text'
+    //                     onClick={onOpenModal}>
+    //                     {(description.length < 430 && description) || (
+    //                         <>
+    //                             {!isReadMore
+    //                                 ? description.slice(0, 430)
+    //                                 : `${description}`}
+    //                             <button
+    //                                 type='button'
+    //                                 className='read-more-btn'
+    //                                 onClick={toggleReadMore}>
+    //                                 {!isReadMore ? '... more' : 'show less'}
+    //                             </button>
+    //                         </>
+    //                     )}
+    //                 </Text>
+    //                 <MediaFeedback
+    //                     id={data.id}
+    //                     likes={data.likeAmount}
+    //                     comments={data.commentAmount}
+    //                     onCommentsClick={onOpenModal}
+    //                 />
+    //             </VStack>
+    //         </li>
+    //     )
+    // }
 
     return (
-        <li>
-            <VStack className={clsx('media-work', className)}>
-                <div className='media-work__container'>
-                    <MediaOverlay
-                        prize={prize}
-                        user={user}
-                        imageCards={typeWork === 'IMAGE'}
-                    />
-                    {typeWork === 'VIDEO' && media?.[0]?.mediaLink && (
-                        <Button
-                            variant='div'
-                            onClick={onOpenModal}
-                            className='media-work__video'>
-                            <Video url={media[0].mediaLink} light />
-                        </Button>
-                    )}
-                    {typeWork === 'IMAGE'&& media?.[0]?.mediaLink && (
-                        <Image
-                            src={media?.[0].mediaLink}
-                            alt='media'
-                            width={458}
-                            height={612}
-                            onClick={onOpenModal}
-                            className='media-work__frame'
-                        />
-                    )}
-                </div>
-                <MediaFeedback
-                    id={data.id}
-                    likes={data.likeAmount}
-                    comments={data.commentAmount}
-                    onCommentsClick={onOpenModal}
-                />
-            </VStack>
+        // <li>
+        //     <VStack className={clsx('media-work', className)}>
+        //         <div className='media-work__container'>
+        //             <MediaOverlay
+        //                 prize={prize}
+        //                 user={user}
+        //                 imageCards={typeWork === 'IMAGE'}
+        //             />
+        //             {typeWork === 'VIDEO' && media?.[0]?.mediaLink && (
+        //                 <Button
+        //                     variant='div'
+        //                     onClick={onOpenModal}
+        //                     className='media-work__video'>
+        //                     <Video url={media[0].mediaLink} light />
+        //                 </Button>
+        //             )}
+        //             {typeWork === 'IMAGE'&& media?.[0]?.mediaLink && (
+        //                 <Image
+        //                     src={media?.[0].mediaLink}
+        //                     alt='media'
+        //                     width={458}
+        //                     height={612}
+        //                     onClick={onOpenModal}
+        //                     className='media-work__frame'
+        //                 />
+        //             )}
+        //         </div>
+                
+        //         <MediaFeedback
+        //             id={data.id}
+        //             likes={data.likeAmount}
+        //             comments={data.commentAmount}
+        //             onCommentsClick={onOpenModal}
+        //         />
+        //     </VStack>
+        // </li>
+
+        <li className='mediaWork'>
+            <div className="mediaWork_container">
+                <Video src = {videoSample}></Video>
+            </div>
+
+            <MediaFeedback id={data.id} likes={data.likeAmount} comments={data.commentAmount} onCommentsClick={onOpenModal} />
         </li>
     )
 }

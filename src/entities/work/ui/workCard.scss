@@ -1,176 +1,190 @@
-.text-work {
-    padding: 16px;
-    border-radius: 24px;
-    width: 458px;
-    gap: 16px;
+// .text-work {
+//     padding: 16px;
+//     border-radius: 24px;
+//     width: 458px;
+//     gap: 16px;
 
-    &__text {
-        &:hover {
-            cursor: pointer;
-        }
+//     &__text {
+//         &:hover {
+//             cursor: pointer;
+//         }
 
-        & > .read-more-btn {
-            padding: 0;
+//         & > .read-more-btn {
+//             padding: 0;
 
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
+//             border: none;
+//             background-color: transparent;
+//             cursor: pointer;
 
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 1.5;
+//             font-weight: 700;
+//             font-size: 16px;
+//             line-height: 1.5;
 
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
+//             &:hover {
+//                 text-decoration: underline;
+//             }
+//         }
+//     }
 
-    .prize-winner {
-        align-items: center;
-        gap: 8px;
-    }
-}
+//     .prize-winner {
+//         align-items: center;
+//         gap: 8px;
+//     }
+// }
 
-.media-work {
-    position: relative;
+// .media-work {
+//     position: relative;
 
-    gap: 8px;
-    width: 458px;
+//     gap: 8px;
+//     width: 458px;
 
-    &__container {
+//     &__container {
+//         position: relative;
+//         height: 612px;
+//     }
+
+//     &__frame {
+//         position: absolute;
+//         z-index: 1;
+//         width: 100%;
+//         height: 612px;
+//         border: none;
+//         border-radius: 24px;
+//         object-fit: cover;
+
+//         &:hover {
+//             cursor: pointer;
+//         }
+//     }
+
+//     &__video {
+//         position: absolute;
+//         z-index: 10;
+//         width: 100%;
+//         height: 612px;
+//         padding: 0;
+//         border: none;
+//         border-radius: 24px;
+//         background: none;
+
+//         > div {
+//             pointer-events: none;
+//         }
+//     }
+// }
+
+// .work-card-skeleton {
+//     &.text-work {
+//         display: flex;
+//         flex-direction: column;
+//         width: 458px;
+//         height: 100%;
+
+//         .user-box {
+//             display: flex;
+//             gap: 8px;
+
+//             div {
+//                 width: 100%;
+//             }
+//         }
+//     }
+
+//     &.media-work {
+//         width: 458px;
+//         height: 661px;
+
+//         span {
+//             height: 100%;
+//         }
+//     }
+// }
+
+// .dark {
+//     .text-work {
+//         background-color: var(--green-dark);
+
+//         &__text {
+//             color: var(--white);
+
+//             & > .read-more-btn {
+//                 color: var(--white);
+//             }
+//         }
+//     }
+// }
+// .light {
+//     .text-work {
+//         background-color: var(--white);
+
+//         &__text {
+//             & > .read-more-btn {
+//                 color: var(--main-dark);
+//             }
+//         }
+//     }
+// }
+
+// @media (max-width: 1920px) {
+//     .text-work,
+//     .media-work {
+//         width: 100%;
+//     }
+
+//     .work-card-skeleton {
+//         &.text-work,
+//         &.media-work {
+//             width: 100%;
+//         }
+//     }
+// }
+
+// @media (max-width: 1560px) {
+//     .media-work {
+//         &__container,
+//         &__frame,
+//         &__video {
+//             height: 520px;
+//         }
+//     }
+
+//     .work-card-skeleton {
+//         &.media-work {
+//             height: 569px;
+//         }
+//     }
+// }
+
+// @media (max-width: 1200px) {
+//     .media-work {
+//         &__container {
+//             height: 612px;
+//         }
+//         &__frame {
+//             height: 612px;
+//         }
+//         &__video {
+//             height: 612px;
+//         }
+//     }
+
+//     .work-card-skeleton {
+//         &.media-work {
+//             height: 661px;
+//         }
+//     }
+// }
+
+.mediaWork{
+    max-width: 458px;
+    height: 660px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    > .mediaWork_container{
         position: relative;
+        border-radius: 16px;
         height: 612px;
-    }
-
-    &__frame {
-        position: absolute;
-        z-index: 1;
-        width: 100%;
-        height: 612px;
-        border: none;
-        border-radius: 24px;
-        object-fit: cover;
-
-        &:hover {
-            cursor: pointer;
-        }
-    }
-
-    &__video {
-        position: absolute;
-        z-index: 10;
-        width: 100%;
-        height: 612px;
-        padding: 0;
-        border: none;
-        border-radius: 24px;
-        background: none;
-
-        > div {
-            pointer-events: none;
-        }
-    }
-}
-
-.work-card-skeleton {
-    &.text-work {
-        display: flex;
-        flex-direction: column;
-        width: 458px;
-        height: 100%;
-
-        .user-box {
-            display: flex;
-            gap: 8px;
-
-            div {
-                width: 100%;
-            }
-        }
-    }
-
-    &.media-work {
-        width: 458px;
-        height: 661px;
-
-        span {
-            height: 100%;
-        }
-    }
-}
-
-.dark {
-    .text-work {
-        background-color: var(--green-dark);
-
-        &__text {
-            color: var(--white);
-
-            & > .read-more-btn {
-                color: var(--white);
-            }
-        }
-    }
-}
-.light {
-    .text-work {
-        background-color: var(--white);
-
-        &__text {
-            & > .read-more-btn {
-                color: var(--main-dark);
-            }
-        }
-    }
-}
-
-@media (max-width: 1920px) {
-    .text-work,
-    .media-work {
-        width: 100%;
-    }
-
-    .work-card-skeleton {
-        &.text-work,
-        &.media-work {
-            width: 100%;
-        }
-    }
-}
-
-@media (max-width: 1560px) {
-    .media-work {
-        &__container,
-        &__frame,
-        &__video {
-            height: 520px;
-        }
-    }
-
-    .work-card-skeleton {
-        &.media-work {
-            height: 569px;
-        }
-    }
-}
-
-@media (max-width: 1200px) {
-    .media-work {
-        &__container {
-            height: 612px;
-        }
-        &__frame {
-            height: 612px;
-        }
-        &__video {
-            height: 612px;
-        }
-    }
-
-    .work-card-skeleton {
-        &.media-work {
-            height: 661px;
-        }
     }
 }

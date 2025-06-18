@@ -42,9 +42,7 @@ const Video: FC<Props> = (props) => {
     }
 
     return (
-        <div className='video_container'>
-            <Plyr source={{type: "video", sources: [{src: sampleVideo, type: "video/mp4"}]}}/>
-        </div>
+        <Plyr source={{type: "video", sources: [{src: sampleVideo, type: "video/mp4"}]}}/>
     )
 }
 
