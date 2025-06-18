@@ -39,7 +39,7 @@ export const CoverSelectionModal = ({
     setImageValidationMessage,
     extra
 }: CoverSelectionModalProps) => {
-    const [currImg, setCurrImg] = useState<string>('')
+    const [currImg, setCurrImg] = useState<string | Blob>('')
     const [imgName, setImgName] = useState<string>('')
     const [isDisabledUploadBtn, setIsDisabledUploadBtn] =
         useState<boolean>(true)
@@ -47,25 +47,7 @@ export const CoverSelectionModal = ({
 
     const { setValue } = useFormContext()
 
-    // ПЕРЕДЕЛАТЬ ПОЛУЧЕНИЕ ФОТО, КАДРИРОВАТЬ В ПРАВИЛЬНОМ АСПЕКТ РАТИО
-    const setImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-            const file = e.target.files[0]
-            const maxSize = 6 * 1024 * 1024 // 6MB
-
-            if (file.size > maxSize) {
-                setImageValidationMessage('File size exceeds 6 MB')
-
-                return
-            }
-
-            setImgName(file.name)
-            setCurrImg(URL.createObjectURL(file))
-            setIsDisabledUploadBtn(false)
-            setImageValidationMessage('')
-        }
-    }
-
+    // подготовленные базовые фото
     const setDefaultImage = (image: string) => {
         if (currImg === image) {
             setImgName('')
@@ -78,6 +60,7 @@ export const CoverSelectionModal = ({
         }
     }
 
+    // отмена
     const onCancel = () => {
         setImgName('')
         setCurrImg('')
@@ -86,6 +69,7 @@ export const CoverSelectionModal = ({
         setIsDisabledUploadBtn(true)
     }
 
+    // окончательное добавление
     const confirmImage = () => {
         if (isCover) {
             setValue('backgroundImage', currImg)
@@ -97,21 +81,29 @@ export const CoverSelectionModal = ({
     }
 
     const [imageSrc, setImageSrc] = useState<String | null>(null)
-    const [croppedBlob, setCroppedBlob] = useState<Blob | null>(null)
 
+    // получаем фото
     const handleFileChange = async(event: React.ChangeEvent<HTMLInputElement>) =>{
         const file = event.target.files?.[0]
+
         if(file){
+            if(file.size > 6 * 1024 * 1024){
+                setImageValidationMessage('File size exceeds 6 MB')
+                return
+            }
             const reader = new FileReader()
             reader.onload = () => {
                 setImageSrc(reader.result as string)
+                setImgName(file.name)
             }
             reader.readAsDataURL(file)
         }
     }
 
+    // возвращаем обработанное фото
     const handleCropComplete = (blob: Blob) => {
-        setCroppedBlob(blob)
+        setCurrImg(URL.createObjectURL(blob))
+        setIsDisabledUploadBtn(false)
         setImageSrc(null)
     }
 
@@ -151,8 +143,7 @@ export const CoverSelectionModal = ({
                             <Text
                                 Tag='p'
                                 className='uploading__cover__label__text'>
-                                We recommend uploading an image that is at least
-                                {extra} pixels in size.
+                                We recommend uploading an image that is at least {extra} pixels in size.
                             </Text>
                         </HStack>
 

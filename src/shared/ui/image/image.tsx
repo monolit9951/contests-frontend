@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import './image.scss'
 
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
-    src: string | undefined
+    src: string | undefined 
     alt: string
     width?: number
     height?: number

@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react'
 import Cropper from 'react-easy-crop'
 import getCroppedImg from '../model/cropImage'
-
+import './imageCropper.scss'
+import { Button } from 'shared/ui/button'
+import { Text } from 'shared/ui/text'
 interface Props {
   imageSrc: String | null
   aspect?: number // Например, 4 / 3, 1 / 1 и т.п.
@@ -23,7 +25,7 @@ const ImageCropper: React.FC<Props> = ({ imageSrc, onCropComplete }) => {
   }
 
   return (
-    <div className="crop-container">
+    <div className="crop_container">
       <Cropper
         image={imageSrc}
         crop={crop}
@@ -33,7 +35,10 @@ const ImageCropper: React.FC<Props> = ({ imageSrc, onCropComplete }) => {
         onZoomChange={setZoom}
         onCropComplete={onCropCompleteHandler}
       />
-      <button onClick={handleDone} type='button'>Готово</button>
+      <div className="crop_container_button">
+        <Button onClick={handleDone} type='button' variant='secondary'>Countinue</Button>
+        {/* <button onClick={handleDone} type='button' >Submit</button> */}
+      </div>
     </div>
   )
 }
