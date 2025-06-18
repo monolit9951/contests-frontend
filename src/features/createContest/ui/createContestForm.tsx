@@ -154,7 +154,9 @@ const CreateContestForm = () => {
         try {
             setPending(true)
 
-            const response = await instance.post('contests', formData, {headers: {Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyXzEiLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTc1MDE1ODU5NiwiZXhwIjoxNzUwMjQ0OTk2fQ.DXvSoStBXXVXni0h6EEVdenPiQrQ4FHFWMJpBhX0ZEo`}})
+            const response = await instance.post('contests', formData,
+                //  {headers: {Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyXzEiLCJyb2xlcyI6WyJVU0VSIl0sImlhdCI6MTc1MDE1ODU5NiwiZXhwIjoxNzUwMjQ0OTk2fQ.DXvSoStBXXVXni0h6EEVdenPiQrQ4FHFWMJpBhX0ZEo`}}
+                )
 
             navigate(`/contests/${response.data.id}`)
         } catch (error: Error | any) {

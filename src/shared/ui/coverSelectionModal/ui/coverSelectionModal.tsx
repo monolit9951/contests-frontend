@@ -110,7 +110,7 @@ export const CoverSelectionModal = ({
     // обработка правильного aspect-ration
     const [numerator, denominator] = extra.split('/').map(Number)
     const extraNumber = Number((numerator / denominator).toFixed(3))
-    console.log(extraNumber)
+
     return (
         <ModalWindow
             isOpen={isOpen}

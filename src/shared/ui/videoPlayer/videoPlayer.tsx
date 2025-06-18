@@ -107,7 +107,7 @@ const Video: FC<Props> = (props) => {
     return (
         <>
             <ReactPlayer
-                url={url}
+                url={sampleVideo}
                 width={width}
                 height={height}
                 light={
@@ -132,7 +132,7 @@ const Video: FC<Props> = (props) => {
                     {/*  eslint-disable-next-line jsx-a11y/media-has-caption */}
                     <video
                         ref={videoRef}
-                        src={url}
+                        src={sampleVideo}
                         preload='metadata'
                         style={{ display: 'none' }}
                         crossOrigin='anonymous'
