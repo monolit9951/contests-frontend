@@ -9,32 +9,42 @@ import { HStack } from '../stack';
 
 interface Props {
     url: string
-    width?: number
-    height?: number
-    light?: boolean
-    className?: string
+    light: boolean
 }
 
-const Video: FC<Props> = (props) => {
-    const { url, width = '100%', height = '100%', light, className } = props
+const Video: FC<Props> = ({ url, light }) => {
 
 
     // настройки проигрывателя Plyr
     const plyrOptions = {
-        controls: light ? [] : [
+        controls: !light ? [
             'play-large',
             // 'play',
-            'progress',
-            'current-time',
-            'mute',
+            // 'progress',
+            // 'current-time',
+            // 'mute',
             // 'volume',
-            'captions',
-            'settings',
+            // 'captions',
+            // 'settings',
             // 'pip',
             // 'airplay',
             // 'fullscreen'
+        ] 
+        : 
+        [
+            'play-large',
+            'play',
+            'progress',
+            'current-time',
+            'mute',
+            'volume',
+            'captions',
+            'settings',
+            'pip',
+            'airplay',
+            'fullscreen'
         ],
-        autoplay: !light,
+        autoplay: light,
         clickToPlay: !light,
         hideControls: light,
         loop: { active: true },
@@ -42,7 +52,7 @@ const Video: FC<Props> = (props) => {
     }
 
     return (
-        <Plyr source={{type: "video", sources: [{src: sampleVideo, type: "video/mp4"}]}}/>
+        <Plyr options={plyrOptions} source={{type: "video", sources: [{src: sampleVideo, type: "video/mp4"}]}}/>
     )
 }
 

@@ -124,7 +124,7 @@ const WorkCard: FC<Props> = (props) => {
 
         <li className='mediaWork'>
             <div className="mediaWork_container">
-                <Video src = {videoSample}></Video>
+                <Video src = {videoSample} />
             </div>
 
             <MediaFeedback id={data.id} likes={data.likeAmount} comments={data.commentAmount} onCommentsClick={onOpenModal} />
