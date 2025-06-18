@@ -1,8 +1,9 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player/lazy'
 import clsx from 'clsx'
-
+import Plyr from 'plyr-react'
 import './videoPlayer.scss'
+import sampleVideo from '../../../shared/assets/testVideos/testVideo.mp4'
 
 interface Props {
     url: string
@@ -81,6 +82,28 @@ const Video: FC<Props> = (props) => {
         }
     }, [previewImage])
 
+    // настройки проигрывателя Plyr
+    const plyrOptions = {
+        controls: light ? [] : [
+            'play-large',
+            // 'play',
+            'progress',
+            'current-time',
+            'mute',
+            // 'volume',
+            'captions',
+            'settings',
+            // 'pip',
+            // 'airplay',
+            // 'fullscreen'
+        ],
+        autoplay: !light,
+        clickToPlay: !light,
+        hideControls: light,
+        loop: { active: true },
+        volume: 1
+    }
+
     return (
         <>
             <ReactPlayer
@@ -101,6 +124,8 @@ const Video: FC<Props> = (props) => {
                 volume={1}
                 className={clsx(className)}
             />
+
+            {/* <Plyr className='plur_video' options={plyrOptions} source={{type: 'video', sources: [{src: sampleVideo, type: 'video/mp4'}]}}/> */}
 
             {light && (
                 <>

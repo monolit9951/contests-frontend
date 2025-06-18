@@ -18,6 +18,7 @@ import { Flex, HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './coverSelectionModal.scss'
+import ImageCropper from 'widgets/imageCropper/ui/imageCropper'
 
 interface CoverSelectionModalProps {
     isOpen: boolean
@@ -46,6 +47,7 @@ export const CoverSelectionModal = ({
 
     const { setValue } = useFormContext()
 
+    // ПЕРЕДЕЛАТЬ ПОЛУЧЕНИЕ ФОТО, КАДРИРОВАТЬ В ПРАВИЛЬНОМ АСПЕКТ РАТИО
     const setImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0]
@@ -92,6 +94,25 @@ export const CoverSelectionModal = ({
         }
         setChosenImg(currImg)
         onCancel()
+    }
+
+    const [imageSrc, setImageSrc] = useState<String | null>(null)
+    const [croppedBlob, setCroppedBlob] = useState<Blob | null>(null)
+
+    const handleFileChange = async(event: React.ChangeEvent<HTMLInputElement>) =>{
+        const file = event.target.files?.[0]
+        if(file){
+            const reader = new FileReader()
+            reader.onload = () => {
+                setImageSrc(reader.result as string)
+            }
+            reader.readAsDataURL(file)
+        }
+    }
+
+    const handleCropComplete = (blob: Blob) => {
+        setCroppedBlob(blob)
+        setImageSrc(null)
     }
 
     return (
@@ -220,13 +241,17 @@ export const CoverSelectionModal = ({
                                     className='custom-cover-upload-btn-icon'
                                 />
                             </label>
+
+                            {/* ДОБАВЛЕНИЕ КРОПА ФОТО */}
                             <input
                                 type='file'
                                 id='custom-cover-upload-btn_id'
                                 accept='.webp,.png,.jpg,.jpeg'
-                                onChange={(e) => {
-                                    setImage(e)
-                                }}
+                                // onChange={(e) => {
+                                //     setImage(e)
+                                // }}
+
+                                onChange={handleFileChange}
                             />
                         </VStack>
 
@@ -250,6 +275,8 @@ export const CoverSelectionModal = ({
                     </>
                 )}
             </VStack>
+
+            {imageSrc && <ImageCropper imageSrc = {imageSrc} aspect = {376/211} onCropComplete={handleCropComplete}/>}
         </ModalWindow>
     )
 }
