@@ -1,16 +1,17 @@
 import { useState } from 'react'
+import { mockNavData } from 'app/api'
+import clsx from 'clsx'
 import { filterActions } from 'features/filterContests'
 import { contestsPageActions } from 'pages/contestsPage'
+import burger from 'shared/assets/icons/burger.svg?react'
 import { useAppDispatch } from 'shared/lib/store'
+import { Icon } from 'shared/ui/icon'
 import { Logo } from 'shared/ui/logo'
+import { NavElement } from 'shared/ui/navElement'
 import { Searchbar } from 'shared/ui/searchbar'
 import { UserPanel } from 'widgets/userPanel'
-import burger from 'shared/assets/icons/burger.svg?react'
+
 import './header.scss'
-import { Icon } from 'shared/ui/icon'
-import clsx from 'clsx'
-import { mockNavData } from 'app/api'
-import { NavElement } from 'shared/ui/navElement'
 
 export const Header = () => {
     const [inputData, setInputData] = useState('')
