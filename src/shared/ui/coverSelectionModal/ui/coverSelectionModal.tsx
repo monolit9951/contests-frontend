@@ -16,7 +16,6 @@ import { Image } from 'shared/ui/image'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import { Flex, HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
-
 import './coverSelectionModal.scss'
 import ImageCropper from 'widgets/imageCropper/ui/imageCropper'
 
@@ -107,6 +106,11 @@ export const CoverSelectionModal = ({
         setImageSrc(null)
     }
 
+    
+    // обработка правильного aspect-ration
+    const [numerator, denominator] = extra.split('/').map(Number)
+    const extraNumber = Number((numerator / denominator).toFixed(3))
+    console.log(extraNumber)
     return (
         <ModalWindow
             isOpen={isOpen}
@@ -267,7 +271,7 @@ export const CoverSelectionModal = ({
                 )}
             </VStack>
 
-            {imageSrc && <ImageCropper imageSrc = {imageSrc} aspect = {376/211} onCropComplete={handleCropComplete}/>}
+            {imageSrc && <ImageCropper imageSrc = {imageSrc} aspect = {extraNumber} onCropComplete={handleCropComplete}/>}
         </ModalWindow>
     )
 }

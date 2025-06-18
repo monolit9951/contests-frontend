@@ -97,7 +97,7 @@ export const MainInformation = ({ submitError }: Props) => {
                 </HStack>
             </VStack>
 
-            <ImageUpload text='Cover image' extra='1704 x 390'/>
+            <ImageUpload text='Cover image' extra='1704/390'/>
             <ImageUpload text='Card image' extra='376/211'/>
             {submitError &&
                 (!getValues('backgroundImage') ||
