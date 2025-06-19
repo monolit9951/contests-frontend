@@ -52,8 +52,6 @@ const ContestPage = () => {
 
     const { data, isLoading, error } = useAxios<Contest>(`contests/${id}`)
 
-    console.log(data)
-
     useEffect(() => {
         if (id !== ownerId) {
             dispatch(contestWorksActions.setOwnerId(id))
