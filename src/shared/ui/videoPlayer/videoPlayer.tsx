@@ -12,7 +12,7 @@ import "plyr-react/plyr.css";
 
 interface Props {
     url: string
-    light: boolean
+    light?: boolean
 }
 
 const Video: FC<Props> = (props) => {
@@ -35,7 +35,7 @@ const Video: FC<Props> = (props) => {
             'airplay',
             'fullscreen'
         ],
-        autoplay: light,
+        autoplay: !light,
         clickToPlay: !light,
         hideControls: light,
         loop: { active: true },
