@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import xIcon from 'shared/assets/icons/Secondary_btn.svg?react'
@@ -35,13 +35,9 @@ export const ModalWindow: FC<UploadModalProps> = ({
         { 'modal-open': rest.isOpen },
         rest.className
     )
-    const overlayClass = clsx('modal-overlay', rest.overlayClassName)
-    const modalContentClass = clsx(
-        'modal-content',
-        rest.modalContentClass,
-        theme
-    )
 
+
+    // БЛОКИРОВКА СКОЛЛА
     useEffect(() => {
         const body = document.body as HTMLElement
 
@@ -58,12 +54,27 @@ export const ModalWindow: FC<UploadModalProps> = ({
         return null
     }
 
+    // статус анимации
+    const [hideAnimationm, setHideAnimation] = useState<boolean>(false)
+    const [showAnimatuion, setShowAnimation] = useState<boolean>(false)
+    // для анимированного анмаунта 
+    const handleClose = () =>{
+        setHideAnimation(true)
+        if(rest.onClose){
+            setTimeout(() => {
+                setHideAnimation(false)
+                rest.onClose()
+            }, 300);
+        }
+    }
+
+    const overlayClass = clsx('modal-overlay', {hide: hideAnimationm}, rest.overlayClassName)
+    const modalContentClass = clsx('modal-content', {hide: hideAnimationm}, rest.modalContentClass, theme)
+
     return (
         <VStack className={modalClass}>
-            <div
-                className='modal-wrapper'
-                style={{ width, height, maxWidth, maxHeight }}>
-                <Flex className={overlayClass} clickFunction={rest.onClose} />
+            <div className='modal-wrapper' style={{ width, height, maxWidth, maxHeight }}>
+                <Flex className={overlayClass} clickFunction={handleClose} />
                 <HStack className={modalContentClass}>
                     <VStack>{rest.children}</VStack>
                 </HStack>
@@ -73,7 +84,7 @@ export const ModalWindow: FC<UploadModalProps> = ({
                         width={36}
                         height={36}
                         clickable
-                        onClick={rest.onClose}
+                        onClick={handleClose}
                         btnClassName='modal-x'
                     />
                 )}

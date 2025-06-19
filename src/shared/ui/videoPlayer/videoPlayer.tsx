@@ -2,8 +2,8 @@ import { FC, useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player/lazy'
 import clsx from 'clsx'
 import Plyr from 'plyr-react'
-
-import sampleVideo from "../../assets/testVideos/testVideo.mp4"
+// import sampleVideo from "../../assets/testVideos/testVideo.mp4"
+import sampleVideo from "../../assets/testVideos/wideVideo.mp4"
 import { HStack } from '../stack';
 
 import "plyr-react/plyr.css";
@@ -43,7 +43,7 @@ const Video: FC<Props> = (props) => {
     }
 
     return (
-            <Plyr options={plyrOptions} source={{type: 'video', sources: [{src: sampleVideo, type: 'video/mp4'}]}}/>
+        <Plyr options={plyrOptions} source={{type: 'video', sources: [{src: sampleVideo, type: 'video/mp4'}]}}/>
     )
 }
 
