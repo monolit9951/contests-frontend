@@ -15,77 +15,13 @@ interface Props {
 }
 
 const Video: FC<Props> = (props) => {
-    const { url, width = '100%', height = '100%', light, className } = props
-
-    const videoRef = useRef<HTMLVideoElement>(null)
-    const canvasRef = useRef<HTMLCanvasElement>(null)
-    const previewDivRef = useRef<HTMLDivElement>(null)
-    const [previewImage, setPreviewImage] = useState('')
-
-    if (light) {
-        useEffect(() => {
-            const captureFirstFrame = () => {
-                const video = videoRef.current
-                const canvas = canvasRef.current
-
-                if (video && canvas) {
-                    const context = canvas.getContext('2d')
-                    if (context) {
-                        context.drawImage(
-                            video,
-                            0,
-                            0,
-                            canvas.width,
-                            canvas.height
-                        )
-                        const dataUrl = canvas.toDataURL('image/png')
-                        setPreviewImage(dataUrl)
-                    }
-                }
-            }
-
-            const handleLoadedMetadata = () => {
-                const video = videoRef.current
-                if (video) {
-                    video.currentTime = 0
-                    video.addEventListener('seeked', captureFirstFrame)
-                }
-            }
-
-            const video = videoRef.current
-            if (video) {
-                video.addEventListener('loadedmetadata', handleLoadedMetadata)
-            }
-
-            return () => {
-                if (video) {
-                    video.removeEventListener(
-                        'loadedmetadata',
-                        handleLoadedMetadata
-                    )
-                }
-            }
-        }, [url])
-    }
-
-    useEffect(() => {
-        if (previewImage) {
-            const previewDiv = previewDivRef.current
-
-            if (previewDiv) {
-                const backgroundImage = window
-                    .getComputedStyle(previewDiv)
-                    .getPropertyValue('background-image')
-                if (!backgroundImage || backgroundImage === 'none') {
-                    previewDiv.style.backgroundImage = `url(${previewImage})`
-                }
-            }
-        }
-    }, [previewImage])
+    const { url, light, className } = props
 
     // настройки проигрывателя Plyr
     const plyrOptions = {
-        controls: light ? [] : [
+        controls: light ? [
+            'play-large',
+        ] : [
             'play-large',
             // 'play',
             'progress',
