@@ -30,10 +30,10 @@ const Video: FC<Props> = (props) => {
             'mute',
             'volume',
             'captions',
-            'settings',
-            'pip',
-            'airplay',
-            'fullscreen'
+            // 'settings',
+            // 'pip',s
+            // 'airplay',
+            // 'fullscreen'
         ],
         autoplay: !light,
         clickToPlay: !light,

@@ -50,6 +50,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
         alert('action clicked')
     }
 
+    console.log(work.id)
     return (
         <Flex className='work-preview'>
             <HStack>
@@ -100,8 +101,8 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                             ) : (
                                 <Video
                                     url={media[0].mediaLink}
-                                    width={500}
-                                    className='preview__video'
+                                    // width={500}
+                                    // className='preview__video'
                                 />
                             ))}
 

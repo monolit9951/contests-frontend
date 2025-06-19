@@ -60,6 +60,7 @@ const СommentsSection = ({ ownerId, work }: Props) => {
 
             const { data } = await instance.post('comment', {
                 parentId: ownerId,
+                workId: ownerId,
                 commentText: inputData.trim(),
                 userId,
             })
