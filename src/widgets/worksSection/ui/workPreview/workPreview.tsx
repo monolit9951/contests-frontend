@@ -59,11 +59,13 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                     (work.typeWork === 'IMAGE' ? (
                         <ImageSlider images={media} />
                     ) : (
-                        <Video
-                            url={media[0].mediaLink}
-                            width={windowWidth >= 1280 ? 668 : 500}
-                            className='preview__video'
-                        />
+                        <div className='preview__video'>
+                            <Video
+                                url={media[0].mediaLink}
+                                width={windowWidth >= 1280 ? 668 : 500}
+                                className='preview__video'
+                            />
+                        </div>
                     ))}
 
                 <VStack

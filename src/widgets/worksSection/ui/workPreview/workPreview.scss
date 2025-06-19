@@ -6,11 +6,17 @@
 
     > .flex__row {
         width: 100%;
+        // max-width: 1188px;
+
+        .preview__video{
+            width: 100%;
+            max-width: 668px;
+        }
 
         .work-desc {
             box-sizing: border-box;
             position: relative;
-            width: 520px;
+            min-width: 520px;
             gap: 16px;
 
             &.type-text {
@@ -52,6 +58,7 @@
             .upper-desc {
                 padding: 16px 16px 0;
                 gap: 16px;
+                box-sizing: border-box;
 
                 .creator-desc {
                     justify-content: space-between;
