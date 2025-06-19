@@ -23,7 +23,9 @@ video {
     cursor: pointer;
 }
 
-.plur_video{
-    width: 200px;
-    height: 200px;
+.plyr,
+.plyr__video-wrapper video {
+    width: 100%;
+    height: 100%;
+    // object-fit: cover;
 }

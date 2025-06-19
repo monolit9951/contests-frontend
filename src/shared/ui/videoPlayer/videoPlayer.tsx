@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import Plyr from 'plyr-react'
 import './videoPlayer.scss'
 import sampleVideo from '../../../shared/assets/testVideos/testVideo.mp4'
+import "plyr-react/plyr.css";
 
 interface Props {
     url: string
@@ -105,42 +106,7 @@ const Video: FC<Props> = (props) => {
     }
 
     return (
-        <>
-            <ReactPlayer
-                url={sampleVideo}
-                width={width}
-                height={height}
-                light={
-                    light && (
-                        <div
-                            ref={previewDivRef}
-                            className='react-player__preview'
-                        />
-                    )
-                }
-                playing
-                loop
-                controls
-                volume={1}
-                className={clsx(className)}
-            />
-
-            {/* <Plyr className='plur_video' options={plyrOptions} source={{type: 'video', sources: [{src: sampleVideo, type: 'video/mp4'}]}}/> */}
-
-            {light && (
-                <>
-                    {/*  eslint-disable-next-line jsx-a11y/media-has-caption */}
-                    <video
-                        ref={videoRef}
-                        src={sampleVideo}
-                        preload='metadata'
-                        style={{ display: 'none' }}
-                        crossOrigin='anonymous'
-                    />
-                    <canvas ref={canvasRef} style={{ display: 'none' }} />
-                </>
-            )}
-        </>
+            <Plyr options={plyrOptions} source={{type: 'video', sources: [{src: sampleVideo, type: 'video/mp4'}]}}/>
     )
 }
 
