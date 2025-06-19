@@ -85,7 +85,7 @@ const WorkCard: FC<Props> = (props) => {
     // }
 
     return (
-        <li>
+        <li className='li'>
             <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
                     <MediaOverlay
