@@ -2,16 +2,17 @@ import { FC, useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player/lazy'
 import clsx from 'clsx'
 import Plyr from 'plyr-react'
+
+import sampleVideo from "../../assets/testVideos/testVideo.mp4"
+import { HStack } from '../stack';
+
+import "plyr-react/plyr.css";
 import './videoPlayer.scss'
-import sampleVideo from '../../../shared/assets/testVideos/testVideo.mp4'
 import "plyr-react/plyr.css";
 
 interface Props {
     url: string
-    width?: number
-    height?: number
-    light?: boolean
-    className?: string
+    light: boolean
 }
 
 const Video: FC<Props> = (props) => {
@@ -23,18 +24,18 @@ const Video: FC<Props> = (props) => {
             'play-large',
         ] : [
             'play-large',
-            // 'play',
+            'play',
             'progress',
             'current-time',
             'mute',
-            // 'volume',
+            'volume',
             'captions',
             'settings',
-            // 'pip',
-            // 'airplay',
-            // 'fullscreen'
+            'pip',
+            'airplay',
+            'fullscreen'
         ],
-        autoplay: !light,
+        autoplay: light,
         clickToPlay: !light,
         hideControls: light,
         loop: { active: true },

@@ -1,9 +1,11 @@
-import { useState, useCallback } from 'react'
+import { useCallback,useState } from 'react'
 import Cropper from 'react-easy-crop'
-import getCroppedImg from '../model/cropImage'
-import './imageCropper.scss'
 import { Button } from 'shared/ui/button'
 import { Text } from 'shared/ui/text'
+
+import getCroppedImg from '../model/cropImage'
+
+import './imageCropper.scss'
 
 interface Props {
   imageSrc: String | null

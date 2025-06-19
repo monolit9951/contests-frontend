@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 import clsx from 'clsx'
 import { Prize, TopPrize } from 'entities/prize'
 import { selectContestPrizes } from 'pages/contestPage/model/selectors'
+import videoSample from 'shared/assets/testVideos/testVideo.mp4'
 import { useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Image } from 'shared/ui/image'
@@ -24,9 +25,10 @@ interface Props {
     className?: string
 }
 
+
 const WorkCard: FC<Props> = (props) => {
     const { data, openModal, prizeId, className } = props
-
+    console.log(data)
     const [isReadMore, setIsReadMore] = useState(false)
 
     const prizes = useAppSelector(selectContestPrizes) as Prize[]

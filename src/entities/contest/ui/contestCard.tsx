@@ -14,11 +14,10 @@ import { Tag } from 'shared/ui/tag'
 import { Text } from 'shared/ui/text'
 import { TopUser } from 'shared/ui/topUser'
 import { UserIcon } from 'shared/ui/userIcon'
-import { ContestPreview } from '../model/types'
 
 import testImage from '../../../shared/assets/testImages/contestPreviewSample.png'
 import testImageNonFormat from '../../../shared/assets/testImages/contestRedSquare.png'
-
+import { ContestPreview } from '../model/types'
 
 import './contestCard.scss'
 

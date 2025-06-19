@@ -16,8 +16,9 @@ import { Image } from 'shared/ui/image'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import { Flex, HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
-import './coverSelectionModal.scss'
 import ImageCropper from 'widgets/imageCropper/ui/imageCropper'
+
+import './coverSelectionModal.scss'
 
 interface CoverSelectionModalProps {
     isOpen: boolean

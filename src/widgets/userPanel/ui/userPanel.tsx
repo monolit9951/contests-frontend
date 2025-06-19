@@ -1,11 +1,11 @@
+import burger from 'shared/assets/icons/burger.svg?react'
 import { ChatButton } from 'shared/ui/chatButton'
 import { CreateButton } from 'shared/ui/createButton/ui/createButton'
+import { Icon } from 'shared/ui/icon'
 import { NotificationsButton } from 'shared/ui/notificationsButton/ui/notificationsButton'
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './userPanel.scss'
-import burger from 'shared/assets/icons/burger.svg?react'
-import { Icon } from 'shared/ui/icon'
 
 export const UserPanel = () => {
     return (
