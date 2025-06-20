@@ -45,46 +45,46 @@ const WorkCard: FC<Props> = (props) => {
         openModal(data)
     }
 
-    // if (typeWork === 'TEXT') {
-    //     return (
-    //         <li className='class1'>
-    //             <VStack className={clsx('text-work', className)}>
-    //                 <HStack className='justify__between align__center'>
-    //                     <UserIcon
-    //                         src={user.profileImage}
-    //                         size={40}
-    //                         userName={user.name}
-    //                     />
-    //                     {prize && <TopPrize data={prize} />}
-    //                 </HStack>
-    //                 <Text
-    //                     Tag='p'
-    //                     className='text-work__text'
-    //                     onClick={onOpenModal}>
-    //                     {(description.length < 430 && description) || (
-    //                         <>
-    //                             {!isReadMore
-    //                                 ? description.slice(0, 430)
-    //                                 : `${description}`}
-    //                             <button
-    //                                 type='button'
-    //                                 className='read-more-btn'
-    //                                 onClick={toggleReadMore}>
-    //                                 {!isReadMore ? '... more' : 'show less'}
-    //                             </button>
-    //                         </>
-    //                     )}
-    //                 </Text>
-    //                 <MediaFeedback
-    //                     id={data.id}
-    //                     likes={data.likeAmount}
-    //                     comments={data.commentAmount}
-    //                     onCommentsClick={onOpenModal}
-    //                 />
-    //             </VStack>
-    //         </li>
-    //     )
-    // }
+    if (typeWork === 'TEXT') {
+        return (
+            <li className='class1'>
+                <VStack className={clsx('text-work', className)}>
+                    <HStack className='justify__between align__center'>
+                        <UserIcon
+                            src={user.profileImage}
+                            size={40}
+                            userName={user.name}
+                        />
+                        {prize && <TopPrize data={prize} />}
+                    </HStack>
+                    <Text
+                        Tag='p'
+                        className='text-work__text'
+                        onClick={onOpenModal}>
+                        {(description.length < 430 && description) || (
+                            <>
+                                {!isReadMore
+                                    ? description.slice(0, 430)
+                                    : `${description}`}
+                                <button
+                                    type='button'
+                                    className='read-more-btn'
+                                    onClick={toggleReadMore}>
+                                    {!isReadMore ? '... more' : 'show less'}
+                                </button>
+                            </>
+                        )}
+                    </Text>
+                    <MediaFeedback
+                        id={data.id}
+                        likes={data.likeAmount}
+                        comments={data.commentAmount}
+                        onCommentsClick={onOpenModal}
+                    />
+                </VStack>
+            </li>
+        )
+    }
 
     return (
         <li className='li'>
