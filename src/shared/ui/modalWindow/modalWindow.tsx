@@ -50,10 +50,6 @@ export const ModalWindow: FC<UploadModalProps> = ({
         }
     }, [rest.isOpen])
 
-    if (!rest.isOpen) {
-        return null
-    }
-
     // статус анимации
     const [hideAnimationm, setHideAnimation] = useState<boolean>(false)
     const [showAnimatuion, setShowAnimation] = useState<boolean>(false)
@@ -66,6 +62,10 @@ export const ModalWindow: FC<UploadModalProps> = ({
                 rest.onClose()
             }, 300);
         }
+    }
+
+    if (!rest.isOpen) {
+        return null
     }
 
     const overlayClass = clsx('modal-overlay', {hide: hideAnimationm}, rest.overlayClassName)
