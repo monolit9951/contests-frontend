@@ -95,7 +95,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                 </Text>
             </HStack>
 
-            {typeWork === 'IMAGE' && media?.[0].mediaLink && (
+            {typeWork === 'IMAGE' &&  media?.[0]?.mediaLink && (
                 <Image
                     src={media[0].mediaLink}
                     alt={`User's image`}
@@ -104,7 +104,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                     className='work-component__image'
                 />
             )}
-            {work.typeWork === 'VIDEO' && media?.[0]?.mediaLink && (
+            {work.typeWork === 'VIDEO' &&  media?.[0]?.mediaLink && (
                 <Video
                     url={media[0].mediaLink}
                     width={420}

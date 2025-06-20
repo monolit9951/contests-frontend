@@ -81,6 +81,8 @@ export const WorksList: FC<Props> = (props) => {
         }
     }
 
+    console.log(media)
+
     const renderList = () => {
         if (media.loading || text.loading) {
             if (windowWidth > 1200) {

@@ -28,7 +28,7 @@ interface Props {
 
 const WorkCard: FC<Props> = (props) => {
     const { data, openModal, prizeId, className } = props
-    console.log(data)
+    // console.log(data)
     const [isReadMore, setIsReadMore] = useState(false)
 
     const prizes = useAppSelector(selectContestPrizes) as Prize[]
