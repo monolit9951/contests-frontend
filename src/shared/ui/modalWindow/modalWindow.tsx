@@ -53,6 +53,7 @@ export const ModalWindow: FC<UploadModalProps> = ({
     // статус анимации
     const [hideAnimationm, setHideAnimation] = useState<boolean>(false)
     const [showAnimatuion, setShowAnimation] = useState<boolean>(false)
+
     // для анимированного анмаунта 
     const handleClose = () =>{
         setHideAnimation(true)
@@ -64,11 +65,24 @@ export const ModalWindow: FC<UploadModalProps> = ({
         }
     }
 
+        // БЛОКИРОВКА СКОЛЛА
+    useEffect(() => {
+        const body = document.body as HTMLElement
+        console.log(1)
+        if (rest.isOpen) {
+            body.classList.add('no-scroll')
+        }
+
+        return () => {
+            body.classList.remove('no-scroll')
+        }
+    }, [rest.isOpen])
+
     if (!rest.isOpen) {
         return null
     }
 
-    const overlayClass = clsx('modal-overlay', {hide: hideAnimationm}, rest.overlayClassName)
+    const overlayClass = clsx('modal-overlay', {hide: hideAnimationm}, {show: showAnimatuion}, rest.overlayClassName)
     const modalContentClass = clsx('modal-content', {hide: hideAnimationm}, rest.modalContentClass, theme)
 
     return (
