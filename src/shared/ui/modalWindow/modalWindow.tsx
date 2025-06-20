@@ -37,22 +37,8 @@ export const ModalWindow: FC<UploadModalProps> = ({
     )
 
 
-    // БЛОКИРОВКА СКОЛЛА
-    useEffect(() => {
-        const body = document.body as HTMLElement
-
-        if (rest.isOpen) {
-            body.classList.add('no-scroll')
-        }
-
-        return () => {
-            body.classList.remove('no-scroll')
-        }
-    }, [rest.isOpen])
-
     // статус анимации
-    const [hideAnimationm, setHideAnimation] = useState<boolean>(false)
-    const [showAnimatuion, setShowAnimation] = useState<boolean>(false)
+    const [hideAnimation, setHideAnimation] = useState<boolean>(false)
 
     // для анимированного анмаунта 
     const handleClose = () =>{
@@ -65,10 +51,9 @@ export const ModalWindow: FC<UploadModalProps> = ({
         }
     }
 
-        // БЛОКИРОВКА СКОЛЛА
+    // БЛОКИРОВКА СКОЛЛА
     useEffect(() => {
         const body = document.body as HTMLElement
-        console.log(1)
         if (rest.isOpen) {
             body.classList.add('no-scroll')
         }
@@ -82,8 +67,8 @@ export const ModalWindow: FC<UploadModalProps> = ({
         return null
     }
 
-    const overlayClass = clsx('modal-overlay', {hide: hideAnimationm}, {show: showAnimatuion}, rest.overlayClassName)
-    const modalContentClass = clsx('modal-content', {hide: hideAnimationm}, rest.modalContentClass, theme)
+    const overlayClass = clsx('modal-overlay', {hide: hideAnimation}, rest.overlayClassName)
+    const modalContentClass = clsx('modal-content', {hide: hideAnimation}, rest.modalContentClass, theme)
 
     return (
         <VStack className={modalClass}>
