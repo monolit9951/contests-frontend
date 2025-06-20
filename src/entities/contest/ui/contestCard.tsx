@@ -99,7 +99,7 @@ const ContestCard: React.FC<Props> = (props) => {
                         }}
                     /> */}
 
-                    <img src={testImage} alt="contest preview img" />
+                    <img src={testImage} alt="contest preview img" onClick={onDetailsClick} />
                     {/* <img src={rest.previewImage ?? contestImg} alt="contest preview img" /> */}
 
                     <div className='prize' style={{ background: getBgColor() }}>
