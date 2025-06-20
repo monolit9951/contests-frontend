@@ -6,6 +6,7 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './stageOfTheCompetition.scss'
+import { useEffect, useRef } from 'react'
 
 interface Props {
     dateValidation: string
@@ -23,8 +24,16 @@ export const StageOfTheCompetition = ({ dateValidation }: Props) => {
         return dateValidation
     }
 
+    const containerRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+    if (dateValidation || errors.startTime || errors.endTime) {
+        containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+    }, [dateValidation, errors.startTime, errors.endTime])
+
     return (
-        <VStack className='stageOfTheCompetition_container'>
+        <VStack className='stageOfTheCompetition_container' ref={containerRef}>
             <Text Tag='h2' className='stageOfTheCompetition_header'>
                 Stage of the competition
             </Text>
