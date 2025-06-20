@@ -10,7 +10,10 @@
 
         .preview__video{
             width: 100%;
+
+            // ПОФИКСИТЬ ДЛЯ АДАПТИВА
             max-width: 668px;
+            min-width: 668px;
         }
 
         .work-desc {
@@ -208,7 +211,7 @@
         }
 
         .preview__video + .work-desc__text {
-            height: 100%;
+            height: 100%;;
         }
     }
 
