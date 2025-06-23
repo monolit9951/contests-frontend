@@ -52,7 +52,6 @@ const CommentsList: React.FC<Props> = (props) => {
             try {
                 setError(null)
                 setLoading(true)
-                console.log(workId)
                 // const { data } = await instance.get(`comment?page=0&${params}`)
                 const { data } = await instance.get(`/comment/byWork?workId=${workId}`)
                 // console.log(data)
