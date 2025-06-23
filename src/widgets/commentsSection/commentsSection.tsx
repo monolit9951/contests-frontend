@@ -12,11 +12,11 @@ import { CommentsList } from './commentsList'
 import './commentsSection.scss'
 
 interface Props {
-    ownerId: string
+    workId: string
     work?: boolean
 }
 
-const СommentsSection = ({ ownerId, work }: Props) => {
+const СommentsSection = ({ workId, work }: Props) => {
     const [commentInputFocused, setCommentInputFocused] = useState(false)
     const [inputData, setInputData] = useState('')
 
@@ -26,6 +26,7 @@ const СommentsSection = ({ ownerId, work }: Props) => {
     const [totalElements, setTotalElements] = useState(0)
     const [nextLoading, setNextLoading] = useState(false)
     const [error, setError] = useState<Error | null>(null)
+
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -58,9 +59,15 @@ const СommentsSection = ({ ownerId, work }: Props) => {
             setError(null)
             setNextLoading(true)
 
+                        console.log({                parentId: workId,
+                workId: workId,
+                commentText: inputData.trim(),
+                userId,})
+
+            
             const { data } = await instance.post('comment', {
-                parentId: ownerId,
-                workId: ownerId,
+                parentId: workId,
+                workId: workId,
                 commentText: inputData.trim(),
                 userId,
             })
@@ -68,6 +75,7 @@ const СommentsSection = ({ ownerId, work }: Props) => {
             // eslint-disable-next-line no-return-assign
             setTotalElements((prev) => (prev += 1))
             setComments((prev) => [data, ...prev])
+            console.log(comments)
         } catch (err) {
             setError(err as Error)
         } finally {
@@ -159,7 +167,7 @@ const СommentsSection = ({ ownerId, work }: Props) => {
             )}
 
             <CommentsList
-                ownerId={ownerId}
+                workId={workId}
                 userId={userId} // TODO delete upon integrating login feature
                 comments={comments}
                 setComments={setComments}

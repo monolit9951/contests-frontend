@@ -43,7 +43,7 @@ const Video: FC<Props> = (props) => {
     }
 
     return (
-        <Plyr options={plyrOptions} source={{type: 'video', sources: [{src: 'https://media.w3.org/2010/05/sintel/trailer.mp4', type: 'video/mp4'}]}}/>
+        <Plyr options={plyrOptions} source={{type: 'video', sources: [{src: sampleVideo, type: 'video/mp4'}]}}/>
     )
 }
 

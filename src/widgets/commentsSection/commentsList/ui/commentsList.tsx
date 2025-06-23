@@ -11,7 +11,7 @@ import CommentItem from './commentItem'
 import './commentsList.scss'
 
 interface Props {
-    ownerId: string
+    workId: string
     userId: string
     comments: Comment[]
     setComments: Dispatch<SetStateAction<Comment[]>>
@@ -25,7 +25,7 @@ interface Props {
 
 const CommentsList: React.FC<Props> = (props) => {
     const {
-        ownerId,
+        workId,
         userId,
         comments,
         setComments,
@@ -41,7 +41,7 @@ const CommentsList: React.FC<Props> = (props) => {
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
 
-    const params = `pageSize=8&sortDirection=DESC&parentId=${ownerId}`
+    const params = `pageSize=8&sortDirection=DESC&parentId=${workId}`
 
     const { isIntersecting, measureRef, observer } = useOnScreen({
         threshold: 0.8,
@@ -52,9 +52,10 @@ const CommentsList: React.FC<Props> = (props) => {
             try {
                 setError(null)
                 setLoading(true)
-
-                const { data } = await instance.get(`comment?page=0&${params}`)
-
+                console.log(workId)
+                // const { data } = await instance.get(`comment?page=0&${params}`)
+                const { data } = await instance.get(`/comment/byWork?workId=${workId}`)
+                // console.log(data)
                 setComments(data.content)
                 setTotalElements(data.totalElements)
                 setTotalPages(data.totalPages)
