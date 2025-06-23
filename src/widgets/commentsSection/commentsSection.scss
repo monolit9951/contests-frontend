@@ -1,10 +1,10 @@
 .comments {
-    position: relative;
     display: flex;
     flex-direction: column;
     gap: 32px;
 
     &__title {
+        padding: 16px 16px 0 16px;
         & > span {
             padding-left: 16px;
         }
@@ -20,11 +20,11 @@
             gap: 16px;
             padding: 16px;
             border-top: 1px solid;
-            position: absolute;
             z-index: 1;
-            bottom: 0px;
-            left: 0;
             width: 100%;
+            flex: 1;
+            position: absolute;
+            bottom: 0;
         }
     }
 
@@ -40,6 +40,8 @@
     &__list {
         min-height: 50px;
         width: 985px;
+        padding: 0 16px 16px 16px;
+        
     }
 
     &__error-message {

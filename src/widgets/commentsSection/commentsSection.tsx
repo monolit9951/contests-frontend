@@ -100,7 +100,7 @@ const СommentsSection = ({ workId, work }: Props) => {
             </Text>
 
             {!work && (
-                <HStack className='comments__input-wrapper-contest'>
+                <HStack className='comments__input-wrapper-contest align__center'>
                     <UserIcon size={40} wrapperClassName='align__start' />
                     <VStack className='comments__input-box'>
                         <Input
@@ -139,7 +139,20 @@ const СommentsSection = ({ workId, work }: Props) => {
                 </HStack>
             )}
 
-            {work && (
+            <CommentsList
+                workId={workId}
+                userId={userId} // TODO delete upon integrating login feature
+                comments={comments}
+                setComments={setComments}
+                setTotalElements={setTotalElements}
+                nextLoading={nextLoading}
+                setNextLoading={setNextLoading}
+                error={error}
+                setError={setError}
+                className='comments__list'
+            />
+
+                        {work && (
                 <HStack className='comments__input-wrapper-work align__center'>
                     <UserIcon size={40} />
                     <Input
@@ -166,19 +179,6 @@ const СommentsSection = ({ workId, work }: Props) => {
                     </Button>
                 </HStack>
             )}
-
-            <CommentsList
-                workId={workId}
-                userId={userId} // TODO delete upon integrating login feature
-                comments={comments}
-                setComments={setComments}
-                setTotalElements={setTotalElements}
-                nextLoading={nextLoading}
-                setNextLoading={setNextLoading}
-                error={error}
-                setError={setError}
-                className='comments__list'
-            />
         </section>
     )
 }
