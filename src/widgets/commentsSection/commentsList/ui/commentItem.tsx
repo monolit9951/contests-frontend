@@ -26,7 +26,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
     const [nextLoading, setNextLoading] = useState(false)
     const [error, setError] = useState<Error | null>(null)
 
-    const params = `pageSize=8&sortDirection=ASC&parentId=${data.id}`
+    // const params = `pageSize=8&sortDirection=ASC&parentId=${data.id}`
 
     const onRepliesClick = async () => {
         setRepliesShown(!repliesShown)
@@ -39,7 +39,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
             setError(null)
             setLoading(true)
 
-            const response = await instance.get(`comment?page=0&${params}`)
+            const response = await instance.get(`comment?parentCommentId=${data.id}`)
 
             setSubComments((prev) => [...prev, ...response.data.content])
             setTotalPages(response.data.totalPages)

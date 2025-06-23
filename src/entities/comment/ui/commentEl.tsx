@@ -62,14 +62,14 @@ const CommentEl: FC<Props> = (props) => {
             return
         }
 
+        console.log(data)
+
         try {
             setError(null)
             setNextLoading(true)
-
             const response = await instance.post('comment/subComment', {
-                parentId: data.id,
+                parentCommentId: data.id,
                 commentText: inputData.trim(),
-                userId,
             })
 
             const subCommentsObj = response.data.subComments
