@@ -22,6 +22,7 @@ import WinnersSection from './components/winnersSection/winnersSection'
 import WorksListSection from './components/worksListSection/worksListSection'
 
 import './contestPage.scss'
+import UploadWorkModal from 'widgets/uploadWorkModal'
 
 const ContestPage = () => {
     const { id } = useParams<{ id: string }>()
@@ -135,7 +136,8 @@ const ContestPage = () => {
                     height={windowWidth > 1024 ? '83%' : '88%'}
                     maxHeight={windowWidth >= 1024 ? '900px' : ''}
                     modalContentClass='work-preview-modal'>
-                    {selectedWork && <WorkPreview work={selectedWork} />}
+                    {/* {selectedWork && <WorkPreview work={selectedWork} />} */}
+                    <UploadWorkModal />
                 </ModalWindow>
             )}
         </VStack>
