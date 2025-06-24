@@ -16,9 +16,10 @@ import './descriptionSection.scss'
 
 interface Props {
     data: Contest
+    handleOpenWorkUploadModal: () => void
 }
 
-const DescriptionSection: FC<Props> = ({ data }) => {
+const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
     const deadline = moment(data.dateEnd).format('DD.MM.YYYY, h a')
 
     const contestStatus = () => {
@@ -40,7 +41,9 @@ const DescriptionSection: FC<Props> = ({ data }) => {
         }
     }
 
-    const onParticipateClick = () => {}
+    const onParticipateClick = () => {
+        handleOpenWorkUploadModal()
+    }
 
     return (
         <section className='contest-description'>

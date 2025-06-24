@@ -30,6 +30,7 @@ const ContestPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedWork, setSelectedWork] = useState<Work | null>(null)
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
+    const [isUploadWorkModalOpen, setIsUploadWorkModalOpen] = useState<boolean>(false)
 
     const navigate = useNavigate()
 
@@ -109,11 +110,16 @@ const ContestPage = () => {
         return '100%'
     }
 
+    // коллбек для аплоад ворк модал
+    const handleOpenWorkUploadModal = () =>{
+        setIsUploadWorkModalOpen(true)
+    }
+
     return (
         <VStack className='contest'>
             <HeroSection bg={data.backgroundImage} owner={data.contestOwner} />
             <VStack className='contest__container'>
-                <DescriptionSection data={data} />
+                <DescriptionSection data={data} handleOpenWorkUploadModal={handleOpenWorkUploadModal} />
                 {data.status === 'FINISHED' && !!data.topWinners?.length && (
                     <WinnersSection
                         data={data.topWinners}
@@ -136,10 +142,21 @@ const ContestPage = () => {
                     height={windowWidth > 1024 ? '83%' : '88%'}
                     maxHeight={windowWidth >= 1024 ? '900px' : ''}
                     modalContentClass='work-preview-modal'>
-                    {/* {selectedWork && <WorkPreview work={selectedWork} />} */}
-                    <UploadWorkModal />
+                    {selectedWork && <WorkPreview work={selectedWork} />}
                 </ModalWindow>
             )}
+
+            {isUploadWorkModalOpen && (
+                    <ModalWindow
+                        isOpen={isUploadWorkModalOpen}
+                        isOuterClose
+                        onClose={() => setIsUploadWorkModalOpen(false)}>
+                        <UploadWorkModal />
+                    </ModalWindow>
+                )
+            }
+
+
         </VStack>
     )
 }
