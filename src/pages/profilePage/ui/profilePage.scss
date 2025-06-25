@@ -1,0 +1,32 @@
+.profilePage{
+    padding: 24px 65px;
+
+    > .profilePage_heading{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        > h2{
+            font-weight: 600;
+            font-size: 42px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: white;
+        }
+
+        > .profilePage_heading_addiional{
+            color: #C4C4C4;
+            font-weight: 400;
+            letter-spacing: 0%;
+            font-size: 24px;
+            line-height: 100%;
+        }
+    }
+
+    > .profilePage_leftContainer{
+        margin-top: 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+}

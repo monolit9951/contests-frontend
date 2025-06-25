@@ -79,6 +79,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
     const handleNewSubCommentCallback = () => {
         setRepliesNum(repliesNum + 1)
         fetchSubComments()
+        setRepliesShown(true)
     }
 
     return (
