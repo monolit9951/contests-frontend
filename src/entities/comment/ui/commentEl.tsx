@@ -25,12 +25,14 @@ interface Props {
     setSubComments: Dispatch<SetStateAction<Comment[]>>
     setNextLoading: (bool: boolean) => void
     setError: (err: Error | null) => void
+    handleNewSubCommentCallback: () => void
 }
 
 const CommentEl: FC<Props> = (props) => {
     const {
         data,
         userId,
+        handleNewSubCommentCallback,
         setRepliesShown,
         setRepliesNum,
         setTotalPages,
@@ -57,12 +59,11 @@ const CommentEl: FC<Props> = (props) => {
     }
 
     const onSubmit = async () => {
+        console.log("SUBMIT")
         if (!inputData.trim()) {
             setInputData('')
             return
         }
-
-        console.log(data)
 
         try {
             setError(null)
@@ -71,16 +72,18 @@ const CommentEl: FC<Props> = (props) => {
                 parentCommentId: data.id,
                 commentText: inputData.trim(),
             })
-
-            const subCommentsObj = response.data.subComments
-            const subCommentsArr = subCommentsObj.content
-            const newSubComment = subCommentsArr[subCommentsArr.length - 1]
+            // мы не получаем в респонс все комменты, только последний 
+            console.log(response.data)
+            handleNewSubCommentCallback()
+            // const subCommentsObj = response.data.subComments
+            // const subCommentsArr = subCommentsObj.content
+            // const newSubComment = subCommentsArr[subCommentsArr.length - 1]
 
             // eslint-disable-next-line no-return-assign
-            setRepliesNum((prev) => (prev += 1))
-            setTotalPages(subCommentsObj.totalPages)
-            setRepliesShown(true)
-            setSubComments((prev) => [...prev, newSubComment])
+            // setRepliesNum((prev) => (prev += 1))
+            // setTotalPages(subCommentsObj.totalPages)
+            // setRepliesShown(true)
+            // setSubComments((prev) => [...prev, newSubComment])
         } catch (err) {
             setError(err as Error)
         } finally {

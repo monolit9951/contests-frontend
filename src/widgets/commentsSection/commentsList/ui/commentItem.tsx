@@ -28,13 +28,8 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
 
     // const params = `pageSize=8&sortDirection=ASC&parentId=${data.id}`
 
-    const onRepliesClick = async () => {
-        setRepliesShown(!repliesShown)
-
-        if (subComments.length) {
-            return
-        }
-
+    // функция загрузки всех сабкомментов
+    const fetchSubComments = async () =>{
         try {
             setError(null)
             setLoading(true)
@@ -50,6 +45,17 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         }
     }
 
+    // отловить нажатие показать реплаи
+    const onRepliesClick = async () => {
+        setRepliesShown(!repliesShown)
+        if (subComments.length) {
+            return
+        }
+
+        fetchSubComments()
+    }
+
+    // функция для пагинации сабкомментов
     const onLoadMore = async () => {
         try {
             setError(null)
@@ -69,6 +75,12 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         }
     }
 
+
+    const handleNewSubCommentCallback = () => {
+        setRepliesNum(repliesNum + 1)
+        fetchSubComments()
+    }
+
     return (
         <li ref={ref}>
             <CommentEl
@@ -80,6 +92,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                 setSubComments={setSubComments}
                 setNextLoading={setNextLoading}
                 setError={setError}
+                handleNewSubCommentCallback = {handleNewSubCommentCallback}
             />
             {!!repliesNum && (
                 <VStack className='comment-replies__wrapper'>

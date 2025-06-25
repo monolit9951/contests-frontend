@@ -12,6 +12,7 @@ const UploadWorkModal: FC = () => {
     // логика обработки текста
     return(
         <div className="uploadWorkModal">
+            {/* ДОБАВИТЬ МЕТОДЫ */}
             <FormProvider >
                 <form>
                     <div className="uploadWorkModal_heading">Join the Quest</div>
@@ -21,6 +22,7 @@ const UploadWorkModal: FC = () => {
                         <Input label='Additional Comments or Requirements' type='text' placeholder='Enter contest name' />
                     </div>
 
+                    {/* СДЕЛАТЬ КАСТОМНЫЙ, ИЛИ СДЕЛАТЬ ЭТОТ УНИВЕРСАЛЬНЫМ */}
                     <div className="uploadWorkModal_inputMedia">
                         <ImageUpload text='Cover image' extra='1704/390'/>
                     </div>
