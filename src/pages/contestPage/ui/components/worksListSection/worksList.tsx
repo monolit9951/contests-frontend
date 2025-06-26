@@ -122,8 +122,8 @@ export const WorksList: FC<Props> = (props) => {
                         </li>
                     )
                 }
-                return newMediaWorks?.map((item) => (
-                    <WorkCard key={item.id} data={item} openModal={openModal} />
+                return newMediaWorks?.map((item, index: number) => (
+                    <WorkCard key={index} data={item} openModal={openModal} />
                 ))
             }
 
