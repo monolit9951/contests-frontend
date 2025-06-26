@@ -1,0 +1,71 @@
+.profileContests{
+    background-color: #1B2321;
+    padding: 32px 32px 32px 32px; 
+    box-sizing: border-box;
+    border-radius: 24px;
+    
+    > .profileContests_header{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        > .profileContests_header_heading{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            > span{
+                font-size: 36px;
+                line-height: 28px;
+                letter-spacing: 0%;
+                font-weight: 600;
+            }
+        }
+
+        > .profileContests_header_desc{
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: #C4C4C4;
+        }
+    }
+
+    >.profileContests_switch {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    border-bottom: 1px #525856 solid;
+    box-sizing: border-box;
+
+        > li {
+            > button{
+                padding: 14px 24px;
+                cursor: pointer;
+                box-sizing: border-box;
+                color: #C4C4C4;
+                position: relative;
+                background-color: transparent;
+                outline: none;
+                border: none;
+                font-family: Manrope;
+                font-size: 24px;
+                line-height: 32px;
+                letter-spacing: 0%;
+                            
+                &.switched {
+                    color: white;
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: -1px;
+                        height: 3px;
+                        background-color: white;
+                    }
+                }
+            }
+        }
+    }
+}

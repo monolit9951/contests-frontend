@@ -7,6 +7,11 @@
     > .userPanel_burger{
         display: none;
     }
+
+    > a{
+        display: flex;
+        align-items: center;
+    }
 }
 
 @media (max-width: 1060px) {

@@ -6,6 +6,7 @@ import { NotificationsButton } from 'shared/ui/notificationsButton/ui/notificati
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './userPanel.scss'
+import { Link } from 'react-router-dom'
 
 export const UserPanel = () => {
     return (
@@ -13,7 +14,10 @@ export const UserPanel = () => {
             <CreateButton />
             <NotificationsButton/>
             <ChatButton/>
-            <UserIcon/>
+            <Link to='/profile'>
+                <UserIcon/>
+            </Link>
+            
             <div className="userPanel_burger">
                 <Icon
                     Svg={burger}
