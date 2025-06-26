@@ -76,13 +76,11 @@ export const WorksList: FC<Props> = (props) => {
 
         if (workType === 'media') {
             dispatch(fetchNextMediaWorks(ownerId))
+            console.log("FETCH")
         } else {
             dispatch(fetchNextTextWorks(ownerId))
         }
     }
-
-    console.log(media)
-    console.log(workType)
     
     const renderList = () => {
         if (media.loading || text.loading) {

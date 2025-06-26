@@ -31,11 +31,11 @@
     }
 
     >.profileContests_switch {
-    list-style: none;
-    margin: 0;
-    display: flex;
-    border-bottom: 1px #525856 solid;
-    box-sizing: border-box;
+        margin-top: 20px;
+        list-style: none;
+        display: flex;
+        border-bottom: 1px #525856 solid;
+        box-sizing: border-box;
 
         > li {
             > button{

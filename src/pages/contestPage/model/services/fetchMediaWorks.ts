@@ -40,7 +40,7 @@ export const fetchNextMediaWorks = createAsyncThunk(
             if (!response.data) {
                 throw new Error()
             }
-
+            console.log("gay: ", response.data)
             return response.data
         } catch (e) {
             return rejectWithValue(`Request error: ${e as string}`)
