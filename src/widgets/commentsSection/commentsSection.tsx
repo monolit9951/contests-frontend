@@ -60,7 +60,7 @@ const СommentsSection = ({ workId, work }: Props) => {
             setError(null)
             setNextLoading(true)
 
-                        console.log({                parentId: workId,
+                console.log({                parentId: workId,
                 workId: workId,
                 commentText: inputData.trim(),
                 userId,})
@@ -76,7 +76,6 @@ const СommentsSection = ({ workId, work }: Props) => {
             // eslint-disable-next-line no-return-assign
             setTotalElements((prev) => (prev += 1))
             setComments((prev) => [data, ...prev])
-            console.log(comments)
         } catch (err) {
             setError(err as Error)
         } finally {

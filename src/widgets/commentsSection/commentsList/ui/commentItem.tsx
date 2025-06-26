@@ -126,8 +126,8 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
 
                     {repliesShown && !loading && (
                         <ul className='subcomments-list'>
-                            {subComments.map((item) => (
-                                <li key={item.id}>
+                            {subComments.map((item, index) => (
+                                <li key={index}>
                                     <CommentEl
                                         data={item}
                                         userId={userId}
@@ -137,6 +137,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                                         setSubComments={setSubComments}
                                         setNextLoading={setNextLoading}
                                         setError={setError}
+                                        handleNewSubCommentCallback={handleNewSubCommentCallback}
                                     />
                                 </li>
                             ))}
