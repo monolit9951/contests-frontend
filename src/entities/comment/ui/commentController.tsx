@@ -1,10 +1,11 @@
 import { VStack } from 'shared/ui/stack'
 
 interface Props {
-    onClose: () => void
+    onClose: () => void,
+    handleDeleteCommentCallback: () => void
 }
 
-const CommentController = ({ onClose }: Props) => {
+const CommentController = ({ onClose, handleDeleteCommentCallback}: Props) => {
     const onReportAction = () => {
         console.log('comment reported')
         onClose()
@@ -13,6 +14,10 @@ const CommentController = ({ onClose }: Props) => {
     const onEditAction = () => {
         console.log('comment editor called')
         onClose()
+    }
+
+    const onDeleteAction = () => {
+        handleDeleteCommentCallback()
     }
 
     return (
@@ -28,6 +33,12 @@ const CommentController = ({ onClose }: Props) => {
                 onClick={onEditAction}
                 className='comment-action__button'>
                 Edit comment
+            </button>
+            <button
+                type='button'
+                onClick={onDeleteAction}
+                className='comment-action__button'>
+                Delete comment
             </button>
         </VStack>
     )

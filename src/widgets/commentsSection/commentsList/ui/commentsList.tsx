@@ -56,6 +56,7 @@ const CommentsList: React.FC<Props> = (props) => {
                 const { data } = await instance.get(`/comment/byWork?workId=${workId}`)
                 // console.log(data)
                 setComments(data.content)
+                console.log(data.content)
                 setTotalElements(data.totalElements)
                 setTotalPages(data.totalPages)
             } catch (err) {
@@ -66,6 +67,7 @@ const CommentsList: React.FC<Props> = (props) => {
         }
 
         fetchComments()
+        
     }, [])
 
     useEffect(() => {
@@ -110,6 +112,12 @@ const CommentsList: React.FC<Props> = (props) => {
         )
     }
 
+    // вместо обновления всех комментов, мы будем дуалять его из общего массива по его айди
+    const handleDeleteMainCommentCallback = (commentId: string) =>{
+        setComments(prev => prev.filter(comment => comment.id !== commentId));
+    }
+
+
     return (
         <ul className={clsx(className)}>
             {loading && <Spinner center />}
@@ -120,6 +128,7 @@ const CommentsList: React.FC<Props> = (props) => {
                     ref={idx === comments.length - 1 ? measureRef : null}
                     userId={userId}
                     data={item}
+                    handleDeleteMainCommentCallback = {handleDeleteMainCommentCallback}
                 />
             ))}
 

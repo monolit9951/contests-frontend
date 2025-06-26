@@ -26,6 +26,7 @@ interface Props {
     setNextLoading: (bool: boolean) => void
     setError: (err: Error | null) => void
     handleNewSubCommentCallback: () => void
+    handleDeleteMainCommentCallback: (commentId: string) => void
 }
 
 const CommentEl: FC<Props> = (props) => {
@@ -39,6 +40,7 @@ const CommentEl: FC<Props> = (props) => {
         setSubComments,
         setNextLoading,
         setError,
+        handleDeleteMainCommentCallback
     } = props
 
     const [actionsShown, setActionsShown] = useState(false)
@@ -93,6 +95,21 @@ const CommentEl: FC<Props> = (props) => {
         }
     }
 
+    // удаление коммента
+    const handleDeleteCommentCallback = async () => {
+        console.log(data)
+        console.log('delete ', data.id)
+        
+        await instance.delete(`comment/${data.id}`)
+        handleNewSubCommentCallback()
+
+        // если у коммента есть воркайди, то он первого уровня, потому удаление другое
+        if (data.workId){
+            console.log('main comment')
+            handleDeleteMainCommentCallback(data.id)
+        }
+    }
+
     return (
         <HStack className='comment__wrapper'>
             <UserIcon src={user.profileImage} size={40} />
@@ -106,7 +123,7 @@ const CommentEl: FC<Props> = (props) => {
                     </Text>
                     <Icon Svg={tripleDot} clickable onClick={onActionClick} />
                     {actionsShown && (
-                        <CommentController onClose={onActionClick} />
+                        <CommentController onClose={onActionClick} handleDeleteCommentCallback={handleDeleteCommentCallback} />
                     )}
                 </HStack>
 

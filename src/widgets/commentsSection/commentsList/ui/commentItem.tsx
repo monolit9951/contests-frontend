@@ -12,10 +12,11 @@ import { Text } from 'shared/ui/text'
 interface Props {
     data: Comment
     userId: string
+    handleDeleteMainCommentCallback: (commentId: string) => void
 }
 
 const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
-    const { data, userId } = props
+    const { data, userId, handleDeleteMainCommentCallback } = props
 
     const [repliesShown, setRepliesShown] = useState(false)
     const [repliesNum, setRepliesNum] = useState(data.subCommentsAmount ?? 0)
@@ -94,6 +95,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                 setNextLoading={setNextLoading}
                 setError={setError}
                 handleNewSubCommentCallback = {handleNewSubCommentCallback}
+                handleDeleteMainCommentCallback = {handleDeleteMainCommentCallback}
             />
             {!!repliesNum && (
                 <VStack className='comment-replies__wrapper'>
@@ -138,6 +140,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                                         setNextLoading={setNextLoading}
                                         setError={setError}
                                         handleNewSubCommentCallback={handleNewSubCommentCallback}
+                                        handleDeleteMainCommentCallback={handleDeleteMainCommentCallback}
                                     />
                                 </li>
                             ))}
