@@ -3,21 +3,23 @@ import { VStack } from 'shared/ui/stack'
 interface Props {
     onClose: () => void,
     handleDeleteCommentCallback: () => void
+    handleSetEditCallback: () => void
 }
 
-const CommentController = ({ onClose, handleDeleteCommentCallback}: Props) => {
+const CommentController = ({ onClose, handleDeleteCommentCallback, handleSetEditCallback}: Props) => {
     const onReportAction = () => {
         console.log('comment reported')
         onClose()
     }
 
     const onEditAction = () => {
-        console.log('comment editor called')
+        handleSetEditCallback()
         onClose()
     }
 
     const onDeleteAction = () => {
         handleDeleteCommentCallback()
+        onClose()
     }
 
     return (

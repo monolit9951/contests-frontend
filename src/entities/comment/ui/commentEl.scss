@@ -45,6 +45,11 @@
             padding-left: 8px;
         }
 
+        > .comment_edit{
+            display: flex;
+            gap: 16px;
+        }
+
         & > .comment-feedback {
             gap: 24px;
 
@@ -87,6 +92,7 @@
         }
     }
 }
+
 .light {
     .comment-info {
         span {

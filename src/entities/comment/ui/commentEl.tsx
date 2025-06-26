@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from 'react'
 import moment from 'moment'
 import instance from 'shared/api/api'
 import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
@@ -15,6 +15,7 @@ import CommentController from './commentController'
 import CommentInput from './commentInput'
 
 import './commentEl.scss'
+import { Input } from 'shared/ui/input'
 
 interface Props {
     data: Comment
@@ -110,6 +111,23 @@ const CommentEl: FC<Props> = (props) => {
         }
     }
 
+    // РЕДАКТИРОВАНИЕ КОММЕНТАРИЯ
+    const [edit, setEdit] = useState<boolean>(false)
+    const [newCommentText, setNewCommentText] = useState<string>(commentText)
+
+    const handleSetEditCallback = () => {
+        setEdit(true)
+    }
+
+    const handleCommentChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setNewCommentText(event.target.value)
+    }
+
+    const handleEditSubmit = async () => {
+        await instance.put(`comment/${data.id}`, {commentText: newCommentText})
+        setEdit(false)
+    }
+
     return (
         <HStack className='comment__wrapper'>
             <UserIcon src={user.profileImage} size={40} />
@@ -123,13 +141,22 @@ const CommentEl: FC<Props> = (props) => {
                     </Text>
                     <Icon Svg={tripleDot} clickable onClick={onActionClick} />
                     {actionsShown && (
-                        <CommentController onClose={onActionClick} handleDeleteCommentCallback={handleDeleteCommentCallback} />
+                        <CommentController onClose={onActionClick} handleDeleteCommentCallback={handleDeleteCommentCallback} handleSetEditCallback={handleSetEditCallback}/>
                     )}
                 </HStack>
 
-                <Text Tag='p' className='comment-text'>
-                    {commentText}
-                </Text>
+                {!edit?
+                    <Text Tag='p' className='comment-text'>
+                        {newCommentText}
+                    </Text>
+                    :
+                    <div className="comment_edit">
+                        <Input type='text' value={newCommentText} placeholder='Edit a comment...' onChange={handleCommentChange}/>
+                        <Button variant='ghost' size='s' onClick={handleEditSubmit}>
+                            Edit
+                        </Button>
+                    </div>
+                }
 
                 <HStack className='comment-feedback'>
                     <RateButtons id={id} likes={likeAmount} />
