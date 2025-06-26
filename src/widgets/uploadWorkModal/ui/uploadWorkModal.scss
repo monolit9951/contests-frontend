@@ -1,34 +1,39 @@
 .uploadWorkModal{
+    height: 100%;
+    width: 100%;
+    width: 748px;
+    padding: 24px 16px;
+    box-sizing: border-box;
 
-    > form{
-        height: 100%;
-        width: 100%;
-        width: 975px;
-        padding: 24px 16px;
-        box-sizing: border-box;
+    > .uploadWorkModal_heading{
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: 0%;
+        padding-bottom: 24px;
+        border-bottom: 1px #3B3B3B solid;
+    }
 
-        > .uploadWorkModal_heading{
-            font-weight: 700;
-            font-size: 20px;
-            line-height: 28px;
-            letter-spacing: 0%;
-            padding-bottom: 24px;
-            border-bottom: 1px #3B3B3B solid;
-        }
+    > .uploadWorkModal_description{
+        margin-top: 24px;
+        text-align: start;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0%;
+    }
 
-        > .uploadWorkModal_description{
-            margin-top: 24px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0%;
-        }
+    > .uploadWorkModal_inputText{
+        margin-top: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px #3B3B3B solid;
+    }
 
-        > .uploadWorkModal_inputText{
-            margin-top: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px #3B3B3B solid;
-        }
+    > .uploadWorkModal_buttons{
+        margin-top: 24px;
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        justify-content: end;
     }
 }

@@ -151,12 +151,10 @@ const ContestPage = () => {
                         isOpen={isUploadWorkModalOpen}
                         isOuterClose
                         onClose={() => setIsUploadWorkModalOpen(false)}>
-                        <UploadWorkModal />
+                        <UploadWorkModal contestId = {data.id}/>
                     </ModalWindow>
                 )
             }
-
-
         </VStack>
     )
 }
