@@ -35,12 +35,12 @@ export const fetchNextMediaWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byContestId/${id}?page=${page}&pageSize=9&sortDirection=ASC&typeOfWork=media&sortBy=new`
+                `/works/byContestId/${id}?page=${page}&pageSize=9&sortDirection=ASC&sortBy=new`
             )
             if (!response.data) {
                 throw new Error()
             }
-            console.log("gay: ", response.data)
+            
             return response.data
         } catch (e) {
             return rejectWithValue(`Request error: ${e as string}`)
