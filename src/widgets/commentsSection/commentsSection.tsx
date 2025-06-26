@@ -85,6 +85,12 @@ const СommentsSection = ({ workId, work }: Props) => {
         toggleCommentInput()
     }
 
+    // коллбек на изменение всех комментов при исключении одного из общего массива
+    const handleCommentsDecreaseCallback = () => {
+        setTotalElements(totalElements - 1)
+    }
+
+
     return (
         <section className='comments'>
             <Text
@@ -149,6 +155,7 @@ const СommentsSection = ({ workId, work }: Props) => {
                 error={error}
                 setError={setError}
                 className='comments__list'
+                handleCommentsDecreaseCallback = {handleCommentsDecreaseCallback}
             />
 
                         {work && (

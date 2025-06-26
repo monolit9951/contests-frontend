@@ -21,6 +21,7 @@ interface Props {
     error: Error | null
     setError: Dispatch<SetStateAction<Error | null>>
     className?: string
+    handleCommentsDecreaseCallback: () => void
 }
 
 const CommentsList: React.FC<Props> = (props) => {
@@ -35,6 +36,7 @@ const CommentsList: React.FC<Props> = (props) => {
         error,
         setError,
         className,
+        handleCommentsDecreaseCallback
     } = props
 
     const [totalPages, setTotalPages] = useState(0)
@@ -115,6 +117,7 @@ const CommentsList: React.FC<Props> = (props) => {
     // вместо обновления всех комментов, мы будем дуалять его из общего массива по его айди
     const handleDeleteMainCommentCallback = (commentId: string) =>{
         setComments(prev => prev.filter(comment => comment.id !== commentId));
+        handleCommentsDecreaseCallback()
     }
 
 
