@@ -24,8 +24,6 @@ const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
         setText(event.target.value)
     }
 
-    // логика Cancel
-
     // логика Submit
     const handleWorkSubmit = async() => {
 
@@ -62,6 +60,26 @@ const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
         await instance.post('/media', formData)
     }
 
+    // массив ссылок на файлы
+    const [mediaArray, setMediaArray] = useState<File[]>([])
+    
+    const handleMedia = (newFiles: FileList | File[]) => {
+        const fileArray = Array.from(newFiles);
+        setMediaArray((prev) => [...prev, ...fileArray]);
+        console.log(mediaArray)
+    }
+
+
+    const handleMediaInputCallback = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files) {
+            handleMedia(event.target.files);
+        }
+    };
+
+    const handleRemoveMediaCallback = (fileName: string) => {
+        setMediaArray((prev) => prev.filter((file) => file.name !== fileName));
+    }
+
     return(
         <div className="uploadWorkModal">
             <div className="uploadWorkModal_container">
@@ -73,6 +91,7 @@ const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
 
                 <div className="uploadWorkModal_inputText">
                     <Textarea
+                        name="text of work"
                         label='Additional Comments or Requirements'
                         placeholder='Sample placeholder...'
                         maxLength={300}
@@ -81,13 +100,12 @@ const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
                 </div>
 
                 <div className="uploadWorkModal_media">
-                    <UploadWorkMediaInput />
+                    <UploadWorkMediaInput handleMediaInputCallback={handleMediaInputCallback} />
 
                     <div className="uploadWorkModal_media_mediaList">
-                        <UploadWorkMediaItem />
-                        <UploadWorkMediaItem />
-                        <UploadWorkMediaItem />
-                        <UploadWorkMediaItem />
+                        {mediaArray.length > 0 && mediaArray.map((file: File, index: number) => (
+                            <UploadWorkMediaItem mediaFile = {file} key={index} handleRemoveMediaCallback={handleRemoveMediaCallback} />
+                        ))}
                     </div>
                 </div>
 

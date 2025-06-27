@@ -1,9 +1,14 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import './uploadWorkMediaInput.scss'
 import { Button } from "shared/ui/button"
 import upload from 'shared/assets/icons/upload.svg'
 
-const UploadWorkMediaInput: FC = () => {
+interface UploadWorkMediaInputInterface {
+    handleMediaInputCallback: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const UploadWorkMediaInput: FC <UploadWorkMediaInputInterface>= ({handleMediaInputCallback}) => {
+
     return(
         <div className="uploadWorkMediaInput">
             <div className="uploadWorkMediaInput_container">
@@ -17,7 +22,7 @@ const UploadWorkMediaInput: FC = () => {
                 </div>
             </div>
 
-            <input type="file" />
+            <input type="file" onChange={handleMediaInputCallback}/>
         </div>
     )
 }
