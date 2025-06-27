@@ -1,0 +1,63 @@
+.uploadWorkMediaInput{
+    position: relative;
+    background-color: #1B2321;
+    height: 228px;
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px dashed var(--grey);
+    box-sizing: border-box;
+    
+    > .uploadWorkMediaInput_container{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        > .uploadWorkMediaInput_explain{
+            font-weight: 400;
+            font-size: 14px;
+            letter-spacing: -1.1%;
+            line-height: 20px;
+            color: #DDDDDD;
+        }
+
+        > .uploadWorkMediaInput_decorativeButton{
+            padding: 6px 32px;
+            display: flex;
+            justify-content: space-around;
+            gap: 8px;
+            border-radius: 99999px;
+            border: #393B3B 1px solid;
+            align-items: center;
+
+            > .uploadWorkMediaInput_decorativeButton_container{
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                > span{
+                    color: white;
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 24px;
+                    letter-spacing: 0%;
+                }
+            }
+        }
+    }
+
+    > input{
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 8px;
+        height: 100%;
+        width: 100%;
+        background-color: blue;
+        display: block;
+        z-index: 1000;
+        opacity: 0;
+        cursor: pointer;
+    }
+}

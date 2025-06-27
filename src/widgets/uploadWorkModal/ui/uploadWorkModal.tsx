@@ -7,12 +7,14 @@ import { GalleryUpload } from "features/createContest/ui/blocks/galleryUpload";
 import { Button } from "shared/ui/button";
 import instance from "shared/api/api";
 import testImage from 'shared/assets/testImages/contestRedSquare.png'
+import UploadWorkMediaInput from "./components/uploadWorkMediaInput/uploadWorkMediaInput";
+import UploadWorkMediaItem from "./components/uploadWorkMediaItem/uploadWorkMediaItem";
 
-interface UploadWorkModal {
+interface UploadWorkModalInterface {
     contestId: string
 }
 
-const UploadWorkModal: FC <UploadWorkModal> = ({contestId}) => {
+const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
 
 
     // логика текстАреа
@@ -62,24 +64,35 @@ const UploadWorkModal: FC <UploadWorkModal> = ({contestId}) => {
 
     return(
         <div className="uploadWorkModal">
-            <div className="uploadWorkModal_heading">Join the Quest</div>
-            <div className="uploadWorkModal_description">Fill in your information and add media files to participate in the contest.</div>
+            <div className="uploadWorkModal_container">
+                <div className="uploadWorkModal_heading">Join the Quest</div>
+                <div className="uploadWorkModal_description">Fill in your information and add media files to participate in the contest.</div>
 
-            <div className="uploadWorkModal_inputText">
-                <Textarea
-                    label='Additional Comments or Requirements'
-                    placeholder='Sample placeholder...'
-                    maxLength={300}
-                    onChange={handleTextAreaChange}
-                />
+                <div className="uploadWorkModal_inputText">
+                    <Textarea
+                        label='Additional Comments or Requirements'
+                        placeholder='Sample placeholder...'
+                        maxLength={300}
+                        onChange={handleTextAreaChange}
+                    />
+                </div>
+
+                <div className="uploadWorkModal_media">
+                    <UploadWorkMediaInput />
+
+                    <div className="uploadWorkModal_media_mediaList">
+                        <UploadWorkMediaItem />
+                        <UploadWorkMediaItem />
+                        <UploadWorkMediaItem />
+                        <UploadWorkMediaItem />
+                    </div>
+                </div>
+
+                <div className="uploadWorkModal_buttons">
+                    <Button variant='secondary'>Cancel</Button>
+                    <Button onClick={handleWorkSubmit}>Submit Quest Entry</Button>
+                </div>
             </div>
-
-
-            <div className="uploadWorkModal_buttons">
-                <Button variant='secondary'>Cancel</Button>
-                <Button onClick={handleWorkSubmit}>Submit Quest Entry</Button>
-            </div>
-
         </div>
     )
 }
