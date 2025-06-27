@@ -1,0 +1,55 @@
+.chooseWinnerPage{
+    padding: 24px 56px;
+
+    > .chooseWinnerPage_header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        > .chooseWinnerPage_header_left{
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            > .chooseWinnerPage_header_heading{
+                color: white;
+                font-size: 42px;
+                line-height: 100%;
+                letter-spacing: 0%;
+                font-weight: 600;
+            }
+
+            > .chooseWinnerPage_header_desc{
+                color: #C4C4C4;
+                font-weight: 400;
+                font-size: 24px;
+                line-height: 100%;
+                letter-spacing: 0%;
+            }
+        }
+
+        > .chooseWinnerPage_header_right{
+
+            > ul{
+                display: flex;
+                gap: 12px;
+
+                > li{
+                    padding: 4px 12px;
+                    background-color: #393B3B;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    line-height: 24px;
+                    letter-spacing: 0%;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    > .winnersList{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}

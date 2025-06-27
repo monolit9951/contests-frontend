@@ -19,6 +19,7 @@ import { TopUsersPage } from 'pages/topUsersPage'
 
 import '../styles/index.scss'
 import ProfilePage from 'pages/profilePage'
+import ChooseWinnerPage from 'pages/chooseWinnerPage/ui/choosewinnerPage'
 
 export const AppRouter = () => {
     const { theme, categoryTheme } = useTheme()
@@ -35,7 +36,8 @@ export const AppRouter = () => {
             <Route path='/contests/:id' element={<ContestPage />} />
             <Route path='/contestsCreate' element={<ContestsCreationPage />} />
             <Route path='/topUsers' element={<TopUsersPage />} />
-            <Route path='profile' element={<ProfilePage />} />
+            <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/chooseWinner' element={<ChooseWinnerPage />} />
             <Route path='*' element={<Navigate to='/' />} />
         </Route>
     )

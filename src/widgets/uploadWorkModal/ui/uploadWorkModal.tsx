@@ -25,39 +25,43 @@ const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
     }
 
     // логика Submit
-    const handleWorkSubmit = async() => {
+    // const handleWorkSubmit = async() => {
 
-        if (text === ''){
-            console.log('EMPTY TEXT')
-            return
-        }
+    //     if (text === ''){
+    //         console.log('EMPTY TEXT')
+    //         return
+    //     }
 
-        // const formData = new FormData()
+    //     // const formData = new FormData()
 
-        // // ТЕСТ ФОТО, УДАЛИТЬ
+    //     // // ТЕСТ ФОТО, УДАЛИТЬ
 
-        console.log(contestId)
+    //     console.log(contestId)
 
-        // СОЗДАНИЕ ВОРКА БЕЗ МЕДИА 
-        const response = await instance.post(`/works`, {
-                contestId: contestId,
-                description: text,
-                typeWork: "IMAGE"
-        })
-        const workId = response.data.id
-        console.log(workId)
-        // ДОБАВЛЕНИЕ МЕДИА В ВОРК
+    //     // СОЗДАНИЕ ВОРКА БЕЗ МЕДИА 
+    //     const response = await instance.post(`/works`, {
+    //             contestId: contestId,
+    //             description: text,
+    //             typeWork: "IMAGE"
+    //     })
+    //     const workId = response.data.id
+    //     console.log(workId)
+    //     // ДОБАВЛЕНИЕ МЕДИА В ВОРК
 
-        // ТОЛЬКО ДЛЯ ТЕСТА
-        const formData = new FormData()
-        const res = await fetch(testImage)
-        const blob = await res.blob()
-        const file = new File([blob], 'cover.png', { type: blob.type })
+    //     // ТОЛЬКО ДЛЯ ТЕСТА
+    //     const formData = new FormData()
+    //     const res = await fetch(testImage)
+    //     const blob = await res.blob()
+    //     const file = new File([blob], 'cover.png', { type: blob.type })
 
-        formData.append('mediaDTO', workId)
-        formData.append('media', file)
+    //     formData.append('mediaDTO', workId)
+    //     formData.append('media', file)
         
-        await instance.post('/media', formData)
+    //     await instance.post('/media', formData)
+    // }
+
+    const handleWorkSubmit = () =>{
+        console.log('submit comment')
     }
 
     // массив ссылок на файлы
@@ -111,7 +115,7 @@ const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
 
                 <div className="uploadWorkModal_buttons">
                     <Button variant='secondary'>Cancel</Button>
-                    <Button onClick={handleWorkSubmit}>Submit Quest Entry</Button>
+                    <Button variant="primary" onClick={handleWorkSubmit}>Submit Quest Entry</Button>
                 </div>
             </div>
         </div>
