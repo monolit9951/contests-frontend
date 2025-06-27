@@ -65,7 +65,10 @@ const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
     return(
         <div className="uploadWorkModal">
             <div className="uploadWorkModal_container">
-                <div className="uploadWorkModal_heading">Join the Quest</div>
+                <div className="uploadWorkModal_heading">
+                    <div className="uploadWorkModal_heading_text"> Join the Quest</div>
+                </div>
+
                 <div className="uploadWorkModal_description">Fill in your information and add media files to participate in the contest.</div>
 
                 <div className="uploadWorkModal_inputText">
