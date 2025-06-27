@@ -3,6 +3,7 @@ import './winnerWork.scss'
 import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
 import UserProfileData from "widgets/userProfileData/userProfileData";
 import { Button } from "shared/ui/button";
+import CustomCheckbox from "widgets/customCheckbox";
 
 
 interface WinnerWorkInterface {
@@ -36,7 +37,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin}) => {
             </div>
 
             <div className="winnerWork_right">
-                
+                <CustomCheckbox value="Winner" checked/>
             </div>
         </div>
     )

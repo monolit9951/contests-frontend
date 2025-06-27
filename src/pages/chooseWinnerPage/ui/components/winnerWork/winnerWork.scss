@@ -5,6 +5,8 @@
     border: 2px #393B3B solid;
     box-sizing: border-box;
     border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
 
     &.winner{
         background-color: #1B2321;
