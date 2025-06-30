@@ -25,8 +25,9 @@ const ChooseWinnerPage: FC = () => {
             </div>
 
             <CurrentWinners />
-
-            <WinnerSelectors />
+            <div className="chooseWinnerPage_selectors">
+                <WinnerSelectors />
+            </div>
 
             <div className="winnersList">
                 <WinnerWork isWin/>

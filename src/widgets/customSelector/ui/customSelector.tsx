@@ -34,13 +34,13 @@ const CustomSelector: FC <CustomSelectorInterface>= ({name, options, maxWidth, c
     }
 
     return(
-        <div className="customSelector">
-            <button className="customSelector_header" type="button" onClick={handleSelectorToggle} style={{maxWidth: 600}}>
+        <div className="customSelector" style={{maxWidth: maxWidth}}>
+            <button className="customSelector_header" type="button" onClick={handleSelectorToggle} >
                 <span className={selectorOpen? "open" : ""}>{currentOption}</span>
                 <img className={selectorOpen? "open" : ""} src={tick} alt="tick" />
             </button>
 
-            {selectorOpen && <div className="customSelector_options" style={{maxWidth: 600}}>
+            {selectorOpen && <div className="customSelector_options">
                 {options.map((item, index) => (
                     <button type="button" key={index} className="customSelector_options_option" onClick={() => handleOption(item.text, item.key)}>{item.text}</button>
                 ))}

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import CustomSelector from "widgets/customSelector";
+import './winnerSelectors.scss'
 
 interface optionsType {
     text: string,
@@ -22,8 +23,10 @@ const WinnerSelectors: FC = () => {
     }
 
     return(
-        <div>
-            <CustomSelector options = {reatingOptions} name="Reating" maxWidth={232} chooseSelectorCallback={chooseSelectorCallback}/>
+        <div className="customSelectors">
+            <CustomSelector options = {reatingOptions} name="Reating" maxWidth={300} chooseSelectorCallback={chooseSelectorCallback}/>
+            <CustomSelector options = {reatingOptions} name="Reating" maxWidth={200} chooseSelectorCallback={chooseSelectorCallback}/>
+            <CustomSelector options = {reatingOptions} name="Reating" maxWidth={500} chooseSelectorCallback={chooseSelectorCallback}/>
         </div>
     )
 }

@@ -47,10 +47,16 @@
         }
     }
 
+    > .chooseWinnerPage_selectors{
+        margin-top: 32px;
+    }
+
+
     > .winnersList{
         display: flex;
         flex-direction: column;
         gap: 20px;
+        margin-top: 14px;
     }
 
     > .chooseWinnerPage_paginationBtn{

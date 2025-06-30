@@ -4,6 +4,7 @@ import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
 import UserProfileData from "widgets/userProfileData/userProfileData";
 import { Button } from "shared/ui/button";
 import CustomCheckbox from "widgets/customCheckbox";
+import CustomSelector from "widgets/customSelector";
 
 
 interface WinnerWorkInterface {
@@ -13,6 +14,20 @@ interface WinnerWorkInterface {
 const handleWorkModal = () => {
     console.log('MODAL SHOW')
 }
+
+    const winnerOptions: optionsType[] = 
+    [{
+        text: '1st Place',
+        key: '1'
+    },{
+        text: '2nd Place',
+        key: '2'
+    },
+    {
+        text: '3d Place',
+        key: '3'
+    }]
+
 
 const WinnerWork: FC <WinnerWorkInterface> = ({isWin}) => {
     return(
@@ -38,6 +53,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin}) => {
 
             <div className="winnerWork_right">
                 <CustomCheckbox value="Winner" checked/>
+                <CustomSelector options={winnerOptions} maxWidth={200} name="Place"/>
             </div>
         </div>
     )
