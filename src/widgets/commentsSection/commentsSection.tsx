@@ -14,9 +14,10 @@ import './commentsSection.scss'
 interface Props {
     workId: string
     work?: boolean
+    contest?: boolean
 }
 
-const СommentsSection = ({ workId, work }: Props) => {
+const СommentsSection = ({ workId, work, contest }: Props) => {
     const [commentInputFocused, setCommentInputFocused] = useState(false)
     const [inputData, setInputData] = useState('')
 
@@ -51,6 +52,8 @@ const СommentsSection = ({ workId, work }: Props) => {
         setInputData('')
     }
 
+    console.log(workId)
+
     const onSubmit = async () => {
         if (!inputData.trim()) {
             return
@@ -70,7 +73,7 @@ const СommentsSection = ({ workId, work }: Props) => {
             
             const { data } = await instance.post('comment', {
                 parentId: workId,
-                commentType: "WORK",
+                commentType: contest? "CONTEST" : "WORK",
                 commentText: inputData.trim(),
                 userId,
             })

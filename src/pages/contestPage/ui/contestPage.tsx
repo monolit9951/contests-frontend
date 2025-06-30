@@ -130,7 +130,7 @@ const ContestPage = () => {
                     worksAmount={data.participantAmount}
                     openModal={openModal}
                 />
-                <CommentsSection ownerId={id} />
+                <CommentsSection workId={id} contest />
             </VStack>
 
             {isModalOpen && (
