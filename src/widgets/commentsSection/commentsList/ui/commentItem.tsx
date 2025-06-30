@@ -29,13 +29,15 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
 
     // const params = `pageSize=8&sortDirection=ASC&parentId=${data.id}`
 
+    console.log(data.id)
+
     // функция загрузки всех сабкомментов
     const fetchSubComments = async () =>{
         try {
             setError(null)
             setLoading(true)
 
-            const response = await instance.get(`comment?parentCommentId=${data.id}`)
+            const response = await instance.get(`comment?parentId=${data.id}`)
 
             setSubComments((prev) => [...prev, ...response.data.content])
             setTotalPages(response.data.totalPages)
