@@ -28,6 +28,7 @@ interface Props {
     setError: (err: Error | null) => void
     handleNewSubCommentCallback: () => void
     handleDeleteMainCommentCallback: (commentId: string) => void
+    handleDeleteSubCommentCallback: (commentId: string) => void
     isMain?: boolean
 }
 
@@ -43,7 +44,8 @@ const CommentEl: FC<Props> = (props) => {
         setNextLoading,
         setError,
         handleDeleteMainCommentCallback,
-        isMain
+        isMain,
+        handleDeleteSubCommentCallback
     } = props
 
     const [actionsShown, setActionsShown] = useState(false)
@@ -108,6 +110,8 @@ const CommentEl: FC<Props> = (props) => {
         // если у коммента есть воркайди, то он первого уровня, потому удаление другое
         if (isMain){
             handleDeleteMainCommentCallback(data.id)
+        } else {
+            handleDeleteSubCommentCallback(data.id)
         }
     }
 

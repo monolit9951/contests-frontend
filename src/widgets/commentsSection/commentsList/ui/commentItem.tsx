@@ -84,6 +84,11 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         setRepliesShown(true)
     }
 
+
+    const handleDeleteSubCommentCallback = (commentId: string) =>{
+        setSubComments(prev => prev.filter(comment => comment.id !== commentId));
+        setRepliesNum(repliesNum-1)
+    }
     return (
         <li ref={ref}>
             <CommentEl
@@ -143,6 +148,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                                         setError={setError}
                                         handleNewSubCommentCallback={handleNewSubCommentCallback}
                                         handleDeleteMainCommentCallback={handleDeleteMainCommentCallback}
+                                        handleDeleteSubCommentCallback={handleDeleteSubCommentCallback}
                                     />
                                 </li>
                             ))}
