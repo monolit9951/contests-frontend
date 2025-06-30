@@ -37,6 +37,12 @@ export const Header = () => {
     //     setSideBar(!sidebar)
     // }
 
+    const [registrationModal, setRegistrationModal] = useState<boolean>(false)
+
+    const handleRegistration = () => {
+        setRegistrationModal(true)
+    }
+
     return (
         <header className='header'>
             <div className="header_logoGroup">
@@ -58,6 +64,8 @@ export const Header = () => {
                 onSubmit={onSearchSubmit}
                 placeholder='Search by any parameters....'
             />
+            <button onClick={handleRegistration} type='button'>registration</button>
+
             <UserPanel />
 
             {/* <div className={clsx('header_sideNavBar', { open: sidebar })}>
@@ -68,7 +76,13 @@ export const Header = () => {
                 </nav>
             </div> */}
 
-            <ModalWindow isOpen><RegistrationModal /></ModalWindow>
+            {registrationModal && <ModalWindow 
+                isOuterClose 
+                isOpen={registrationModal} 
+                onClose={() => setRegistrationModal(false)}>
+                    <RegistrationModal />
+                </ModalWindow>
+            }
         </header>
     )
 }

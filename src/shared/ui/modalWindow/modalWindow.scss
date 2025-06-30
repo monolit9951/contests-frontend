@@ -63,7 +63,7 @@
     }
 
     &-content {
-        background-color: white;
+        // background-color: white;
         border-radius: 5px;
         z-index: 1060;
         width: 100%;
@@ -82,7 +82,7 @@
         }
 
         &.dark {
-            background: var(--dark);
+            // background: var(--dark);
         }
     }
 }
