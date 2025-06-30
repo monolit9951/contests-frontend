@@ -12,6 +12,8 @@ import { Searchbar } from 'shared/ui/searchbar'
 import { UserPanel } from 'widgets/userPanel'
 
 import './header.scss'
+import { ModalWindow } from 'shared/ui/modalWindow'
+import RegistrationModal from 'widgets/registrationModal'
 
 export const Header = () => {
     const [inputData, setInputData] = useState('')
@@ -65,6 +67,8 @@ export const Header = () => {
                     ))}
                 </nav>
             </div> */}
+
+            <ModalWindow isOpen><RegistrationModal /></ModalWindow>
         </header>
     )
 }

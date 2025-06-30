@@ -1,0 +1,38 @@
+.registrationInput{
+
+    > .registrationInput_labbel{
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -1.1%;
+    }
+
+    > .registrationInput_container{
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #393B3B;
+        border-radius: 999px;
+        height: 48px;
+        padding: 12px;
+        box-sizing: border-box;
+
+        > input{
+            flex: 1;
+            height: 24px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            font-family: Manrope;
+            color: white;
+            font-size: 16px;
+
+            &::placeholder{
+                font-family: Manrope;
+                color: #DDDDDD;
+                opacity: 0.5;
+            }
+        }
+    }
+
+}
