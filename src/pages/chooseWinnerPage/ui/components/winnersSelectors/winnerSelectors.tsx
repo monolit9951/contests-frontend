@@ -1,8 +1,11 @@
 import { FC } from "react";
+import CustomSelector from "widgets/customSelector";
 
 const WinnerSelectors: FC = () => {
     return(
-        <h2>Winner filters-selectors, not finished</h2>
+        <div>
+            <CustomSelector />
+        </div>
     )
 }
 
