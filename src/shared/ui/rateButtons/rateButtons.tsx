@@ -20,6 +20,8 @@ interface Props {
     border?: boolean
 }
 
+// ЛОГИКА ПОВТОРНОГО ЛАЙКА РЕАЛИЗОВАНА НЕ ДО КОНЦА ПРАВИЛЬНО
+
 const RateButtons = (props: Props) => {
     const { id, border, likes, work } = props
 
@@ -29,11 +31,7 @@ const RateButtons = (props: Props) => {
 
     const onRate = async (action: string) => {
         try {
-            await instance.patch(
-                `${
-                    work ? 'works' : 'comment'
-                }/addLike/${id}?likeOrDislike=${action}`
-            )
+            await instance.patch(`${work ? 'works' : 'comment'}/addLike/${id}?likeType=${action}`)
         } catch (err) {
             // eslint-disable-next-line no-console
             console.error(err)
@@ -46,19 +44,19 @@ const RateButtons = (props: Props) => {
             setLiked(true)
             setLikesNum((_prev) => (_prev += 2))
 
-            await onRate('-dislike')
-            onRate('like')
+            await onRate('DISLIKE')
+            onRate('LIKE')
         }
         if (liked) {
             setLiked(!liked)
             setLikesNum((_prev) => (_prev -= 1))
 
-            onRate('-like')
+            onRate('LIKE')
         } else if (!disliked && !liked) {
             setLiked(!liked)
             setLikesNum((_prev) => (_prev += 1))
 
-            onRate('like')
+            onRate('LIKE')
         }
     }
 
@@ -68,19 +66,19 @@ const RateButtons = (props: Props) => {
             setDisliked(true)
             setLikesNum((_prev) => (_prev -= 2))
 
-            await onRate('-like')
-            onRate('dislike')
+            await onRate('LIKE')
+            onRate('DISLIKE')
         }
         if (disliked) {
             setDisliked(!disliked)
             setLikesNum((_prev) => (_prev += 1))
 
-            onRate('-dislike')
+            onRate('DISLIKE')
         } else if (!disliked && !liked) {
             setDisliked(!disliked)
             setLikesNum((_prev) => (_prev -= 1))
 
-            onRate('dislike')
+            onRate('DISLIKE')
         }
     }
 
