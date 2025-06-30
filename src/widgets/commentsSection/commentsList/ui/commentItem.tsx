@@ -13,10 +13,11 @@ interface Props {
     data: Comment
     userId: string
     handleDeleteMainCommentCallback: (commentId: string) => void
+    isMain?: boolean
 }
 
 const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
-    const { data, userId, handleDeleteMainCommentCallback } = props
+    const { data, userId, handleDeleteMainCommentCallback, isMain } = props
 
     const [repliesShown, setRepliesShown] = useState(false)
     const [repliesNum, setRepliesNum] = useState(data.subCommentsAmount ?? 0)
@@ -28,8 +29,6 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
     const [error, setError] = useState<Error | null>(null)
 
     // const params = `pageSize=8&sortDirection=ASC&parentId=${data.id}`
-
-    console.log(data.id)
 
     // функция загрузки всех сабкомментов
     const fetchSubComments = async () =>{
@@ -98,6 +97,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                 setError={setError}
                 handleNewSubCommentCallback = {handleNewSubCommentCallback}
                 handleDeleteMainCommentCallback = {handleDeleteMainCommentCallback}
+                isMain
             />
             {!!repliesNum && (
                 <VStack className='comment-replies__wrapper'>

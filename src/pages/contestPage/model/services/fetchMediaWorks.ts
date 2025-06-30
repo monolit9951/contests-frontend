@@ -13,7 +13,6 @@ export const fetchMediaWorks = createAsyncThunk(
             const response = await instance.get(
                 `/works/byContestId/${id}`
             )
-            console.log(response.data)
             if (!response.data) {
                 throw new Error()
             }

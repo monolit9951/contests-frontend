@@ -28,6 +28,7 @@ interface Props {
     setError: (err: Error | null) => void
     handleNewSubCommentCallback: () => void
     handleDeleteMainCommentCallback: (commentId: string) => void
+    isMain?: boolean
 }
 
 const CommentEl: FC<Props> = (props) => {
@@ -41,7 +42,8 @@ const CommentEl: FC<Props> = (props) => {
         setSubComments,
         setNextLoading,
         setError,
-        handleDeleteMainCommentCallback
+        handleDeleteMainCommentCallback,
+        isMain
     } = props
 
     const [actionsShown, setActionsShown] = useState(false)
@@ -62,7 +64,6 @@ const CommentEl: FC<Props> = (props) => {
     }
 
     const onSubmit = async () => {
-        console.log("SUBMIT")
         if (!inputData.trim()) {
             setInputData('')
             return
@@ -71,7 +72,6 @@ const CommentEl: FC<Props> = (props) => {
         try {
             setError(null)
             setNextLoading(true)
-            console.log(data.id)
 
             const response = await instance.post('comment/', {
                 parentCommentId: data.id,
@@ -79,7 +79,6 @@ const CommentEl: FC<Props> = (props) => {
                 commentType: "COMMENT"
             })
             // мы не получаем в респонс все комменты, только последний 
-            console.log(response.data)
             handleNewSubCommentCallback()
             // const subCommentsObj = response.data.subComments
             // const subCommentsArr = subCommentsObj.content
@@ -100,15 +99,12 @@ const CommentEl: FC<Props> = (props) => {
 
     // удаление коммента
     const handleDeleteCommentCallback = async () => {
-        console.log(data)
-        console.log('delete ', data.id)
-        
         await instance.delete(`comment/${data.id}`)
-        handleNewSubCommentCallback()
+        // handleNewSubCommentCallback()
+        console.log(data)
 
         // если у коммента есть воркайди, то он первого уровня, потому удаление другое
-        if (data.workId){
-            console.log('main comment')
+        if (isMain){
             handleDeleteMainCommentCallback(data.id)
         }
     }
@@ -117,14 +113,17 @@ const CommentEl: FC<Props> = (props) => {
     const [edit, setEdit] = useState<boolean>(false)
     const [newCommentText, setNewCommentText] = useState<string>(commentText)
 
+    // отловить появление редактора
     const handleSetEditCallback = () => {
         setEdit(true)
     }
 
+    // отловить инпут редактирования
     const handleCommentChange = (event: ChangeEvent<HTMLInputElement>) => {
         setNewCommentText(event.target.value)
     }
 
+    // редактирование коммента
     const handleEditSubmit = async () => {
         await instance.put(`comment/${data.id}`, {commentText: newCommentText})
         setEdit(false)

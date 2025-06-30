@@ -52,7 +52,6 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
         setInputData('')
     }
 
-    console.log(workId)
 
     const onSubmit = async () => {
         if (!inputData.trim()) {
@@ -63,13 +62,6 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
             setError(null)
             setNextLoading(true)
 
-            console.log({
-                parentId: workId,
-                workId: workId,
-                commentText: inputData.trim(),
-                userId,
-            })
-
             
             const { data } = await instance.post('comment', {
                 parentId: workId,
@@ -77,6 +69,7 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
                 commentText: inputData.trim(),
                 userId,
             })
+            console.log(data)
 
             // eslint-disable-next-line no-return-assign
             setTotalElements((prev) => (prev += 1))
@@ -94,8 +87,6 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
     const handleCommentsDecreaseCallback = () => {
         setTotalElements(totalElements - 1)
     }
-
-    console.log(comments)
 
     return (
         <section className='comments'>
