@@ -60,15 +60,17 @@ const СommentsSection = ({ workId, work }: Props) => {
             setError(null)
             setNextLoading(true)
 
-                console.log({                parentId: workId,
+            console.log({
+                parentId: workId,
                 workId: workId,
                 commentText: inputData.trim(),
-                userId,})
+                userId,
+            })
 
             
             const { data } = await instance.post('comment', {
                 parentId: workId,
-                workId: workId,
+                commentType: "WORK",
                 commentText: inputData.trim(),
                 userId,
             })
@@ -90,6 +92,7 @@ const СommentsSection = ({ workId, work }: Props) => {
         setTotalElements(totalElements - 1)
     }
 
+    console.log(comments)
 
     return (
         <section className='comments'>

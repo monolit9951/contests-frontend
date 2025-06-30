@@ -55,7 +55,7 @@ const CommentsList: React.FC<Props> = (props) => {
                 setError(null)
                 setLoading(true)
                 // const { data } = await instance.get(`comment?page=0&${params}`)
-                const { data } = await instance.get(`/comment/byWork?workId=${workId}`)
+                const { data } = await instance.get(`/comment?parentId=${workId}`)
                 // console.log(data)
                 setComments(data.content)
                 console.log(data.content)
@@ -120,6 +120,7 @@ const CommentsList: React.FC<Props> = (props) => {
         handleCommentsDecreaseCallback()
     }
 
+    console.log(workId)
 
     return (
         <ul className={clsx(className)}>

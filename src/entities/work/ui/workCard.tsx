@@ -86,7 +86,6 @@ const WorkCard: FC<Props> = (props) => {
         )
     }
 
-    console.log(data.media[0].typeMedia)
 
     return (
         <li className='li'>

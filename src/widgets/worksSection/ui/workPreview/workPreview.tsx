@@ -50,12 +50,13 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
         alert('action clicked')
     }
 
+
     return (
         <Flex className='work-preview'>
             <HStack>
                 {windowWidth > 1024 &&
                     media &&
-                    (work.typeWork === 'IMAGE' ? (
+                    (work.media && work.media[0].typeMedia === 'IMAGE' ? (
                         <ImageSlider images={media} />
                     ) : (
                         <div className='preview__video'>
