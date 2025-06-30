@@ -86,6 +86,8 @@ const WorkCard: FC<Props> = (props) => {
         )
     }
 
+    console.log(data.media[0].typeMedia)
+
     return (
         <li className='li'>
             <VStack className={clsx('media-work', className)}>
@@ -95,7 +97,7 @@ const WorkCard: FC<Props> = (props) => {
                         user={user}
                         imageCards={typeWork === 'IMAGE'}
                     />
-                    {typeWork === 'VIDEO' && media?.[0]?.mediaLink && (
+                    {data.media && data.media[0].typeMedia === 'VIDEO' && media?.[0]?.mediaLink && (
                         <Button
                             variant='div'
                             onClick={onOpenModal}
@@ -103,7 +105,7 @@ const WorkCard: FC<Props> = (props) => {
                             <Video url={media[0].mediaLink} light />
                         </Button>
                     )}
-                    {typeWork === 'IMAGE'&& media?.[0]?.mediaLink && (
+                    {data.media && data.media[0].typeMedia === 'IMAGE'&& media?.[0]?.mediaLink && (
                         <Image
                             src={media?.[0].mediaLink}
                             alt='media'
