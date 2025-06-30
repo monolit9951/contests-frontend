@@ -14,7 +14,7 @@ interface CustomSelectorInterface {
     maxWidth: number
 }
 
-const CustomSelector: FC = () => {
+const CustomSelector: FC <CustomSelectorInterface>= ({name, options, maxWidth, chooseSelectorCallback}) => {
 
     const [selectorOpen, setSelectorOpen] = useState<boolean>(false)
     const [currentOption, setCurrentOption] = useState<string>('Selector')
@@ -25,12 +25,12 @@ const CustomSelector: FC = () => {
     }
 
     // по нажатию на опшн, сделать его активным
-    const handleOption = (option: string) =>{
+    const handleOption = (option: string, key: string) =>{
         setCurrentOption(option)
 
         setSelectorOpen(false)
 
-        // callback
+        chooseSelectorCallback(key)
     }
 
     return(
@@ -41,12 +41,9 @@ const CustomSelector: FC = () => {
             </button>
 
             {selectorOpen && <div className="customSelector_options" style={{maxWidth: 600}}>
-                <button type="button" className="customSelector_options_option" onClick={() => handleOption('dada')}>Option1</button>
-                <button type="button" className="customSelector_options_option" onClick={() => handleOption('OptionOptionOption')}>OptionOptionOption</button>
-                <button type="button" className="customSelector_options_option" onClick={() => handleOption('daOptionOptionOptionOptionOptionOptionda')}>OptionOptionOptionOptionOptionOption</button>
-                <button type="button" className="customSelector_options_option" onClick={() => handleOption('Option')}>OptionOption2Option</button>
-                <button type="button" className="customSelector_options_option" onClick={() => handleOption('Option2')}>Option Option Option Option</button>
-                <button type="button" className="customSelector_options_option" onClick={() => handleOption('Option')}>Option</button>
+                {options.map((item, index) => (
+                    <button type="button" key={index} className="customSelector_options_option" onClick={() => handleOption(item.text, item.key)}>{item.text}</button>
+                ))}
             </div>}
         </div>
     )
