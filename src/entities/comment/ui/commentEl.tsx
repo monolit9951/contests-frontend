@@ -73,11 +73,13 @@ const CommentEl: FC<Props> = (props) => {
             setError(null)
             setNextLoading(true)
 
-            const response = await instance.post('comment/', {
-                parentCommentId: data.id,
+            const response = await instance.post('comment', {
+                parentId: data.id,
                 commentText: inputData.trim(),
                 commentType: "COMMENT"
             })
+        
+
             // мы не получаем в респонс все комменты, только последний 
             handleNewSubCommentCallback()
             // const subCommentsObj = response.data.subComments
