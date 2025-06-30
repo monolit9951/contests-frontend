@@ -31,6 +31,12 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
     // const params = `pageSize=8&sortDirection=ASC&parentId=${data.id}`
 
     // функция загрузки всех сабкомментов
+    
+    // ------------------------------------------------------------------------------
+    // ПЕРЕДЕЛАТЬ, ПОЛУЧАТЬ ПО ДРУГОМУ ЗАПРОСУ, ГДЕ ВСЕ САБКОММЕНТЫ
+    // -----------------------------------------------------------------------------
+
+
     const fetchSubComments = async () =>{
         try {
             setError(null)
