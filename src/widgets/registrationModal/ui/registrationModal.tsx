@@ -22,6 +22,8 @@ const RegistrationModal: FC = () => {
 
                 <div className="registrationModal_inputs_special">
                     <CustomCheckbox value="Remember me" checked={false}/>
+
+                    <button type="button">Forgot password?</button>
                 </div>
             </div>
         </div>

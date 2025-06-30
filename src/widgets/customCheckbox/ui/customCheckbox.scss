@@ -30,7 +30,9 @@
             }
 
             > img{
+              visibility: hidden;
                 &.checked{
+                  visibility: visible;
                     animation: checkbox-pop 0.3s ease forwards;
                 }
             }
