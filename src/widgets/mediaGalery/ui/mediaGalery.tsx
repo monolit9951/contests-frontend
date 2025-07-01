@@ -7,14 +7,21 @@ import sampleImg2 from 'shared/assets/testImages/workImgSample2.jpg';
 import { Video } from "shared/ui/videoPlayer";
 import classNames from "classnames";
 
-const MediaGalery: FC = () => {
-    const media = [
-        { type: 'VIDEO', src: sampleVideo1 },
-        { type: 'IMAGE', src: sampleImg1 },
-        { type: 'IMAGE', src: sampleImg2 },
-        { type: 'VIDEO', src: sampleVideo2 },
-        { type: 'VIDEO', src: sampleVideo2 }
-    ];
+interface MediaGaleryInterface {
+    media: any[]
+}
+
+const MediaGalery: FC <MediaGaleryInterface> = ({media}) => {
+
+    // const media = [
+    //     { type: 'VIDEO', src: sampleVideo1 },
+    //     { type: 'IMAGE', src: sampleImg1 },
+    //     { type: 'IMAGE', src: sampleImg2 },
+    //     { type: 'VIDEO', src: sampleVideo2 },
+    //     { type: 'VIDEO', src: sampleVideo2 }
+    // ];
+
+    console.log("media : ", media)
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState<'next' | 'prev'>('next');
@@ -38,16 +45,16 @@ const MediaGalery: FC = () => {
                     slideInNext: direction === 'next',
                     slideInPrev: direction === 'prev',
                 })}
-                key={currentMedia.src}
+                key={currentMedia.id}
             >
-                {currentMedia.type === 'IMAGE' ? (
+                {currentMedia.typeMedia === 'IMAGE' ? (
                     <img
-                        src={currentMedia.src}
+                        src={currentMedia.mediaLink}
                         className="mediaGalery_media_image"
                         alt="workImg"
                     />
                 ) : (
-                    <Video url={currentMedia.src} />
+                    <Video url={currentMedia.mediaLink} />
                 )}
             </div>
 

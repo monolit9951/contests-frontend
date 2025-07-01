@@ -57,7 +57,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
         <Flex className='workPreview'>
             <div className="workPreview_container">
                 <div className="workPreview_content">
-                    <MediaGalery />
+                    <MediaGalery media = {work.media}/>
                 </div>
 
                 <VStack

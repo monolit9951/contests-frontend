@@ -24,46 +24,6 @@ const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
         setText(event.target.value)
     }
 
-    // логика Submit
-    const handleWorkSubmit = async () => {
-    if (text === '') {
-        console.log('EMPTY TEXT');
-        return;
-    }
-
-    try {
-        // пустой ворк с текстом
-        const response = await instance.post(`/works`, {
-        contestId: contestId,
-        description: text,
-        });
-        const workId = response.data.id;
-        console.log('Created work with id:', workId);
-
-        // формдата для медиа
-        const formData = new FormData();
-        
-        // тест изображения
-        const res = await fetch(testImage);
-        const blob = await res.blob();
-        const file = new File([blob], 'cover.png', { type: blob.type });
-        
-        formData.append('media', file);
-        
-        // добавление медиа из формдаты
-        const mediaResponse = await instance.post(`/media/${workId}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        
-        console.log('Media upload response:', mediaResponse.data);
-
-    } catch (error) {
-        console.error('Error submitting work or media:', error);
-    }
-    }
-
 
     // массив ссылок на файлы
     const [mediaArray, setMediaArray] = useState<File[]>([])
@@ -73,6 +33,50 @@ const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
         setMediaArray((prev) => [...prev, ...fileArray]);
         console.log(mediaArray)
     }
+
+
+    // логика Submit
+const handleWorkSubmit = async () => {
+  if (text === '') {
+    console.log('EMPTY TEXT');
+    return;
+  }
+
+  if (mediaArray.length === 0) {
+    console.log('No media files added');
+    // можно либо прервать, либо разрешить отправить без медиа
+  }
+
+  try {
+    // Создаем работу с текстом
+    const response = await instance.post(`/works`, {
+      contestId: contestId,
+      description: text,
+    });
+    const workId = response.data.id;
+    console.log('Created work with id:', workId);
+
+    // Формируем formData и добавляем все файлы из mediaArray
+    const formData = new FormData();
+
+    mediaArray.forEach((file, index) => {
+      formData.append('media', file); 
+    });
+
+    // Отправляем медиа
+    const mediaResponse = await instance.post(`/media/${workId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    console.log('Media upload response:', mediaResponse.data);
+
+  } catch (error) {
+    console.error('Error submitting work or media:', error);
+  }
+}
+
 
 
     const handleMediaInputCallback = (event: React.ChangeEvent<HTMLInputElement>) => {
