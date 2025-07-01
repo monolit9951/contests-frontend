@@ -14,6 +14,7 @@ import { UserPanel } from 'widgets/userPanel'
 import './header.scss'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import RegistrationModal from 'widgets/registrationModal'
+import { Button } from 'shared/ui/button'
 
 export const Header = () => {
     const [inputData, setInputData] = useState('')
@@ -43,6 +44,8 @@ export const Header = () => {
         setRegistrationModal(true)
     }
 
+    const auth = false
+
     return (
         <header className='header'>
             <div className="header_logoGroup">
@@ -64,9 +67,9 @@ export const Header = () => {
                 onSubmit={onSearchSubmit}
                 placeholder='Search by any parameters....'
             />
-            <button onClick={handleRegistration} type='button'>registration</button>
+            {/* <button onClick={handleRegistration} type='button'>registration</button> */}
 
-            <UserPanel />
+            {auth? <UserPanel /> : <Button type='button' onClick={handleRegistration} variant='primary'>Log in/ Sign in</Button>}
 
             {/* <div className={clsx('header_sideNavBar', { open: sidebar })}>
                 <nav>
