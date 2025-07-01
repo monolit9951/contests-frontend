@@ -133,6 +133,7 @@ const CommentsList: React.FC<Props> = (props) => {
                     data={item}
                     handleDeleteMainCommentCallback = {handleDeleteMainCommentCallback}
                     isMain
+                    parentId = {workId}
                 />
             ))}
 

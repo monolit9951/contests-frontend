@@ -7,8 +7,18 @@ import sampleImg2 from 'shared/assets/testImages/workImgSample2.jpg';
 import { Video } from "shared/ui/videoPlayer";
 import classNames from "classnames";
 
+interface MediaInterface {
+    id: string,
+    contestId: string,
+    mediaLink: string,
+    status: string | null,
+    typeMedia: string,
+    userId: string
+    workId: string
+}
+
 interface MediaGaleryInterface {
-    media: any[]
+    media: MediaInterface[]
 }
 
 const MediaGalery: FC <MediaGaleryInterface> = ({media}) => {

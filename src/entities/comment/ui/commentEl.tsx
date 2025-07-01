@@ -30,6 +30,7 @@ interface Props {
     handleDeleteMainCommentCallback: (commentId: string) => void
     handleDeleteSubCommentCallback: (commentId: string) => void
     isMain?: boolean
+    parentId: string
 }
 
 const CommentEl: FC<Props> = (props) => {
@@ -37,7 +38,7 @@ const CommentEl: FC<Props> = (props) => {
         data,
         userId,
         handleNewSubCommentCallback,
-        setRepliesShown,
+        seepliesShown,
         setRepliesNum,
         setTotalPages,
         setSubComments,
@@ -45,7 +46,8 @@ const CommentEl: FC<Props> = (props) => {
         setError,
         handleDeleteMainCommentCallback,
         isMain,
-        handleDeleteSubCommentCallback
+        handleDeleteSubCommentCallback,
+        parentId
     } = props
 
     const [actionsShown, setActionsShown] = useState(false)
@@ -76,7 +78,7 @@ const CommentEl: FC<Props> = (props) => {
             setNextLoading(true)
 
             const response = await instance.post('comment', {
-                parentId: data.id,
+                parentId: parentId,
                 commentText: inputData.trim(),
                 commentType: "COMMENT"
             })
@@ -134,6 +136,8 @@ const CommentEl: FC<Props> = (props) => {
         await instance.put(`comment/${data.id}`, {commentText: newCommentText})
         setEdit(false)
     }
+
+    console.log(data)
 
     return (
         <HStack className='comment__wrapper'>

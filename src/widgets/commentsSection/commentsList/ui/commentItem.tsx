@@ -14,10 +14,11 @@ interface Props {
     userId: string
     handleDeleteMainCommentCallback: (commentId: string) => void
     isMain?: boolean
+    parentId: string
 }
 
 const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
-    const { data, userId, handleDeleteMainCommentCallback, isMain } = props
+    const { data, userId, handleDeleteMainCommentCallback, isMain, parentId} = props
 
     const [repliesShown, setRepliesShown] = useState(false)
     const [repliesNum, setRepliesNum] = useState(data.subCommentsAmount ?? 0)
@@ -41,11 +42,11 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         try {
             setError(null)
             setLoading(true)
-
-            const response = await instance.get(`comment/6863cf3ea5ed58325c636b93?page=0&pageSize=10&sortDirection=ASC`)
+            
+            const response = await instance.get(`comment?parentId=${data.id}`)
             console.log(response)
             // setSubComments((prev) => [...prev, ...response.data.content])
-            setSubComments(response.data.subComments.content)
+            setSubComments(response.data.content)
 
             console.log(subComments)
             setTotalPages(response.data.totalPages)
@@ -158,6 +159,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                                         handleNewSubCommentCallback={handleNewSubCommentCallback}
                                         handleDeleteMainCommentCallback={handleDeleteMainCommentCallback}
                                         handleDeleteSubCommentCallback={handleDeleteSubCommentCallback}
+                                        parentId = {data.id}
                                     />
                                 </li>
                             ))}
