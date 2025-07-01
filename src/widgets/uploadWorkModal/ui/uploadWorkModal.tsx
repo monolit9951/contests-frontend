@@ -25,44 +25,45 @@ const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
     }
 
     // логика Submit
-    // const handleWorkSubmit = async() => {
-
-    //     if (text === ''){
-    //         console.log('EMPTY TEXT')
-    //         return
-    //     }
-
-    //     // const formData = new FormData()
-
-    //     // // ТЕСТ ФОТО, УДАЛИТЬ
-
-    //     console.log(contestId)
-
-    //     // СОЗДАНИЕ ВОРКА БЕЗ МЕДИА 
-    //     const response = await instance.post(`/works`, {
-    //             contestId: contestId,
-    //             description: text,
-    //             typeWork: "IMAGE"
-    //     })
-    //     const workId = response.data.id
-    //     console.log(workId)
-    //     // ДОБАВЛЕНИЕ МЕДИА В ВОРК
-
-    //     // ТОЛЬКО ДЛЯ ТЕСТА
-    //     const formData = new FormData()
-    //     const res = await fetch(testImage)
-    //     const blob = await res.blob()
-    //     const file = new File([blob], 'cover.png', { type: blob.type })
-
-    //     formData.append('mediaDTO', workId)
-    //     formData.append('media', file)
-        
-    //     await instance.post('/media', formData)
-    // }
-
-    const handleWorkSubmit = () =>{
-        console.log('submit comment')
+    const handleWorkSubmit = async () => {
+    if (text === '') {
+        console.log('EMPTY TEXT');
+        return;
     }
+
+    try {
+        // пустой ворк с текстом
+        const response = await instance.post(`/works`, {
+        contestId: contestId,
+        description: text,
+        });
+        const workId = response.data.id;
+        console.log('Created work with id:', workId);
+
+        // формдата для медиа
+        const formData = new FormData();
+        
+        // тест изображения
+        const res = await fetch(testImage);
+        const blob = await res.blob();
+        const file = new File([blob], 'cover.png', { type: blob.type });
+        
+        formData.append('media', file);
+        
+        // добавление медиа из формдаты
+        const mediaResponse = await instance.post(`/media/${workId}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        
+        console.log('Media upload response:', mediaResponse.data);
+
+    } catch (error) {
+        console.error('Error submitting work or media:', error);
+    }
+    }
+
 
     // массив ссылок на файлы
     const [mediaArray, setMediaArray] = useState<File[]>([])
