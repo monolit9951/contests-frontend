@@ -1,7 +1,12 @@
 .cover_selection {
+    
     &_container {
         align-items: center;
-
+        background-color: #02140E;
+        padding: 24px 16px;
+        box-sizing: border-box;
+        border-radius: 24px;
+        
         .header {
             width: 100%;
             height: auto;
@@ -65,7 +70,8 @@
             &_container {
                 gap: 16px;
                 margin-top: 16px;
-
+                box-sizing: border-box;
+                
                 .basic-cover {
                     width: 219px;
                     height: 140px;

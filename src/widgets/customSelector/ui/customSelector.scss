@@ -3,12 +3,14 @@
     width: 100%;
     
     .customSelector_header {
+        border: #393B3B 1px solid;
         padding: 6px 32px;
         width: 100%;
         display: flex;
         align-items: center;
         outline: none;
-        border: none;
+        // border: none;
+        box-sizing: border-box;
         gap: 8px;
         background-color: #1B2321;
         border-radius: 60px;
@@ -43,6 +45,7 @@
     }
 
     > .customSelector_options {
+        border: #393B3B 1px solid;
         padding: 10px 18px;
         box-sizing: border-box;
         margin-top: 8px;
