@@ -1,4 +1,5 @@
-.work-preview {
+.workPreview {
+    width: 1188px !important;
     width: 100%;
     padding: 0;
     background-color: transparent;
@@ -6,16 +7,13 @@
     background-color: #02140E;
     border-radius: 16px;
 
-    > .flex__row {
+    > .workPreview_container{
+        display: flex;
         width: 100%;
-        // max-width: 1188px;
+        max-width: 1188px;
 
-        .preview__video{
-            width: 100%;
-
-            // ПОФИКСИТЬ ДЛЯ АДАПТИВА
-            max-width: 668px;
-            min-width: 668px;
+        > .workPreview_content{
+            flex: 1;
         }
 
         .work-desc {
@@ -136,7 +134,7 @@
 }
 
 .dark {
-    .work-preview {
+    .workPreview {
         .comments {
             border-color: var(--grey-border);
         }
@@ -160,7 +158,7 @@
     }
 }
 .light {
-    .work-preview {
+    .workPreview {
         .comments {
             border-color: var(--border-grey);
         }
@@ -179,62 +177,6 @@
 
         .tag-contest {
             background-color: var(--white-medium-light);
-        }
-    }
-}
-
-@media (max-width: 1439px) {
-    .work-preview > .flex__row .work-desc {
-        width: 440px;
-    }
-
-    .work-preview {
-        .image-slider {
-            width: 500px;
-        }
-    }
-}
-
-@media (max-width: 1280px) {
-    .work-preview > .flex__row .work-desc {
-        width: 350px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .work-preview {
-        .image-slider {
-            width: 500px;
-            height: 70vh;
-        }
-
-        .comments {
-            overflow: unset;
-        }
-
-        .preview__video + .work-desc__text {
-            height: 100%;;
-        }
-    }
-
-    .work-preview > .flex__row .work-desc {
-        width: 100%;
-        overflow-y: scroll;
-        position: static;
-
-        &::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        /* Handle */
-        &::-webkit-scrollbar-thumb {
-            height: 42px;
-            background: var(--grey);
-            border-radius: 8px;
-        }
-
-        &__text {
-            max-width: 500px;
         }
     }
 }

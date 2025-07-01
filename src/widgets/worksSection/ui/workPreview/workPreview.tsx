@@ -16,6 +16,7 @@ import { CommentsSection } from 'widgets/commentsSection'
 import { ImageSlider } from 'widgets/worksSection/ui/workPreview/imageSlider/imageSlider'
 
 import './workPreview.scss'
+import MediaGalery from 'widgets/mediaGalery'
 
 interface WorkProps {
     work: Work
@@ -50,29 +51,21 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
         alert('action clicked')
     }
 
+    console.log(work)
 
     return (
-        <Flex className='work-preview'>
-            <HStack>
-                {windowWidth > 1024 &&
-                    media &&
-                    (work.media && work.media[0].typeMedia === 'IMAGE' ? (
-                        <ImageSlider images={media} />
-                    ) : (
-                        <div className='preview__video'>
-                            <Video
-                                url={media[0].mediaLink}
-                                width={windowWidth >= 1280 ? 668 : 500}
-                                className='preview__video'
-                            />
-                        </div>
-                    ))}
+        <Flex className='workPreview'>
+            <div className="workPreview_container">
+                <div className="workPreview_content">
+                    <MediaGalery />
+                </div>
 
                 <VStack
                     className={clsx(
                         'work-desc',
                         work.typeWork === 'TEXT' && 'type-text'
                     )}>
+                        
                     <VStack className='upper-desc'>
                         <HStack className='creator-desc'>
                             <HStack className='align__center'>
@@ -154,7 +147,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
 
                     <CommentsSection workId={work.id} work />
                 </VStack>
-            </HStack>
+            </div>
         </Flex>
     )
 }
