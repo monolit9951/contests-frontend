@@ -5,6 +5,7 @@ import sampleVideo2 from 'shared/assets/testVideos/wideVideo.mp4';
 import sampleImg1 from 'shared/assets/testImages/sampleWorkImage.png';
 import sampleImg2 from 'shared/assets/testImages/workImgSample2.jpg';
 import { Video } from "shared/ui/videoPlayer";
+import classNames from "classnames";
 
 const MediaGalery: FC = () => {
     const media = [
@@ -16,12 +17,15 @@ const MediaGalery: FC = () => {
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [direction, setDirection] = useState<'next' | 'prev'>('next');
 
     const handleNext = () => {
+        setDirection('next');
         setCurrentIndex(prev => (prev < media.length - 1 ? prev + 1 : 0));
     };
 
     const handlePrev = () => {
+        setDirection('prev');
         setCurrentIndex(prev => (prev > 0 ? prev - 1 : media.length - 1));
     };
 
@@ -29,7 +33,13 @@ const MediaGalery: FC = () => {
 
     return (
         <div className="mediaGalery">
-            <div className="mediaGalery_media" key={currentMedia.src}>
+            <div
+                className={classNames("mediaGalery_media", {
+                    slideInNext: direction === 'next',
+                    slideInPrev: direction === 'prev',
+                })}
+                key={currentMedia.src}
+            >
                 {currentMedia.type === 'IMAGE' ? (
                     <img
                         src={currentMedia.src}
@@ -41,12 +51,10 @@ const MediaGalery: FC = () => {
                 )}
             </div>
 
-            <div className="mediaGalery_navigation">
-                <button type="button" onClick={handlePrev}>{"<"}</button>
-                <span>{currentIndex + 1} / {media.length}</span>
-                <button type="button" onClick={handleNext}>{">"}</button>
-            </div>
-        </div>
+            <button type="button" className="mediaGalery_navigationButton" onClick={handlePrev}>{"<"}</button>
+            <span className="mediaGalery_navigationData">{currentIndex + 1} / {media.length}</span>
+            <button type="button" className="mediaGalery_navigationButton" onClick={handleNext}>{">"}</button>
+    </div>
     );
 };
 
