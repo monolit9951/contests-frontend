@@ -8,18 +8,18 @@ import calendar from 'shared/assets/icons/calendar.svg'
 import mapMark from 'shared/assets/icons/mapMark.svg'
 import email from 'shared/assets/icons/email.svg'
 import instance from 'shared/api/api'
+import useAxios from 'shared/lib/hooks/useAxios'
 
 // НЕТУ ПОЛУЧЕНИЯ ДАННЫХ
 // ЧАСТЬ ДАННЫХ ПОЛУЧАТЬ ПО СЕЛЕКТОРАМ РЕДАКСА
 
-// ТЕСТОВЫЙ ЮЗЕР АЙДИ ДО АВТОРИЗАЦИИ, ВСЕ ПРОПСЫ ПОЧИСТИТЬ
-const userId = '68650e0c6ac63a470aef466d'
-
-const response = instance.get(`users/${userId}`)
-console.log(response)
-
+// ТЕСТОВЫЙ ЮЗЕР АЙДИ ДО АВТОРИЗАЦИИ, ВСЕ ПРОПСЫ ПОЧИСТИТ
 
 const PersonInformation: FC = () =>{
+
+    const userId = '68654665f54a1510133b30ce'
+    const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
+
     return(
         <div className="personInformation">
             <div className="personInformation_header">
@@ -42,7 +42,7 @@ const PersonInformation: FC = () =>{
                         <span>Full Name</span>
                     </div>
 
-                    <div className="personInformation_infoGroup_info_data">Deborah Kertzmann</div>
+                    {!isLoading && <div className="personInformation_infoGroup_info_data">{data.name}</div>}
                 </div>
 
                 <div className="personInformation_infoGroup_info">
@@ -51,7 +51,7 @@ const PersonInformation: FC = () =>{
                         <span>Email Address</span>
                     </div>
 
-                    <div className="personInformation_infoGroup_info_data">Deborahkertzmann@gmail.com</div>
+                    {!isLoading && <div className="personInformation_infoGroup_info_data">NO EMAIL</div>}
                 </div>
 
                 <div className="personInformation_infoGroup_info">
@@ -60,7 +60,7 @@ const PersonInformation: FC = () =>{
                         <span>Country</span>
                     </div>
 
-                    <div className="personInformation_infoGroup_info_data">United State</div>
+                    {!isLoading && <div className="personInformation_infoGroup_info_data">NO COUNTRY</div>}
                 </div>
 
                 <div className="personInformation_infoGroup_info">
@@ -69,7 +69,7 @@ const PersonInformation: FC = () =>{
                         <span>Member Since</span>
                     </div>
 
-                    <div className="personInformation_infoGroup_info_data">01/09/1939</div>
+                    {!isLoading && <div className="personInformation_infoGroup_info_data">{data.createdAt}</div>}
                 </div>
             </div>            
         </div>

@@ -2,8 +2,12 @@ import { FC, useState } from "react";
 import './profileContests.scss'
 import win from 'shared/assets/icons/win.svg'
 import ProfileContestsContest from "../profileContestsContest/profileContestsContest";
+import useAxios from "shared/lib/hooks/useAxios";
 
 const ProfileContests: FC = () => {
+
+    const userId = '68654665f54a1510133b30ce'
+    const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
 
     const [contestType, setContestType] = useState<string>('All')
 
@@ -40,10 +44,10 @@ const ProfileContests: FC = () => {
             </div>
 
         <ul className="profileContests_switch">
-            <li><button onClick={handleAllContests} className={contestType === 'All' ? 'switched' : ''}>All</button></li>
-            <li><button onClick={handleParticipatingContests} className={contestType === 'Participating' ? 'switched' : ''}>Participating</button></li>
-            <li><button onClick={handleWinningContests} className={contestType === 'Winning' ? 'switched' : ''}>Winning</button></li>
-            <li><button onClick={handleOrganizingContests} className={contestType === 'Organizing' ? 'switched' : ''}>Organizing</button></li>
+            <li><button onClick={handleAllContests} type = "button" className={contestType === 'All' ? 'switched' : ''}>All</button></li>
+            <li><button onClick={handleParticipatingContests} type = "button" className={contestType === 'Participating' ? 'switched' : ''}>Participating</button></li>
+            <li><button onClick={handleWinningContests} type = "button" className={contestType === 'Winning' ? 'switched' : ''}>Winning</button></li>
+            <li><button onClick={handleOrganizingContests} type = "button" className={contestType === 'Organizing' ? 'switched' : ''}>Organizing</button></li>
         </ul>
 
         <div className="profileContests_contestsList">

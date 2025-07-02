@@ -1,11 +1,16 @@
 import { FC } from "react";
 import './profileWallet.scss'
 import profileWallet from 'shared/assets/icons/profileWallet.svg'
+import useAxios from "shared/lib/hooks/useAxios";
 
 
 const ProfileWallet: FC = () =>{
 
     // ВОЗМОЖНО СДЕЛАТЬ ИСТОРИЮ БАЛАНСА В ВИДЕ ОТЛЕЛЬНЫХ КОМПОНЕНТОВ, ЕСЛИ ЛОГИКА БУДЕТ СЛОЖНЕЕ
+
+    // транзакции пустые, СДЕЛАТЬ РЕФАКТОРИНГ, СДЕЛАТЬ ОТДЕЛЬНЫЕ КОМПОНЕНТЫ ДЛЯ ДЕПОЗИТА И МИНУСА
+    const userId = '68654665f54a1510133b30ce'
+    const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
 
     return(
         <div className="profileWallet">
