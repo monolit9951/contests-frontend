@@ -57,7 +57,6 @@ const CommentsList: React.FC<Props> = (props) => {
                 // const { data } = await instance.get(`comment?page=0&${params}`)
                 const { data } = await instance.get(`/comment?parentId=${workId}`)
 
-                console.log(data)
                 setComments(data.content)
                 setTotalElements(data.totalElements)
                 setTotalPages(data.totalPages)

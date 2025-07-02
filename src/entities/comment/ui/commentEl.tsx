@@ -50,6 +50,7 @@ const CommentEl: FC<Props> = (props) => {
         parentId
     } = props
 
+    // console.log(isMain, parentId)
     const [actionsShown, setActionsShown] = useState(false)
     const [replyInputShown, setReplyInputShown] = useState(false)
     const [inputData, setInputData] = useState('')
@@ -76,6 +77,7 @@ const CommentEl: FC<Props> = (props) => {
         try {
             setError(null)
             setNextLoading(true)
+
 
             const response = await instance.post('comment', {
                 parentId: parentId,
@@ -137,7 +139,7 @@ const CommentEl: FC<Props> = (props) => {
         setEdit(false)
     }
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <HStack className='comment__wrapper'>

@@ -99,6 +99,9 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         setSubComments(prev => prev.filter(comment => comment.id !== commentId));
         setRepliesNum(repliesNum-1)
     }
+
+    // console.log(data.id)
+
     return (
         <li ref={ref}>
             <CommentEl
@@ -113,6 +116,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                 handleNewSubCommentCallback = {handleNewSubCommentCallback}
                 handleDeleteMainCommentCallback = {handleDeleteMainCommentCallback}
                 isMain
+                parentId={data.id}
             />
             {!!repliesNum && (
                 <VStack className='comment-replies__wrapper'>
@@ -143,7 +147,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                         </Text>
                     )}
 
-                    {repliesShown && !loading && (
+                    {repliesShown && !loading && data && (
                         <ul className='subcomments-list'>
                             {subComments.map((item, index) => (
                                 <li key={index}>

@@ -51,8 +51,6 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
         alert('action clicked')
     }
 
-    console.log(work)
-
     return (
         <Flex className='workPreview'>
             <div className="workPreview_container">

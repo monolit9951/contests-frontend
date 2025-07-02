@@ -69,7 +69,6 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
                 commentText: inputData.trim(),
                 userId,
             })
-            console.log(data)
 
             // eslint-disable-next-line no-return-assign
             setTotalElements((prev) => (prev += 1))
