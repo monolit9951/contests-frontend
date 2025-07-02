@@ -7,7 +7,6 @@ import useAxios from "shared/lib/hooks/useAxios";
 const ProfileContests: FC = () => {
 
     const userId = '68654665f54a1510133b30ce'
-    const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
 
     const [contestType, setContestType] = useState<string>('All')
 
