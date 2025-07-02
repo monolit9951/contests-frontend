@@ -12,9 +12,10 @@ import UploadWorkMediaItem from "./components/uploadWorkMediaItem/uploadWorkMedi
 
 interface UploadWorkModalInterface {
     contestId: string
+    onClose: () => void
 }
 
-const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId}) => {
+const UploadWorkModal: FC <UploadWorkModalInterface> = ({contestId, onClose}) => {
 
 
     // логика текстАреа
@@ -71,7 +72,7 @@ const handleWorkSubmit = async () => {
     });
 
     console.log('Media upload response:', mediaResponse.data);
-
+    onClose()
   } catch (error) {
     console.error('Error submitting work or media:', error);
   }
@@ -87,6 +88,10 @@ const handleWorkSubmit = async () => {
 
     const handleRemoveMediaCallback = (fileName: string) => {
         setMediaArray((prev) => prev.filter((file) => file.name !== fileName));
+    }
+
+    const handleCancel = () => {
+      onClose()
     }
 
     return(
@@ -119,8 +124,8 @@ const handleWorkSubmit = async () => {
                 </div>
 
                 <div className="uploadWorkModal_buttons">
-                    <Button variant='secondary'>Cancel</Button>
-                    <Button variant="primary" onClick={handleWorkSubmit}>Submit Quest Entry</Button>
+                    <Button variant='secondary' onClick={handleCancel}>Cancel</Button>
+                    <Button variant="primary" onClick={handleWorkSubmit} >Submit Quest Entry</Button>
                 </div>
             </div>
         </div>

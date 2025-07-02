@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from 'react'
+import React, { FC, ReactNode, useEffect, useState } from 'react'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import xIcon from 'shared/assets/icons/Secondary_btn.svg?react'
@@ -75,7 +75,13 @@ export const ModalWindow: FC<UploadModalProps> = ({
             <div className='modal-wrapper' style={{ width, height, maxWidth, maxHeight }}>
                 <Flex className={overlayClass} clickFunction={handleClose} />
                 <HStack className={modalContentClass}>
-                    <VStack>{rest.children}</VStack>
+                    
+                <VStack>
+                    {typeof rest.children === 'object' && React.isValidElement(rest.children)
+                        ? React.cloneElement(rest.children, { onClose: handleClose })
+                        : rest.children}
+                </VStack>
+
                 </HStack>
                 {rest.isOuterClose && (
                     <Icon
