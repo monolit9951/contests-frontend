@@ -4,6 +4,10 @@ import ProfileWallet from './components/profileWallet/profileWallet'
 import './profilePage.scss'
 
 const ProfilePage = () => {
+
+    // ТЕСТОВЫЙ ЮЗЕР АЙДИ ДО АВТОРИЗАЦИИ, ВСЕ ПРОПСЫ ПОЧИСТИТЬ
+    const userId = '68650e0c6ac63a470aef466d'
+
     return (
         <div className="profilePage">
             <div className="profilePage_heading">

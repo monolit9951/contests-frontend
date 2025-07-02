@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import './personInformation.scss'
 import { Link } from 'react-router-dom'
 import pencil from 'shared/assets/icons/pencil.svg'
@@ -7,9 +7,17 @@ import profilePerson from 'shared/assets/icons/profilePerson.svg'
 import calendar from 'shared/assets/icons/calendar.svg'
 import mapMark from 'shared/assets/icons/mapMark.svg'
 import email from 'shared/assets/icons/email.svg'
+import instance from 'shared/api/api'
 
 // НЕТУ ПОЛУЧЕНИЯ ДАННЫХ
 // ЧАСТЬ ДАННЫХ ПОЛУЧАТЬ ПО СЕЛЕКТОРАМ РЕДАКСА
+
+// ТЕСТОВЫЙ ЮЗЕР АЙДИ ДО АВТОРИЗАЦИИ, ВСЕ ПРОПСЫ ПОЧИСТИТЬ
+const userId = '68650e0c6ac63a470aef466d'
+
+const response = instance.get(`users/${userId}`)
+console.log(response)
+
 
 const PersonInformation: FC = () =>{
     return(

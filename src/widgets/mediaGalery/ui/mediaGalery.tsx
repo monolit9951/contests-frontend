@@ -31,6 +31,8 @@ const MediaGalery: FC <MediaGaleryInterface> = ({media}) => {
     //     { type: 'VIDEO', src: sampleVideo2 }
     // ];
 
+    console.log("media : ", media)
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState<'next' | 'prev'>('next');
 
