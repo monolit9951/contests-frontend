@@ -50,7 +50,8 @@
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "sweetalert": "^2.1.2",
-    "use-breakpoint": "^4.0.1"
+    "use-breakpoint": "^4.0.1",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.9",

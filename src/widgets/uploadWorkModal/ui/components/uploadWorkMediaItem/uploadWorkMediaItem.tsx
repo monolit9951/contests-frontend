@@ -1,42 +1,46 @@
 import { FC, useEffect, useState } from "react";
-import './uploadWorkMediaItem.scss'
-import X from 'shared/assets/icons/X.svg'
-import testImage from 'shared/assets/testImages/workImgSample2.jpg'
+import './uploadWorkMediaItem.scss';
+import X from 'shared/assets/icons/X.svg';
+
+export interface MediaItem {
+  id: string;
+  file: File;
+}
 
 interface UploadWorkMediaItemInterface {
-    mediaFile: File
-    handleRemoveMediaCallback: (fileName: string) => void
+  mediaItem: MediaItem;
+  handleRemoveMediaCallback: (id: string) => void;
 }
 
-const UploadWorkMediaItem: FC <UploadWorkMediaItemInterface> = ({mediaFile, handleRemoveMediaCallback}) => {
+const UploadWorkMediaItem: FC<UploadWorkMediaItemInterface> = ({ mediaItem, handleRemoveMediaCallback }) => {
+  const { file, id } = mediaItem;
+  const [previewUrl, setPreviewUrl] = useState<string>(URL.createObjectURL(file));
 
+  const isVideo = file.type.startsWith("video/");
 
-    const [previewUrl, setPreviewUrl] = useState<string>(URL.createObjectURL(mediaFile));
+  useEffect(() => {
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
 
-    const isVideo = mediaFile.type.startsWith("video/");
+    return () => URL.revokeObjectURL(url);
+  }, [file]);
 
-    useEffect(() => {
-        const url = URL.createObjectURL(mediaFile);
-        setPreviewUrl(url);
+  const handleRemove = () => {
+    handleRemoveMediaCallback(id);
+  };
 
-        // Очистка URL при размонтировании компонента, чтобы не было утечек памяти
-        return () => URL.revokeObjectURL(url);
-    }, [mediaFile]);
-    const handleRemove = () => {
-        handleRemoveMediaCallback(mediaFile.name)
-    }
+  return (
+    <div className="uploadWorkMediaItem">
+      {isVideo ? (
+        <video src={previewUrl} />
+      ) : (
+        <img src={previewUrl} alt="mediaItem" />
+      )}
+      <button onClick={handleRemove} type="button">
+        <img src={X} alt="cross" />
+      </button>
+    </div>
+  );
+};
 
-    return(
-        <div className="uploadWorkMediaItem">
-            
-            {isVideo? 
-                <video src={previewUrl}/>
-                :
-                <img src={previewUrl} alt="mediaItem" />
-            }
-            <button onClick={handleRemove} type="button"><img src={X} alt="cross" /></button>
-        </div>
-    )
-}
-
-export default UploadWorkMediaItem
+export default UploadWorkMediaItem;
