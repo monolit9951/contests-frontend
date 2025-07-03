@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import win from 'shared/assets/icons/win.svg'
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 
-import { fetchAllContests, fetchProfileContests } from "../../model/sevices/contestServices";
+import { fetchProfileContests } from "../../model/sevices/contestServices";
 import ProfileContestsContest from "../profileContestsContest/profileContestsContest";
 
 import './profileContests.scss'
@@ -13,11 +13,10 @@ interface ProfileContestsInterface {
 
 const ProfileContests: FC <ProfileContestsInterface> = ({userId}) => {
 
-    const [contestsEnabled, setContestsEnabled] = useState<boolean>(true)
     const [contestsKey, setContestsKey] = useState<number>(1)
     const [extraPath, setExtraPath] = useState<string>('user-all')
 
-    const {data: contests, isLoaded: contestsLoaded} = useGetRequest({fetchFunc: () => fetchProfileContests(extraPath, userId),  enabled: contestsEnabled, key: [contestsKey]})
+    const {data: contests, isLoaded: contestsLoaded} = useGetRequest({fetchFunc: () => fetchProfileContests(extraPath, userId),  enabled: true, key: [contestsKey]})
 
     const [contestType, setContestType] = useState<string>('All')
 

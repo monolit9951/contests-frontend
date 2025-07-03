@@ -1,6 +1,5 @@
-import { ChangeEvent, FC, useRef, useState } from "react"
+import { ChangeEvent, FC, useRef } from "react"
 import upload from 'shared/assets/icons/upload.svg'
-import { Button } from "shared/ui/button"
 
 import './uploadWorkMediaInput.scss'
 

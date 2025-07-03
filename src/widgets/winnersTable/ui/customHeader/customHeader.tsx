@@ -13,7 +13,6 @@ type CustomHeaderComponentProps = IHeaderParams & {
 const CustomHeaderComponent: React.FC<CustomHeaderComponentProps> = ({ displayName, enableSorting, api }) => {
     const handleSort = () => {
         if (enableSorting && api) {
-            console.log(enableSorting, 'enableSorting');
             const sortModel = api.getSortModel();
             const sortDirection = sortModel?.[0]?.sort;
             const newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';

@@ -1,12 +1,7 @@
-import { FC, useEffect, useRef, useState } from 'react'
-import ReactPlayer from 'react-player/lazy'
-import clsx from 'clsx'
+import { FC } from 'react'
 import Plyr from 'plyr-react'
 
 // import sampleVideo from "../../assets/testVideos/testVideo.mp4"
-import sampleVideo from "../../assets/testVideos/wideVideo.mp4"
-import { HStack } from '../stack';
-
 import "plyr-react/plyr.css";
 import './videoPlayer.scss'
 
@@ -17,7 +12,7 @@ interface Props {
 }
 
 const Video: FC<Props> = (props) => {
-    const { url, light, className } = props
+    const { url, light } = props
 
     // настройки проигрывателя Plyr
     const plyrOptions = {

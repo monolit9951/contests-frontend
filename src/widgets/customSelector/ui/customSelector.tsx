@@ -9,13 +9,12 @@ interface optionsType {
 }
 
 interface CustomSelectorInterface {
-    name: string,
     options: optionsType[],
     chooseSelectorCallback: (key: string) => void,
     maxWidth: number
 }
 
-const CustomSelector: FC <CustomSelectorInterface>= ({name, options, maxWidth, chooseSelectorCallback}) => {
+const CustomSelector: FC <CustomSelectorInterface>= ({options, maxWidth, chooseSelectorCallback}) => {
 
     const [selectorOpen, setSelectorOpen] = useState<boolean>(false)
     const [currentOption, setCurrentOption] = useState<string>('Selector')

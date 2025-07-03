@@ -26,7 +26,7 @@ const RegistrationInput: FC <RegistrationInputInterface>= ({placeholder, label, 
 
             <div className="registrationInput_container">
                 <input type={passwordVisibility? 'text' : type} placeholder={placeholder}/>
-                {type === "password" && <img src={eye} alt="type" onClick={handleTogglePasswordVisible}/>}
+                {type === "password" && <button onClick={handleTogglePasswordVisible} type="button"><img src={eye} alt="type"/></button>}
             </div>
         </div>
     )

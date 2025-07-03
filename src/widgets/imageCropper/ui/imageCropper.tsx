@@ -1,7 +1,6 @@
 import { useCallback,useState } from 'react'
 import Cropper from 'react-easy-crop'
 import { Button } from 'shared/ui/button'
-import { Text } from 'shared/ui/text'
 
 import getCroppedImg from '../model/cropImage'
 

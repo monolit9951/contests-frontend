@@ -1,9 +1,5 @@
 import { FC, useState } from "react";
 import classNames from "classnames";
-import sampleImg1 from 'shared/assets/testImages/sampleWorkImage.png';
-import sampleImg2 from 'shared/assets/testImages/workImgSample2.jpg';
-import sampleVideo1 from 'shared/assets/testVideos/testVideo.mp4';
-import sampleVideo2 from 'shared/assets/testVideos/wideVideo.mp4';
 import { Video } from "shared/ui/videoPlayer";
 
 import './mediaGalery.scss';

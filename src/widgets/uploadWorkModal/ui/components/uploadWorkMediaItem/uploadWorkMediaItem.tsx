@@ -33,7 +33,13 @@ const UploadWorkMediaItem: FC<UploadWorkMediaItemInterface> = ({ mediaItem, hand
   return (
     <div className="uploadWorkMediaItem">
       {isVideo ? (
-        <video src={previewUrl} />
+      <video src={previewUrl} controls>
+        <track
+          kind="captions"
+          srcLang="en"
+          default
+        />
+      </video>
       ) : (
         <img src={previewUrl} alt="mediaItem" />
       )}

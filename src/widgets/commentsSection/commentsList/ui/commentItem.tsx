@@ -13,12 +13,10 @@ interface Props {
     data: Comment
     userId: string
     handleDeleteMainCommentCallback: (commentId: string) => void
-    isMain?: boolean
-    parentId: string
 }
 
 const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
-    const { data, userId, handleDeleteMainCommentCallback, isMain, parentId} = props
+    const { data, userId, handleDeleteMainCommentCallback} = props
 
     const [repliesShown, setRepliesShown] = useState(false)
     const [repliesNum, setRepliesNum] = useState(data.subCommentsAmount ?? 0)

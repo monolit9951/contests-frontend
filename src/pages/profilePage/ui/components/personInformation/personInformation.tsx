@@ -1,12 +1,10 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
-import instance from 'shared/api/api'
 import calendar from 'shared/assets/icons/calendar.svg'
 import email from 'shared/assets/icons/email.svg'
 import mapMark from 'shared/assets/icons/mapMark.svg'
 import pencil from 'shared/assets/icons/pencil.svg'
 import profilePerson from 'shared/assets/icons/profilePerson.svg'
-import userImg from 'shared/assets/img/userIMG.jpg'
 import useAxios from 'shared/lib/hooks/useAxios'
 
 import './personInformation.scss'

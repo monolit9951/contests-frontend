@@ -79,7 +79,7 @@ const CommentEl: FC<Props> = (props) => {
             setNextLoading(true)
 
 
-            const response = await instance.post('comment', {
+            await instance.post('comment', {
                 parentId,
                 commentText: inputData.trim(),
                 commentType: "COMMENT"
