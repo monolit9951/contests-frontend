@@ -17,7 +17,7 @@ import useAxios from 'shared/lib/hooks/useAxios'
 
 const PersonInformation: FC = () =>{
 
-    const userId = '68654665f54a1510133b30ce'
+    const userId = '68665fe42ee7c1049206afb4'
     const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
 
     return(
@@ -42,7 +42,7 @@ const PersonInformation: FC = () =>{
                         <span>Full Name</span>
                     </div>
 
-                    {!isLoading && <div className="personInformation_infoGroup_info_data">{data.name}</div>}
+                    {!isLoading && !error && <div className="personInformation_infoGroup_info_data">{data.name}</div>}
                 </div>
 
                 <div className="personInformation_infoGroup_info">
@@ -51,7 +51,7 @@ const PersonInformation: FC = () =>{
                         <span>Email Address</span>
                     </div>
 
-                    {!isLoading && <div className="personInformation_infoGroup_info_data">NO EMAIL</div>}
+                    {!isLoading && !error && <div className="personInformation_infoGroup_info_data">NO EMAIL</div>}
                 </div>
 
                 <div className="personInformation_infoGroup_info">
@@ -60,7 +60,7 @@ const PersonInformation: FC = () =>{
                         <span>Country</span>
                     </div>
 
-                    {!isLoading && <div className="personInformation_infoGroup_info_data">NO COUNTRY</div>}
+                    {!isLoading && !error && <div className="personInformation_infoGroup_info_data">NO COUNTRY</div>}
                 </div>
 
                 <div className="personInformation_infoGroup_info">
@@ -69,7 +69,7 @@ const PersonInformation: FC = () =>{
                         <span>Member Since</span>
                     </div>
 
-                    {!isLoading && <div className="personInformation_infoGroup_info_data">{data.createdAt}</div>}
+                    {!isLoading && !error && <div className="personInformation_infoGroup_info_data">{data.createdAt}</div>}
                 </div>
             </div>            
         </div>

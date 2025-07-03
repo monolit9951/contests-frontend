@@ -6,7 +6,7 @@ import './profilePage.scss'
 const ProfilePage = () => {
 
     // ТЕСТОВЫЙ ЮЗЕР АЙДИ ДО АВТОРИЗАЦИИ, ВСЕ ПРОПСЫ ПОЧИСТИТЬ
-    const userId = '68650e0c6ac63a470aef466d'
+    const userId = '68665fe42ee7c1049206afb4'
 
     return (
         <div className="profilePage">

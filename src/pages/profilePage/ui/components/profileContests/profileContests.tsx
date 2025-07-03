@@ -1,34 +1,52 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import './profileContests.scss'
 import win from 'shared/assets/icons/win.svg'
 import ProfileContestsContest from "../profileContestsContest/profileContestsContest";
-import useAxios from "shared/lib/hooks/useAxios";
+import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import { fetchAllContests, fetchProfileContests } from "../../model/sevices/contestServices";
 
 const ProfileContests: FC = () => {
 
-    const userId = '68654665f54a1510133b30ce'
+    const userId = '68665fe42ee7c1049206afb4'
+
+    const [contestsEnabled, setContestsEnabled] = useState<boolean>(true)
+    const [contestsKey, setContestsKey] = useState<number>(1)
+    const [extraPath, setExtraPath] = useState<string>('user-all')
+
+    const {data: contests, isLoaded: contestsLoaded} = useGetRequest({fetchFunc: () => fetchProfileContests(extraPath, userId),  enabled: contestsEnabled, key: [contestsKey]})
 
     const [contestType, setContestType] = useState<string>('All')
+
+
+    useEffect(() => {
+        if (contestsLoaded){
+            console.log(contests)
+        }
+    }, [contests, contestsLoaded])
 
     // логика всех контестов
     const handleAllContests = () => {
         setContestType('All')
-        console.log('switched to All')
+        setExtraPath('user-all')
+        setContestsKey(contestsKey + 1)
     }
 
     const handleParticipatingContests = () => {
         setContestType('Participating')
-        console.log('switched to Participating')
+        setExtraPath('user-participant')
+        setContestsKey(contestsKey + 1)
     }
 
     const handleWinningContests = () => {
         setContestType('Winning')
-        console.log('switched to Winning')
+        setExtraPath('user-all')
+        setContestsKey(contestsKey + 1)
     }
 
     const handleOrganizingContests = () => {
         setContestType('Organizing')
-        console.log('switched to Organizing')
+        setExtraPath('user-owned')
+        setContestsKey(contestsKey + 1)
     }
 
     return(
@@ -50,11 +68,9 @@ const ProfileContests: FC = () => {
         </ul>
 
         <div className="profileContests_contestsList">
-            <ProfileContestsContest />
-            <ProfileContestsContest />
-            <ProfileContestsContest />
-            <ProfileContestsContest />
-            <ProfileContestsContest />
+        {contestsLoaded && contests.content.map((data, index) => (
+                <ProfileContestsContest key={index} data={data}/>
+            ))}    
         </div>
 
         </div>

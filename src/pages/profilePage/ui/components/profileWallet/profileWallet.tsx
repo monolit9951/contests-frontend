@@ -10,7 +10,7 @@ const ProfileWallet: FC = () =>{
 
     // транзакции пустые, СДЕЛАТЬ РЕФАКТОРИНГ, СДЕЛАТЬ ОТДЕЛЬНЫЕ КОМПОНЕНТЫ ДЛЯ ДЕПОЗИТА И МИНУСА
     const userId = '68654665f54a1510133b30ce'
-    const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
+    // const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
 
     return(
         <div className="profileWallet">
@@ -26,8 +26,8 @@ const ProfileWallet: FC = () =>{
             </div>
 
             <div className="profileWallet_balance_manipulation">
-                <button>Deposit</button>
-                <button>Withdraw</button>
+                <button type="button">Deposit</button>
+                <button type="button">Withdraw</button>
             </div>
 
             <div className="profileWallet_balance_history">
