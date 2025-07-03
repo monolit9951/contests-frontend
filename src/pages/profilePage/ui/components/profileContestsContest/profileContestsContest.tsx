@@ -10,11 +10,18 @@ const ProfileContestsContest: FC <ProfileContestsContestInterface>= ({data}) => 
     return(
         <div className="profileContest">
             <div className="profileContest_leftGroup">
-                <div className="profileContest_leftGroup_heading">{data.name}</div>
+                <div className="profileContest_leftGroup_header">
+                    <div className="profileContest_leftGroup_heading">{data.name}</div>
+
+                    {data.prizes && data.prizes.length > 0 && <div className="profileContest_rightGroup">
+                        <div className="profileContest_rightGroup_desc">Prize</div>
+                        <div className="profileContest_rightGroup_value">{data.prizes[0].prizeType === 'MONEY'? `${data.prizes[0].prizeAmount}$` : data.prizes[0].prizeText}</div>
+                    </div>}
+                </div>
 
                 <ul className="profileContest_leftGroup_tagList">
-                    {data.status && <li>{data.status}</li>}
-                    {data.subcategory && <li>{data.subcategory}</li>}
+                    {data.status && <li><span>{data.status}</span></li>}
+                    {data.subcategory && <li><span>{data.subcategory}</span></li>}
                 </ul>
 
                 <div className="profileContest_leftGroup_date">

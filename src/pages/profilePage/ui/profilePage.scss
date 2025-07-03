@@ -47,6 +47,19 @@
 // поменять педдинги
 @media (max-width: 1500px) {
     .profilePage{
+
+        > .profilePage_heading{
+            > h2{
+                text-align: center;
+                font-size: 36px;
+            }
+
+            > .profilePage_heading_addiional{
+                text-align: center;
+                font-size: 18px;
+            }
+        }
+
         > .profilePage_Container{
             display: flex;
             flex-direction: column;
