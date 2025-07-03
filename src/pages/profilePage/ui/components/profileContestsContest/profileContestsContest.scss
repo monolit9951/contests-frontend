@@ -100,7 +100,7 @@
         > .profileContest_leftGroup{
             flex: 1;
             > .profileContest_leftGroup_header{
-
+                gap: 44px;
                 > .profileContest_leftGroup_heading{
                     font-size: 16px;
                     line-height: 27px;
@@ -116,7 +116,8 @@
 
             > .profileContest_leftGroup_tagList{
                 width: 100%;
-
+                gap: 44px;
+                
                 > li{
                     max-width: 200px;
                     display: flex;

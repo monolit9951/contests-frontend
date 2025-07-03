@@ -5,6 +5,8 @@ import RegistrationInput from "./components/registrationInput/registrationInput"
 import CustomCheckbox from "widgets/customCheckbox";
 import googleSVG from 'shared/assets/icons/google.svg'
 
+
+
 const RegistrationModal: FC = () => {
     return(
         <div className="registrationModal">

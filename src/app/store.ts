@@ -3,6 +3,8 @@ import { filterReducer } from 'features/filterContests'
 import { contestWorksReducer } from 'pages/contestPage'
 import { contestsPageReducer } from 'pages/contestsPage'
 import { worksReducer } from 'pages/feedPage'
+import {userReducer} from 'widgets/registrationModal'
+
 import {
     FLUSH,
     PAUSE,
@@ -20,6 +22,7 @@ const rootReducer = combineReducers({
     filter: filterReducer,
     works: worksReducer,
     contestWorks: contestWorksReducer,
+    user: userReducer
 })
 
 const persistConfig = {
