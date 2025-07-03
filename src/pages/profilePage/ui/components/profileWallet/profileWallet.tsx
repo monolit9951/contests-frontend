@@ -2,6 +2,8 @@ import { FC } from "react";
 import './profileWallet.scss'
 import profileWallet from 'shared/assets/icons/profileWallet.svg'
 import useAxios from "shared/lib/hooks/useAxios";
+import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices/walletServices";
 
 interface ProfileWalletInterface {
     userId: string
@@ -13,6 +15,12 @@ const ProfileWallet: FC <ProfileWalletInterface>= ({userId}) =>{
 
     // const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
 
+    // запрос на получение данных кошелька
+    const {data: wallet, isLoaded: walletLoaded} = useGetRequest({fetchFunc: () => fetchWalletBalance(userId), enabled: true, key: []})
+
+    // запрос на получение транзакций кошелька
+    const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest({fetchFunc: () => fetchWalletTransactions(userId), enabled: true, key: []})
+
     return(
         <div className="profileWallet">
             <div className="profileWallet_header">
@@ -22,7 +30,7 @@ const ProfileWallet: FC <ProfileWalletInterface>= ({userId}) =>{
             </div>
 
             <div className="profileWallet_currentBalanceGroup">
-                <div className="profileWallet_currentBalanceGroup_balance">$ 12,450.75</div>
+                {walletLoaded && wallet && <div className="profileWallet_currentBalanceGroup_balance">$ {wallet.balance}</div>}
                 <div className="profileWallet_currentBalanceGroup_desc">Current Balance</div>
             </div>
 
