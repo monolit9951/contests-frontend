@@ -36,7 +36,15 @@
         display: flex;
         border-bottom: 1px #525856 solid;
         box-sizing: border-box;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
 
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        
         > li {
             > button{
                 padding: 14px 24px;

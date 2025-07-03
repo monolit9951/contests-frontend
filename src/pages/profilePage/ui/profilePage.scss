@@ -41,3 +41,22 @@
     }
 
 }
+
+
+
+// поменять педдинги
+@media (max-width: 1500px) {
+    .profilePage{
+        > .profilePage_Container{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
+// поменять педдинги
+@media (max-width: 1060px) {
+    .profilePage{
+        padding: 24px 20px;
+    }
+}

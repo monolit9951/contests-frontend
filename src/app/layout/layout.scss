@@ -290,3 +290,10 @@
     grid-column: 2/2;
     background-color: var(--dark);
 }
+
+@media (max-width: 1000px) {
+    .main_layout{
+        display: block;
+        
+    }
+}

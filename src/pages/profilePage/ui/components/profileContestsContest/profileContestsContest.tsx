@@ -15,12 +15,11 @@ const ProfileContestsContest: FC <ProfileContestsContestInterface>= ({data}) => 
                 <ul className="profileContest_leftGroup_tagList">
                     {data.status && <li>{data.status}</li>}
                     {data.subcategory && <li>{data.subcategory}</li>}
-                    {data.participantAmount && <li>{data.participantAmount} participants</li>}
                 </ul>
 
                 <div className="profileContest_leftGroup_date">
                     <img src={calendar} alt="calendar" />
-                    <span>{data.dateStart}</span>
+                    <span>{data.dateStart.split("T")[0]}</span>
                 </div>
             </div>
 
