@@ -5,9 +5,11 @@ import ProfileContestsContest from "../profileContestsContest/profileContestsCon
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 import { fetchAllContests, fetchProfileContests } from "../../model/sevices/contestServices";
 
-const ProfileContests: FC = () => {
+interface ProfileContestsInterface {
+    userId: string
+}
 
-    const userId = '68665fe42ee7c1049206afb4'
+const ProfileContests: FC <ProfileContestsInterface> = ({userId}) => {
 
     const [contestsEnabled, setContestsEnabled] = useState<boolean>(true)
     const [contestsKey, setContestsKey] = useState<number>(1)

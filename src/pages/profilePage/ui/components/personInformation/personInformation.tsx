@@ -15,9 +15,12 @@ import useAxios from 'shared/lib/hooks/useAxios'
 
 // ТЕСТОВЫЙ ЮЗЕР АЙДИ ДО АВТОРИЗАЦИИ, ВСЕ ПРОПСЫ ПОЧИСТИТ
 
-const PersonInformation: FC = () =>{
+interface PersonInformationInterface {
+    userId: string
+}
 
-    const userId = '68665fe42ee7c1049206afb4'
+const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
+
     const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
 
     return(
@@ -31,7 +34,7 @@ const PersonInformation: FC = () =>{
 
             <div className="personInformation_logoGroup">
                 <div className="personInformation_logoGroup">
-                    <img src={userImg} alt="userImg" />
+                    {!isLoading && !error && <img src={data.profileImage} alt="userImg" />}
                 </div>
             </div>
 

@@ -6,7 +6,7 @@ import './profilePage.scss'
 const ProfilePage = () => {
 
     // ТЕСТОВЫЙ ЮЗЕР АЙДИ ДО АВТОРИЗАЦИИ, ВСЕ ПРОПСЫ ПОЧИСТИТЬ
-    const userId = '68665fe42ee7c1049206afb4'
+    const userId = '68665fe42ee7c1049206af72'
 
     return (
         <div className="profilePage">
@@ -18,12 +18,12 @@ const ProfilePage = () => {
             <div className="profilePage_Container">
 
                 <div className="profilePage_leftContainer">
-                    <PersonInformation />
-                    <ProfileWallet />
+                    <PersonInformation userId = {userId}/>
+                    <ProfileWallet userId = {userId}/>
                 </div>
 
                 <div className="profilePage_rightContainer">
-                    <ProfileContests />
+                    <ProfileContests userId = {userId}/>
                 </div>
                 
             </div>
