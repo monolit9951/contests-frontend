@@ -56,7 +56,8 @@
 
             > .uploadWorkModal_media_mediaList{
                 margin-top: 16px;
-                display: grid;
+                // display: grid;
+                display: flex;
                 grid-template-columns: 1fr 1fr 1fr;
                 gap: 16px;
                 padding-bottom: 24px;
