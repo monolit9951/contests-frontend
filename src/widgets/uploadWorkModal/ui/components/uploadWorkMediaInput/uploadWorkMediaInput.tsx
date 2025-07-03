@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { ChangeEvent, FC, useRef, useState } from "react"
 import './uploadWorkMediaInput.scss'
 import { Button } from "shared/ui/button"
 import upload from 'shared/assets/icons/upload.svg'
@@ -8,6 +8,17 @@ interface UploadWorkMediaInputInterface {
 }
 
 const UploadWorkMediaInput: FC <UploadWorkMediaInputInterface>= ({handleMediaInputCallback}) => {
+
+    const inputRef = useRef<HTMLInputElement | null>(null);
+
+    // если будет дублированное видео
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) =>{
+        handleMediaInputCallback(event)
+
+        if (inputRef.current){
+            inputRef.current.value = ''
+        }
+    }
 
     return(
         <div className="uploadWorkMediaInput">
@@ -22,7 +33,7 @@ const UploadWorkMediaInput: FC <UploadWorkMediaInputInterface>= ({handleMediaInp
                 </div>
             </div>
 
-            <input type="file" onChange={handleMediaInputCallback}/>
+            <input type="file" ref={inputRef} onChange={handleChange}/>
         </div>
     )
 }
