@@ -1,9 +1,11 @@
 import { FC } from "react";
-import './profileWallet.scss'
 import profileWallet from 'shared/assets/icons/profileWallet.svg'
 import useAxios from "shared/lib/hooks/useAxios";
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+
 import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices/walletServices";
+
+import './profileWallet.scss'
 
 interface ProfileWalletInterface {
     userId: string

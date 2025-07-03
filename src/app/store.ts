@@ -3,8 +3,6 @@ import { filterReducer } from 'features/filterContests'
 import { contestWorksReducer } from 'pages/contestPage'
 import { contestsPageReducer } from 'pages/contestsPage'
 import { worksReducer } from 'pages/feedPage'
-import {userReducer} from 'widgets/registrationModal'
-
 import {
     FLUSH,
     PAUSE,
@@ -16,6 +14,7 @@ import {
     REHYDRATE,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import userReducer from "widgets/registrationModal/model/slice/userSlice"
 
 const rootReducer = combineReducers({
     contestsPage: contestsPageReducer,
@@ -28,7 +27,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['cart'],
+    whitelist: ['user'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

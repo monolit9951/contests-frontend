@@ -1,6 +1,7 @@
 import { FC } from "react";
-import './profileContestsContest.scss'
 import calendar from 'shared/assets/icons/calendar.svg'
+
+import './profileContestsContest.scss'
 
 interface ProfileContestsContestInterface {
     data: any

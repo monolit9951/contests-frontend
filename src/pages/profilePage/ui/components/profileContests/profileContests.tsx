@@ -1,9 +1,11 @@
 import { FC, useEffect, useState } from "react";
-import './profileContests.scss'
 import win from 'shared/assets/icons/win.svg'
-import ProfileContestsContest from "../profileContestsContest/profileContestsContest";
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+
 import { fetchAllContests, fetchProfileContests } from "../../model/sevices/contestServices";
+import ProfileContestsContest from "../profileContestsContest/profileContestsContest";
+
+import './profileContests.scss'
 
 interface ProfileContestsInterface {
     userId: string

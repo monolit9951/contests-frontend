@@ -1,6 +1,7 @@
 import { FC, useState } from "react"
-import './customSelector.scss'
 import tick from 'shared/assets/icons/fullTick.svg'
+
+import './customSelector.scss'
 
 interface optionsType {
     text: string,
@@ -34,7 +35,7 @@ const CustomSelector: FC <CustomSelectorInterface>= ({name, options, maxWidth, c
     }
 
     return(
-        <div className="customSelector" style={{maxWidth: maxWidth}}>
+        <div className="customSelector" style={{maxWidth}}>
             <button className="customSelector_header" type="button" onClick={handleSelectorToggle} >
                 <span className={selectorOpen? "open" : ""}>{currentOption}</span>
                 <img className={selectorOpen? "open" : ""} src={tick} alt="tick" />

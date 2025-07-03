@@ -1,9 +1,10 @@
 import { FC } from "react";
-import './userProfileData.scss'
-import avatar from 'shared/assets/img/userIMG.jpg'
-import verified from 'shared/assets/icons/SealCheck.svg'
 import crown from 'shared/assets/icons/crownSimple.svg'
+import verified from 'shared/assets/icons/SealCheck.svg'
 import star from 'shared/assets/icons/Star.svg'
+import avatar from 'shared/assets/img/userIMG.jpg'
+
+import './userProfileData.scss'
 
 const UserProfileData: FC = () => {
     return(

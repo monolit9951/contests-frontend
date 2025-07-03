@@ -5,16 +5,16 @@ import { filterActions } from 'features/filterContests'
 import { contestsPageActions } from 'pages/contestsPage'
 import burger from 'shared/assets/icons/burger.svg?react'
 import { useAppDispatch } from 'shared/lib/store'
+import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { Logo } from 'shared/ui/logo'
+import { ModalWindow } from 'shared/ui/modalWindow'
 import { NavElement } from 'shared/ui/navElement'
 import { Searchbar } from 'shared/ui/searchbar'
+import {RegistrationModal} from 'widgets/registrationModal'
 import { UserPanel } from 'widgets/userPanel'
 
 import './header.scss'
-import { ModalWindow } from 'shared/ui/modalWindow'
-import RegistrationModal from 'widgets/registrationModal'
-import { Button } from 'shared/ui/button'
 
 export const Header = () => {
     const [inputData, setInputData] = useState('')

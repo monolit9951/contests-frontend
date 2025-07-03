@@ -4,6 +4,7 @@ import instance from 'shared/api/api'
 import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
+import { Input } from 'shared/ui/input'
 import { RateButtons } from 'shared/ui/rateButtons'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
@@ -15,7 +16,6 @@ import CommentController from './commentController'
 import CommentInput from './commentInput'
 
 import './commentEl.scss'
-import { Input } from 'shared/ui/input'
 
 interface Props {
     data: Comment
@@ -80,7 +80,7 @@ const CommentEl: FC<Props> = (props) => {
 
 
             const response = await instance.post('comment', {
-                parentId: parentId,
+                parentId,
                 commentText: inputData.trim(),
                 commentType: "COMMENT"
             })

@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
-import './uploadWorkMediaItem.scss';
 import X from 'shared/assets/icons/X.svg';
+
+import './uploadWorkMediaItem.scss';
 
 export interface MediaItem {
   id: string;

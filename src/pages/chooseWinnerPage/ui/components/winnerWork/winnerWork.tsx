@@ -1,10 +1,11 @@
 import { FC } from "react";
-import './winnerWork.scss'
 import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
-import UserProfileData from "widgets/userProfileData/userProfileData";
 import { Button } from "shared/ui/button";
 import CustomCheckbox from "widgets/customCheckbox";
 import CustomSelector from "widgets/customSelector";
+import UserProfileData from "widgets/userProfileData/userProfileData";
+
+import './winnerWork.scss'
 
 
 interface WinnerWorkInterface {

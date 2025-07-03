@@ -10,16 +10,16 @@ import { Layout } from 'app/layout'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import { BattlesPage } from 'pages/battlesPage'
+import ChooseWinnerPage from 'pages/chooseWinnerPage/ui/choosewinnerPage'
 import { ContestPage } from 'pages/contestPage'
 import { ContestsCreationPage } from 'pages/contestsCreationPage'
 import { ContestsPage } from 'pages/contestsPage'
 import { FeedPage } from 'pages/feedPage'
 import { HomePage } from 'pages/homePage'
+import ProfilePage from 'pages/profilePage'
 import { TopUsersPage } from 'pages/topUsersPage'
 
 import '../styles/index.scss'
-import ProfilePage from 'pages/profilePage'
-import ChooseWinnerPage from 'pages/chooseWinnerPage/ui/choosewinnerPage'
 
 export const AppRouter = () => {
     const { theme, categoryTheme } = useTheme()

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import burger from 'shared/assets/icons/burger.svg?react'
 import { ChatButton } from 'shared/ui/chatButton'
 import { CreateButton } from 'shared/ui/createButton/ui/createButton'
@@ -6,7 +7,6 @@ import { NotificationsButton } from 'shared/ui/notificationsButton/ui/notificati
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './userPanel.scss'
-import { Link } from 'react-router-dom'
 
 export const UserPanel = () => {
     return (

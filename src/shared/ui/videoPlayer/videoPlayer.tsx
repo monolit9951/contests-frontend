@@ -2,13 +2,14 @@ import { FC, useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player/lazy'
 import clsx from 'clsx'
 import Plyr from 'plyr-react'
+
 // import sampleVideo from "../../assets/testVideos/testVideo.mp4"
 import sampleVideo from "../../assets/testVideos/wideVideo.mp4"
 import { HStack } from '../stack';
 
 import "plyr-react/plyr.css";
 import './videoPlayer.scss'
-import "plyr-react/plyr.css";
+
 
 interface Props {
     url: string

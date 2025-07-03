@@ -1,5 +1,6 @@
 import { FC } from "react";
 import CustomSelector from "widgets/customSelector";
+
 import './winnerSelectors.scss'
 
 interface optionsType {

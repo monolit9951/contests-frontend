@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
-import './customCheckbox.scss'
 import tick from 'shared/assets/icons/tick.svg'
+
+import './customCheckbox.scss'
 
 // типизация для ивента и передача самого ивента
 interface CustomCheckboxInterface {

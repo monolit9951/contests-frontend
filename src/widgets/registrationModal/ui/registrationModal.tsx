@@ -1,13 +1,35 @@
 import { FC } from "react";
-import './registrationModal.scss'
-import Switcher from "./components/switcher/switcher";
-import RegistrationInput from "./components/registrationInput/registrationInput";
-import CustomCheckbox from "widgets/customCheckbox";
+import { useDispatch } from "react-redux";
 import googleSVG from 'shared/assets/icons/google.svg'
+import CustomCheckbox from "widgets/customCheckbox";
 
+import { setUser } from "../model/slice/userSlice";
 
+import RegistrationInput from "./components/registrationInput/registrationInput";
+import Switcher from "./components/switcher/switcher";
 
-const RegistrationModal: FC = () => {
+import './registrationModal.scss'
+
+interface RegistrationModalInterface {
+    onClose: () => void
+}
+
+const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
+
+    const dispatch = useDispatch()
+
+    const handleStandartAuth = () => {
+        dispatch(setUser({
+            userName: 'gay',
+            userLogin: 'gay',
+            userProfileImg: 'gayImg',
+            role: 'GAY'
+        }))
+
+        // закрыть модалку
+        onClose()
+    }
+
     return(
         <div className="registrationModal">
             <div className="registrationModal_header">
@@ -31,7 +53,7 @@ const RegistrationModal: FC = () => {
             </div>
 
             <div className="registrationModal_controls">
-                <button type="button" className="registrationModal_countinue">Start Your Quest</button>
+                <button type="button" className="registrationModal_countinue" onClick={handleStandartAuth}>Start Your Quest</button>
 
                 <div className="registrationModal_controls_explain">Or continue with</div>
                 

@@ -1,7 +1,8 @@
 import { ChangeEvent, FC, useRef, useState } from "react"
-import './uploadWorkMediaInput.scss'
-import { Button } from "shared/ui/button"
 import upload from 'shared/assets/icons/upload.svg'
+import { Button } from "shared/ui/button"
+
+import './uploadWorkMediaInput.scss'
 
 interface UploadWorkMediaInputInterface {
     handleMediaInputCallback: (event: React.ChangeEvent<HTMLInputElement>) => void

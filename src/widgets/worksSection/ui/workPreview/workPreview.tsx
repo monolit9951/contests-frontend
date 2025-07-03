@@ -13,10 +13,10 @@ import { Text } from 'shared/ui/text'
 import { UserIcon } from 'shared/ui/userIcon'
 import { Video } from 'shared/ui/videoPlayer'
 import { CommentsSection } from 'widgets/commentsSection'
+import MediaGalery from 'widgets/mediaGalery'
 import { ImageSlider } from 'widgets/worksSection/ui/workPreview/imageSlider/imageSlider'
 
 import './workPreview.scss'
-import MediaGalery from 'widgets/mediaGalery'
 
 interface WorkProps {
     work: Work

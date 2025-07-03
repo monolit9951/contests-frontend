@@ -1,12 +1,13 @@
 import { ChangeEvent, FC, useState } from "react";
-import './uploadWorkModal.scss';
-import { Textarea } from "shared/ui/input";
-import { Button } from "shared/ui/button";
 import instance from "shared/api/api";
+import { Button } from "shared/ui/button";
+import { Textarea } from "shared/ui/input";
 import { v4 as uuidv4 } from 'uuid'; // Не забудь установить: npm install uuid
 
 import UploadWorkMediaInput from "./components/uploadWorkMediaInput/uploadWorkMediaInput";
 import UploadWorkMediaItem, { MediaItem } from "./components/uploadWorkMediaItem/uploadWorkMediaItem";
+
+import './uploadWorkModal.scss';
 
 interface UploadWorkModalInterface {
   contestId: string;

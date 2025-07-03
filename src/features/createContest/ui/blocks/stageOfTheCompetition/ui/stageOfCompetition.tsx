@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import { CompetitionTimeInput } from 'shared/ui/competitionTimeInput'
@@ -6,7 +7,6 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './stageOfTheCompetition.scss'
-import { useEffect, useRef } from 'react'
 
 interface Props {
     dateValidation: string

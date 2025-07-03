@@ -1,9 +1,11 @@
 import { FC } from "react";
-import './chooseWinnerPage.scss'
+import { Button } from "shared/ui/button";
+
 import CurrentWinners from "./components/currentWinners/currentWinners";
 import WinnerSelectors from "./components/winnersSelectors/winnerSelectors";
 import WinnerWork from "./components/winnerWork/winnerWork";
-import { Button } from "shared/ui/button";
+
+import './chooseWinnerPage.scss'
 
 // добавить параметр контестАйди
 const ChooseWinnerPage: FC = () => {

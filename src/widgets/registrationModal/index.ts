@@ -1,4 +1,2 @@
-import RegistrationModal from "./ui/registrationModal";
-import userReducer from './model/slice/userSlice'
-
-export default {RegistrationModal, userReducer}
+export { default as userReducer } from "./model/slice/userSlice";
+export { default as RegistrationModal } from "./ui/registrationModal";

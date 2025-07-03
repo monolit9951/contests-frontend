@@ -10,6 +10,7 @@ import Spinner from 'shared/ui/spinner'
 import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { CommentsSection } from 'widgets/commentsSection'
+import UploadWorkModal from 'widgets/uploadWorkModal'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 import { selectContestMedia, selectContestOwnerId } from '../model/selectors'
@@ -22,7 +23,6 @@ import WinnersSection from './components/winnersSection/winnersSection'
 import WorksListSection from './components/worksListSection/worksListSection'
 
 import './contestPage.scss'
-import UploadWorkModal from 'widgets/uploadWorkModal'
 
 const ContestPage = () => {
     const { id } = useParams<{ id: string }>()

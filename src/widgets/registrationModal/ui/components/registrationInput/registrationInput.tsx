@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
-import './registrationInput.scss'
 import eye from 'shared/assets/icons/eyePassword.svg'
+
+import './registrationInput.scss'
 
 interface RegistrationInputInterface {
     placeholder: string
