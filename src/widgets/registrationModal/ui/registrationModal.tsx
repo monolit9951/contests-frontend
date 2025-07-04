@@ -54,7 +54,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
         }))
         
         // СОХРАНЕНИЕ ТОКЕНА В ЛОКАЛСТОРЕДЖ
-        localStorage.setItem('userToken', 'response.data.token')
+        localStorage.setItem('userToken', response.data.token)
         setPasswordValidation(true)
         setUsernameValidation(true)
 
