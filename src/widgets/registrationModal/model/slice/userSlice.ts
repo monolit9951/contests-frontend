@@ -4,14 +4,16 @@ export interface UserState {
     userName: null | string
     userProfileImg: null | string
     userLogin: null | string
-    role: null | string
+    userRole: null | string
+    userId: null | string
 }
 
 const initialState: UserState = {
     userName: null,
     userProfileImg: null,
     userLogin: null,
-    role: null
+    userRole: null,
+    userId: null
 }
 
 const userSlice = createSlice({
@@ -22,14 +24,16 @@ const userSlice = createSlice({
             state.userName = action.payload.userName
             state.userProfileImg = action.payload.userProfileImg
             state.userLogin = action.payload.userLogin
-            state.role = action.payload.role
+            state.userRole = action.payload.userRole
+            state.userId = action.payload.userId
         },
 
         clearUser: (state)=>{
             state.userName = null
             state.userProfileImg = null
             state.userLogin = null
-            state.role = null
+            state.userRole = null
+            state.userId = null
         }
     }
 })
