@@ -9,7 +9,6 @@ import RegistrationInput from "./components/registrationInput/registrationInput"
 import Switcher from "./components/switcher/switcher";
 
 import './registrationModal.scss'
-import { useNavigate } from "react-router-dom";
 import instance from "shared/api/api";
 import { userByToken } from "../model/service/registrationModalService";
 
@@ -23,11 +22,26 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [authType, setAuthType] = useState<'LOGIN' | 'SIGNUP'>('LOGIN')
+    const [usernameValidation, setUsernameValidation] = useState<boolean>(true)
+    const [passwordValidation, setPasswordValidation] = useState<boolean>(true)
 
     // обычный LogIn
     // НЕ ОБРАБОТАНЫ ОШИБКИ ПАРОЛЯ ИЛИ ЛОГИНА
     const handleStandartAuth = async () => {
+
+        // ошибки пароля или юзернейм
+        if(username === '' || password === ''){
+            if(username === ''){setUsernameValidation(false)}
+            if(password === ''){setPasswordValidation(false)}
         
+            return
+        }
+
+        if(password === ''){
+            setPasswordValidation(false)
+            return
+        }
+
         const response = await instance.post('/auth/signin', {login: username, password: password})
         const userResponse = await userByToken(response.data.token)
 
@@ -38,13 +52,26 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
             userRole: userResponse.role,
             userId: userResponse.id
         }))
+        
+        // СОХРАНЕНИЕ ТОКЕНА В ЛОКАЛСТОРЕДЖ
+        localStorage.setItem('userToken', 'response.data.token')
+        setPasswordValidation(true)
+        setUsernameValidation(true)
 
         onClose()
     }
 
     // стандартная регистрация
+    // НЕ ОБРАБОТАНЫ ОШИБКИ ПАРОЛЯ ИЛИ ЛОГИНА, ТЕСТОВОЕ 
     const handleStandartRegistration = async () =>{
-        console.log('STANDART REGISTRATION')
+
+        // ошибки пароля или юзернейм
+        if(username === '' || password === ''){
+            if(username === ''){setUsernameValidation(false)}
+            if(password === ''){setPasswordValidation(false)}
+        
+            return
+        }
 
         // потом поменять роль юзера
         const result = await instance.post('/auth/register', {
@@ -54,15 +81,13 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
             role: 'USER'
         })
 
-        console.log(result)
         setUsername('')
         setPassword('')
         setAuthType('LOGIN')
 
-        // свич на лог ин и введение данных заново
+        setPasswordValidation(true)
+        setUsernameValidation(true)
     }
-
-    const navigate = useNavigate()
 
     // гугл регистрация или лог ин
     const handleRegistrationWithGoogle = () => {
@@ -95,8 +120,8 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
             </div>
 
             <div className="registrationModal_inputs">
-                <RegistrationInput value = {username} type="email" changeCallBack = {handleUsernameCallback} placeholder="Enter your email or username" label="Email or Username" />
-                <RegistrationInput value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
+                <RegistrationInput validation={usernameValidation} value = {username} type="email" changeCallBack = {handleUsernameCallback} placeholder="Enter your email or username" label="Email or Username" />
+                <RegistrationInput validation={passwordValidation} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
 
                 <div className="registrationModal_inputs_special">
                     <CustomCheckbox value="Remember me" checked={false}/>
