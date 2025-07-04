@@ -1,0 +1,16 @@
+.galeryNavDots{
+    display: flex;
+    gap: 10px;
+
+    > .galeryNavDots_dot{
+        width: 28px;
+        height: 28px;
+        aspect-ratio: 1/1;
+        background-color: #393B3B;
+        border-radius: 50%;
+
+        &.active{
+            background-color: #02140E;
+        }
+    }
+}

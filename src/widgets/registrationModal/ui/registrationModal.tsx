@@ -9,6 +9,7 @@ import RegistrationInput from "./components/registrationInput/registrationInput"
 import Switcher from "./components/switcher/switcher";
 
 import './registrationModal.scss'
+import { useNavigate } from "react-router-dom";
 
 interface RegistrationModalInterface {
     onClose: () => void
@@ -28,6 +29,12 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
 
         // закрыть модалку
         onClose()
+    }
+
+    const navigate = useNavigate()
+
+    const handleRegistrationWithGoogle = () => {
+        window.open('http://localhost:8080/oauth2/authorization/google', '_blank');
     }
 
     return(
@@ -57,7 +64,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
 
                 <div className="registrationModal_controls_explain">Or continue with</div>
                 
-                <button className="google_auth" type="button">
+                <button className="google_auth" type="button" onClick={handleRegistrationWithGoogle}>
                     <div className="google_auth_container">
                         <img src={googleSVG} alt="Google" />
                         <span>Sign in with google</span>

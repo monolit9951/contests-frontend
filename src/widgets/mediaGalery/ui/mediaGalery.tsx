@@ -1,8 +1,11 @@
 import { FC, useState } from "react";
 import classNames from "classnames";
 import { Video } from "shared/ui/videoPlayer";
-
+import navLeft from 'shared/assets/icons/navLeft.svg'
+import navRight from 'shared/assets/icons/navRight.svg'
 import './mediaGalery.scss';
+import GaleryNavButton from "./components/galeryNavButton/galeryNavButton";
+import GaleryNavDots from "./components/galeryNavDots/galeryNavDots";
 
 interface MediaInterface {
     id: string,
@@ -65,9 +68,9 @@ const MediaGalery: FC <MediaGaleryInterface> = ({media}) => {
                 )}
             </div>
 
-            <button type="button" className="mediaGalery_navigationButton" onClick={handlePrev}>{"<"}</button>
-            <span className="mediaGalery_navigationData">{currentIndex + 1} / {media.length}</span>
-            <button type="button" className="mediaGalery_navigationButton" onClick={handleNext}>{">"}</button>
+                <GaleryNavButton imgSrc={navLeft} handleFunc={handlePrev} classname="mediaGalery_navigationDataLeft"/>
+                <GaleryNavButton imgSrc={navRight} handleFunc={handleNext} classname="mediaGalery_navigationDataRight"/>
+                <GaleryNavDots classname="mediaGalery_navigationDataInfo" currentIndex={currentIndex} arrayLengh={media.length}/>
     </div>
     );
 };
