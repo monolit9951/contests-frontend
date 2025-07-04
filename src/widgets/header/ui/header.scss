@@ -48,6 +48,11 @@
     .header_sideNavBar.open {
         transform: translateX(0);
     }
+
+    > .header_registration{
+        justify-self: flex-end;
+        width: fit-content;
+    }
 }
 
 .dark {

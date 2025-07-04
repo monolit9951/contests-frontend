@@ -67,7 +67,7 @@ export const Header = () => {
             />
             {/* <button onClick={handleRegistration} type='button'>registration</button> */}
 
-            {user.userId? <UserPanel /> : <Button type='button' onClick={handleRegistration} variant='primary'>Log in/ Sign in</Button>}
+            {user.userId? <UserPanel /> : <Button type='button' onClick={handleRegistration} className='header_registration' variant='primary'>Log in/ Sign in</Button>}
 
             {/* <div className={clsx('header_sideNavBar', { open: sidebar })}>
                 <nav>
