@@ -7,15 +7,17 @@ const MockData = [
 
 interface GaleryNavButtonInterface {
     classname?: string
-    arrayLengh?: number
-    currentIndex?: number
+    arrayLengh: number
+    currentIndex: number
+    setMediaIndex: (index: number) => void 
 }
 
-const GaleryNavDots: FC <GaleryNavButtonInterface>= ({classname, arrayLengh = 8, currentIndex = 3}) => {
+const GaleryNavDots: FC <GaleryNavButtonInterface>= ({classname, arrayLengh, currentIndex, setMediaIndex}) => {
+
     return(
         <div className={classname? `galeryNavDots ${classname}` : "galeryNavDots"}>
             {Array.from({ length: arrayLengh }).map((_, index: number) => (
-                <div className={currentIndex === index? "galeryNavDots_dot active" : "galeryNavDots_dot"} key={index} />
+                <button type="button" onClick={() => setMediaIndex(index)} className={currentIndex === index? "galeryNavDots_dot active" : "galeryNavDots_dot"} key={index} aria-label="go to item" />
             ))}
         </div>
     )

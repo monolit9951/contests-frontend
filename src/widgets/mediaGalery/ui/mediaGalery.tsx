@@ -46,6 +46,10 @@ const MediaGalery: FC <MediaGaleryInterface> = ({media}) => {
         setCurrentIndex(prev => (prev > 0 ? prev - 1 : media.length - 1));
     };
 
+    const setMediaIndex = (index: number) => {
+        setCurrentIndex(index)
+    }
+
     const currentMedia = media[currentIndex];
 
     return (
@@ -70,7 +74,7 @@ const MediaGalery: FC <MediaGaleryInterface> = ({media}) => {
 
                 <GaleryNavButton imgSrc={navLeft} handleFunc={handlePrev} classname="mediaGalery_navigationDataLeft"/>
                 <GaleryNavButton imgSrc={navRight} handleFunc={handleNext} classname="mediaGalery_navigationDataRight"/>
-                <GaleryNavDots classname="mediaGalery_navigationDataInfo" currentIndex={currentIndex} arrayLengh={media.length}/>
+                <GaleryNavDots classname="mediaGalery_navigationDataInfo" setMediaIndex={setMediaIndex} currentIndex={currentIndex} arrayLengh={media.length}/>
     </div>
     );
 };

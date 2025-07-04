@@ -3,6 +3,9 @@
     gap: 10px;
 
     > .galeryNavDots_dot{
+        border: none;
+        outline: none;
+        cursor: pointer;
         width: 28px;
         height: 28px;
         aspect-ratio: 1/1;
