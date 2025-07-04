@@ -2,11 +2,11 @@
     position: sticky;
     z-index: 50;
     top: 0;
-
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
     justify-content: space-between;
     align-items: center;
-    gap: 12px;
+    gap: 6.8%;
     height: 72px;
     padding: 12px 65px 12px 65px;
 

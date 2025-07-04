@@ -59,6 +59,7 @@ export const Header = () => {
 
                 <Logo />
             </div>
+            
             <Searchbar
                 searchData={inputData}
                 onChange={setInputData}
