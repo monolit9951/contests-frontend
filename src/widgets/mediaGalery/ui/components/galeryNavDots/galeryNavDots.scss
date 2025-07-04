@@ -8,9 +8,11 @@
         aspect-ratio: 1/1;
         background-color: #393B3B;
         border-radius: 50%;
+         transition: 0.3s background-color;
 
         &.active{
             background-color: #02140E;
+            transition: 0.3s background-color;
         }
     }
 }
