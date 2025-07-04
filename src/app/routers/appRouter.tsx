@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
     createBrowserRouter,
     createRoutesFromElements,
@@ -18,13 +20,10 @@ import { FeedPage } from 'pages/feedPage'
 import { HomePage } from 'pages/homePage'
 import ProfilePage from 'pages/profilePage'
 import { TopUsersPage } from 'pages/topUsersPage'
+import { userByToken } from 'widgets/registrationModal/model/service/registrationModalService'
+import { clearUser } from 'widgets/registrationModal/model/slice/userSlice'
 
 import '../styles/index.scss'
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import { clearUser } from 'widgets/registrationModal/model/slice/userSlice'
-import { useEffect, useState } from 'react'
-import instance from 'shared/api/api'
-import { userByToken } from 'widgets/registrationModal/model/service/registrationModalService'
 
 export const AppRouter = () => {
     const { theme, categoryTheme } = useTheme()

@@ -1,4 +1,5 @@
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
+
 import PersonInformation from './components/personInformation/personInformation'
 import ProfileContests from './components/profileContests/profileContests'
 import ProfileWallet from './components/profileWallet/profileWallet'

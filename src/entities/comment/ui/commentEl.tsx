@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 import moment from 'moment'
 import instance from 'shared/api/api'
 import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
@@ -19,11 +19,6 @@ import './commentEl.scss'
 
 interface Props {
     data: Comment
-    userId: string
-    setRepliesShown: (bool: boolean) => void
-    setRepliesNum: Dispatch<SetStateAction<number>>
-    setTotalPages: (num: number) => void
-    setSubComments: Dispatch<SetStateAction<Comment[]>>
     setNextLoading: (bool: boolean) => void
     setError: (err: Error | null) => void
     handleNewSubCommentCallback: () => void
@@ -36,12 +31,7 @@ interface Props {
 const CommentEl: FC<Props> = (props) => {
     const {
         data,
-        userId,
         handleNewSubCommentCallback,
-        seepliesShown,
-        setRepliesNum,
-        setTotalPages,
-        setSubComments,
         setNextLoading,
         setError,
         handleDeleteMainCommentCallback,

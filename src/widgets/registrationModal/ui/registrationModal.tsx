@@ -1,16 +1,16 @@
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
+import instance from "shared/api/api";
 import googleSVG from 'shared/assets/icons/google.svg'
 import CustomCheckbox from "widgets/customCheckbox";
 
+import { userByToken } from "../model/service/registrationModalService";
 import { setUser } from "../model/slice/userSlice";
 
 import RegistrationInput from "./components/registrationInput/registrationInput";
 import Switcher from "./components/switcher/switcher";
 
 import './registrationModal.scss'
-import instance from "shared/api/api";
-import { userByToken } from "../model/service/registrationModalService";
 
 interface RegistrationModalInterface {
     onClose: () => void
@@ -42,7 +42,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
             return
         }
 
-        const response = await instance.post('/auth/signin', {login: username, password: password})
+        const response = await instance.post('/auth/signin', {login: username, password})
         const userResponse = await userByToken(response.data.token)
 
         dispatch(setUser({
@@ -74,10 +74,10 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
         }
 
         // потом поменять роль юзера
-        const result = await instance.post('/auth/register', {
+        await instance.post('/auth/register', {
             name: username,
             login: username,
-            password: password,
+            password,
             role: 'USER'
         })
 

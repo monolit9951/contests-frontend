@@ -1,4 +1,4 @@
-import { useCallback,useState } from 'react'
+import { FC, useCallback,useState } from 'react'
 import Cropper from 'react-easy-crop'
 import { Button } from 'shared/ui/button'
 
@@ -6,13 +6,13 @@ import getCroppedImg from '../model/cropImage'
 
 import './imageCropper.scss'
 
-interface Props {
+interface ImageCropperInterface {
   imageSrc: String | null
-  aspect?: number // Например, 4 / 3, 1 / 1 и т.п.
+  aspect?: number // Например, 4/3, 1/1
   onCropComplete: (croppedImage: Blob) => void
 }
 
-const ImageCropper: React.FC<Props> = ({ imageSrc, onCropComplete, aspect}) => {
+const ImageCropper: FC <ImageCropperInterface> = ({ imageSrc, onCropComplete, aspect}) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)

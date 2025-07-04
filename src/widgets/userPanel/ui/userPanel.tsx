@@ -1,3 +1,4 @@
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import burger from 'shared/assets/icons/burger.svg?react'
 import { ChatButton } from 'shared/ui/chatButton'
@@ -7,7 +8,6 @@ import { NotificationsButton } from 'shared/ui/notificationsButton/ui/notificati
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './userPanel.scss'
-import { TypedUseSelectorHook, useSelector } from 'react-redux'
 
 export const UserPanel = () => {
 

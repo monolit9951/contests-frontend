@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { filterActions } from 'features/filterContests'
 import { contestsPageActions } from 'pages/contestsPage'
 import { useAppDispatch } from 'shared/lib/store'
@@ -10,8 +11,6 @@ import {RegistrationModal} from 'widgets/registrationModal'
 import { UserPanel } from 'widgets/userPanel'
 
 import './header.scss'
-import { TypedUseSelectorHook, useSelector } from 'react-redux'
-import { UserState } from 'widgets/registrationModal/model/slice/userSlice'
 
 export const Header = () => {
     const [inputData, setInputData] = useState('')

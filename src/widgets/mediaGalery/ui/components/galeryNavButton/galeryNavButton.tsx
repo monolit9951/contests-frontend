@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import './galeryNavButton.scss'
 
 interface GaleryNavButtonInterface {

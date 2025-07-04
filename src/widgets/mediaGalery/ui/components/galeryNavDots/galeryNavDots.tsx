@@ -1,9 +1,6 @@
 import { FC } from "react";
-import './galeryNavDots.scss'
 
-const MockData = [
-    {}, {}, {}
-]
+import './galeryNavDots.scss'
 
 interface GaleryNavButtonInterface {
     classname?: string

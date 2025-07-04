@@ -2,7 +2,7 @@ import { FC } from "react";
 import profileWallet from 'shared/assets/icons/profileWallet.svg'
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 
-import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices/walletServices";
+import { fetchWalletBalance } from "../../model/sevices/walletServices";
 
 import './profileWallet.scss'
 
@@ -20,7 +20,7 @@ const ProfileWallet: FC <ProfileWalletInterface>= ({userId}) =>{
     const {data: wallet, isLoaded: walletLoaded} = useGetRequest({fetchFunc: () => fetchWalletBalance(userId), enabled: true, key: []})
 
     // запрос на получение транзакций кошелька
-    const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest({fetchFunc: () => fetchWalletTransactions(userId), enabled: true, key: []})
+    // const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest({fetchFunc: () => fetchWalletTransactions(userId), enabled: true, key: []})
 
     return(
         <div className="profileWallet">
