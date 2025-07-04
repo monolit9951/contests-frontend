@@ -1,3 +1,4 @@
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import PersonInformation from './components/personInformation/personInformation'
 import ProfileContests from './components/profileContests/profileContests'
 import ProfileWallet from './components/profileWallet/profileWallet'
@@ -6,8 +7,12 @@ import './profilePage.scss'
 
 const ProfilePage = () => {
 
+
+
+    const useTypeSelector: TypedUseSelectorHook <RootState> = useSelector
+    const user = useTypeSelector((state) => state.user)
+
     // ТЕСТОВЫЙ ЮЗЕР АЙДИ ДО АВТОРИЗАЦИИ, ВСЕ ПРОПСЫ ПОЧИСТИТЬ
-    const userId = '6867b5401252f269f055e37e'
 
     return (
         <div className="profilePage">
@@ -19,12 +24,12 @@ const ProfilePage = () => {
             <div className="profilePage_Container">
 
                 <div className="profilePage_leftContainer">
-                    <PersonInformation userId = {userId}/>
-                    <ProfileWallet userId = {userId}/>
+                    <PersonInformation userId = {user.userId}/>
+                    <ProfileWallet userId = {user.userId}/>
                 </div>
 
                 <div className="profilePage_rightContainer">
-                    <ProfileContests userId = {userId}/>
+                    <ProfileContests userId = {user.userId}/>
                 </div>
                 
             </div>

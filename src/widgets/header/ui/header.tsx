@@ -10,6 +10,8 @@ import {RegistrationModal} from 'widgets/registrationModal'
 import { UserPanel } from 'widgets/userPanel'
 
 import './header.scss'
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
+import { UserState } from 'widgets/registrationModal/model/slice/userSlice'
 
 export const Header = () => {
     const [inputData, setInputData] = useState('')
@@ -39,8 +41,9 @@ export const Header = () => {
         setRegistrationModal(true)
     }
 
-    const auth = false
-
+    const useTypeSelector: TypedUseSelectorHook <RootState> = useSelector
+    const user = useTypeSelector((state) => state.user)
+    
     return (
         <header className='header'>
             <div className="header_logoGroup">
@@ -64,7 +67,7 @@ export const Header = () => {
             />
             {/* <button onClick={handleRegistration} type='button'>registration</button> */}
 
-            {auth? <UserPanel /> : <Button type='button' onClick={handleRegistration} variant='primary'>Log in/ Sign in</Button>}
+            {user.userId? <UserPanel /> : <Button type='button' onClick={handleRegistration} variant='primary'>Log in/ Sign in</Button>}
 
             {/* <div className={clsx('header_sideNavBar', { open: sidebar })}>
                 <nav>

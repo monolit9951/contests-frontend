@@ -7,15 +7,20 @@ import { NotificationsButton } from 'shared/ui/notificationsButton/ui/notificati
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './userPanel.scss'
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
 
 export const UserPanel = () => {
+
+    const useTypeSelector: TypedUseSelectorHook <RootState> = useSelector
+    const user = useTypeSelector((state) => state.user)
+
     return (
         <div className='userPanel_container'>
             <CreateButton />
             <NotificationsButton/>
             <ChatButton/>
             <Link to='/profile'>
-                <UserIcon/>
+                <UserIcon src={user.userProfileImg}/>
             </Link>
             
             <div className="userPanel_burger">
