@@ -25,6 +25,10 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
     const [authType, setAuthType] = useState<'LOGIN' | 'SIGNUP'>('LOGIN')
     const [usernameValidation, setUsernameValidation] = useState<boolean>(true)
     const [passwordValidation, setPasswordValidation] = useState<boolean>(true)
+    const [nickname, setNickname] = useState<string>('')
+    const [chechPassword, setCheckPassword] = useState<string>('')
+    const [nicknameValidation, setNicknameValidation] = useState<boolean>(true)
+    const [checkPasswordValidation, setCheckPasswordValidation] = useState<boolean>(true) 
 
     // обычный LogIn
     // НЕ ОБРАБОТАНЫ ОШИБКИ ПАРОЛЯ ИЛИ ЛОГИНА
@@ -66,17 +70,31 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
     // НЕ ОБРАБОТАНЫ ОШИБКИ ПАРОЛЯ ИЛИ ЛОГИНА, ТЕСТОВОЕ 
     const handleStandartRegistration = async () =>{
 
-        // ошибки пароля или юзернейм
-        if(username === '' || password === ''){
+        setUsernameValidation(true)
+        setPasswordValidation(true)    
+        setCheckPasswordValidation(true)
+        setNicknameValidation(true)
+
+        // ошибки полей
+        if(username === '' || password === '' || nickname === '' || chechPassword === ''){
             if(username === ''){setUsernameValidation(false)}
             if(password === ''){setPasswordValidation(false)}
+            if(nickname === ''){setNicknameValidation(false)}
+            if(chechPassword === ''){setCheckPasswordValidation(false)}
         
+            return
+        }
+
+        // валидация пароля
+        if (password !== chechPassword){
+            setPasswordValidation(false)
+            setCheckPasswordValidation(false)
             return
         }
 
         // потом поменять роль юзера
         await instance.post('/auth/register', {
-            name: username,
+            name: nickname,
             login: username,
             password,
             role: 'USER'
@@ -105,8 +123,28 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         setPassword(pass)
     }
 
+    // свитчер режима входи и регистрации
     const handleSwitcherCallBack = (mode: 'LOGIN' | 'SIGNUP') => {
-        setAuthType(mode)
+        if(mode !== authType){
+            setAuthType(mode)
+
+            setNicknameValidation(true)
+            setCheckPasswordValidation(true)
+            setUsernameValidation(true)
+            setPasswordValidation(true)
+            setPassword('')
+            setNickname('')
+            setCheckPassword('')
+            setUsername('')
+        }
+    }
+
+    const handleCheckPasswordCallback = (checkPass: string) => {
+        setCheckPassword(checkPass)
+    }
+
+    const handleNicknameCallback = (nick: string) => {
+        setNickname(nick)
     }
 
     return(
@@ -122,7 +160,9 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
 
             <div className="registrationModal_inputs">
                 <RegistrationInput validation={usernameValidation} value = {username} type="email" changeCallBack = {handleUsernameCallback} placeholder="Enter your email or username" label="Email or Username" />
+                {authType === 'SIGNUP' && <RegistrationInput validation={nicknameValidation} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Nickname" label="Nickname" />}
                 <RegistrationInput validation={passwordValidation} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
+                {authType === 'SIGNUP' && <RegistrationInput validation={checkPasswordValidation} value={chechPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
 
                 <div className="registrationModal_inputs_special">
                     <CustomCheckbox value="Remember me" checked={false}/>
