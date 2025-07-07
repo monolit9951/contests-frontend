@@ -16,6 +16,7 @@ import CommentController from './commentController'
 import CommentInput from './commentInput'
 
 import './commentEl.scss'
+import { useSelector } from 'react-redux'
 
 interface Props {
     data: Comment
@@ -58,9 +59,18 @@ const CommentEl: FC<Props> = (props) => {
         setInputData('')
     }
 
+  const userAuth = useSelector((state: RootState) => state.user)
+
     const onSubmit = async () => {
         if (!inputData.trim()) {
             setInputData('')
+            return
+        }
+
+        if(userAuth.userId === null){
+            alert("You not authorized")
+            setInputData('')
+            toggleReplyInput()
             return
         }
 
@@ -99,7 +109,6 @@ const CommentEl: FC<Props> = (props) => {
     const handleDeleteCommentCallback = async () => {
         await instance.delete(`comment/${data.id}`)
         // handleNewSubCommentCallback()
-        console.log(data)
 
         // если у коммента есть воркайди, то он первого уровня, потому удаление другое
         if (isMain){
@@ -125,11 +134,11 @@ const CommentEl: FC<Props> = (props) => {
 
     // редактирование коммента
     const handleEditSubmit = async () => {
+        
         await instance.put(`comment/${data.id}`, {commentText: newCommentText})
         setEdit(false)
     }
 
-    // console.log(data)
 
     return (
         <HStack className='comment__wrapper'>

@@ -10,6 +10,7 @@ import { UserIcon } from 'shared/ui/userIcon'
 import { CommentsList } from './commentsList'
 
 import './commentsSection.scss'
+import { useSelector } from 'react-redux'
 
 interface Props {
     workId: string
@@ -52,9 +53,18 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
         setInputData('')
     }
 
+  const user = useSelector((state: RootState) => state.user)
 
     const onSubmit = async () => {
         if (!inputData.trim()) {
+            return
+        }
+
+        // авторизация?
+        if(user.userId === null){
+            alert('You not authorized')
+            setInputData('')
+            toggleCommentInput()
             return
         }
 

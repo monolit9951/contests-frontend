@@ -23,6 +23,7 @@ import WinnersSection from './components/winnersSection/winnersSection'
 import WorksListSection from './components/worksListSection/worksListSection'
 
 import './contestPage.scss'
+import { RegistrationModal } from 'widgets/registrationModal'
 
 const ContestPage = () => {
     const { id } = useParams<{ id: string }>()
@@ -147,14 +148,13 @@ const ContestPage = () => {
             )}
 
             {isUploadWorkModalOpen && (
-                    <ModalWindow
-                        isOpen={isUploadWorkModalOpen}
-                        isOuterClose
-                        onClose={() => setIsUploadWorkModalOpen(false)}>
-                        <UploadWorkModal contestId = {data.id}/>
-                    </ModalWindow>
-                )
-            }
+                <ModalWindow
+                    isOpen={isUploadWorkModalOpen}
+                    isOuterClose
+                    onClose={() => setIsUploadWorkModalOpen(false)}>
+                    <UploadWorkModal contestId = {data.id}/>
+                </ModalWindow>
+            )}
         </VStack>
     )
 }

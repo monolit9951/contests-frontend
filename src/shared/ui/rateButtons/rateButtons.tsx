@@ -12,6 +12,7 @@ import { HStack } from '../stack'
 import { Text } from '../text'
 
 import './rateButtons.scss'
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
 
 interface Props {
     id?: string
@@ -38,47 +39,58 @@ const RateButtons = (props: Props) => {
         }
     }
 
+    const useTypeSelector: TypedUseSelectorHook <RootState> = useSelector
+    const user = useTypeSelector((state) => state.user)
+
     const onLikeClick = async () => {
-        if (disliked) {
-            setDisliked(!disliked)
-            setLiked(true)
-            setLikesNum((_prev) => (_prev += 2))
+        if(user.userId === null){
+            alert("You not authorized")
+        } else{
+            if (disliked) {
+                setDisliked(!disliked)
+                setLiked(true)
+                setLikesNum((_prev) => (_prev += 2))
 
-            await onRate('DISLIKE')
-            onRate('LIKE')
-        }
-        if (liked) {
-            setLiked(!liked)
-            setLikesNum((_prev) => (_prev -= 1))
+                await onRate('DISLIKE')
+                onRate('LIKE')
+            }
+            if (liked) {
+                setLiked(!liked)
+                setLikesNum((_prev) => (_prev -= 1))
 
-            onRate('LIKE')
-        } else if (!disliked && !liked) {
-            setLiked(!liked)
-            setLikesNum((_prev) => (_prev += 1))
+                onRate('LIKE')
+            } else if (!disliked && !liked) {
+                setLiked(!liked)
+                setLikesNum((_prev) => (_prev += 1))
 
-            onRate('LIKE')
+                onRate('LIKE')
+            }
         }
     }
 
     const onDislikeClick = async () => {
-        if (liked) {
-            setLiked(!liked)
-            setDisliked(true)
-            setLikesNum((_prev) => (_prev -= 2))
+        if(user.userId === null){
+            alert("You not authorized")
+        } else{
+            if (liked) {
+                setLiked(!liked)
+                setDisliked(true)
+                setLikesNum((_prev) => (_prev -= 2))
 
-            await onRate('LIKE')
-            onRate('DISLIKE')
-        }
-        if (disliked) {
-            setDisliked(!disliked)
-            setLikesNum((_prev) => (_prev += 1))
+                await onRate('LIKE')
+                onRate('DISLIKE')
+            }
+            if (disliked) {
+                setDisliked(!disliked)
+                setLikesNum((_prev) => (_prev += 1))
 
-            onRate('DISLIKE')
-        } else if (!disliked && !liked) {
-            setDisliked(!disliked)
-            setLikesNum((_prev) => (_prev -= 1))
+                onRate('DISLIKE')
+            } else if (!disliked && !liked) {
+                setDisliked(!disliked)
+                setLikesNum((_prev) => (_prev -= 1))
 
-            onRate('DISLIKE')
+                onRate('DISLIKE')
+            }
         }
     }
 

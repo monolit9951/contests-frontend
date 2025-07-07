@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react'
+import { FC, Fragment, useState } from 'react'
 import { Contest } from 'entities/contest'
 import { PrizeIcon } from 'entities/prize'
 import moment from 'moment'
@@ -13,6 +13,9 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './descriptionSection.scss'
+import { ModalWindow } from 'shared/ui/modalWindow'
+import { RegistrationModal } from 'widgets/registrationModal'
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
 
 interface Props {
     data: Contest
@@ -41,14 +44,24 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
         }
     }
 
+    const [regModal, setRegModal] = useState(false)
+
+    const useTypeSelector: TypedUseSelectorHook<RootState> = useSelector
+    const user = useTypeSelector((state) => state.user)
+
     const onParticipateClick = () => {
         // проверка на всякий случай
         if(data.status === 'FINISHED'){
             return
         }
 
-        handleOpenWorkUploadModal()
+        if(user.userId === null){
+            setRegModal(true)
+        } else {
+            handleOpenWorkUploadModal()
+        }
     }
+
 
     return (
         <section className='contest-description'>
@@ -201,6 +214,8 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                     </VStack>
                 </VStack>
             </HStack>
+
+            {regModal && <ModalWindow isOpen onClose={() => (setRegModal(false))}><RegistrationModal auth/></ModalWindow>}
         </section>
     )
 }

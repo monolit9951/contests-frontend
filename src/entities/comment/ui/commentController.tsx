@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import { VStack } from 'shared/ui/stack'
 
 interface Props {
@@ -7,17 +8,35 @@ interface Props {
 }
 
 const CommentController = ({ onClose, handleDeleteCommentCallback, handleSetEditCallback}: Props) => {
+
+    const user = useSelector((state: RootState) => state.user)
+
     const onReportAction = () => {
+        if(user.userId === null){
+            alert("You not authorized")
+            return
+        }
+
         console.log('comment reported')
         onClose()
     }
 
     const onEditAction = () => {
+        if(user.userId === null){
+            alert("You not authorized")
+            return
+        }
+
         handleSetEditCallback()
         onClose()
     }
 
     const onDeleteAction = () => {
+        if(user.userId === null){
+            alert("You not authorized")
+            return
+        }
+        
         handleDeleteCommentCallback()
         onClose()
     }
