@@ -22,8 +22,9 @@ const WinnersSection: FC<Props> = (props) => {
 
     const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
-    const otherPrizes =
-        data.length < prizes.reduce((acc, item) => acc + item.winnersAmount, 0)
+    const otherPrizes = data.length < prizes.reduce((acc, item) => acc + item.winnersAmount, 0)
+
+    console.log(data)
 
     return (
         <section className={clsx('winners', className)}>
@@ -32,16 +33,20 @@ const WinnersSection: FC<Props> = (props) => {
             </Text>
 
             <ul className='winners__list'>
-                {data.map(({ work, prizeId }, idx) => (
+                {data.map((work, idx) => (
                     <WorkCard
-                        key={work.id}
+                        key={work.workId}
                         data={work}
-                        prizeId={prizeId}
+                        prizeId={work.prizeId}
                         openModal={openModal}
                         className={clsx(idx === 0 && 'first-place')}
                     />
                 ))}
             </ul>
+
+            {data.map((item, index) => (
+                <div key={index}>{item.workId}</div>
+            ))}
 
             {otherPrizes && (
                 <VStack className='winners__other'>
