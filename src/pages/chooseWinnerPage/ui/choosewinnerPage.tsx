@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Button } from "shared/ui/button";
 
 import CurrentWinners from "./components/currentWinners/currentWinners";
@@ -6,8 +6,6 @@ import WinnerSelectors from "./components/winnersSelectors/winnerSelectors";
 import WinnerWork from "./components/winnerWork/winnerWork";
 
 import './chooseWinnerPage.scss'
-import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 // добавить параметр контестАйди
 const ChooseWinnerPage: FC = () => {
@@ -30,6 +28,7 @@ const ChooseWinnerPage: FC = () => {
             </div>
 
             <CurrentWinners />
+            
             <div className="chooseWinnerPage_selectors">
                 <WinnerSelectors />
             </div>
