@@ -37,6 +37,12 @@ export const AppRouter = () => {
     const [checkUser, setCheckUser] = useState<boolean>(false)
 
     useEffect(() => {
+        // получение токена при гугл регистрации
+        const searchParams = new URLSearchParams(window.location.search);
+        const googleToken = searchParams.get('token')
+
+        // если авторизация от гугл, но у нас всё ещё есть прошлый токен, то замещаем его и получаем по нему данные
+        localStorage.setItem('userTocken', String(googleToken))
         const token = localStorage.getItem('userToken')
 
         const checkUserAsync = async () => {
@@ -45,12 +51,15 @@ export const AppRouter = () => {
                     const userResponse = await userByToken(token)
                     if (user.userId !== userResponse.id) {
                         dispatch(clearUser())
+                        localStorage.removeItem('userTocken')
                     }
                 } catch (e) {
                     dispatch(clearUser())
+                    localStorage.removeItem('userTocken')
                 }
             } else {
                 dispatch(clearUser())
+                localStorage.removeItem('userTocken')
             }
 
             setCheckUser(true)
