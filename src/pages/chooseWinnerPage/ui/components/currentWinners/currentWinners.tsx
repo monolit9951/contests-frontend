@@ -14,7 +14,11 @@ const CurrentWinners: FC = () => {
 
             <div className="currentWinners_list">
                 <CurrentWinner />
-                <CurrentWinner />            
+                <CurrentWinner />
+                <CurrentWinner /> 
+                <CurrentWinner /> 
+                <CurrentWinner /> 
+                {/* <CurrentWinner />  */}
             </div>
         </div>
     )
