@@ -5,15 +5,20 @@ import star from 'shared/assets/icons/Star.svg'
 import avatar from 'shared/assets/img/userIMG.jpg'
 
 import './userProfileData.scss'
+import { User } from "entities/user";
 
-const UserProfileData: FC = () => {
+interface Props {
+    user: User
+}
+
+const UserProfileData: FC<Props> = ({user}) => {
     return(
         <div className="userProfileData">
-            <img src={avatar} alt="userAvatar" />
+            <img src={user.profileImage} alt="userAvatar" />
 
             <div className="userProfileData_container">
                 <div className="userProfileData_headerGroup">
-                    <span>Deborah Kertzmann</span>
+                    <span>{user.name}</span>
                     <img src={verified} alt="verified" />
                 </div>
 
@@ -24,7 +29,7 @@ const UserProfileData: FC = () => {
                     </div>
 
                     <div className="userProfileData_itemData_reating">
-                        <span>4,5</span>
+                        <span>{user.participantRating}</span>
                         <img src={star} alt="star" />
                     </div>
                 </div>

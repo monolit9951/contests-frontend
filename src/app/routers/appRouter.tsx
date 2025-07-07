@@ -116,11 +116,13 @@ export const AppRouter = () => {
       <Route path='/contests' element={<ContestsPage />} />
       <Route path='/contests/:id' element={<ContestPage />} />
       <Route path='/topUsers' element={<TopUsersPage />} />
+
       <Route element={<ProtectedRoute auth />}>
         <Route path='/contestsCreate' element={<ContestsCreationPage />} />
         <Route path='/profile' element={<ProfilePage />} />
-        <Route path='/chooseWinner' element={<ChooseWinnerPage />} />
+        <Route path='/chooseWinner/:id' element={<ChooseWinnerPage />} />
       </Route>
+      
       <Route path='*' element={<Navigate to='/' />} />
     </Route>
   )

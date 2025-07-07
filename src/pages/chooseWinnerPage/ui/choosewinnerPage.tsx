@@ -6,9 +6,19 @@ import WinnerSelectors from "./components/winnersSelectors/winnerSelectors";
 import WinnerWork from "./components/winnerWork/winnerWork";
 
 import './chooseWinnerPage.scss'
+import { useParams } from "react-router-dom";
+import useAxios from "shared/lib/hooks/useAxios";
+import { Contest } from "entities/contest";
+import { Work } from "entities/work";
 
 // добавить параметр контестАйди
 const ChooseWinnerPage: FC = () => {
+
+    const {id} = useParams()
+
+    const { data: contest, isLoading: contestIsLoading, error: contestError } = useAxios<Contest>(`contests/${id}`)
+    const { data: works, isLoading: worksIsLoading, error: worksError} = useAxios<Work[]>(`works/byContestId/686ba68b75162f430d9440ee`)
+    console.log(works)
 
     return(
         <div className="chooseWinnerPage">
@@ -18,13 +28,13 @@ const ChooseWinnerPage: FC = () => {
                     <div className="chooseWinnerPage_header_desc">Select winners and assign them places</div>
                 </div>
 
-                <div className="chooseWinnerPage_header_right">
+                {!contestIsLoading && <div className="chooseWinnerPage_header_right">
                     <ul>
-                        <li>5 works</li>
-                        <li>3 winners</li>
-                        <li>2 days left</li>
+                        <li>{contest?.participantAmount} participants</li>
+                        <li>Empty tag</li>
+                        <li>{contest?.subcategory}</li>
                     </ul>
-                </div>
+                </div>}
             </div>
 
             <CurrentWinners />
@@ -34,11 +44,9 @@ const ChooseWinnerPage: FC = () => {
             </div>
 
             <div className="winnersList">
-                <WinnerWork isWin/>
-                <WinnerWork />
-                <WinnerWork />
-                <WinnerWork />
-                <WinnerWork />
+                {!worksIsLoading && works?.content?.map((data: Work, index: number) => (
+                    <WinnerWork isWin work = {data} key={index} />
+                ))}
             </div>
 
             <div className="chooseWinnerPage_paginationBtn">

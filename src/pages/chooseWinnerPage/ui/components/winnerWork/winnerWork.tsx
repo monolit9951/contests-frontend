@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
 import { Button } from "shared/ui/button";
 import CustomCheckbox from "widgets/customCheckbox";
@@ -6,16 +6,15 @@ import CustomSelector from "widgets/customSelector";
 import UserProfileData from "widgets/userProfileData/userProfileData";
 
 import './winnerWork.scss'
+import { Work } from "entities/work";
+import { ModalWindow } from "shared/ui/modalWindow";
+import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
 
 
 interface WinnerWorkInterface {
     isWin?: boolean
+    work: Work
 }
-
-const handleWorkModal = () => {
-    console.log('MODAL SHOW')
-}
-
     const winnerOptions: optionsType[] = 
     [{
         text: '1st Place',
@@ -30,7 +29,17 @@ const handleWorkModal = () => {
     }]
 
 
-const WinnerWork: FC <WinnerWorkInterface> = ({isWin}) => {
+const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
+
+    const [modalWork, setModalWork] = useState(false)
+
+    const handleWorkModal = () => {
+        setModalWork(true)
+    }
+
+    console.log(work)
+
+
     return(
         <div className={isWin? "winnerWork winner" : "winnerWork"}>
             <div className="winnerWork_left">
@@ -38,10 +47,10 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin}) => {
                 <img src={sampleWorkImage} alt="workImage" />
 
                 <div className="winnerWork_left_container">
-                    <div className="winnerWork_left_contestName">Tickle Olympics: Where Laughter Takes the Gold!</div>
+                    <div className="winnerWork_left_contestName">{work.description}</div>
 
                     <div className="winnerWork_left_creationData">
-                        <UserProfileData />
+                        <UserProfileData user = {work.user}/>
 
                         <div className="winnerWork_left_creationData_date">15.01.2024</div>
                     </div>
@@ -56,6 +65,8 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin}) => {
                 <CustomCheckbox value="Winner" checked/>
                 <CustomSelector options={winnerOptions} maxWidth={200} name="Place"/>
             </div>
+
+            {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview work={work} /></ModalWindow>}
         </div>
     )
 }
