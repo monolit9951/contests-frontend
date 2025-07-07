@@ -58,6 +58,8 @@ export const AppRouter = () => {
     }
   }, [currentSearch])
 
+
+
   // обработка токена и проверка юзера
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search)
@@ -69,6 +71,7 @@ export const AppRouter = () => {
     }
 
     const token = localStorage.getItem('userToken')
+    console.log(token)
 
     const checkUserAsync = async () => {
       if (token) {
@@ -78,7 +81,13 @@ export const AppRouter = () => {
             dispatch(clearUser())
             localStorage.removeItem('userToken')
           } else {
-            dispatch(setUser(userResponse))
+            dispatch(setUser({
+              userId: userResponse.id,
+              userName: userResponse.name,
+              userLogin: userResponse.login,
+              userRole: userResponse.role,
+              userProfileImg: userResponse.profileImage
+            }))
           }
         } catch {
           dispatch(clearUser())
