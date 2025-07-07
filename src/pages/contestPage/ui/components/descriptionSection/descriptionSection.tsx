@@ -42,6 +42,11 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
     }
 
     const onParticipateClick = () => {
+        // проверка на всякий случай
+        if(data.status === 'FINISHED'){
+            return
+        }
+
         handleOpenWorkUploadModal()
     }
 
@@ -73,7 +78,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                 
                 <Button
                     variant='primary'
-                    disabled={!data.contestOpen}
+                    disabled={!data.contestOpen || data.status === 'FINISHED'}
                     onClick={onParticipateClick}
                     className='participate-btn'>
                     <Text Tag='span'>{contestStatus()}</Text>
