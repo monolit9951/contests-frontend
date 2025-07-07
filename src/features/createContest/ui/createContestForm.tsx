@@ -14,6 +14,9 @@ import { PrizeInformation } from './blocks/prizeInformation'
 import { StageOfTheCompetition } from './blocks/stageOfTheCompetition'
 
 import './createContestForm.scss'
+import { useSelector } from 'react-redux'
+import { ModalWindow } from 'shared/ui/modalWindow'
+import { RegistrationModal } from 'widgets/registrationModal'
 
 const CreateContestForm = () => {
     const [submitError, setSubmitError] = useState(false)
@@ -174,6 +177,17 @@ const CreateContestForm = () => {
         setSubmitError(true)
     }
 
+    const user = useSelector((state: RootState) => state.user)
+    const [authReq, setAuthReq] = useState<boolean>(false)
+
+
+    // авторизация пользователя работает и так, но на всякий случай проверим и заставим зарегаться
+    const handleSubmitWithoutClick = () => {
+        if(user.userId === null){
+            setAuthReq(true)
+        }
+    }
+
     return (
         <FormProvider {...methods}>
             <form
@@ -188,12 +202,15 @@ const CreateContestForm = () => {
                     <Button
                         variant='primary'
                         type='submit'
+                        onClick={handleSubmitWithoutClick}
                         disabled={pending}
                         className='create_btn'>
                         {pending ? 'Pending...' : 'Create a contest'}
                     </Button>
                 </HStack>
             </form>
+
+            {authReq && <ModalWindow isOpen onClose={() => setAuthReq(false)}><RegistrationModal auth/></ModalWindow>}
         </FormProvider>
     )
 }
