@@ -24,6 +24,7 @@ import { userByToken } from 'widgets/registrationModal/model/service/registratio
 import { clearUser } from 'widgets/registrationModal/model/slice/userSlice'
 
 import '../styles/index.scss'
+import ProtectedRoute from 'widgets/protectedRoute'
 
 export const AppRouter = () => {
     const { theme, categoryTheme } = useTheme()
@@ -42,7 +43,7 @@ export const AppRouter = () => {
         const googleToken = searchParams.get('token')
 
         // если авторизация от гугл, но у нас всё ещё есть прошлый токен, то замещаем его и получаем по нему данные
-        localStorage.setItem('userTocken', String(googleToken))
+        localStorage.setItem('userToken', String(googleToken))
         const token = localStorage.getItem('userToken')
 
         const checkUserAsync = async () => {
@@ -51,15 +52,15 @@ export const AppRouter = () => {
                     const userResponse = await userByToken(token)
                     if (user.userId !== userResponse.id) {
                         dispatch(clearUser())
-                        localStorage.removeItem('userTocken')
+                        localStorage.removeItem('userToken')
                     }
                 } catch (e) {
                     dispatch(clearUser())
-                    localStorage.removeItem('userTocken')
+                    localStorage.removeItem('userToken')
                 }
             } else {
                 dispatch(clearUser())
-                localStorage.removeItem('userTocken')
+                localStorage.removeItem('userToken')
             }
 
             setCheckUser(true)
@@ -81,10 +82,15 @@ export const AppRouter = () => {
             <Route path='/battles' element={<BattlesPage />} />
             <Route path='/contests' element={<ContestsPage />} />
             <Route path='/contests/:id' element={<ContestPage />} />
-            <Route path='/contestsCreate' element={<ContestsCreationPage />} />
             <Route path='/topUsers' element={<TopUsersPage />} />
-            <Route path='/profile' element={<ProfilePage />} />
-            <Route path='/chooseWinner' element={<ChooseWinnerPage />} />
+
+            {/* РОУТЫ С ЗАЩИТОЙ ДЛЯ АВТОРИЗАЦИИ */}
+            <Route element={<ProtectedRoute auth />}>
+                <Route path='/contestsCreate' element={<ContestsCreationPage />} />
+                <Route path='/profile' element={<ProfilePage />} />
+                <Route path='/chooseWinner' element={<ChooseWinnerPage />} />
+            </Route>
+
             <Route path='*' element={<Navigate to='/' />} />
         </Route>
     )
