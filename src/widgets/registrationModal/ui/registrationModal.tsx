@@ -14,9 +14,10 @@ import './registrationModal.scss'
 
 interface RegistrationModalInterface {
     onClose: () => void
+    auth?: boolean
 }
 
-const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
+const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => {
 
     const dispatch = useDispatch()
     const [username, setUsername] = useState<string>('')
@@ -111,7 +112,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose}) => {
     return(
         <div className="registrationModal">
             <div className="registrationModal_header">
-                <div className="registrationModal_header_heading">Welcome, Adventurer!</div>
+                <div className="registrationModal_header_heading">{auth? 'Authorization Required' : 'Welcome, Adventurer!'}</div>
                 <div className="registrationModal_header_desc">Begin your quest by joining our community</div>
             </div>
 
