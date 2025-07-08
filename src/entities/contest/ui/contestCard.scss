@@ -1,8 +1,12 @@
 .contest-card-wrapper {
-    width: 100%;
-    max-width: 408px;
-    height: 515px;
+    // width: 100%;
+
+    aspect-ratio: 408/515;
+    // max-width: 408px;
+    // height: 515px;
     height: 100%;
+    width: 100%;
+    aspect-ratio: 408/515;
     padding: 16px;
     box-sizing: border-box;
     border-radius: 24px;

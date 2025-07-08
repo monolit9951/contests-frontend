@@ -24,9 +24,10 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(408px, max-content));
         justify-content: start;
+
         > li{
             width: 100%;
-            max-width: 408px;
+            // max-width: 408px;
         }
     }
 }
@@ -81,7 +82,7 @@
 
 @media (max-width: 1440px) {
     .contest-gallery__list {
-        justify-content: space-evenly;
+        // justify-content: space-evenly;
     }
 }
 
