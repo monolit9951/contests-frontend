@@ -72,13 +72,22 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
             setError(null)
             setNextLoading(true)
 
-            
-            const { data } = await instance.post('comment', {
+            const token = localStorage.getItem('userToken')
+            const { data } = await instance.post(
+                'comment',
+            {
                 parentId: workId,
-                commentType: contest? "CONTEST" : "WORK",
+                commentType: contest ? "CONTEST" : "WORK",
                 commentText: inputData.trim(),
                 userId,
-            })
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+            );
+
 
             // eslint-disable-next-line no-return-assign
             setTotalElements((prev) => (prev += 1))
@@ -166,7 +175,7 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
 
                         {work && (
                 <HStack className='comments__input-wrapper-work align__center'>
-                    <UserIcon size={40} />
+                    <UserIcon size={40} src={user.userProfileImg}/>
                     <Input
                         name='comment'
                         type='text'

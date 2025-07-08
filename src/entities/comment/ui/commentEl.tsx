@@ -46,7 +46,7 @@ const CommentEl: FC<Props> = (props) => {
     const [actionsShown, setActionsShown] = useState(false)
     const [replyInputShown, setReplyInputShown] = useState(false)
     const [inputData, setInputData] = useState('')
-
+    const token = localStorage.getItem('userToken')
     const { user, commentDate, commentText, id, likeAmount } = data
 
     const timeAgo = moment(commentDate).fromNow()
@@ -78,12 +78,14 @@ const CommentEl: FC<Props> = (props) => {
         try {
             setError(null)
             setNextLoading(true)
-
-
             await instance.post('comment', {
                 parentId,
                 commentText: inputData.trim(),
                 commentType: "COMMENT"
+            },{
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             })
         
 
@@ -108,7 +110,11 @@ const CommentEl: FC<Props> = (props) => {
 
     // удаление коммента
     const handleDeleteCommentCallback = async () => {
-        await instance.delete(`comment/${data.id}`)
+        await instance.delete(`comment/${data.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
         // handleNewSubCommentCallback()
 
         // если у коммента есть воркайди, то он первого уровня, потому удаление другое
@@ -136,7 +142,11 @@ const CommentEl: FC<Props> = (props) => {
     // редактирование коммента
     const handleEditSubmit = async () => {
         
-        await instance.put(`comment/${data.id}`, {commentText: newCommentText})
+        await instance.put(`comment/${data.id}`, {commentText: newCommentText}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
         setEdit(false)
     }
 
