@@ -17,6 +17,7 @@ import MediaGalery from 'widgets/mediaGalery'
 import { ImageSlider } from 'widgets/worksSection/ui/workPreview/imageSlider/imageSlider'
 
 import './workPreview.scss'
+import { Link } from 'react-router-dom'
 
 interface WorkProps {
     work: Work
@@ -66,6 +67,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                         
                     <VStack className='upper-desc'>
                         <HStack className='creator-desc'>
+                            <Link to={`/profile/${user.id}`}>
                             <HStack className='align__center'>
                                 <UserIcon
                                     src={user.profileImage}
@@ -80,6 +82,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                                     {timeAgo}
                                 </Text>
                             </HStack>
+                            </Link>
                             <Icon
                                 Svg={tripleDot}
                                 clickable

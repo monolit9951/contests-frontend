@@ -10,8 +10,13 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
     .flex.justify__between {
         width: 100%;
+
+        a{
+            color: white;
+        }
 
         .flex.align__center {
             gap: 8px;

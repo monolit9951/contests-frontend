@@ -7,6 +7,7 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './heroSection.scss'
+import { Link } from 'react-router-dom'
 
 interface Props {
     bg: string
@@ -25,46 +26,47 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
                     backgroundImage: `url(${bg ?? contestHeroIMG})`,
                 }}
             />
-
-            <HStack className='contest-hero__creator'>
-                <Image
-                    src={creatorIMG ?? owner?.profileImage}
-                    alt='Creator'
-                    width={140}
-                    height={140}
-                    round
-                />
-                <VStack>
-                    <HStack className='align__center'>
-                        {owner?.name ? (
-                            <>
+            <Link to={`/profile/${owner.id}`}>
+                <HStack className='contest-hero__creator'>
+                    <Image
+                        src={owner?.profileImage ?? contestHeroIMG}
+                        alt='Creator'
+                        width={140}
+                        height={140}
+                        round
+                    />
+                    <VStack>
+                        <HStack className='align__center'>
+                            {owner?.name ? (
+                                <>
+                                    <Text Tag='span' bold size='l'>
+                                        {owner?.name}
+                                    </Text>
+                                    {owner.verificationStatus && <Verified />}
+                                </>
+                            ) : (
                                 <Text Tag='span' bold size='l'>
-                                    {owner?.name}
+                                    No name
                                 </Text>
-                                {owner.verificationStatus && <Verified />}
-                            </>
-                        ) : (
-                            <Text Tag='span' bold size='l'>
-                                No name
-                            </Text>
-                        )}
-                    </HStack>
-                    <HStack className='align__center'>
-                        {owner?.organizerRating ? (
-                            <>
+                            )}
+                        </HStack>
+                        <HStack className='align__center'>
+                            {owner?.organizerRating ? (
+                                <>
+                                    <Text Tag='span' bold size='sm'>
+                                        {owner?.organizerRating.toFixed(1)}
+                                    </Text>
+                                    <Star />
+                                </>
+                            ) : (
                                 <Text Tag='span' bold size='sm'>
-                                    {owner?.organizerRating.toFixed(1)}
+                                    No rating
                                 </Text>
-                                <Star />
-                            </>
-                        ) : (
-                            <Text Tag='span' bold size='sm'>
-                                No rating
-                            </Text>
-                        )}
-                    </HStack>
-                </VStack>
-            </HStack>
+                            )}
+                        </HStack>
+                    </VStack>
+                </HStack>
+            </Link>
         </section>
     )
 }

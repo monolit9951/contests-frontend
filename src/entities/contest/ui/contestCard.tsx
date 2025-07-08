@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import moment from 'moment'
 import Verified from 'shared/assets/icons/SealCheck.svg?react'
@@ -50,7 +50,8 @@ const ContestCard: React.FC<Props> = (props) => {
     return (
         <div className={clsx('contest-card-wrapper', className)}>
             <Flex className='justify__between align__center'>
-                <Flex className='align__center'>
+                <Link to={`/profile/${contestOwner.id}`}>
+                    <Flex className='align__center'>
                     <UserIcon
                         src={contestOwner.profileImage}
                         alt='Creator`s profile'
@@ -78,6 +79,8 @@ const ContestCard: React.FC<Props> = (props) => {
                         </Flex>
                     </VStack>
                 </Flex>
+                </Link>
+ 
                 <Tag type={tagType} className='tag' />
             </Flex>
 

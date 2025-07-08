@@ -17,6 +17,7 @@ import CommentController from './commentController'
 import CommentInput from './commentInput'
 
 import './commentEl.scss'
+import { Link } from 'react-router-dom'
 
 interface Props {
     data: Comment
@@ -142,15 +143,18 @@ const CommentEl: FC<Props> = (props) => {
 
     return (
         <HStack className='comment__wrapper'>
-            <UserIcon src={user.profileImage} size={40} />
+
+            <Link to={`/profile/${user.id}`}><UserIcon src={user.profileImage} size={40} /></Link>
             <VStack className='comment__body'>
                 <HStack className='comment-info'>
-                    <Text Tag='p' bold>
-                        {user.name}
-                        <Text Tag='span' size='sm'>
-                            {timeAgo}
+                    <Link to={`/profile/${user.id}`}>
+                        <Text Tag='p' bold>
+                            {user.name}
+                            <Text Tag='span' size='sm'>
+                                {timeAgo}
+                            </Text>
                         </Text>
-                    </Text>
+                    </Link>
                     <Icon Svg={tripleDot} clickable onClick={onActionClick} />
                     {actionsShown && (
                         <CommentController onClose={onActionClick} handleDeleteCommentCallback={handleDeleteCommentCallback} handleSetEditCallback={handleSetEditCallback}/>
