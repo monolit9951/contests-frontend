@@ -33,7 +33,6 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
         typeWork,
         workAddingDate,
     } = work
-
     const timeAgo = moment(workAddingDate).fromNow()
 
     const toggleReadMore = () => {

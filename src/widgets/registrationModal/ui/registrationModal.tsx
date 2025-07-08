@@ -159,7 +159,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
             </div>
 
             <div className="registrationModal_inputs">
-                <RegistrationInput validation={usernameValidation} value = {username} type="email" changeCallBack = {handleUsernameCallback} placeholder="Enter your email or username" label="Email or Username" />
+                <RegistrationInput validation={usernameValidation} value = {username} type="email" changeCallBack = {handleUsernameCallback} placeholder="Enter your email or login" label="Email or Login" />
                 {authType === 'SIGNUP' && <RegistrationInput validation={nicknameValidation} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Nickname" label="Nickname" />}
                 <RegistrationInput validation={passwordValidation} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
                 {authType === 'SIGNUP' && <RegistrationInput validation={checkPasswordValidation} value={chechPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}

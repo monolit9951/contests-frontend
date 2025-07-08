@@ -12,12 +12,7 @@ interface CustomCheckboxInterface {
 
 const CustomCheckbox: FC <CustomCheckboxInterface> = ({value = 'Insert value on props', checked = false, handleCheckbox}) =>{
     
-    // логика
     const [inputCheck, setInputCheck] = useState<boolean>(checked ?? false)
-
-    const handleInput = () => {
-        setInputCheck(!inputCheck)
-    }
 
     return(
         <div className="customCheckbox">
@@ -28,7 +23,15 @@ const CustomCheckbox: FC <CustomCheckboxInterface> = ({value = 'Insert value on 
                 <span>{value}</span>
             </div>
 
-            <input type="checkbox" onClick={handleInput} checked={inputCheck} onChange={handleCheckbox}/>
+            <input
+                type="checkbox"
+                checked={inputCheck}
+                onChange={(event) => {
+                    setInputCheck(event.target.checked)
+                    handleCheckbox?.(event) 
+                }}
+            />
+
         </div>
     )
 }
