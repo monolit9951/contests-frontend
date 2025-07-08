@@ -5,15 +5,22 @@ import ProfileContests from './components/profileContests/profileContests'
 import ProfileWallet from './components/profileWallet/profileWallet'
 
 import './profilePage.scss'
+import { FC } from 'react'
+import { useParams } from 'react-router-dom'
 
-const ProfilePage = () => {
 
+interface Props {
+    account?: boolean
+}
 
+const ProfilePage: FC<Props> = ({account}) => {
 
+    const {id} = useParams()
+    
     const useTypeSelector: TypedUseSelectorHook <RootState> = useSelector
     const user = useTypeSelector((state) => state.user)
 
-    // ТЕСТОВЫЙ ЮЗЕР АЙДИ ДО АВТОРИЗАЦИИ, ВСЕ ПРОПСЫ ПОЧИСТИТЬ
+    
 
     return (
         <div className="profilePage">
@@ -25,12 +32,12 @@ const ProfilePage = () => {
             <div className="profilePage_Container">
 
                 <div className="profilePage_leftContainer">
-                    <PersonInformation userId = {user.userId}/>
-                    <ProfileWallet userId = {user.userId}/>
+                    <PersonInformation userId = {id ?? user.userId}/>
+                    {!id && <ProfileWallet userId = {user.userId}/>}
                 </div>
 
                 <div className="profilePage_rightContainer">
-                    <ProfileContests userId = {user.userId}/>
+                    <ProfileContests userId = {id ?? user.userId}/>
                 </div>
                 
             </div>
