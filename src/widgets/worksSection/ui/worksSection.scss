@@ -2,7 +2,6 @@
     position: relative;
     align-items: center;
     gap: 20px;
-
     height: 100%;
     padding: 20px;
     overflow-y: auto;
@@ -10,6 +9,7 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
 
+    
     &__error-message {
         position: absolute;
         top: 50%;

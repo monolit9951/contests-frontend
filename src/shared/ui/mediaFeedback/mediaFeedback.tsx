@@ -28,6 +28,7 @@ const MediaFeedback: FC<Props> = (props) => {
 
     return (
         <HStack className={clsx('feedback__wrapper', className)}>
+            
             <HStack>
                 <RateButtons id={id} likes={likesNum} work border />
                 {onCommentsClick && (
@@ -54,6 +55,7 @@ const MediaFeedback: FC<Props> = (props) => {
                     Share
                 </Text>
             </Button>
+
         </HStack>
     )
 }
