@@ -9,10 +9,10 @@ interface RegistrationInputInterface {
     type: string
     changeCallBack: (value: string) => void
     value: string
-    validation: boolean
+    validationText: string
 }
 
-const RegistrationInput: FC <RegistrationInputInterface>= ({placeholder, label, type, changeCallBack, value, validation}) => {
+const RegistrationInput: FC <RegistrationInputInterface>= ({placeholder, label, type, changeCallBack, value, validationText}) => {
 
     const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
 
@@ -26,10 +26,11 @@ const RegistrationInput: FC <RegistrationInputInterface>= ({placeholder, label, 
 
     return(
         <div className="registrationInput">
-            
-            {label && <div className={validation? "registrationInput_labbel" : "registrationInput_labbel validation"}>{label}</div>}
-
-            <div className={validation? "registrationInput_container": "registrationInput_container validation"}>
+            <div className="registrationInput_explain">
+                {label && <div className={validationText === ''? "registrationInput_labbel" : "registrationInput_labbel validation"}>{label}</div>}
+                <div className="registrationInput_validationText">{validationText}</div>
+            </div>
+            <div className={validationText === ''? "registrationInput_container": "registrationInput_container validation"}>
                 <input type={passwordVisibility? 'text' : type} value={value} placeholder={placeholder} onChange={handleInput}/>
                 {type === "password" && <button onClick={handleTogglePasswordVisible} type="button"><img src={eye} alt="type"/></button>}
             </div>

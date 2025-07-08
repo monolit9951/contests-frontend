@@ -1,15 +1,27 @@
 .registrationInput{
+    > .registrationInput_explain{
+        display: flex;
+        justify-content: space-between;
+        > .registrationInput_labbel{
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: -1.1%;
+            
+            &.validation{
+                color: #EB5533;
+            }
+        }
 
-    > .registrationInput_labbel{
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 20px;
-        letter-spacing: -1.1%;
-        
-        &.validation{
+        > .registrationInput_validationText{
             color: #EB5533;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: -1.1%;
         }
     }
+
 
     > .registrationInput_container{
         margin-top: 8px;

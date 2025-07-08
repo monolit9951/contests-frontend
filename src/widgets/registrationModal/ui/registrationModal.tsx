@@ -20,34 +20,34 @@ interface RegistrationModalInterface {
 const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => {
 
     const dispatch = useDispatch()
-    const [username, setUsername] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
+
     const [authType, setAuthType] = useState<'LOGIN' | 'SIGNUP'>('LOGIN')
-    const [usernameValidation, setUsernameValidation] = useState<boolean>(true)
-    const [passwordValidation, setPasswordValidation] = useState<boolean>(true)
+
+    const [login, setLogin] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+
     const [nickname, setNickname] = useState<string>('')
     const [chechPassword, setCheckPassword] = useState<string>('')
     const [nicknameValidation, setNicknameValidation] = useState<boolean>(true)
     const [checkPasswordValidation, setCheckPasswordValidation] = useState<boolean>(true) 
+
+    // validation errors
+    const [loginError, setLoginError] = useState<string>('')
+    const [passwordError, setPasswordError] = useState<string>('')
 
     // обычный LogIn
     // НЕ ОБРАБОТАНЫ ОШИБКИ ПАРОЛЯ ИЛИ ЛОГИНА
     const handleStandartAuth = async () => {
 
         // ошибки пароля или юзернейм
-        if(username === '' || password === ''){
-            if(username === ''){setUsernameValidation(false)}
-            if(password === ''){setPasswordValidation(false)}
+        if(login === '' || password === ''){
+            if(login === '' || login.length < 3 || login.length > 20){setLoginError('Login must be 3-20 letters')}
+            if(password === ''){setPasswordError('Password must be 3-20 symbols')}
         
             return
         }
 
-        if(password === ''){
-            setPasswordValidation(false)
-            return
-        }
-
-        const response = await instance.post('/auth/signin', {login: username, password})
+        const response = await instance.post('/auth/signin', {login, password})
         const userResponse = await userByToken(response.data.token)
 
         dispatch(setUser({
@@ -60,8 +60,8 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         
         // СОХРАНЕНИЕ ТОКЕНА В ЛОКАЛСТОРЕДЖ
         localStorage.setItem('userToken', response.data.token)
-        setPasswordValidation(true)
-        setUsernameValidation(true)
+        setLoginError('')
+        setPasswordError('')
 
         onClose()
     }
@@ -70,14 +70,14 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
     // НЕ ОБРАБОТАНЫ ОШИБКИ ПАРОЛЯ ИЛИ ЛОГИНА, ТЕСТОВОЕ 
     const handleStandartRegistration = async () =>{
 
-        setUsernameValidation(true)
+        setLoginError('')
         setPasswordValidation(true)    
         setCheckPasswordValidation(true)
         setNicknameValidation(true)
 
         // ошибки полей
-        if(username === '' || password === '' || nickname === '' || chechPassword === ''){
-            if(username === ''){setUsernameValidation(false)}
+        if(login === '' || password === '' || nickname === '' || chechPassword === ''){
+            if(login === '' || login.length < 3 || login.length > 20){setLoginError('Login must be 3-20 letters')}
             if(password === ''){setPasswordValidation(false)}
             if(nickname === ''){setNicknameValidation(false)}
             if(chechPassword === ''){setCheckPasswordValidation(false)}
@@ -100,7 +100,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
             role: 'USER'
         })
 
-        setUsername('')
+        setLogin('')
         setPassword('')
         setAuthType('LOGIN')
 
@@ -114,8 +114,8 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
     }
 
     // обработчик инпута никнейм
-    const handleUsernameCallback = (name: string) => {
-        setUsername(name)
+    const handleLoginCallback = (name: string) => {
+        setLogin(name)
     }
 
     // обработчик инпута пассворд
@@ -159,10 +159,10 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
             </div>
 
             <div className="registrationModal_inputs">
-                <RegistrationInput validation={usernameValidation} value = {username} type="email" changeCallBack = {handleUsernameCallback} placeholder="Enter your email or login" label="Email or Login" />
-                {authType === 'SIGNUP' && <RegistrationInput validation={nicknameValidation} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Nickname" label="Nickname" />}
-                <RegistrationInput validation={passwordValidation} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
-                {authType === 'SIGNUP' && <RegistrationInput validation={checkPasswordValidation} value={chechPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
+                <RegistrationInput validationText={loginError} value = {login} type="email" changeCallBack = {handleLoginCallback} placeholder="Enter your email or login" label="Email or Login" />
+                {/* {authType === 'SIGNUP' && <RegistrationInput validation={nicknameValidation} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Nickname" label="Nickname" />} */}
+                <RegistrationInput validationText={passwordError} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
+                {/* {authType === 'SIGNUP' && <RegistrationInput validation={checkPasswordValidation} value={chechPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>} */}
 
                 <div className="registrationModal_inputs_special">
                     <CustomCheckbox value="Remember me" checked={false}/>
