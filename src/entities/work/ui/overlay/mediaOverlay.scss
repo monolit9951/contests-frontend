@@ -35,11 +35,48 @@
         bottom: 16px;
         left: 16px;
     }
+
     &__4 {
         bottom: 24px;
         right: 16px;
         cursor: pointer;
         pointer-events: all;
+
+        > button{
+            background-color: transparent;
+            border: none;
+            outline: none;
+            display: flex;
+            align-self: center;
+            justify-content: space-around;
+            cursor: pointer;
+        }
+
+        > .media__overlay__4__control{
+            position: absolute;
+            width: 150px;
+            background-color: #1b2321;
+            left: -150px;
+            top: 0;
+            padding: 10px 0;
+            border-radius: 10px;
+
+            > button{
+                width: 100%;
+                background-color: transparent;
+                color: white;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                font-family: Manrope;
+                padding: 8px 10px;
+                font-size: 14px;
+
+                &:hover{
+                    background-color: #393B3B;
+                }
+            }
+        }
     }
 }
 

@@ -8,6 +8,7 @@ import { VStack } from 'shared/ui/stack'
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './mediaOverlay.scss'
+import { useState } from 'react'
 
 interface Props {
     prize?: Prize
@@ -18,7 +19,19 @@ interface Props {
 const MediaOverlay = ({ prize, user, imageCards }: Props) => {
     const onCardsClick = () => {}
 
-    const onAction = () => {}
+    const [controlModal, setControlModal] = useState<boolean>(false)
+
+    const handleControlModal = () => {
+        setControlModal(!controlModal)
+    }
+
+    const handleReport = () => {
+        console.log('REPORT NOT WORK YET')
+    }
+    
+    const handleWinner = () => {
+
+    }
 
     return (
         <VStack className='media__overlay'>
@@ -35,12 +48,14 @@ const MediaOverlay = ({ prize, user, imageCards }: Props) => {
                 userName={user.name}
                 wrapperClassName='media__overlay__3'
             />
-            <Icon
-                Svg={action}
-                clickable
-                onClick={onAction}
-                btnClassName='media__overlay__4'
-            />
+            <div className='media__overlay__4'>
+                <button type='button' onClick={handleControlModal}><Icon Svg={action} /></button>
+
+                {controlModal && <div className="media__overlay__4__control">
+                    <button onClick = {handleReport} type='button'>Report</button>
+                    <button onClick = {handleWinner} type='button'>Promote to winners</button>
+                </div>}
+            </div>
         </VStack>
     )
 }
