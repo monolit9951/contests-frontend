@@ -1,4 +1,5 @@
 import { FC, Fragment, useState } from 'react'
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { Contest } from 'entities/contest'
 import { PrizeIcon } from 'entities/prize'
 import moment from 'moment'
@@ -9,13 +10,12 @@ import { capitalizeStr } from 'shared/helpers'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { Image } from 'shared/ui/image'
+import { ModalWindow } from 'shared/ui/modalWindow'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
+import { RegistrationModal } from 'widgets/registrationModal'
 
 import './descriptionSection.scss'
-import { ModalWindow } from 'shared/ui/modalWindow'
-import { RegistrationModal } from 'widgets/registrationModal'
-import { TypedUseSelectorHook, useSelector } from 'react-redux'
 
 interface Props {
     data: Contest

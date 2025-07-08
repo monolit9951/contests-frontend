@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Comment } from 'entities/comment'
 import instance from 'shared/api/api'
 import { Button } from 'shared/ui/button'
@@ -10,7 +11,6 @@ import { UserIcon } from 'shared/ui/userIcon'
 import { CommentsList } from './commentsList'
 
 import './commentsSection.scss'
-import { useSelector } from 'react-redux'
 
 interface Props {
     workId: string

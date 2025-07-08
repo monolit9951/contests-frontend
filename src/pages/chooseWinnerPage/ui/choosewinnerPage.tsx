@@ -1,4 +1,8 @@
 import { FC } from "react";
+import { useParams } from "react-router-dom";
+import { Contest } from "entities/contest";
+import { Work } from "entities/work";
+import useAxios from "shared/lib/hooks/useAxios";
 import { Button } from "shared/ui/button";
 
 import CurrentWinners from "./components/currentWinners/currentWinners";
@@ -6,18 +10,14 @@ import WinnerSelectors from "./components/winnersSelectors/winnerSelectors";
 import WinnerWork from "./components/winnerWork/winnerWork";
 
 import './chooseWinnerPage.scss'
-import { useParams } from "react-router-dom";
-import useAxios from "shared/lib/hooks/useAxios";
-import { Contest } from "entities/contest";
-import { Work } from "entities/work";
 
 // добавить параметр контестАйди
 const ChooseWinnerPage: FC = () => {
 
     const {id} = useParams()
 
-    const { data: contest, isLoading: contestIsLoading, error: contestError } = useAxios<Contest>(`contests/${id}`)
-    const { data: works, isLoading: worksIsLoading, error: worksError} = useAxios<Work[]>(`works/byContestId/686ba68b75162f430d9440ee`)
+    const { data: contest, isLoading: contestIsLoading} = useAxios<Contest>(`contests/${id}`)
+    const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/686ba68b75162f430d9440ee`)
     console.log(works)
 
     return(

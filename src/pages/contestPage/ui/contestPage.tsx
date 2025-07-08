@@ -19,11 +19,9 @@ import { contestWorksActions } from '../model/slice'
 
 import DescriptionSection from './components/descriptionSection/descriptionSection'
 import HeroSection from './components/heroSection/heroSection'
-import WinnersSection from './components/winnersSection/winnersSection'
 import WorksListSection from './components/worksListSection/worksListSection'
 
 import './contestPage.scss'
-import { RegistrationModal } from 'widgets/registrationModal'
 
 const ContestPage = () => {
     const { id } = useParams<{ id: string }>()

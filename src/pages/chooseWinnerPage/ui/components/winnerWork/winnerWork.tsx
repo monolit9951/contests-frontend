@@ -1,14 +1,14 @@
 import { FC, useState } from "react";
+import { Work } from "entities/work";
 import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
 import { Button } from "shared/ui/button";
+import { ModalWindow } from "shared/ui/modalWindow";
 import CustomCheckbox from "widgets/customCheckbox";
 import CustomSelector from "widgets/customSelector";
 import UserProfileData from "widgets/userProfileData/userProfileData";
+import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
 
 import './winnerWork.scss'
-import { Work } from "entities/work";
-import { ModalWindow } from "shared/ui/modalWindow";
-import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
 
 
 interface WinnerWorkInterface {

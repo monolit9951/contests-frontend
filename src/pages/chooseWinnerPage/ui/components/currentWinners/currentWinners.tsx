@@ -1,8 +1,9 @@
 import { FC } from "react";
 import winCup from 'shared/assets/icons/winCup.svg'
 
-import './currentWinners.scss'
 import CurrentWinner from "../currentWinner/currentWinner";
+
+import './currentWinners.scss'
 
 const CurrentWinners: FC = () => {
     return(

@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 import instance from 'shared/api/api'
 import { Button } from 'shared/ui/button'
+import { ModalWindow } from 'shared/ui/modalWindow'
 import { HStack } from 'shared/ui/stack'
+import { RegistrationModal } from 'widgets/registrationModal'
 
 import { ContestCreationFormData } from '../model/types'
 
@@ -14,9 +17,6 @@ import { PrizeInformation } from './blocks/prizeInformation'
 import { StageOfTheCompetition } from './blocks/stageOfTheCompetition'
 
 import './createContestForm.scss'
-import { useSelector } from 'react-redux'
-import { ModalWindow } from 'shared/ui/modalWindow'
-import { RegistrationModal } from 'widgets/registrationModal'
 
 const CreateContestForm = () => {
     const [submitError, setSubmitError] = useState(false)

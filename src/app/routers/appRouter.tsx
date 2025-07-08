@@ -1,30 +1,29 @@
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Link,
   Navigate,
   Route,
   RouterProvider,
-  Link,
 } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import clsx from 'clsx'
-
-import { RootState } from 'app/providers/store'
-import { useTheme } from 'entities/theme'
 import { Layout } from 'app/layout'
-import { HomePage } from 'pages/homePage'
-import { FeedPage } from 'pages/feedPage'
+import { RootState } from 'app/providers/store'
+import clsx from 'clsx'
+import { useTheme } from 'entities/theme'
 import { BattlesPage } from 'pages/battlesPage'
-import { ContestsPage } from 'pages/contestsPage'
+import ChooseWinnerPage from 'pages/chooseWinnerPage/ui/choosewinnerPage'
 import { ContestPage } from 'pages/contestPage'
 import { ContestsCreationPage } from 'pages/contestsCreationPage'
-import { TopUsersPage } from 'pages/topUsersPage'
+import { ContestsPage } from 'pages/contestsPage'
+import { FeedPage } from 'pages/feedPage'
+import { HomePage } from 'pages/homePage'
 import ProfilePage from 'pages/profilePage'
-import ChooseWinnerPage from 'pages/chooseWinnerPage/ui/choosewinnerPage'
+import { TopUsersPage } from 'pages/topUsersPage'
 import { ModalWindow } from 'shared/ui/modalWindow'
-import { RegistrationModal } from 'widgets/registrationModal'
 import ProtectedRoute from 'widgets/protectedRoute'
+import { RegistrationModal } from 'widgets/registrationModal'
 import { userByToken } from 'widgets/registrationModal/model/service/registrationModalService'
 import { clearUser, setUser } from 'widgets/registrationModal/model/slice/userSlice'
 

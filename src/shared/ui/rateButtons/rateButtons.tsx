@@ -1,5 +1,6 @@
 /* eslint-disable no-return-assign */
 import { useState } from 'react'
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import instance from 'shared/api/api'
 import dislike from 'shared/assets/icons/dislike.svg?react'
@@ -12,7 +13,6 @@ import { HStack } from '../stack'
 import { Text } from '../text'
 
 import './rateButtons.scss'
-import { TypedUseSelectorHook, useSelector } from 'react-redux'
 
 interface Props {
     id?: string
