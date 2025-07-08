@@ -29,6 +29,11 @@
             width: 100%;
             // max-width: 408px;
         }
+
+        &::after{
+            content: '';
+            visibility: hidden;
+        }
     }
 }
 
