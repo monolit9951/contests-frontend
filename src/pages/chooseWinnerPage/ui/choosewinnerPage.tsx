@@ -17,7 +17,7 @@ const ChooseWinnerPage: FC = () => {
     const {id} = useParams()
 
     const { data: contest, isLoading: contestIsLoading} = useAxios<Contest>(`contests/${id}`)
-    const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/686ba68b75162f430d9440ee`)
+    const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/686cfab262f7e7754f6fbc38`)
     console.log(works)
 
     return(
