@@ -66,20 +66,19 @@ export const AppRouter = () => {
     const googleToken = searchParams.get('token')
     if (googleToken) {
       localStorage.setItem('userToken', googleToken)
-      searchParams.delete('token')
+      const token = localStorage.getItem('userToken')
+      console.log(token)
     }
 
     const token = localStorage.getItem('userToken')
-    console.log(token)
 
     const checkUserAsync = async () => {
       if (token) {
         try {
           const userResponse = await userByToken(token)
-          if (user.userId !== userResponse.id) {
-            dispatch(clearUser())
-            localStorage.removeItem('userToken')
-          } else {
+
+          // если пользователя нет, либо пользователь в сторадже такой же как и в токене
+          if(user.userId === null || user.userId === userResponse.id){
             dispatch(setUser({
               userId: userResponse.id,
               userName: userResponse.name,
@@ -87,6 +86,10 @@ export const AppRouter = () => {
               userRole: userResponse.role,
               userProfileImg: userResponse.profileImage
             }))
+          } else {
+            // console.log('USER AND TOKEN NOT MATCH')
+            dispatch(clearUser())
+            localStorage.removeItem('userToken')
           }
         } catch {
           dispatch(clearUser())
