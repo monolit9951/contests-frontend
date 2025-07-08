@@ -50,12 +50,12 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
     if (mediaArray.length === 0) {
       console.log('No media files added');
     }
-
+    const token = localStorage.getItem('userToken')
     try {
       const response = await instance.post(`/works`, {
         contestId,
         description: text,
-      });
+      }, {headers: {Authorization: `Bearer ${token}`}});
 
       const workId = response.data.id;
       console.log('Created work with id:', workId);
