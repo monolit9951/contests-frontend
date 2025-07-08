@@ -179,7 +179,7 @@ const CommentEl: FC<Props> = (props) => {
                     <div className="comment_edit">
                         <Input type='text' value={newCommentText} placeholder='Edit a comment...' onChange={handleCommentChange}/>
                         <Button variant='ghost' size='s' onClick={handleEditSubmit}>
-                            Edit
+                            Save
                         </Button>
                     </div>
                 }
