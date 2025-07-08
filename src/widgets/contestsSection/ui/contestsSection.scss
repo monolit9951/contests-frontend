@@ -22,7 +22,7 @@
         position: relative;
         gap: 24px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(408px, max-content));
+         grid-template-columns: repeat(auto-fit, minmax(408px, 1fr));
         justify-content: start;
 
         > li{
