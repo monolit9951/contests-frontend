@@ -28,12 +28,12 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
 
     const [nickname, setNickname] = useState<string>('')
     const [chechPassword, setCheckPassword] = useState<string>('')
-    const [nicknameValidation, setNicknameValidation] = useState<boolean>(true)
-    const [checkPasswordValidation, setCheckPasswordValidation] = useState<boolean>(true) 
 
     // validation errors
     const [loginError, setLoginError] = useState<string>('')
     const [passwordError, setPasswordError] = useState<string>('')
+    const [checkPasswordError, setCheckPasswordError] = useState<string>('')
+    const [nicknameError, setNicknameError] = useState<string>('')
 
     // обычный LogIn
     // НЕ ОБРАБОТАНЫ ОШИБКИ ПАРОЛЯ ИЛИ ЛОГИНА
@@ -42,7 +42,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         // ошибки пароля или юзернейм
         if(login === '' || password === ''){
             if(login === '' || login.length < 3 || login.length > 20){setLoginError('Login must be 3-20 letters')}
-            if(password === ''){setPasswordError('Password must be 3-20 symbols')}
+            if(password === '' || password.length < 3 || password.length > 20){setPasswordError('Password must be 3-20 symbols')}
         
             return
         }
@@ -67,35 +67,34 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
     }
 
     // стандартная регистрация
-    // НЕ ОБРАБОТАНЫ ОШИБКИ ПАРОЛЯ ИЛИ ЛОГИНА, ТЕСТОВОЕ 
     const handleStandartRegistration = async () =>{
 
         setLoginError('')
-        setPasswordValidation(true)    
-        setCheckPasswordValidation(true)
-        setNicknameValidation(true)
+        setPasswordError('')    
+        setCheckPasswordError('')
+        setNicknameError('')
 
         // ошибки полей
         if(login === '' || password === '' || nickname === '' || chechPassword === ''){
             if(login === '' || login.length < 3 || login.length > 20){setLoginError('Login must be 3-20 letters')}
-            if(password === ''){setPasswordValidation(false)}
-            if(nickname === ''){setNicknameValidation(false)}
-            if(chechPassword === ''){setCheckPasswordValidation(false)}
+            if(password === '' || password.length < 3 || password.length > 20){setPasswordError('Password must be 3-20 symbols')}
+            if(nickname === '' || nickname.length < 3 || nickname.length > 100){setLoginError('Nickname must be 3-100 letters')}
+            if(chechPassword === '' || chechPassword.length < 3 || chechPassword.length > 20){setPasswordError('Password must be 3-20 symbols')}
         
             return
         }
 
         // валидация пароля
         if (password !== chechPassword){
-            setPasswordValidation(false)
-            setCheckPasswordValidation(false)
+            setCheckPasswordError("Passwords do not match")
+            setPasswordError("Passwords do not match")
             return
         }
 
         // потом поменять роль юзера
         await instance.post('/auth/register', {
             name: nickname,
-            login: username,
+            login,
             password,
             role: 'USER'
         })
@@ -104,9 +103,11 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         setPassword('')
         setAuthType('LOGIN')
 
-        setPasswordValidation(true)
-        setUsernameValidation(true)
+        setPasswordError('')
+        setNicknameError('')
     }
+
+
 
     // гугл регистрация или лог ин
     const handleRegistrationWithGoogle = () => {
@@ -128,14 +129,14 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         if(mode !== authType){
             setAuthType(mode)
 
-            setNicknameValidation(true)
-            setCheckPasswordValidation(true)
-            setUsernameValidation(true)
-            setPasswordValidation(true)
+            setLoginError('')
+            setPasswordError('')    
+            setCheckPasswordError('')
+            setNicknameError('')
             setPassword('')
             setNickname('')
             setCheckPassword('')
-            setUsername('')
+            setNickname('')
         }
     }
 
@@ -160,9 +161,9 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
 
             <div className="registrationModal_inputs">
                 <RegistrationInput validationText={loginError} value = {login} type="email" changeCallBack = {handleLoginCallback} placeholder="Enter your email or login" label="Email or Login" />
-                {/* {authType === 'SIGNUP' && <RegistrationInput validation={nicknameValidation} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Nickname" label="Nickname" />} */}
+                {authType === 'SIGNUP' && <RegistrationInput validationText={nicknameError} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Nickname" label="Nickname" />}
                 <RegistrationInput validationText={passwordError} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
-                {/* {authType === 'SIGNUP' && <RegistrationInput validation={checkPasswordValidation} value={chechPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>} */}
+                {authType === 'SIGNUP' && <RegistrationInput validationText={checkPasswordError} value={chechPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
 
                 <div className="registrationModal_inputs_special">
                     <CustomCheckbox value="Remember me" checked={false}/>
