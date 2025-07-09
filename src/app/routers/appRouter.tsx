@@ -118,7 +118,7 @@ export const AppRouter = () => {
       <Route path='/contests' element={<ContestsPage />} />
       <Route path='/contests/:id' element={<ContestPage />} />
       <Route path='/topUsers' element={<TopUsersPage />} />
-      <Route path='profile/:id' element={<ProfilePage account/>}/>
+      <Route path='profile/:id' element={<ProfilePage />}/>
 
       <Route element={<ProtectedRoute auth />}>
         <Route path='/contestsCreate' element={<ContestsCreationPage />} />
