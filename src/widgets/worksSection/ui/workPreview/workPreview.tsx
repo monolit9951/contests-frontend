@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import { Work } from 'entities/work/model/types'
@@ -17,7 +18,6 @@ import MediaGalery from 'widgets/mediaGalery'
 import { ImageSlider } from 'widgets/worksSection/ui/workPreview/imageSlider/imageSlider'
 
 import './workPreview.scss'
-import { Link } from 'react-router-dom'
 
 interface WorkProps {
     work: Work

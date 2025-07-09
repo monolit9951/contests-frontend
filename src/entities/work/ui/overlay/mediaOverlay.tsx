@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Prize, TopPrize } from 'entities/prize'
 import { User } from 'entities/user'
 import cards from 'shared/assets/icons/cards.svg?react'
@@ -8,7 +9,6 @@ import { VStack } from 'shared/ui/stack'
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './mediaOverlay.scss'
-import { useState } from 'react'
 
 interface Props {
     prize?: Prize

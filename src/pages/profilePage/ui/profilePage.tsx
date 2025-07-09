@@ -1,19 +1,16 @@
+import { FC } from 'react'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import PersonInformation from './components/personInformation/personInformation'
 import ProfileContests from './components/profileContests/profileContests'
 import ProfileWallet from './components/profileWallet/profileWallet'
 
 import './profilePage.scss'
-import { FC } from 'react'
-import { useParams } from 'react-router-dom'
 
 
-interface Props {
-    account?: boolean
-}
 
-const ProfilePage: FC<Props> = ({account}) => {
+const ProfilePage: FC = () => {
 
     const {id} = useParams()
     

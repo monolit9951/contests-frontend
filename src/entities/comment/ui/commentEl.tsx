@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 import instance from 'shared/api/api'
 import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
@@ -17,7 +18,6 @@ import CommentController from './commentController'
 import CommentInput from './commentInput'
 
 import './commentEl.scss'
-import { Link } from 'react-router-dom'
 
 interface Props {
     data: Comment
