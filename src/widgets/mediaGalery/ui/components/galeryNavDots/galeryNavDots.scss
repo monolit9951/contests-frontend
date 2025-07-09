@@ -1,21 +1,25 @@
 .galeryNavDots{
     display: flex;
+    align-items: center;
     gap: 10px;
-
+    height: 28px;
     > .galeryNavDots_dot{
         border: none;
         outline: none;
         cursor: pointer;
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         aspect-ratio: 1/1;
         background-color: #393B3B;
         border-radius: 50%;
          transition: 0.3s background-color;
+        transition: 0.3s background-color, 0.3s width, 0.3s height;
 
         &.active{
             background-color: #02140E;
-            transition: 0.3s background-color;
+            transition: 0.3s background-color, 0.3s width, 0.3s height;
+            width: 28px;
+            height: 28px;
         }
     }
 }
