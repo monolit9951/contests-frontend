@@ -16,13 +16,6 @@ const ProfileSettingsPage = () => {
     navigate(-1); // Назад по истории
   };
 
-  // Только лог — если надо отследить "назад"
-  useEffect(() => {
-    if (navigationType === 'POP' && location.state?.modal) {
-      console.log('Назад: модалка закрылась');
-    }
-  }, [navigationType, location.state]);
-
   return (
     <div>
       <h1>Настройки профиля</h1>
