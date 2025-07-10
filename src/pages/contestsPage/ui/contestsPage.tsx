@@ -34,7 +34,7 @@ export const ContestsPage = () => {
         <div className='contestsPage_container'>
             <HeroSection />
             <VStack className='contest-gallery__container'>
-                <ContestsSection section='popular' />
+                {/* <ContestsSection section='popular' /> */}
                 <ContestsSection section='all' />
             </VStack>
         </div>
