@@ -47,10 +47,10 @@ export const MainInformation = ({ submitError }: Props) => {
                         },
                     })}
                     autoComplete='off'
-                    maxLength={70}
+                    maxLength={100}
                     error={errors.name && (errors.name.message as string)}
                 />
-
+{/* 
                 <HStack className='categoryInputs_container'>
                     <Controller
                         name='category'
@@ -94,11 +94,12 @@ export const MainInformation = ({ submitError }: Props) => {
                             />
                         )}
                     />
-                </HStack>
+                </HStack> */}
             </VStack>
 
             <ImageUpload text='Cover image' extra='1704/390'/>
             <ImageUpload text='Card image' extra='376/211'/>
+            
             {submitError &&
                 (!getValues('backgroundImage') ||
                     !getValues('previewImage')) && (
@@ -123,7 +124,7 @@ export const MainInformation = ({ submitError }: Props) => {
                             setQuantity(e.target.value.length)
                         },
                     })}
-                    maxLength={300}
+                    maxLength={3000}
                     error={
                         errors.description &&
                         (errors.description.message as string)
@@ -137,15 +138,15 @@ export const MainInformation = ({ submitError }: Props) => {
                         )}>
                         Please enter at least 40 characters
                     </Text>
-                    <Text Tag='p'>{quantity}/300</Text>
+                    <Text Tag='p'>{quantity}/3000</Text>
                 </HStack>
             </VStack>
 
             <VStack className='mainInfoRadioElContainers_container'>
-                <RadioContainer text='Type of competition' currActive='Open'>
+                {/* <RadioContainer text='Type of competition' currActive='Open'>
                     <RadioEl text='Open' />
                     <RadioEl text='Close' />
-                </RadioContainer>
+                </RadioContainer> */}
 
                 <RadioContainer
                     text='Winner selection type'

@@ -47,9 +47,7 @@ export const GalleryUpload = () => {
                     <Icon Svg={questionMark} height={20} width={21} />
                 </HStack>
                 <Text Tag='p' className='galleryUpload__header_label'>
-                    You can upload to this gallery examples of robots to be
-                    performed by competition participants, as well as
-                    photographs of prizes
+                    In this gallery, you can download examples of the works that will be performed by the participants of the competition, as well as photos of the prizes
                 </Text>
             </VStack>
 

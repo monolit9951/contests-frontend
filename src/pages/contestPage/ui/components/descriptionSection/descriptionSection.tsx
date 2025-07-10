@@ -83,7 +83,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                         </li>
                         <li>
                             <Text Tag='span' size='sm'>
-                                {data.maxAllowedParticipantAmount} participants
+                                {data.participantAmount} participants
                             </Text>
                         </li>
                     </ul>
@@ -106,7 +106,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                         </Text>
                         <Text Tag='p'>{data.description}</Text>
                     </VStack>
-                    <VStack>
+                    {/* <VStack>
                         <Text Tag='h4' bold size='l'>
                             Victory conditions
                         </Text>
@@ -115,7 +115,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                 <Text Tag='p'>{data.description}</Text>
                             </li>
                         </ul>
-                    </VStack>
+                    </VStack> */}
                     {data.exampleMedia && (
                         <VStack>
                             <Text Tag='h4' bold size='l'>
