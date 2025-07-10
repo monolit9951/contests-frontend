@@ -33,7 +33,8 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
         typeWork,
         workAddingDate,
     } = work
-    const timeAgo = moment(workAddingDate).fromNow()
+    
+    const timeAgo = moment.utc(workAddingDate).local().fromNow();
 
     const toggleReadMore = () => {
         setIsReadMore(!isReadMore)

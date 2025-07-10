@@ -41,7 +41,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
 
     const { media, workAddingDate, description, user } = work as Work
 
-    const timeAgo = moment(workAddingDate).fromNow()
+       const timeAgo = moment.utc(workAddingDate).local().fromNow();
 
     const toggleReadMore = () => {
         setIsReadMore(!isReadMore)
