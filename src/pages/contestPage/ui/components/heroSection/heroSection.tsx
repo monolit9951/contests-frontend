@@ -41,7 +41,7 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
                                     <Text Tag='span' bold size='l'>
                                         {owner?.name}
                                     </Text>
-                                    {owner.verificationStatus && <Verified />}
+                                    {/* {owner.verificationStatus && <Verified />} */}
                                 </>
                             ) : (
                                 <Text Tag='span' bold size='l'>
@@ -49,7 +49,7 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
                                 </Text>
                             )}
                         </HStack>
-                        <HStack className='align__center'>
+                        {/* <HStack className='align__center'>
                             {owner?.organizerRating ? (
                                 <>
                                     <Text Tag='span' bold size='sm'>
@@ -62,7 +62,7 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
                                     No rating
                                 </Text>
                             )}
-                        </HStack>
+                        </HStack> */}
                     </VStack>
                 </HStack>
             </Link>

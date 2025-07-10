@@ -8,7 +8,7 @@ import GaleryNavDots from "./components/galeryNavDots/galeryNavDots";
 
 import './mediaGalery.scss';
 
-interface MediaInterface {
+export interface MediaInterface {
     id: string;
     contestId: string;
     mediaLink: string;
@@ -20,9 +20,10 @@ interface MediaInterface {
 
 interface MediaGaleryInterface {
     media: MediaInterface[];
+    type?: 'TYPED' | 'ARRAYOFLINKS'
 }
 
-const MediaGalery: FC<MediaGaleryInterface> = ({ media }) => {
+const MediaGalery: FC<MediaGaleryInterface> = ({ media, type = 'TYPED' }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState<'next' | 'prev'>('next');
 
@@ -51,13 +52,13 @@ const MediaGalery: FC<MediaGaleryInterface> = ({ media }) => {
                 key={currentMedia.id}
             >
                 {currentMedia.typeMedia === 'IMAGE' ? (
+                    <Video url={currentMedia.mediaLink} />
+                ) : (
                     <img
-                        src={currentMedia.mediaLink}
+                        src={type === 'TYPED'? currentMedia.mediaLink : currentMedia}
                         className="mediaGalery_media_image"
                         alt="workImg"
                     />
-                ) : (
-                    <Video url={currentMedia.mediaLink} />
                 )}
             </div>
 

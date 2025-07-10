@@ -16,6 +16,8 @@ import { Text } from 'shared/ui/text'
 import { RegistrationModal } from 'widgets/registrationModal'
 
 import './descriptionSection.scss'
+import MediaGalery from 'widgets/mediaGalery'
+import ExampleGaleryModal from '../exampleGaleryModal/exampleGaleryModal'
 
 interface Props {
     data: Contest
@@ -63,6 +65,18 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
     }
 
 
+
+    // галерея example media
+    const [exampleGaleryModal, setExampleGaleryModal] = useState<boolean>(false)
+
+    const openExapmpleGaleryModal = () => {
+        setExampleGaleryModal(true)
+    }
+
+    const closeExapmpleGaleryModal = () => {
+        setExampleGaleryModal(false)
+    }
+
     return (
         <section className='contest-description'>
             <HStack className='justify__between align__start'>
@@ -76,11 +90,11 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                 {capitalizeStr(data.status)}
                             </Text>
                         </li>
-                        <li>
+                        {/* <li>
                             <Text Tag='span' size='sm'>
                                 {capitalizeStr(data.subcategory)}
                             </Text>
-                        </li>
+                        </li> */}
                         <li>
                             <Text Tag='span' size='sm'>
                                 {data.participantAmount} participants
@@ -123,7 +137,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                             </Text>
                             <ul className='example-list'>
                                 {data.exampleMedia?.map((item, idx) => (
-                                    <li key={item + idx}>
+                                    <li key={item + idx} onClick={openExapmpleGaleryModal}>
                                         <Image
                                             src={item}
                                             alt={`Example ${idx + 1}`}
@@ -216,6 +230,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
             </HStack>
 
             {regModal && <ModalWindow isOpen onClose={() => (setRegModal(false))}><RegistrationModal auth/></ModalWindow>}
+            {exampleGaleryModal && <ModalWindow isOpen onClose={closeExapmpleGaleryModal}><ExampleGaleryModal media={data.exampleMedia}/></ModalWindow>}
         </section>
     )
 }
