@@ -102,17 +102,28 @@ const ContestPage = () => {
     );
   }
 
-    const openModal = (work: Work) => {
-        setSelectedWork(work);
-        
-        navigate('', {
-            state: { modal: true,  },
-        });
-    };
+const openModal = (work: Work) => {
+    // Сохраняем текущую позицию скролла
+    const scrollY = window.scrollY;
+    
+    // Фиксируем body и сохраняем скролл
+    document.body.style.top = `-${scrollY}px`;
+    document.body.classList.add('no-scroll');
+    
+    setSelectedWork(work);
+    navigate('', {
+        state: { modal: true, scrollY },
+        // Предотвращаем сброс скролла при навигации
+        preventScrollReset: true
+    });
+};
 
-  const handleCloseWorkModal = () => {
-    navigate(-1); // Назад по истории — закрыть модалку
-  };
+const handleCloseWorkModal = () => {
+    navigate(-1, { 
+        state: { scrollY: location.state?.scrollY },
+        preventScrollReset: true 
+    });
+};
 
   const getModalMaxWidth = (work: Work | null): string => {
     return work?.typeWork === 'TEXT' ? '520px' : '100%';
