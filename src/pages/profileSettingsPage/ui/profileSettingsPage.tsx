@@ -1,35 +1,37 @@
-import { useNavigate, useNavigationType } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const ProfileSettingsPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
   const navigationType = useNavigationType();
 
+  const isModalOpen = location.state?.modal === true;
+
   const openModal = () => {
-    navigate('', { state: { modal: true } });
-    setIsModalOpen(true);
-    console.log(1)
+    navigate('', { state: { modal: true } }); // Добавляем шаг в историю
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    navigate(-1); // Назад по истории
   };
 
+  // Только лог — если надо отследить "назад"
   useEffect(() => {
-    if (navigationType === 'POP') {
-      setIsModalOpen(false);
-      console.log(2)
+    if (navigationType === 'POP' && location.state?.modal) {
+      console.log('Назад: модалка закрылась');
     }
-  }, [navigationType]);
+  }, [navigationType, location.state]);
 
   return (
     <div>
+      <h1>Настройки профиля</h1>
+
       <button onClick={openModal} type='button'>Открыть модалку</button>
 
       {isModalOpen && (
-        <div className="modal">
-          <h2>Модальное окно</h2>
+        <div style={{ border: '1px solid white', padding: '20px', marginTop: '20px' }}>
+          <span>Модальное окно</span>
           <button onClick={closeModal} type='button'>Закрыть</button>
         </div>
       )}
@@ -37,4 +39,4 @@ const ProfileSettingsPage = () => {
   );
 };
 
-export default ProfileSettingsPage
+export default ProfileSettingsPage;

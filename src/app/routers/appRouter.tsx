@@ -111,37 +111,37 @@ export const AppRouter = () => {
     setUserAuth(false)
   }
 
-  const routes = createRoutesFromElements(
-    <Route path='/' element={<Layout />} handle={{ crumb: <Link to='/'>Home</Link> }}>
-      <Route index element={<HomePage />} />
-      <Route path='/feed' element={<FeedPage />} />
-      <Route path='/battles' element={<BattlesPage />} />
-      <Route path='/contests' element={<ContestsPage />} />
-      <Route path='/contests/:id' element={<ContestPage />} />
-      <Route path='/topUsers' element={<TopUsersPage />} />
-      <Route path='profile/:id' element={<ProfilePage />}/>
+const routes = createRoutesFromElements(
+  <Route path='/' element={<Layout />} handle={{ crumb: <Link to='/'>Home</Link> }}>
+    <Route index element={<FeedPage />} />
 
-      <Route element={<ProtectedRoute auth />}>
-        <Route path='/contestsCreate' element={<ContestsCreationPage />} />
-        <Route path='/profile' element={<ProfilePage />} />
-        <Route path='/chooseWinner/:id' element={<ChooseWinnerPage />} />
-        <Route path='/profile/settings' element={<ProfileSettingsPage />} />
-      </Route>
-      
-      <Route path='*' element={<Navigate to='/' />} />
+    <Route path='/battles' element={<BattlesPage />} />
+    <Route path='/contests' element={<ContestsPage />} />
+    <Route path='/contests/:id' element={<ContestPage />} />
+    <Route path='/topUsers' element={<TopUsersPage />} />
+    <Route path='profile/:id' element={<ProfilePage />} />
+
+    <Route element={<ProtectedRoute auth />}>
+      <Route path='/contestsCreate' element={<ContestsCreationPage />} />
+      <Route path='/profile' element={<ProfilePage />} />
+      <Route path='/chooseWinner/:id' element={<ChooseWinnerPage />} />
+      <Route path='/profile/settings' element={<ProfileSettingsPage />} />
     </Route>
-  )
 
-  const router = createBrowserRouter(routes)
+    <Route path='*' element={<Navigate to='/' replace />} />
+  </Route>
+)
 
-  return (
-    <div className={clsx('app', theme, categoryTheme)}>
-      {checkUser && <RouterProvider router={router} />}
-      {userAuth && (
-        <ModalWindow isOpen={userAuth} onClose={handleModalRegClose}>
-          <RegistrationModal auth />
-        </ModalWindow>
-      )}
-    </div>
-  )
+const router = createBrowserRouter(routes)
+
+return (
+  <div className={clsx('app', theme, categoryTheme)}>
+    {checkUser && <RouterProvider router={router} />}
+    {userAuth && (
+      <ModalWindow isOpen={userAuth} onClose={handleModalRegClose}>
+        <RegistrationModal auth />
+      </ModalWindow>
+    )}
+  </div>
+)
 }
