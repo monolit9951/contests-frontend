@@ -13,7 +13,6 @@ import { Text } from 'shared/ui/text'
 import { TopUser } from 'shared/ui/topUser'
 import { UserIcon } from 'shared/ui/userIcon'
 
-import testImage from '../../../shared/assets/testImages/contestPreviewSample.png'
 import { ContestPreview } from '../model/types'
 
 import './contestCard.scss'
@@ -28,6 +27,7 @@ const ContestCard: React.FC<Props> = (props) => {
     const navigate = useNavigate()
 
     const deadline = moment(dateEnd).format('DD.MM.YYYY')
+    const startline = moment(rest.dateStart).format('DD.MM.YYYY')
 
     const tagType = rest.category
 
@@ -62,9 +62,9 @@ const ContestCard: React.FC<Props> = (props) => {
                             <Text Tag='span' bold size='sm'>
                                 {contestOwner?.name}
                             </Text>
-                            {contestOwner.verificationStatus && <Verified />}
+                            {/* {contestOwner.verificationStatus && <Verified />} */}
                         </Flex>
-                        <Flex className='align__center'>
+                        {/* <Flex className='align__center'>
                             <TopUser topRate={3} />
                             {contestOwner.organizerRating && (
                                 <HStack className='align__center'>
@@ -76,7 +76,7 @@ const ContestCard: React.FC<Props> = (props) => {
                                     <Star />
                                 </HStack>
                             )}
-                        </Flex>
+                        </Flex> */}
                     </VStack>
                 </Flex>
                 </Link>
@@ -120,9 +120,9 @@ const ContestCard: React.FC<Props> = (props) => {
                 </Text>
 
                 <Flex className='segments align__center contest-card-tags'>
-                    <div>{capitalizeStr(rest.status)}</div>
-                    <div>{capitalizeStr(rest.subcategory)}</div>
-                    <div>{rest.maxAllowedParticipantAmount} participants</div>
+                    <div>{rest.status === 'UPCOMING'? `From ${startline}` : capitalizeStr(rest.status)}</div>
+                    {/* <div>{capitalizeStr(rest.subcategory)}</div> */}
+                    <div>{rest.participantAmount} participants</div>
                 </Flex>
             </div>
             <Flex className='btn-box align__center justify__between'>
@@ -130,9 +130,7 @@ const ContestCard: React.FC<Props> = (props) => {
                     <Text Tag='p' bold size='sm'>
                         Completing the task
                     </Text>
-                    <Text Tag='span' size='xs'>
-                        until {deadline}
-                    </Text>
+                    <Text Tag='span' size='xs'>{rest.status === 'FINISHED'? `End date ${deadline} ` : rest.status === 'ACTIVE'? `Up to ${deadline}` : `To ${deadline}`}</Text>
                 </VStack>
                 <Button variant='secondary' onClick={onDetailsClick}>
                     See details
