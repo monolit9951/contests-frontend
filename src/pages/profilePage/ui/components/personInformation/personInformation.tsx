@@ -26,7 +26,7 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
         <div className="personInformation">
             <div className="personInformation_header">
                 <div className="personInformation_header_heading">Personal Information</div>
-                <Link to='/settings'>
+                <Link to='/profile/settings'>
                     <img src={pencil} alt="pencil" />
                 </Link>
             </div>

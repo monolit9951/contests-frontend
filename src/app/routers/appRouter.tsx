@@ -28,6 +28,7 @@ import { userByToken } from 'widgets/registrationModal/model/service/registratio
 import { clearUser, setUser } from 'widgets/registrationModal/model/slice/userSlice'
 
 import '../styles/index.scss'
+import ProfileSettingsPage from 'pages/profileSettingsPage'
 
 export const AppRouter = () => {
   const { theme, categoryTheme } = useTheme()
@@ -124,6 +125,7 @@ export const AppRouter = () => {
         <Route path='/contestsCreate' element={<ContestsCreationPage />} />
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/chooseWinner/:id' element={<ChooseWinnerPage />} />
+        <Route path='/profile/settings' element={<ProfileSettingsPage />} />
       </Route>
       
       <Route path='*' element={<Navigate to='/' />} />
