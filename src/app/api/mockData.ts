@@ -20,16 +20,16 @@ export const mockNavData = [
         text: 'Contests',
         route: '/contests',
     },
-    {
-        svgSrc: sword,
-        svgFilledSrc: swordF,
-        text: 'Battles',
-        route: '/battles',
-    },
-    {
-        svgSrc: crown,
-        svgFilledSrc: crownF,
-        text: 'Top users',
-        route: '/topUsers',
-    },
+    // {
+    //     svgSrc: sword,
+    //     svgFilledSrc: swordF,
+    //     text: 'Battles',
+    //     route: '/battles',
+    // },
+    // {
+    //     svgSrc: crown,
+    //     svgFilledSrc: crownF,
+    //     text: 'Top users',
+    //     route: '/topUsers',
+    // },
 ]

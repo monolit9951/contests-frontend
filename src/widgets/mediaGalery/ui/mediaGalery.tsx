@@ -51,7 +51,7 @@ const MediaGalery: FC<MediaGaleryInterface> = ({ media, type = 'TYPED' }) => {
                 }
                 key={currentMedia.id}
             >
-                {currentMedia.typeMedia === 'IMAGE' ? (
+                {currentMedia.typeMedia === 'VIDEO' ? (
                     <Video url={currentMedia.mediaLink} />
                 ) : (
                     <img

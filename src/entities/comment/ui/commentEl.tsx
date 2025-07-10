@@ -42,6 +42,8 @@ const CommentEl: FC<Props> = (props) => {
         parentId
     } = props
 
+    
+
     // console.log(isMain, parentId)
     const [actionsShown, setActionsShown] = useState(false)
     const [replyInputShown, setReplyInputShown] = useState(false)
@@ -49,7 +51,8 @@ const CommentEl: FC<Props> = (props) => {
     const token = localStorage.getItem('userToken')
     const { user, commentDate, commentText, id, likeAmount } = data
 
-    const timeAgo = moment(commentDate).fromNow()
+    const formatted = moment(commentDate).format("YYYY/MM/DD HH:mm");
+
 
     const onActionClick = () => {
         setActionsShown(!actionsShown)
@@ -161,7 +164,7 @@ const CommentEl: FC<Props> = (props) => {
                         <Text Tag='p' bold>
                             {user.name}
                             <Text Tag='span' size='sm'>
-                                {timeAgo}
+                                {formatted}
                             </Text>
                         </Text>
                     </Link>

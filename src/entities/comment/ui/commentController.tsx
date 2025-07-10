@@ -43,12 +43,12 @@ const CommentController = ({ onClose, handleDeleteCommentCallback, handleSetEdit
 
     return (
         <VStack className='comment-action__box'>
-            <button
+            {/* <button
                 type='button'
                 onClick={onReportAction}
                 className='comment-action__button'>
                 Report comment
-            </button>
+            </button> */}
             <button
                 type='button'
                 onClick={onEditAction}
