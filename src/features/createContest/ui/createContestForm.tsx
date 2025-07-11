@@ -95,8 +95,8 @@ const CreateContestForm = () => {
 
         formData.append('name', data.name)
         formData.append('status', data.status)
-        formData.append('category', data.category)
-        formData.append('subcategory', data.subcategory)
+        // formData.append('category', data.category)
+        // formData.append('subcategory', data.subcategory)
         formData.append('backgroundImage', data.backgroundImage)
         formData.append('previewImage', data.previewImage)
         formData.append('selectionType', data.selectionType)
