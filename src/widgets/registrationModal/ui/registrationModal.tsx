@@ -78,8 +78,8 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         if(login === '' || password === '' || nickname === '' || chechPassword === ''){
             if(login === '' || login.length < 3 || login.length > 20){setLoginError('Login must be 3-20 letters')}
             if(password === '' || password.length < 3 || password.length > 20){setPasswordError('Password must be 3-20 symbols')}
-            if(nickname === '' || nickname.length < 3 || nickname.length > 100){setLoginError('Nickname must be 3-100 letters')}
-            if(chechPassword === '' || chechPassword.length < 3 || chechPassword.length > 20){setPasswordError('Password must be 3-20 symbols')}
+            if(nickname === '' || nickname.length < 3 || nickname.length > 100){setNicknameError('Nickname must be 3-100 letters')}
+            if(chechPassword === '' || chechPassword.length < 3 || chechPassword.length > 20){setCheckPasswordError('Password must be 3-20 symbols')}
         
             return
         }

@@ -91,7 +91,7 @@ const CreateContestForm = () => {
 
         setDateValidation('')
 
-        const formData = new FormData()
+        const formData = new FormData()        
 
         formData.append('name', data.name)
         formData.append('status', data.status)
@@ -131,22 +131,6 @@ const CreateContestForm = () => {
             })
         }
 
-        // ПОЛЬЗОВАТЕЛЬ ПОЛУЧАЕТСЯ ПУТЁМ АВТОРИЗАЦИИ
-        // let contestOwnerId: string
-
-        // try {
-        //     const response = await instance.get(
-        //         'users?page=0&pageSize=1&sortDirection=ASC'
-        //     )
-
-        //     contestOwnerId = response.data.content[0].id
-        // } catch (err) {
-        //     // eslint-disable-next-line no-console
-        //     console.error('Something went wrong: ', err)
-        //     return
-        // }
-
-        // formData.append('contestOwnerId', contestOwnerId)
 
         // вывод формдаты для теста
         console.log('--- FormData содержимое ---');

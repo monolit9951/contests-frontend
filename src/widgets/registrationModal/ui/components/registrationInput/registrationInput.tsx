@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, useState } from "react";
 import eye from 'shared/assets/icons/eyePassword.svg'
-
+import eyeClosed from 'shared/assets/icons/eyeClosed.svg'
+import iValidation from 'shared/assets/icons/iValidation.svg'
 import './registrationInput.scss'
 
 interface RegistrationInputInterface {
@@ -28,12 +29,17 @@ const RegistrationInput: FC <RegistrationInputInterface>= ({placeholder, label, 
         <div className="registrationInput">
             <div className="registrationInput_explain">
                 {label && <div className={validationText === ''? "registrationInput_labbel" : "registrationInput_labbel validation"}>{label}</div>}
-                <div className="registrationInput_validationText">{validationText}</div>
             </div>
             <div className={validationText === ''? "registrationInput_container": "registrationInput_container validation"}>
                 <input type={passwordVisibility? 'text' : type} value={value} placeholder={placeholder} onChange={handleInput}/>
-                {type === "password" && <button onClick={handleTogglePasswordVisible} type="button"><img src={eye} alt="type"/></button>}
+                {type === "password" && !passwordVisibility && <button onClick={handleTogglePasswordVisible} type="button"><img src={eye} alt="type"/></button>}
+                {type === "password" && passwordVisibility && <button onClick={handleTogglePasswordVisible} type="button"><img src={eyeClosed} alt="type"/></button>}
             </div>
+
+            {validationText !== '' && <div className="registrationInput_validation">
+                <img src={iValidation} alt="valid" />
+                <span>{validationText}</span>
+            </div>}
         </div>
     )
 }
