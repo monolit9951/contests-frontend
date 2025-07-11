@@ -11,6 +11,7 @@ import RegistrationInput from "./components/registrationInput/registrationInput"
 import Switcher from "./components/switcher/switcher";
 
 import './registrationModal.scss'
+import axios from "axios";
 
 interface RegistrationModalInterface {
     onClose: () => void
@@ -27,7 +28,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
     const [password, setPassword] = useState<string>('')
 
     const [nickname, setNickname] = useState<string>('')
-    const [chechPassword, setCheckPassword] = useState<string>('')
+    const [checkPassword, setCheckPassword] = useState<string>('')
 
     // validation errors
     const [loginError, setLoginError] = useState<string>('')
@@ -46,24 +47,32 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         
             return
         }
-
-        const response = await instance.post('/auth/signin', {login, password})
-        const userResponse = await userByToken(response.data.token)
-
-        dispatch(setUser({
-            userName: userResponse.name,
-            userLogin: userResponse.login,
-            userProfileImg: userResponse.profileImg,
-            userRole: userResponse.role,
-            userId: userResponse.id
-        }))
         
-        // СОХРАНЕНИЕ ТОКЕНА В ЛОКАЛСТОРЕДЖ
-        localStorage.setItem('userToken', response.data.token)
-        setLoginError('')
-        setPasswordError('')
+        try{
+            const response = await instance.post('/auth/signin', {login, password})
+            const userResponse = await userByToken(response.data.token)
 
-        onClose()
+            dispatch(setUser({
+                userName: userResponse.name,
+                userLogin: userResponse.login,
+                userProfileImg: userResponse.profileImg,
+                userRole: userResponse.role,
+                userId: userResponse.id
+            }))
+            
+            // СОХРАНЕНИЕ ТОКЕНА В ЛОКАЛСТОРЕДЖ
+            localStorage.setItem('userToken', response.data.token)
+            setLoginError('')
+            setPasswordError('')
+
+            onClose()
+        } catch(error) {
+            if (error){
+                setLoginError('Invalid login')
+                setPasswordError("Invalid password")
+            }
+        }
+
     }
 
     // стандартная регистрация
@@ -75,36 +84,43 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         setNicknameError('')
 
         // ошибки полей
-        if(login === '' || password === '' || nickname === '' || chechPassword === ''){
+        if(login === '' || password === '' || nickname === '' || checkPassword === ''){
             if(login === '' || login.length < 3 || login.length > 20){setLoginError('Login must be 3-20 letters')}
             if(password === '' || password.length < 3 || password.length > 20){setPasswordError('Password must be 3-20 symbols')}
             if(nickname === '' || nickname.length < 3 || nickname.length > 100){setNicknameError('Nickname must be 3-100 letters')}
-            if(chechPassword === '' || chechPassword.length < 3 || chechPassword.length > 20){setCheckPasswordError('Password must be 3-20 symbols')}
+            if(checkPassword === '' || checkPassword.length < 3 || checkPassword.length > 20){setCheckPasswordError('Password must be 3-20 symbols')}
         
             return
         }
 
         // валидация пароля
-        if (password !== chechPassword){
+        if (password !== checkPassword){
             setCheckPasswordError("Passwords do not match")
             setPasswordError("Passwords do not match")
             return
         }
+        try{
+            // потом поменять роль юзера
+            await instance.post('/auth/register', {
+                name: nickname,
+                login,
+                password,
+                role: 'USER',
+                confirmPassword: checkPassword
+            })
 
-        // потом поменять роль юзера
-        await instance.post('/auth/register', {
-            name: nickname,
-            login,
-            password,
-            role: 'USER'
-        })
+            setLogin('')
+            setPassword('')
+            setAuthType('LOGIN')
 
-        setLogin('')
-        setPassword('')
-        setAuthType('LOGIN')
-
-        setPasswordError('')
-        setNicknameError('')
+            setPasswordError('')
+            setNicknameError('')
+        } catch (error){
+            if (axios.isAxiosError(error)) {
+                const message = error.response?.data?.error || 'Произошла ошибка';
+                setNicknameError(message);
+            }
+        }
     }
 
 
@@ -163,7 +179,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
                 <RegistrationInput validationText={loginError} value = {login} type="email" changeCallBack = {handleLoginCallback} placeholder="Enter your email or login" label="Email or Login" />
                 {authType === 'SIGNUP' && <RegistrationInput validationText={nicknameError} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Nickname" label="Nickname" />}
                 <RegistrationInput validationText={passwordError} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
-                {authType === 'SIGNUP' && <RegistrationInput validationText={checkPasswordError} value={chechPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
+                {authType === 'SIGNUP' && <RegistrationInput validationText={checkPasswordError} value={checkPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
 
                 <div className="registrationModal_inputs_special">
                     <CustomCheckbox value="Remember me" checked={false}/>
