@@ -21,9 +21,10 @@ import './workPreview.scss'
 
 interface WorkProps {
     work: Work
+    handleChangeComCount: (change: "INCREMENT" | "DECREMENT") => void
 }
 
-export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
+export const WorkPreview: React.FC<WorkProps> = ({ work, handleChangeComCount }) => {
     const { theme } = useTheme()
 
     const [isReadMore, setIsReadMore] = useState(false)
@@ -54,6 +55,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
 
     return (
         <Flex className='workPreview'>
+            <button onClick={() => {handleChangeComCount("INCREMENT")}}>INCREMENT</button>
             <div className="workPreview_container">
                 <div className="workPreview_content">
                     <MediaGalery media = {work.media}/>

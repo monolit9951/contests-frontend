@@ -35,7 +35,6 @@ const ContestPage = () => {
   const [isUploadWorkModalOpen, setIsUploadWorkModalOpen] = useState<boolean>(false);
 
   // для модалок
-  const isModalOpen = location.state?.modal === true
   const isUploadModalOpen = location.state?.uploadModal === true
 
   const ownerId = useAppSelector(selectContestOwnerId);

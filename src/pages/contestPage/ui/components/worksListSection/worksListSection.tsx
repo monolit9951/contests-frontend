@@ -78,36 +78,6 @@ const WorksListSection = ({ worksAmount }: Props) => {
         onFetch(workType, sort)
     }
 
-    const [selectedWork, setSelectedWork] = useState<Work | null>(null);
-    const navigate = useNavigate()
-    const location = useLocation()
-
-    const isModalOpen = location.state?.modal === true
-
-    // открытие модалки ворка
-    const openModal = (work: Work) => {
-        const scrollY = window.scrollY;
-        
-        document.body.style.top = `-${scrollY}px`;
-        document.body.classList.add('no-scroll');
-        
-        setSelectedWork(work);
-        navigate('', {
-            state: { modal: true, scrollY },
-            preventScrollReset: true
-        });
-    };
-
-    const handleCloseUploadModal = () => {
-    navigate(-1, { 
-      state: { scrollY: location.state?.scrollY },
-      preventScrollReset: true 
-    });
-  }
-    const getModalMaxWidth = (work: Work | null): string => {
-    return work?.typeWork === 'TEXT' ? '520px' : '100%';
-  };
-
     return (
         <section className='participants-works'>
             <Text
@@ -167,10 +137,7 @@ const WorksListSection = ({ worksAmount }: Props) => {
             <WorksList
                 workType={workType}
                 sort={selectedSort}
-                openModal={openModal}
             />
-
-            {isModalOpen && <ModalWindow isOpen onClose={handleCloseUploadModal}  maxWidth={getModalMaxWidth(selectedWork)}><WorkPreview work={selectedWork}/></ModalWindow>}
         </section>
     )
 }
