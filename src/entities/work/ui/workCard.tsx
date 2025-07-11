@@ -44,6 +44,18 @@ const WorkCard: FC<Props> = (props) => {
         openModal(data)
     }
 
+    const commentAmountChangeCallBack = (action: "INCREMENT" | "DECREMENT") =>{
+        if(action === 'INCREMENT'){
+            console.log('inc')
+        }
+
+        if(action === 'DECREMENT'){
+            console.log('dec')
+        }
+    }
+
+
+    // текстовых ворков больше нет
     if (typeWork === 'TEXT') {
         return (
             <li className='class1'>
@@ -84,6 +96,8 @@ const WorkCard: FC<Props> = (props) => {
             </li>
         )
     }
+
+
 
 
     return (

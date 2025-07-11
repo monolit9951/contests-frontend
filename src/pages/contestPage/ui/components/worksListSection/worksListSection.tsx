@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import clsx from 'clsx'
 import { Work } from 'entities/work'
 import {
@@ -19,16 +19,19 @@ import { Text } from 'shared/ui/text'
 import { WorksList } from './worksList'
 
 import './worksListSection.scss'
+import { RegistrationModal } from 'widgets/registrationModal'
+import { ModalWindow } from 'shared/ui/modalWindow'
+import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 type WorkType = 'media' | 'text'
 type WorkSort = 'new' | 'popular'
 
 interface Props {
     worksAmount: number
-    openModal: (work: Work) => void
+    // openModal: (work: Work) => void
 }
 
-const WorksListSection = ({ worksAmount, openModal }: Props) => {
+const WorksListSection = ({ worksAmount }: Props) => {
     const [workType, setWorkType] = useState<WorkType>('media')
     const [selectedSort, setSelectedSort] = useState<WorkSort>('new')
 
@@ -74,6 +77,36 @@ const WorksListSection = ({ worksAmount, openModal }: Props) => {
 
         onFetch(workType, sort)
     }
+
+    const [selectedWork, setSelectedWork] = useState<Work | null>(null);
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const isModalOpen = location.state?.modal === true
+
+    // открытие модалки ворка
+    const openModal = (work: Work) => {
+        const scrollY = window.scrollY;
+        
+        document.body.style.top = `-${scrollY}px`;
+        document.body.classList.add('no-scroll');
+        
+        setSelectedWork(work);
+        navigate('', {
+            state: { modal: true, scrollY },
+            preventScrollReset: true
+        });
+    };
+
+    const handleCloseUploadModal = () => {
+    navigate(-1, { 
+      state: { scrollY: location.state?.scrollY },
+      preventScrollReset: true 
+    });
+  }
+    const getModalMaxWidth = (work: Work | null): string => {
+    return work?.typeWork === 'TEXT' ? '520px' : '100%';
+  };
 
     return (
         <section className='participants-works'>
@@ -136,6 +169,8 @@ const WorksListSection = ({ worksAmount, openModal }: Props) => {
                 sort={selectedSort}
                 openModal={openModal}
             />
+
+            {isModalOpen && <ModalWindow isOpen onClose={handleCloseUploadModal}  maxWidth={getModalMaxWidth(selectedWork)}><WorkPreview work={selectedWork}/></ModalWindow>}
         </section>
     )
 }

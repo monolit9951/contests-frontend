@@ -99,33 +99,6 @@ const ContestPage = () => {
     );
   }
 
-  // открытие модалки ворка
-  const openModal = (work: Work) => {
-    const scrollY = window.scrollY;
-    
-    document.body.style.top = `-${scrollY}px`;
-    document.body.classList.add('no-scroll');
-    
-    setSelectedWork(work);
-    navigate('', {
-        state: { modal: true, scrollY },
-        preventScrollReset: true
-    });
-  };
-
-  // закрытие модалки
-  const handleCloseWorkModal = () => {
-      navigate(-1, { 
-          state: { scrollY: location.state?.scrollY },
-          preventScrollReset: true 
-      });
-  };
-
-
-  const getModalMaxWidth = (work: Work | null): string => {
-    return work?.typeWork === 'TEXT' ? '520px' : '100%';
-  };
-
   const handleOpenWorkUploadModal = () => {
     // setIsUploadWorkModalOpen(true);
     const scrollY = window.scrollY;
@@ -160,25 +133,10 @@ const ContestPage = () => {
 
         <WorksListSection
           worksAmount={data.participantAmount}
-          openModal={openModal}
         />
 
         <CommentsSection workId={id} contest />
       </VStack>
-
-      {/* Work preview modal */}
-      {isModalOpen && (
-        <ModalWindow
-          isOpen={isModalOpen}
-          onClose={handleCloseWorkModal}
-          maxWidth={getModalMaxWidth(selectedWork)}
-          height={windowWidth > 1024 ? '83%' : '88%'}
-          maxHeight={windowWidth >= 1024 ? '900px' : ''}
-          modalContentClass="work-preview-modal"
-        >
-          {selectedWork && <WorkPreview work={selectedWork} />}
-        </ModalWindow>
-      )}
 
       {/* Upload work modal */}
       {isUploadModalOpen && (
