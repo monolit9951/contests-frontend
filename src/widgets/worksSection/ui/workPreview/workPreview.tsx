@@ -55,7 +55,6 @@ export const WorkPreview: React.FC<WorkProps> = ({ work, handleChangeComCount })
 
     return (
         <Flex className='workPreview'>
-            <button onClick={() => {handleChangeComCount("INCREMENT")}}>INCREMENT</button>
             <div className="workPreview_container">
                 <div className="workPreview_content">
                     <MediaGalery media = {work.media}/>
@@ -148,7 +147,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work, handleChangeComCount })
 
                     <MediaFeedback id={work.id} likes={work.likeAmount} />
 
-                    <CommentsSection workId={work.id} work />
+                    <CommentsSection workId={work.id} work handleChangeComCount={handleChangeComCount}/>
                 </VStack>
             </div>
         </Flex>

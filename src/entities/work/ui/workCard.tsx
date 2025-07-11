@@ -29,22 +29,12 @@ interface Props {
 
 const WorkCard: FC<Props> = (props) => {
     const { data, prizeId, className } = props
-    // console.log(data)
-    const [isReadMore, setIsReadMore] = useState(false)
 
     const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
     const { description, typeWork, media, user } = data
 
     const prize = prizes.find((item) => item.id === prizeId)
-
-    const toggleReadMore = () => {
-        setIsReadMore(!isReadMore)
-    }
-
-    // const onOpenModal = () => {
-    //     openModal(data)
-    // }
 
     const [openModal, setOpenModal] = useState<boolean>(false)
 
@@ -56,51 +46,18 @@ const WorkCard: FC<Props> = (props) => {
         setOpenModal(false)
     }
 
+    const [comments, setComments] = useState<number>(data.commentAmount)
 
-    // текстовых ворков больше нет
-    if (typeWork === 'TEXT') {
-        return (
-            <li className='class1'>
-                <VStack className={clsx('text-work', className)}>
-                    <HStack className='justify__between align__center'>
-                        <UserIcon
-                            src={user.profileImage}
-                            size={40}
-                            userName={user.name}
-                        />
-                        {prize && <TopPrize data={prize} />}
-                    </HStack>
-                    <Text
-                        Tag='p'
-                        className='text-work__text'
-                        onClick={() => {setOpenModal(true)}}>
-                        {(description.length < 430 && description) || (
-                            <>
-                                {!isReadMore
-                                    ? description.slice(0, 430)
-                                    : `${description}`}
-                                <button
-                                    type='button'
-                                    className='read-more-btn'
-                                    onClick={toggleReadMore}>
-                                    {!isReadMore ? '... more' : 'show less'}
-                                </button>
-                            </>
-                        )}
-                    </Text>
-                    <MediaFeedback
-                        id={data.id}
-                        likes={data.likeAmount}
-                        comments={data.commentAmount}
-                        onCommentsClick={handleOpenModal}
-                    />
-                </VStack>
-            </li>
-        )
+    // колбек для изменения колличества комментов 
+    const handleChangeComments = (change: 'INCREMENT' | 'DECREMENT') => {
+        if (change === 'DECREMENT'){
+            setComments(comments - 1)
+        }
+
+        if (change === 'INCREMENT'){
+            setComments(comments + 1)
+        }
     }
-
-
-
 
     return (
         <li className='li'>
@@ -133,12 +90,12 @@ const WorkCard: FC<Props> = (props) => {
                 <MediaFeedback
                     id={data.id}
                     likes={data.likeAmount}
-                    comments={data.commentAmount}
+                    comments={comments}
                     onCommentsClick={handleOpenModal}
                 />
             </VStack>
 
-            {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={data}/></ModalWindow>}
+            {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={data} handleChangeComCount={handleChangeComments}/></ModalWindow>}
         </li>
     )
 }

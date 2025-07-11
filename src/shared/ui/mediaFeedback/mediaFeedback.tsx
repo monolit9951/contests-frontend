@@ -24,13 +24,8 @@ const MediaFeedback: FC<Props> = (props) => {
 
     const [likesNum] = useState(likes)
 
-    const [newComments, setNewComments] = useState<number | undefined>(comments? comments : 0)
 
     const onShare = () => {}
-
-    setTimeout(() => {
-            setNewComments(newComments + 1)
-    }, 300);
 
 
     return (
@@ -47,7 +42,7 @@ const MediaFeedback: FC<Props> = (props) => {
                         className='feedback__button'>
                         <Icon Svg={bubble} width={20} height={20} />
                         <Text Tag='span' size='sm'>
-                            {newComments}
+                            {comments}
                         </Text>
                     </Button>
                 )}

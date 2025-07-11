@@ -16,9 +16,10 @@ interface Props {
     workId: string
     work?: boolean
     contest?: boolean
+    handleChangeComCount: (change: "INCREMENT" | "DECREMENT") => void
 }
 
-const СommentsSection = ({ workId, work, contest }: Props) => {
+const СommentsSection = ({ workId, work, contest, handleChangeComCount }: Props) => {
     const [commentInputFocused, setCommentInputFocused] = useState(false)
     const [inputData, setInputData] = useState('')
 
@@ -75,20 +76,20 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
             const token = localStorage.getItem('userToken')
             const { data } = await instance.post(
                 'comment',
-            {
-                parentId: workId,
-                commentType: contest ? "CONTEST" : "WORK",
-                commentText: inputData.trim(),
-                userId,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
+                {
+                    parentId: workId,
+                    commentType: contest ? "CONTEST" : "WORK",
+                    commentText: inputData.trim(),
+                    userId,
                 },
-            }
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
-
-
+            console.log('ADD')
+            handleChangeComCount("INCREMENT")
             // eslint-disable-next-line no-return-assign
             setTotalElements((prev) => (prev += 1))
             setComments((prev) => [data, ...prev])
@@ -171,6 +172,7 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
                 setError={setError}
                 className='comments__list'
                 handleCommentsDecreaseCallback = {handleCommentsDecreaseCallback}
+                handleChangeComCount = {handleChangeComCount}
             />
 
                         {work && (

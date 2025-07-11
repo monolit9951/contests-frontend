@@ -164,7 +164,7 @@ export const WorksList: FC<Props> = (props) => {
                     )
                 }
                 return newMediaWorks?.map((item, index: number) => (
-                    <WorkCard key={index} data={item} openModal={openModal}/>
+                    <WorkCard key={index} data={item} />
                 ))
             }
 
@@ -178,7 +178,7 @@ export const WorksList: FC<Props> = (props) => {
                 )
             }
             return popularMediaWorks?.map((item) => (
-                <WorkCard key={item.id} data={item} openModal={openModal}/>
+                <WorkCard key={item.id} data={item}/>
             ))
         }
 
