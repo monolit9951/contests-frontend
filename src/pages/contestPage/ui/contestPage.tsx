@@ -34,13 +34,16 @@ const ContestPage = () => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
   const [isUploadWorkModalOpen, setIsUploadWorkModalOpen] = useState<boolean>(false);
 
-  const isModalOpen = location.state?.modal === true;
+  // для модалок
+  const isModalOpen = location.state?.modal === true
+  const isUploadModalOpen = location.state?.uploadModal === true
 
   const ownerId = useAppSelector(selectContestOwnerId);
   const media = useAppSelector(selectContestMedia);
 
   const { data, isLoading, error } = useAxios<Contest>(`contests/${id}`);
 
+  // пагинация ворков
   useEffect(() => {
     if (!id) return;
     if (id !== ownerId) {
@@ -59,18 +62,12 @@ const ContestPage = () => {
     }
   }, [dispatch, data]);
 
+  // ресайзер (не используется)
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  // Закрытие модалки при POP (назад)
-  useEffect(() => {
-    if (navigationType === 'POP' && location.state?.modal) {
-      setSelectedWork(null);
-    }
-  }, [navigationType, location.state]);
 
   if (!id) {
     return (
@@ -102,36 +99,52 @@ const ContestPage = () => {
     );
   }
 
-const openModal = (work: Work) => {
-    // Сохраняем текущую позицию скролла
+  // открытие модалки ворка
+  const openModal = (work: Work) => {
     const scrollY = window.scrollY;
     
-    // Фиксируем body и сохраняем скролл
     document.body.style.top = `-${scrollY}px`;
     document.body.classList.add('no-scroll');
     
     setSelectedWork(work);
     navigate('', {
         state: { modal: true, scrollY },
-        // Предотвращаем сброс скролла при навигации
         preventScrollReset: true
     });
-};
+  };
 
-const handleCloseWorkModal = () => {
-    navigate(-1, { 
-        state: { scrollY: location.state?.scrollY },
-        preventScrollReset: true 
-    });
-};
+  // закрытие модалки
+  const handleCloseWorkModal = () => {
+      navigate(-1, { 
+          state: { scrollY: location.state?.scrollY },
+          preventScrollReset: true 
+      });
+  };
+
 
   const getModalMaxWidth = (work: Work | null): string => {
     return work?.typeWork === 'TEXT' ? '520px' : '100%';
   };
 
   const handleOpenWorkUploadModal = () => {
-    setIsUploadWorkModalOpen(true);
+    // setIsUploadWorkModalOpen(true);
+    const scrollY = window.scrollY;
+    
+    document.body.style.top = `-${scrollY}px`;
+    document.body.classList.add('no-scroll');
+    
+    navigate('', {
+        state: { uploadModal: true, scrollY },
+        preventScrollReset: true
+    });
   };
+
+  const handleCloseUploadModal = () => {
+    navigate(-1, { 
+      state: { scrollY: location.state?.scrollY },
+      preventScrollReset: true 
+    });
+  }
 
 
   
@@ -168,11 +181,11 @@ const handleCloseWorkModal = () => {
       )}
 
       {/* Upload work modal */}
-      {isUploadWorkModalOpen && (
+      {isUploadModalOpen && (
         <ModalWindow
-          isOpen={isUploadWorkModalOpen}
+          isOpen={isUploadModalOpen}
           isOuterClose
-          onClose={() => setIsUploadWorkModalOpen(false)}
+          onClose={handleCloseUploadModal}
         >
           <UploadWorkModal contestId={data.id} />
         </ModalWindow>
