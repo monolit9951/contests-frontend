@@ -12,7 +12,7 @@ export const mockNavData = [
         svgSrc: house,
         svgFilledSrc: houseF,
         text: 'Feed',
-        route: '/feed',
+        route: '/',
     },
     {
         svgSrc: trophy,
