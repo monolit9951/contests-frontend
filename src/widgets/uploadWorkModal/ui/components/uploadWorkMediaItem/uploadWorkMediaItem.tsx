@@ -30,10 +30,12 @@ const UploadWorkMediaItem: FC<UploadWorkMediaItemInterface> = ({ mediaItem, hand
     handleRemoveMediaCallback(id);
   };
 
+  console.log(isVideo)
+
   return (
     <div className="uploadWorkMediaItem">
       {isVideo ? (
-      <video src={previewUrl} controls>
+      <video src={previewUrl} controls = {false} preload="metadata">
         <track
           kind="captions"
           srcLang="en"
