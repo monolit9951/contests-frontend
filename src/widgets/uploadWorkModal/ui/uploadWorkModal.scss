@@ -6,15 +6,15 @@
     padding: 24px 0;
     background-color: #02140E;
     border-radius: 24px;
+
     .uploadWorkModal_container{
-        // width: 100%;
         max-height: 800px;
         overflow-y: scroll;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        scrollbar-width: none; 
+        -ms-overflow-style: none;  
     
         > .uploadWorkModal::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
+            display: none;
         }
 
         > .uploadWorkModal_heading{

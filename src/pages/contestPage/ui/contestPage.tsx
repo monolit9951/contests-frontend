@@ -100,7 +100,7 @@ const ContestPage = () => {
 
   const handleOpenWorkUploadModal = () => {
     // setIsUploadWorkModalOpen(true);
-    const scrollY = window.scrollY;
+    const {scrollY} = window;
     
     document.body.style.top = `-${scrollY}px`;
     document.body.classList.add('no-scroll');

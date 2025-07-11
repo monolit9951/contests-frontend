@@ -16,17 +16,19 @@ import { Work } from '../model/types'
 import MediaOverlay from './overlay/mediaOverlay'
 
 import './workCard.scss'
+import { ModalWindow } from 'shared/ui/modalWindow'
+import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 interface Props {
     data: Work
-    openModal: (work: Work) => void
     prizeId?: string
     className?: string,
 }
 
 
 const WorkCard: FC<Props> = (props) => {
-    const { data, openModal, prizeId, className } = props
+    const { data, prizeId, className } = props
     // console.log(data)
     const [isReadMore, setIsReadMore] = useState(false)
 
@@ -40,10 +42,19 @@ const WorkCard: FC<Props> = (props) => {
         setIsReadMore(!isReadMore)
     }
 
-    const onOpenModal = () => {
-        openModal(data)
+    // const onOpenModal = () => {
+    //     openModal(data)
+    // }
+
+    const [openModal, setOpenModal] = useState<boolean>(false)
+
+    const handleOpenModal = () => {
+        setOpenModal(true)
     }
 
+    const handleCloseModal = () => {
+        setOpenModal(false)
+    }
 
 
     // текстовых ворков больше нет
@@ -62,7 +73,7 @@ const WorkCard: FC<Props> = (props) => {
                     <Text
                         Tag='p'
                         className='text-work__text'
-                        onClick={onOpenModal}>
+                        onClick={() => {setOpenModal(true)}}>
                         {(description.length < 430 && description) || (
                             <>
                                 {!isReadMore
@@ -81,7 +92,7 @@ const WorkCard: FC<Props> = (props) => {
                         id={data.id}
                         likes={data.likeAmount}
                         comments={data.commentAmount}
-                        onCommentsClick={onOpenModal}
+                        onCommentsClick={handleOpenModal}
                     />
                 </VStack>
             </li>
@@ -103,7 +114,7 @@ const WorkCard: FC<Props> = (props) => {
                     {data.media && data.media[0].typeMedia === 'VIDEO' && media?.[0]?.mediaLink && (
                         <Button
                             variant='div'
-                            onClick={onOpenModal}
+                            onClick={handleOpenModal}
                             className='media-work__video'>
                             <Video url={media[0].mediaLink} light />
                         </Button>
@@ -114,7 +125,7 @@ const WorkCard: FC<Props> = (props) => {
                             alt='media'
                             width={458}
                             height={612}
-                            onClick={onOpenModal}
+                            onClick={handleOpenModal}
                             className='media-work__frame'
                         />
                     )}
@@ -123,9 +134,11 @@ const WorkCard: FC<Props> = (props) => {
                     id={data.id}
                     likes={data.likeAmount}
                     comments={data.commentAmount}
-                    onCommentsClick={onOpenModal}
+                    onCommentsClick={handleOpenModal}
                 />
             </VStack>
+
+            {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={data}/></ModalWindow>}
         </li>
     )
 }
