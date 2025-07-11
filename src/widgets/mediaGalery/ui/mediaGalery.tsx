@@ -21,9 +21,10 @@ export interface MediaInterface {
 interface MediaGaleryInterface {
     media: MediaInterface[];
     type?: 'TYPED' | 'ARRAYOFLINKS'
+    className?: string
 }
 
-const MediaGalery: FC<MediaGaleryInterface> = ({ media, type = 'TYPED' }) => {
+const MediaGalery: FC<MediaGaleryInterface> = ({ media, type = 'TYPED', className }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState<'next' | 'prev'>('next');
 
@@ -44,7 +45,7 @@ const MediaGalery: FC<MediaGaleryInterface> = ({ media, type = 'TYPED' }) => {
     const currentMedia = media[currentIndex];
 
     return (
-        <div className="mediaGalery">
+        <div className={`mediaGalery ${className}`}>
             <div
                 className={
                     `mediaGalery_media ${  direction === 'next' ? "slideInNext" : "slideInPrev"}`

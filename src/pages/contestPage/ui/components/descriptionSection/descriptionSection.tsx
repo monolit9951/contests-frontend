@@ -18,6 +18,7 @@ import { RegistrationModal } from 'widgets/registrationModal'
 import './descriptionSection.scss'
 import MediaGalery from 'widgets/mediaGalery'
 import ExampleGaleryModal from '../exampleGaleryModal/exampleGaleryModal'
+import { Link } from 'react-router-dom'
 
 interface Props {
     data: Contest
@@ -31,20 +32,16 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
         switch (data.status) {
             case 'FINISHED':
                 return 'Completed'
-
-            case 'INACTIVE':
-                return 'Inactive'
-
-            case 'PAUSED':
-                return 'Paused'
-
             case 'UPCOMING':
                 return 'Upcoming'
-
+            case "ACTIVE":
+                return 'Active'
             default:
-                return 'Participate'
+                return 'Inactive'
         }
     }
+
+    console.log(contestStatus())
 
     const [regModal, setRegModal] = useState(false)
 
@@ -63,8 +60,6 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
             handleOpenWorkUploadModal()
         }
     }
-
-
 
     // галерея example media
     const [exampleGaleryModal, setExampleGaleryModal] = useState<boolean>(false)
@@ -105,7 +100,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                 
                 <Button
                     variant='primary'
-                    disabled={!data.contestOpen || data.status === 'FINISHED'}
+                    disabled={data.status === 'FINISHED' || contestStatus() === 'Inactive'}
                     onClick={onParticipateClick}
                     className='participate-btn'>
                     <Text Tag='span'>{contestStatus()}</Text>
@@ -226,6 +221,10 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                             </Text>
                         </HStack>
                     </VStack>
+
+                        <HStack>
+                            <Link to= {`/chooseWinner/${data.id}`}>CHOOSE WINNERS</Link>
+                        </HStack>
                 </VStack>
             </HStack>
 
