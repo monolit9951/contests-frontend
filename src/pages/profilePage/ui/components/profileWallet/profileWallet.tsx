@@ -2,25 +2,37 @@ import { FC } from "react";
 import profileWallet from 'shared/assets/icons/profileWallet.svg'
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 
-import { fetchWalletBalance } from "../../model/sevices/walletServices";
+import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices/walletServices";
 
 import './profileWallet.scss'
+import WalletTrasaction from "../walletTransaction/walletTransaction";
 
-interface ProfileWalletInterface {
+interface Props {
     userId: string
 }
 
-const ProfileWallet: FC <ProfileWalletInterface>= ({userId}) =>{
+export interface Transaction {
+    amount: number,
+    createdAt: number[],
+    id: string,
+    directiom: string,
+    type: string
+}
 
-    // ВОЗМОЖНО СДЕЛАТЬ ИСТОРИЮ БАЛАНСА В ВИДЕ ОТЛЕЛЬНЫХ КОМПОНЕНТОВ, ЕСЛИ ЛОГИКА БУДЕТ СЛОЖНЕЕ
+export interface WalletBalance {
+    balance: number,
+    bonusBalance: number,
+    updatedAt: string,
+    userId: string,
+    walletId: string
+}
 
-    // const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
+
+const ProfileWallet: FC <Props>= ({userId}) =>{
 
     // запрос на получение данных кошелька
-    const {data: wallet, isLoaded: walletLoaded} = useGetRequest({fetchFunc: () => fetchWalletBalance(userId), enabled: true, key: []})
-
-    // запрос на получение транзакций кошелька
-    // const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest({fetchFunc: () => fetchWalletTransactions(userId), enabled: true, key: []})
+    const {data: wallet, isLoaded: walletLoaded} = useGetRequest<WalletBalance | string>({fetchFunc: () => fetchWalletBalance(userId), enabled: true, key: []})
+    const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest<Transaction[] | string>({fetchFunc: () => fetchWalletTransactions(userId), enabled: true, key: []})
 
     return(
         <div className="profileWallet">
@@ -31,7 +43,7 @@ const ProfileWallet: FC <ProfileWalletInterface>= ({userId}) =>{
             </div>
 
             <div className="profileWallet_currentBalanceGroup">
-                {walletLoaded && wallet && <div className="profileWallet_currentBalanceGroup_balance">$ {wallet.balance}</div>}
+                {walletLoaded && wallet && <div className="profileWallet_currentBalanceGroup_balance">$ {wallet.balance? wallet.balance : 0}</div>}
                 <div className="profileWallet_currentBalanceGroup_desc">Current Balance</div>
             </div>
 
@@ -41,33 +53,11 @@ const ProfileWallet: FC <ProfileWalletInterface>= ({userId}) =>{
             </div>
 
             <div className="profileWallet_balance_history">
-                
-                <div className="profileWallet_balance_action">
-                    <div className="profileWallet_balance_action_left">
-                        <div className="profileWallet_balance_action_type">+</div>
-
-                        <div className="profileWallet_balance_action_info">
-                            <div className="profileWallet_balance_action_info_name">Contest Prize</div>
-                            <div className="profileWallet_balance_action_info_desc">2024-01-15</div>
-                        </div>
-                    </div>
-
-                    <div className="profileWallet_balance_action_right">+$500</div>
-                </div>
-
-                <div className="profileWallet_balance_action">
-                    <div className="profileWallet_balance_action_left">
-                        <div className="profileWallet_balance_action_type">+</div>
-
-                        <div className="profileWallet_balance_action_info">
-                            <div className="profileWallet_balance_action_info_name">Contest Prize</div>
-                            <div className="profileWallet_balance_action_info_desc">2024-01-15</div>
-                        </div>
-                    </div>
-
-                    <div className="profileWallet_balance_action_right">+$500</div>
-                </div>
-
+                {
+                    transactionsLoaded && transactions.content && transactions.content.map((data: Transaction, index: number) => (
+                        <WalletTrasaction transaction = {data} key={index}/>
+                    ))
+                }
             </div>
         </div>
     )

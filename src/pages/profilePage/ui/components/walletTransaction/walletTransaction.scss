@@ -1,0 +1,53 @@
+.profileWallet_balance_action{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0;
+    border-bottom: #3B3B3B 1px solid;
+
+    > .profileWallet_balance_action_left{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        > .profileWallet_balance_action_type{
+            background-color: #0BA486;
+            width: 32px;
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            border-radius: 50%;
+        }
+
+        > .profileWallet_balance_action_info{
+            > .profileWallet_balance_action_info_name{
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 21px;
+                letter-spacing: 0%;
+            }
+
+            > .profileWallet_balance_action_info_desc{
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 18px;
+                letter-spacing: 0%;
+                color: #DDDDDD;
+            }
+        }
+    }
+
+    > .profileWallet_balance_action_right{
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 24px;
+        letter-spacing: 0%;
+        color: #0BA486;
+    }
+
+    &:first-child{
+        margin-top: 24px;
+        border-top: #3B3B3B 1px solid;
+    }
+}

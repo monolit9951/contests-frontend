@@ -43,7 +43,7 @@ const ProfileContests: FC <ProfileContestsInterface> = ({userId}) => {
     // ПОМЕНЯТЬ НА ВИННИНГ
     const handleWinningContests = () => {
         setContestType('Winning')
-        setExtraPath('user-all')
+        setExtraPath('user-winner')
         setContestsKey(contestsKey + 1)
     }
 

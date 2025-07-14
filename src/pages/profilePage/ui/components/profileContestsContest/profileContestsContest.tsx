@@ -2,14 +2,16 @@ import { FC } from "react";
 import calendar from 'shared/assets/icons/calendar.svg'
 
 import './profileContestsContest.scss'
+import { Link } from "react-router-dom";
 
 interface ProfileContestsContestInterface {
     data: any
 }
 
 const ProfileContestsContest: FC <ProfileContestsContestInterface>= ({data}) => {
+
     return(
-        <div className="profileContest">
+        <Link to = {`/contests/${data.id}`} className="profileContest">
             <div className="profileContest_leftGroup">
                 <div className="profileContest_leftGroup_header">
                     <div className="profileContest_leftGroup_heading">{data.name}</div>
@@ -35,7 +37,7 @@ const ProfileContestsContest: FC <ProfileContestsContestInterface>= ({data}) => 
                 <div className="profileContest_rightGroup_desc">Prize</div>
                 <div className="profileContest_rightGroup_value">{data.prizes[0].prizeType === 'MONEY'? `${data.prizes[0].prizeAmount}$` : data.prizes[0].prizeText}</div>
             </div>}
-        </div>
+        </Link>
     )
 }
 

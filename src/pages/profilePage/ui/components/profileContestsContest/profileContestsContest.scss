@@ -3,7 +3,9 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px #3B3B3B solid;
-
+    color: white;
+    text-decoration: none;
+    
     &:last-child{
         border-bottom: none;
         padding: 36px 16px 16px 16px;

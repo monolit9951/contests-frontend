@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { Work } from "entities/work";
 import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
 import { Button } from "shared/ui/button";
@@ -40,6 +40,10 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
     console.log(work)
 
 
+    const handleCheckbox = (event: React.ChangeEvent<HTMLInputElement>) =>{
+        console.log(event.target.checked)
+    }
+
     return(
         <div className={isWin? "winnerWork winner" : "winnerWork"}>
             <div className="winnerWork_left">
@@ -62,7 +66,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
             </div>
 
             <div className="winnerWork_right">
-                <CustomCheckbox value="Winner" checked/>
+                <CustomCheckbox value="Winner" checked handleCheckbox={handleCheckbox}/>
                 <CustomSelector options={winnerOptions} maxWidth={200} name="Place"/>
             </div>
 

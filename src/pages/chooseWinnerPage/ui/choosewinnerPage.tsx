@@ -17,8 +17,11 @@ const ChooseWinnerPage: FC = () => {
     const {id} = useParams()
 
     const { data: contest, isLoading: contestIsLoading} = useAxios<Contest>(`contests/${id}`)
-    const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/686cfab262f7e7754f6fbc38`)
-    console.log(works)
+    const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/${id}`)
+    const { data: winners, isLoading: winnersLoading} = useAxios(`contests/${id}/possible-winners`)
+
+    console.log(winners)
+
 
     return(
         <div className="chooseWinnerPage">
@@ -43,11 +46,11 @@ const ChooseWinnerPage: FC = () => {
                 <WinnerSelectors />
             </div>
 
-            <div className="winnersList">
+            {/* <div className="winnersList">
                 {!worksIsLoading && works?.content?.map((data: Work, index: number) => (
                     <WinnerWork isWin work = {data} key={index} />
                 ))}
-            </div>
+            </div> */}
 
             <div className="chooseWinnerPage_paginationBtn">
                 <Button variant="primary" >Load more</Button>
