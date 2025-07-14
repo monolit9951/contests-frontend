@@ -25,6 +25,7 @@ export interface Work {
     typeWork: WorkType | string
     popularity: number
     workAddingDate: string
+    possibleWinner: boolean
 }
 
 export interface WorksResponse extends PageEntityDTO {

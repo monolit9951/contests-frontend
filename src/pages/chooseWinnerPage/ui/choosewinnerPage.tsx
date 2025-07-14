@@ -10,6 +10,8 @@ import WinnerSelectors from "./components/winnersSelectors/winnerSelectors";
 import WinnerWork from "./components/winnerWork/winnerWork";
 
 import './chooseWinnerPage.scss'
+import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import { getRuledWorks } from "./model/services/contestService";
 
 // добавить параметр контестАйди
 const ChooseWinnerPage: FC = () => {
@@ -17,11 +19,10 @@ const ChooseWinnerPage: FC = () => {
     const {id} = useParams()
 
     const { data: contest, isLoading: contestIsLoading} = useAxios<Contest>(`contests/${id}`)
-    const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/${id}`)
-    const { data: winners, isLoading: winnersLoading} = useAxios(`contests/${id}/possible-winners`)
+    // const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/${id}`)
+    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks(id), key: [], enabled: true})
 
-    console.log(winners)
-
+    console.log(works)
 
     return(
         <div className="chooseWinnerPage">
@@ -34,8 +35,8 @@ const ChooseWinnerPage: FC = () => {
                 {!contestIsLoading && <div className="chooseWinnerPage_header_right">
                     <ul>
                         <li>{contest?.participantAmount} participants</li>
-                        <li>Empty tag</li>
-                        <li>{contest?.subcategory}</li>
+                        {/* <li>Empty tag</li> */}
+                        {/* <li>{contest?.subcategory}</li> */}
                     </ul>
                 </div>}
             </div>
@@ -46,11 +47,11 @@ const ChooseWinnerPage: FC = () => {
                 <WinnerSelectors />
             </div>
 
-            {/* <div className="winnersList">
-                {!worksIsLoading && works?.content?.map((data: Work, index: number) => (
+            <div className="winnersList">
+                {worksIsLoaded && works?.content?.map((data: Work, index: number) => (
                     <WinnerWork isWin work = {data} key={index} />
                 ))}
-            </div> */}
+            </div>
 
             <div className="chooseWinnerPage_paginationBtn">
                 <Button variant="primary" >Load more</Button>

@@ -9,6 +9,8 @@ import UserProfileData from "widgets/userProfileData/userProfileData";
 import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
 
 import './winnerWork.scss'
+import instance from "shared/api/api";
+import { useParams } from "react-router-dom";
 
 
 interface WinnerWorkInterface {
@@ -37,12 +39,21 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
         setModalWork(true)
     }
 
-    console.log(work)
+    const {id} = useParams()
+    
+    const handleCheckbox = async (event: React.ChangeEvent<HTMLInputElement>) =>{
 
+        if (event.target.checked){
+            console.log("ADD POSSIBLE WINNER")
+            await instance.post(`contests/${id}/possible-winners/${work.id}`)
 
-    const handleCheckbox = (event: React.ChangeEvent<HTMLInputElement>) =>{
-        console.log(event.target.checked)
+        } else {
+            console.log("DELETE POSSIBLE WINNER")
+            await instance.delete(`contests/${id}/possible-winners/${work.id}`)
+        }
     }
+
+    console.log(work)
 
     return(
         <div className={isWin? "winnerWork winner" : "winnerWork"}>
@@ -66,7 +77,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
             </div>
 
             <div className="winnerWork_right">
-                <CustomCheckbox value="Winner" checked handleCheckbox={handleCheckbox}/>
+                <CustomCheckbox value="Winner" checked={work.possibleWinner} handleCheckbox={handleCheckbox}/>
                 <CustomSelector options={winnerOptions} maxWidth={200} name="Place"/>
             </div>
 

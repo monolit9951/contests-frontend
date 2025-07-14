@@ -121,7 +121,7 @@ export const WorksList: FC<Props> = (props) => {
         console.log(change)
     }
 
-
+    console.log(newMediaWorks)
 
     const renderList = () => {
         if (media.loading || text.loading) {
