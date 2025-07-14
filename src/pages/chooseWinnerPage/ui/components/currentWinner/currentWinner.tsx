@@ -4,16 +4,28 @@ import avatarSample from 'shared/assets/img/userIMG.jpg'
 import WinnerPlace from "shared/ui/winnerPlace";
 
 import './currentWinner.scss'
+import { Work } from "entities/work";
 
-const CurrentWinner: FC = () => {
+interface Props {
+    winnerData: Work
+}
+
+const CurrentWinner: FC<Props> = ({winnerData}) => {
+
+    console.log(winnerData)
+
+
+
+    // возможно открывать модалку по нажатию
+
     return(
         <div className="currentWinner">
             <div className="currentWinner_left">
                 <img src={cup} alt="win" />
-                <img src={avatarSample} alt="avatar" className="currentWinner_avatar"/>
+                <img src={winnerData.user.profileImage} alt="avatar" className="currentWinner_avatar"/>
                 <div className="currentWinner_left_container">
-                    <div className="currentWinner_content">In the rhythm of the quest!</div>
-                    <div className="currentWinner_name">Deborah Kertzmann</div>
+                    <div className="currentWinner_content">{winnerData.description}</div>
+                    <div className="currentWinner_name">{winnerData.user.name}</div>
                 </div>
             </div>
 

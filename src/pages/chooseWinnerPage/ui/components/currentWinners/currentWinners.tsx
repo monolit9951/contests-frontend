@@ -5,7 +5,11 @@ import CurrentWinner from "../currentWinner/currentWinner";
 
 import './currentWinners.scss'
 
-const CurrentWinners: FC = () => {
+interface Props {
+    winners: any
+}
+
+const CurrentWinners: FC<Props> = ({winners}) => {
     return(
         <div className="currentWinners">
             <div className="currentWinners_header">
@@ -14,11 +18,9 @@ const CurrentWinners: FC = () => {
             </div>
 
             <div className="currentWinners_list">
-                <CurrentWinner />
-                <CurrentWinner />
-                <CurrentWinner /> 
-                <CurrentWinner /> 
-                <CurrentWinner /> 
+                {winners.length > 0 && winners.map((data: any, index: nuber) => (
+                    <CurrentWinner winnerData = {data} />
+                ))}
                 {/* <CurrentWinner />  */}
             </div>
         </div>

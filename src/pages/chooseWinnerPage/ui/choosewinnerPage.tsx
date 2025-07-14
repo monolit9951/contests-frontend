@@ -11,7 +11,7 @@ import WinnerWork from "./components/winnerWork/winnerWork";
 
 import './chooseWinnerPage.scss'
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
-import { getRuledWorks } from "./model/services/contestService";
+import { getPossibleWinners, getRuledWorks } from "./model/services/contestService";
 
 // добавить параметр контестАйди
 const ChooseWinnerPage: FC = () => {
@@ -20,9 +20,10 @@ const ChooseWinnerPage: FC = () => {
 
     const { data: contest, isLoading: contestIsLoading} = useAxios<Contest>(`contests/${id}`)
     // const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/${id}`)
-    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks(id), key: [], enabled: true})
+    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks(String(id)), key: [], enabled: true})
+    const {data: winners, isLoaded: winnetsIsLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners(String(id)), key: [], enabled: true})
 
-    console.log(works)
+    console.log(winners)
 
     return(
         <div className="chooseWinnerPage">
@@ -41,7 +42,7 @@ const ChooseWinnerPage: FC = () => {
                 </div>}
             </div>
 
-            <CurrentWinners />
+            {winnetsIsLoaded && <CurrentWinners winners ={winners.content}/>}
             
             <div className="chooseWinnerPage_selectors">
                 <WinnerSelectors />
