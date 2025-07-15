@@ -89,19 +89,22 @@ const CreateContestForm = () => {
 
         setDateValidation('')
       
+        console.log(hasExampleMedia, data.exampleMedia)
+
         const dto = {
             "name": data.name,
             "participantAmount": 0, 
             "maxAllowedParticipantAmount": 100, 
             "dateStart": data.dateStart, 
             "dateEnd": data.dateEnd, 
-            "prizes": [{"prizeType": "ITEM", "winnersAmount": 2, "currency": null, "prizeText": "100$", "prizeAmount": 10},{ "id": "686e47a30bcf052ed0bdc3cc", "prizeType": "ITEM", "winnersAmount": 1, "currency": null, "prizeText": "50$", "prizeAmount": 0}], 
-            "selectionType":"RANDOM", 
+            "prizes": data.prizes,
+            "selectionType": data.selectionType, 
             "description": data.description
         }
 
-
         const formData = new FormData()  
+
+        console.log(data.prizes)
 
         formData.append(
             'dto', 
@@ -112,8 +115,9 @@ const CreateContestForm = () => {
         formData.append('backgroundImage', data.backgroundImage)
         formData.append('previewImage', data.previewImage)
 
-        console.log(data.backgroundImage)
-        
+        if (hasExampleMedia){
+            data.exampleMedia.forEach((file) => formData.append('examples', file))
+        }
         try {
             setPending(true)
             const token = localStorage.getItem('userToken')
