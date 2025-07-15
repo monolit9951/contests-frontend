@@ -73,9 +73,9 @@ export const CoverSelectionModal = ({
     // окончательное добавление
     const confirmImage = () => {
         if (isCover) {
-            setValue('backgroundImage', currFile)
+            setValue('backgroundImage', currBlob)
         } else {
-            setValue('previewImage', currFile)
+            setValue('previewImage', currBlob)
         }
         setChosenImg(currImg)
         onCancel()

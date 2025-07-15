@@ -29,6 +29,8 @@ const CreateContestForm = () => {
         defaultValues: {
             name: '',
             status: 'ACTIVE',
+            backgroundImage: '',
+            previewImage: '',
             category: '',
             selectionType: 'RANDOM',
             maxAllowedParticipantAmount: 100,
@@ -86,8 +88,7 @@ const CreateContestForm = () => {
         }
 
         setDateValidation('')
-
-        const formData = new FormData()        
+      
         const dto = {
             "name": data.name,
             "participantAmount": 0, 
@@ -99,18 +100,30 @@ const CreateContestForm = () => {
             "description": data.description
         }
 
-        formData.append('dto', JSON.stringify(dto));
+
+        const formData = new FormData()  
+
+        formData.append(
+            'dto', 
+            new Blob([JSON.stringify(dto)], { type: 'application/json' }),
+            'dto.json'
+        );
+
         formData.append('backgroundImage', data.backgroundImage)
         formData.append('previewImage', data.previewImage)
 
-
+        console.log(data.backgroundImage)
+        
         try {
             setPending(true)
             const token = localStorage.getItem('userToken')
 
-            const response = await instance.post('contests', formData,
-                 {headers: {Authorization: `Bearer ${token}`}}
-                )
+            const response = await instance.post('contests', formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
 
             navigate(`/contests/${response.data.id}`)
         } catch (error: Error | any) {

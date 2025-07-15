@@ -104,9 +104,13 @@
                         line-height: 32px;
                     }
 
-                    > div > div {
-                        gap: 8px;
-                    }
+                    > div{
+                    align-items: center;
+                        > div {
+                            gap: 8px;
+                        }
+                    } 
+                
 
                     .prize-text {
                         max-width: 282px;
