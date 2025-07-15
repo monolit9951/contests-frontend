@@ -17,22 +17,24 @@ interface Props {
     comments?: number
     onCommentsClick?: () => void
     className?: string
+    liked: null | string
 }
 
 const MediaFeedback: FC<Props> = (props) => {
-    const { id, likes, comments, onCommentsClick, className } = props
+    const { id, likes, comments, onCommentsClick, className, liked } = props
 
     const [likesNum] = useState(likes)
 
 
     const onShare = () => {}
 
+    console.log(liked)
 
     return (
         <HStack className={clsx('feedback__wrapper', className)}>
             
             <HStack>
-                <RateButtons id={id} likes={likesNum} work border />
+                <RateButtons id={id} likes={likesNum} work border userLike = {liked}/>
                 {onCommentsClick && (
                     <Button
                         variant='secondary'

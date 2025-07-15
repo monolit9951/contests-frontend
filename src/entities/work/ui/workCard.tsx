@@ -59,6 +59,7 @@ const WorkCard: FC<Props> = (props) => {
         }
     }
 
+
     return (
         <li className='li'>
             <VStack className={clsx('media-work', className)}>
@@ -92,6 +93,7 @@ const WorkCard: FC<Props> = (props) => {
                     likes={data.likeAmount}
                     comments={comments}
                     onCommentsClick={handleOpenModal}
+                    liked = {data.userLike}
                 />
             </VStack>
 
