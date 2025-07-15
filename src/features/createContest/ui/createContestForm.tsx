@@ -30,15 +30,11 @@ const CreateContestForm = () => {
             name: '',
             status: 'ACTIVE',
             category: '',
-            subcategory: '',
-            backgroundImage: '',
-            previewImage: '',
             selectionType: 'RANDOM',
             maxAllowedParticipantAmount: 100,
             dateStart: new Date().toISOString(),
             dateEnd: new Date().toISOString(),
             description: '',
-            exampleMedia: [],
             prizes: [
                 {
                     id: crypto.randomUUID(),
@@ -92,55 +88,26 @@ const CreateContestForm = () => {
         setDateValidation('')
 
         const formData = new FormData()        
+        const dto = {
+            "name": data.name,
+            "participantAmount": 0, 
+            "maxAllowedParticipantAmount": 100, 
+            "dateStart": data.dateStart, 
+            "dateEnd": data.dateEnd, 
+            "prizes": [{"prizeType": "ITEM", "winnersAmount": 2, "currency": null, "prizeText": "100$", "prizeAmount": 10},{ "id": "686e47a30bcf052ed0bdc3cc", "prizeType": "ITEM", "winnersAmount": 1, "currency": null, "prizeText": "50$", "prizeAmount": 0}], 
+            "selectionType":"RANDOM", 
+            "description": data.description
+        }
 
-        formData.append('name', data.name)
-        formData.append('status', data.status)
-        // formData.append('category', data.category)
-        // formData.append('subcategory', data.subcategory)
+        formData.append('dto', JSON.stringify(dto));
         formData.append('backgroundImage', data.backgroundImage)
         formData.append('previewImage', data.previewImage)
-        formData.append('selectionType', data.selectionType)
-        formData.append(
-            'maxAllowedParticipantAmount',
-            JSON.stringify(data.maxAllowedParticipantAmount)
-        )
-        formData.append('dateStart', data.dateStart)
-        formData.append('dateEnd', data.dateEnd)
-        formData.append('description', data.description)
 
-        data.prizes.forEach((prize, index) => {
-            formData.append(`prizes[${index}][id]`, prize.id)
-            formData.append(`prizes[${index}][prizeType]`, prize.prizeType)
-            formData.append(`prizes[${index}][currency]`, prize.currency)
-            formData.append(`prizes[${index}][prizeText]`, prize.prizeText)
-            formData.append(
-                `prizes[${index}][prizeAmount]`,
-                prize.prizeAmount.toString()
-            )
-            formData.append(`prizes[${index}][place]`, prize.place.toString())
-            formData.append(
-                `prizes[${index}][winnersAmount]`,
-                prize.winnersAmount.toString()
-            )
-        })
-        formData.append('contestOpen', JSON.stringify(data.contestOpen))
-
-        if (hasExampleMedia) {
-            data.exampleMedia.forEach((file) => {
-                formData.append('exampleMedia[]', file)
-            })
-        }
-
-
-        // вывод формдаты для теста
-        console.log('--- FormData содержимое ---');
-        for (const [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
 
         try {
             setPending(true)
             const token = localStorage.getItem('userToken')
+
             const response = await instance.post('contests', formData,
                  {headers: {Authorization: `Bearer ${token}`}}
                 )

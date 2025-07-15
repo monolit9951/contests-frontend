@@ -44,7 +44,8 @@ export const CoverSelectionModal = ({
     const [isDisabledUploadBtn, setIsDisabledUploadBtn] =
         useState<boolean>(true)
     const [isUploading, setIsUploading] = useState<boolean>(false)
-
+    const [currBlob, setCurrBlob] = useState<Blob | string>('')
+    const [currFile, setCurrFile] = useState<any>(null)
     const { setValue } = useFormContext()
 
     // подготовленные базовые фото
@@ -72,9 +73,9 @@ export const CoverSelectionModal = ({
     // окончательное добавление
     const confirmImage = () => {
         if (isCover) {
-            setValue('backgroundImage', currImg)
+            setValue('backgroundImage', currFile)
         } else {
-            setValue('previewImage', currImg)
+            setValue('previewImage', currFile)
         }
         setChosenImg(currImg)
         onCancel()
@@ -85,7 +86,7 @@ export const CoverSelectionModal = ({
     // получаем фото
     const handleFileChange = async(event: React.ChangeEvent<HTMLInputElement>) =>{
         const file = event.target.files?.[0]
-
+        setCurrFile(file)
         if(file){
             if(file.size > 6 * 1024 * 1024){
                 setImageValidationMessage('File size exceeds 6 MB')
@@ -103,6 +104,7 @@ export const CoverSelectionModal = ({
     // возвращаем обработанное фото
     const handleCropComplete = (blob: Blob) => {
         setCurrImg(URL.createObjectURL(blob))
+        setCurrBlob(blob)
         setIsDisabledUploadBtn(false)
         setImageSrc(null)
     }

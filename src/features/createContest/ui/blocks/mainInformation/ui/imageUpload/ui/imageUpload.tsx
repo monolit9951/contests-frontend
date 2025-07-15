@@ -22,6 +22,7 @@ export const ImageUpload = ({ text, extra }: ImageUploadProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [chosenImg, setChosenImg] = useState<string>('')
     const [imageValidationMessage, setImageValidationMessage] = useState('')
+    
 
     return (
         <>
