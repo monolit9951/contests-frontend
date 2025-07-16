@@ -117,7 +117,9 @@ const routes = createRoutesFromElements(
 
     <Route path='/battles' element={<BattlesPage />} />
     <Route path='/contests' element={<ContestsPage />} />
-    <Route path='/contests/:id' element={<ContestPage />} />
+    <Route path='/contests/:id' element={<ContestPage />} >
+      {/* <Route path='/work/:workId'/> */}
+    </Route>
     <Route path='/topUsers' element={<TopUsersPage />} />
     <Route path='profile/:id' element={<ProfilePage />} />
 

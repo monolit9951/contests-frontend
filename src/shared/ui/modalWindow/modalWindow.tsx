@@ -76,11 +76,11 @@ export const ModalWindow: FC<UploadModalProps> = ({
                 <Flex className={overlayClass} clickFunction={handleClose} />
                 <HStack className={modalContentClass}>
                     
-                <VStack>
-                    {typeof rest.children === 'object' && React.isValidElement(rest.children)
-                        ? React.cloneElement(rest.children, { onClose: handleClose })
-                        : rest.children}
-                </VStack>
+                    <VStack>
+                        {typeof rest.children === 'object' && React.isValidElement(rest.children)
+                            ? React.cloneElement(rest.children, { onClose: handleClose })
+                            : rest.children}
+                    </VStack>
 
                 </HStack>
                 {rest.isOuterClose && (
