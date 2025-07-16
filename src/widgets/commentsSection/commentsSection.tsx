@@ -115,9 +115,7 @@ const СommentsSection = ({ workId, work, contest, handleChangeComCount }: Props
                 bold
                 className='comments__title'>
                 Comments
-                <Text Tag='span' size={work ? 'md' : 'xl'}>
-                    ({totalElements})
-                </Text>
+                <Text Tag='span' size={work ? 'md' : 'xl'}> ({totalElements})</Text>
             </Text>
 
             {!work && (

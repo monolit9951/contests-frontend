@@ -64,11 +64,21 @@
     flex-direction: column;
     overflow: hidden;
 
+    > .text{
+        padding-bottom: 16px;
+    }
+
     > ul {
         flex: 1;
         overflow-y: auto;
-        padding-right: 8px; // если нужен отступ под скроллбар
-        margin-bottom: 56px; // высота input-wrapper
+        // padding-right: 8px; 
+        margin-bottom: 56px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     > .comments__input-wrapper-work{
@@ -81,6 +91,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        border-top: 1px #525856 solid;
     }
 }
 
