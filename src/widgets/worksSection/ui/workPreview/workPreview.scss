@@ -1,8 +1,78 @@
 .workPreview{
-    max-width: 1000px;
-    max-height: 200px;
+    max-width: 1208px;
+    max-height: 892px;
+    padding: 10px;
     height: 100%;
     width: 100%;
-    background-color: red;
     pointer-events: all;
+
+    > .workPreview_container{
+        background-color: #171717;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        
+
+        > .workPreview_left{
+            flex: 1;
+        }
+
+        > .workPreview_right{
+            box-sizing: border-box;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            >.workPreview_right_topSection{
+                padding: 16px 16px 32px 16px;
+                border-bottom: 1px #3B3B3B solid;
+
+                > a{
+                    text-decoration: none;
+                    color: white;
+
+                    // ПЕРЕОПРЕДЕЛЕНИЕ userPrfileData под дизайн ворка
+                    > .userProfileData{
+                        > img{
+                            width: 40px;
+                            height: 40px;
+                        }
+
+                        > .userProfileData_container > .userProfileData_headerGroup{
+                            > span{
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+
+                > .workPreview_workText{
+                    margin-top: 16px;
+                    font-weight: 400;
+                    line-height: 24px;
+                    word-break: break-word;
+                    overflow-wrap: break-word;
+                }
+
+                > div{
+                    margin-top: 16px;
+                }
+            }
+
+            > .workPreview_comments{
+                max-width: 200px;
+                position: relative;
+
+                flex: 1;
+                
+                ul{
+                    width: 100%;
+                }
+
+                input{
+                    width: 100%;
+                }
+            }
+        }
+    }
 }

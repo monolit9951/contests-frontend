@@ -18,6 +18,7 @@ import MediaGalery from 'widgets/mediaGalery'
 import { ImageSlider } from 'widgets/worksSection/ui/workPreview/imageSlider/imageSlider'
 
 import './workPreview.scss'
+import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 interface WorkProps {
     work: Work
@@ -55,7 +56,27 @@ export const WorkPreview: React.FC<WorkProps> = ({ work, handleChangeComCount })
 
     return (
         <div className="workPreview">
-            DATA
+            <div className="workPreview_container">
+                <div className="workPreview_left">
+                    <MediaGalery media={media}/>
+                </div>
+
+                <div className="workPreview_right">
+                    <div className="workPreview_right_topSection">
+                        <Link to={`/profile/${work.user.id}`}><UserProfileData user = {work.user}/></Link>
+
+                        <div className="workPreview_workText">{work.description}</div>
+
+                        {/* <div className="active_contest">MAKE COMPONENT </div> */}
+
+                        <MediaFeedback likes={work.likeAmount} liked={work.userLike}/>
+                    </div>
+
+                    <div className="workPreview_comments">
+                        <CommentsSection work workId={work.id}/>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

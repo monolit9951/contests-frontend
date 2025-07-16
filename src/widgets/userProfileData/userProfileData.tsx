@@ -18,10 +18,10 @@ const UserProfileData: FC<Props> = ({user}) => {
             <div className="userProfileData_container">
                 <div className="userProfileData_headerGroup">
                     <span>{user.name}</span>
-                    <img src={verified} alt="verified" />
+                    {/* <img src={verified} alt="verified" /> */}
                 </div>
 
-                <div className="userProfileData_itemData">
+                {/* <div className="userProfileData_itemData">
                     <div className="userProfileData_itemData_top">
                         <img src={crown} alt="crown" />
                         <span>TOP 3</span>
@@ -31,7 +31,7 @@ const UserProfileData: FC<Props> = ({user}) => {
                         <span>{user.participantRating}</span>
                         <img src={star} alt="star" />
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )
