@@ -89,7 +89,6 @@ const CreateContestForm = () => {
 
         setDateValidation('')
       
-        console.log(hasExampleMedia, data.exampleMedia)
 
         const dto = {
             "name": data.name,
@@ -104,8 +103,6 @@ const CreateContestForm = () => {
 
         const formData = new FormData()  
 
-        console.log(data.prizes)
-
         formData.append(
             'dto', 
             new Blob([JSON.stringify(dto)], { type: 'application/json' }),
@@ -115,9 +112,11 @@ const CreateContestForm = () => {
         formData.append('backgroundImage', data.backgroundImage)
         formData.append('previewImage', data.previewImage)
 
+        
         if (hasExampleMedia){
             data.exampleMedia.forEach((file) => formData.append('examples', file))
         }
+
         try {
             setPending(true)
             const token = localStorage.getItem('userToken')

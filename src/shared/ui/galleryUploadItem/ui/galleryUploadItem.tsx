@@ -34,7 +34,7 @@ export const GalleryUploadItem = ({
         setGalleryItems((prevItems) => {
             const updatedItems = prevItems.map((item) =>
                 item.id === galleryItem.id
-                    ? { ...item, hasImage: false, imgUrl: '' }
+                    ? { ...item, hasImage: false, imgUrl: '', imgBlob: {} }
                     : item
             )
 
@@ -69,6 +69,7 @@ export const GalleryUploadItem = ({
                                   hasImage: true,
                                   file,
                                   imgUrl: URL.createObjectURL(file),
+                                  imgBlob: file
                               }
                             : item
                     )

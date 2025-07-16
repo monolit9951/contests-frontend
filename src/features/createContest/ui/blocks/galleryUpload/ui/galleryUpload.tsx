@@ -13,28 +13,30 @@ interface GalleryItem {
     hasImage: boolean
     file?: File
     imgUrl: string
+    imgBlob: Blob | {}
 }
 
 export const GalleryUpload = () => {
     const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([
-        { id: 0, hasImage: false, imgUrl: '' },
-        { id: 1, hasImage: false, imgUrl: '' },
-        { id: 2, hasImage: false, imgUrl: '' },
-        { id: 3, hasImage: false, imgUrl: '' },
-        { id: 4, hasImage: false, imgUrl: '' },
-        { id: 5, hasImage: false, imgUrl: '' },
-        { id: 6, hasImage: false, imgUrl: '' },
-        { id: 7, hasImage: false, imgUrl: '' },
+        { id: 0, hasImage: false, imgUrl: '', imgBlob: {} },
+        { id: 1, hasImage: false, imgUrl: '', imgBlob: {} },
+        { id: 2, hasImage: false, imgUrl: '', imgBlob: {} },
+        { id: 3, hasImage: false, imgUrl: '', imgBlob: {} },
+        { id: 4, hasImage: false, imgUrl: '', imgBlob: {} },
+        { id: 5, hasImage: false, imgUrl: '', imgBlob: {} },
+        { id: 6, hasImage: false, imgUrl: '', imgBlob: {} },
+        { id: 7, hasImage: false, imgUrl: '', imgBlob: {} },
     ])
 
     const { setValue } = useFormContext()
 
     useEffect(() => {
-        const mediaUrls = galleryItems
+        const mediaBlobs = galleryItems
             .filter((item) => item.file)
-            .map((item) => item.imgUrl)
+            .map((item) => item.imgBlob instanceof Blob ? item.imgBlob : null)
+            .filter((blob): blob is Blob => blob !== null)
 
-        setValue('exampleMedia', mediaUrls)
+        setValue('exampleMedia', mediaBlobs)
     }, [galleryItems])
 
     return (
