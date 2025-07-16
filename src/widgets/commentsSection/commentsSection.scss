@@ -55,12 +55,21 @@
 //     }
 // }
 
-.comments{
+.comments {
+    position: relative;
     width: 100%;
-    // background-color: red;
     padding: 16px;
-    // overflow: scroll;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 
+    > ul {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 8px; // если нужен отступ под скроллбар
+        margin-bottom: 56px; // высота input-wrapper
+    }
 
     > .comments__input-wrapper-work{
         position: absolute;
