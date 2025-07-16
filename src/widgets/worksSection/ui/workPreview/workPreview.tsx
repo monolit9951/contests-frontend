@@ -45,15 +45,6 @@ export const WorkPreview: React.FC<WorkProps> = ({ work, handleChangeComCount })
 
        const timeAgo = moment.utc(workAddingDate).local().fromNow();
 
-    const toggleReadMore = () => {
-        setIsReadMore(!isReadMore)
-    }
-
-    const onActionClick = () => {
-        // eslint-disable-next-line no-alert
-        alert('action clicked')
-    }
-
     return (
         <div className="workPreview">
             <div className="workPreview_container">
