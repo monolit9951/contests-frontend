@@ -6,8 +6,6 @@ import { Icon } from 'shared/ui/icon'
 import { Flex, HStack, VStack } from 'shared/ui/stack'
 
 import './modalWindow.scss'
-import { usePrompt } from 'shared/lib/hooks/usePrompt'
-
 interface UploadModalProps {
     isOpen: boolean
     onClose?: () => void

@@ -8,7 +8,6 @@ interface Props {
 
 const ExampleGaleryModal: FC<Props> = ({media}) => {
 
-    console.log(media)
     return(
         <div className="exampleGaleryModal">
             <MediaGalery media={media} type="ARRAYOFLINKS" className="exampleGaleryModal_galery"/>
