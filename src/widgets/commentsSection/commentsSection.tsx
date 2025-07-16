@@ -160,8 +160,7 @@ const СommentsSection = ({ workId, work, contest, handleChangeComCount }: Props
                 </HStack>
             )}
 
-            <CommentsList
-                workId={workId}
+            <CommentsList workId={workId}
                 userId={userId} // TODO delete upon integrating login feature
                 comments={comments}
                 setComments={setComments}
@@ -171,11 +170,10 @@ const СommentsSection = ({ workId, work, contest, handleChangeComCount }: Props
                 error={error}
                 setError={setError}
                 className='comments__list'
-                handleCommentsDecreaseCallback = {handleCommentsDecreaseCallback}
-                handleChangeComCount = {handleChangeComCount}
+                handleCommentsDecreaseCallback = {handleCommentsDecreaseCallback} handleChangeComCount = {handleChangeComCount}
             />
 
-                        {work && (
+            {work && (
                 <HStack className='comments__input-wrapper-work align__center'>
                     <UserIcon size={40} src={user.userProfileImg}/>
                     <Input

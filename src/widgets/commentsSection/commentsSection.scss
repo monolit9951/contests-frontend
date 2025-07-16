@@ -1,56 +1,77 @@
-.comments {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+// .comments {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 32px;
+//     width: 100%;
 
-    &__title {
-        padding: 16px 16px 0 16px;
-        & > span {
-            padding-left: 16px;
-        }
-    }
+//     &__title {
+//         padding: 16px 16px 0 16px;
+//         & > span {
+//             padding-left: 16px;
+//         }
+//     }
 
-    &__input-wrapper {
-        &-contest {
-            width: 985px;
-            gap: 16px;
-        }
+//     &__input-wrapper {
+//         &-contest {
+//             width: 985px;
+//             gap: 16px;
+//         }
 
-        &-work {
-            gap: 16px;
-            padding: 16px;
-            border-top: 1px solid;
-            z-index: 1;
-            width: 100%;
-            flex: 1;
-            position: absolute;
-            bottom: 0;
-        }
-    }
+//         &-work {
+//             gap: 16px;
+//             padding: 16px;
+//             border-top: 1px solid;
+//             z-index: 1;
+//             width: 100%;
+//             flex: 1;
+//             position: absolute;
+//             bottom: 0;
+//         }
+//     }
 
-    &__input-box {
-        width: 100%;
-        gap: 8px;
-    }
+//     &__input-box {
+//         width: 100%;
+//         gap: 8px;
+//     }
 
-    &__input {
-        width: 100%;
-    }
+//     &__input {
+//         width: 100%;
+//     }
 
-    &__list {
-        min-height: 50px;
-        width: 985px;
-        padding: 0 16px 16px 16px;
+//     &__list {
+//         min-height: 50px;
+//         width: 985px;
+//         padding: 0 16px 16px 16px;
         
-    }
+//     }
 
-    &__error-message {
-        text-align: center;
-        text-align: -webkit-center;
-    }
+//     &__error-message {
+//         text-align: center;
+//         text-align: -webkit-center;
+//     }
 
-    > .comments__list > li:last-child{
-        padding-bottom: 80px;
+//     > .comments__list > li:last-child{
+//         padding-bottom: 80px;
+//     }
+// }
+
+.comments{
+    width: 100%;
+    // background-color: red;
+    padding: 16px;
+    // overflow: scroll;
+
+
+    > .comments__input-wrapper-work{
+        position: absolute;
+        padding: 10px 16px;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        // background-color: red !important;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 }
 
@@ -68,6 +89,7 @@
         }
     }
 }
+
 .light {
     .comments {
         &__title {

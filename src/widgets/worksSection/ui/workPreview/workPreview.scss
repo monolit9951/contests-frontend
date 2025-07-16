@@ -60,18 +60,10 @@
             }
 
             > .workPreview_comments{
-                max-width: 200px;
                 position: relative;
 
                 flex: 1;
-                
-                ul{
-                    width: 100%;
-                }
-
-                input{
-                    width: 100%;
-                }
+                overflow-y: scroll;
             }
         }
     }
