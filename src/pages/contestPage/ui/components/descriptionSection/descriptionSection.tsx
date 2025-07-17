@@ -132,14 +132,18 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                             </Text>
                             <ul className='example-list'>
                                 {data.exampleMedia?.map((item, idx) => (
-                                    <li key={item + idx} onClick={openExapmpleGaleryModal}>
-                                        <Image
-                                            src={item}
-                                            alt={`Example ${idx + 1}`}
-                                            width={135}
-                                            height={132}
-                                            className='example-media'
-                                        />
+                                    <li key={idx} onClick={openExapmpleGaleryModal}>
+                                        {item.typeMedia === "VIDEO"? 
+                                            // <video src={item.mediaL}/>
+                                            <div>videoCard</div>
+                                            :
+                                            <Image
+                                                src={item.mediaLink}
+                                                alt={`Example ${idx + 1}`}
+                                                width={135}
+                                                height={132}
+                                                className='example-media'
+                                            />}
                                     </li>
                                 ))}
                             </ul>
