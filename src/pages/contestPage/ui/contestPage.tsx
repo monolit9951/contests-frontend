@@ -20,6 +20,7 @@ import HeroSection from './components/heroSection/heroSection';
 import WorksListSection from './components/worksListSection/worksListSection';
 
 import './contestPage.scss';
+import WinnersSection from './components/winnersSection/winnersSection';
 
 const ContestPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -126,6 +127,8 @@ const ContestPage = () => {
           data={data}
           handleOpenWorkUploadModal={handleOpenWorkUploadModal}
         />
+
+        {data.winners && <WinnersSection data = {data.winners}/>}
 
         <WorksListSection
           worksAmount={data.participantAmount}

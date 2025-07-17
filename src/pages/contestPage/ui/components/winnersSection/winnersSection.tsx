@@ -10,9 +10,10 @@ import { Text } from 'shared/ui/text'
 import { ContestWinnersTable } from 'widgets/winnersTable'
 
 import './winnersSection.scss'
+import { ContestWinners } from 'entities/contest/model/types'
 
 interface Props {
-    data: TopWinners[]
+    data: ContestWinners[]
     openModal: (work: Work) => void
     className?: string
 }
@@ -32,7 +33,7 @@ const WinnersSection: FC<Props> = (props) => {
                 Winners
             </Text>
 
-            <ul className='winners__list'>
+            {/* <ul className='winners__list'>
                 {data.map((work, idx) => (
                     <WorkCard
                         key={work.workId}
@@ -42,7 +43,7 @@ const WinnersSection: FC<Props> = (props) => {
                         className={clsx(idx === 0 && 'first-place')}
                     />
                 ))}
-            </ul>
+            </ul> */}
 
             {data.map((item, index) => (
                 <div key={index}>{item.workId}</div>
