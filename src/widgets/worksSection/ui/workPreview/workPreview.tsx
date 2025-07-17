@@ -23,10 +23,9 @@ import { useSelector } from 'react-redux'
 
 interface WorkProps {
     work: Work
-    handleChangeComCount: (change: "INCREMENT" | "DECREMENT") => void
 }
 
-export const WorkPreview: React.FC<WorkProps> = ({ work, handleChangeComCount }) => {
+export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
     const { theme } = useTheme()
 
     const [isReadMore, setIsReadMore] = useState(false)

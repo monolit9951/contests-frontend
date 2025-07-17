@@ -116,11 +116,6 @@ export const WorksList: FC<Props> = (props) => {
         return work?.typeWork === 'TEXT' ? '520px' : '100%';
     };
 
-    // колбек изменения колличества комментов
-    const handleChangeComCount = (change: "INCREMENT" | "DECREMENT") => {
-        console.log(change)
-    }
-
     console.log(newMediaWorks)
 
     const renderList = () => {
@@ -232,7 +227,7 @@ export const WorksList: FC<Props> = (props) => {
                     </Button>
                 ))}
 
-            {isModalOpen && <ModalWindow isOpen onClose={handleCloseModal}  maxWidth={getModalMaxWidth(selectedWork)}><WorkPreview work={selectedWork} handleChangeComCount={handleChangeComCount}/></ModalWindow>}
+            {isModalOpen && <ModalWindow isOpen onClose={handleCloseModal}  maxWidth={getModalMaxWidth(selectedWork)}><WorkPreview work={selectedWork} /></ModalWindow>}
         </VStack>
     )
 }

@@ -93,6 +93,15 @@
         gap: 8px;
         border-top: 1px #525856 solid;
     }
+
+    > .comments__input-wrapper-contest{
+        gap: 10px;
+
+        > div{
+            width: 100%;
+            display: flex;
+        }
+    }
 }
 
 .dark {

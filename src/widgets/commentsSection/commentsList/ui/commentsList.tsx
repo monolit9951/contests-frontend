@@ -22,7 +22,6 @@ interface Props {
     setError: Dispatch<SetStateAction<Error | null>>
     className?: string
     handleCommentsDecreaseCallback: () => void
-    handleChangeComCount: (change: "INCREMENT" | "DECREMENT") => void   
 }
 
 const CommentsList: React.FC<Props> = (props) => {
@@ -38,7 +37,6 @@ const CommentsList: React.FC<Props> = (props) => {
         setError,
         className,
         handleCommentsDecreaseCallback,
-        handleChangeComCount
     } = props
 
     const [totalPages, setTotalPages] = useState(0)
@@ -119,7 +117,6 @@ const CommentsList: React.FC<Props> = (props) => {
     const handleDeleteMainCommentCallback = (commentId: string) =>{
         setComments(prev => prev.filter(comment => comment.id !== commentId));
         handleCommentsDecreaseCallback()
-        handleChangeComCount("DECREMENT")
     }
 
 

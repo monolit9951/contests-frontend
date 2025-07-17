@@ -97,7 +97,7 @@ const WorkCard: FC<Props> = (props) => {
                 />
             </VStack>
 
-            {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={data} handleChangeComCount={handleChangeComments}/></ModalWindow>}
+            {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={data} /></ModalWindow>}
         </li>
     )
 }
