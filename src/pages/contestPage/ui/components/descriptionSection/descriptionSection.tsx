@@ -135,7 +135,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                 {data.exampleMedia?.map((item, idx: number) => (
                                     <li key={idx} onClick={() => openExapmpleGaleryModal(idx)}>
                                         {item.typeMedia === "VIDEO"? 
-                                            <div className='example-media'><Video light src={item.mediaLink}/></div>
+                                            <div className='example-media'><Video light url={item.mediaLink}/></div>
                                             :
                                             <Image
                                                 src={item.mediaLink}
