@@ -120,7 +120,7 @@ const СommentsSection = ({ workId, work, contest, handleChangeComCount }: Props
 
             {!work && (
                 <HStack className='comments__input-wrapper-contest align__center'>
-                    <UserIcon size={40} wrapperClassName='align__start' />
+                    <UserIcon size={40} wrapperClassName='align__start' src = {user.userProfileImg}/>
                     <VStack className='comments__input-box'>
                         <Input
                             name='comment'

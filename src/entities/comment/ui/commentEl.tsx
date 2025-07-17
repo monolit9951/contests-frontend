@@ -153,11 +153,12 @@ const CommentEl: FC<Props> = (props) => {
         setEdit(false)
     }
 
+    const loginedUser = useSelector((state: RootState) => state.user)
 
     return (
         <HStack className='comment__wrapper'>
 
-            <Link to={`/profile/${user.id}`}><UserIcon src={user.profileImage} size={40} /></Link>
+            <Link to={loginedUser.userId === user.id? '/profile' : `/profile/${user.id}`}><UserIcon src={user.profileImage} size={40} /></Link>
             <VStack className='comment__body'>
                 <HStack className='comment-info'>
                     <Link to={`/profile/${user.id}`}>

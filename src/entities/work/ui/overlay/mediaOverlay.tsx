@@ -9,6 +9,8 @@ import { VStack } from 'shared/ui/stack'
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './mediaOverlay.scss'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 interface Props {
     prize?: Prize
@@ -29,25 +31,25 @@ const MediaOverlay = ({ prize, user, imageCards }: Props) => {
         console.log('REPORT NOT WORK YET')
     }
     
-    const handleWinner = () => {
-
-    }
+    const loginedUser = useSelector((state: RootState) => state.user)
 
     return (
         <VStack className='media__overlay'>
             {prize && <TopPrize data={prize} className='media__overlay__1' />}
-            <Icon
+            {/* <Icon
                 Svg={imageCards ? cards : video}
                 clickable
                 onClick={onCardsClick}
                 btnClassName='media__overlay__2'
-            />
-            <UserIcon
-                src={user.profileImage}
-                size={40}
-                userName={user.name}
-                wrapperClassName='media__overlay__3'
-            />
+            /> */}
+            <Link to={loginedUser.userId === user.id? '/profile' : `/profile/${user.id}`}>
+                <UserIcon
+                    src={user.profileImage}
+                    size={40}
+                    userName={user.name}
+                    wrapperClassName='media__overlay__3'
+                />
+            </Link>
             <div className='media__overlay__4'>
                 <button type='button' onClick={handleControlModal}><Icon Svg={action} /></button>
 

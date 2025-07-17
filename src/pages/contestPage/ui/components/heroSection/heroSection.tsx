@@ -7,6 +7,7 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './heroSection.scss'
+import { useSelector } from 'react-redux'
 
 interface Props {
     bg: string
@@ -17,6 +18,8 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
     const contestHeroIMG =
         'http://localhost:3000/src/shared/assets/img/contest@2x.jpg'
 
+      const user = useSelector((state: RootState) => state.user)
+
     return (
         <section className='contest-hero'>
             <div
@@ -25,7 +28,7 @@ const ContestHeroSection = ({ bg, owner }: Props) => {
                     backgroundImage: `url(${bg ?? contestHeroIMG})`,
                 }}
             />
-            <Link to={`/profile/${owner.id}`}>
+            <Link to={owner.id === user.userId? `/profile` : `/profile/${owner.id}`}>
                 <HStack className='contest-hero__creator'>
                     <Image
                         src={owner?.profileImage ?? contestHeroIMG}

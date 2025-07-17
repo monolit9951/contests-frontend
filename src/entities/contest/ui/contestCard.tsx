@@ -16,6 +16,8 @@ import { UserIcon } from 'shared/ui/userIcon'
 import { ContestPreview } from '../model/types'
 
 import './contestCard.scss'
+import UserProfileData from 'widgets/userProfileData/userProfileData'
+import { useSelector } from 'react-redux'
 
 interface Props extends ContestPreview {
     className?: string
@@ -47,39 +49,13 @@ const ContestCard: React.FC<Props> = (props) => {
         navigate(`./${rest.id}`)
     }
 
+    const user = useSelector((state: RootState) => state.user)
+
+
     return (
         <div className={clsx('contest-card-wrapper', className)}>
             <Flex className='justify__between align__center'>
-                <Link to={`/profile/${contestOwner.id}`}>
-                    <Flex className='align__center'>
-                    <UserIcon
-                        src={contestOwner.profileImage}
-                        alt='Creator`s profile'
-                        className='user-avatar'
-                    />
-                    <VStack className='user-des'>
-                        <Flex className='align__center'>
-                            <Text Tag='span' bold size='sm'>
-                                {contestOwner?.name}
-                            </Text>
-                            {/* {contestOwner.verificationStatus && <Verified />} */}
-                        </Flex>
-                        {/* <Flex className='align__center'>
-                            <TopUser topRate={3} />
-                            {contestOwner.organizerRating && (
-                                <HStack className='align__center'>
-                                    <Text Tag='span' bold size='xs'>
-                                        {contestOwner.organizerRating.toFixed(
-                                            1
-                                        )}
-                                    </Text>
-                                    <Star />
-                                </HStack>
-                            )}
-                        </Flex> */}
-                    </VStack>
-                </Flex>
-                </Link>
+                <Link to={user.userId === contestOwner.id? `/profile` : `/profile/${contestOwner.id}`}><UserProfileData user={contestOwner} /></Link>
  
                 <Tag type={tagType} className='tag' />
             </Flex>

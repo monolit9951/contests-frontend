@@ -27,22 +27,32 @@
                 padding: 16px 16px 32px 16px;
                 border-bottom: 1px #3B3B3B solid;
 
-                > a{
-                    text-decoration: none;
-                    color: white;
+                > div{
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
 
-                    // ПЕРЕОПРЕДЕЛЕНИЕ userPrfileData под дизайн ворка
-                    > .userProfileData{
-                        > img{
-                            width: 40px;
-                            height: 40px;
-                        }
+                    > a{
+                        text-decoration: none;
+                        color: white;
 
-                        > .userProfileData_container > .userProfileData_headerGroup{
-                            > span{
-                                font-size: 16px;
+                        // ПЕРЕОПРЕДЕЛЕНИЕ userPrfileData под дизайн ворка
+                        > .userProfileData{
+                            > img{
+                                width: 40px;
+                                height: 40px;
+                            }
+
+                            > .userProfileData_container > .userProfileData_headerGroup{
+                                > span{
+                                    font-size: 16px;
+                                }
                             }
                         }
+                    }
+
+                    > span{
+                        opacity: 0.5;
                     }
                 }
 

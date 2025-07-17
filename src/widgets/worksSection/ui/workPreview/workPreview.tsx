@@ -19,6 +19,7 @@ import { ImageSlider } from 'widgets/worksSection/ui/workPreview/imageSlider/ima
 
 import './workPreview.scss'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
+import { useSelector } from 'react-redux'
 
 interface WorkProps {
     work: Work
@@ -43,8 +44,8 @@ export const WorkPreview: React.FC<WorkProps> = ({ work, handleChangeComCount })
 
     const { media, workAddingDate, description, user } = work as Work
 
-       const timeAgo = moment.utc(workAddingDate).local().fromNow();
-
+    const timeAgo = moment.utc(workAddingDate).local().fromNow();
+    const loginedUser = useSelector((state: RootState) => state.user)
     return (
         <div className="workPreview">
             <div className="workPreview_container">
@@ -54,7 +55,13 @@ export const WorkPreview: React.FC<WorkProps> = ({ work, handleChangeComCount })
 
                 <div className="workPreview_right">
                     <div className="workPreview_right_topSection">
-                        <Link to={`/profile/${work.user.id}`}><UserProfileData user = {work.user}/></Link>
+                        <div>
+                            <Link to={loginedUser.userId === user.id? '/profile' : `/profile/${user.id}`}>
+                                <UserProfileData user = {work.user}/>
+                            </Link>
+
+                            <span>{timeAgo}</span>
+                        </div>
 
                         <div className="workPreview_workText">{work.description}</div>
 
