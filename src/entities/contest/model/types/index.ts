@@ -25,6 +25,13 @@ export interface TopWinners {
     prizeId: string
 }
 
+export interface ContestWinners {
+    contestId: string,
+    userId: string,
+    workId: string,
+    prizeid: string
+}
+
 export interface Contest {
     id: string
     name: string
@@ -41,7 +48,8 @@ export interface Contest {
     exampleMedia?: string[]
     popularity: number
     contestOwner: Organizer
-    topWinners: TopWinners[] | null
+    // topWinners: TopWinners[] | null
+    winners: ContestWinners[]
     contestOpen: boolean
 }
 

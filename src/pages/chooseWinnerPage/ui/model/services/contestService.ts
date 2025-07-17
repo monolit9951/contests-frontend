@@ -21,8 +21,6 @@ export const getRuledWorks = async(contestId: string) => {
 
 export const getPossibleWinners = async(contestId: string) => {
     try {
-
-        console.log('POSWIN')
         const token = localStorage.getItem('userToken')
         const response = await instance.get(`contests/${contestId}/possible-winners`, {headers: {Authorization: `Bearer ${token}`}})
 
