@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useState } from "react";
 import instance from "shared/api/api";
 import { Button } from "shared/ui/button";
 import { Textarea } from "shared/ui/input";
-import { v4 as uuidv4 } from 'uuid'; // Не забудь установить: npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 
 import UploadWorkMediaInput from "./components/uploadWorkMediaInput/uploadWorkMediaInput";
 import UploadWorkMediaItem, { MediaItem } from "./components/uploadWorkMediaItem/uploadWorkMediaItem";
@@ -41,15 +41,13 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
     setMediaArray((prev) => prev.filter((item) => item.id !== id));
   };
 
+
+  // создание ворка
   const handleWorkSubmit = async () => {
     if (text === '') {
-      console.log('EMPTY TEXT');
       return;
     }
 
-    if (mediaArray.length === 0) {
-      console.log('No media files added');
-    }
     const token = localStorage.getItem('userToken')
     try {
       const response = await instance.post(`/works`, {
@@ -58,7 +56,6 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
       }, {headers: {Authorization: `Bearer ${token}`}});
 
       const workId = response.data.id;
-      console.log('Created work with id:', workId);
 
       const formData = new FormData();
 
@@ -66,14 +63,20 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
         formData.append('media', file);
       });
 
-      const mediaResponse = await instance.post(`/media/${workId}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      try{
+          await instance.post(`/media/${workId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
-      console.log('Media upload response:', mediaResponse.data);
-      onClose();
+        onClose()
+      } catch (error){
+        if(error){
+          instance.delete(`/works/${workId}`)
+        }
+      }
+
     } catch (error) {
       console.error('Error submitting work or media:', error);
     }

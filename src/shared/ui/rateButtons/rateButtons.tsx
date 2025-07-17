@@ -79,19 +79,19 @@ const RateButtons = (props: Props) => {
             if (liked) {
                 setLiked(!liked)
                 setDisliked(true)
-                setLikesNum((_prev) => (_prev -= 2))
+                // setLikesNum((_prev) => (_prev -= 2))
 
                 await onRate('LIKE')
                 onRate('DISLIKE')
             }
             if (disliked) {
                 setDisliked(!disliked)
-                setLikesNum((_prev) => (_prev += 1))
+                // setLikesNum((_prev) => (_prev += 1))
 
                 onRate('DISLIKE')
             } else if (!disliked && !liked) {
                 setDisliked(!disliked)
-                setLikesNum((_prev) => (_prev -= 1))
+                // setLikesNum((_prev) => (_prev -= 1))
 
                 onRate('DISLIKE')
             }
