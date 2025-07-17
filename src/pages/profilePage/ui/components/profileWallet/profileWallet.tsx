@@ -3,9 +3,9 @@ import profileWallet from 'shared/assets/icons/profileWallet.svg'
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 
 import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices/walletServices";
+import WalletTrasaction from "../walletTransaction/walletTransaction";
 
 import './profileWallet.scss'
-import WalletTrasaction from "../walletTransaction/walletTransaction";
 
 interface Props {
     userId: string
@@ -54,7 +54,7 @@ const ProfileWallet: FC <Props>= ({userId}) =>{
 
             <div className="profileWallet_balance_history">
                 {
-                    transactionsLoaded && transactions.content && transactions.content.map((data: Transaction, index: number) => (
+                    transactionsLoaded && transactions.content?.map((data: Transaction, index: number) => (
                         <WalletTrasaction transaction = {data} key={index}/>
                     ))
                 }

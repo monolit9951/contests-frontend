@@ -18,8 +18,8 @@ import { ContestPage } from 'pages/contestPage'
 import { ContestsCreationPage } from 'pages/contestsCreationPage'
 import { ContestsPage } from 'pages/contestsPage'
 import { FeedPage } from 'pages/feedPage'
-import { HomePage } from 'pages/homePage'
 import ProfilePage from 'pages/profilePage'
+import ProfileSettingsPage from 'pages/profileSettingsPage'
 import { TopUsersPage } from 'pages/topUsersPage'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import ProtectedRoute from 'widgets/protectedRoute'
@@ -28,7 +28,6 @@ import { userByToken } from 'widgets/registrationModal/model/service/registratio
 import { clearUser, setUser } from 'widgets/registrationModal/model/slice/userSlice'
 
 import '../styles/index.scss'
-import ProfileSettingsPage from 'pages/profileSettingsPage'
 
 export const AppRouter = () => {
   const { theme, categoryTheme } = useTheme()
@@ -67,8 +66,6 @@ export const AppRouter = () => {
     const googleToken = searchParams.get('token')
     if (googleToken) {
       localStorage.setItem('userToken', googleToken)
-      const token = localStorage.getItem('userToken')
-      console.log(token)
     }
 
     const token = localStorage.getItem('userToken')

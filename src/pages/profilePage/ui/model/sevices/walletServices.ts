@@ -1,4 +1,5 @@
 import instance from "shared/api/api"
+
 import { Transaction, WalletBalance } from "../../components/profileWallet/profileWallet"
 
 // получение баланса пользователя

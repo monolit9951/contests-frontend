@@ -8,9 +8,6 @@ export const fetchAllContests = async (userId: string): Promise<any | string> =>
         if (!response.data) {
             throw new Error("No data received")
         }
-
-        console.log(response.data)
-
         return response.data
     } catch (error) {
         if (error instanceof Error) {

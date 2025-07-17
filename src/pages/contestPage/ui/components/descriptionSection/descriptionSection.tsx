@@ -1,5 +1,6 @@
 import { FC, Fragment, useState } from 'react'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Contest } from 'entities/contest'
 import { PrizeIcon } from 'entities/prize'
 import moment from 'moment'
@@ -15,10 +16,9 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { RegistrationModal } from 'widgets/registrationModal'
 
-import './descriptionSection.scss'
-import MediaGalery from 'widgets/mediaGalery'
 import ExampleGaleryModal from '../exampleGaleryModal/exampleGaleryModal'
-import { Link } from 'react-router-dom'
+
+import './descriptionSection.scss'
 
 interface Props {
     data: Contest

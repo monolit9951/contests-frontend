@@ -1,6 +1,6 @@
 import { FC } from 'react'
+
 import './walletTransaction.scss'
-import moment from 'moment'
 
 interface Props {
     transaction: any

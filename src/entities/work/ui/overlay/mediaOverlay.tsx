@@ -1,16 +1,16 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Prize, TopPrize } from 'entities/prize'
 import { User } from 'entities/user'
-import cards from 'shared/assets/icons/cards.svg?react'
+// import cards from 'shared/assets/icons/cards.svg?react'
 import action from 'shared/assets/icons/tripleDot.svg?react'
-import video from 'shared/assets/icons/video.svg?react'
+// import video from 'shared/assets/icons/video.svg?react'
 import { Icon } from 'shared/ui/icon'
 import { VStack } from 'shared/ui/stack'
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './mediaOverlay.scss'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 interface Props {
     prize?: Prize
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const MediaOverlay = ({ prize, user, imageCards }: Props) => {
-    const onCardsClick = () => {}
+    // const onCardsClick = () => {}
 
     const [controlModal, setControlModal] = useState<boolean>(false)
 
@@ -27,9 +27,9 @@ const MediaOverlay = ({ prize, user, imageCards }: Props) => {
         setControlModal(!controlModal)
     }
 
-    const handleReport = () => {
-        console.log('REPORT NOT WORK YET')
-    }
+    // const handleReport = () => {
+    //     console.log('REPORT NOT WORK YET')
+    // }
     
     const loginedUser = useSelector((state: RootState) => state.user)
 
@@ -54,8 +54,8 @@ const MediaOverlay = ({ prize, user, imageCards }: Props) => {
                 <button type='button' onClick={handleControlModal}><Icon Svg={action} /></button>
 
                 {controlModal && <div className="media__overlay__4__control">
-                    <button onClick = {handleReport} type='button'>Report</button>
-                    <button onClick = {handleWinner} type='button'>Promote to winners</button>
+                    {/* <button onClick = {handleReport} type='button'>Report</button> */}
+                    {/* <button onClick = {handleWinner} type='button'>Promote to winners</button> */}
                 </div>}
             </div>
         </VStack>

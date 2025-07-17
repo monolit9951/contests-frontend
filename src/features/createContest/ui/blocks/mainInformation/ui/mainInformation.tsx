@@ -7,8 +7,7 @@ import { Combobox, Input, Textarea } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
-import { categories, subcategories } from '../mockData'
-
+// import { categories, subcategories } from '../mockData'
 import { ImageUpload } from './imageUpload'
 import { RadioContainer, RadioEl } from './radioContainer'
 
@@ -23,7 +22,7 @@ export const MainInformation = ({ submitError }: Props) => {
 
     const {
         register,
-        control,
+        // control,
         formState: { errors },
         getValues,
     } = useFormContext()

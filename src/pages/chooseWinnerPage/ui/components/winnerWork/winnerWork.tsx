@@ -1,5 +1,7 @@
 import React, { FC, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Work } from "entities/work";
+import instance from "shared/api/api";
 import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
 import { Button } from "shared/ui/button";
 import { ModalWindow } from "shared/ui/modalWindow";
@@ -9,8 +11,6 @@ import UserProfileData from "widgets/userProfileData/userProfileData";
 import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
 
 import './winnerWork.scss'
-import instance from "shared/api/api";
-import { useParams } from "react-router-dom";
 
 
 interface WinnerWorkInterface {

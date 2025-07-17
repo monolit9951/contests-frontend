@@ -30,8 +30,6 @@ const UploadWorkMediaItem: FC<UploadWorkMediaItemInterface> = ({ mediaItem, hand
     handleRemoveMediaCallback(id);
   };
 
-  console.log(isVideo)
-
   return (
     <div className="uploadWorkMediaItem">
       {isVideo ? (

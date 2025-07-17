@@ -87,7 +87,6 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
                     },
                 }
             );
-            console.log('ADD')
             // eslint-disable-next-line no-return-assign
             setTotalElements((prev) => (prev += 1))
             setComments((prev) => [data, ...prev])

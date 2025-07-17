@@ -3,15 +3,15 @@ import { useParams } from "react-router-dom";
 import { Contest } from "entities/contest";
 import { Work } from "entities/work";
 import useAxios from "shared/lib/hooks/useAxios";
+import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 import { Button } from "shared/ui/button";
 
 import CurrentWinners from "./components/currentWinners/currentWinners";
 import WinnerSelectors from "./components/winnersSelectors/winnerSelectors";
 import WinnerWork from "./components/winnerWork/winnerWork";
+import { getPossibleWinners, getRuledWorks } from "./model/services/contestService";
 
 import './chooseWinnerPage.scss'
-import { useGetRequest } from "shared/lib/hooks/useGetRequest";
-import { getPossibleWinners, getRuledWorks } from "./model/services/contestService";
 
 // добавить параметр контестАйди
 const ChooseWinnerPage: FC = () => {

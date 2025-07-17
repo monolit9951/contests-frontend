@@ -1,7 +1,8 @@
 import { ChangeEvent, FC, useState } from "react";
-import eye from 'shared/assets/icons/eyePassword.svg'
 import eyeClosed from 'shared/assets/icons/eyeClosed.svg'
+import eye from 'shared/assets/icons/eyePassword.svg'
 import iValidation from 'shared/assets/icons/iValidation.svg'
+
 import './registrationInput.scss'
 
 interface RegistrationInputInterface {

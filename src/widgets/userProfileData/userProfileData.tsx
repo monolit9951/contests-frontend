@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { User } from "entities/user";
-import crown from 'shared/assets/icons/crownSimple.svg'
-import verified from 'shared/assets/icons/SealCheck.svg'
-import star from 'shared/assets/icons/Star.svg'
 
+// import crown from 'shared/assets/icons/crownSimple.svg'
+// import verified from 'shared/assets/icons/SealCheck.svg'
+// import star from 'shared/assets/icons/Star.svg'
 import './userProfileData.scss'
 
 interface Props {

@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import clsx from 'clsx'
-import { Work } from 'entities/work'
 import {
     selectContestMedia,
     selectContestOwnerId,
@@ -19,9 +18,6 @@ import { Text } from 'shared/ui/text'
 import { WorksList } from './worksList'
 
 import './worksListSection.scss'
-import { RegistrationModal } from 'widgets/registrationModal'
-import { ModalWindow } from 'shared/ui/modalWindow'
-import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 type WorkType = 'media' | 'text'
 type WorkSort = 'new' | 'popular'

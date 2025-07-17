@@ -1,10 +1,8 @@
-import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ProfileSettingsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const navigationType = useNavigationType();
 
   const isModalOpen = location.state?.modal === true;
 

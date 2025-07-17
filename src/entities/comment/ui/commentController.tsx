@@ -11,15 +11,15 @@ const CommentController = ({ onClose, handleDeleteCommentCallback, handleSetEdit
 
     const user = useSelector((state: RootState) => state.user)
 
-    const onReportAction = () => {
-        if(user.userId === null){
-            alert("You not authorized")
-            return
-        }
+    // const onReportAction = () => {
+    //     if(user.userId === null){
+    //         alert("You not authorized")
+    //         return
+    //     }
 
-        console.log('comment reported')
-        onClose()
-    }
+    //     console.log('comment reported')
+    //     onClose()
+    // }
 
     const onEditAction = () => {
         if(user.userId === null){

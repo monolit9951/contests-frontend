@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { Work, WorkCard, WorkCardSkeleton } from 'entities/work'
 import {
@@ -12,11 +13,10 @@ import {
 } from 'pages/contestPage/model/services'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
+import { ModalWindow } from 'shared/ui/modalWindow'
 import Spinner from 'shared/ui/spinner'
 import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { ModalWindow } from 'shared/ui/modalWindow'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 interface Props {
@@ -78,7 +78,6 @@ export const WorksList: FC<Props> = (props) => {
 
         if (workType === 'media') {
             dispatch(fetchNextMediaWorks(ownerId))
-            console.log("FETCH")
         } else {
             dispatch(fetchNextTextWorks(ownerId))
         }

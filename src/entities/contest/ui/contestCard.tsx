@@ -1,23 +1,23 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import moment from 'moment'
-import Verified from 'shared/assets/icons/SealCheck.svg?react'
-import Star from 'shared/assets/icons/Star.svg?react'
+// import Verified from 'shared/assets/icons/SealCheck.svg?react'
+// import Star from 'shared/assets/icons/Star.svg?react'
 import PrizeIcon from 'shared/assets/icons/trophyF.svg?react'
 import { capitalizeStr } from 'shared/helpers'
 import { Button } from 'shared/ui/button'
-import { Flex, HStack, VStack } from 'shared/ui/stack'
+import { Flex, VStack } from 'shared/ui/stack'
 import { Tag } from 'shared/ui/tag'
 import { Text } from 'shared/ui/text'
-import { TopUser } from 'shared/ui/topUser'
-import { UserIcon } from 'shared/ui/userIcon'
+// import { TopUser } from 'shared/ui/topUser'
+// import { UserIcon } from 'shared/ui/userIcon'
+import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import { ContestPreview } from '../model/types'
 
 import './contestCard.scss'
-import UserProfileData from 'widgets/userProfileData/userProfileData'
-import { useSelector } from 'react-redux'
 
 interface Props extends ContestPreview {
     className?: string

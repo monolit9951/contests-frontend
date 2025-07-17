@@ -1,5 +1,6 @@
 import { FC } from "react"
 import MediaGalery from "widgets/mediaGalery"
+
 import './exampleGaleryModal.scss'
 
 interface Props {
@@ -8,8 +9,6 @@ interface Props {
 }
 
 const ExampleGaleryModal: FC<Props> = ({media, type = 'TYPED'}) => {
-
-    console.log
 
     return(
         <div className="exampleGaleryModal">

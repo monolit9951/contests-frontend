@@ -1,11 +1,12 @@
-import React, { Children, FC, ReactNode, useEffect, useState } from 'react'
-import clsx from 'clsx'
-import { useTheme } from 'entities/theme'
-import xIcon from 'shared/assets/icons/Secondary_btn.svg?react'
-import { Icon } from 'shared/ui/icon'
-import { Flex, HStack, VStack } from 'shared/ui/stack'
+import { FC, ReactNode, useEffect } from 'react'
 
+// import clsx from 'clsx'
+// import { useTheme } from 'entities/theme'
+// import xIcon from 'shared/assets/icons/Secondary_btn.svg?react'
+// import { Icon } from 'shared/ui/icon'
+// import { Flex, HStack, VStack } from 'shared/ui/stack'
 import './modalWindow.scss'
+
 interface UploadModalProps {
     isOpen: boolean
     onClose?: () => void
@@ -21,19 +22,8 @@ interface UploadModalProps {
 }
 
 export const ModalWindow: FC<UploadModalProps> = ({
-    width,
-    height,
-    maxWidth,
-    maxHeight,
     ...rest
 }) => {
-    const { theme } = useTheme()
-
-    const modalClass = clsx(
-        'modal',
-        { 'modal-open': rest.isOpen },
-        rest.className
-    )
     
     // БЛОКИРОВКА СКОЛЛА
     useEffect(() => {

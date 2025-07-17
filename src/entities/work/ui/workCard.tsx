@@ -1,24 +1,24 @@
 import { FC, useState } from 'react'
+// import { useLocation, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
-import { Prize, TopPrize } from 'entities/prize'
+import { Prize } from 'entities/prize'
 import { selectContestPrizes } from 'pages/contestPage/model/selectors'
 import { useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Image } from 'shared/ui/image'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
-import { HStack, VStack } from 'shared/ui/stack'
-import { Text } from 'shared/ui/text'
-import { UserIcon } from 'shared/ui/userIcon'
+import { ModalWindow } from 'shared/ui/modalWindow'
+import { VStack } from 'shared/ui/stack'
+// import { Text } from 'shared/ui/text'
+// import { UserIcon } from 'shared/ui/userIcon'
 import { Video } from 'shared/ui/videoPlayer'
+import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 import { Work } from '../model/types'
 
 import MediaOverlay from './overlay/mediaOverlay'
 
 import './workCard.scss'
-import { ModalWindow } from 'shared/ui/modalWindow'
-import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
-import { useLocation, useNavigate } from 'react-router-dom'
 
 interface Props {
     data: Work
@@ -32,7 +32,7 @@ const WorkCard: FC<Props> = (props) => {
 
     const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
-    const { description, typeWork, media, user } = data
+    const { typeWork, media, user } = data
 
     const prize = prizes.find((item) => item.id === prizeId)
 
@@ -49,15 +49,15 @@ const WorkCard: FC<Props> = (props) => {
     const [comments, setComments] = useState<number>(data.commentAmount)
 
     // колбек для изменения колличества комментов 
-    const handleChangeComments = (change: 'INCREMENT' | 'DECREMENT') => {
-        if (change === 'DECREMENT'){
-            setComments(comments - 1)
-        }
+    // const handleChangeComments = (change: 'INCREMENT' | 'DECREMENT') => {
+    //     if (change === 'DECREMENT'){
+    //         setComments(comments - 1)
+    //     }
 
-        if (change === 'INCREMENT'){
-            setComments(comments + 1)
-        }
-    }
+    //     if (change === 'INCREMENT'){
+    //         setComments(comments + 1)
+    //     }
+    // }
 
 
     return (

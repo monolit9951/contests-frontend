@@ -42,11 +42,9 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
             setLoading(true)
             
             const response = await instance.get(`comment?parentId=${data.id}`)
-            console.log(response)
             // setSubComments((prev) => [...prev, ...response.data.content])
             setSubComments(response.data.content)
 
-            console.log(subComments)
             setTotalPages(response.data.totalPages)
         } catch (err) {
             setError(err as Error)

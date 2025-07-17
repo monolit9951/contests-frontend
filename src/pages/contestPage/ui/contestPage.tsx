@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useNavigationType, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Contest } from 'entities/contest';
-import { Work } from 'entities/work';
 import useAxios from 'shared/lib/hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'shared/lib/store';
 import { Button } from 'shared/ui/button';
@@ -11,7 +10,6 @@ import { VStack } from 'shared/ui/stack';
 import { Text } from 'shared/ui/text';
 import { CommentsSection } from 'widgets/commentsSection';
 import UploadWorkModal from 'widgets/uploadWorkModal';
-import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview';
 
 import { selectContestMedia, selectContestOwnerId } from '../model/selectors';
 import { fetchMediaWorks } from '../model/services';
@@ -27,12 +25,9 @@ const ContestPage = () => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
-  const navigationType = useNavigationType();
   const dispatch = useAppDispatch();
 
-  const [selectedWork, setSelectedWork] = useState<Work | null>(null);
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
-  const [isUploadWorkModalOpen, setIsUploadWorkModalOpen] = useState<boolean>(false);
 
   // для модалок
   const isUploadModalOpen = location.state?.uploadModal === true

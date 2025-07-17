@@ -1,13 +1,13 @@
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Organizer } from 'entities/user'
-import Verified from 'shared/assets/icons/SealCheck.svg?react'
-import Star from 'shared/assets/icons/Star.svg?react'
+// import Verified from 'shared/assets/icons/SealCheck.svg?react'
+// import Star from 'shared/assets/icons/Star.svg?react'
 import { Image } from 'shared/ui/image'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './heroSection.scss'
-import { useSelector } from 'react-redux'
 
 interface Props {
     bg: string

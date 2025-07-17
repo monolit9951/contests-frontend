@@ -1,8 +1,8 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import calendar from 'shared/assets/icons/calendar.svg'
 
 import './profileContestsContest.scss'
-import { Link } from "react-router-dom";
 
 interface ProfileContestsContestInterface {
     data: any

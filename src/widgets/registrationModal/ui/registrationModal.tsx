@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import instance from "shared/api/api";
 import googleSVG from 'shared/assets/icons/google.svg'
 import CustomCheckbox from "widgets/customCheckbox";
@@ -11,7 +12,6 @@ import RegistrationInput from "./components/registrationInput/registrationInput"
 import Switcher from "./components/switcher/switcher";
 
 import './registrationModal.scss'
-import axios from "axios";
 
 interface RegistrationModalInterface {
     onClose: () => void

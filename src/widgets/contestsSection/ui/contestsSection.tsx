@@ -59,8 +59,6 @@ const ContestsSection: FC<Props> = (props) => {
         threshold: 0.8,
     })
 
-    console.log(allContests)
-
     useEffect(() => {
         if (
             nextLoading ||

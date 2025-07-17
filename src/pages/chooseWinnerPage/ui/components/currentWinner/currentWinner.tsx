@@ -1,10 +1,9 @@
 import { FC } from "react";
+import { Work } from "entities/work";
 import cup from 'shared/assets/icons/winCup.svg'
-import avatarSample from 'shared/assets/img/userIMG.jpg'
 import WinnerPlace from "shared/ui/winnerPlace";
 
 import './currentWinner.scss'
-import { Work } from "entities/work";
 
 interface Props {
     winnerData: Work
