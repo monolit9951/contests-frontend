@@ -8,7 +8,7 @@ export interface Comment {
     subCommentsAmount?: number
     // eslint-disable-next-line no-use-before-define
     subComments?: PagedComments | null
-    likeAmount: number
+    likes: {like: number, userLike: null | "LIKE" | "DISLIKE"}
     commentDate: number[]
     user: User
 }

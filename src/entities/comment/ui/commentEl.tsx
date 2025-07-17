@@ -44,16 +44,13 @@ const CommentEl: FC<Props> = (props) => {
 
     
 
-    // console.log(isMain, parentId)
     const [actionsShown, setActionsShown] = useState(false)
     const [replyInputShown, setReplyInputShown] = useState(false)
     const [inputData, setInputData] = useState('')
     const token = localStorage.getItem('userToken')
     const { user, commentDate, commentText, id } = data
-
+    const loginedUser = useSelector((state: RootState) => state.user)
     const formatted = moment(commentDate).format("YYYY/MM/DD HH:mm");
-
-    console.log(data.likes)
 
 
     const onActionClick = () => {
@@ -130,6 +127,7 @@ const CommentEl: FC<Props> = (props) => {
         }
     }
 
+
     // РЕДАКТИРОВАНИЕ КОММЕНТАРИЯ
     const [edit, setEdit] = useState<boolean>(false)
     const [newCommentText, setNewCommentText] = useState<string>(commentText)
@@ -146,7 +144,6 @@ const CommentEl: FC<Props> = (props) => {
 
     // редактирование коммента
     const handleEditSubmit = async () => {
-        
         await instance.put(`comment/${data.id}`, {commentText: newCommentText}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -154,8 +151,6 @@ const CommentEl: FC<Props> = (props) => {
             })
         setEdit(false)
     }
-
-    const loginedUser = useSelector((state: RootState) => state.user)
 
     return (
         <HStack className='comment__wrapper'>

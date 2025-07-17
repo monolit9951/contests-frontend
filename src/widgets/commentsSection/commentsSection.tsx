@@ -88,6 +88,8 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
                     },
                 }
             );
+
+            console.log(data)
             // eslint-disable-next-line no-return-assign
             setTotalElements((prev) => (prev += 1))
             setComments((prev) => [data, ...prev])
@@ -104,8 +106,6 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
     const handleCommentsDecreaseCallback = () => {
         setTotalElements(totalElements - 1)
     }
-
-    console.log(comments)
     
     return (
         <section className='comments'>

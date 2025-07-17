@@ -97,8 +97,6 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         setRepliesNum(repliesNum-1)
     }
 
-    console.log(subComments)
-
     return (
         <li ref={ref}>
             <CommentEl
