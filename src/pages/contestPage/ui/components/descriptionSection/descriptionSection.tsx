@@ -41,8 +41,6 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
         }
     }
 
-    console.log(contestStatus())
-
     const [regModal, setRegModal] = useState(false)
 
     const useTypeSelector: TypedUseSelectorHook<RootState> = useSelector

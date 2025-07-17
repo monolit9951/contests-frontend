@@ -48,14 +48,14 @@ const CommentsList: React.FC<Props> = (props) => {
     const { isIntersecting, measureRef, observer } = useOnScreen({
         threshold: 0.8,
     })
-
+    const token = localStorage.getItem('userToken')
     useEffect(() => {
         const fetchComments = async () => {
             try {
                 setError(null)
                 setLoading(true)
                 // const { data } = await instance.get(`comment?page=0&${params}`)
-                const { data } = await instance.get(`/comment?parentId=${workId}`)
+                const { data } = await instance.get(`/comment?parentId=${workId}`, {headers: {Authorization: `Bearer ${token}`}})
 
                 setComments(data.content)
                 setTotalElements(data.totalElements)

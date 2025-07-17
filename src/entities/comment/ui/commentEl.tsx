@@ -49,9 +49,11 @@ const CommentEl: FC<Props> = (props) => {
     const [replyInputShown, setReplyInputShown] = useState(false)
     const [inputData, setInputData] = useState('')
     const token = localStorage.getItem('userToken')
-    const { user, commentDate, commentText, id, likeAmount } = data
+    const { user, commentDate, commentText, id } = data
 
     const formatted = moment(commentDate).format("YYYY/MM/DD HH:mm");
+
+    console.log(data.likes)
 
 
     const onActionClick = () => {
@@ -189,7 +191,7 @@ const CommentEl: FC<Props> = (props) => {
                 }
 
                 <HStack className='comment-feedback'>
-                    <RateButtons id={id} likes={likeAmount} />
+                    <RateButtons id={id} likes={data.likes.like} userLike={data.likes.userLike}/>
                     <Button variant='ghost' size='s' onClick={toggleReplyInput}>
                         Reply
                     </Button>

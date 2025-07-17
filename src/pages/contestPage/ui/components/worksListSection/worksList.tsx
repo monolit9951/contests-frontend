@@ -115,7 +115,6 @@ export const WorksList: FC<Props> = (props) => {
         return work?.typeWork === 'TEXT' ? '520px' : '100%';
     };
 
-    console.log(newMediaWorks)
 
     const renderList = () => {
         if (media.loading || text.loading) {

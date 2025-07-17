@@ -28,8 +28,6 @@ const MediaFeedback: FC<Props> = (props) => {
 
     const onShare = () => {}
 
-    console.log(liked)
-
     return (
         <HStack className={clsx('feedback__wrapper', className)}>
             

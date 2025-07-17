@@ -29,13 +29,14 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
     const [nextLoading, setNextLoading] = useState(false)
     const [error, setError] = useState<Error | null>(null)
 
-
+    const token = localStorage.getItem('userToken')
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const { data } = await instance.get(
-                    'users?page=0&pageSize=1&sortDirection=ASC'
+                    'users?page=0&pageSize=1&sortDirection=ASC',
+                    {headers: {Authorization: `Bearer ${token}`}}
                 )
 
                 setUserId(data.content[0].id)
@@ -104,6 +105,8 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
         setTotalElements(totalElements - 1)
     }
 
+    console.log(comments)
+    
     return (
         <section className='comments'>
             <Text
