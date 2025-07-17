@@ -62,9 +62,11 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
 
     // галерея example media
     const [exampleGaleryModal, setExampleGaleryModal] = useState<boolean>(false)
+    const [chosenExapmleIndex, setChosenExampleIndex] = useState<number>(0)
 
-    const openExapmpleGaleryModal = () => {
+    const openExapmpleGaleryModal = (index: number) => {
         setExampleGaleryModal(true)
+        setChosenExampleIndex(index)
     }
 
     const closeExapmpleGaleryModal = () => {
@@ -130,8 +132,8 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                 Examples
                             </Text>
                             <ul className='example-list'>
-                                {data.exampleMedia?.map((item, idx) => (
-                                    <li key={idx} onClick={openExapmpleGaleryModal}>
+                                {data.exampleMedia?.map((item, idx: number) => (
+                                    <li key={idx} onClick={() => openExapmpleGaleryModal(idx)}>
                                         {item.typeMedia === "VIDEO"? 
                                             <div className='example-media'><Video light src={item.mediaLink}/></div>
                                             :
@@ -231,7 +233,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
             </HStack>
 
             {regModal && <ModalWindow isOpen onClose={() => (setRegModal(false))}><RegistrationModal auth/></ModalWindow>}
-            {exampleGaleryModal && <ModalWindow isOpen onClose={closeExapmpleGaleryModal}><ExampleGaleryModal media={data.exampleMedia}/></ModalWindow>}
+            {exampleGaleryModal && <ModalWindow isOpen onClose={closeExapmpleGaleryModal}><ExampleGaleryModal media={data.exampleMedia} index={chosenExapmleIndex}/></ModalWindow>}
         </section>
     )
 }
