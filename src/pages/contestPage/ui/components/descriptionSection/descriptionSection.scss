@@ -56,14 +56,15 @@
             }
 
             .example-list {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+                // display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                display: flex;
                 gap: 8px;
 
                 .example-media {
                     border-radius: 8px;
                     width: 100%;
-                    // height: 100%;
+                    height: 300px;
                     aspect-ratio: 135/132;
                 }
             }

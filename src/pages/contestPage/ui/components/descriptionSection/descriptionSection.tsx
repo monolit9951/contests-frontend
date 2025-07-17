@@ -19,6 +19,7 @@ import { RegistrationModal } from 'widgets/registrationModal'
 import ExampleGaleryModal from '../exampleGaleryModal/exampleGaleryModal'
 
 import './descriptionSection.scss'
+import { Video } from 'shared/ui/videoPlayer'
 
 interface Props {
     data: Contest
@@ -132,8 +133,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                 {data.exampleMedia?.map((item, idx) => (
                                     <li key={idx} onClick={openExapmpleGaleryModal}>
                                         {item.typeMedia === "VIDEO"? 
-                                            // <video src={item.mediaL}/>
-                                            <div>videoCard</div>
+                                            <div className='example-media'><Video light src={item.mediaLink}/></div>
                                             :
                                             <Image
                                                 src={item.mediaLink}
