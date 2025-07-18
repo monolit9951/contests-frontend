@@ -48,10 +48,10 @@ const RateButtons = (props: Props) => {
         setLikesNum(likes)
     }, [likes])
 
-        useEffect(() => {
-            setLiked(userLike === 'LIKE')
-            setDisliked(userLike === 'DISLIKE')
-        }, [userLike])
+    useEffect(() => {
+        setLiked(userLike === 'LIKE')
+        setDisliked(userLike === 'DISLIKE')
+    }, [userLike])
 
 
     const onLikeClick = async () => {
