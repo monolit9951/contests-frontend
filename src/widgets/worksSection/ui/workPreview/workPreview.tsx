@@ -9,6 +9,8 @@ import MediaGalery from 'widgets/mediaGalery'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import './workPreview.scss'
+import { getWorkById } from 'entities/work/model/services/workServices'
+import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
 
 interface WorkProps {
     work: Work
@@ -32,6 +34,11 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
 
     const timeAgo = moment.utc(workAddingDate).local().fromNow();
     const loginedUser = useSelector((state: RootState) => state.user)
+
+
+    // ПОЛУЧЕНИЕ ДАННЫХ ДЛЯ АКТУАЛЬНОГО ОТОБРАЖЕНИЯ ЛАЙКОВ (ПОКА ЗАПРОС НА ВСЮ ИНФУ)
+    const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(work.id), key: [], enabled: true})
+
     return (
         <div className="workPreview">
             <div className="workPreview_container">
@@ -53,7 +60,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
 
                         {/* <div className="active_contest">MAKE COMPONENT </div> */}
 
-                        <MediaFeedback likes={work.likeAmount} liked={work.userLike}/>
+                        {workDataLoaded && <MediaFeedback likes={workData.likeAmount} liked={workData.userLike}/>}
                     </div>
 
                     <div className="workPreview_comments">

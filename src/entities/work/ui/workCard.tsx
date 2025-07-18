@@ -41,7 +41,7 @@ const WorkCard: FC<Props> = (props) => {
     const [openModal, setOpenModal] = useState<boolean>(false)
     const [workKey, setWorkKey] = useState<number>(0)
 
-    const handleOpenModal = () => {
+    const handleOpenModal = async () => {
         setOpenModal(true)
     }
 
