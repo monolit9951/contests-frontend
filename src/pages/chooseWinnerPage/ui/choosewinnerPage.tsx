@@ -19,10 +19,15 @@ const ChooseWinnerPage: FC = () => {
 
     const {id} = useParams()
 
+    const [worksKey, setWorksKey] = useState<number>(0)
+    const [winnersKey, setWinnersKey] = useState<number>(0)
+    const [worksEnabled, setWorksEnabled] = useState<boolean>(false)
+    const [winnerEnabled, setWinnersEnabled] = useState<boolean>(false)
+
     const { data: contest, isLoading: contestIsLoading} = useAxios<Contest>(`contests/${id}`)
     // const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/${id}`)
-    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks(String(id)), key: [], enabled: true})
-    const {data: winners, isLoaded: winnersIsLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners(String(id)), key: [], enabled: true})
+    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks(String(id)), key: [worksKey], enabled: worksEnabled})
+    const {data: winners, isLoaded: winnersIsLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners(String(id)), key: [winnersKey], enabled: winnerEnabled})
 
 
     const [contestAccess, setContestAccess] = useState<boolean>(false)
@@ -48,6 +53,10 @@ const ChooseWinnerPage: FC = () => {
                 } else {
                     setContestAccess(true)
                     setContestAccessPending(false)
+                    setWorksEnabled(true)
+                    setWinnersEnabled(true)
+                    setWorksKey(worksKey + 1)
+                    setWinnersKey( winnersKey + 1)
                 }
             }  else {
                 setContestAccess(false)
@@ -77,7 +86,7 @@ const ChooseWinnerPage: FC = () => {
                     </div>}
                 </div>
 
-                {winners && <CurrentWinners winners ={winners.content}/>}
+                {/* {winners && <CurrentWinners winners ={winners.content}/>} */}
                 
                 <div className="chooseWinnerPage_selectors">
                     <WinnerSelectors />

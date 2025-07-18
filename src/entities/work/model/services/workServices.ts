@@ -11,8 +11,6 @@ export const getWorkById = async(workId: string) => {
             throw new Error("No data received")
         }
 
-        console.log(response.data)
-
         return response.data
     } catch (error) {
         if (error instanceof Error) {

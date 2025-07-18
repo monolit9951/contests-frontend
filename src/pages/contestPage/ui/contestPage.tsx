@@ -115,9 +115,6 @@ const ContestPage = () => {
   }
 
   
-
-
-  
   return (
     <VStack className="contest">
       <HeroSection bg={data.backgroundImage} owner={data.contestOwner} />

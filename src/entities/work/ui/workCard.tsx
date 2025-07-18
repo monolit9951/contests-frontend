@@ -64,10 +64,9 @@ const WorkCard: FC<Props> = (props) => {
     // }
 
 
+    
+
     const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(data.id), key: [workKey], enabled: true})
-
-    console.log(workData)
-
 
     return (
         <li className='li'>

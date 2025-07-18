@@ -37,10 +37,18 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                 return 'Upcoming'
             case "ACTIVE":
                 return 'Active'
+            case "MODERATOR_SELECTION":
+                return 'Finished'
+            case "SELECTION_IN_PROGRESS":
+                return 'Finished'
+            case "WINNER_CONFIRMATION":
+                return 'Finished'
             default:
                 return 'Inactive'
         }
     }
+
+    console.log(data.status)
 
     const [regModal, setRegModal] = useState(false)
 
@@ -101,7 +109,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                 
                 <Button
                     variant='primary'
-                    disabled={data.status === 'FINISHED' || contestStatus() === 'Inactive'}
+                    disabled={contestStatus() === 'Finished' || contestStatus() === 'Upcoming'}
                     onClick={onParticipateClick}
                     className='participate-btn'>
                     <Text Tag='span'>{contestStatus()}</Text>
@@ -218,10 +226,8 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                         </Text>
                         <HStack className='align__center'>
                             <Icon Svg={calendar} width={36} height={36} />
-                            <Text Tag='span' bold={!data.contestOpen} size='xl'>
-                                {data.contestOpen
-                                    ? `${deadline}`
-                                    : contestStatus()}
+                            <Text Tag='span' size='xl'>
+                                {contestStatus() === 'Finished'? `Ended: ${deadline}` : `${deadline}`}
                             </Text>
                         </HStack>
                     </VStack>
