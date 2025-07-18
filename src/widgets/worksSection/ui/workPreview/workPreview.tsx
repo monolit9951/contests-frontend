@@ -60,7 +60,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
 
                         {/* <div className="active_contest">MAKE COMPONENT </div> */}
 
-                        {workDataLoaded && <MediaFeedback likes={workData.likeAmount} liked={workData.userLike}/>}
+                        {workDataLoaded && <MediaFeedback id={work.id} likes={workData.likeAmount} liked={workData.userLike}/>}
                     </div>
 
                     <div className="workPreview_comments">

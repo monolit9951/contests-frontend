@@ -1,5 +1,5 @@
 /* eslint-disable no-return-assign */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import instance from 'shared/api/api'
@@ -43,8 +43,17 @@ const RateButtons = (props: Props) => {
 
     const useTypeSelector: TypedUseSelectorHook <RootState> = useSelector
     const user = useTypeSelector((state) => state.user)
+    
+    useEffect(() => {
+        setLikesNum(likes)
+    }, [likes])
 
-    // очень плохо работает
+        useEffect(() => {
+            setLiked(userLike === 'LIKE')
+            setDisliked(userLike === 'DISLIKE')
+        }, [userLike])
+
+
     const onLikeClick = async () => {
         if(user.userId === null){
             alert("You not authorized")
@@ -52,7 +61,7 @@ const RateButtons = (props: Props) => {
             if (disliked) {
                 setDisliked(!disliked)
                 setLiked(true)
-                setLikesNum((_prev) => (_prev += 2))
+                setLikesNum((_prev) => (_prev += 1))
 
                 await onRate('DISLIKE')
                 onRate('LIKE')
@@ -71,7 +80,6 @@ const RateButtons = (props: Props) => {
         }
     }
 
-    // очень плохо
     const onDislikeClick = async () => {
         if(user.userId === null){
             alert("You not authorized")
@@ -79,7 +87,7 @@ const RateButtons = (props: Props) => {
             if (liked) {
                 setLiked(!liked)
                 setDisliked(true)
-                // setLikesNum((_prev) => (_prev -= 2))
+                setLikesNum((_prev) => (_prev -= 1))
 
                 await onRate('LIKE')
                 onRate('DISLIKE')

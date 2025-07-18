@@ -68,6 +68,7 @@ const WorkCard: FC<Props> = (props) => {
 
     console.log(workData)
 
+
     return (
         <li className='li'>
             <VStack className={clsx('media-work', className)}>
