@@ -49,13 +49,15 @@ const CommentsList: React.FC<Props> = (props) => {
         threshold: 0.8,
     })
     const token = localStorage.getItem('userToken')
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
     useEffect(() => {
         const fetchComments = async () => {
             try {
                 setError(null)
                 setLoading(true)
                 // const { data } = await instance.get(`comment?page=0&${params}`)
-                const { data } = await instance.get(`/comment?parentId=${workId}`, {headers: {Authorization: `Bearer ${token}`}})
+                const { data } = await instance.get(`/comment?parentId=${workId}`, {headers})
 
                 setComments(data.content)
                 setTotalElements(data.totalElements)

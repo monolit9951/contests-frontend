@@ -1,9 +1,11 @@
 import instance from "shared/api/api"
 
+const token = localStorage.getItem('userToken')
+const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
 export const getWorkById = async(workId: string) => {
     try {
-        const token = localStorage.getItem('userToken')
-        const response = await instance.get(`works/${workId}`, {headers: {Authorization: `Bearer ${token}`}})
+        const response = await instance.get(`works/${workId}`, {headers})
 
         if (!response.data) {
             throw new Error("No data received")

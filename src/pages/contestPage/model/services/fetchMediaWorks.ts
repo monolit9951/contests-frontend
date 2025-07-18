@@ -4,6 +4,7 @@ import instance from 'shared/api/api'
 import { selectContestMedia } from '../selectors'
 
 const token = localStorage.getItem('userToken')
+const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
 // получение всех медиаВорков
 export const fetchMediaWorks = createAsyncThunk(
@@ -13,7 +14,7 @@ export const fetchMediaWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byContestId/${id}`, {headers: {Authorization: `Bearer ${token}`}}
+                `/works/byContestId/${id}`, {headers}
             )
             if (!response.data) {
                 throw new Error()
@@ -36,7 +37,7 @@ export const fetchNextMediaWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byContestId/${id}?page=${page}&pageSize=9&sortDirection=ASC&sortBy=new`, {headers: {Authorization: `Bearer ${token}`}}
+                `/works/byContestId/${id}?page=${page}&pageSize=9&sortDirection=ASC&sortBy=new`, {headers}
             )
             if (!response.data) {
                 throw new Error()
@@ -57,7 +58,7 @@ export const fetchPopularMediaWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byContestId/${id}?page=0&pageSize=9&sortDirection=ASC&typeOfWork=media&sortBy=popular`, {headers: {Authorization: `Bearer ${token}`}}
+                `/works/byContestId/${id}?page=0&pageSize=9&sortDirection=ASC&typeOfWork=media&sortBy=popular`, {headers}
             )
 
             if (!response.data) {

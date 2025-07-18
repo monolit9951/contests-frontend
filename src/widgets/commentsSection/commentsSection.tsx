@@ -30,13 +30,14 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
     const [error, setError] = useState<Error | null>(null)
 
     const token = localStorage.getItem('userToken')
-
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const { data } = await instance.get(
                     'users?page=0&pageSize=1&sortDirection=ASC',
-                    {headers: {Authorization: `Bearer ${token}`}}
+                    {headers}
                 )
 
                 setUserId(data.content[0].id)
@@ -73,7 +74,6 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
             setError(null)
             setNextLoading(true)
 
-            const token = localStorage.getItem('userToken')
             const { data } = await instance.post(
                 'comment',
                 {
@@ -89,7 +89,6 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
                 }
             );
 
-            console.log(data)
             // eslint-disable-next-line no-return-assign
             setTotalElements((prev) => (prev += 1))
             setComments((prev) => [data, ...prev])

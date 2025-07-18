@@ -27,6 +27,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
     const [nextLoading, setNextLoading] = useState(false)
     const [error, setError] = useState<Error | null>(null)
     const token = localStorage.getItem('userToken')
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
     // const params = `pageSize=8&sortDirection=ASC&parentId=${data.id}`
 
     // функция загрузки всех сабкомментов
@@ -41,7 +42,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
             setError(null)
             setLoading(true)
             
-            const response = await instance.get(`comment?parentId=${data.id}`, {headers: {Authorization: `Bearer ${token}`}})
+            const response = await instance.get(`comment?parentId=${data.id}`, {headers})
             // setSubComments((prev) => [...prev, ...response.data.content])
             setSubComments(response.data.content)
 
@@ -70,7 +71,7 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
             setNextLoading(true)
 
             const response = await instance.get(
-                `comment?page=${page}`, {headers: {Authorization: `Bearer ${token}`}}
+                `comment?page=${page}`, {headers}
             )
 
             setSubComments((prev) => [...prev, ...response.data.content])
