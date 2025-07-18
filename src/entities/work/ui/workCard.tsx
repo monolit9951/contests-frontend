@@ -19,6 +19,8 @@ import { Work } from '../model/types'
 import MediaOverlay from './overlay/mediaOverlay'
 
 import './workCard.scss'
+import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
+import { getWorkById } from '../model/services/workServices'
 
 interface Props {
     data: Work
@@ -37,6 +39,7 @@ const WorkCard: FC<Props> = (props) => {
     const prize = prizes.find((item) => item.id === prizeId)
 
     const [openModal, setOpenModal] = useState<boolean>(false)
+    const [workKey, setWorkKey] = useState<number>(0)
 
     const handleOpenModal = () => {
         setOpenModal(true)
@@ -44,9 +47,10 @@ const WorkCard: FC<Props> = (props) => {
 
     const handleCloseModal = () => {
         setOpenModal(false)
-    }
 
-    const [comments, setComments] = useState<number>(data.commentAmount)
+        // при закрытии модалки, заново делаем запрос на сервер, чтоб обновить инфу
+        setWorkKey(workKey + 1)         
+    }
 
     // колбек для изменения колличества комментов 
     // const handleChangeComments = (change: 'INCREMENT' | 'DECREMENT') => {
@@ -60,26 +64,30 @@ const WorkCard: FC<Props> = (props) => {
     // }
 
 
+    const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(data.id), key: [workKey], enabled: true})
+
+    console.log(workData)
+
     return (
         <li className='li'>
             <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
-                    <MediaOverlay
-                        prize={prize}
-                        user={user}
-                        imageCards={typeWork === 'IMAGE'}
-                    />
-                    {data.media && data.media[0].typeMedia === 'VIDEO' && media?.[0]?.mediaLink && (
+                    {workDataLoaded && <MediaOverlay
+                        prize={workData.prize}
+                        user={workData.user}
+                        imageCards={workData.typeWork === 'IMAGE'}
+                    />}
+                    {workDataLoaded && workData.media && workData.media[0].typeMedia === 'VIDEO' && workData.media?.[0]?.mediaLink && (
                         <Button
                             variant='div'
                             onClick={handleOpenModal}
                             className='media-work__video'>
-                            <Video url={media[0].mediaLink} light />
+                            <Video url={workData.media[0].mediaLink} light />
                         </Button>
                     )}
-                    {data.media && data.media[0].typeMedia === 'IMAGE'&& media?.[0]?.mediaLink && (
+                    {workDataLoaded && workData.media && workData.media[0].typeMedia === 'IMAGE'&& workData.media?.[0]?.mediaLink && (
                         <Image
-                            src={media?.[0].mediaLink}
+                            src={workData.media?.[0].mediaLink}
                             alt='media'
                             width={458}
                             height={612}
@@ -88,16 +96,16 @@ const WorkCard: FC<Props> = (props) => {
                         />
                     )}
                 </div>
-                <MediaFeedback
-                    id={data.id}
-                    likes={data.likeAmount}
-                    comments={comments}
+                {workDataLoaded && <MediaFeedback
+                    id={workData.id}
+                    likes={workData.likeAmount}
+                    comments={workData.commentAmount}
                     onCommentsClick={handleOpenModal}
-                    liked = {data.userLike}
-                />
+                    liked = {workData.userLike}
+                />}
             </VStack>
 
-            {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={data} /></ModalWindow>}
+            {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={workData} /></ModalWindow>}
         </li>
     )
 }
