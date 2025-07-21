@@ -96,14 +96,6 @@ const WorksListSection = ({ worksAmount }: Props) => {
                         Media
                     </button>
                 </li>
-                <li>
-                    <button
-                        type='button'
-                        className={clsx(workType === 'text' && 'active')}
-                        onClick={() => onWorkTypesClick('text')}>
-                        Text
-                    </button>
-                </li>
             </ul>
 
             <ul className='participants-works__sort'>
@@ -131,7 +123,7 @@ const WorksListSection = ({ worksAmount }: Props) => {
             </ul>
 
             <WorksList
-                workType={workType}
+                workType='media'
                 sort={selectedSort}
             />
         </section>
