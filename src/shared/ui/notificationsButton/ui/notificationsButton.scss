@@ -34,7 +34,16 @@
         > li{
             background-color: red;
             padding: 2px;
+
+            > button{
+                background-color: transparent;
+                border: none;
+                outline: none;
+                text-align: start;
+                
+            }
         }
+        
     }
 
     > .notification_list_empty{

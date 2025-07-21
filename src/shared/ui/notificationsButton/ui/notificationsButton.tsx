@@ -9,6 +9,7 @@ import './notificationsButton.scss'
 import { useEffect, useState } from 'react'
 import SockJS from 'sockjs-client'
 import { Client } from '@stomp/stompjs';
+import instance from 'shared/api/api';
 
 
 export const NotificationsButton = () => {
@@ -59,6 +60,11 @@ export const NotificationsButton = () => {
     }, [notifications])
 
 
+    const handleISawNotification = async(id: string) => {
+        // await instance.post('')
+        console.log(`read notification ${id}`)
+    }
+
     // дизайн переделать
     return (
         <div className="notification">
@@ -68,7 +74,7 @@ export const NotificationsButton = () => {
 
             {dropList && (notifications.length > 0? <ul className="notification_list">
                 {notifications.map((data: any, index: number) => (
-                    <li key={index}>{data.content}</li>
+                    <li key={index}><button type='button' onClick={() => handleISawNotification(data.id)}>{data.content}</button></li>
                 ))}
             </ul>
             :
