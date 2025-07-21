@@ -1,0 +1,17 @@
+.notification{
+    position: relative;
+
+    > .notification_active{
+        position: absolute;
+        bottom: 0px;
+        right: -5px;
+        height: 15px;
+        width: 15px;
+        background-color: red;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 13px;
+    }
+}

@@ -16,6 +16,7 @@
     "@react-oauth/google": "^0.12.2",
     "@reduxjs/toolkit": "^1.9.7",
     "@smastrom/react-rating": "^1.3.2",
+    "@stomp/stompjs": "^7.1.1",
     "@types/node": "^20.12.7",
     "ag-grid-community": "^31.3.2",
     "ag-grid-react": "^31.3.2",
@@ -50,6 +51,8 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "sweetalert": "^2.1.2",
     "use-breakpoint": "^4.0.1",
     "uuid": "^11.1.0"
