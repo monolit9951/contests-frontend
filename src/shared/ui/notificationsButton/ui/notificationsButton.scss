@@ -1,5 +1,7 @@
 .notification{
     position: relative;
+    display: flex;
+    align-items: center;
 
     > .notification_active{
         position: absolute;
@@ -13,5 +15,40 @@
         align-items: center;
         justify-content: space-around;
         font-size: 13px;
+    }
+
+    > .notification_list{
+        position: absolute;
+        width: 200px;
+        background-color: yellow;
+        color: black;
+        padding: 5px;
+        border-radius: 5px;
+        right: -20px;
+        top: 35px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        > li{
+            background-color: red;
+            padding: 2px;
+        }
+    }
+
+    > .notification_list_empty{
+        position: absolute;        
+        width: 200px;
+        background-color: yellow;
+        color: black;
+        padding: 5px;
+        border-radius: 5px;
+        right: -20px;
+        top: 35px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
     }
 }

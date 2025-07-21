@@ -19,6 +19,13 @@ export const NotificationsButton = () => {
     // ENV
     const SOCKET_URL = 'http://localhost:8080/ws-sockjs';
         
+    // дропдаун лист для уведомлений
+    const [dropList, setDropList] = useState<boolean>(false)
+
+    const handleDropDown = () => {
+        setDropList(!dropList)
+    }
+
     useEffect(() => {
         const socket = new SockJS(SOCKET_URL)
         const stompClient = new Client({
@@ -26,23 +33,22 @@ export const NotificationsButton = () => {
         debug: () => {}, // отключим логи
         reconnectDelay: 5000,
         onConnect: () => {
-            console.log('✅ Подключено к STOMP WebSocket');
             stompClient.subscribe('/topic/notifications', (message) => {
             if (message.body) {
-                const data = JSON.parse(message.body);
-                setNotifications((prev) => [...prev, data]);
+                const data = JSON.parse(message.body)
+                setNotifications((prev) => [...prev, data])
             }
-            });
+            })
         },
         onStompError: (frame) => {
-            console.error('❌ STOMP ошибка:', frame);
+            console.error('❌ STOMP ошибка:', frame)
         }
         });
 
-        stompClient.activate();
+        stompClient.activate()
 
         return () => {
-        stompClient.deactivate();
+            stompClient.deactivate()
         };
     }, []);
 
@@ -52,11 +58,22 @@ export const NotificationsButton = () => {
         console.log(notifications)
     }, [notifications])
 
+
+    // дизайн переделать
     return (
         <div className="notification">
-            <Icon clickable Svg={bellF} />
+            <Icon clickable Svg={bellF} onClick={handleDropDown}/>
 
-            <div className="notification_active">1</div>
+            {notifications.length > 0 && <div className="notification_active">{' '}</div>}
+
+            {dropList && (notifications.length > 0? <ul className="notification_list">
+                {notifications.map((data: any, index: number) => (
+                    <li key={index}>{data.content}</li>
+                ))}
+            </ul>
+            :
+            <div className='notification_list_empty'>No notifications</div>
+            )}
         </div>
     )
 }
