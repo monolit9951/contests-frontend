@@ -21,11 +21,11 @@ interface Props {
 const MediaOverlay = ({ prize, user, imageCards }: Props) => {
     // const onCardsClick = () => {}
 
-    const [controlModal, setControlModal] = useState<boolean>(false)
+    // const [controlModal, setControlModal] = useState<boolean>(false)
 
-    const handleControlModal = () => {
-        setControlModal(!controlModal)
-    }
+    // const handleControlModal = () => {
+    //     setControlModal(!controlModal)
+    // }
 
     // const handleReport = () => {
     //     console.log('REPORT NOT WORK YET')
@@ -50,14 +50,14 @@ const MediaOverlay = ({ prize, user, imageCards }: Props) => {
                     wrapperClassName='media__overlay__3'
                 />
             </Link>
-            <div className='media__overlay__4'>
+            {/* <div className='media__overlay__4'>
                 <button type='button' onClick={handleControlModal}><Icon Svg={action} /></button>
 
                 {controlModal && <div className="media__overlay__4__control">
-                    {/* <button onClick = {handleReport} type='button'>Report</button> */}
-                    {/* <button onClick = {handleWinner} type='button'>Promote to winners</button> */}
+                    <button onClick = {handleReport} type='button'>Report</button>
+                    <button onClick = {handleWinner} type='button'>Promote to winners</button>
                 </div>}
-            </div>
+            </div> */}
         </VStack>
     )
 }
