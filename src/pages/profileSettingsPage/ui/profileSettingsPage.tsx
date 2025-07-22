@@ -1,31 +1,27 @@
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Button } from 'shared/ui/button';
+import { clearUser } from 'widgets/registrationModal/model/slice/userSlice';
+import './profileSettingsPage.scss'
 
 const ProfileSettingsPage = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
 
-  const isModalOpen = location.state?.modal === true;
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const openModal = () => {
-    navigate('', { state: { modal: true } }); // Добавляем шаг в историю
-  };
-
-  const closeModal = () => {
-    navigate(-1); // Назад по истории
-  };
+  const handleExit = () => {
+    // console.log('exit')
+    localStorage.removeItem('userToken')
+    dispatch(clearUser())
+    navigate('/')
+  }
 
   return (
-    <div>
+    <div className='profileSettingsPage'>
       <h1>Настройки профиля</h1>
 
-      <button onClick={openModal} type='button'>Открыть модалку</button>
+      <Button type='button' variant='primary' className='exitButton' onClick={handleExit} >Exit profile</Button>
 
-      {isModalOpen && (
-        <div style={{ border: '1px solid white', padding: '20px', marginTop: '20px' }}>
-          <span>Модальное окно</span>
-          <button onClick={closeModal} type='button'>Закрыть</button>
-        </div>
-      )}
     </div>
   );
 };
