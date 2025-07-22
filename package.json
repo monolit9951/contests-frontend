@@ -22,6 +22,8 @@
     "ag-grid-react": "^31.3.2",
     "axios": "^1.6.1",
     "clsx": "^2.0.0",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
     "localforage": "^1.10.0",
     "lodash.debounce": "^4.0.8",
     "match-sorter": "^6.3.1",
