@@ -19,22 +19,23 @@ export const CompetitionTimeInput = ({
 
     const combineDateTimeStart = () => {
         const dateStart = watch('startDate')
-        const timeStart = watch('startTime')
+        const timeStart = watch('startTime') 
 
         if (dateStart && timeStart) {
-            const dateStartString = moment(dateStart).format('yyyy-MM-DD')
+            const dateStartString = moment(dateStart).format('YYYY-MM-DD')
             const timeStartString = moment(timeStart).format('HH:mm')
-            const combinedStart = new Date(
-                `${dateStartString} ${timeStartString}`
-            )
 
-            const formattedStart = moment(combinedStart).format(
-                'YYYY-MM-DD[T]HH:mm:ss[Z]'
-            )
+            // полная ЛОКАЛЬНАЯ дата и время
+            const combinedLocal = moment(`${dateStartString} ${timeStartString}`, 'YYYY-MM-DD HH:mm')
 
-            setValue('dateStart', formattedStart)
+            // полная МИРОВАЯ дата и время
+            const utcFormatted = combinedLocal.utc().format('YYYY-MM-DD[T]HH:mm:ss[Z]')
+
+            console.log(utcFormatted)
+            setValue('dateStart', utcFormatted)
         }
     }
+
 
     const combineDateTimeEnd = () => {
         const dateEnd = watch('endDate')
@@ -43,13 +44,15 @@ export const CompetitionTimeInput = ({
         if (dateEnd && timeEnd) {
             const dateEndString = moment(dateEnd).format('yyyy-MM-DD')
             const timeEndString = moment(timeEnd).format('HH:mm')
-            const combinedEnd = new Date(`${dateEndString} ${timeEndString}`)
 
-            const formattedEnd = moment(combinedEnd).format(
-                'YYYY-MM-DD[T]HH:mm:ss[Z]'
-            )
+            // полная ЛОКАЛЬНАЯ ДАТА времени окончания
+            const combinedLocal = moment(`${dateEndString} ${timeEndString}`, 'YYYY-MM-DD HH:mm') 
 
-            setValue('dateEnd', formattedEnd)
+            // полная МИРОВАЯ дата и время окончания
+            const utcFormatted = combinedLocal.utc().format('YYYY-MM-DD[T]HH:mm:ss[Z]')
+            console.log(utcFormatted)
+
+            setValue('dateEnd', utcFormatted)
         }
     }
 

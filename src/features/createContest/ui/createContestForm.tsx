@@ -76,9 +76,6 @@ const CreateContestForm = () => {
         const hasExampleMedia = data.exampleMedia?.some((file) => file)
         // дата начала больше текущей даты
         if (moment(data.dateStart).isSameOrBefore(moment())) {
-            // console.log(moment())
-            console.log(moment(data.dateStart))
-            console.log(moment())
             setDateValidation('Starting date must be greater than current date')
             return
         }
@@ -118,6 +115,9 @@ const CreateContestForm = () => {
         if (hasExampleMedia){
             data.exampleMedia.forEach((file) => formData.append('examples', file))
         }
+
+        console.log(data.dateStart)
+        console.log(data.dateEnd)
 
         try {
             setPending(true)
