@@ -49,7 +49,7 @@ export const CoverSelectionModal = ({
     const { setValue } = useFormContext()
 
     // подготовленные базовые фото
-    const setDefaultImage = (image: string) => {
+    const setDefaultImage = async (image: string) => {
         if (currImg === image) {
             setImgName('')
             setCurrImg('')
@@ -58,6 +58,14 @@ export const CoverSelectionModal = ({
             setImgName(image)
             setCurrImg(image)
             setIsDisabledUploadBtn(false)
+             try {
+                const response = await fetch(image)
+                const blob = await response.blob()
+                setCurrBlob(blob)
+            } catch (err) {
+                console.error('Ошибка при загрузке изображения:', err)
+                setImageValidationMessage('Failed to load image blob')
+            }
         }
     }
 
