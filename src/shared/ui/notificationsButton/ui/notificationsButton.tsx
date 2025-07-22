@@ -22,6 +22,7 @@ export const NotificationsButton = () => {
         
     // дропдаун лист для уведомлений
     const [dropList, setDropList] = useState<boolean>(false)
+    const [unread, setUnread] = useState<boolean>(false)
 
     const handleDropDown = () => {
         setDropList(!dropList)
@@ -57,6 +58,7 @@ export const NotificationsButton = () => {
     // проверка на работу 
     useEffect(() => {
         console.log(notifications)
+        setUnread(notifications.some(item => item.read === false))
     }, [notifications])
 
 
@@ -70,7 +72,7 @@ export const NotificationsButton = () => {
         <div className="notification">
             <Icon clickable Svg={bellF} onClick={handleDropDown}/>
 
-            {notifications.length > 0 && <div className="notification_active">{' '}</div>}
+            {unread && <div className="notification_active">{' '}</div>}
 
             {dropList && (notifications.length > 0? <ul className="notification_list">
                 {notifications.map((data: any, index: number) => (

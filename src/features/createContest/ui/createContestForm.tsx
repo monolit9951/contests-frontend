@@ -74,9 +74,11 @@ const CreateContestForm = () => {
 
     const onSubmit = async (data: ContestCreationFormData) => {
         const hasExampleMedia = data.exampleMedia?.some((file) => file)
-
         // дата начала больше текущей даты
         if (moment(data.dateStart).isSameOrBefore(moment())) {
+            // console.log(moment())
+            console.log(moment(data.dateStart))
+            console.log(moment())
             setDateValidation('Starting date must be greater than current date')
             return
         }

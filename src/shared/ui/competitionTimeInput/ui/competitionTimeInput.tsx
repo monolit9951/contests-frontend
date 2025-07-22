@@ -23,7 +23,7 @@ export const CompetitionTimeInput = ({
 
         if (dateStart && timeStart) {
             const dateStartString = moment(dateStart).format('yyyy-MM-DD')
-            const timeStartString = moment(timeStart).format('hh:mm')
+            const timeStartString = moment(timeStart).format('HH:mm')
             const combinedStart = new Date(
                 `${dateStartString} ${timeStartString}`
             )
@@ -31,6 +31,7 @@ export const CompetitionTimeInput = ({
             const formattedStart = moment(combinedStart).format(
                 'YYYY-MM-DD[T]HH:mm:ss[Z]'
             )
+
             setValue('dateStart', formattedStart)
         }
     }
