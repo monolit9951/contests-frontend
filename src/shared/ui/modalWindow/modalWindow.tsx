@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect } from 'react'
+import { cloneElement, FC, isValidElement, ReactNode, useEffect } from 'react'
 
 // import clsx from 'clsx'
 // import { useTheme } from 'entities/theme'
@@ -47,13 +47,14 @@ export const ModalWindow: FC<UploadModalProps> = ({
             rest.onClose()
         }
     }
-    
+        const clonedChildren = isValidElement(rest.children) ? cloneElement(rest.children, { onClose: rest.onClose }) : rest.children
+
     return (
         <div className="modalWindow">
             <div className="modalWindow_background" onClick={handleClose}/>
 
             <div className="modalWindow_overlay">
-                {rest.children}
+                {clonedChildren}
             </div>
         </div>
     )

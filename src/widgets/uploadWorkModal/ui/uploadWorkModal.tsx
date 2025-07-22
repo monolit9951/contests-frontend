@@ -55,6 +55,8 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
         description: text,
       }, {headers: {Authorization: `Bearer ${token}`}});
 
+      console.log(response)
+
       const workId = response.data.id;
 
       const formData = new FormData();
@@ -64,12 +66,14 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
       });
 
       try{
-          await instance.post(`/media/${workId}`, formData, {
+        console.log('ADD MEDIA')
+        await instance.post(`/media/${workId}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
           },
         });
-
+        console.log('ADD MEDIA COMPLETED')
         onClose()
       } catch (error){
         if(error){

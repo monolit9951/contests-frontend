@@ -42,7 +42,7 @@ export const CompetitionTimeInput = ({
 
         if (dateEnd && timeEnd) {
             const dateEndString = moment(dateEnd).format('yyyy-MM-DD')
-            const timeEndString = moment(timeEnd).format('hh:mm')
+            const timeEndString = moment(timeEnd).format('HH:mm')
             const combinedEnd = new Date(`${dateEndString} ${timeEndString}`)
 
             const formattedEnd = moment(combinedEnd).format(
