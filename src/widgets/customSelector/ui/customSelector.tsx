@@ -12,12 +12,13 @@ interface CustomSelectorInterface {
     options: optionsType[],
     chooseSelectorCallback: (key: string) => void,
     maxWidth: number
+    defaultItem?: boolean                                   //будет ли первый элемент дефолтным
 }
 
-const CustomSelector: FC <CustomSelectorInterface>= ({options, maxWidth, chooseSelectorCallback}) => {
+const CustomSelector: FC <CustomSelectorInterface>= ({options, maxWidth, chooseSelectorCallback , defaultItem}) => {
 
     const [selectorOpen, setSelectorOpen] = useState<boolean>(false)
-    const [currentOption, setCurrentOption] = useState<string>('Selector')
+    const [currentOption, setCurrentOption] = useState<string>(defaultItem? options[0].text : 'SELECTOR' )
     
     // открытие и закрытие опшнов
     const handleSelectorToggle = () => {

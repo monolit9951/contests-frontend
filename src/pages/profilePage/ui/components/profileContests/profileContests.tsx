@@ -21,11 +21,11 @@ const ProfileContests: FC <ProfileContestsInterface> = ({userId}) => {
     const [contestType, setContestType] = useState<string>('All')
 
 
-    useEffect(() => {
-        if (contestsLoaded){
-            console.log(contests)
-        }
-    }, [contests, contestsLoaded])
+    // useEffect(() => {
+    //     if (contestsLoaded){
+    //         console.log(contests)
+    //     }
+    // }, [contests, contestsLoaded])
 
     // логика всех контестов
     const handleAllContests = () => {

@@ -18,7 +18,7 @@ const CurrentWinners: FC<Props> = ({winners}) => {
             </div>
 
             <div className="currentWinners_list">
-                {winners.length > 0 && winners.map((data: any, index: nuber) => (
+                {winners.length > 0 && winners.map((data: any, index: number) => (
                     <CurrentWinner winnerData = {data} key={index}/>
                 ))}
                 {/* <CurrentWinner />  */}

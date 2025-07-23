@@ -46,16 +46,16 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
     const handleCheckbox = async (event: React.ChangeEvent<HTMLInputElement>) =>{
 
         if (event.target.checked){
-            console.log("ADD POSSIBLE WINNER")
+            // console.log("ADD POSSIBLE WINNER")
             await instance.post(`contests/${id}/possible-winners/${work.id}`)
 
         } else {
-            console.log("DELETE POSSIBLE WINNER")
+            // console.log("DELETE POSSIBLE WINNER")
             await instance.delete(`contests/${id}/possible-winners/${work.id}`)
         }
     }
 
-    console.log(work)
+    // console.log(work)
     const creationDate = moment.utc(work.workAddingDate).local().fromNow();
 
     return(

@@ -8,26 +8,26 @@ interface optionsType {
     key: string
 }
 
-const WinnerSelectors: FC = () => {
+interface Props {
+    chooseSelectorCallback: (key: string) => void
+}
+
+const WinnerSelectors: FC<Props> = ({chooseSelectorCallback}) => {
 
     const reatingOptions: optionsType[] = 
     [{
-        text: 'Reating (Hight to Low)',
-        key: 'reatingHL'
+        text: 'All works',
+        key: 'allWorks'
     },{
-        text: 'Reating (Low to Hight)',
-        key: 'reatingLH'
+        text: 'Winners works',
+        key: 'winWorks'
     }]
-
-    const chooseSelectorCallback = (key: string) => {
-        console.log(key)
-    }
 
     return(
         <div className="customSelectors">
-            <CustomSelector options = {reatingOptions} name="Reating" maxWidth={300} chooseSelectorCallback={chooseSelectorCallback}/>
-            <CustomSelector options = {reatingOptions} name="Reating" maxWidth={200} chooseSelectorCallback={chooseSelectorCallback}/>
-            <CustomSelector options = {reatingOptions} name="Reating" maxWidth={500} chooseSelectorCallback={chooseSelectorCallback}/>
+            <CustomSelector options = {reatingOptions} name="Reating" maxWidth={300} defaultItem chooseSelectorCallback={chooseSelectorCallback}/>
+            {/* <CustomSelector options = {reatingOptions} name="Reating" maxWidth={200} chooseSelectorCallback={chooseSelectorCallback}/> */}
+            {/* <CustomSelector options = {reatingOptions} name="Reating" maxWidth={500} chooseSelectorCallback={chooseSelectorCallback}/> */}
         </div>
     )
 }
