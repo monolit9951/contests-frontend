@@ -35,7 +35,6 @@ const ChooseWinnerPage: FC = () => {
     // защита при рендере страницы
     useEffect(() => {
         if(!contestIsLoading){
-            console.log(contest?.contestOwner.id, user.userId)
 
             // если зашёл не создатель или не админ
             if (!(contest?.contestOwner.id === user.userId || user.userRole === 'admin')){
@@ -44,8 +43,7 @@ const ChooseWinnerPage: FC = () => {
                 return
             }
 
-            console.log(contest?.status)
-
+            // в зависимости от статуса позволять проход дальше
             switch (contest?.status) {
                 case 'SELECTION_IN_PROGRESS':
                     setContestAccess(true)
@@ -117,10 +115,9 @@ const ChooseWinnerPage: FC = () => {
 
                 <PrizeList prizes={contest.prizes}/>
 
-
                 {/* {winners && <CurrentWinners winners ={winners.content}/>} */}
                 
-                <OwnerDecisionPanel contest = {contest}/>
+                {contest.selectionType === "CREATOR_DECISION" && <OwnerDecisionPanel contest = {contest}/>}
             </div>}
 
             {!contestAccessPending && contestAccess && contest?.selectionType === 'RANDOM' &&<div className="chooseWinnerPage_random">

@@ -18,24 +18,15 @@ import sampleVideo from "shared/assets/testVideos/testVideo.mp4"
 interface WinnerWorkInterface {
     isWin?: boolean
     work: Work
+    options: optionsType[]
 }
-    const winnerOptions: optionsType[] = 
-    [{
-        text: '1st Place',
-        key: '1'
-    },{
-        text: '2nd Place',
-        key: '2'
-    },
-    {
-        text: '3d Place',
-        key: '3'
-    }]
 
 
-const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
 
-    const [modalWork, setModalWork] = useState(false)
+const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
+
+    const [modalWork, setModalWork] = useState<boolean>(false)
+    const [prizeId, setPrizeId] = useState<string>('')
 
     const handleWorkModal = () => {
         setModalWork(true)
@@ -46,16 +37,21 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
     const handleCheckbox = async (event: React.ChangeEvent<HTMLInputElement>) =>{
 
         if (event.target.checked){
-            // console.log("ADD POSSIBLE WINNER")
-            await instance.post(`contests/${id}/possible-winners/${work.id}`)
+            console.log("ADD POSSIBLE WINNER")
+            // получить 
+            console.log(prizeId)
+            await instance.post(`winners/${work.id}/possible/${prizeId}`)
 
         } else {
-            // console.log("DELETE POSSIBLE WINNER")
+            console.log("DELETE POSSIBLE WINNER")
             await instance.delete(`contests/${id}/possible-winners/${work.id}`)
         }
     }
 
-    // console.log(work)
+    const handlePlaceSelector = (key: string) => {
+        setPrizeId(key)
+    }
+
     const creationDate = moment.utc(work.workAddingDate).local().fromNow();
 
     return(
@@ -87,7 +83,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
 
             <div className="winnerWork_right">
                 <CustomCheckbox value="Winner" checked={work.possibleWinner} handleCheckbox={handleCheckbox}/>
-                <CustomSelector options={winnerOptions} maxWidth={200} name="Place"/>
+                <CustomSelector options={options} maxWidth={200} name="Place" chooseSelectorCallback={handlePlaceSelector} />
             </div>
 
             {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview work={work} /></ModalWindow>}
