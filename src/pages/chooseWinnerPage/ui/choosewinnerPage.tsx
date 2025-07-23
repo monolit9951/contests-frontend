@@ -27,7 +27,7 @@ const ChooseWinnerPage: FC = () => {
     const { data: contest, isLoading: contestIsLoading} = useAxios<Contest>(`contests/${id}`)
     // const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/${id}`)
     const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks(String(id)), key: [worksKey], enabled: worksEnabled})
-    const {data: winners, isLoaded: winnersIsLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners(String(id)), key: [winnersKey], enabled: winnerEnabled})
+    // const {data: winners, isLoaded: winnersIsLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners(String(id)), key: [winnersKey], enabled: winnerEnabled})
 
 
     const [contestAccess, setContestAccess] = useState<boolean>(false)
@@ -38,32 +38,64 @@ const ChooseWinnerPage: FC = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        // contest loading
         if(!contestIsLoading){
-            console.log('loaded')
+            console.log(contest?.contestOwner.id, user.userId)
 
-            // if there is winners already
-            if(contest?.winners === null){
-             // if role is not admin or creator is not logined user
-                if (user.role !== "ADMIN" && contest?.contestOwner.id !== user.userId){
-                    setContestAccess(false)
-                    setContestAccessPending(false)
-                    alert('Access denied, you are not the contest creator')
-                    navigate(`/contests/${id}`)
-                } else {
+            // если зашёл не создатель или не админ
+            if (!(contest?.contestOwner.id === user.userId || user.userRole === 'admin')){
+                alert('ACCESS DENIED (you are not creator or admin)')
+                navigate(`/contests/${id}`)
+                return
+            }
+
+            console.log(contest?.status)
+
+            switch (contest?.status) {
+                case 'SELECTION_IN_PROGRESS':
                     setContestAccess(true)
                     setContestAccessPending(false)
                     setWorksEnabled(true)
                     setWinnersEnabled(true)
                     setWorksKey(worksKey + 1)
                     setWinnersKey( winnersKey + 1)
-                }
-            }  else {
-                setContestAccess(false)
-                setContestAccessPending(false)
-                alert('ACCESS DENIED, ALREADY GOT WINNERS')
-                navigate(`/contests/${id}`)
+                    break
+                case 'WINNER_CONFIRMATION':
+                    alert("STATUS: WINNER CONFIRMATION, RANDOM SELECTION (пока не реализовано)")
+                    break
+                case 'MODERATOR_SELECTION':
+                    if(user.userRole === 'admin'){
+                        setContestAccess(true)
+                        setContestAccessPending(false)
+                        setWorksEnabled(true)
+                        setWinnersEnabled(true)
+                        setWorksKey(worksKey + 1)
+                        setWinnersKey( winnersKey + 1)
+                    } else {
+                        alert('MODERATOR SELECTION, YOUR ROLE != ADMIN')
+                        navigate(`/contests/${id}`)
+                    }
+                    break
+                case "ACTIVE":
+                    setContestAccess(true)
+                    setContestAccessPending(false)
+                    setWorksEnabled(true)
+                    setWinnersEnabled(true)
+                    setWorksKey(worksKey + 1)
+                    setWinnersKey( winnersKey + 1)
+                    break                    
+                case 'UPCOMING':
+                    alert('CONTEST NOT STARTED')
+                    navigate(`/contests/${id}`)
+                    break
+                case 'FINISHED':
+                    alert('CONTEST ALREADY FINISHED')
+                    navigate(`/contests/${id}`)
+                    break
+                default:
+                    alert('default')
+                    navigate(`/contests/${id}`)
             }
+
         }
     }, [contestIsLoading])
 
