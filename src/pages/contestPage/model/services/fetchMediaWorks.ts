@@ -58,7 +58,7 @@ export const fetchPopularMediaWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byContestId/${id}?page=0&pageSize=9&sortDirection=ASC&typeOfWork=media&sortBy=popular`, {headers}
+                `/works/popular/${id}?page=0&pageSize=9`, {headers}
             )
 
             if (!response.data) {

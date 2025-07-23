@@ -40,11 +40,19 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             console.log("ADD POSSIBLE WINNER")
             // получить 
             console.log(prizeId)
-            await instance.post(`winners/${work.id}/possible/${prizeId}`)
+            try{
+                await instance.post(`winners/${work.id}/possible/${prizeId}`)
+            } catch (error){
+                console.log(error.response.data)
+            }
 
         } else {
             console.log("DELETE POSSIBLE WINNER")
-            await instance.delete(`contests/${id}/possible-winners/${work.id}`)
+            try{
+                await instance.delete(`winners/possible/${work.id}`)
+            } catch (error){
+                console.log(error.response.data)
+            }
         }
     }
 
