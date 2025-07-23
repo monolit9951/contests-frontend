@@ -54,6 +54,12 @@
                 margin-top: 16px;
             }
         }
+
+        > .winnerWork_left_media{
+            max-width: 242px;
+            max-height: 210px;
+            pointer-events: none;
+        }
     }
 
     > .winnerWork_right{

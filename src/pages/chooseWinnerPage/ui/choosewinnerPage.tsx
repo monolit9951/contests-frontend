@@ -24,6 +24,7 @@ const ChooseWinnerPage: FC = () => {
     const [worksEnabled, setWorksEnabled] = useState<boolean>(false)
     const [winnerEnabled, setWinnersEnabled] = useState<boolean>(false)
 
+
     const { data: contest, isLoading: contestIsLoading} = useAxios<Contest>(`contests/${id}`)
     // const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/${id}`)
     const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks(String(id)), key: [worksKey], enabled: worksEnabled})
@@ -60,7 +61,9 @@ const ChooseWinnerPage: FC = () => {
                     setWinnersKey( winnersKey + 1)
                     break
                 case 'WINNER_CONFIRMATION':
-                    alert("STATUS: WINNER CONFIRMATION, RANDOM SELECTION (пока не реализовано)")
+                    setContestAccess(true)
+                    setContestAccessPending(false)
+                    // ПОКА НЕ ЗНАЮ КАК ЭТО БУДЕТ РЕАЛИЗОВАНО
                     break
                 case 'MODERATOR_SELECTION':
                     if(user.userRole === 'admin'){
@@ -99,10 +102,18 @@ const ChooseWinnerPage: FC = () => {
         }
     }, [contestIsLoading])
 
+
+
+    // логика рандомной работы
+
+    const getRandomWork = async() => {
+        console.log('Get Random Work')
+    }
+
     return(
         <>
             {contestAccessPending && <div>LOADER</div>}
-            {!contestAccessPending && contestAccess && <div className="chooseWinnerPage">
+            {!contestAccessPending && contestAccess && contest?.selectionType === 'CREATOR_DECISION' && <div className="chooseWinnerPage">
                 <div className="chooseWinnerPage_header">
                     <div className="chooseWinnerPage_header_left">
                         <div className="chooseWinnerPage_header_heading">Contest Winners Selection</div>
@@ -133,6 +144,16 @@ const ChooseWinnerPage: FC = () => {
                 <div className="chooseWinnerPage_paginationBtn">
                     <Button variant="primary" >Load more</Button>
                 </div>
+            </div>}
+
+            {!contestAccessPending && contestAccess && contest?.selectionType === 'RANDOM' &&<div className="chooseWinnerPage_random">
+                    <h3>RANDOM WINNER (не реализовано)</h3>
+
+                    <Button variant='primary' type="button" onClick={getRandomWork}>Get random work</Button>
+
+                    {/* По нажатию на кнопку, будет появляться рандомная работа, можно будет просмотреть её превью
+                    (как модалку) и затем выбрать её как победителя. либо сгенирировать занов (до 3х раз). После чего
+                    можно будет утвердить победителя (или победителей) */}
             </div>}
         </>
     )

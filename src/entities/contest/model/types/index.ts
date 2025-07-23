@@ -9,6 +9,8 @@ export type Category = '' | 'FOR_FUN' | 'FOR_WORK'
 
 export type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
 
+export type SelectionType = 'RANDOM' | 'CREATOR_DECISION' | 'VIEWER_VOTING'
+
 export interface WinnersRequest {
     contestId: string
     userId: string
@@ -42,6 +44,7 @@ export interface Contest {
     participantAmount: number
     maxAllowedParticipantAmount: number
     dateStart: string
+    selectionType: SelectionType
     dateEnd: string
     description: string
     prizes: Prize[]

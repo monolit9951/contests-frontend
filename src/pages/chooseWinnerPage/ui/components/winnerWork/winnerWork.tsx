@@ -11,7 +11,9 @@ import UserProfileData from "widgets/userProfileData/userProfileData";
 import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
 
 import './winnerWork.scss'
-
+import moment from "moment";
+import { Video } from "shared/ui/videoPlayer";
+import sampleVideo from "shared/assets/testVideos/testVideo.mp4"
 
 interface WinnerWorkInterface {
     isWin?: boolean
@@ -54,12 +56,19 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
     }
 
     console.log(work)
+    const creationDate = moment.utc(work.workAddingDate).local().fromNow();
 
     return(
         <div className={isWin? "winnerWork winner" : "winnerWork"}>
             <div className="winnerWork_left">
-
-                <img src={sampleWorkImage} alt="workImage" />
+                
+                <div className="winnerWork_left_media">
+                    {/* заменить */}
+                    {work.media[0].typeMedia === 'IMAGE' ? <img src={sampleWorkImage} alt="workImage" /> 
+                        :
+                        <Video url={sampleVideo} light/>
+                    }
+                </div>
 
                 <div className="winnerWork_left_container">
                     <div className="winnerWork_left_contestName">{work.description}</div>
@@ -67,7 +76,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work}) => {
                     <div className="winnerWork_left_creationData">
                         <UserProfileData user = {work.user}/>
 
-                        <div className="winnerWork_left_creationData_date">15.01.2024</div>
+                        <div className="winnerWork_left_creationData_date">{creationDate}</div>
                     </div>
 
                     <div className="winnerWork_left_workText">Minimalist design using modern trends</div>
