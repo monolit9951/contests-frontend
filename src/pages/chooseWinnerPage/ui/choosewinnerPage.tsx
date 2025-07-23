@@ -14,22 +14,15 @@ import { getPossibleWinners, getRuledWorks } from "./model/services/contestServi
 import './chooseWinnerPage.scss'
 import { useSelector } from "react-redux";
 import PrizeList from "./components/prizeList/prizeList";
+import OwnerDecisionPanel from "./components/ownerDecisionPanel/ownerDecisionPanel";
 
 // добавить параметр контестАйди
 const ChooseWinnerPage: FC = () => {
 
     const {id} = useParams()
 
-    const [worksKey, setWorksKey] = useState<number>(0)
-    const [winnersKey, setWinnersKey] = useState<number>(0)
-    const [worksEnabled, setWorksEnabled] = useState<boolean>(false)
-    const [winnerEnabled, setWinnersEnabled] = useState<boolean>(false)
-    const [worksPage, setWorksPage] = useState<number>(0)
-
     const { data: contest, isLoading: contestIsLoading} = useAxios<Contest>(`contests/${id}`)
-    // const { data: works, isLoading: worksIsLoading} = useAxios<Work[]>(`works/byContestId/${id}`)
-    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks(String(id), worksPage), key: [worksKey], enabled: worksEnabled})
-    const {data: winners, isLoaded: winnersIsLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners(String(id)), key: [winnersKey], enabled: winnerEnabled})
+
 
 
     const [contestAccess, setContestAccess] = useState<boolean>(false)
@@ -57,10 +50,6 @@ const ChooseWinnerPage: FC = () => {
                 case 'SELECTION_IN_PROGRESS':
                     setContestAccess(true)
                     setContestAccessPending(false)
-                    setWorksEnabled(true)
-                    setWinnersEnabled(true)
-                    setWorksKey(worksKey + 1)
-                    setWinnersKey( winnersKey + 1)
                     break
                 case 'WINNER_CONFIRMATION':
                     setContestAccess(true)
@@ -71,10 +60,6 @@ const ChooseWinnerPage: FC = () => {
                     if(user.userRole === 'admin'){
                         setContestAccess(true)
                         setContestAccessPending(false)
-                        setWorksEnabled(true)
-                        setWinnersEnabled(true)
-                        setWorksKey(worksKey + 1)
-                        setWinnersKey( winnersKey + 1)
                     } else {
                         alert('MODERATOR SELECTION, YOUR ROLE != ADMIN')
                         navigate(`/contests/${id}`)
@@ -83,10 +68,6 @@ const ChooseWinnerPage: FC = () => {
                 case "ACTIVE":
                     setContestAccess(true)
                     setContestAccessPending(false)
-                    setWorksEnabled(true)
-                    setWinnersEnabled(true)
-                    setWorksKey(worksKey + 1)
-                    setWinnersKey( winnersKey + 1)
                     break                    
                 case 'UPCOMING':
                     alert('CONTEST NOT STARTED')
@@ -106,50 +87,17 @@ const ChooseWinnerPage: FC = () => {
 
 
 
-    // для отображения определённых работ
-    const [worksData, setWorksData] = useState<Work[] | null>(null)
-
-    // отловить значение селектора (все ворки / победители)
-    const chooseSelectorCallback = (key: string) => {
-
-        switch (key){
-            case 'allWorks':
-                setWorksData(works)
-                break
-            case 'winWorks':
-                setWinnersKey(winnersKey + 1)
-                setWorksData(winners)
-                break
-            default:
-                break
-        }
-    }
-
-    useEffect(() => {
-        if(worksIsLoaded){
-            setWorksData(works)
-        }
-
-        console.log(contest?.prizes)
-    }, [worksIsLoaded])
     
-
-    // загрузить больше ворков
-    const handleLoadMore = () =>{
-        setWorksPage(worksPage + 1)
-        setWorksKey(worksKey + 1)
-        console.log(worksPage)
-    }
-
     // логика рандомной работы
     const getRandomWork = async() => {
         console.log('Get Random Work')
     }
 
-
+    
     return(
         <>
             {contestAccessPending && <div>LOADER</div>}
+
             {!contestAccessPending && contestAccess && contest?.selectionType === 'CREATOR_DECISION' && <div className="chooseWinnerPage">
                 <div className="chooseWinnerPage_header">
                     <div className="chooseWinnerPage_header_left">
@@ -172,19 +120,7 @@ const ChooseWinnerPage: FC = () => {
 
                 {/* {winners && <CurrentWinners winners ={winners.content}/>} */}
                 
-                <div className="chooseWinnerPage_selectors">
-                    <WinnerSelectors chooseSelectorCallback = {chooseSelectorCallback}/>
-                </div>
-
-                <div className="winnersList">
-                    {worksIsLoaded && worksData?.content?.map((data: Work, index: number) => (
-                        <WinnerWork isWin work = {data} key={index} />
-                    ))}
-                </div>
-
-                <div className="chooseWinnerPage_paginationBtn">
-                    <Button variant="primary" onClick={handleLoadMore}>Load more</Button>
-                </div>
+                <OwnerDecisionPanel contest = {contest}/>
             </div>}
 
             {!contestAccessPending && contestAccess && contest?.selectionType === 'RANDOM' &&<div className="chooseWinnerPage_random">

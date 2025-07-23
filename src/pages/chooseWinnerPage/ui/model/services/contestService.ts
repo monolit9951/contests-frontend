@@ -5,6 +5,8 @@ export const getRuledWorks = async(contestId: string, page: number) => {
         const token = localStorage.getItem('userToken')
         const response = await instance.get(`works/byContestId/${contestId}?page=${page}&pageSize=${1}`, {headers: {Authorization: `Bearer ${token}`}})
 
+        console.log(response)
+
         if (!response.data) {
             throw new Error("No data received")
         }
