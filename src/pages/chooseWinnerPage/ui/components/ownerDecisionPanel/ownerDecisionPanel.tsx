@@ -16,17 +16,13 @@ interface Props {
 
 const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
 
-    const [worksData, setWorksData] = useState<Work[] | null>(null)
-
     const [worksKey, setWorksKey] = useState<number>(0)
     const [winnersKey, setWinnersKey] = useState<number>(0)
-
+    const [currentFilter, setCurrentFilter] = useState<string>('allWorks')
     const [currentPage, setCurrentPage] = useState<number>(0)
 
     const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id), currentPage), key: [worksKey], enabled: true})
     const {data: winners, isLoaded: winnersLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners(contest.id), key: [winnersKey], enabled: true})
-
-    console.log(contest.prizes)
 
     const options = contest.prizes.map((prize: Prize) => ({
         text: `Place №${prize.place}` ,
@@ -39,29 +35,23 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
         switch (key){
             case 'allWorks':
                 setWorksKey(worksKey + 1)
-                setWorksData(works.content)
+                setCurrentFilter(key)
                 break
             case 'winWorks':
                 setWinnersKey(winnersKey + 1)
-                setWorksData(winners.content)
+                setCurrentFilter(key)
                 break
             default:
                 break
         }
     }
 
-    useEffect(() => {
-        if (worksIsLoaded){
-            setWorksData(works.content)
-        }
-    }, [worksIsLoaded])
-
     const handleLoadMore = async () => {
         console.log('next works')
     };
 
 
-    console.log(works)
+    console.log(winners)
 
     return(
         <div className="ownerDecosonPanel">
@@ -70,7 +60,10 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
                 </div>
 
                 <div className="winnersList">
-                    {worksIsLoaded && worksData?.map((data: Work, index: number) => (
+                    {currentFilter === 'allWorks' && worksIsLoaded && works.content.map((data: Work, index: number) => (
+                        <WinnerWork isWin work = {data} key={index} options = {options} />
+                    ))}
+                    {currentFilter === 'winWorks' && winnersLoaded && winners.map((data: Work, index: number) => (
                         <WinnerWork isWin work = {data} key={index} options = {options} />
                     ))}
                 </div>
