@@ -28,35 +28,40 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
     const [modalWork, setModalWork] = useState<boolean>(false)
     const [prizeId, setPrizeId] = useState<string>('')
     const [placeError, setPlaceError] = useState<boolean>(false)
+    const [isWinner, setIsWinner] = useState<boolean>(work.possibleWinner)
 
     const handleWorkModal = () => {
         setModalWork(true)
     }
     
-    const handleCheckbox = async (event: React.ChangeEvent<HTMLInputElement>) =>{
+    // const handleCheckbox = async (event: React.ChangeEvent<HTMLInputElement>) =>{
 
-        if (event.target.checked){
-            console.log("ADD POSSIBLE WINNER")
-            // получить 
-            console.log(prizeId)
-            try{
-                await instance.post(`winners/${work.id}/possible/${prizeId}`)
-            } catch (error){
-                if(error.response.data.error === 'All places for this prize are already taken.'){
-                    setPlaceError(true)
-                }
-            }
+    //     if (event.target.checked){
+    //         console.log("ADD POSSIBLE WINNER")
+    //         // получить 
+    //         console.log(prizeId)
+    //         try{
+    //             await instance.post(`winners/${work.id}/possible/${prizeId}`)
+    //             setIsWinner(true)
+    //         } catch (error){
+    //             if(error.response.data.error === 'All places for this prize are already taken.'){
+    //                 setPlaceError(true)
+    //             }
+    //         }
 
-        } else {
-            console.log("DELETE POSSIBLE WINNER")
-            try{
-                await instance.delete(`winners/possible/${work.id}`)
-            } catch (error){
-                if(error.response.data.error === 'All places for this prize are already taken.'){
-                    setPlaceError(true)
-                }
-            }
-        }
+    //     } else {
+    //         // удаление посибл виннер
+    //         try{
+    //             await instance.delete(`winners/possible/${work.id}`)
+    //             setIsWinner(false)
+    //         } catch (error){
+    //             console.log(error)
+    //         }
+    //     }
+    // }
+
+    const handleCheckbox = () => {
+        console.log('HANDLE')
     }
 
     const handlePlaceSelector = (key: string) => {
@@ -94,7 +99,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             </div>
 
             <div className="winnerWork_right">
-                <CustomCheckbox value="Winner" checked={work.possibleWinner} handleCheckbox={handleCheckbox}/>
+                <CustomCheckbox value="Winner" checked={isWinner} handleCheckbox={handleCheckbox} controled/>
                 <CustomSelector options={options} maxWidth={200} name="Place" chooseSelectorCallback={handlePlaceSelector} currentPlace = {work.place} error = {placeError}/>
             </div>
 
