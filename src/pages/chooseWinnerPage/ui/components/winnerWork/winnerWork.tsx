@@ -60,8 +60,26 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
     //     }
     // }
 
-    const handleCheckbox = () => {
-        console.log('HANDLE')
+    const handleCheckbox = async() => {
+        if(isWinner){
+            // удаляем победителя
+            try{
+                await instance.delete(`winners/possible/${work.id}`)
+                setIsWinner(false)
+            } catch (error){
+                console.log(error)
+            }
+        } else{
+            // добавляем победителя
+            try{
+                await instance.post(`winners/${work.id}/possible/${prizeId}`)
+                setIsWinner(true)
+            } catch (error){
+                if(error.response.data.error === 'All places for this prize are already taken.'){
+                    setPlaceError(true)
+                }
+            }
+        }
     }
 
     const handlePlaceSelector = (key: string) => {
@@ -99,7 +117,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             </div>
 
             <div className="winnerWork_right">
-                <CustomCheckbox value="Winner" checked={isWinner} handleCheckbox={handleCheckbox} controled/>
+                <CustomCheckbox value="Winner" checked={isWinner} handleCheckbox={handleCheckbox} controlled/>
                 <CustomSelector options={options} maxWidth={200} name="Place" chooseSelectorCallback={handlePlaceSelector} currentPlace = {work.place} error = {placeError}/>
             </div>
 

@@ -36,8 +36,6 @@ const CustomSelector: FC <CustomSelectorInterface>= ({options, maxWidth, chooseS
         chooseSelectorCallback(key)
     }
 
-    console.log(currentPlace)
-
     return(
         <div className="customSelector" style={{maxWidth}}>
             <button className={error? "customSelector_header error" : "customSelector_header"} type="button" onClick={handleSelectorToggle} >

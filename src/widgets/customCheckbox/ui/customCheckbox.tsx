@@ -8,15 +8,15 @@ interface CustomCheckboxInterface {
     value?: string,
     checked?: boolean
     handleCheckbox?: ((event: React.ChangeEvent<HTMLInputElement>) => void) | (() => void)
-    controled?: boolean
+    controlled?: boolean
 }
 
-const CustomCheckbox: FC <CustomCheckboxInterface> = ({value = 'Insert value on props', checked = false, handleCheckbox, controled = false}) =>{
+const CustomCheckbox: FC <CustomCheckboxInterface> = ({value = 'Insert value on props', checked = false, handleCheckbox, controlled = false}) =>{
     
     const [inputCheck, setInputCheck] = useState<boolean>(checked ?? false)
 
     const handleCheck = (event: ChangeEvent<HTMLInputElement>) => {
-        if(controled){
+        if(controlled){
             handleCheckbox()
         } else {
             setInputCheck(event.target.checked)
@@ -27,15 +27,15 @@ const CustomCheckbox: FC <CustomCheckboxInterface> = ({value = 'Insert value on 
     return(
         <div className="customCheckbox">
             <div className="customCheckbox_container">
-                <div className={controled? (checked? "customCheckbox_check checked" : "customCheckbox_check") : (inputCheck? "customCheckbox_check checked" : "customCheckbox_check")}>
-                    <img src={tick} alt="tick" className={controled? (checked? "checked" : "") : (inputCheck? "checked" : "")}/>
+                <div className={controlled? (checked? "customCheckbox_check checked" : "customCheckbox_check") : (inputCheck? "customCheckbox_check checked" : "customCheckbox_check")}>
+                    <img src={tick} alt="tick" className={controlled? (checked? "checked" : "") : (inputCheck? "checked" : "")}/>
                 </div>
                 <span>{value}</span>
             </div>
 
             <input
                 type="checkbox"
-                checked={controled? checked : inputCheck}
+                checked={controlled? checked : inputCheck}
                 onChange={(event) => handleCheck(event)}
             />
 
