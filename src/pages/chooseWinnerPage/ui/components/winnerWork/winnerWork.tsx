@@ -27,12 +27,11 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
     const [modalWork, setModalWork] = useState<boolean>(false)
     const [prizeId, setPrizeId] = useState<string>('')
+    const [placeError, setPlaceError] = useState<boolean>(false)
 
     const handleWorkModal = () => {
         setModalWork(true)
     }
-
-    const {id} = useParams()
     
     const handleCheckbox = async (event: React.ChangeEvent<HTMLInputElement>) =>{
 
@@ -43,7 +42,9 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             try{
                 await instance.post(`winners/${work.id}/possible/${prizeId}`)
             } catch (error){
-                console.log(error.response.data)
+                if(error.response.data.error === 'All places for this prize are already taken.'){
+                    setPlaceError(true)
+                }
             }
 
         } else {
@@ -51,12 +52,15 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             try{
                 await instance.delete(`winners/possible/${work.id}`)
             } catch (error){
-                console.log(error.response.data)
+                if(error.response.data.error === 'All places for this prize are already taken.'){
+                    setPlaceError(true)
+                }
             }
         }
     }
 
     const handlePlaceSelector = (key: string) => {
+        setPlaceError(false)
         setPrizeId(key)
     }
 
@@ -91,7 +95,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
             <div className="winnerWork_right">
                 <CustomCheckbox value="Winner" checked={work.possibleWinner} handleCheckbox={handleCheckbox}/>
-                <CustomSelector options={options} maxWidth={200} name="Place" chooseSelectorCallback={handlePlaceSelector} />
+                <CustomSelector options={options} maxWidth={200} name="Place" chooseSelectorCallback={handlePlaceSelector} currentPlace = {work.place} error = {placeError}/>
             </div>
 
             {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview work={work} /></ModalWindow>}

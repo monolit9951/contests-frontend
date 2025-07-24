@@ -13,12 +13,14 @@ interface CustomSelectorInterface {
     chooseSelectorCallback: (key: string) => void,
     maxWidth: number
     defaultItem?: boolean                                   //будет ли первый элемент дефолтным
+    currentPlace?: string
+    error?: boolean
 }
 
-const CustomSelector: FC <CustomSelectorInterface>= ({options, maxWidth, chooseSelectorCallback , defaultItem}) => {
+const CustomSelector: FC <CustomSelectorInterface>= ({options, maxWidth, chooseSelectorCallback , defaultItem, currentPlace, error}) => {
 
     const [selectorOpen, setSelectorOpen] = useState<boolean>(false)
-    const [currentOption, setCurrentOption] = useState<string>(defaultItem? options[0].text : 'SELECTOR' )
+    const [currentOption, setCurrentOption] = useState<string>(defaultItem? options[0].text : (currentPlace === null ? "SELECTOR" : `Place №${currentPlace}` ) )
     
     // открытие и закрытие опшнов
     const handleSelectorToggle = () => {
@@ -34,9 +36,11 @@ const CustomSelector: FC <CustomSelectorInterface>= ({options, maxWidth, chooseS
         chooseSelectorCallback(key)
     }
 
+    console.log(currentPlace)
+
     return(
         <div className="customSelector" style={{maxWidth}}>
-            <button className="customSelector_header" type="button" onClick={handleSelectorToggle} >
+            <button className={error? "customSelector_header error" : "customSelector_header"} type="button" onClick={handleSelectorToggle} >
                 <span className={selectorOpen? "open" : ""}>{currentOption}</span>
                 <img className={selectorOpen? "open" : ""} src={tick} alt="tick" />
             </button>

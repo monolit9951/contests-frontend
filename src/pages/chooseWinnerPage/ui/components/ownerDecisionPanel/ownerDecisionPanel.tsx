@@ -61,6 +61,8 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
     };
 
 
+    console.log(works)
+
     return(
         <div className="ownerDecosonPanel">
             <div className="chooseWinnerPage_selectors">
