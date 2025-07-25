@@ -25,7 +25,7 @@ const ProfileSettingsPage = () => {
 
       <Button type='button' variant='primary' className='exitButton' onClick={handleExit} >Exit profile</Button>
 
-      <button onClick={() => {showAlert('gay', 'sex')}} type='button'>summon alert</button>
+      <button onClick={() => {showAlert('primary text', 'secondary text')}} type='button'>summon alert</button>
 
       <Alert />
     </div>

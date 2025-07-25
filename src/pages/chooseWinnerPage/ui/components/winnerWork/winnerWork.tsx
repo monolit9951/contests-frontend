@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Work } from "entities/work";
 import instance from "shared/api/api";
@@ -34,31 +34,6 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
         setModalWork(true)
     }
     
-    // const handleCheckbox = async (event: React.ChangeEvent<HTMLInputElement>) =>{
-
-    //     if (event.target.checked){
-    //         console.log("ADD POSSIBLE WINNER")
-    //         // получить 
-    //         console.log(prizeId)
-    //         try{
-    //             await instance.post(`winners/${work.id}/possible/${prizeId}`)
-    //             setIsWinner(true)
-    //         } catch (error){
-    //             if(error.response.data.error === 'All places for this prize are already taken.'){
-    //                 setPlaceError(true)
-    //             }
-    //         }
-
-    //     } else {
-    //         // удаление посибл виннер
-    //         try{
-    //             await instance.delete(`winners/possible/${work.id}`)
-    //             setIsWinner(false)
-    //         } catch (error){
-    //             console.log(error)
-    //         }
-    //     }
-    // }
 
     const handleCheckbox = async() => {
         if(isWinner){
@@ -89,16 +64,21 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
     const creationDate = moment.utc(work.workAddingDate).local().fromNow();
 
+    // МЕМОИЗАЦИЯ ДЛЯ ПРЕДОТВРАЩЕНИЯ ПЕРЕРЕНДЕРА
+    const videoBlock = useMemo(() => {
+        if (work.media[0].typeMedia === 'IMAGE') {
+            return <img src={sampleWorkImage} alt="workImage" />;
+        } else {
+            return <Video url={sampleVideo} light />;
+        }
+    }, [work.media[0].typeMedia]);
+
     return(
         <div className={isWin? "winnerWork winner" : "winnerWork"}>
             <div className="winnerWork_left">
                 
                 <div className="winnerWork_left_media">
-                    {/* заменить */}
-                    {work.media[0].typeMedia === 'IMAGE' ? <img src={sampleWorkImage} alt="workImage" /> 
-                        :
-                        <Video url={sampleVideo} light/>
-                    }
+                    {videoBlock}
                 </div>
 
                 <div className="winnerWork_left_container">
