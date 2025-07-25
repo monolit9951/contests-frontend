@@ -8,14 +8,18 @@ import UploadWorkMediaInput from "./components/uploadWorkMediaInput/uploadWorkMe
 import UploadWorkMediaItem, { MediaItem } from "./components/uploadWorkMediaItem/uploadWorkMediaItem";
 
 import './uploadWorkModal.scss';
+import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 
 interface UploadWorkModalInterface {
   contestId: string;
   onClose: () => void;
 }
 
+
 const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) => {
   const [text, setText] = useState<string>('');
+
+  const {showAlert, Alert} = useAlert()
 
   const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
@@ -75,13 +79,16 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
         console.log('ADD MEDIA COMPLETED')
         onClose()
       } catch (error){
+        showAlert('Error', error.response.data.description)
         if(error){
           instance.delete(`/works/${workId}`)
         }
       }
 
     } catch (error) {
-      console.error('Error submitting work or media:', error);
+      // console.log(error.response.data)
+      showAlert('Error', error.response.data.description)
+      // console.error('Error submitting work or media:', error);
     }
   };
 
@@ -129,6 +136,8 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
           <Button variant="primary" onClick={handleWorkSubmit}>Submit Quest Entry</Button>
         </div>
       </div>
+
+      <Alert />
     </div>
   );
 };

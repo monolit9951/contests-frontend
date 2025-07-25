@@ -2,6 +2,11 @@ import { useCallback, useState } from "react"
 import { Button } from "shared/ui/button"
 import './useAlert.scss'
 
+// инструкция: 
+// То же самое что и alert('Some text'), но стилизованное и с доп возможностями
+// Для использования - визвать функцию showAlert в которую внести праймари текст и секнодари текст
+// Также в любой точке хтмл кода нужно вписать <Alert />, он имеет фиксированную позицию
+
 export const useAlert = () => {
     const [primaryText, setPrimaryText] = useState<string | null>(null)
     const [secondaryText, setSecondaryText] = useState<string | null>(null)
