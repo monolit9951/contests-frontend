@@ -58,7 +58,6 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
       console.log(response)
 
       const workId = response.data.id;
-
       const formData = new FormData();
 
       mediaArray.forEach(({ file }) => {
