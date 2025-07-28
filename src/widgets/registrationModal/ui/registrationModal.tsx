@@ -176,8 +176,8 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
             </div>
 
             <div className="registrationModal_inputs">
-                <RegistrationInput validationText={loginError} value = {login} type="email" changeCallBack = {handleLoginCallback} placeholder="Enter your email or login" label="Email or Login" />
-                {authType === 'SIGNUP' && <RegistrationInput validationText={nicknameError} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Nickname" label="Nickname" />}
+                <RegistrationInput validationText={loginError} value = {login} type="email" changeCallBack = {handleLoginCallback} placeholder="Enter your email" label="Email" />
+                {authType === 'SIGNUP' && <RegistrationInput validationText={nicknameError} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Enter your name" label="Name" />}
                 <RegistrationInput validationText={passwordError} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
                 {authType === 'SIGNUP' && <RegistrationInput validationText={checkPasswordError} value={checkPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
 
