@@ -168,7 +168,7 @@ const CommentEl: FC<Props> = (props) => {
                     </Link>
                     <Icon Svg={tripleDot} clickable onClick={onActionClick} />
                     {actionsShown && (
-                        <CommentController onClose={onActionClick} handleDeleteCommentCallback={handleDeleteCommentCallback} handleSetEditCallback={handleSetEditCallback}/>
+                        <CommentController onControllerClose={onActionClick} handleDeleteCommentCallback={handleDeleteCommentCallback} handleSetEditCallback={handleSetEditCallback} commentId={data.id}/>
                     )}
                 </HStack>
 

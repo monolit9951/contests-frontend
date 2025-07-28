@@ -7,7 +7,7 @@ import { cloneElement, FC, isValidElement, ReactNode, useEffect } from 'react'
 // import { Flex, HStack, VStack } from 'shared/ui/stack'
 import './modalWindow.scss'
 
-interface UploadModalProps {
+interface Props {
     isOpen: boolean
     onClose?: () => void
     children: ReactNode
@@ -21,7 +21,7 @@ interface UploadModalProps {
     modalContentClass?: string
 }
 
-export const ModalWindow: FC<UploadModalProps> = ({
+export const ModalWindow: FC<Props> = ({
     ...rest
 }) => {
     

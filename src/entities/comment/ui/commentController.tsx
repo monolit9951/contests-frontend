@@ -1,50 +1,53 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import { ModalWindow } from 'shared/ui/modalWindow'
 import { VStack } from 'shared/ui/stack'
 import ModalReport from 'widgets/modalReport'
 
 interface Props {
-    onClose: () => void,
+    onControllerClose: () => void,
     handleDeleteCommentCallback: () => void
     handleSetEditCallback: () => void
+    commentId: string
 }
 
-const CommentController = ({ onClose, handleDeleteCommentCallback, handleSetEditCallback}: Props) => {
+const CommentController = ({ onControllerClose, handleDeleteCommentCallback, handleSetEditCallback, commentId}: Props) => {
 
     const user = useSelector((state: RootState) => state.user)
 
     const [modalReport, setModalReport] = useState<boolean>(false)
+    const {showAlert, Alert} = useAlert()
 
     const onReportAction = () => {
         if(user.userId === null){
-            alert("You not authorized")
+            showAlert('You not authorized')
             return
         }
         console.log('report')
         setModalReport(true)
 
-        onClose()
+        // onClose()
     }
 
     const onEditAction = () => {
         if(user.userId === null){
-            alert("You not authorized")
+            showAlert('You not authorized')
             return
         }
 
         handleSetEditCallback()
-        onClose()
+        onControllerClose()
     }
 
     const onDeleteAction = () => {
         if(user.userId === null){
-            alert("You not authorized")
+            showAlert('You not authorized')
             return
         }
         
         handleDeleteCommentCallback()
-        onClose()
+        onControllerClose()
     }
 
     return (
@@ -68,7 +71,8 @@ const CommentController = ({ onClose, handleDeleteCommentCallback, handleSetEdit
                 Delete comment
             </button>
 
-            {modalReport && <ModalWindow isOpen onClose={() => setModalReport(false)}><div>DASDSDSD</div></ModalWindow>}
+            {modalReport && <ModalWindow isOpen onClose={() => setModalReport(false)}><ModalReport targetType='COMMENT' targetId={commentId} /></ModalWindow>}
+            <Alert />
         </VStack>
     )
 }
