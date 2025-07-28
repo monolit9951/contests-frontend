@@ -50,10 +50,6 @@ const WorkCard: FC<Props> = (props) => {
         setWorkKey(workKey + 1)         
     }
 
-
-
-    
-
     const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(data.id), key: [workKey], enabled: true})
 
     
@@ -75,6 +71,7 @@ const WorkCard: FC<Props> = (props) => {
             <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
                     {workDataLoaded && <MediaOverlay
+                        workId={workData.id}
                         prize={workData.prize}
                         user={workData.user}
                         imageCards={workData.typeWork === 'IMAGE'}

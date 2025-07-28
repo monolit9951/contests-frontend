@@ -11,25 +11,31 @@ import { VStack } from 'shared/ui/stack'
 import { UserIcon } from 'shared/ui/userIcon'
 
 import './mediaOverlay.scss'
+import { ModalWindow } from 'shared/ui/modalWindow'
+import ModalReport from 'widgets/modalReport'
+import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
+import UploadWorkModal from 'widgets/uploadWorkModal'
 
 interface Props {
     prize?: Prize
     user: User
     imageCards?: boolean
+    workId: string
 }
 
-const MediaOverlay = ({ prize, user, imageCards }: Props) => {
+const MediaOverlay = ({ prize, user, imageCards, workId }: Props) => {
     // const onCardsClick = () => {}
 
-    // const [controlModal, setControlModal] = useState<boolean>(false)
+    const [controlModal, setControlModal] = useState<boolean>(false)
+    const [reportModal, setReportModal] = useState<boolean>(false)
 
-    // const handleControlModal = () => {
-    //     setControlModal(!controlModal)
-    // }
+    const handleControlModal = () => {
+        setControlModal(!controlModal)
+    }
 
-    // const handleReport = () => {
-    //     console.log('REPORT NOT WORK YET')
-    // }
+    const handleReport = () => {
+        setReportModal(true)
+    }
     
     const loginedUser = useSelector((state: RootState) => state.user)
 
@@ -50,14 +56,16 @@ const MediaOverlay = ({ prize, user, imageCards }: Props) => {
                     wrapperClassName='media__overlay__3'
                 />
             </Link>
-            {/* <div className='media__overlay__4'>
+            <div className='media__overlay__4'>
                 <button type='button' onClick={handleControlModal}><Icon Svg={action} /></button>
 
                 {controlModal && <div className="media__overlay__4__control">
                     <button onClick = {handleReport} type='button'>Report</button>
-                    <button onClick = {handleWinner} type='button'>Promote to winners</button>
+                    {/* <button onClick = {handleWinner} type='button'>Promote to winners</button> */}
                 </div>}
-            </div> */}
+            </div>
+            
+            {reportModal && <ModalWindow isOpen onClose={() => setReportModal(false)}><ModalReport targetType='WORK' targetId={workId}/></ModalWindow>}
         </VStack>
     )
 }

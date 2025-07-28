@@ -51,7 +51,7 @@ export const ModalWindow: FC<Props> = ({
 
     return (
         <div className="modalWindow">
-            <div className="modalWindow_background" onClick={handleClose}/>
+            <div className={`modalWindow_background ${rest.className}`} onClick={handleClose}/>
 
             <div className="modalWindow_overlay">
                 {clonedChildren}
