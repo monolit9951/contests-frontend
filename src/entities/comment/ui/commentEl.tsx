@@ -18,6 +18,7 @@ import CommentController from './commentController'
 import CommentInput from './commentInput'
 
 import './commentEl.scss'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 interface Props {
     data: Comment
@@ -64,6 +65,8 @@ const CommentEl: FC<Props> = (props) => {
 
   const userAuth = useSelector((state: RootState) => state.user)
 
+    const {showAlert, Alert} = useAlert()
+
     const onSubmit = async () => {
         if (!inputData.trim()) {
             setInputData('')
@@ -71,7 +74,7 @@ const CommentEl: FC<Props> = (props) => {
         }
 
         if(userAuth.userId === null){
-            alert("You not authorized")
+            showAlert("You not authorized")
             setInputData('')
             toggleReplyInput()
             return
@@ -103,7 +106,8 @@ const CommentEl: FC<Props> = (props) => {
             // setRepliesShown(true)
             // setSubComments((prev) => [...prev, newSubComment])
         } catch (err) {
-            setError(err as Error)
+            // setError(err as Error)
+            showAlert(err)
         } finally {
             setNextLoading(false)
             toggleReplyInput()
@@ -200,6 +204,7 @@ const CommentEl: FC<Props> = (props) => {
                     />
                 )}
             </VStack>
+            <Alert />
         </HStack>
     )
 }

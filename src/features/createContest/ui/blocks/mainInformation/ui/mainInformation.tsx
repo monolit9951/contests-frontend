@@ -151,7 +151,7 @@ export const MainInformation = ({ submitError }: Props) => {
                     text='Winner selection type'
                     currActive='Random'>
                     <RadioEl text='Random' />
-                    <RadioEl text='Viewer voting' />
+                    {/* <RadioEl text='Viewer voting' /> */}
                     <RadioEl text="Creator's decision" />
                 </RadioContainer>
             </VStack>

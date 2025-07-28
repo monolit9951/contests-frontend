@@ -11,6 +11,7 @@ import { UserIcon } from 'shared/ui/userIcon'
 import { CommentsList } from './commentsList'
 
 import './commentsSection.scss'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 interface Props {
     workId: string
@@ -31,7 +32,8 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
 
     const token = localStorage.getItem('userToken')
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
-    
+    const {showAlert, Alert} = useAlert()
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -59,12 +61,13 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
 
     const onSubmit = async () => {
         if (!inputData.trim()) {
+            showAlert('Comment empty')
             return
         }
 
         // авторизация?
         if(user.userId === null){
-            alert('You not authorized')
+            showAlert('You not authorized')
             setInputData('')
             toggleCommentInput()
             return
@@ -93,7 +96,8 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
             setTotalElements((prev) => (prev += 1))
             setComments((prev) => [data, ...prev])
         } catch (err) {
-            setError(err as Error)
+            // setError(err as Error)
+            showAlert(err)
         } finally {
             setNextLoading(false)
         }
@@ -197,6 +201,8 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
                     </Button>
                 </HStack>
             )}
+
+            <Alert />
         </section>
     )
 }
