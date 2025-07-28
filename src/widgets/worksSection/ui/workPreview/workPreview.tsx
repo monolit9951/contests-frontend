@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { getWorkById } from 'entities/work/model/services/workServices'
 import { Work } from 'entities/work/model/types'
 import moment from 'moment'
+import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { CommentsSection } from 'widgets/commentsSection'
 import MediaGalery from 'widgets/mediaGalery'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import './workPreview.scss'
-import { getWorkById } from 'entities/work/model/services/workServices'
-import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
 
 interface WorkProps {
     work: Work

@@ -12,7 +12,7 @@ interface CustomSelectorInterface {
     options: optionsType[],
     chooseSelectorCallback: (key: string) => void,
     maxWidth: number
-    defaultItem?: boolean                                   //будет ли первый элемент дефолтным
+    defaultItem?: boolean                                   // будет ли первый элемент дефолтным
     currentPlace?: string
     error?: boolean
 }
@@ -20,7 +20,19 @@ interface CustomSelectorInterface {
 const CustomSelector: FC <CustomSelectorInterface>= ({options, maxWidth, chooseSelectorCallback , defaultItem, currentPlace, error}) => {
 
     const [selectorOpen, setSelectorOpen] = useState<boolean>(false)
-    const [currentOption, setCurrentOption] = useState<string>(defaultItem? options[0].text : (currentPlace === null ? "SELECTOR" : `Place №${currentPlace}` ) )
+        const getInitialOption = () => {
+        if (defaultItem) {
+            return options[0].text;
+        }
+
+        if (currentPlace === null) {
+            return "SELECTOR";
+        }
+
+        return `Place №${currentPlace}`;
+        };
+
+const [currentOption, setCurrentOption] = useState<string>(getInitialOption());
     
     // открытие и закрытие опшнов
     const handleSelectorToggle = () => {
@@ -35,8 +47,6 @@ const CustomSelector: FC <CustomSelectorInterface>= ({options, maxWidth, chooseS
 
         chooseSelectorCallback(key)
     }
-
-    console.log(currentPlace)
 
     return(
         <div className="customSelector" style={{maxWidth}}>

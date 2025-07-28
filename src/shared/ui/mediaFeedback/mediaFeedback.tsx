@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import clsx from 'clsx'
 import bubble from 'shared/assets/icons/chat.svg?react'
 import share from 'shared/assets/icons/share.svg?react'

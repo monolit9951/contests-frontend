@@ -1,11 +1,9 @@
 import instance from "shared/api/api"
 
-export const getRuledWorks = async(contestId: string, page: number) => {
+export const getRuledWorks = async(contestId: string) => {
     try {
         const token = localStorage.getItem('userToken')
         const response = await instance.get(`works/byContestId/${contestId}`, {headers: {Authorization: `Bearer ${token}`}})
-
-        console.log(response)
 
         if (!response.data) {
             throw new Error("No data received")
@@ -24,7 +22,7 @@ export const getRuledWorks = async(contestId: string, page: number) => {
 export const getPossibleWinners = async(contestId: string) => {
     try {
         const token = localStorage.getItem('userToken')
-        const response = await instance.get(`contests/${contestId}/possible-winners`, {headers: {Authorization: `Bearer ${token}`}})
+        const response = await instance.get(`winners/possible/${contestId}`, {headers: {Authorization: `Bearer ${token}`}})
 
         if (!response.data) {
             throw new Error("No data received")

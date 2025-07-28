@@ -30,7 +30,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
         description,
         commentAmount,
         likeAmount,
-        typeWork,
+        // typeWork,
         workAddingDate,
     } = work
     
@@ -43,8 +43,6 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
     const onCommentsClick = () => {
         openModal(work)
     }
-
-    console.log(work)
 
     return (
         <div>

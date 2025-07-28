@@ -5,10 +5,11 @@ export const mockFilterData: FilterData = {
         name: 'Status',
         items: [
             { name: 'Active', number: 0 },
-            { name: 'Inactive', number: 0 },
-            { name: 'Paused', number: 0 },
+            // { name: 'Inactive', number: 0 },
+            // { name: 'Paused', number: 0 },
             { name: 'Finished', number: 0 },
             { name: 'Upcoming', number: 0 },
+            { name: 'Choise winner', number: 0 },
         ],
     },
     prizeType: {

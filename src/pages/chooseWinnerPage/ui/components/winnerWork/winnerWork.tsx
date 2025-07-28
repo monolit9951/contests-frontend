@@ -1,19 +1,19 @@
-import React, { FC, useState } from "react";
-import { useParams } from "react-router-dom";
+import { FC, useMemo, useState } from "react";
 import { Work } from "entities/work";
+import moment from "moment";
 import instance from "shared/api/api";
 import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
+import sampleVideo from "shared/assets/testVideos/testVideo.mp4"
+import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import { Button } from "shared/ui/button";
 import { ModalWindow } from "shared/ui/modalWindow";
+import { Video } from "shared/ui/videoPlayer";
 import CustomCheckbox from "widgets/customCheckbox";
 import CustomSelector from "widgets/customSelector";
 import UserProfileData from "widgets/userProfileData/userProfileData";
 import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
 
 import './winnerWork.scss'
-import moment from "moment";
-import { Video } from "shared/ui/videoPlayer";
-import sampleVideo from "shared/assets/testVideos/testVideo.mp4"
 
 interface WinnerWorkInterface {
     isWin?: boolean
@@ -28,32 +28,32 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
     const [modalWork, setModalWork] = useState<boolean>(false)
     const [prizeId, setPrizeId] = useState<string>('')
     const [placeError, setPlaceError] = useState<boolean>(false)
+    const [isWinner, setIsWinner] = useState<boolean>(work.possibleWinner)
 
     const handleWorkModal = () => {
         setModalWork(true)
     }
     
-    const handleCheckbox = async (event: React.ChangeEvent<HTMLInputElement>) =>{
+    const {showAlert, Alert} = useAlert()
 
-        if (event.target.checked){
-            console.log("ADD POSSIBLE WINNER")
-            // получить 
-            console.log(prizeId)
-            try{
-                await instance.post(`winners/${work.id}/possible/${prizeId}`)
-            } catch (error){
-                if(error.response.data.error === 'All places for this prize are already taken.'){
-                    setPlaceError(true)
-                }
-            }
-
-        } else {
-            console.log("DELETE POSSIBLE WINNER")
+    const handleCheckbox = async() => {
+        if(isWinner){
+            // удаляем победителя
             try{
                 await instance.delete(`winners/possible/${work.id}`)
+                setIsWinner(false)
+            } catch (error){
+               showAlert(error)
+            }
+        } else{
+            // добавляем победителя
+            try{
+                await instance.post(`winners/${work.id}/possible/${prizeId}`)
+                setIsWinner(true)
             } catch (error){
                 if(error.response.data.error === 'All places for this prize are already taken.'){
                     setPlaceError(true)
+                    showAlert(error)
                 }
             }
         }
@@ -66,16 +66,21 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
     const creationDate = moment.utc(work.workAddingDate).local().fromNow();
 
+    // МЕМОИЗАЦИЯ ДЛЯ ПРЕДОТВРАЩЕНИЯ ПЕРЕРЕНДЕРА
+    const videoBlock = useMemo(() => {
+        if (work.media[0].typeMedia === 'IMAGE') {
+            return <img src={sampleWorkImage} alt="workImage" />;
+        } 
+            return <Video url={sampleVideo} light />;
+        
+    }, [work.media[0].typeMedia]);
+
     return(
         <div className={isWin? "winnerWork winner" : "winnerWork"}>
             <div className="winnerWork_left">
                 
                 <div className="winnerWork_left_media">
-                    {/* заменить */}
-                    {work.media[0].typeMedia === 'IMAGE' ? <img src={sampleWorkImage} alt="workImage" /> 
-                        :
-                        <Video url={sampleVideo} light/>
-                    }
+                    {videoBlock}
                 </div>
 
                 <div className="winnerWork_left_container">
@@ -94,11 +99,13 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             </div>
 
             <div className="winnerWork_right">
-                <CustomCheckbox value="Winner" checked={work.possibleWinner} handleCheckbox={handleCheckbox}/>
+                <CustomCheckbox value="Winner" checked={isWinner} handleCheckbox={handleCheckbox} controlled/>
                 <CustomSelector options={options} maxWidth={200} name="Place" chooseSelectorCallback={handlePlaceSelector} currentPlace = {work.place} error = {placeError}/>
             </div>
 
             {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview work={work} /></ModalWindow>}
+
+            <Alert />
         </div>
     )
 }

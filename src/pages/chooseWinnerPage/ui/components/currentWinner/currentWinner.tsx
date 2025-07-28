@@ -11,10 +11,6 @@ interface Props {
 
 const CurrentWinner: FC<Props> = ({winnerData}) => {
 
-    console.log(winnerData)
-
-
-
     // возможно открывать модалку по нажатию
 
     return(

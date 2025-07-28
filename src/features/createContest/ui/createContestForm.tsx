@@ -116,9 +116,6 @@ const CreateContestForm = () => {
             data.exampleMedia.forEach((file) => formData.append('examples', file))
         }
 
-        console.log(data.dateStart)
-        console.log(data.dateEnd)
-
         try {
             setPending(true)
             const token = localStorage.getItem('userToken')

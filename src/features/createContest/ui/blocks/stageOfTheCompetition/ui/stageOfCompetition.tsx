@@ -27,7 +27,8 @@ export const StageOfTheCompetition = ({ dateValidation }: Props) => {
     const containerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        // НЕ ИСПРАВЛЯТЬ ОШИБКУ ЕСЛИНТА
+        
+    // eslint-disable-next-line
     if (dateValidation || errors.startTime || errors.endTime) {
         containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }

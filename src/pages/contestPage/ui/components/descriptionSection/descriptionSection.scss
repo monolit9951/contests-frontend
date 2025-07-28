@@ -61,6 +61,14 @@
                 // display: flex;
                 gap: 8px;
 
+                > li{
+                    button{
+                        background-color: transparent;
+                        border: none;
+                        outline: none;
+                    }
+                }
+
                 .example-media {
                     border-radius: 8px;
                     width: 100%;

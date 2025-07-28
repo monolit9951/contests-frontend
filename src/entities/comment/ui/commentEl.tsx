@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import instance from 'shared/api/api'
 import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
@@ -64,6 +65,8 @@ const CommentEl: FC<Props> = (props) => {
 
   const userAuth = useSelector((state: RootState) => state.user)
 
+    const {showAlert, Alert} = useAlert()
+
     const onSubmit = async () => {
         if (!inputData.trim()) {
             setInputData('')
@@ -71,7 +74,7 @@ const CommentEl: FC<Props> = (props) => {
         }
 
         if(userAuth.userId === null){
-            alert("You not authorized")
+            showAlert("You not authorized")
             setInputData('')
             toggleReplyInput()
             return
@@ -103,7 +106,8 @@ const CommentEl: FC<Props> = (props) => {
             // setRepliesShown(true)
             // setSubComments((prev) => [...prev, newSubComment])
         } catch (err) {
-            setError(err as Error)
+            // setError(err as Error)
+            showAlert(err)
         } finally {
             setNextLoading(false)
             toggleReplyInput()
@@ -168,7 +172,7 @@ const CommentEl: FC<Props> = (props) => {
                     </Link>
                     <Icon Svg={tripleDot} clickable onClick={onActionClick} />
                     {actionsShown && (
-                        <CommentController onClose={onActionClick} handleDeleteCommentCallback={handleDeleteCommentCallback} handleSetEditCallback={handleSetEditCallback}/>
+                        <CommentController onControllerClose={onActionClick} handleDeleteCommentCallback={handleDeleteCommentCallback} handleSetEditCallback={handleSetEditCallback} commentId={data.id}/>
                     )}
                 </HStack>
 
@@ -200,6 +204,7 @@ const CommentEl: FC<Props> = (props) => {
                     />
                 )}
             </VStack>
+            <Alert />
         </HStack>
     )
 }

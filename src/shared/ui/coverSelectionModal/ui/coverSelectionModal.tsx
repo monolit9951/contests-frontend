@@ -45,7 +45,7 @@ export const CoverSelectionModal = ({
         useState<boolean>(true)
     const [isUploading, setIsUploading] = useState<boolean>(false)
     const [currBlob, setCurrBlob] = useState<Blob | string>('')
-    const [currFile, setCurrFile] = useState<any>(null)
+    // const [currFile, setCurrFile] = useState<any>(null)
     const { setValue } = useFormContext()
 
     // подготовленные базовые фото
@@ -63,7 +63,7 @@ export const CoverSelectionModal = ({
                 const blob = await response.blob()
                 setCurrBlob(blob)
             } catch (err) {
-                console.error('Ошибка при загрузке изображения:', err)
+                // console.error('Ошибка при загрузке изображения:', err)
                 setImageValidationMessage('Failed to load image blob')
             }
         }
@@ -94,7 +94,7 @@ export const CoverSelectionModal = ({
     // получаем фото
     const handleFileChange = async(event: React.ChangeEvent<HTMLInputElement>) =>{
         const file = event.target.files?.[0]
-        setCurrFile(file)
+        // setCurrFile(file)
         if(file){
             if(file.size > 6 * 1024 * 1024){
                 setImageValidationMessage('File size exceeds 6 MB')

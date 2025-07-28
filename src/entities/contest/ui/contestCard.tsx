@@ -75,8 +75,8 @@ const ContestCard: React.FC<Props> = (props) => {
                         }}
                     /> */}
 
-                    {/* СДЕЛАТЬ ПУСТОЙ БАТТОН */}
-                    <img src={rest.previewImage} alt="contest preview img" onClick={onDetailsClick} />
+                    {/* eslint-disable-next-line */}
+                    <img src={rest.previewImage} alt="contest preview img" role='button' onClick={onDetailsClick} />
                     {/* <img src={rest.previewImage ?? contestImg} alt="contest preview img" /> */}
 
                     <div className='prize' style={{ background: getBgColor() }}>
@@ -106,7 +106,13 @@ const ContestCard: React.FC<Props> = (props) => {
                     <Text Tag='p' bold size='sm'>
                         Completing the task
                     </Text>
-                    <Text Tag='span' size='xs'>{rest.status === 'FINISHED'? `End date ${deadline} ` : rest.status === 'ACTIVE'? `Up to ${deadline}` : `To ${deadline}`}</Text>
+                    <Text Tag="span" size="xs">
+                    {
+                        (rest.status === "FINISHED" && `End date ${deadline}`) ||
+                        (rest.status === "ACTIVE" && `Up to ${deadline}`) ||
+                        `To ${deadline}`
+                    }
+                    </Text>
                 </VStack>
                 <Button variant='secondary' onClick={onDetailsClick}>
                     See details

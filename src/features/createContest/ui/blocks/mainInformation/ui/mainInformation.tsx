@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import clsx from 'clsx'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import { Icon } from 'shared/ui/icon'
-import { Combobox, Input, Textarea } from 'shared/ui/input'
+import { Input, Textarea } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
@@ -151,7 +151,7 @@ export const MainInformation = ({ submitError }: Props) => {
                     text='Winner selection type'
                     currActive='Random'>
                     <RadioEl text='Random' />
-                    <RadioEl text='Viewer voting' />
+                    {/* <RadioEl text='Viewer voting' /> */}
                     <RadioEl text="Creator's decision" />
                 </RadioContainer>
             </VStack>

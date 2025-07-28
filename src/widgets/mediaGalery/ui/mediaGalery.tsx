@@ -39,8 +39,8 @@ const MediaGalery: FC<MediaGaleryInterface> = ({ media, type = 'TYPED', classNam
         setCurrentIndex(prev => (prev > 0 ? prev - 1 : media.length - 1));
     };
 
-    const setMediaIndex = (index: number) => {
-        setCurrentIndex(index);
+    const setMediaIndex = (idx: number) => {
+        setCurrentIndex(idx);
     };
 
     const currentMedia = media[currentIndex];

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Contest } from 'entities/contest';
 import useAxios from 'shared/lib/hooks/useAxios';
@@ -17,10 +17,10 @@ import { contestWorksActions } from '../model/slice';
 
 import DescriptionSection from './components/descriptionSection/descriptionSection';
 import HeroSection from './components/heroSection/heroSection';
+import WinnersSection from './components/winnersSection/winnersSection';
 import WorksListSection from './components/worksListSection/worksListSection';
 
 import './contestPage.scss';
-import WinnersSection from './components/winnersSection/winnersSection';
 
 const ContestPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -28,7 +28,6 @@ const ContestPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
   // для модалок
   const isUploadModalOpen = location.state?.uploadModal === true
@@ -56,13 +55,6 @@ const ContestPage = () => {
       dispatch(contestWorksActions.setPrizes(data.prizes));
     }
   }, [dispatch, data]);
-
-  // ресайзер (не используется)
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   if (!id) {
     return (

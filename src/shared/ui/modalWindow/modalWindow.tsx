@@ -7,7 +7,7 @@ import { cloneElement, FC, isValidElement, ReactNode, useEffect } from 'react'
 // import { Flex, HStack, VStack } from 'shared/ui/stack'
 import './modalWindow.scss'
 
-interface UploadModalProps {
+interface Props {
     isOpen: boolean
     onClose?: () => void
     children: ReactNode
@@ -21,7 +21,7 @@ interface UploadModalProps {
     modalContentClass?: string
 }
 
-export const ModalWindow: FC<UploadModalProps> = ({
+export const ModalWindow: FC<Props> = ({
     ...rest
 }) => {
     
@@ -51,7 +51,7 @@ export const ModalWindow: FC<UploadModalProps> = ({
 
     return (
         <div className="modalWindow">
-            <div className="modalWindow_background" onClick={handleClose}/>
+            <button type = 'button' aria-label='Close modal' className={`modalWindow_background ${rest.className}`} onClick={handleClose}/>
 
             <div className="modalWindow_overlay">
                 {clonedChildren}

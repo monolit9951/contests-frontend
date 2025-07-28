@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import Plyr from 'plyr-react'
 
 // import sampleVideo from "../../assets/testVideos/testVideo.mp4"
@@ -43,4 +43,4 @@ const Video: FC<Props> = (props) => {
     )
 }
 
-export default Video
+export default React.memo(Video);

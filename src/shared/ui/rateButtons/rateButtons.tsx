@@ -7,6 +7,7 @@ import dislike from 'shared/assets/icons/dislike.svg?react'
 import dislikeActive from 'shared/assets/icons/dislikeF.svg?react'
 import like from 'shared/assets/icons/like.svg?react'
 import likeActive from 'shared/assets/icons/likeF.svg?react'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 import { Icon } from '../icon'
 import { HStack } from '../stack'
@@ -22,22 +23,20 @@ interface Props {
     userLike: string | null
 }
 
-// ЛОГИКА ПОВТОРНОГО ЛАЙКА РЕАЛИЗОВАНА НЕ ДО КОНЦА ПРАВИЛЬНО
-
 const RateButtons = (props: Props) => {
     const { id, border, likes, work, userLike } = props
 
     const [likesNum, setLikesNum] = useState<number>(likes)
     const [liked, setLiked] = useState<boolean>(userLike === 'LIKE')
     const [disliked, setDisliked] = useState<boolean>(userLike === 'DISLIKE')
-
+    const {showAlert, Alert} = useAlert()
     const token = localStorage.getItem('userToken')
 
     const onRate = async (action: string) => {
         try {
             await instance.patch(`${work ? 'works' : 'comment'}/addLike/${id}?likeType=${action}`, null, {headers: { Authorization: `Bearer ${token}` }})
         } catch (err) {
-            console.error(err)
+            showAlert(err)
         }
     }
 
@@ -56,7 +55,7 @@ const RateButtons = (props: Props) => {
 
     const onLikeClick = async () => {
         if(user.userId === null){
-            alert("You not authorized")
+            showAlert("You not authorized")
         } else{
             if (disliked) {
                 setDisliked(!disliked)
@@ -82,7 +81,7 @@ const RateButtons = (props: Props) => {
 
     const onDislikeClick = async () => {
         if(user.userId === null){
-            alert("You not authorized")
+            showAlert("You not authorized")
         } else{
             if (liked) {
                 setLiked(!liked)
@@ -126,6 +125,8 @@ const RateButtons = (props: Props) => {
                     height={20}
                 />
             </button>
+
+            <Alert />
         </HStack>
     )
 }

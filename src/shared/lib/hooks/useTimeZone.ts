@@ -8,7 +8,7 @@ interface Options {
 }
 
 export const useConvertedDate = (inputDate: string | Date, options?: Options) => {
-  const { inputZone = 'utc', outputZone = 'local' } = options || {}
+  const { inputZone = 'utc', outputZone = 'local' } = options ?? {}
 
   return useMemo(() => {
     const dateObj = new Date(inputDate)
