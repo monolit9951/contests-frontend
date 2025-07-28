@@ -11,7 +11,7 @@ import SockJS from 'sockjs-client'
 import { Client } from '@stomp/stompjs';
 import instance from 'shared/api/api';
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest';
-import { fetchAllContests } from '../model/services/notificationService';
+import { fetchAllNotifications } from '../model/services/notificationService';
 import { Notification } from 'entities/notification';
 
 
@@ -20,7 +20,7 @@ export const NotificationsButton = () => {
     // ТИПИЗАЦИЯ НОТИФИКАЦИИ, СДЕЛАТЬ ПОЗЖЕ
     const [notifications, setNotifications] = useState<Notification[]>([])
 
-    const {data: notifData, isLoaded: notifDataLoaded} = useGetRequest<Notification[] | string>({fetchFunc: () => fetchAllContests(), key: [], enabled: true})
+    const {data: notifData, isLoaded: notifDataLoaded} = useGetRequest<Notification[] | string>({fetchFunc: () => fetchAllNotifications(), key: [], enabled: true})
 
     const token = localStorage.getItem('userToken')
 
@@ -36,6 +36,7 @@ export const NotificationsButton = () => {
     }
 
     useEffect(() => {
+        console.log(token)
         const socket = new SockJS(SOCKET_URL)
         const stompClient = new Client({
         webSocketFactory: () => socket,
@@ -77,16 +78,13 @@ export const NotificationsButton = () => {
         if(notifDataLoaded){
             setNotifications(notifData.content)
         }
-    }, [notifDataLoaded])
+    }, [notifDataLoaded, notifData])
 
 
     const handleISawNotification = async(id: string) => {
         // await instance.post('')
         console.log(`read notification ${id}`)
     }
-
-    console.log(notifications)
-    console.log(notifData)
     
 
     // дизайн переделать
@@ -96,7 +94,7 @@ export const NotificationsButton = () => {
 
             {unread && <div className="notification_active">{' '}</div>}
 
-            {notifDataLoaded && dropList && (notifications.length > 0? <ul className="notification_list">
+            {notifDataLoaded && dropList && notifications && (notifications.length > 0? <ul className="notification_list">
                 {notifications.map((data: any, index: number) => (
                     <li key={index}><button type='button' onClick={() => handleISawNotification(data.id)}>{data.content}</button></li>
                 ))}

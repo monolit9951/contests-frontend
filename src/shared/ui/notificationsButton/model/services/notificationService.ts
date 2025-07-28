@@ -1,12 +1,11 @@
 import { Notification } from "entities/notification";
 import instance from "shared/api/api"
 
-const token = localStorage.getItem('userToken')
 
-const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
-export const fetchAllContests = async (): Promise<Notification[] | string> => {
+export const fetchAllNotifications = async (): Promise<Notification[] | string> => {
     try {
+        const token = localStorage.getItem('userToken')
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
         const response = await instance.get(`notifications`, {headers})
 
         if (!response.data) {
@@ -15,7 +14,8 @@ export const fetchAllContests = async (): Promise<Notification[] | string> => {
         
         return response.data
     } catch (error) {
-        console.error("Error fetching contests:", error);
+        console.error("Error fetching notifications:", error);
+        console.log(error)
         return error
     }
 }
