@@ -1,0 +1,23 @@
+.modalReport{
+    background-color: #02140E;
+    z-index: 10000000000000;
+    padding: 16px 16px 24px 16px;
+    border-radius: 24px;
+    max-width: 748px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    // max-height: 600px;
+
+    > .modalReport_heading{
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 28px;
+    }
+    
+    > .modalReport_button{
+        display: flex;
+        justify-content: end;
+    }
+}

@@ -4,11 +4,16 @@ import { Button } from 'shared/ui/button';
 import { clearUser } from 'widgets/registrationModal/model/slice/userSlice';
 import './profileSettingsPage.scss'
 import { useAlert } from 'shared/lib/hooks/useAlert/useAlert';
+import { ModalWindow } from 'shared/ui/modalWindow';
+import ModalReport from 'widgets/modalReport';
+import { useState } from 'react';
 
 const ProfileSettingsPage = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+    const [modalReport, setModalReport] = useState<boolean>(false)
 
   const handleExit = () => {
     // console.log('exit')
@@ -26,8 +31,10 @@ const ProfileSettingsPage = () => {
       <Button type='button' variant='primary' className='exitButton' onClick={handleExit} >Exit profile</Button>
 
       <button onClick={() => {showAlert('primary text', 'secondary text')}} type='button'>summon alert</button>
-
+      <button type='button' onClick={() => setModalReport(true)}>Report test</button>
       <Alert />
+
+      {modalReport && <ModalWindow isOpen onClose={() => setModalReport(false)}><ModalReport targetId='sdsd' targetType='COMMENT'/></ModalWindow>}
     </div>
   );
 };

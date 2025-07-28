@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { ModalWindow } from 'shared/ui/modalWindow'
 import { VStack } from 'shared/ui/stack'
+import ModalReport from 'widgets/modalReport'
 
 interface Props {
     onClose: () => void,
@@ -11,15 +14,18 @@ const CommentController = ({ onClose, handleDeleteCommentCallback, handleSetEdit
 
     const user = useSelector((state: RootState) => state.user)
 
-    // const onReportAction = () => {
-    //     if(user.userId === null){
-    //         alert("You not authorized")
-    //         return
-    //     }
+    const [modalReport, setModalReport] = useState<boolean>(false)
 
-    //     console.log('comment reported')
-    //     onClose()
-    // }
+    const onReportAction = () => {
+        if(user.userId === null){
+            alert("You not authorized")
+            return
+        }
+        console.log('report')
+        setModalReport(true)
+
+        onClose()
+    }
 
     const onEditAction = () => {
         if(user.userId === null){
@@ -43,12 +49,12 @@ const CommentController = ({ onClose, handleDeleteCommentCallback, handleSetEdit
 
     return (
         <VStack className='comment-action__box'>
-            {/* <button
+            <button
                 type='button'
                 onClick={onReportAction}
                 className='comment-action__button'>
                 Report comment
-            </button> */}
+            </button>
             <button
                 type='button'
                 onClick={onEditAction}
@@ -61,6 +67,8 @@ const CommentController = ({ onClose, handleDeleteCommentCallback, handleSetEdit
                 className='comment-action__button'>
                 Delete comment
             </button>
+
+            {modalReport && <ModalWindow isOpen onClose={() => setModalReport(false)}><div>DASDSDSD</div></ModalWindow>}
         </VStack>
     )
 }

@@ -57,7 +57,7 @@ const WorkCard: FC<Props> = (props) => {
     const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(data.id), key: [workKey], enabled: true})
 
     
-
+    // мемоизация видео, необходимо из-за особенности ререндера Plyr-видео
     const videoBlock = useMemo(() => {
         if (!workDataLoaded || !workData.media || workData.media.length === 0) return null;
 
