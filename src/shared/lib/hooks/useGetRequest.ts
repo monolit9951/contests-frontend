@@ -24,14 +24,15 @@ export const useGetRequest = <T>({enabled, key, fetchFunc, mutationFunc}: UseGet
         if(enabled){
             fetchFunc().then((fetchedData: T) => {
 
-                let data = fetchedData
+                // если нужно обрабатывать данные
+                let mutatedData = fetchedData
 
                 if(mutationFunc){
-                    data = mutationFunc(fetchedData)
+                    mutatedData = mutationFunc(fetchedData)
                 }
 
                 setIsLoaded(true)
-                setData(data)
+                setData(mutatedData)
             })
         }
     }, key)

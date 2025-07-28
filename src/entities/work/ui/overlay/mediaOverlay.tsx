@@ -11,19 +11,16 @@ import { ModalWindow } from 'shared/ui/modalWindow'
 import { VStack } from 'shared/ui/stack'
 import { UserIcon } from 'shared/ui/userIcon'
 import ModalReport from 'widgets/modalReport'
-import UploadWorkModal from 'widgets/uploadWorkModal'
-import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 import './mediaOverlay.scss'
 
 interface Props {
     prize?: Prize
     user: User
-    imageCards?: boolean
     workId: string
 }
 
-const MediaOverlay = ({ prize, user, imageCards, workId }: Props) => {
+const MediaOverlay = ({ prize, user, workId }: Props) => {
     // const onCardsClick = () => {}
 
     const [controlModal, setControlModal] = useState<boolean>(false)
@@ -57,7 +54,7 @@ const MediaOverlay = ({ prize, user, imageCards, workId }: Props) => {
                 />
             </Link>
             <div className='media__overlay__4'>
-                <button type='button' onClick={handleControlModal}><Icon Svg={action} /></button>
+                <button type='button' onClick={handleControlModal} aria-label="Open modal"><Icon Svg={action} /></button>
 
                 {controlModal && <div className="media__overlay__4__control">
                     <button onClick = {handleReport} type='button'>Report</button>

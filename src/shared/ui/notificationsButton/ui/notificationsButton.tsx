@@ -50,9 +50,9 @@ export const NotificationsButton = () => {
             }
             })
         },
-        onStompError: (frame) => {
-            console.error('❌ STOMP ошибка:', frame)
-        }
+        // onStompError: (frame) => {
+        //     console.error('❌ STOMP ошибка:', frame)
+        // }
         });
 
         stompClient.activate()

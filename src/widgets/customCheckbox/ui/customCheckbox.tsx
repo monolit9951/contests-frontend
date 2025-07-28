@@ -27,8 +27,19 @@ const CustomCheckbox: FC <CustomCheckboxInterface> = ({value = 'Insert value on 
     return(
         <div className="customCheckbox">
             <div className="customCheckbox_container">
-                <div className={controlled? (checked? "customCheckbox_check checked" : "customCheckbox_check") : (inputCheck? "customCheckbox_check checked" : "customCheckbox_check")}>
-                    <img src={tick} alt="tick" className={controlled? (checked? "checked" : "") : (inputCheck? "checked" : "")}/>
+                <div
+                className={
+                    `${"customCheckbox_check"}${
+                    (controlled && checked) || (!controlled && inputCheck) ? " checked" : ""
+                    }`
+                }>
+                    <img
+                        src={tick}
+                        alt="tick"
+                        className={
+                            (controlled && checked) || (!controlled && inputCheck) ? "checked" : ""
+                        }
+                    />
                 </div>
                 <span>{value}</span>
             </div>

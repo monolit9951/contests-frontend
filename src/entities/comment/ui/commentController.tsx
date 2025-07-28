@@ -24,7 +24,6 @@ const CommentController = ({ onControllerClose, handleDeleteCommentCallback, han
             showAlert('You not authorized')
             return
         }
-        console.log('report')
         setModalReport(true)
 
         // onClose()

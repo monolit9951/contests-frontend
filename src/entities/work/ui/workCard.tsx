@@ -1,10 +1,7 @@
 import { FC, useMemo, useState } from 'react'
 // import { useLocation, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
-import { Prize } from 'entities/prize'
-import { selectContestPrizes } from 'pages/contestPage/model/selectors'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
-import { useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Image } from 'shared/ui/image'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
@@ -24,17 +21,19 @@ import './workCard.scss'
 
 interface Props {
     data: Work
-    prizeId?: string
+    // prizeId?: string
     className?: string,
 }
 
 
 const WorkCard: FC<Props> = (props) => {
-    const { data, prizeId, className } = props
+    const { data, 
+        // prizeId,
+         className } = props
 
-    const prizes = useAppSelector(selectContestPrizes) as Prize[]
+    // const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
-    const prize = prizes.find((item) => item.id === prizeId)
+    // const prize = prizes.find((item) => item.id === prizeId)
 
     const [openModal, setOpenModal] = useState<boolean>(false)
     const [workKey, setWorkKey] = useState<number>(0)

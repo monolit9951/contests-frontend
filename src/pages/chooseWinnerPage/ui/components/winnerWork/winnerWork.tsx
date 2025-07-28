@@ -4,6 +4,7 @@ import moment from "moment";
 import instance from "shared/api/api";
 import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
 import sampleVideo from "shared/assets/testVideos/testVideo.mp4"
+import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import { Button } from "shared/ui/button";
 import { ModalWindow } from "shared/ui/modalWindow";
 import { Video } from "shared/ui/videoPlayer";
@@ -33,6 +34,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
         setModalWork(true)
     }
     
+    const {showAlert, Alert} = useAlert()
 
     const handleCheckbox = async() => {
         if(isWinner){
@@ -41,7 +43,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
                 await instance.delete(`winners/possible/${work.id}`)
                 setIsWinner(false)
             } catch (error){
-                console.log(error)
+               showAlert(error)
             }
         } else{
             // добавляем победителя
@@ -51,6 +53,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             } catch (error){
                 if(error.response.data.error === 'All places for this prize are already taken.'){
                     setPlaceError(true)
+                    showAlert(error)
                 }
             }
         }
@@ -101,6 +104,8 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             </div>
 
             {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview work={work} /></ModalWindow>}
+
+            <Alert />
         </div>
     )
 }

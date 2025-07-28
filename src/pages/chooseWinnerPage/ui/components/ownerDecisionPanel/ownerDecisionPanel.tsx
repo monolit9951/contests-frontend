@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { Contest } from "entities/contest";
 import { Prize } from "entities/prize";
 import { Work } from "entities/work";
@@ -22,6 +22,8 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
     const [worksKey, setWorksKey] = useState<number>(0)
     const [winnersKey, setWinnersKey] = useState<number>(0)
     const [currentFilter, setCurrentFilter] = useState<string>('allWorks')
+
+    // eslint-disable-next-line
     const [currentPage, setCurrentPage] = useState<number>(0)
 
     const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id), currentPage), key: [worksKey], enabled: true})
@@ -49,12 +51,6 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
         }
     }
 
-    const handleLoadMore = async () => {
-        console.log('next works')
-    };
-
-
-    console.log(winners)
 
     return(
         <div className="ownerDecosonPanel">
@@ -72,7 +68,7 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
                 </div>
 
                 <div className="chooseWinnerPage_paginationBtn">
-                    <Button variant="primary" onClick={handleLoadMore}>Load more</Button>
+                    <Button variant="primary" >Load more</Button>
                 </div>
         </div>
     )

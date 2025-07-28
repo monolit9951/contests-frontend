@@ -78,14 +78,6 @@ const ChooseWinnerPage: FC = () => {
         }
     }, [contestIsLoading])
 
-
-
-    
-    // логика рандомной работы
-    const getRandomWork = async() => {
-        console.log('Get Random Work')
-    }
-
     
     return(
         <>

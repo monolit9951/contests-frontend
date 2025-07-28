@@ -17,8 +17,8 @@ const ImageCropper: FC <ImageCropperInterface> = ({ imageSrc, onCropComplete, as
   const [zoom, setZoom] = useState(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
 
-  const onCropCompleteHandler = useCallback((_: any, croppedAreaPixels: any) => {
-    setCroppedAreaPixels(croppedAreaPixels)
+  const onCropCompleteHandler = useCallback((_: any, croppedAreaPixels2: any) => {
+    setCroppedAreaPixels(croppedAreaPixels2)
   }, [])
 
   const handleDone = async () => {

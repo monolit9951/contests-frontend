@@ -48,7 +48,6 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
         }
     }
 
-    console.log(data.status)
 
     const [regModal, setRegModal] = useState(false)
 
@@ -141,7 +140,8 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                             </Text>
                             <ul className='example-list'>
                                 {data.exampleMedia?.map((item, idx: number) => (
-                                    <li key={idx} onClick={() => openExapmpleGaleryModal(idx)}>
+                                    <li key={idx}>
+                                        <button onClick={() => openExapmpleGaleryModal(idx)} type='button'>
                                         {item.typeMedia === "VIDEO"? 
                                             <div className='example-media'><Video light url={item.mediaLink}/></div>
                                             :
@@ -152,6 +152,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                                 height={132}
                                                 className='example-media'
                                             />}
+                                        </button>
                                     </li>
                                 ))}
                             </ul>
