@@ -12,7 +12,7 @@ interface CustomSelectorInterface {
     options: optionsType[],
     chooseSelectorCallback: (key: string) => void,
     maxWidth: number
-    defaultItem?: boolean                                   //будет ли первый элемент дефолтным
+    defaultItem?: boolean                                   // будет ли первый элемент дефолтным
     currentPlace?: string
     error?: boolean
 }

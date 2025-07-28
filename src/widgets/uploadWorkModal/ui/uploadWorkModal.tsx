@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, useState } from "react";
 import instance from "shared/api/api";
+import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import { Button } from "shared/ui/button";
 import { Textarea } from "shared/ui/input";
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +9,6 @@ import UploadWorkMediaInput from "./components/uploadWorkMediaInput/uploadWorkMe
 import UploadWorkMediaItem, { MediaItem } from "./components/uploadWorkMediaItem/uploadWorkMediaItem";
 
 import './uploadWorkModal.scss';
-import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 
 interface UploadWorkModalInterface {
   contestId: string;
@@ -59,8 +59,6 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
         description: text,
       }, {headers: {Authorization: `Bearer ${token}`}});
 
-      console.log(response)
-
       const workId = response.data.id;
       const formData = new FormData();
 
@@ -69,14 +67,12 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
       });
 
       try{
-        console.log('ADD MEDIA')
         await instance.post(`/media/${workId}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log('ADD MEDIA COMPLETED')
         onClose()
       } catch (error){
         showAlert('Error', error.response.data.description)

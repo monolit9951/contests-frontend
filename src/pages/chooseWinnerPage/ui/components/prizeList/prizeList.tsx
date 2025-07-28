@@ -1,7 +1,8 @@
 import { FC } from "react";
-import './prizeList.scss'
 import { Prize } from "entities/prize";
 import WinnerPlace from "shared/ui/winnerPlace";
+
+import './prizeList.scss'
 
 interface Props {
     prizes: Prize[]

@@ -3,6 +3,7 @@ import { FC, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { Prize } from 'entities/prize'
 import { selectContestPrizes } from 'pages/contestPage/model/selectors'
+import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
 import { useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Image } from 'shared/ui/image'
@@ -14,13 +15,12 @@ import { VStack } from 'shared/ui/stack'
 import { Video } from 'shared/ui/videoPlayer'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
+import { getWorkById } from '../model/services/workServices'
 import { Work } from '../model/types'
 
 import MediaOverlay from './overlay/mediaOverlay'
 
 import './workCard.scss'
-import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
-import { getWorkById } from '../model/services/workServices'
 
 interface Props {
     data: Work

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import win from 'shared/assets/icons/win.svg'
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 

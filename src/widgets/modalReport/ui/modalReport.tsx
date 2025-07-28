@@ -1,9 +1,10 @@
 import { ChangeEvent, FC, useState } from "react";
-import './modalReport.scss'
-import { Button } from "shared/ui/button";
-import { Textarea } from "shared/ui/input";
 import instance from "shared/api/api";
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
+import { Button } from "shared/ui/button";
+import { Textarea } from "shared/ui/input";
+
+import './modalReport.scss'
 
 
 interface Props {

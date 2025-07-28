@@ -1,19 +1,18 @@
-import React, { FC, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { FC, useMemo, useState } from "react";
 import { Work } from "entities/work";
+import moment from "moment";
 import instance from "shared/api/api";
 import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
+import sampleVideo from "shared/assets/testVideos/testVideo.mp4"
 import { Button } from "shared/ui/button";
 import { ModalWindow } from "shared/ui/modalWindow";
+import { Video } from "shared/ui/videoPlayer";
 import CustomCheckbox from "widgets/customCheckbox";
 import CustomSelector from "widgets/customSelector";
 import UserProfileData from "widgets/userProfileData/userProfileData";
 import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
 
 import './winnerWork.scss'
-import moment from "moment";
-import { Video } from "shared/ui/videoPlayer";
-import sampleVideo from "shared/assets/testVideos/testVideo.mp4"
 
 interface WinnerWorkInterface {
     isWin?: boolean
@@ -68,9 +67,9 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
     const videoBlock = useMemo(() => {
         if (work.media[0].typeMedia === 'IMAGE') {
             return <img src={sampleWorkImage} alt="workImage" />;
-        } else {
+        } 
             return <Video url={sampleVideo} light />;
-        }
+        
     }, [work.media[0].typeMedia]);
 
     return(

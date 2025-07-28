@@ -1,20 +1,15 @@
 import { FC, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Contest } from "entities/contest";
-import { Work } from "entities/work";
+import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import useAxios from "shared/lib/hooks/useAxios";
-import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 import { Button } from "shared/ui/button";
 
-import CurrentWinners from "./components/currentWinners/currentWinners";
-import WinnerSelectors from "./components/winnersSelectors/winnerSelectors";
-import WinnerWork from "./components/winnerWork/winnerWork";
-import { getPossibleWinners, getRuledWorks } from "./model/services/contestService";
+import OwnerDecisionPanel from "./components/ownerDecisionPanel/ownerDecisionPanel";
+import PrizeList from "./components/prizeList/prizeList";
 
 import './chooseWinnerPage.scss'
-import { useSelector } from "react-redux";
-import PrizeList from "./components/prizeList/prizeList";
-import OwnerDecisionPanel from "./components/ownerDecisionPanel/ownerDecisionPanel";
 
 // добавить параметр контестАйди
 const ChooseWinnerPage: FC = () => {
@@ -23,7 +18,7 @@ const ChooseWinnerPage: FC = () => {
 
     const { data: contest, isLoading: contestIsLoading} = useAxios<Contest>(`contests/${id}`)
 
-
+    const {showAlert, Alert} = useAlert()
 
     const [contestAccess, setContestAccess] = useState<boolean>(false)
     const [contestAccessPending, setContestAccessPending] = useState<boolean>(true)
@@ -38,7 +33,7 @@ const ChooseWinnerPage: FC = () => {
 
             // если зашёл не создатель или не админ
             if (!(contest?.contestOwner.id === user.userId || user.userRole === 'admin')){
-                alert('ACCESS DENIED (you are not creator or admin)')
+                showAlert('ACCESS DENIED (you are not creator or admin)')
                 navigate(`/contests/${id}`)
                 return
             }
@@ -59,7 +54,7 @@ const ChooseWinnerPage: FC = () => {
                         setContestAccess(true)
                         setContestAccessPending(false)
                     } else {
-                        alert('MODERATOR SELECTION, YOUR ROLE != ADMIN')
+                        showAlert('MODERATOR SELECTION, YOUR ROLE != ADMIN')
                         navigate(`/contests/${id}`)
                     }
                     break
@@ -68,15 +63,15 @@ const ChooseWinnerPage: FC = () => {
                     setContestAccessPending(false)
                     break                    
                 case 'UPCOMING':
-                    alert('CONTEST NOT STARTED')
+                    showAlert('CONTEST NOT STARTED')
                     navigate(`/contests/${id}`)
                     break
                 case 'FINISHED':
-                    alert('CONTEST ALREADY FINISHED')
+                    showAlert('CONTEST ALREADY FINISHED')
                     navigate(`/contests/${id}`)
                     break
                 default:
-                    alert('default')
+                    showAlert('default')
                     navigate(`/contests/${id}`)
             }
 
@@ -129,6 +124,8 @@ const ChooseWinnerPage: FC = () => {
                     (как модалку) и затем выбрать её как победителя. либо сгенирировать занов (до 3х раз). После чего
                     можно будет утвердить победителя (или победителей) */}
             </div>}
+
+            <Alert />
         </>
     )
 }

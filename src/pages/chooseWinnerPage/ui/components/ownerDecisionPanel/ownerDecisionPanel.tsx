@@ -1,13 +1,16 @@
 import { FC, useEffect, useState } from "react";
+import { Contest } from "entities/contest";
+import { Prize } from "entities/prize";
+import { Work } from "entities/work";
+import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import { Button } from "shared/ui/button";
+
+import { getPossibleWinners, getRuledWorks } from "../../model/services/contestService";
 import WinnerSelectors from "../winnersSelectors/winnerSelectors";
 import WinnerWork from "../winnerWork/winnerWork";
-import { Button } from "shared/ui/button";
-import { Work } from "entities/work";
-import { Contest } from "entities/contest";
-import { useGetRequest } from "shared/lib/hooks/useGetRequest";
-import { getPossibleWinners, getRuledWorks } from "../../model/services/contestService";
+
 import './ownerDecisionPanel.scss'
-import { Prize } from "entities/prize";
+
 interface Props {
     contest: Contest
 }

@@ -6,7 +6,7 @@ interface GaleryNavButtonInterface {
     classname?: string
     arrayLengh: number
     currentIndex: number
-    setMediaIndex: (index: number) => void 
+    setMediaIndex: (idx: number) => void 
 }
 
 const GaleryNavDots: FC <GaleryNavButtonInterface>= ({classname, arrayLengh, currentIndex, setMediaIndex}) => {

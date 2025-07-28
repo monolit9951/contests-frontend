@@ -1,12 +1,13 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Button } from 'shared/ui/button';
-import { clearUser } from 'widgets/registrationModal/model/slice/userSlice';
-import './profileSettingsPage.scss'
+import { useNavigate } from 'react-router-dom';
 import { useAlert } from 'shared/lib/hooks/useAlert/useAlert';
+import { Button } from 'shared/ui/button';
 import { ModalWindow } from 'shared/ui/modalWindow';
 import ModalReport from 'widgets/modalReport';
-import { useState } from 'react';
+import { clearUser } from 'widgets/registrationModal/model/slice/userSlice';
+
+import './profileSettingsPage.scss'
 
 const ProfileSettingsPage = () => {
 

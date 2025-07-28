@@ -38,8 +38,6 @@ const Video: FC<Props> = (props) => {
         volume: 1
     }
 
-    console.log(1)
-
     return (
         <Plyr options={plyrOptions} source={{type: 'video', sources: [{src: url, type: 'video/mp4'}]}}/>
     )

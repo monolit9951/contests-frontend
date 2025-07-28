@@ -7,13 +7,13 @@ import dislike from 'shared/assets/icons/dislike.svg?react'
 import dislikeActive from 'shared/assets/icons/dislikeF.svg?react'
 import like from 'shared/assets/icons/like.svg?react'
 import likeActive from 'shared/assets/icons/likeF.svg?react'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 import { Icon } from '../icon'
 import { HStack } from '../stack'
 import { Text } from '../text'
 
 import './rateButtons.scss'
-import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 interface Props {
     id?: string

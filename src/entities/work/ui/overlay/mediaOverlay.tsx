@@ -7,14 +7,14 @@ import { User } from 'entities/user'
 import action from 'shared/assets/icons/tripleDot.svg?react'
 // import video from 'shared/assets/icons/video.svg?react'
 import { Icon } from 'shared/ui/icon'
+import { ModalWindow } from 'shared/ui/modalWindow'
 import { VStack } from 'shared/ui/stack'
 import { UserIcon } from 'shared/ui/userIcon'
+import ModalReport from 'widgets/modalReport'
+import UploadWorkModal from 'widgets/uploadWorkModal'
+import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 import './mediaOverlay.scss'
-import { ModalWindow } from 'shared/ui/modalWindow'
-import ModalReport from 'widgets/modalReport'
-import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
-import UploadWorkModal from 'widgets/uploadWorkModal'
 
 interface Props {
     prize?: Prize

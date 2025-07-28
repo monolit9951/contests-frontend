@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Comment } from 'entities/comment'
 import instance from 'shared/api/api'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 import { Button } from 'shared/ui/button'
 import { Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
@@ -11,7 +12,6 @@ import { UserIcon } from 'shared/ui/userIcon'
 import { CommentsList } from './commentsList'
 
 import './commentsSection.scss'
-import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 interface Props {
     workId: string

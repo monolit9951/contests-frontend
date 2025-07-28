@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import instance from 'shared/api/api'
 import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
@@ -18,7 +19,6 @@ import CommentController from './commentController'
 import CommentInput from './commentInput'
 
 import './commentEl.scss'
-import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 interface Props {
     data: Comment

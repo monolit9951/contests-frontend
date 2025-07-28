@@ -1,18 +1,18 @@
 // fix for sockjs in browser
 // @ts-ignore
-if (typeof global === 'undefined') window.global = window;
-
+import { useEffect, useState } from 'react'
+import { Client } from '@stomp/stompjs';
+import { Notification } from 'entities/notification';
 import bellF from 'shared/assets/icons/bellF.svg?react'
+import { useGetRequest } from 'shared/lib/hooks/useGetRequest';
 import { Icon } from 'shared/ui/icon'
+import SockJS from 'sockjs-client'
+
+import { fetchAllNotifications } from '../model/services/notificationService';
 
 import './notificationsButton.scss'
-import { useEffect, useState } from 'react'
-import SockJS from 'sockjs-client'
-import { Client } from '@stomp/stompjs';
-import instance from 'shared/api/api';
-import { useGetRequest } from 'shared/lib/hooks/useGetRequest';
-import { fetchAllNotifications } from '../model/services/notificationService';
-import { Notification } from 'entities/notification';
+
+if (typeof global === 'undefined') window.global = window;
 
 
 export const NotificationsButton = () => {
@@ -36,7 +36,6 @@ export const NotificationsButton = () => {
     }
 
     useEffect(() => {
-        console.log(token)
         const socket = new SockJS(SOCKET_URL)
         const stompClient = new Client({
         webSocketFactory: () => socket,
@@ -68,7 +67,6 @@ export const NotificationsButton = () => {
     useEffect(() => {
 
         if(notifDataLoaded){
-            console.log(notifications)  
             setUnread(notifData.content.some(item => item.read === false))
         }
 
@@ -80,11 +78,6 @@ export const NotificationsButton = () => {
         }
     }, [notifDataLoaded, notifData])
 
-
-    const handleISawNotification = async(id: string) => {
-        // await instance.post('')
-        console.log(`read notification ${id}`)
-    }
     
 
     // дизайн переделать

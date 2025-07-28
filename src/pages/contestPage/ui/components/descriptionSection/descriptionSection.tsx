@@ -14,12 +14,12 @@ import { Image } from 'shared/ui/image'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
+import { Video } from 'shared/ui/videoPlayer'
 import { RegistrationModal } from 'widgets/registrationModal'
 
 import ExampleGaleryModal from '../exampleGaleryModal/exampleGaleryModal'
 
 import './descriptionSection.scss'
-import { Video } from 'shared/ui/videoPlayer'
 
 interface Props {
     data: Contest

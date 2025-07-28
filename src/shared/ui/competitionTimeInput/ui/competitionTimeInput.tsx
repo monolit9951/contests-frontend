@@ -31,7 +31,6 @@ export const CompetitionTimeInput = ({
             // полная МИРОВАЯ дата и время
             const utcFormatted = combinedLocal.utc().format('YYYY-MM-DD[T]HH:mm:ss[Z]')
 
-            console.log(utcFormatted)
             setValue('dateStart', utcFormatted)
         }
     }
@@ -50,7 +49,6 @@ export const CompetitionTimeInput = ({
 
             // полная МИРОВАЯ дата и время окончания
             const utcFormatted = combinedLocal.utc().format('YYYY-MM-DD[T]HH:mm:ss[Z]')
-            console.log(utcFormatted)
 
             setValue('dateEnd', utcFormatted)
         }
