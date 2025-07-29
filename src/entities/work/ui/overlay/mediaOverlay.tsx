@@ -17,22 +17,18 @@ import './mediaOverlay.scss'
 interface Props {
     prize?: Prize
     user: User
-    workId: string
+    handleReportCallback: () => void
 }
 
-const MediaOverlay = ({ prize, user, workId }: Props) => {
+const MediaOverlay = ({ prize, user, handleReportCallback }: Props) => {
     // const onCardsClick = () => {}
 
     const [controlModal, setControlModal] = useState<boolean>(false)
-    const [reportModal, setReportModal] = useState<boolean>(false)
 
     const handleControlModal = () => {
         setControlModal(!controlModal)
     }
 
-    const handleReport = () => {
-        setReportModal(true)
-    }
     
     const loginedUser = useSelector((state: RootState) => state.user)
 
@@ -57,12 +53,11 @@ const MediaOverlay = ({ prize, user, workId }: Props) => {
                 <button type='button' onClick={handleControlModal} aria-label="Open modal"><Icon Svg={action} /></button>
 
                 {controlModal && <div className="media__overlay__4__control">
-                    <button onClick = {handleReport} type='button'>Report</button>
+                    <button onClick = {handleReportCallback} type='button'>Report</button>
                     {/* <button onClick = {handleWinner} type='button'>Promote to winners</button> */}
                 </div>}
             </div>
             
-            {reportModal && <ModalWindow isOpen onClose={() => setReportModal(false)}><ModalReport targetType='WORK' targetId={workId}/></ModalWindow>}
         </VStack>
     )
 }

@@ -18,6 +18,7 @@ import { Work } from '../model/types'
 import MediaOverlay from './overlay/mediaOverlay'
 
 import './workCard.scss'
+import ModalReport from 'widgets/modalReport'
 
 interface Props {
     data: Work
@@ -63,17 +64,21 @@ const WorkCard: FC<Props> = (props) => {
         
     }, [workDataLoaded, workData?.media?.[0]?.mediaLink]);
 
+    const [reportModal, setReportModal] = useState<boolean>(false)
 
+    const handleReportCallback = () => {
+        setReportModal(true)
+    }
 
     return (
         <li className='li'>
             <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
                     {workDataLoaded && <MediaOverlay
-                        workId={workData.id}
                         prize={workData.prize}
                         user={workData.user}
                         imageCards={workData.typeWork === 'IMAGE'}
+                        handleReportCallback = {handleReportCallback}
                     />}
                     {workDataLoaded && workData.media && workData.media[0].typeMedia === 'VIDEO' && workData.media?.[0]?.mediaLink && (
                         <Button
@@ -102,7 +107,8 @@ const WorkCard: FC<Props> = (props) => {
                     liked = {workData.userLike}
                 />}
             </VStack>
-
+            
+            {reportModal && <ModalWindow isOpen onClose={() => setReportModal(false)}><ModalReport targetType='WORK' targetId={workData.id}/></ModalWindow>}
             {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={workData} /></ModalWindow>}
         </li>
     )
