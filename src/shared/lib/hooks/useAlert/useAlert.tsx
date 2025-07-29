@@ -19,10 +19,10 @@ export const useAlert = () => {
             setSecondaryText(sText)
         }
 
-        // setTimeout(() => {
-        //     setPrimaryText(null)
-        //     setSecondaryText(null)
-        // }, 3000);
+        setTimeout(() => {
+            setPrimaryText(null)
+            setSecondaryText(null)
+        }, 3000);
 
     }, [])
     
@@ -34,7 +34,7 @@ export const useAlert = () => {
     const Alert = () =>
         primaryText ? (
             <div className="alert">
-                <div className="alert_background"> </div>
+                <div className="alert_background" onClick={handleCloseAlert}></div>
 
                 <div className="alert_content">
                     <div className="alert_primary">{primaryText}</div>

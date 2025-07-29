@@ -46,7 +46,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
                 await instance.delete(`winners/possible/${work.id}`, {headers: {Authorization: `Bearer ${token}`}})
                 setIsWinner(false)
             } catch (error){
-                showAlert(error.response.data.error)
+                showAlert('ERROR', error.response.data.error)
             }
         } else{
             // добавляем победителя
@@ -56,7 +56,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             } catch (error){
                 if(error){
                     setPlaceError(true)
-                    showAlert(error.response.data.error)
+                    showAlert('ERROR', error.response.data.error)
                 }
             }
         }
