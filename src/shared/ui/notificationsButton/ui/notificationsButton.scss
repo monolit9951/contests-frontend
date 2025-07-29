@@ -5,11 +5,11 @@
 
     > .notification_active{
         position: absolute;
-        bottom: 0px;
-        right: -5px;
-        height: 15px;
-        width: 15px;
-        background-color: red;
+        top: -2px;
+        right: -2px;
+        height: 16px;
+        width: 16px;
+        background-color: #0BA486;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -19,29 +19,32 @@
 
     > .notification_list{
         position: absolute;
-        width: 200px;
-        background-color: yellow;
-        color: black;
-        padding: 5px;
-        border-radius: 5px;
+        width: 385px;
+        background-color: #1B2321;
+        color: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-sizing: border-box;
+
         right: -20px;
         top: 35px;
         box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
 
-        > li{
-            background-color: red;
-            padding: 2px;
+        > .notification_list_header{
+            display: flex;
+            justify-content: space-between;
 
-            > button{
-                background-color: transparent;
-                border: none;
-                outline: none;
-                text-align: start;
-                
+            > .notification_list_heading{
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 28px;
             }
+        }
+
+        > ul{
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
         
     }

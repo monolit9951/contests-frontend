@@ -1,0 +1,56 @@
+.notificationItem{
+    padding: 4px 8px 8px 8px;
+    background-color: #393B3B;
+    border-radius: 12px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &.unread{
+        background-color: #393B3B;
+    }
+
+    > .notificationItem_content{
+        display: flex;
+        gap: 16px;
+
+        > .notificationItem_image{
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 40px;
+            width: 40px;
+            border-radius: 12px;
+            background-color: #393B3B;
+        }
+
+        > .notificationItem_text{
+            display: -webkit-box;
+            -webkit-line-clamp: 2;        // Кол строк
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0%;
+            height: 40px;       
+        }
+    }
+
+    > .notificationItem_additional{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        > .notificationItem_time{
+            color: #DDDDDD;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0%;
+        }
+    }
+}

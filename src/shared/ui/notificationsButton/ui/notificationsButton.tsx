@@ -11,6 +11,7 @@ import SockJS from 'sockjs-client'
 import { fetchAllNotifications } from '../model/services/notificationService';
 
 import './notificationsButton.scss'
+import NotificationItem from './components/notificationItem/notificationItem';
 
 if (typeof global === 'undefined') window.global = window;
 
@@ -87,11 +88,19 @@ export const NotificationsButton = () => {
 
             {unread && <div className="notification_active">{' '}</div>}
 
-            {notifDataLoaded && dropList && notifications && (notifications.length > 0? <ul className="notification_list">
-                {notifications.map((data: any, index: number) => (
-                    <li key={index}><button type='button' onClick={() => handleISawNotification(data.id)}>{data.content}</button></li>
-                ))}
-            </ul>
+            {notifDataLoaded && dropList && notifications && (notifications.length > 0? 
+                <div className="notification_list">
+                    <div className="notification_list_header">
+                        <div className="notification_list_heading">Notifications</div>
+                        <div className="notification_list_cross">X</div>
+                    </div>
+
+                    <ul>
+                        {notifications.slice(0, 3).map((data: Notification, index: number) => (
+                            <NotificationItem key={index} notification={data}/>
+                        ))}
+                    </ul>
+                </div>
             :
             <div className='notification_list_empty'>No notifications</div>
             )}
