@@ -13,6 +13,7 @@ import { fetchAllNotifications } from '../model/services/notificationService';
 
 import './notificationsButton.scss'
 import NotificationItem from './components/notificationItem/notificationItem';
+import instance from 'shared/api/api';
 
 if (typeof global === 'undefined') window.global = window;
 
@@ -80,7 +81,21 @@ export const NotificationsButton = () => {
         }
     }, [notifDataLoaded, notifData])
 
-    
+    const handleReadAll = async() => {
+        try{
+            await instance.post('notifications/read-all', {}, {headers:{ Authorization: `Bearer ${token}`}})
+
+            setNotifications(prev =>
+                prev.map(notification => ({
+                    ...notification,
+                    read: true
+                }))
+            );
+
+        } catch (error){
+            console.log(error)
+        }
+    }
 
     // дизайн переделать
     return (
@@ -103,9 +118,12 @@ export const NotificationsButton = () => {
                             <NotificationItem key={index} notification={data}/>
                         ))}
                     </ul>
+
+                    <button type='button' onClick={handleReadAll}>MARK ALL AS READ</button>
                 </div>
             :
             <div className='notification_list_empty'>No notifications</div>
+        
             )}
         </div>
     )
