@@ -19,10 +19,10 @@ export const useAlert = () => {
             setSecondaryText(sText)
         }
 
-        setTimeout(() => {
-            setPrimaryText(null)
-            setSecondaryText(null)
-        }, 3000);
+        // setTimeout(() => {
+        //     setPrimaryText(null)
+        //     setSecondaryText(null)
+        // }, 3000);
 
     }, [])
     
