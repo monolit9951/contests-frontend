@@ -7,6 +7,7 @@ import bellF from 'shared/assets/icons/bellF.svg?react'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest';
 import { Icon } from 'shared/ui/icon'
 import SockJS from 'sockjs-client'
+import cross from 'shared/assets/icons/X.svg'
 
 import { fetchAllNotifications } from '../model/services/notificationService';
 
@@ -92,7 +93,9 @@ export const NotificationsButton = () => {
                 <div className="notification_list">
                     <div className="notification_list_header">
                         <div className="notification_list_heading">Notifications</div>
-                        <div className="notification_list_cross">X</div>
+                        <button className="notification_list_cross" type='button' onClick={() => {setDropList(false)}}>
+                            <img src={cross} alt="cross" />
+                        </button>
                     </div>
 
                     <ul>

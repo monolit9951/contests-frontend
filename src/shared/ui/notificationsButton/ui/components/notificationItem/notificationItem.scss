@@ -1,6 +1,6 @@
 .notificationItem{
     padding: 4px 8px 8px 8px;
-    background-color: #393B3B;
+    background-color: transparent;
     border-radius: 12px;
     height: 80px;
     display: flex;
@@ -44,7 +44,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        
+
         > .notificationItem_time{
             color: #DDDDDD;
             font-weight: 400;
