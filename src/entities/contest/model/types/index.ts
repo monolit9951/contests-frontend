@@ -5,7 +5,7 @@ import { PageEntityDTO } from 'shared/lib/types'
 
 export type Status = 'ACTIVE' | 'FINISHED' | 'UPCOMING' | 'SELECTION_IN_PROGRESS' | 'WINNER_CONFIRMATION' | 'MODERATOR_SELECTION'
 
-export type Category = '' | 'FOR_FUN' | 'FOR_WORK'
+export type Category = '' | 'DARE' | 'CONTEST'
 
 export type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
 
@@ -38,7 +38,7 @@ export interface Contest {
     id: string
     name: string
     status: Status
-    category: Category
+    contestType: Category
     subcategory: SubCategory
     backgroundImage: string
     participantAmount: number

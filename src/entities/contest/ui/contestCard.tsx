@@ -31,15 +31,15 @@ const ContestCard: React.FC<Props> = (props) => {
     const deadline = moment(dateEnd).format('DD.MM.YYYY')
     const startline = moment(rest.dateStart).format('DD.MM.YYYY')
 
-    const tagType = rest.category
+    const tagType = rest.contestType
 
     const { currency, prizeAmount, prizeText, prizeType } = prizesPreviews[0]
 
     const getBgColor = () => {
-        if (tagType === 'FOR_FUN') {
+        if (tagType === 'CONTEST') {
             return 'var(--purple)'
         }
-        if (tagType === 'FOR_WORK') {
+        if (tagType === 'DARE') {
             return 'var(--orange)'
         }
         return 'var(--green)'
@@ -50,7 +50,6 @@ const ContestCard: React.FC<Props> = (props) => {
     }
 
     const user = useSelector((state: RootState) => state.user)
-
 
     return (
         <div className={clsx('contest-card-wrapper', className)}>
