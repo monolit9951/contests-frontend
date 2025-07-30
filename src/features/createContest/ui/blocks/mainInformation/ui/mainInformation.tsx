@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { useFormContext } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import clsx from 'clsx'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import { Icon } from 'shared/ui/icon'
-import { Input, Textarea } from 'shared/ui/input'
+import { Combobox, Input, Textarea } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
@@ -12,6 +12,7 @@ import { ImageUpload } from './imageUpload'
 import { RadioContainer, RadioEl } from './radioContainer'
 
 import './mainInformation.scss'
+import { categories } from '../mockData'
 
 interface Props {
     submitError: boolean
@@ -22,7 +23,7 @@ export const MainInformation = ({ submitError }: Props) => {
 
     const {
         register,
-        // control,
+        control,
         formState: { errors },
         getValues,
     } = useFormContext()
@@ -49,7 +50,7 @@ export const MainInformation = ({ submitError }: Props) => {
                     maxLength={100}
                     error={errors.name && (errors.name.message as string)}
                 />
-{/* 
+
                 <HStack className='categoryInputs_container'>
                     <Controller
                         name='category'
@@ -72,7 +73,7 @@ export const MainInformation = ({ submitError }: Props) => {
                             />
                         )}
                     />
-                    <Controller
+                    {/* <Controller
                         name='subcategory'
                         control={control}
                         rules={{ required: 'Select subcategory' }}
@@ -92,8 +93,8 @@ export const MainInformation = ({ submitError }: Props) => {
                                 }
                             />
                         )}
-                    />
-                </HStack> */}
+                    /> */}
+                </HStack>
             </VStack>
 
             <ImageUpload text='Cover image' extra='1704/390'/>

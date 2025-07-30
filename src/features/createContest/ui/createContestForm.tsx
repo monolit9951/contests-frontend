@@ -89,18 +89,18 @@ const CreateContestForm = () => {
         setDateValidation('')
       
 
-        const dto = {
-            "name": data.name,
-            "participantAmount": 0, 
-            "maxAllowedParticipantAmount": 1, 
-            "dateStart": data.dateStart, 
-            "dateEnd": data.dateEnd, 
-            "prizes": data.prizes,
-            "selectionType": data.selectionType, 
-            "description": data.description
-        }
+        const formData = new FormData()
 
-        const formData = new FormData()  
+        const dto = {
+            name: data.name,
+            maxAllowedParticipantAmount: 3,
+            dateStart: data.dateStart,
+            dateEnd: data.dateEnd,
+            prizes: data.prizes,
+            selectionType: data.selectionType,
+            contestType: data.category,
+            description: data.description
+        };
 
         formData.append(
             'dto', 

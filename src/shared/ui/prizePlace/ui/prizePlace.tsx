@@ -18,7 +18,7 @@ interface PrizePlaceProps {
 
 const types = [
     { value: 'MONEY', label: 'Money' },
-    { value: 'ITEM', label: 'Item' },
+    { value: 'COINS', label: 'Coins' },
 ]
 
 export const PrizePlace: FC<PrizePlaceProps> = ({
