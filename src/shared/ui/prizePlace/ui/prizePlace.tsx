@@ -27,10 +27,17 @@ export const PrizePlace: FC<PrizePlaceProps> = ({
     last,
     onDelete,
 }) => {
-    const { register, control, setValue } = useFormContext()
+    const {
+        register,
+        control,
+        // formState: { errors },
+        // getValues,
+        setValue
+    } = useFormContext()
 
     return (
         <VStack className='prizePlace_outercontainer'>
+
             <HStack>
                 <HStack className='prizePlace_container'>
                     <div className="prizePlace_firstPart">

@@ -74,6 +74,7 @@ const CreateContestForm = () => {
 
     const onSubmit = async (data: ContestCreationFormData) => {
         const hasExampleMedia = data.exampleMedia?.some((file) => file)
+
         // дата начала больше текущей даты
         if (moment(data.dateStart).isSameOrBefore(moment())) {
             setDateValidation('Starting date must be greater than current date')
@@ -85,6 +86,16 @@ const CreateContestForm = () => {
             setDateValidation('Deadline cannot be before or equal to starting date')
             return
         }
+        
+        console.log(data.maxAllowedParticipantAmount)
+        if (!data.maxAllowedParticipantAmount || data.maxAllowedParticipantAmount === 0) {
+            console.log(data.maxAllowedParticipantAmount)
+            methods.setError('prizes', {
+                type: 'manual',
+                message: 'No Allowed Participant',
+            })
+            return
+        }
 
         setDateValidation('')
       
@@ -93,7 +104,7 @@ const CreateContestForm = () => {
 
         const dto = {
             name: data.name,
-            maxAllowedParticipantAmount: 3,
+            maxAllowedParticipantAmount: data.maxAllowedParticipantAmount,
             dateStart: data.dateStart,
             dateEnd: data.dateEnd,
             prizes: data.prizes,
