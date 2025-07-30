@@ -22,14 +22,14 @@ export const CategoryFilter = () => {
             <CategoryFilterOption
                 _currFilter={_currFilter}
                 setCurrFilter={setCurrFilter}
-                FilterOption='FOR_FUN'
-                text='For fun'
+                FilterOption='DARE'
+                text='Dare'
             />
             <CategoryFilterOption
                 _currFilter={_currFilter}
                 setCurrFilter={setCurrFilter}
-                FilterOption='FOR_WORK'
-                text='For work'
+                FilterOption='CONTEST'
+                text='Contest'
             />
         </div>
     )

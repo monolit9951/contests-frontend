@@ -30,13 +30,13 @@ export const CategoryFilterOption = ({
         let categoryTheme: CategoryTheme
 
         switch (FilterOption) {
-            case 'FOR_FUN':
-                category = 'FOR_FUN'
+            case 'DARE':
+                category = 'DARE'
                 categoryTheme = CategoryTheme.FOR_FUN
                 break
 
-            case 'FOR_WORK':
-                category = 'FOR_WORK'
+            case 'CONTEST':
+                category = 'CONTEST'
                 categoryTheme = CategoryTheme.FOR_WORK
                 break
 
