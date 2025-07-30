@@ -10,6 +10,7 @@ import { VStack } from 'shared/ui/stack'
 // import { Text } from 'shared/ui/text'
 // import { UserIcon } from 'shared/ui/userIcon'
 import { Video } from 'shared/ui/videoPlayer'
+import ModalReport from 'widgets/modalReport'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 import { getWorkById } from '../model/services/workServices'
@@ -18,7 +19,6 @@ import { Work } from '../model/types'
 import MediaOverlay from './overlay/mediaOverlay'
 
 import './workCard.scss'
-import ModalReport from 'widgets/modalReport'
 
 interface Props {
     data: Work

@@ -1,8 +1,9 @@
-import { FC, useState } from "react"
-import './notificationItem.scss'
+import { FC } from "react"
 import { Notification } from "entities/notification"
 import statusRead from 'shared/assets/icons/statusRead.svg'
 import statusUnread from 'shared/assets/icons/statusUnread.svg'
+
+import './notificationItem.scss'
 
 interface Props{
     notification: Notification
@@ -10,15 +11,10 @@ interface Props{
 
 const NotificationItem: FC<Props> = ({notification}) => {
     // время в UTC 
-    console.log(notification)
-    const [notifRead, setNorifRead] = useState<boolean>(notification.read)
 
-    const handleRead = async() => {
-        setNorifRead(true)
-    }
 
     return(
-        <li className={`notificationItem ${!notifRead && 'unread'}`} onClick={handleRead}>
+        <li className={`notificationItem ${!notification.read && 'unread'}`} >
             
             <div className='notificationItem_content'>
                 <div className="notificationItem_image">d</div>
@@ -27,7 +23,7 @@ const NotificationItem: FC<Props> = ({notification}) => {
 
             <div className="notificationItem_additional">
                 <div className="notificationItem_time">{notification.createdAt}</div>
-                <img src={notifRead? statusRead : statusUnread} alt="status" />
+                <img src={notification.read? statusRead : statusUnread} alt="status" />
             </div>
         </li>
     )

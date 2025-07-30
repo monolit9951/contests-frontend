@@ -92,7 +92,7 @@ const CreateContestForm = () => {
         const dto = {
             "name": data.name,
             "participantAmount": 0, 
-            "maxAllowedParticipantAmount": 100, 
+            "maxAllowedParticipantAmount": 1, 
             "dateStart": data.dateStart, 
             "dateEnd": data.dateEnd, 
             "prizes": data.prizes,

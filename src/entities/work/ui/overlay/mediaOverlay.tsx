@@ -7,10 +7,8 @@ import { User } from 'entities/user'
 import action from 'shared/assets/icons/tripleDot.svg?react'
 // import video from 'shared/assets/icons/video.svg?react'
 import { Icon } from 'shared/ui/icon'
-import { ModalWindow } from 'shared/ui/modalWindow'
 import { VStack } from 'shared/ui/stack'
 import { UserIcon } from 'shared/ui/userIcon'
-import ModalReport from 'widgets/modalReport'
 
 import './mediaOverlay.scss'
 

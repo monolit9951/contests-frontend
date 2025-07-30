@@ -3,17 +3,18 @@
 import { useEffect, useState } from 'react'
 import { Client } from '@stomp/stompjs';
 import { Notification } from 'entities/notification';
+import instance from 'shared/api/api';
 import bellF from 'shared/assets/icons/bellF.svg?react'
+import cross from 'shared/assets/icons/X.svg'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest';
 import { Icon } from 'shared/ui/icon'
 import SockJS from 'sockjs-client'
-import cross from 'shared/assets/icons/X.svg'
 
 import { fetchAllNotifications } from '../model/services/notificationService';
 
-import './notificationsButton.scss'
 import NotificationItem from './components/notificationItem/notificationItem';
-import instance from 'shared/api/api';
+
+import './notificationsButton.scss'
 
 if (typeof global === 'undefined') window.global = window;
 
