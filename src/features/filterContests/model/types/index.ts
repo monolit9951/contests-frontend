@@ -15,6 +15,7 @@ type CreatorsFilter = '' | 'Blogger' | 'Store' | 'Company' | 'User'
 export interface FilterItem {
     name: string
     number: number
+    apiKey: string
 }
 
 export interface FilterObject {
@@ -25,6 +26,7 @@ export interface FilterObject {
 export interface FilterPayloadObj {
     filterName: string
     name: string
+    apiKey: string
 }
 
 export interface FilterData {

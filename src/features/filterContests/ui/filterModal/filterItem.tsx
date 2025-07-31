@@ -16,10 +16,11 @@ interface FilterItemProps {
     number: number
     filter: FilterObject
     className?: string
+    apiKey: string
 }
 
 export default function FilterItem(props: FilterItemProps) {
-    const { name, number, filter, className } = props
+    const { name, number, filter, className, apiKey } = props
 
     const [itemActive, setItemActive] = useState(false)
 
@@ -35,16 +36,19 @@ export default function FilterItem(props: FilterItemProps) {
         )
     }, [selected.filtersList])
 
+
     const onBtnClick = () => {
         let payload = {
             filterName: '',
             name: '',
+            apiKey: ''
         }
         switch (filter.name) {
             case 'Status':
                 payload = {
                     filterName: 'status',
                     name,
+                    apiKey
                 }
 
                 // if (selected.status) {
@@ -62,6 +66,7 @@ export default function FilterItem(props: FilterItemProps) {
                 payload = {
                     filterName: 'prizeType',
                     name,
+                    apiKey
                 }
 
                 if (selected.filtersList.some((item) => item.name === name)) {
@@ -75,6 +80,7 @@ export default function FilterItem(props: FilterItemProps) {
                 payload = {
                     filterName: 'creators',
                     name,
+                    apiKey
                 }
 
                 if (selected.filtersList.some((item) => item.name === name)) {

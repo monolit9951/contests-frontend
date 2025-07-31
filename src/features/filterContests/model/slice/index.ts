@@ -43,11 +43,14 @@ const slice = createSlice({
             }
         },
         addFilter: (state, action: FilterPayload) => {
+            console.log(action.payload)
             state.selected.filtersList.push(action.payload)
             state.selected = {
                 ...state.selected,
                 [action.payload.filterName]: action.payload.name,
             }
+
+            console.log(initialState.selected.filtersList)
             // state.selected.filtersList = state.selected.filtersList.filter(
             //     (item) =>
             //         item.filterName !== action.payload.filterName ||
