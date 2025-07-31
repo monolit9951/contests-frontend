@@ -15,8 +15,9 @@ import { fetchAllNotifications } from '../model/services/notificationService';
 import NotificationItem from './components/notificationItem/notificationItem';
 
 import './notificationsButton.scss'
+import { Button } from 'shared/ui/button';
 
-if (typeof global === 'undefined') window.global = window;
+// if (typeof global === 'undefined') window.global = window;
 
 
 export const NotificationsButton = () => {
@@ -50,7 +51,8 @@ export const NotificationsButton = () => {
             if (message.body) {
                 const data = JSON.parse(message.body)
                 setNotifications((prev) => [data, ...prev])
-
+                console.log("NEW MESSAGE")
+                setUnread(true)
             }
             })
         },
@@ -66,21 +68,12 @@ export const NotificationsButton = () => {
         };
     }, []);
 
-
-    // проверка на работу 
-    useEffect(() => {
-
-        if(notifDataLoaded){
-            setUnread(notifData.content.some(item => item.read === false))
-        }
-
-    }, [notifications, notifData, notifDataLoaded])
-
     useEffect(() => {
         if(notifDataLoaded){
             setNotifications(notifData.content)
+            setUnread(notifData.content.some(item => item.read === false))
         }
-    }, [notifDataLoaded, notifData])
+    }, [notifDataLoaded])
 
     const handleReadAll = async() => {
         try{
@@ -92,6 +85,8 @@ export const NotificationsButton = () => {
                     read: true
                 }))
             );
+
+            setUnread(false)
 
         } catch (error){
             console.log(error)
@@ -119,8 +114,9 @@ export const NotificationsButton = () => {
                             <NotificationItem key={index} notification={data}/>
                         ))}
                     </ul>
-
-                    <button type='button' onClick={handleReadAll}>MARK ALL AS READ</button>
+                    <div className="notification_list_readAll">
+                        <Button  variant = 'primary'type='button' onClick={handleReadAll}>MARK ALL AS READ</Button>
+                    </div>
                 </div>
             :
             <div className='notification_list_empty'>No notifications</div>

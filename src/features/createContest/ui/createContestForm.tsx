@@ -87,9 +87,7 @@ const CreateContestForm = () => {
             return
         }
         
-        console.log(data.maxAllowedParticipantAmount)
         if (!data.maxAllowedParticipantAmount || data.maxAllowedParticipantAmount === 0) {
-            console.log(data.maxAllowedParticipantAmount)
             methods.setError('prizes', {
                 type: 'manual',
                 message: 'No Allowed Participant',

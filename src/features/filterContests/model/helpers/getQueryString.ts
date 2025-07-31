@@ -15,8 +15,6 @@ export const getQueryString = (filters: FiltersObj) => {
     // console.log(prizeTypeFilters)
     // console.log(creatorFilters)
 
-    console.log(filters.filtersList)
-
     if(statusFilters.length > 0){
         statusFilters.map((item) => paramsArr.push(`status=${item.apiKey}`))
     }

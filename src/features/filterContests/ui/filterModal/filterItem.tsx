@@ -8,8 +8,8 @@ import {
 } from 'features/filterContests'
 import { FilterPayloadObj } from 'features/filterContests/model/types'
 import { useAppSelector } from 'shared/lib/store'
-import { Text } from 'shared/ui/text'
 import { VStack } from 'shared/ui/stack'
+import { Text } from 'shared/ui/text'
 
 interface FilterItemProps {
     name: string

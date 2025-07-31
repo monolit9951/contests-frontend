@@ -3,12 +3,12 @@ import { ContestCreationFormData } from 'features/createContest/model/types'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
+import { Input } from 'shared/ui/input'
 import { PrizePlace } from 'shared/ui/prizePlace'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './prizeInformation.scss'
-import { Input } from 'shared/ui/input'
 
 export const PrizeInformation = () => {
     const {
