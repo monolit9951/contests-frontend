@@ -15,6 +15,8 @@ export const fetchContests = createAsyncThunk(
         const { rejectWithValue, getState } = thunkApi
 
         const pageSize = selectPageSize(getState())
+        console.log(pageSize)
+        // const pageSize = 40
         const direction = selectSortDirection(getState())
         const searchStr = selectSearchString(getState())
         const category = selectCategory(getState())
@@ -27,6 +29,14 @@ export const fetchContests = createAsyncThunk(
                 }${category && `&val=category=${category}`}&${getQueryString(
                     activeFilters
                 )}`
+                // `/contests?page=0&pageSize=
+                //     ${pageSize}
+                //     &sortDirection=${direction}
+                //     ${searchStr && `&val=searchString=${searchStr}`}
+                //     ${category && `&val=category=${category}`}
+                //     &${getQueryString(
+                //         activeFilters
+                //     )}`
             )
 
             if (!response.data) {
