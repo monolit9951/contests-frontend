@@ -47,16 +47,16 @@ export default function FilterItem(props: FilterItemProps) {
                     name,
                 }
 
-                if (selected.status) {
-                    if (itemActive) {
+                // if (selected.status) {
+                    if (selected.filtersList.some((item) => item.name === name)) {
                         dispatch(filterActions.removeFilter(payload))
                         break
                     }
                     dispatch(filterActions.addFilter(payload))
                     break
-                }
-                dispatch(filterActions.addFilter(payload))
-                break
+                // }
+                // dispatch(filterActions.addFilter(payload))
+                // break
 
             case 'Prize type':
                 payload = {
@@ -64,12 +64,8 @@ export default function FilterItem(props: FilterItemProps) {
                     name,
                 }
 
-                if (selected.prizeType) {
-                    if (selected.prizeType === name) {
-                        dispatch(filterActions.removeFilter(payload))
-                        break
-                    }
-                    dispatch(filterActions.addFilter(payload))
+                if (selected.filtersList.some((item) => item.name === name)) {
+                    dispatch(filterActions.removeFilter(payload))
                     break
                 }
                 dispatch(filterActions.addFilter(payload))
@@ -81,12 +77,8 @@ export default function FilterItem(props: FilterItemProps) {
                     name,
                 }
 
-                if (selected.creators) {
-                    if (selected.creators === name) {
-                        dispatch(filterActions.removeFilter(payload))
-                        break
-                    }
-                    dispatch(filterActions.addFilter(payload))
+                if (selected.filtersList.some((item) => item.name === name)) {
+                    dispatch(filterActions.removeFilter(payload))
                     break
                 }
                 dispatch(filterActions.addFilter(payload))
