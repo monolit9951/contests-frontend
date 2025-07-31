@@ -18,15 +18,18 @@ interface UploadWorkModalInterface {
 
 const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) => {
   const [text, setText] = useState<string>('');
-
+  const [textareaError, setTextAreaError] = useState<string>('')
   const {showAlert, Alert} = useAlert()
+  const [mediaArray, setMediaArray] = useState<MediaItem[]>([]);
 
+
+  // отловить изменение текста
   const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setTextAreaError('')
     setText(event.target.value);
   };
 
-  const [mediaArray, setMediaArray] = useState<MediaItem[]>([]);
-
+  // добавление файлов
   const handleMedia = (newFiles: FileList | File[]) => {
     const fileArray = Array.from(newFiles).map((file) => ({
       id: uuidv4(),
@@ -35,12 +38,14 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
     setMediaArray((prev) => [...prev, ...fileArray]);
   };
 
+  // инпут файлов
   const handleMediaInputCallback = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       handleMedia(event.target.files);
     }
   };
 
+  // удаление файлов
   const handleRemoveMediaCallback = (id: string) => {
     setMediaArray((prev) => prev.filter((item) => item.id !== id));
   };
@@ -48,7 +53,8 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
 
   // создание ворка
   const handleWorkSubmit = async () => {
-    if (text === '') {
+    if (text === '' || text.length < 10 || text.length > 500) {
+      setTextAreaError('Text must be from 10 to 500 letters')
       return;
     }
 
@@ -59,28 +65,33 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
         description: text,
       }, {headers: {Authorization: `Bearer ${token}`}});
 
-      const workId = response.data.id;
-      const formData = new FormData();
 
-      mediaArray.forEach(({ file }) => {
-        formData.append('media', file);
-      });
+      if(mediaArray.length > 0){
 
-      try{
-        await instance.post(`/media/${workId}`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
+        const workId = response.data.id;
+        const formData = new FormData();
+
+        mediaArray.forEach(({ file }) => {
+          formData.append('media', file);
         });
-        onClose()
-      } catch (error){
-        showAlert('Error', error.response.data.description)
-        if(error){
-          instance.delete(`/works/${workId}`)
-        }
-      }
 
+        try{
+          await instance.post(`/media/${workId}`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          onClose()
+        } catch (error){
+          showAlert('Error', error.response.data.description)
+          if(error){
+            instance.delete(`/works/${workId}`)
+          }
+        }
+      } else{
+        onClose()
+      }
     } catch (error) {
       // console.log(error.response.data)
       showAlert('Error', error.response.data.description)
@@ -88,6 +99,7 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
     }
   };
 
+  // закрыть модалку на кенцел
   const handleCancel = () => {
     onClose();
   };
@@ -109,6 +121,7 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
             label='Additional Comments or Requirements'
             placeholder='Sample placeholder...'
             maxLength={300}
+            error = {textareaError}
             onChange={handleTextAreaChange}
           />
         </div>
