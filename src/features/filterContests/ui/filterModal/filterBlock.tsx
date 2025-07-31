@@ -123,6 +123,7 @@ export default function FilterBlock(props: FilterBlockProps) {
             )
         }
 
+        // инпут рендж для стоимости приза
         return (
             <>
                 <HStack className='justify__between'>

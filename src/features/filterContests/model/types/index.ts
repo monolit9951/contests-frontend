@@ -8,9 +8,9 @@ type StatusFilter =
     | 'Finished'
     | 'Upcoming'
 
-type PrizeTypeFilter = '' | 'Money prize' | 'Item prize'
+type PrizeTypeFilter = '' | 'Money prize' | 'Coins prize'
 
-type CreatorsFilter = '' | 'Blogger' | 'Store' | 'Company'
+type CreatorsFilter = '' | 'Blogger' | 'Store' | 'Company' | 'User'
 
 export interface FilterItem {
     name: string

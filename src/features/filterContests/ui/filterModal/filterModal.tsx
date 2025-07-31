@@ -13,13 +13,17 @@ import { Text } from 'shared/ui/text'
 import FilterBlock from './filterBlock'
 
 interface FiltersData {
-    ITEM: number
+    COINS: number
     MONEY: number
+
     UPCOMING: number
     ACTIVE: number
+    FINISHED: number
+    MODERATOR_SELECTION: number
+
     BLOGGER: number
     STORE: number
-    FINISHED: number
+    USER: number
     COMPANY: number
 }
 

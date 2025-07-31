@@ -9,6 +9,7 @@ import {
 import { FilterPayloadObj } from 'features/filterContests/model/types'
 import { useAppSelector } from 'shared/lib/store'
 import { Text } from 'shared/ui/text'
+import { VStack } from 'shared/ui/stack'
 
 interface FilterItemProps {
     name: string
@@ -106,9 +107,9 @@ export default function FilterItem(props: FilterItemProps) {
                 )}>
                 <Text Tag='span'>
                     {name}
-                    <Text Tag='span' size='sm'>
+                    <VStack Tag='span' size='sm'>
                         ({number})
-                    </Text>
+                    </VStack>
                 </Text>
             </button>
         </li>

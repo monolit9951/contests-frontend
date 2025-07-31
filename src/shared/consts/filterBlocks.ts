@@ -16,7 +16,7 @@ export const mockFilterData: FilterData = {
         name: 'Prize type',
         items: [
             { name: 'Money prize', number: 0 },
-            { name: 'Item prize', number: 0 },
+            { name: 'Coins prize', number: 0 },
         ],
     },
     creators: {
@@ -25,6 +25,7 @@ export const mockFilterData: FilterData = {
             { name: 'Blogger', number: 0 },
             { name: 'Store', number: 0 },
             { name: 'Company', number: 0 },
+            { name: 'User', number: 0}
         ],
     },
 }
