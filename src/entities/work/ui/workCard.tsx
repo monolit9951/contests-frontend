@@ -70,6 +70,8 @@ const WorkCard: FC<Props> = (props) => {
         setReportModal(true)
     }
 
+    console.log(workData)
+
     return (
         <li className='li'>
             <VStack className={clsx('media-work', className)}>
@@ -80,7 +82,7 @@ const WorkCard: FC<Props> = (props) => {
                         imageCards={workData.typeWork === 'IMAGE'}
                         handleReportCallback = {handleReportCallback}
                     />}
-                    {workDataLoaded && workData.media && workData.media[0].typeMedia === 'VIDEO' && workData.media?.[0]?.mediaLink && (
+                    {workDataLoaded && workData.media && workData.media[0]?.typeMedia === 'VIDEO' && workData.media?.[0]?.mediaLink && (
                         <Button
                             variant='div'
                             onClick={handleOpenModal}
@@ -88,7 +90,7 @@ const WorkCard: FC<Props> = (props) => {
                             {videoBlock}
                         </Button>
                     )}
-                    {workDataLoaded && workData.media && workData.media[0].typeMedia === 'IMAGE'&& workData.media?.[0]?.mediaLink && (
+                    {workDataLoaded && workData.media && workData.media[0]?.typeMedia === 'IMAGE'&& workData.media?.[0]?.mediaLink && (
                         <Image
                             src={workData.media?.[0].mediaLink}
                             alt='media'
@@ -98,6 +100,9 @@ const WorkCard: FC<Props> = (props) => {
                             className='media-work__frame'
                         />
                     )}
+                    {
+                        workDataLoaded && workData.media.length === 0 && (<div>NO MEDIA</div>)
+                    }
                 </div>
                 {workDataLoaded && <MediaFeedback
                     id={workData.id}
