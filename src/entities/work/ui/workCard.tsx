@@ -101,7 +101,7 @@ const WorkCard: FC<Props> = (props) => {
                         />
                     )}
                     {
-                        workDataLoaded && workData.media.length === 0 && (<div>NO MEDIA</div>)
+                        workDataLoaded && workData.media.length === 0 && (<div>{workData.description}</div>)
                     }
                 </div>
                 {workDataLoaded && <MediaFeedback
