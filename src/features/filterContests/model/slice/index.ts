@@ -48,12 +48,12 @@ const slice = createSlice({
                 ...state.selected,
                 [action.payload.filterName]: action.payload.name,
             }
-            state.selected.filtersList = state.selected.filtersList.filter(
-                (item) =>
-                    item.filterName !== action.payload.filterName ||
-                    (item.filterName === action.payload.filterName &&
-                        item.name === action.payload.name)
-            )
+            // state.selected.filtersList = state.selected.filtersList.filter(
+            //     (item) =>
+            //         item.filterName !== action.payload.filterName ||
+            //         (item.filterName === action.payload.filterName &&
+            //             item.name === action.payload.name)
+            // )
         },
         removeFilter: (state, action: FilterPayload) => {
             state.selected = {

@@ -48,7 +48,7 @@ export default function FilterItem(props: FilterItemProps) {
                 }
 
                 if (selected.status) {
-                    if (selected.status === name) {
+                    if (itemActive) {
                         dispatch(filterActions.removeFilter(payload))
                         break
                     }
