@@ -36,10 +36,10 @@ const ContestCard: React.FC<Props> = (props) => {
     const { currency, prizeAmount, prizeText, prizeType } = prizesPreviews[0]
 
     const getBgColor = () => {
-        if (tagType === 'CONTEST') {
+        if (tagType === 'DARE') {
             return 'var(--purple)'
         }
-        if (tagType === 'DARE') {
+        if (tagType === 'CONTEST') {
             return 'var(--orange)'
         }
         return 'var(--green)'
