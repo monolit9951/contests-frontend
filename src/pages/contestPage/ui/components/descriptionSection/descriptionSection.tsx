@@ -28,6 +28,7 @@ interface Props {
 
 const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
     const deadline = moment(data.dateEnd).format('DD.MM.YYYY, h a')
+    const dateStart = moment(data.dateStart).format('DD.MM.YYYY, h a')
 
     const contestStatus = () => {
         switch (data.status) {
@@ -231,7 +232,17 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                 {contestStatus() === 'Finished'? `Ended: ${deadline}` : `${deadline}`}
                             </Text>
                         </HStack>
+                        <Text Tag='h4' bold size='l'>
+                            Date start
+                        </Text>
+                        <HStack className='align__center'>
+                            <Icon Svg={calendar} width={36} height={36} />
+                            <Text Tag='span' size='xl'>
+                                {contestStatus() === 'Finished'? `Started: ${dateStart}` : `${dateStart}`}
+                            </Text>
+                        </HStack>
                     </VStack>
+                    
 
                         {user.userId !== null && user.userId === data.contestOwner.id && <HStack>
                             <Link to= {`/chooseWinner/${data.id}`}>CHOOSE WINNERS</Link>
