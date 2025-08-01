@@ -233,9 +233,9 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                         </HStack>
                     </VStack>
 
-                        <HStack>
+                        {user.userId !== null && user.userId === data.contestOwner.id && <HStack>
                             <Link to= {`/chooseWinner/${data.id}`}>CHOOSE WINNERS</Link>
-                        </HStack>
+                        </HStack>}
                 </VStack>
             </HStack>
 
