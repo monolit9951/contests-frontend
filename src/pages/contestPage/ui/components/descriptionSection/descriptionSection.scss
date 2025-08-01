@@ -108,15 +108,21 @@
 
                 & > li {
                     padding: 8px;
-
+                    
                     > span {
                         line-height: 32px;
                     }
 
                     > div{
-                    align-items: center;
-                        > div {
+                        align-items: center;
+                        > .align__center {
+                            align-items: center;
                             gap: 8px;
+                            // .image__no-select{
+                            //     display: flex;
+                                
+                            //     background-color: red;
+                            // }
                         }
                     } 
                 

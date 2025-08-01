@@ -200,8 +200,8 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                                         size='xl'
                                                         bold
                                                         className='prize-text'>
-                                                        {prizeType === 'ITEM'
-                                                            ? prizeText
+                                                        {prizeType === 'COINS'
+                                                            ? `${prizeText} Coins`
                                                             : `${prizeAmount.toFixed(
                                                                   0
                                                               )} 
@@ -210,7 +210,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                                 </HStack>
                                                 <Icon
                                                     Svg={
-                                                        prizeType === 'ITEM'
+                                                        prizeType === 'COINS'
                                                             ? itemIcon
                                                             : moneyIcon
                                                     }
