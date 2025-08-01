@@ -90,7 +90,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                     <ul className='tags-list'>
                         <li>
                             <Text Tag='span' size='sm'>
-                                {capitalizeStr(data.status)}
+                                {capitalizeStr(data.contestType)}
                             </Text>
                         </li>
                         {/* <li>
@@ -108,10 +108,10 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                 
                 <Button
                     variant='primary'
-                    disabled={contestStatus() === 'Finished' || contestStatus() === 'Upcoming'}
+                    disabled={contestStatus() !== 'Active'}
                     onClick={onParticipateClick}
                     className='participate-btn'>
-                    <Text Tag='span'>{contestStatus()}</Text>
+                    <Text Tag='span'>Participate</Text>
                 </Button>
             </HStack>
             
@@ -239,7 +239,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                 </VStack>
             </HStack>
 
-            {regModal && <ModalWindow isOpen onClose={() => (setRegModal(false))}><RegistrationModal auth/></ModalWindow>}
+            {regModal && <ModalWindow isOpen onClose={() => (setRegModal(false))}><RegistrationModal onClose={() => (setRegModal(false))} auth/></ModalWindow>}
             {exampleGaleryModal && <ModalWindow isOpen onClose={closeExapmpleGaleryModal}><ExampleGaleryModal media={data.exampleMedia} index={chosenExapmleIndex}/></ModalWindow>}
         </section>
     )

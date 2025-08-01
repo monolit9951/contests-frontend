@@ -123,8 +123,8 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
 
             {!work && (
                 <HStack className='comments__input-wrapper-contest align__center'>
-                    <UserIcon size={40} wrapperClassName='align__start' src = {user.userProfileImg}/>
-                    <VStack className='comments__input-box'>
+                    {/* <UserIcon size={40} wrapperClassName='align__start' src = {user.userProfileImg}/> */}
+                    <HStack className='comments__input-box'>
                         <Input
                             name='comment'
                             type='text'
@@ -157,7 +157,7 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
                                 </Button>
                             </HStack>
                         )}
-                    </VStack>
+                    </HStack>
                 </HStack>
             )}
 
@@ -176,7 +176,7 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
 
             {work && (
                 <HStack className='comments__input-wrapper-work align__center'>
-                    <UserIcon size={40} src={user.userProfileImg}/>
+                    {/* <UserIcon size={40} src={user.userProfileImg}/> */}
                     <Input
                         name='comment'
                         type='text'
