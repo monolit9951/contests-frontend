@@ -9,8 +9,14 @@ interface UploadWorkMediaInputInterface {
 
 // вынести в отдельный файл для экспорта
 const allowedTypes = [
-    'image/jpeg', 'image/png', 'image/gif', 'image/webp',
-    'video/mp4', 'video/webm', 'video/quicktime',
+    'image/jpeg',
+    'image/png', 
+    // 'image/gif', 
+    'image/webp',
+
+    'video/mp4', 
+    'video/webm', 
+    // 'video/quicktime',
 ];
 
 

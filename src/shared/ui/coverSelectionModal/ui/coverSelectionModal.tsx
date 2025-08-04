@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import clsx from 'clsx'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
@@ -45,6 +45,8 @@ export const CoverSelectionModal = ({
         useState<boolean>(true)
     const [isUploading, setIsUploading] = useState<boolean>(false)
     const [currBlob, setCurrBlob] = useState<Blob | string>('')
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const [isDragging, setIsDragging] = useState(false);
     // const [currFile, setCurrFile] = useState<any>(null)
     const { setValue } = useFormContext()
 
@@ -106,7 +108,9 @@ export const CoverSelectionModal = ({
                 setImgName(file.name)
             }
             reader.readAsDataURL(file)
+            setIsUploading(true)
         }
+        
     }
 
     // возвращаем обработанное фото
@@ -121,6 +125,49 @@ export const CoverSelectionModal = ({
     // обработка правильного aspect-ration
     const [numerator, denominator] = extra.split('/').map(Number)
     const extraNumber = Number((numerator / denominator).toFixed(3))
+
+    useEffect(() => {
+        const onDragEnter = (e: DragEvent) => {
+        e.preventDefault();
+        setIsDragging(true);
+        };
+
+        const onDragLeave = (e: DragEvent) => {
+        e.preventDefault();
+        if (e.relatedTarget === null) setIsDragging(false);
+        };
+
+        const onDragOver = (e: DragEvent) => {
+        e.preventDefault();
+        };
+
+        const onDrop = (e: DragEvent) => {
+        e.preventDefault();
+        setIsDragging(false);
+
+        if (e.dataTransfer?.files && inputRef.current) {
+            const fileList = new DataTransfer();
+            Array.from(e.dataTransfer.files).forEach(file => fileList.items.add(file));
+            inputRef.current.files = fileList.files;
+
+            // вручную вызвать change, т.к. inputRef.current.value не обновляется
+            const event = new Event('change', { bubbles: true });
+            inputRef.current.dispatchEvent(event);
+        }
+        };
+
+        window.addEventListener("dragenter", onDragEnter);
+        window.addEventListener("dragleave", onDragLeave);
+        window.addEventListener("dragover", onDragOver);
+        window.addEventListener("drop", onDrop);
+
+        return () => {
+        window.removeEventListener("dragenter", onDragEnter);
+        window.removeEventListener("dragleave", onDragLeave);
+        window.removeEventListener("dragover", onDragOver);
+        window.removeEventListener("drop", onDrop);
+        };
+    }, []);
 
     return (
         <ModalWindow
@@ -253,6 +300,7 @@ export const CoverSelectionModal = ({
                                 type='file'
                                 id='custom-cover-upload-btn_id'
                                 accept='.webp,.png,.jpg,.jpeg'
+                                ref={inputRef}
                                 // onChange={(e) => {
                                 //     setImage(e)
                                 // }}
@@ -282,6 +330,7 @@ export const CoverSelectionModal = ({
                 )}
             </VStack>
 
+            {isDragging && <div className='dragOverlay'>1</div>}
             {imageSrc && <ImageCropper imageSrc = {imageSrc} aspect = {extraNumber} onCropComplete={handleCropComplete}/>}
         </ModalWindow>
     )

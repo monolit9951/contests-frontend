@@ -29,7 +29,7 @@
 
         .uploading__cover {
             width: 100%;
-
+            position: relative;
             &__label {
                 gap: 8px;
                 justify-content: start;
@@ -51,8 +51,11 @@
                 min-height: 360px;
                 height: auto;
                 max-height: 550px;
-                width: 925px;
+                max-width: 925px;
                 margin: 16px 0px 19px;
+                // align-items: center;
+                justify-content: space-around;
+                
                 // background-color: var(--green-dark);
                 // padding: 75px 0px 75px 0px;
 
@@ -192,6 +195,17 @@ input[type='file'] {
         fill: var(--white) !important;
         margin-left: 0px !important;
     }
+}
+
+.dragOverlay{
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 123, 255, 0.05);
+  border: 3px dashed #007bff;
+  pointer-events: none;
+  z-index: 9999;
 }
 
 // @media (max-width: 1024px) {

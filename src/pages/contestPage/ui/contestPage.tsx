@@ -132,7 +132,7 @@ const ContestPage = () => {
           isOuterClose
           onClose={handleCloseUploadModal}
         >
-          <UploadWorkModal contestId={data.id} />
+          <UploadWorkModal contestId={data.id} onClose={handleCloseUploadModal}/>
         </ModalWindow>
       )}
     </VStack>
