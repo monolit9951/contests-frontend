@@ -1,8 +1,9 @@
-.contest-hero {
+.contestHero{
     width: 100%;
     padding: 0;
+    margin-bottom: 20px;
 
-    &__image {
+    > .contestHero_image{
         width: 100%;
         height: 390px;
         border-radius: 8px;
@@ -12,34 +13,88 @@
         background-size: cover;
     }
 
-    > a{
-        color: white;
-    }
-    
-    &__creator {
+    > .contestHero_container{
         position: relative;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 197px;
+        align-items: center;
 
-        padding: 16px 195px 0;
+        > a{
+            color: white;
+            display: flex;
 
-        > img {
-            position: absolute;
-            top: -70px;
-            left: 195px;
+            > .contestHero_creator{
+                position: absolute;
+                bottom: -35px;
+                left: 197px;
+                display: flex;
+                align-items: end;
 
-            border: 4px solid;
-            object-fit: cover;
+                > img{
+                    border: 4px #02140E solid;
+                }
+
+                > .contestHero_creator_name .text{
+                    font-size: 22px;
+                    margin-left: 16px;
+                    position: relative;
+                    bottom: 15px;
+                }
+            }
         }
 
-        & > div {
-            padding-left: 156px;
-            gap: 4px;
+        > .contestActions{
+            position: relative;
+            > button{
+                background-color: transparent;
+                outline: none;
+                border: none;
+                cursor: pointer;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+            }
 
-            & > div {
-                gap: 4px;
+            > .contestActions_actions{
+                top: -5px;
+                right: 35px;
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                padding: 10px 0;
+                background-color: #1b2321;
+                width: 100px;
+                border-radius: 12px;
+
+                > button{
+                    display: flex;
+                    align-items: center;
+                    border: none;
+                    outline: none;
+                    justify-content: space-around;
+                    background-color: transparent;
+                    height: 31px;
+                    padding: 8px 10px;
+                    color: white;
+                    font-size: 16px;
+                    font-family: 'Manrope';
+                    transition: background-color ease 0.3ms;
+                    font-weight: 600;
+
+                    &:hover{
+                        transition: background-color ease 0.3ms;
+                        background-color: #393b3b;
+                    }
+                }
             }
         }
     }
 }
+
+
+
 
 .dark {
     .contest-hero {
@@ -55,40 +110,6 @@
         &__creator {
             > img {
                 border-color: var(--white-medium-light);
-            }
-        }
-    }
-}
-
-@media (max-width: 1060px) {
-    .contest-hero{
-        &__creator{
-            padding: 16px 20px 0;
-        
-            > img {
-                position: absolute;
-                top: -70px;
-                left: 20px;
-
-                border: 4px solid;
-                object-fit: cover;
-            }
-        }
-    }
-}
-
-@media (max-width: 650px) {
-    .contest-hero{
-        &__creator{
-            padding: 16px 10px 0;
-
-            > img {
-                position: absolute;
-                top: -70px;
-                left: 10px;
-
-                border: 4px solid;
-                object-fit: cover;
             }
         }
     }
