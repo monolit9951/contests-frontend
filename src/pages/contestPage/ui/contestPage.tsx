@@ -105,8 +105,6 @@ const ContestPage = () => {
       preventScrollReset: true 
     });
   }
-
-  console.log(data)
   
   return (
     <VStack className="contest">

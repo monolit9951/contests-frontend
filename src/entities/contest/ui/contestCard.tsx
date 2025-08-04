@@ -49,6 +49,25 @@ const ContestCard: React.FC<Props> = (props) => {
         navigate(`./${rest.id}`)
     }
 
+    const contestStatus = () => {
+        switch (rest.status) {
+            case 'FINISHED':
+                return 'Completed'
+            case 'UPCOMING':
+                return 'Upcoming'
+            case "ACTIVE":
+                return 'Active'
+            case "MODERATOR_SELECTION":
+                return 'Finished'
+            case "SELECTION_IN_PROGRESS":
+                return 'Finished'
+            case "WINNER_CONFIRMATION":
+                return 'Finished'
+            default:
+                return 'Inactive'
+        }
+    }
+
     const user = useSelector((state: RootState) => state.user)
 
     return (
@@ -81,8 +100,8 @@ const ContestCard: React.FC<Props> = (props) => {
                     <div className='prize' style={{ background: getBgColor() }}>
                         <PrizeIcon />
                         <Text Tag='span'>
-                            {prizeType === 'ITEM'
-                                ? prizeText
+                            {prizeType === 'COINS'
+                                ? `${prizeText} ${currency}`
                                 : `${prizeAmount} ${currency}`}
                         </Text>
                     </div>
@@ -95,12 +114,12 @@ const ContestCard: React.FC<Props> = (props) => {
                 </Text>
 
                 <Flex className='segments align__center contest-card-tags'>
-                    <div>{rest.status === 'UPCOMING'? `From ${startline}` : capitalizeStr(rest.status)}</div>
+                    <div>{rest.status === 'UPCOMING'? `From ${startline}` : contestStatus()}</div>
                     {/* <div>{capitalizeStr(rest.subcategory)}</div> */}
                     <div>{rest.participantAmount} participants</div>
                 </Flex>
             </div>
-            <Flex className='btn-box align__center justify__between'>
+            {/* <Flex className='btn-box align__center justify__between'>
                 <VStack className='date'>
                     <Text Tag='p' bold size='sm'>
                         Completing the task
@@ -116,7 +135,7 @@ const ContestCard: React.FC<Props> = (props) => {
                 <Button variant='secondary' onClick={onDetailsClick}>
                     See details
                 </Button>
-            </Flex>
+            </Flex> */}
         </div>
     )
 }
