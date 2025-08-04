@@ -24,14 +24,14 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
     // нету типизации
     const { data, isLoading, error } = useAxios<User>(`users/${userId}`)
 
-    console.log(data)
+    // console.log(data)
 
     return(
         <div className="personInformation">
             <div className="personInformation_header">
                 <div className="personInformation_header_heading">Personal Information</div>
 
-                <Link to='/profile/setting'><img src={pencil} alt='settings' /></Link>
+                <Link to='/profile/settings'><img src={pencil} alt='settings' /></Link>
             </div>
 
             {!isLoading && data && <div className="personInformation_content">
