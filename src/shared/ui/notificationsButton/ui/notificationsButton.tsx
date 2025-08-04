@@ -100,7 +100,7 @@ export const NotificationsButton = () => {
 
             {unread && <div className="notification_active">{' '}</div>}
 
-            {notifDataLoaded && dropList && notifications && (notifications.length > 0? 
+            {notifDataLoaded && dropList && notifications &&
                 <div className="notification_list">
                     <div className="notification_list_header">
                         <div className="notification_list_heading">Notifications</div>
@@ -109,19 +109,21 @@ export const NotificationsButton = () => {
                         </button>
                     </div>
 
-                    <ul>
+                    {notifications.length > 0? <ul>
                         {notifications.slice(0, 3).map((data: Notification, index: number) => (
                             <NotificationItem key={index} notification={data}/>
                         ))}
                     </ul>
+                    :
+                    <div className="notification_list_empty">No notifications</div>
+                    }
+
+
                     <div className="notification_list_readAll">
                         <Button  variant = 'primary'type='button' onClick={handleReadAll}>MARK ALL AS READ</Button>
                     </div>
                 </div>
-            :
-            <div className='notification_list_empty'>No notifications</div>
-        
-            )}
+            }
         </div>
     )
 }

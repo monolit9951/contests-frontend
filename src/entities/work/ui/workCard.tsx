@@ -70,8 +70,6 @@ const WorkCard: FC<Props> = (props) => {
         setReportModal(true)
     }
 
-    console.log(workData)
-
     return (
         <li className='li'>
             <VStack className={clsx('media-work', className)}>

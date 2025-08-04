@@ -50,15 +50,24 @@
                 outline: none;
             }
         }
-
         > ul{
+            
             display: flex;
             flex-direction: column;
             gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
         > .notification_list_readAll{
             margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        
+        > .notification_list_empty{
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: space-around;

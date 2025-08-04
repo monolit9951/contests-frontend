@@ -36,7 +36,7 @@ const RateButtons = (props: Props) => {
         try {
             await instance.patch(`${work ? 'works' : 'comment'}/addLike/${id}?likeType=${action}`, null, {headers: { Authorization: `Bearer ${token}` }})
         } catch (err) {
-            showAlert(err)
+            showAlert('ОШИБКА ПРИ ДОБАВЛЕНИИ, ЗАМЕНИТЬ ЭТОТ АЛЁРТ')
         }
     }
 
