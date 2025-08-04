@@ -1,37 +1,123 @@
+// .personInformation{
+//     background-color: #1B2321;
+//     width: 651px ;
+//     padding: 32px 32px 80px 32px; 
+//     box-sizing: border-box;
+//     border-radius: 24px;
+
+//     > .personInformation_header{
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-between;
+
+//         > .personInformation_header_heading{
+//             font-size: 36px;
+//             line-height: 28px;
+//             letter-spacing: 0%;
+//             font-weight: 600;
+//         }
+
+//         > a{
+//             display: flex;
+//             align-items: center;
+//         }
+//     }
+
+//     > .personInformation_logoGroup{
+//         margin-top: 24px;
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-around;
+
+//         > .personInformation_logoGroup{
+//             position: relative;
+//             height: 270px;
+//             aspect-ratio: 1/1;
+//             background: linear-gradient(90deg, #0BA486, #393B3B);
+//             border-radius: 50%;
+//             box-sizing: border-box;
+//             display: flex;
+//             align-items: center;
+//             justify-content: space-around;
+
+//             > img{
+//                 width: 100%;
+//                 aspect-ratio: 1/1;
+//                 border-radius: 50%;
+//                 max-width: 93.3%;
+//                 object-fit: cover;
+//                 object-position: top;
+//             }
+//         }
+//     }
+
+//     > .personInformation_infoGroup{
+//         margin-top: 24px;
+//         display: flex;
+//         flex-direction: column;
+//         gap: 24px;
+
+//         > .personInformation_infoGroup_info{
+//             display: flex;
+//             flex-direction: column;
+//             gap: 8px;
+            
+//             > .personInformation_infoGroup_info_heading{
+//                 display: flex;
+//                 align-items: center;
+//                 gap: 8px;
+
+//                 > img{
+
+//                 }
+
+//                 > span{
+//                     font-weight: 400;
+//                     font-size: 20px;
+//                     line-height: 100%;
+//                     letter-spacing: 0%;
+//                     color: #C4C4C4;
+//                 }
+//             }
+
+//             > .personInformation_infoGroup_info_data{
+//                 font-weight: 600;
+//                 font-size: 20px;
+//                 line-height: 100%;
+//                 letter-spacing: 0%;
+//             }
+//         }
+//     }
+// }
+
 .personInformation{
     background-color: #1B2321;
-    width: 651px ;
-    padding: 32px 32px 80px 32px; 
+    max-width: 659px ;
+    padding: 32px 32px 32px 32px; 
     box-sizing: border-box;
     border-radius: 24px;
 
     > .personInformation_header{
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
 
         > .personInformation_header_heading{
-            font-size: 36px;
-            line-height: 28px;
+            font-size: 24px;
+            line-height: 32px;
             letter-spacing: 0%;
-            font-weight: 600;
-        }
-
-        > a{
-            display: flex;
-            align-items: center;
+            font-weight: 400;
         }
     }
 
-    > .personInformation_logoGroup{
+    > .personInformation_content{
         margin-top: 24px;
         display: flex;
-        align-items: center;
-        justify-content: space-around;
+        gap: 24px;
 
         > .personInformation_logoGroup{
             position: relative;
-            height: 270px;
+            height: 212px;
             aspect-ratio: 1/1;
             background: linear-gradient(90deg, #0BA486, #393B3B);
             border-radius: 50%;
@@ -49,50 +135,39 @@
                 object-position: top;
             }
         }
-    }
 
-    > .personInformation_infoGroup{
-        margin-top: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-
-        > .personInformation_infoGroup_info{
+        > .personInformation_data{
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            
-            > .personInformation_infoGroup_info_heading{
+            gap: 16px;
+
+            > .personInformation_data_item{
                 display: flex;
-                align-items: center;
+                flex-direction: column;
                 gap: 8px;
 
-                > img{
+                > .personInformation_data_header{
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
 
+                    > .personInformation_data_header_heading{
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        letter-spacing: -1.1%;
+                        color: #C4C4C4;
+                    }
                 }
 
-                > span{
-                    font-weight: 400;
+                > .personInformation_data_content{
+                    font-weight: 600;
                     font-size: 20px;
-                    line-height: 100%;
+                    line-height: 28px;
                     letter-spacing: 0%;
-                    color: #C4C4C4;
+                    color: white;
                 }
-            }
-
-            > .personInformation_infoGroup_info_data{
-                font-weight: 600;
-                font-size: 20px;
-                line-height: 100%;
-                letter-spacing: 0%;
             }
         }
-    }
-}
-
-@media (max-width: 1500px) {
-    .personInformation{
-        flex: 1;
-        width: 100%;
     }
 }

@@ -8,6 +8,7 @@ import profilePerson from 'shared/assets/icons/profilePerson.svg'
 import useAxios from 'shared/lib/hooks/useAxios'
 
 import './personInformation.scss'
+import { User } from 'entities/user'
 
 // НЕТУ ПОЛУЧЕНИЯ ДАННЫХ
 // ЧАСТЬ ДАННЫХ ПОЛУЧАТЬ ПО СЕЛЕКТОРАМ РЕДАКСА
@@ -20,60 +21,55 @@ interface PersonInformationInterface {
 
 const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
 
-    const { data, isLoading, error } = useAxios<any>(`users/${userId}`)
+    // нету типизации
+    const { data, isLoading, error } = useAxios<User>(`users/${userId}`)
+
+    console.log(data)
 
     return(
         <div className="personInformation">
             <div className="personInformation_header">
                 <div className="personInformation_header_heading">Personal Information</div>
-                <Link to='/profile/settings'>
-                    <img src={pencil} alt="pencil" />
-                </Link>
+
+                <Link to='/profile/setting'><img src={pencil} alt='settings' /></Link>
             </div>
 
-            <div className="personInformation_logoGroup">
+            {!isLoading && data && <div className="personInformation_content">
                 <div className="personInformation_logoGroup">
-                    {!isLoading && !error && <img src={data.profileImage} alt="userImg" />}
+                    <img src={data.profileImage} alt="avatar" />
                 </div>
-            </div>
 
-            <div className="personInformation_infoGroup">
-                <div className="personInformation_infoGroup_info">
-                    <div className="personInformation_infoGroup_info_heading">
-                        <img src={profilePerson} alt="type" />
-                        <span>Full Name</span>
+                <div className="personInformation_data">
+
+                    <div className="personInformation_data_item">
+                        <div className="personInformation_data_header">
+                            <img src={profilePerson} alt="profile" />
+                            <div className="personInformation_data_header_heading">Full Name</div>
+                        </div>
+
+                        <div className="personInformation_data_content">{data.name}</div>
                     </div>
 
-                    {!isLoading && !error && <div className="personInformation_infoGroup_info_data">{data.name}</div>}
-                </div>
+                    <div className="personInformation_data_item">
+                        <div className="personInformation_data_header">
+                            <img src={email} alt="profile" />
+                            <div className="personInformation_data_header_heading">Email Adress</div>
+                        </div>
 
-                <div className="personInformation_infoGroup_info">
-                    <div className="personInformation_infoGroup_info_heading">
-                        <img src={email} alt="type" />
-                        <span>Email Address</span>
+                        <div className="personInformation_data_content">{data.email}</div>
                     </div>
 
-                    {!isLoading && !error && <div className="personInformation_infoGroup_info_data">NO EMAIL</div>}
-                </div>
+                    <div className="personInformation_data_item">
+                        <div className="personInformation_data_header">
+                            <img src={calendar} alt="profile" />
+                            <div className="personInformation_data_header_heading">Member Since</div>
+                        </div>
 
-                <div className="personInformation_infoGroup_info">
-                    <div className="personInformation_infoGroup_info_heading">
-                        <img src={mapMark} alt="type" />
-                        <span>Country</span>
+                        <div className="personInformation_data_content">{data.createdAt}</div>
                     </div>
 
-                    {!isLoading && !error && <div className="personInformation_infoGroup_info_data">NO COUNTRY</div>}
                 </div>
-
-                <div className="personInformation_infoGroup_info">
-                    <div className="personInformation_infoGroup_info_heading">
-                        <img src={calendar} alt="type" />
-                        <span>Member Since</span>
-                    </div>
-
-                    {!isLoading && !error && <div className="personInformation_infoGroup_info_data">{data.createdAt}</div>}
-                </div>
-            </div>            
+            </div>}
         </div>
     )
 }
