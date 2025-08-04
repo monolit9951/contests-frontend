@@ -24,7 +24,7 @@ export const fetchContests = createAsyncThunk(
         try {
             const response = await instance.get(
                 `/contests?page=0&pageSize=${pageSize}&sortDirection=${direction}${
-                    searchStr && `&val=searchString=${searchStr}`
+                    searchStr && `&search=${searchStr}`
                 }${category && `&contestType=${category}`}&${getQueryString(
                     activeFilters
                 )}`
