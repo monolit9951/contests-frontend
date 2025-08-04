@@ -25,7 +25,7 @@
         border-radius: 16px;
         padding: 24px;
         box-sizing: border-box;
-
+        z-index: 100;
         right: -20px;
         top: 35px;
         box-sizing: border-box;
@@ -33,6 +33,8 @@
         > .notification_list_header{
             display: flex;
             justify-content: space-between;
+            border-bottom: 1px solid #393B3B;
+            padding-bottom: 8px;
 
             > .notification_list_heading{
                 font-weight: 600;
@@ -48,22 +50,40 @@
                 background-color: transparent;
                 border: none;
                 outline: none;
+                cursor: pointer;
             }
         }
+
         > ul{
-            
+            margin-top: 12px;
             display: flex;
             flex-direction: column;
             gap: 8px;
             max-height: 200px;
             overflow-y: auto;
+            
         }
 
         > .notification_list_readAll{
-            margin-top: 8px;
+            border-top: 1px solid #393B3B;
+            padding-top: 8px;
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: end;
+
+            > button{
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                background-color: transparent;
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: 0%;
+                color: #DDDDDD;
+                border: none;
+                font-family: 'Manrope';
+            }
         }
         
         > .notification_list_empty{
@@ -75,18 +95,15 @@
         
     }
 
-    > .notification_list_empty{
-        position: absolute;        
-        width: 200px;
-        background-color: yellow;
-        color: black;
-        padding: 5px;
-        border-radius: 5px;
-        right: -20px;
-        top: 35px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
+    > .notification_list_onBlur{
+        position: fixed;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 99;
     }
 }

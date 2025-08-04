@@ -17,7 +17,7 @@ const NotificationItem: FC<Props> = ({notification}) => {
         <li className={`notificationItem ${!notification.read && 'unread'}`} >
             
             <div className='notificationItem_content'>
-                <div className="notificationItem_image">d</div>
+                {/* <div className="notificationItem_image">d</div> */}
                 <div className="notificationItem_text">{notification.content}</div>
             </div>
 

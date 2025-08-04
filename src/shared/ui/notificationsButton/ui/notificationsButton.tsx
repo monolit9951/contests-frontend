@@ -120,10 +120,13 @@ export const NotificationsButton = () => {
 
 
                     <div className="notification_list_readAll">
-                        <Button  variant = 'primary'type='button' onClick={handleReadAll}>MARK ALL AS READ</Button>
+                        <button type='button' onClick={handleReadAll}>Mark all as read</button>
+                        {/* <Button  variant = 'primary' type='button' onClick={handleReadAll}>MARK ALL AS READ</Button> */}
                     </div>
                 </div>
             }
+
+            {dropList && <button className="notification_list_onBlur" type='button' aria-label='close Notifications' onClick={() => {setDropList(false)}}> </button>}
         </div>
     )
 }
