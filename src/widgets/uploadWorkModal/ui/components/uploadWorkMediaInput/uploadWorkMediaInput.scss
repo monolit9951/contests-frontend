@@ -61,3 +61,14 @@
         cursor: pointer;
     }
 }
+
+.uploadWorkMediaInput--dragging::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 123, 255, 0.05);
+  border: 3px dashed #007bff;
+  pointer-events: none;
+  z-index: 9999;
+}
