@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import calendar from 'shared/assets/icons/calendar.svg'
 
 import './profileContestsContest.scss'
+import { capitalizeStr } from "shared/helpers";
+import { Contest } from "entities/contest";
 
 interface ProfileContestsContestInterface {
-    data: any
+    data: Contest
 }
 
 const ProfileContestsContest: FC <ProfileContestsContestInterface>= ({data}) => {
@@ -23,8 +25,8 @@ const ProfileContestsContest: FC <ProfileContestsContestInterface>= ({data}) => 
                 </div>
 
                 <ul className="profileContest_leftGroup_tagList">
-                    {data.status && <li><span>{data.status}</span></li>}
-                    {data.subcategory && <li><span>{data.subcategory}</span></li>}
+                    {data.status && <li className="statusActive"><span>{capitalizeStr(data.status)}</span></li>}
+                    {data.contestType && <li><span>{capitalizeStr(data.contestType)}</span></li>}
                 </ul>
 
                 <div className="profileContest_leftGroup_date">

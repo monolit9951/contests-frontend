@@ -7,7 +7,7 @@
     > .profileContests_header{
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 4px;
 
         > .profileContests_header_heading{
             display: flex;
@@ -15,17 +15,17 @@
             justify-content: space-between;
 
             > span{
-                font-size: 36px;
-                line-height: 28px;
+                font-size: 24px;
+                line-height: 32px;
                 letter-spacing: 0%;
-                font-weight: 600;
+                font-weight: 400;
             }
         }
 
         > .profileContests_header_desc{
             font-weight: 400;
-            font-size: 24px;
-            line-height: 100%;
+            font-size: 20px;
+            line-height: 28px;
             letter-spacing: 0%;
             color: #C4C4C4;
         }
@@ -57,8 +57,8 @@
                 outline: none;
                 border: none;
                 font-family: Manrope;
-                font-size: 24px;
-                line-height: 32px;
+                font-size: 16px;
+                line-height: 24px;
                 letter-spacing: 0%;
                             
                 &.switched {
@@ -76,5 +76,16 @@
                 }
             }
         }
+    }
+
+    > .profileContests_contestsList{
+        margin-top: 16px;
+    }
+
+    > .profileContests_showMore{
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
     }
 }

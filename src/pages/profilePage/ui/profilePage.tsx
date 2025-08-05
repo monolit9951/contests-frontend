@@ -33,9 +33,9 @@ const ProfilePage: FC = () => {
                     {!id && <ProfileWallet userId = {user.userId}/>}
                 </div>
 
-                {/* <div className="profilePage_rightContainer">
+                <div className="profilePage_rightContainer">
                     <ProfileContests userId = {id ?? user.userId}/>
-                </div> */}
+                </div>
                 
             </div>
         </div>
