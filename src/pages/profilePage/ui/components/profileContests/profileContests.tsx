@@ -1,13 +1,13 @@
 import { FC, useState } from "react";
+import { Contest } from "entities/contest";
 import win from 'shared/assets/icons/win.svg'
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import { Button } from "shared/ui/button";
 
 import { fetchProfileContests } from "../../model/sevices/contestServices";
 import ProfileContestsContest from "../profileContestsContest/profileContestsContest";
 
 import './profileContests.scss'
-import { Button } from "shared/ui/button";
-import { Contest } from "entities/contest";
 
 interface ProfileContestsInterface {
     userId: string

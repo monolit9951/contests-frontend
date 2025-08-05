@@ -1,12 +1,12 @@
 import { FC } from "react";
 import profileWallet from 'shared/assets/icons/profileWallet.svg'
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import { Button } from "shared/ui/button";
 
 import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices/walletServices";
 import WalletTrasaction from "../walletTransaction/walletTransaction";
 
 import './profileWallet.scss'
-import { Button } from "shared/ui/button";
 
 interface Props {
     userId: string

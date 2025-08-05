@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import { mockNavData } from 'app/api'
 import clsx from 'clsx'
-import burger from 'shared/assets/icons/burger.svg?react'
-import { Icon } from 'shared/ui/icon'
+// import burger from 'shared/assets/icons/burger.svg?react'
+// import { Icon } from 'shared/ui/icon'
 import { NavElement } from 'shared/ui/navElement'
 
 import './sidebar.scss'
 
 export const Sidebar = () => {
-    const [open, setOpen] = useState(true)
+    const [open] = useState(true)
 
-    const toggleSidebar = () => {
-        setOpen(!open)
-    }
+    // const toggleSidebar = () => {
+    //     setOpen(!open)
+    // }
 
     return (
         <aside className={clsx('sidebar', open && 'open')}>

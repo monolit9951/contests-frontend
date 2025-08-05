@@ -18,6 +18,7 @@ import { ContestPage } from 'pages/contestPage'
 import { ContestsCreationPage } from 'pages/contestsCreationPage'
 import { ContestsPage } from 'pages/contestsPage'
 import { FeedPage } from 'pages/feedPage'
+// import ModalWorkPage from 'pages/modalWorkPage/ui/modalWorkPage'
 import ProfilePage from 'pages/profilePage'
 import ProfileSettingsPage from 'pages/profileSettingsPage'
 import { TopUsersPage } from 'pages/topUsersPage'
@@ -28,7 +29,6 @@ import { userByToken } from 'widgets/registrationModal/model/service/registratio
 import { clearUser, setUser } from 'widgets/registrationModal/model/slice/userSlice'
 
 import '../styles/index.scss'
-import ModalWorkPage from 'pages/modalWorkPage/ui/modalWorkPage'
 
 export const AppRouter = () => {
   const { theme, categoryTheme } = useTheme()

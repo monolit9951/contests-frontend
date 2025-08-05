@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { Contest } from "entities/contest";
 import calendar from 'shared/assets/icons/calendar.svg'
+import { capitalizeStr } from "shared/helpers";
 
 import './profileContestsContest.scss'
-import { capitalizeStr } from "shared/helpers";
-import { Contest } from "entities/contest";
 
 interface ProfileContestsContestInterface {
     data: Contest

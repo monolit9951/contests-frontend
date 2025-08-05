@@ -6,8 +6,8 @@ import moment from 'moment'
 // import Verified from 'shared/assets/icons/SealCheck.svg?react'
 // import Star from 'shared/assets/icons/Star.svg?react'
 import PrizeIcon from 'shared/assets/icons/trophyF.svg?react'
-import { capitalizeStr } from 'shared/helpers'
-import { Button } from 'shared/ui/button'
+// import { capitalizeStr } from 'shared/helpers'
+// import { Button } from 'shared/ui/button'
 import { Flex, VStack } from 'shared/ui/stack'
 import { Tag } from 'shared/ui/tag'
 import { Text } from 'shared/ui/text'
@@ -24,11 +24,11 @@ interface Props extends ContestPreview {
 }
 
 const ContestCard: React.FC<Props> = (props) => {
-    const { className, contestOwner, prizesPreviews, dateEnd, ...rest } = props
+    const { className, contestOwner, prizesPreviews, ...rest } = props
 
     const navigate = useNavigate()
 
-    const deadline = moment(dateEnd).format('DD.MM.YYYY')
+    // const deadline = moment(rest.dateEnd).format('DD.MM.YYYY')
     const startline = moment(rest.dateStart).format('DD.MM.YYYY')
 
     const tagType = rest.contestType

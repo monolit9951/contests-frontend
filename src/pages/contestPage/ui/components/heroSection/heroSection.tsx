@@ -1,16 +1,17 @@
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Organizer } from 'entities/user'
+import dots from 'shared/assets/icons/tripleDot.svg'
 // import Verified from 'shared/assets/icons/SealCheck.svg?react'
 // import Star from 'shared/assets/icons/Star.svg?react'
 import { Image } from 'shared/ui/image'
-import { HStack, VStack } from 'shared/ui/stack'
-import { Text } from 'shared/ui/text'
-import dots from 'shared/assets/icons/tripleDot.svg'
-import './heroSection.scss'
-import { useState } from 'react'
 import { ModalWindow } from 'shared/ui/modalWindow'
+// import { HStack, VStack } from 'shared/ui/stack'
+import { Text } from 'shared/ui/text'
 import ModalReport from 'widgets/modalReport'
+
+import './heroSection.scss'
 
 interface Props {
     bg: string

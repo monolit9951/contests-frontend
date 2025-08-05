@@ -15,7 +15,6 @@ import { fetchAllNotifications } from '../model/services/notificationService';
 import NotificationItem from './components/notificationItem/notificationItem';
 
 import './notificationsButton.scss'
-import { Button } from 'shared/ui/button';
 
 // if (typeof global === 'undefined') window.global = window;
 
@@ -92,7 +91,7 @@ export const NotificationsButton = () => {
             setUnread(false)
 
         } catch (error){
-            console.log(error)
+            // console.log(error)
         }
     }
 

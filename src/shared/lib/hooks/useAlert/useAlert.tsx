@@ -34,7 +34,7 @@ export const useAlert = () => {
     const Alert = () =>
         primaryText ? (
             <div className="alert">
-                <div className="alert_background" onClick={handleCloseAlert} />
+                <button className="alert_background" type='button' aria-label="close alert" onClick={handleCloseAlert} />
 
                 <div className="alert_content">
                     <div className="alert_primary">{primaryText}</div>

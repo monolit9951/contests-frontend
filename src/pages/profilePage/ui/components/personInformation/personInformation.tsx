@@ -1,15 +1,15 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
+import { User } from 'entities/user'
+import moment from 'moment'
 import calendar from 'shared/assets/icons/calendar.svg'
 import email from 'shared/assets/icons/email.svg'
-import mapMark from 'shared/assets/icons/mapMark.svg'
+// import mapMark from 'shared/assets/icons/mapMark.svg'
 import pencil from 'shared/assets/icons/pencil.svg'
 import profilePerson from 'shared/assets/icons/profilePerson.svg'
 import useAxios from 'shared/lib/hooks/useAxios'
 
 import './personInformation.scss'
-import { User } from 'entities/user'
-import moment from 'moment'
 
 interface PersonInformationInterface {
     userId: string
@@ -18,7 +18,7 @@ interface PersonInformationInterface {
 const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
 
     // нету типизации
-    const { data, isLoading, error } = useAxios<User>(`users/${userId}`)
+    const { data, isLoading } = useAxios<User>(`users/${userId}`)
 
 
 

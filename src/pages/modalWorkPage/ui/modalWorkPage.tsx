@@ -1,6 +1,6 @@
-import { Work } from "entities/work";
 import { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Work } from "entities/work";
 import useAxios from "shared/lib/hooks/useAxios";
 import { ModalWindow } from "shared/ui/modalWindow";
 import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";

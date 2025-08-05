@@ -5,10 +5,10 @@ import instance from 'shared/api/api'
 import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 import { Button } from 'shared/ui/button'
 import { Input } from 'shared/ui/input'
-import { HStack, VStack } from 'shared/ui/stack'
+import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
-import { UserIcon } from 'shared/ui/userIcon'
 
+// import { UserIcon } from 'shared/ui/userIcon'
 import { CommentsList } from './commentsList'
 
 import './commentsSection.scss'

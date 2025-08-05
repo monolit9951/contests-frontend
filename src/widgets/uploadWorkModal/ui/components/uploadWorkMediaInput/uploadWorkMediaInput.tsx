@@ -1,7 +1,8 @@
-import { ChangeEvent, FC, useRef, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import upload from 'shared/assets/icons/upload.svg';
-import './uploadWorkMediaInput.scss';
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
+
+import './uploadWorkMediaInput.scss';
 
 interface UploadWorkMediaInputInterface {
   handleMediaInputCallback: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -80,6 +81,7 @@ const UploadWorkMediaInput: FC<UploadWorkMediaInputInterface> = ({ handleMediaIn
   return (
     // поменять драгинг, пока что базовый, через псевдокласс афтер
     <div className={`uploadWorkMediaInput ${isDragging ? 'uploadWorkMediaInput--dragging' : ''}`}>
+       {/* eslint-disable-next-line */}
       <div className="uploadWorkMediaInput_container" onClick={() => inputRef.current?.click()}>
         <div className="uploadWorkMediaInput_explain">
           Drag and drop your file here or
