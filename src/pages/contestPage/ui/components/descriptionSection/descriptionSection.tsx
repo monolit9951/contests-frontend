@@ -224,21 +224,22 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                     </VStack>
                     <VStack className='deadline-info__wrapper'>
                         <Text Tag='h4' bold size='l'>
-                            Deadline
-                        </Text>
-                        <HStack className='align__center'>
-                            <Icon Svg={calendar} width={36} height={36} />
-                            <Text Tag='span' size='xl'>
-                                {contestStatus() === 'Finished'? `Ended: ${deadline}` : `${deadline}`}
-                            </Text>
-                        </HStack>
-                        <Text Tag='h4' bold size='l'>
                             Date start
                         </Text>
                         <HStack className='align__center'>
                             <Icon Svg={calendar} width={36} height={36} />
                             <Text Tag='span' size='xl'>
                                 {contestStatus() === 'Finished'? `Started: ${dateStart}` : `${dateStart}`}
+                            </Text>
+                        </HStack>
+
+                        <Text Tag='h4' bold size='l'>
+                            Deadline
+                        </Text>
+                        <HStack className='align__center'>
+                            <Icon Svg={calendar} width={36} height={36} />
+                            <Text Tag='span' size='xl'>
+                                {contestStatus() === 'Finished'? `Ended: ${deadline}` : `${deadline}`}
                             </Text>
                         </HStack>
                     </VStack>

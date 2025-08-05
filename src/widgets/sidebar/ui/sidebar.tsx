@@ -16,7 +16,7 @@ export const Sidebar = () => {
 
     return (
         <aside className={clsx('sidebar', open && 'open')}>
-            <div className='burgerMenu'>
+            {/* <div className='burgerMenu'>
                 <Icon
                     Svg={burger}
                     height={36}
@@ -24,7 +24,7 @@ export const Sidebar = () => {
                     clickable
                     onClick={toggleSidebar}
                 />
-            </div>
+            </div> */}
             <nav>
                 {mockNavData.map((navItem, index) => (
                     <NavElement key={index} {...navItem} />

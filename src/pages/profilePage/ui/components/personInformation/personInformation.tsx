@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import calendar from 'shared/assets/icons/calendar.svg'
 import email from 'shared/assets/icons/email.svg'
@@ -9,11 +9,7 @@ import useAxios from 'shared/lib/hooks/useAxios'
 
 import './personInformation.scss'
 import { User } from 'entities/user'
-
-// НЕТУ ПОЛУЧЕНИЯ ДАННЫХ
-// ЧАСТЬ ДАННЫХ ПОЛУЧАТЬ ПО СЕЛЕКТОРАМ РЕДАКСА
-
-// ТЕСТОВЫЙ ЮЗЕР АЙДИ ДО АВТОРИЗАЦИИ, ВСЕ ПРОПСЫ ПОЧИСТИТ
+import moment from 'moment'
 
 interface PersonInformationInterface {
     userId: string
@@ -24,7 +20,7 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
     // нету типизации
     const { data, isLoading, error } = useAxios<User>(`users/${userId}`)
 
-    // console.log(data)
+
 
     return(
         <div className="personInformation">
@@ -65,7 +61,7 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
                             <div className="personInformation_data_header_heading">Member Since</div>
                         </div>
 
-                        <div className="personInformation_data_content">{data.createdAt}</div>
+                        <div className="personInformation_data_content">{ moment(data.createdAt).format("YYYY.MM.DD")}</div>
                     </div>
 
                 </div>

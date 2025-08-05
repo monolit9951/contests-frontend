@@ -40,6 +40,7 @@ export const NotificationsButton = () => {
         setDropList(!dropList)
     }
 
+    // получение по сокету, сразу добавляем непрочитанный статус
     useEffect(() => {
         const socket = new SockJS(SOCKET_URL)
         const stompClient = new Client({
@@ -51,7 +52,6 @@ export const NotificationsButton = () => {
             if (message.body) {
                 const data = JSON.parse(message.body)
                 setNotifications((prev) => [data, ...prev])
-                console.log("NEW MESSAGE")
                 setUnread(true)
             }
             })
@@ -68,6 +68,7 @@ export const NotificationsButton = () => {
         };
     }, []);
 
+    // при первом рендере сразу проверяем есть ли непрочитанные
     useEffect(() => {
         if(notifDataLoaded){
             setNotifications(notifData.content)
@@ -75,6 +76,8 @@ export const NotificationsButton = () => {
         }
     }, [notifDataLoaded])
 
+    
+    // прочитать все
     const handleReadAll = async() => {
         try{
             await instance.post('notifications/read-all', {}, {headers:{ Authorization: `Bearer ${token}`}})
@@ -93,7 +96,17 @@ export const NotificationsButton = () => {
         }
     }
 
-    // дизайн переделать
+    // прочитать все спустя 5 секунд после открытия
+    useEffect(() =>{
+        if(dropList === true){
+            setTimeout(() => {
+                handleReadAll()
+            }, 5000);
+        }
+    }, [dropList])
+
+
+
     return (
         <div className="notification">
             <Icon clickable Svg={bellF} onClick={handleDropDown}/>
