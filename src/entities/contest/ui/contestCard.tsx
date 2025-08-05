@@ -6,8 +6,8 @@ import moment from 'moment'
 // import Verified from 'shared/assets/icons/SealCheck.svg?react'
 // import Star from 'shared/assets/icons/Star.svg?react'
 import PrizeIcon from 'shared/assets/icons/trophyF.svg?react'
-import { capitalizeStr } from 'shared/helpers'
-import { Button } from 'shared/ui/button'
+// import { capitalizeStr } from 'shared/helpers'
+// import { Button } from 'shared/ui/button'
 import { Flex, VStack } from 'shared/ui/stack'
 import { Tag } from 'shared/ui/tag'
 import { Text } from 'shared/ui/text'
@@ -24,22 +24,22 @@ interface Props extends ContestPreview {
 }
 
 const ContestCard: React.FC<Props> = (props) => {
-    const { className, contestOwner, prizesPreviews, dateEnd, ...rest } = props
+    const { className, contestOwner, prizesPreviews, ...rest } = props
 
     const navigate = useNavigate()
 
-    const deadline = moment(dateEnd).format('DD.MM.YYYY')
+    // const deadline = moment(rest.dateEnd).format('DD.MM.YYYY')
     const startline = moment(rest.dateStart).format('DD.MM.YYYY')
 
-    const tagType = rest.category
+    const tagType = rest.contestType
 
     const { currency, prizeAmount, prizeText, prizeType } = prizesPreviews[0]
 
     const getBgColor = () => {
-        if (tagType === 'FOR_FUN') {
+        if (tagType === 'DARE') {
             return 'var(--purple)'
         }
-        if (tagType === 'FOR_WORK') {
+        if (tagType === 'CONTEST') {
             return 'var(--orange)'
         }
         return 'var(--green)'
@@ -49,8 +49,26 @@ const ContestCard: React.FC<Props> = (props) => {
         navigate(`./${rest.id}`)
     }
 
-    const user = useSelector((state: RootState) => state.user)
+    const contestStatus = () => {
+        switch (rest.status) {
+            case 'FINISHED':
+                return 'Completed'
+            case 'UPCOMING':
+                return 'Upcoming'
+            case "ACTIVE":
+                return 'Active'
+            case "MODERATOR_SELECTION":
+                return 'Finished'
+            case "SELECTION_IN_PROGRESS":
+                return 'Finished'
+            case "WINNER_CONFIRMATION":
+                return 'Finished'
+            default:
+                return 'Inactive'
+        }
+    }
 
+    const user = useSelector((state: RootState) => state.user)
 
     return (
         <div className={clsx('contest-card-wrapper', className)}>
@@ -82,8 +100,8 @@ const ContestCard: React.FC<Props> = (props) => {
                     <div className='prize' style={{ background: getBgColor() }}>
                         <PrizeIcon />
                         <Text Tag='span'>
-                            {prizeType === 'ITEM'
-                                ? prizeText
+                            {prizeType === 'COINS'
+                                ? `${prizeText} ${currency}`
                                 : `${prizeAmount} ${currency}`}
                         </Text>
                     </div>
@@ -96,12 +114,12 @@ const ContestCard: React.FC<Props> = (props) => {
                 </Text>
 
                 <Flex className='segments align__center contest-card-tags'>
-                    <div>{rest.status === 'UPCOMING'? `From ${startline}` : capitalizeStr(rest.status)}</div>
+                    <div>{rest.status === 'UPCOMING'? `From ${startline}` : contestStatus()}</div>
                     {/* <div>{capitalizeStr(rest.subcategory)}</div> */}
                     <div>{rest.participantAmount} participants</div>
                 </Flex>
             </div>
-            <Flex className='btn-box align__center justify__between'>
+            {/* <Flex className='btn-box align__center justify__between'>
                 <VStack className='date'>
                     <Text Tag='p' bold size='sm'>
                         Completing the task
@@ -117,7 +135,7 @@ const ContestCard: React.FC<Props> = (props) => {
                 <Button variant='secondary' onClick={onDetailsClick}>
                     See details
                 </Button>
-            </Flex>
+            </Flex> */}
         </div>
     )
 }

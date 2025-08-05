@@ -54,7 +54,7 @@ const ChooseWinnerPage: FC = () => {
                         setContestAccess(true)
                         setContestAccessPending(false)
                     } else {
-                        showAlert('MODERATOR SELECTION, YOUR ROLE != ADMIN')
+                        showAlert('access denied', 'MODERATOR SELECTION, YOUR ROLE != ADMIN')
                         navigate(`/contests/${id}`)
                     }
                     break
@@ -63,15 +63,15 @@ const ChooseWinnerPage: FC = () => {
                     setContestAccessPending(false)
                     break                    
                 case 'UPCOMING':
-                    showAlert('CONTEST NOT STARTED')
+                    showAlert('access denied', 'CONTEST NOT STARTED')
                     navigate(`/contests/${id}`)
                     break
                 case 'FINISHED':
-                    showAlert('CONTEST ALREADY FINISHED')
+                    showAlert('access denied', 'CONTEST ALREADY FINISHED')
                     navigate(`/contests/${id}`)
                     break
                 default:
-                    showAlert('default')
+                    showAlert('access denied')
                     navigate(`/contests/${id}`)
             }
 

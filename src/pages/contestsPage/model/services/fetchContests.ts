@@ -15,18 +15,27 @@ export const fetchContests = createAsyncThunk(
         const { rejectWithValue, getState } = thunkApi
 
         const pageSize = selectPageSize(getState())
+        // const pageSize = 40
         const direction = selectSortDirection(getState())
         const searchStr = selectSearchString(getState())
         const category = selectCategory(getState())
         const activeFilters = selectActiveFilters(getState())
-
+        
         try {
             const response = await instance.get(
                 `/contests?page=0&pageSize=${pageSize}&sortDirection=${direction}${
-                    searchStr && `&val=searchString=${searchStr}`
-                }${category && `&val=category=${category}`}&${getQueryString(
+                    searchStr && `&search=${searchStr}`
+                }${category && `&contestType=${category}`}&${getQueryString(
                     activeFilters
                 )}`
+                // `/contests?page=0&pageSize=
+                //     ${pageSize}
+                //     &sortDirection=${direction}
+                //     ${searchStr && `&val=searchString=${searchStr}`}
+                //     ${category && `&val=category=${category}`}
+                //     &${getQueryString(
+                //         activeFilters
+                //     )}`
             )
 
             if (!response.data) {

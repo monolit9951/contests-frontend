@@ -193,7 +193,7 @@ const ContestsSection: FC<Props> = (props) => {
         }
         return allContests.map((item, idx) => (
             <li
-                key={item.id}
+                key={idx}
                 ref={idx === allContests.length - 1 ? measureRef : null}>
                 <ContestCard {...item} />
             </li>

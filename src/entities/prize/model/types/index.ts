@@ -1,4 +1,4 @@
-export type PrizeType = 'MONEY' | 'ITEM'
+export type PrizeType = 'MONEY' | 'COINS'
 
 export type Currency = 'USD' | 'EUR' | 'PLN' | 'UAH'
 

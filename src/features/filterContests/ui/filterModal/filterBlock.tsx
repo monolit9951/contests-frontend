@@ -110,12 +110,13 @@ export default function FilterBlock(props: FilterBlockProps) {
                             'filter-block__list',
                             blockShown && 'filter-block__hidden'
                         )}>
-                        {filter.items.map(({ name, number }) => (
+                        {filter.items.map(({ name, number, apiKey }) => (
                             <FilterItem
                                 key={name}
                                 name={name}
                                 number={number}
                                 filter={filter}
+                                apiKey = {apiKey}
                             />
                         ))}
                     </ul>
@@ -123,6 +124,7 @@ export default function FilterBlock(props: FilterBlockProps) {
             )
         }
 
+        // инпут рендж для стоимости приза
         return (
             <>
                 <HStack className='justify__between'>

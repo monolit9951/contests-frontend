@@ -28,6 +28,7 @@ interface Props {
 
 const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
     const deadline = moment(data.dateEnd).format('DD.MM.YYYY, h a')
+    const dateStart = moment(data.dateStart).format('DD.MM.YYYY, h a')
 
     const contestStatus = () => {
         switch (data.status) {
@@ -90,7 +91,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                     <ul className='tags-list'>
                         <li>
                             <Text Tag='span' size='sm'>
-                                {capitalizeStr(data.status)}
+                                {capitalizeStr(data.contestType)}
                             </Text>
                         </li>
                         {/* <li>
@@ -108,10 +109,10 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                 
                 <Button
                     variant='primary'
-                    disabled={contestStatus() === 'Finished' || contestStatus() === 'Upcoming'}
+                    disabled={contestStatus() !== 'Active'}
                     onClick={onParticipateClick}
                     className='participate-btn'>
-                    <Text Tag='span'>{contestStatus()}</Text>
+                    <Text Tag='span'>Participate</Text>
                 </Button>
             </HStack>
             
@@ -133,7 +134,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                             </li>
                         </ul>
                     </VStack> */}
-                    {data.exampleMedia && (
+                    {data.exampleMedia && data.exampleMedia.length > 0 && (
                         <VStack>
                             <Text Tag='h4' bold size='l'>
                                 Examples
@@ -199,8 +200,8 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                                         size='xl'
                                                         bold
                                                         className='prize-text'>
-                                                        {prizeType === 'ITEM'
-                                                            ? prizeText
+                                                        {prizeType === 'COINS'
+                                                            ? `${prizeText} Coins`
                                                             : `${prizeAmount.toFixed(
                                                                   0
                                                               )} 
@@ -209,7 +210,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                                                 </HStack>
                                                 <Icon
                                                     Svg={
-                                                        prizeType === 'ITEM'
+                                                        prizeType === 'COINS'
                                                             ? itemIcon
                                                             : moneyIcon
                                                     }
@@ -223,6 +224,16 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                     </VStack>
                     <VStack className='deadline-info__wrapper'>
                         <Text Tag='h4' bold size='l'>
+                            Date start
+                        </Text>
+                        <HStack className='align__center'>
+                            <Icon Svg={calendar} width={36} height={36} />
+                            <Text Tag='span' size='xl'>
+                                {contestStatus() === 'Finished'? `Started: ${dateStart}` : `${dateStart}`}
+                            </Text>
+                        </HStack>
+
+                        <Text Tag='h4' bold size='l'>
                             Deadline
                         </Text>
                         <HStack className='align__center'>
@@ -232,14 +243,15 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                             </Text>
                         </HStack>
                     </VStack>
+                    
 
-                        <HStack>
+                        {user.userId !== null && user.userId === data.contestOwner.id && <HStack>
                             <Link to= {`/chooseWinner/${data.id}`}>CHOOSE WINNERS</Link>
-                        </HStack>
+                        </HStack>}
                 </VStack>
             </HStack>
 
-            {regModal && <ModalWindow isOpen onClose={() => (setRegModal(false))}><RegistrationModal auth/></ModalWindow>}
+            {regModal && <ModalWindow isOpen onClose={() => (setRegModal(false))}><RegistrationModal onClose={() => (setRegModal(false))} auth/></ModalWindow>}
             {exampleGaleryModal && <ModalWindow isOpen onClose={closeExapmpleGaleryModal}><ExampleGaleryModal media={data.exampleMedia} index={chosenExapmleIndex}/></ModalWindow>}
         </section>
     )

@@ -1,15 +1,15 @@
 .profileContest{
-    padding: 36px 16px;
+    padding: 16px 16px 16px 16px;  
     display: flex;
     justify-content: space-between;
     border-bottom: 1px #3B3B3B solid;
     color: white;
     text-decoration: none;
     
-    &:last-child{
-        border-bottom: none;
-        padding: 36px 16px 16px 16px;
-    }
+    // &:last-child{
+    //     // border-bottom: none;
+    //     padding: 16px 16px 16px 16px;
+    // }
 
     > .profileContest_leftGroup{
         display: flex;
@@ -21,9 +21,9 @@
             gap: 5px;
 
             > .profileContest_leftGroup_heading{
-                font-weight: 700;
-                font-size: 18px;
-                line-height: 27px;
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 28px;
                 letter-spacing: 0%;
             }
 
@@ -42,17 +42,36 @@
 
             > li{
                 padding: 8px 32px;
-                background-color: #0BA486;
+                background-color: transparent;
+                border: 1px #393B3B solid;
                 border-radius: 999px;
-                font-weight: 700;
-                font-size: 16px;
-                line-height: 24px;
-                letter-spacing: 0%;
-                height: 40px;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: -1.1%;
+                height: 36px;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
 
+                &.statusFinished{
+                    background-color: #525856;
+                }
+
+                &.statusActive{
+                    background-color: #044337;
+                    border: #0BA486 1px solid;
+                }
+
+                &.winner{
+                    background-color: #524000;
+                    border: #EDB900 1px solid;
+                }
+
+                &.organizer{
+                    background-color: #3D0746;
+                    border: #DA5CEF 1px solid;
+                }
             }
         }
 
@@ -61,11 +80,16 @@
             gap: 8px;
             align-items: center;
 
+            > img{
+                width: 20px;
+                aspect-ratio: 1/1;
+            }
+
             > span{
                 color: #C4C4C4;
                 font-weight: 400;
-                font-size: 20px;
-                line-height: 100%;
+                font-size: 14px;
+                line-height: 20px;
                 letter-spacing: 0%;
             }
         }

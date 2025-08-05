@@ -10,9 +10,10 @@ import './modalReport.scss'
 interface Props {
     targetId: string,
     targetType: "CONTEST" | "WORK" | "COMMENT" | "MEDIA"
+    onClose?: () => void
 }
 
-const ModalReport: FC<Props> = ({targetId, targetType}) => {
+const ModalReport: FC<Props> = ({targetId, targetType, onClose}) => {
 
     const {showAlert, Alert} = useAlert()
     const [reportText, setReportText] = useState<string>('')
@@ -27,6 +28,9 @@ const ModalReport: FC<Props> = ({targetId, targetType}) => {
 
         try {
             await instance.post('/reports', {targetType, targetId, reason: reportText}, {headers: {Authorization: `Bearer ${token}`}})
+            if (onClose){
+                onClose()
+            }
         } catch (error) {
             showAlert("ERROR MESSAGE NOT DESDRUCTURIZED")
         }

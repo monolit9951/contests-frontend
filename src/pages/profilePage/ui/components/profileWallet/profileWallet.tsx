@@ -1,6 +1,7 @@
 import { FC } from "react";
 import profileWallet from 'shared/assets/icons/profileWallet.svg'
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import { Button } from "shared/ui/button";
 
 import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices/walletServices";
 import WalletTrasaction from "../walletTransaction/walletTransaction";
@@ -15,7 +16,7 @@ export interface Transaction {
     amount: number,
     createdAt: number[],
     id: string,
-    directiom: string,
+    direction: string,
     type: string
 }
 
@@ -27,6 +28,13 @@ export interface WalletBalance {
     walletId: string
 }
 
+const transaction = {
+    amount: 1000,
+    createdAr: [10, 10, 10, 10, 10],
+    id: '1',
+    direction: 'dadada',
+    type: 'dddd'
+}
 
 const ProfileWallet: FC <Props>= ({userId}) =>{
 
@@ -48,8 +56,8 @@ const ProfileWallet: FC <Props>= ({userId}) =>{
             </div>
 
             <div className="profileWallet_balance_manipulation">
-                <button type="button">Deposit</button>
-                <button type="button">Withdraw</button>
+                <Button type="button" variant="primary">Deposit</Button>
+                <Button type="button" variant="primary">Withdraw</Button>
             </div>
 
             <div className="profileWallet_balance_history">
@@ -58,6 +66,7 @@ const ProfileWallet: FC <Props>= ({userId}) =>{
                         <WalletTrasaction transaction = {data} key={index}/>
                     ))
                 }
+                <WalletTrasaction transaction = {transaction}/>
             </div>
         </div>
     )

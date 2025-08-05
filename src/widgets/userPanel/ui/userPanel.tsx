@@ -1,7 +1,7 @@
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import burger from 'shared/assets/icons/burger.svg?react'
-import { ChatButton } from 'shared/ui/chatButton'
+// import { ChatButton } from 'shared/ui/chatButton'
 import { CreateButton } from 'shared/ui/createButton/ui/createButton'
 import { Icon } from 'shared/ui/icon'
 import { NotificationsButton } from 'shared/ui/notificationsButton/ui/notificationsButton'
@@ -18,7 +18,7 @@ export const UserPanel = () => {
         <div className='userPanel_container'>
             <CreateButton />
             <NotificationsButton/>
-            <ChatButton/>
+            {/* <ChatButton/> */}
             <Link to='/profile'>
                 <UserIcon src={user.userProfileImg}/>
             </Link>

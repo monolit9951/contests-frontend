@@ -29,42 +29,46 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
     const [prizeId, setPrizeId] = useState<string>('')
     const [placeError, setPlaceError] = useState<boolean>(false)
     const [isWinner, setIsWinner] = useState<boolean>(work.possibleWinner)
+    const {showAlert, Alert} = useAlert()
+    const token = localStorage.getItem('userToken')
+    const creationDate = moment.utc(work.workAddingDate).local().fromNow();
 
+    // открытие модалки работы
     const handleWorkModal = () => {
         setModalWork(true)
     }
-    
-    const {showAlert, Alert} = useAlert()
 
+    // добавление и удаление возможного победителя
     const handleCheckbox = async() => {
         if(isWinner){
             // удаляем победителя
             try{
-                await instance.delete(`winners/possible/${work.id}`)
+                await instance.delete(`winners/possible/${work.id}`, {headers: {Authorization: `Bearer ${token}`}})
                 setIsWinner(false)
             } catch (error){
-               showAlert(error)
+                showAlert('ERROR', error.response.data.error)
             }
         } else{
             // добавляем победителя
             try{
-                await instance.post(`winners/${work.id}/possible/${prizeId}`)
+                await instance.post(`winners/${work.id}/possible/${prizeId}`, {}, {headers: {Authorization: `Bearer ${token}`}})
                 setIsWinner(true)
             } catch (error){
-                if(error.response.data.error === 'All places for this prize are already taken.'){
+                if(error){
                     setPlaceError(true)
-                    showAlert(error)
+                    showAlert('ERROR', error.response.data.error)
                 }
             }
         }
     }
 
+    // отловить выбор места
     const handlePlaceSelector = (key: string) => {
         setPlaceError(false)
         setPrizeId(key)
     }
 
-    const creationDate = moment.utc(work.workAddingDate).local().fromNow();
+    // колбек для очищения селектора
 
     // МЕМОИЗАЦИЯ ДЛЯ ПРЕДОТВРАЩЕНИЯ ПЕРЕРЕНДЕРА
     const videoBlock = useMemo(() => {

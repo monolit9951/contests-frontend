@@ -100,6 +100,7 @@
         > div{
             width: 100%;
             display: flex;
+            // background-color: red;
         }
     }
 }
@@ -142,3 +143,7 @@
 //         }
 //     }
 // }
+.image__no-select{
+    display: flex;
+    align-items: center;
+}

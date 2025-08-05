@@ -23,7 +23,7 @@ import WorksListSection from './components/worksListSection/worksListSection';
 import './contestPage.scss';
 
 const ContestPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { contestId: id } = useParams<{ contestId: string }>();
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -105,11 +105,10 @@ const ContestPage = () => {
       preventScrollReset: true 
     });
   }
-
   
   return (
     <VStack className="contest">
-      <HeroSection bg={data.backgroundImage} owner={data.contestOwner} />
+      <HeroSection bg={data.backgroundImage} owner={data.contestOwner} contestId = {data.id}/>
 
       <VStack className="contest__container">
         <DescriptionSection
@@ -133,7 +132,7 @@ const ContestPage = () => {
           isOuterClose
           onClose={handleCloseUploadModal}
         >
-          <UploadWorkModal contestId={data.id} />
+          <UploadWorkModal contestId={data.id} onClose={handleCloseUploadModal}/>
         </ModalWindow>
       )}
     </VStack>

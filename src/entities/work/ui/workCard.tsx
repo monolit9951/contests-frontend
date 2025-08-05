@@ -10,6 +10,7 @@ import { VStack } from 'shared/ui/stack'
 // import { Text } from 'shared/ui/text'
 // import { UserIcon } from 'shared/ui/userIcon'
 import { Video } from 'shared/ui/videoPlayer'
+import ModalReport from 'widgets/modalReport'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 import { getWorkById } from '../model/services/workServices'
@@ -63,19 +64,23 @@ const WorkCard: FC<Props> = (props) => {
         
     }, [workDataLoaded, workData?.media?.[0]?.mediaLink]);
 
+    const [reportModal, setReportModal] = useState<boolean>(false)
 
+    const handleReportCallback = () => {
+        setReportModal(true)
+    }
 
     return (
         <li className='li'>
             <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
                     {workDataLoaded && <MediaOverlay
-                        workId={workData.id}
                         prize={workData.prize}
                         user={workData.user}
                         imageCards={workData.typeWork === 'IMAGE'}
+                        handleReportCallback = {handleReportCallback}
                     />}
-                    {workDataLoaded && workData.media && workData.media[0].typeMedia === 'VIDEO' && workData.media?.[0]?.mediaLink && (
+                    {workDataLoaded && workData.media && workData.media[0]?.typeMedia === 'VIDEO' && workData.media?.[0]?.mediaLink && (
                         <Button
                             variant='div'
                             onClick={handleOpenModal}
@@ -83,7 +88,7 @@ const WorkCard: FC<Props> = (props) => {
                             {videoBlock}
                         </Button>
                     )}
-                    {workDataLoaded && workData.media && workData.media[0].typeMedia === 'IMAGE'&& workData.media?.[0]?.mediaLink && (
+                    {workDataLoaded && workData.media && workData.media[0]?.typeMedia === 'IMAGE'&& workData.media?.[0]?.mediaLink && (
                         <Image
                             src={workData.media?.[0].mediaLink}
                             alt='media'
@@ -93,6 +98,9 @@ const WorkCard: FC<Props> = (props) => {
                             className='media-work__frame'
                         />
                     )}
+                    {
+                        workDataLoaded && workData.media.length === 0 && (<div>{workData.description}</div>)
+                    }
                 </div>
                 {workDataLoaded && <MediaFeedback
                     id={workData.id}
@@ -102,7 +110,8 @@ const WorkCard: FC<Props> = (props) => {
                     liked = {workData.userLike}
                 />}
             </VStack>
-
+            
+            {reportModal && <ModalWindow isOpen onClose={() => setReportModal(false)}><ModalReport targetType='WORK' targetId={workData.id}/></ModalWindow>}
             {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={workData} /></ModalWindow>}
         </li>
     )

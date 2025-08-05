@@ -42,9 +42,7 @@ const [currentOption, setCurrentOption] = useState<string>(getInitialOption());
     // по нажатию на опшн, сделать его активным
     const handleOption = (option: string, key: string) =>{
         setCurrentOption(option)
-
         setSelectorOpen(false)
-
         chooseSelectorCallback(key)
     }
 
