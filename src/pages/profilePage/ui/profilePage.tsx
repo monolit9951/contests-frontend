@@ -30,7 +30,7 @@ const ProfilePage: FC = () => {
 
                 <div className="profilePage_leftContainer">
                     <PersonInformation userId = {id ?? user.userId}/>
-                    {/* {!id && <ProfileWallet userId = {user.userId}/>} */}
+                    {!id && <ProfileWallet userId = {user.userId}/>}
                 </div>
 
                 {/* <div className="profilePage_rightContainer">

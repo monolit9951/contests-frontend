@@ -8,7 +8,8 @@ interface Props {
 
 const WalletTrasaction: FC<Props> = ({transaction}) => {
 
-    const transactionDate = `${transaction.createdAt[0]}/${transaction.createdAt[1]}/${transaction.createdAt[2]} `
+    // const transactionDate = `${transaction.createdAt[0]}/${transaction.createdAt[1]}/${transaction.createdAt[2]} `
+    const transactionDate = '2/2/2'
 
     return(
         <div className="profileWallet_balance_action">

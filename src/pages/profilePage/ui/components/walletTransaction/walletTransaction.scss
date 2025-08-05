@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 40px 0;
+    padding: 14px 16px;
     border-bottom: #3B3B3B 1px solid;
 
     > .profileWallet_balance_action_left{
@@ -47,7 +47,11 @@
     }
 
     &:first-child{
-        margin-top: 24px;
+        margin-top: 18px;
         border-top: #3B3B3B 1px solid;
+    }
+
+    &:last-child{
+        border-bottom: none;
     }
 }
