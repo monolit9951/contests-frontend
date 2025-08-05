@@ -80,6 +80,8 @@ const ContestHeroSection = ({ bg, owner, contestId }: Props) => {
                         <button type='button' onClick={handleReport}>Report</button>
                         {user.userId === owner.id && <button type='button'>Edit</button>}
                         {user.userId === owner.id && <button type='button'>Delete</button>}
+
+                        <button type='button' onClick={() => setActions(false)} className="contestActions_actions_onBlur" aria-label='close Actions' />
                     </div>}
                 </div>
             </div>

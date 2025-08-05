@@ -69,6 +69,7 @@
                 border-radius: 12px;
 
                 > button{
+                    z-index: 101;
                     display: flex;
                     align-items: center;
                     border: none;
@@ -86,6 +87,19 @@
                     &:hover{
                         transition: background-color ease 0.3ms;
                         background-color: #393b3b;
+                    }
+                }
+
+                > .contestActions_actions_onBlur{
+                    position: fixed;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    background-color: transparent;
+                    z-index: 100;
+                    &:hover{
+                        background-color: transparent;
                     }
                 }
             }
