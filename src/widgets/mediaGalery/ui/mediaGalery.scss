@@ -1,0 +1,99 @@
+.mediaGalery {
+    width: 100%;
+    max-width: 668px;
+    min-width: 668px;
+    flex: 1;
+    height: 100%;
+    background: black;
+    position: relative;
+    overflow: hidden;
+
+    > .mediaGalery_media {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: transform 0.5s ease-in-out;
+        z-index: 1;
+
+        &.slideInNext {
+            animation: slideInFromRight 0.4s forwards;
+        }
+
+        &.slideInPrev {
+            animation: slideInFromLeft 0.4s forwards;
+        }
+
+        > img,
+        > video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    > .mediaGalery_navigationButton{
+        position: absolute;
+        z-index: 1000;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 100px;
+
+        &:first-child{
+            left: 0;
+        }
+
+        &:last-child{
+            right: 0;
+        }
+    }
+
+    > .mediaGalery_navigationDataInfo{
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+    }
+
+    > .mediaGalery_navigationDataLeft{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 13px;
+        z-index: 1000;
+    }
+    
+    > .mediaGalery_navigationDataRight{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 13px;
+        z-index: 1000;
+    }
+}
+
+// Ключевые кадры
+@keyframes slideInFromRight {
+    0% {
+        // transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        // transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        // transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        // transform: translateX(0);
+        opacity: 1;
+    }
+}

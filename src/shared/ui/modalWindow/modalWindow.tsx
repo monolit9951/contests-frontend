@@ -1,13 +1,13 @@
-import { FC, ReactNode, useEffect } from 'react'
-import clsx from 'clsx'
-import { useTheme } from 'entities/theme'
-import xIcon from 'shared/assets/icons/Secondary_btn.svg?react'
-import { Icon } from 'shared/ui/icon'
-import { Flex, HStack, VStack } from 'shared/ui/stack'
+import { cloneElement, FC, isValidElement, ReactNode, useEffect } from 'react'
 
+// import clsx from 'clsx'
+// import { useTheme } from 'entities/theme'
+// import xIcon from 'shared/assets/icons/Secondary_btn.svg?react'
+// import { Icon } from 'shared/ui/icon'
+// import { Flex, HStack, VStack } from 'shared/ui/stack'
 import './modalWindow.scss'
 
-interface UploadModalProps {
+interface Props {
     isOpen: boolean
     onClose?: () => void
     children: ReactNode
@@ -21,30 +21,13 @@ interface UploadModalProps {
     modalContentClass?: string
 }
 
-export const ModalWindow: FC<UploadModalProps> = ({
-    width,
-    height,
-    maxWidth,
-    maxHeight,
+export const ModalWindow: FC<Props> = ({
     ...rest
 }) => {
-    const { theme } = useTheme()
-
-    const modalClass = clsx(
-        'modal',
-        { 'modal-open': rest.isOpen },
-        rest.className
-    )
-    const overlayClass = clsx('modal-overlay', rest.overlayClassName)
-    const modalContentClass = clsx(
-        'modal-content',
-        rest.modalContentClass,
-        theme
-    )
-
+    
+    // БЛОКИРОВКА СКОЛЛА
     useEffect(() => {
         const body = document.body as HTMLElement
-
         if (rest.isOpen) {
             body.classList.add('no-scroll')
         }
@@ -58,26 +41,21 @@ export const ModalWindow: FC<UploadModalProps> = ({
         return null
     }
 
+
+    const handleClose = () =>{
+        if(rest.onClose){
+            rest.onClose()
+        }
+    }
+        const clonedChildren = isValidElement(rest.children) ? cloneElement(rest.children, { onClose: rest.onClose }) : rest.children
+
     return (
-        <VStack className={modalClass}>
-            <div
-                className='modal-wrapper'
-                style={{ width, height, maxWidth, maxHeight }}>
-                <Flex className={overlayClass} clickFunction={rest.onClose} />
-                <HStack className={modalContentClass}>
-                    <VStack>{rest.children}</VStack>
-                </HStack>
-                {rest.isOuterClose && (
-                    <Icon
-                        Svg={xIcon}
-                        width={36}
-                        height={36}
-                        clickable
-                        onClick={rest.onClose}
-                        btnClassName='modal-x'
-                    />
-                )}
+        <div className="modalWindow">
+            <button type = 'button' aria-label='Close modal' className={`modalWindow_background ${rest.className}`} onClick={handleClose}/>
+
+            <div className="modalWindow_overlay">
+                {clonedChildren}
             </div>
-        </VStack>
+        </div>
     )
 }

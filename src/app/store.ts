@@ -14,18 +14,20 @@ import {
     REHYDRATE,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import userReducer from "widgets/registrationModal/model/slice/userSlice"
 
 const rootReducer = combineReducers({
     contestsPage: contestsPageReducer,
     filter: filterReducer,
     works: worksReducer,
     contestWorks: contestWorksReducer,
+    user: userReducer
 })
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['cart'],
+    whitelist: ['user'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

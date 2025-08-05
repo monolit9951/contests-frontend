@@ -15,6 +15,7 @@
         width: 168px;
         border-radius: 999px;
         padding: 6px 32px;
+        margin-top: 14px;
 
         p {
             font-size: 14px;
@@ -31,3 +32,9 @@
         margin-top: 10px;
     }
 }
+
+// @media (max-width:650px) {
+//     .prizePlace_container{
+//         flex-wrap: wrap;
+//     }
+// }

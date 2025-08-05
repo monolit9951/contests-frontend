@@ -1,0 +1,17 @@
+.galeryButton{
+    width: 82px;
+    height: 82px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: #1B2321;
+    opacity: 0.5;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+
+    > img{
+        width: 48px;
+        height: 48px;
+        aspect-ratio: 1/1;
+    }
+}

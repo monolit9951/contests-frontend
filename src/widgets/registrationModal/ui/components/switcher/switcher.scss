@@ -1,0 +1,31 @@
+.switcher{
+    display: flex;
+    width: 100%;
+    height: 56px;
+    background-color: #151515;
+    border-radius: 999px;
+    align-items: center;
+    padding: 4px;
+    box-sizing: border-box;
+
+    button{
+        flex: 1;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: white;
+        font-family: Manrope;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        height: 48px;
+        border-radius: 5000px;
+        transition: 0.3s background-color;
+        user-select: none;
+
+        &.isMode{
+            background-color: #0BA486;
+            transition: 0.3s background-color;
+        }
+    }
+}

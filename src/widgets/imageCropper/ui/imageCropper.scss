@@ -1,0 +1,18 @@
+.crop_container{
+    z-index: 10000;
+
+    > .crop_container_button{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        > button{
+            max-width: 330px;
+            width: 100%;
+            align-items: center;
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+}

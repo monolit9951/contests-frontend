@@ -1,0 +1,173 @@
+.profileContest{
+    padding: 16px 16px 16px 16px;  
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px #3B3B3B solid;
+    color: white;
+    text-decoration: none;
+    
+    // &:last-child{
+    //     // border-bottom: none;
+    //     padding: 16px 16px 16px 16px;
+    // }
+
+    > .profileContest_leftGroup{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        > .profileContest_leftGroup_header{
+            display: flex;
+            gap: 5px;
+
+            > .profileContest_leftGroup_heading{
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 28px;
+                letter-spacing: 0%;
+            }
+
+            > .profileContest_rightGroup{
+                display: none;
+            }
+        }
+
+
+        > .profileContest_leftGroup_tagList{
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 8px;
+
+            > li{
+                padding: 8px 32px;
+                background-color: transparent;
+                border: 1px #393B3B solid;
+                border-radius: 999px;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: -1.1%;
+                height: 36px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+
+                &.statusFinished{
+                    background-color: #525856;
+                }
+
+                &.statusActive{
+                    background-color: #044337;
+                    border: #0BA486 1px solid;
+                }
+
+                &.winner{
+                    background-color: #524000;
+                    border: #EDB900 1px solid;
+                }
+
+                &.organizer{
+                    background-color: #3D0746;
+                    border: #DA5CEF 1px solid;
+                }
+            }
+        }
+
+        > .profileContest_leftGroup_date{
+            display: flex;
+            gap: 8px;
+            align-items: center;
+
+            > img{
+                width: 20px;
+                aspect-ratio: 1/1;
+            }
+
+            > span{
+                color: #C4C4C4;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0%;
+            }
+        }
+    }
+
+    .profileContest_rightGroup{
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: end;
+
+        > .profileContest_rightGroup_desc{
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: #C4C4C4;
+        }
+
+        > .profileContest_rightGroup_value{
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 36px;
+            letter-spacing: 0%;
+            color: #0BA486;
+            text-align: end;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+@media (max-width: 1500px) {
+    .profileContest{
+        > .profileContest_leftGroup{
+            flex: 1;
+            > .profileContest_leftGroup_header{
+                gap: 44px;
+                > .profileContest_leftGroup_heading{
+                    font-size: 16px;
+                    line-height: 27px;
+                    flex: 1;
+                }
+
+                > .profileContest_rightGroup{
+                    flex: 1;
+                    display: block;
+                    text-align: end;
+                }
+            }
+
+            > .profileContest_leftGroup_tagList{
+                width: 100%;
+                gap: 44px;
+                
+                > li{
+                    max-width: 200px;
+                    display: flex;
+                    padding: 0 10px;
+                    box-sizing: border-box;
+                    width: 100%;
+                    text-overflow: ellipsis;
+                    flex: 1;
+                    align-items: center;
+                    justify-content: space-around;
+
+                    > span{
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        width: 100%;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        > .profileContest_rightGroup{
+            display: none;
+        }
+    }   
+}

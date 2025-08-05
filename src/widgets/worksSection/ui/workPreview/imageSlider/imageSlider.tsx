@@ -12,6 +12,8 @@ export const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [showButton, setShowButton] = useState(true)
 
+
+    // следующие медиа
     const nextSlide = () => {
         setShowButton(false)
 
@@ -23,6 +25,7 @@ export const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
         }, 550)
     }
 
+    // прошлое медиа
     const prevSlide = () => {
         setShowButton(false)
         setCurrentSlide((_prev) =>
@@ -33,9 +36,22 @@ export const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
         }, 550)
     }
 
+    // по нажатию на кнопку, перекидывает на медиа с её индексом
     const handleDotClick = (index: number) => {
         setCurrentSlide(index)
     }
+
+
+
+    // -------------------------------
+    // СДЕЛАТЬ ВМЕСТО ФОТО ЛЮБОЕ МЕДИА
+    // -------------------------------
+
+    // бекграунд имедж заменить на блок с фото обдж фит контейн
+    // при медиаТайп видео рендерить видео редактор с тем же обдж фит
+    // вынести навигацию кнопками и стрелками на зиндекс 1000000
+    // убрать навигацию через анимацию, сделать рендер блоков
+
 
     return (
         <div className='image-slider'>

@@ -1,11 +1,20 @@
 .userPanel_container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 32px;
+
+    > .userPanel_burger{
+        display: none;
+    }
+
+    > a{
+        display: flex;
+        align-items: center;
+    }
 }
 
-@media (max-width: 1059px) {
+@media (max-width: 1060px) {
     .userPanel_container {
         .createBtn {
             width: unset;
@@ -16,6 +25,14 @@
             }
         }
         > button {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .userPanel_container {
+        > .createBtn{
             display: none;
         }
     }

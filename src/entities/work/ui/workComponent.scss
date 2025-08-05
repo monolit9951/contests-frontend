@@ -13,6 +13,7 @@
     overflow-y: auto;
     scroll-snap-type: y mandatory;
 
+
     &::-webkit-scrollbar {
         display: none;
     }
@@ -76,6 +77,10 @@
             }
         }
     }
+}
+
+div > .workComponent_mediafeedback{
+    margin-top: 16px;
 }
 
 .dark {

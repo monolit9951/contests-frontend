@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import clsx from 'clsx'
 import questionMark from 'shared/assets/icons/question-mark.svg?react'
@@ -16,6 +16,7 @@ import { Image } from 'shared/ui/image'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import { Flex, HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
+import ImageCropper from 'widgets/imageCropper/ui/imageCropper'
 
 import './coverSelectionModal.scss'
 
@@ -25,6 +26,7 @@ interface CoverSelectionModalProps {
     setChosenImg: React.Dispatch<React.SetStateAction<string>>
     isCover: boolean
     setImageValidationMessage: (str: string) => void
+    extra: string
 }
 
 const covers = [basicCover1, basicCover2, basicCover3, basicCover4]
@@ -35,34 +37,21 @@ export const CoverSelectionModal = ({
     setChosenImg,
     isCover,
     setImageValidationMessage,
+    extra
 }: CoverSelectionModalProps) => {
-    const [currImg, setCurrImg] = useState<string>('')
+    const [currImg, setCurrImg] = useState<string | Blob>('')
     const [imgName, setImgName] = useState<string>('')
     const [isDisabledUploadBtn, setIsDisabledUploadBtn] =
         useState<boolean>(true)
     const [isUploading, setIsUploading] = useState<boolean>(false)
-
+    const [currBlob, setCurrBlob] = useState<Blob | string>('')
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const [isDragging, setIsDragging] = useState(false);
+    // const [currFile, setCurrFile] = useState<any>(null)
     const { setValue } = useFormContext()
 
-    const setImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-            const file = e.target.files[0]
-            const maxSize = 6 * 1024 * 1024 // 6MB
-
-            if (file.size > maxSize) {
-                setImageValidationMessage('File size exceeds 6 MB')
-
-                return
-            }
-
-            setImgName(file.name)
-            setCurrImg(URL.createObjectURL(file))
-            setIsDisabledUploadBtn(false)
-            setImageValidationMessage('')
-        }
-    }
-
-    const setDefaultImage = (image: string) => {
+    // подготовленные базовые фото
+    const setDefaultImage = async (image: string) => {
         if (currImg === image) {
             setImgName('')
             setCurrImg('')
@@ -71,9 +60,18 @@ export const CoverSelectionModal = ({
             setImgName(image)
             setCurrImg(image)
             setIsDisabledUploadBtn(false)
+             try {
+                const response = await fetch(image)
+                const blob = await response.blob()
+                setCurrBlob(blob)
+            } catch (err) {
+                // console.error('Ошибка при загрузке изображения:', err)
+                setImageValidationMessage('Failed to load image blob')
+            }
         }
     }
 
+    // отмена
     const onCancel = () => {
         setImgName('')
         setCurrImg('')
@@ -82,15 +80,94 @@ export const CoverSelectionModal = ({
         setIsDisabledUploadBtn(true)
     }
 
+    // окончательное добавление
     const confirmImage = () => {
         if (isCover) {
-            setValue('backgroundImage', currImg)
+            setValue('backgroundImage', currBlob)
         } else {
-            setValue('previewImage', currImg)
+            setValue('previewImage', currBlob)
         }
         setChosenImg(currImg)
         onCancel()
     }
+
+    const [imageSrc, setImageSrc] = useState<String | null>(null)
+
+    // получаем фото
+    const handleFileChange = async(event: React.ChangeEvent<HTMLInputElement>) =>{
+        const file = event.target.files?.[0]
+        // setCurrFile(file)
+        if(file){
+            if(file.size > 6 * 1024 * 1024){
+                setImageValidationMessage('File size exceeds 6 MB')
+                return
+            }
+            const reader = new FileReader()
+            reader.onload = () => {
+                setImageSrc(reader.result as string)
+                setImgName(file.name)
+            }
+            reader.readAsDataURL(file)
+            setIsUploading(true)
+        }
+        
+    }
+
+    // возвращаем обработанное фото
+    const handleCropComplete = (blob: Blob) => {
+        setCurrImg(URL.createObjectURL(blob))
+        setCurrBlob(blob)
+        setIsDisabledUploadBtn(false)
+        setImageSrc(null)
+    }
+
+    
+    // обработка правильного aspect-ration
+    const [numerator, denominator] = extra.split('/').map(Number)
+    const extraNumber = Number((numerator / denominator).toFixed(3))
+
+    useEffect(() => {
+        const onDragEnter = (e: DragEvent) => {
+        e.preventDefault();
+        setIsDragging(true);
+        };
+
+        const onDragLeave = (e: DragEvent) => {
+        e.preventDefault();
+        if (e.relatedTarget === null) setIsDragging(false);
+        };
+
+        const onDragOver = (e: DragEvent) => {
+        e.preventDefault();
+        };
+
+        const onDrop = (e: DragEvent) => {
+        e.preventDefault();
+        setIsDragging(false);
+
+        if (e.dataTransfer?.files && inputRef.current) {
+            const fileList = new DataTransfer();
+            Array.from(e.dataTransfer.files).forEach(file => fileList.items.add(file));
+            inputRef.current.files = fileList.files;
+
+            // вручную вызвать change, т.к. inputRef.current.value не обновляется
+            const event = new Event('change', { bubbles: true });
+            inputRef.current.dispatchEvent(event);
+        }
+        };
+
+        window.addEventListener("dragenter", onDragEnter);
+        window.addEventListener("dragleave", onDragLeave);
+        window.addEventListener("dragover", onDragOver);
+        window.addEventListener("drop", onDrop);
+
+        return () => {
+        window.removeEventListener("dragenter", onDragEnter);
+        window.removeEventListener("dragleave", onDragLeave);
+        window.removeEventListener("dragover", onDragOver);
+        window.removeEventListener("drop", onDrop);
+        };
+    }, []);
 
     return (
         <ModalWindow
@@ -128,8 +205,7 @@ export const CoverSelectionModal = ({
                             <Text
                                 Tag='p'
                                 className='uploading__cover__label__text'>
-                                We recommend uploading an image that is at least
-                                1704 x 390 pixels in size.
+                                We recommend uploading an image that is at least {extra} pixels in size.
                             </Text>
                         </HStack>
 
@@ -197,7 +273,7 @@ export const CoverSelectionModal = ({
                                         We recommend uploading an image that is
                                         at least
                                         <br />
-                                        1704 x 390 pixels in size. File size –
+                                        {extra} pixels in size. File size –
                                         no more than 6 MB
                                     </Text>
                                 </>
@@ -218,13 +294,18 @@ export const CoverSelectionModal = ({
                                     className='custom-cover-upload-btn-icon'
                                 />
                             </label>
+
+                            {/* ДОБАВЛЕНИЕ КРОПА ФОТО */}
                             <input
                                 type='file'
                                 id='custom-cover-upload-btn_id'
                                 accept='.webp,.png,.jpg,.jpeg'
-                                onChange={(e) => {
-                                    setImage(e)
-                                }}
+                                ref={inputRef}
+                                // onChange={(e) => {
+                                //     setImage(e)
+                                // }}
+
+                                onChange={handleFileChange}
                             />
                         </VStack>
 
@@ -248,6 +329,9 @@ export const CoverSelectionModal = ({
                     </>
                 )}
             </VStack>
+
+            {isDragging && <div className='dragOverlay'>1</div>}
+            {imageSrc && <ImageCropper imageSrc = {imageSrc} aspect = {extraNumber} onCropComplete={handleCropComplete}/>}
         </ModalWindow>
     )
 }

@@ -1,6 +1,12 @@
 .contest-card-wrapper {
-    width: 408px;
-    height: 515px;
+    // width: 100%;
+
+    // aspect-ratio: 408/515;
+    // max-width: 408px;
+    // height: 515px;
+    height: 100%;
+    width: 100%;
+    // aspect-ratio: 408/515;
     padding: 16px;
     box-sizing: border-box;
     border-radius: 24px;
@@ -11,6 +17,10 @@
 
     .flex.justify__between {
         width: 100%;
+
+        a{
+            color: white;
+        }
 
         .flex.align__center {
             gap: 8px;
@@ -23,47 +33,64 @@
             gap: 4px;
         }
     }
-    .contest-card-body .image-box {
-        position: relative;
 
-        .image {
-            cursor: pointer;
-        }
+    > .contest-card-body{  
+        width: 100%;
+        >.image-box {
+            margin: 16px 0 32px 0;
+            position: relative;
+            width: 100%;
 
-        .prize {
-            padding: 4px 12px;
-            box-sizing: border-box;
-            display: flex;
-            position: absolute;
-            bottom: -10px;
-            border-radius: 8px;
-            gap: 8px;
-            color: var(--white);
+            > img {
+                display: block;
+                width: 100%;
+                object-fit: cover;
+                aspect-ratio: 376/211;
+                object-position: top;
+                border-radius: 16px;
+            }
 
-            svg {
-                width: 24px;
-                height: 24px;
+            .prize {
+                padding: 4px 12px;
+                box-sizing: border-box;
+                display: flex;
+                position: absolute;
+                bottom: -10px;
+                border-radius: 8px;
+                gap: 8px;
+                color: var(--white);
+
+                svg {
+                    width: 24px;
+                    height: 24px;
+                }
             }
         }
     }
-
     .contest-card-title {
         width: 100%;
 
         .segments {
             width: 100%;
+            display: flex;
             gap: 8px;
             margin-top: 10px;
+            margin-bottom: 16px;
 
             div {
-                display: flex;
                 box-sizing: border-box;
                 padding: 4px 12px;
                 border-radius: 8px;
                 font-size: 14px;
                 font-weight: 400;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                min-width: 70px; // можно и меньше — 70px это около 7 символов
+                max-width: 100%; // ограничим максимальную ширину контейнером
             }
         }
+
     }
     .btn-box {
         width: 100%;
@@ -130,6 +157,7 @@
         }
     }
 }
+
 .light {
     .contest-card-wrapper {
         border: 1px solid var(--white-medium-light);
@@ -140,172 +168,6 @@
         }
         .contest-card-body .contest-card-title .segments div {
             background-color: var(--bg-light);
-        }
-    }
-}
-
-@media (max-width: 1919px) {
-    .contest-card-wrapper {
-        max-width: 21vw;
-
-        .contest-card-body .image-box .image {
-            max-width: 19vw;
-        }
-
-        .contest-card-title .segments {
-            div {
-                font-size: 12px;
-            }
-        }
-    }
-
-    .contest-card-skeleton {
-        .image {
-            max-width: 19vw;
-        }
-
-        .contest-title-box .contest-title {
-            height: 24px;
-        }
-    }
-}
-
-@media (max-width: 1800px) {
-    .contest-card-wrapper {
-        max-width: 20vw;
-
-        .contest-card-body .image-box .image {
-            max-width: 18vw;
-        }
-    }
-
-    .contest-card-skeleton {
-        .image {
-            max-width: 18vw;
-        }
-    }
-}
-
-@media (max-width: 1769px) {
-    .contest-card-wrapper .contest-card-title .segments {
-        div {
-            font-size: 10px;
-        }
-    }
-
-    .contest-card-skeleton .contest-title-box .contest-title {
-        height: 20px;
-    }
-}
-
-@media (max-width: 1559px) {
-    .contest-card-wrapper {
-        justify-content: flex-start;
-        gap: 20px;
-        height: 100%;
-
-        .flex.justify__between.align__center .flex {
-            img {
-                width: 36px;
-                height: 36px;
-            }
-
-            .flex.flex__col.user-des > .flex > span {
-                font-size: 10px;
-            }
-        }
-
-        .contest-card-body .image-box img {
-            max-width: 17vw;
-        }
-
-        .contest-card-title .segments {
-            div {
-                font-size: 8px;
-            }
-        }
-    }
-
-    .contest-card-skeleton {
-        .user-img {
-            width: 36px;
-            height: 36px;
-        }
-
-        .image {
-            max-width: 17vw;
-        }
-    }
-}
-
-@media (max-width: 1440px) {
-    .contest-card-wrapper {
-        width: 100%;
-        max-width: unset;
-
-        .flex.justify__between.align__center .flex {
-            img {
-                width: 44px;
-                height: 44px;
-            }
-
-            .flex.flex__col.user-des > .flex > span {
-                font-size: 12px;
-            }
-        }
-
-        .contest-card-body .image-box .image {
-            max-width: unset;
-        }
-
-        .contest-card-title .segments {
-            div {
-                font-size: 10px;
-            }
-        }
-    }
-
-    .contest-card-skeleton {
-        .image {
-            max-width: unset;
-        }
-    }
-}
-
-@media (max-width: 1059px) {
-    .contest-card-wrapper {
-        max-width: 35vw;
-
-        .contest-card-body .image-box .image {
-            max-width: 32vw;
-        }
-    }
-
-    .contest-card-skeleton {
-        .image {
-            max-width: 32vw;
-        }
-    }
-}
-
-@media (max-width: 800px) {
-    .contest-card-wrapper {
-        max-width: 52vw;
-
-        .contest-card-body .image-box .image {
-            max-width: 50vw;
-        }
-
-        .contest-card-title .segments {
-            div {
-                font-size: 12px;
-            }
-        }
-    }
-
-    .contest-card-skeleton {
-        .image {
-            max-width: 50vw;
         }
     }
 }

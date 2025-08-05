@@ -15,12 +15,14 @@ import './imageUpload.scss'
 
 interface ImageUploadProps {
     text: string
+    extra: string
 }
 
-export const ImageUpload = ({ text }: ImageUploadProps) => {
+export const ImageUpload = ({ text, extra }: ImageUploadProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [chosenImg, setChosenImg] = useState<string>('')
     const [imageValidationMessage, setImageValidationMessage] = useState('')
+    
 
     return (
         <>
@@ -30,6 +32,7 @@ export const ImageUpload = ({ text }: ImageUploadProps) => {
                 setIsOpen={setIsOpen}
                 isCover={text === 'Cover image'}
                 setImageValidationMessage={setImageValidationMessage}
+                extra={extra}
             />
 
             <HStack className='imageUpload_container'>
@@ -61,7 +64,7 @@ export const ImageUpload = ({ text }: ImageUploadProps) => {
                         <br />
                         we recommend uploading an image
                         <br />
-                        that is at least 1704 x 390 pixels in size.
+                        that is at least {extra} pixels in size.
                         <br />
                         File size – no more than 6 MB
                     </Text>

@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import clsx from 'clsx'
-import { TopWinners } from 'entities/contest'
+import { ContestWinners } from 'entities/contest/model/types'
 import { Prize } from 'entities/prize'
-import { Work, WorkCard } from 'entities/work'
+import { Work } from 'entities/work'
 import { selectContestPrizes } from 'pages/contestPage/model/selectors'
 import { useAppSelector } from 'shared/lib/store'
 import { VStack } from 'shared/ui/stack'
@@ -12,7 +12,7 @@ import { ContestWinnersTable } from 'widgets/winnersTable'
 import './winnersSection.scss'
 
 interface Props {
-    data: TopWinners[]
+    data: ContestWinners[]
     openModal: (work: Work) => void
     className?: string
 }
@@ -22,8 +22,7 @@ const WinnersSection: FC<Props> = (props) => {
 
     const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
-    const otherPrizes =
-        data.length < prizes.reduce((acc, item) => acc + item.winnersAmount, 0)
+    const otherPrizes = data.length < prizes.reduce((acc, item) => acc + item.winnersAmount, 0)
 
     return (
         <section className={clsx('winners', className)}>
@@ -31,17 +30,21 @@ const WinnersSection: FC<Props> = (props) => {
                 Winners
             </Text>
 
-            <ul className='winners__list'>
-                {data.map(({ work, prizeId }, idx) => (
+            {/* <ul className='winners__list'>
+                {data.map((work, idx) => (
                     <WorkCard
-                        key={work.id}
+                        key={work.workId}
                         data={work}
-                        prizeId={prizeId}
+                        prizeId={work.prizeId}
                         openModal={openModal}
                         className={clsx(idx === 0 && 'first-place')}
                     />
                 ))}
-            </ul>
+            </ul> */}
+
+            {data.map((item, index) => (
+                <div key={index}>{item.workId}</div>
+            ))}
 
             {otherPrizes && (
                 <VStack className='winners__other'>

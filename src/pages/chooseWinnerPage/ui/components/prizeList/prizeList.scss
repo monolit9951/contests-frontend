@@ -1,0 +1,43 @@
+.prizeList{
+    width: 100%;
+    margin-top: 32px;
+    border: 1px #393B3B solid;
+    padding: 32px;
+    box-sizing: border-box;
+    border-radius: 24px;
+
+
+    > h3{
+        font-weight: 600;
+        font-size: 42px;
+        line-height: 100%;
+        letter-spacing: 0%;
+    }
+    
+
+    > .prizeList_list{
+        display: flex;
+        align-self: center;
+        gap: 24px;
+        margin-top: 24px;
+        overflow-x: auto;
+
+        > li{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px #393B3B solid;
+            padding: 16px;
+            border-radius: 24px;
+
+            > div{
+                font-size: 20px;
+                color: #C4C4C4;
+                > span{
+                    font-weight: 900;
+                    color: white;
+                }
+            }
+        }
+    }
+}

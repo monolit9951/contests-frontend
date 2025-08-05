@@ -1,0 +1,82 @@
+.registrationInput{
+    > .registrationInput_explain{
+        display: flex;
+        justify-content: space-between;
+        > .registrationInput_labbel{
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: -1.1%;
+            
+            &.validation{
+                color: #EB5533;
+            }
+        }
+
+        > .registrationInput_validationText{
+            color: #EB5533;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: -1.1%;
+        }
+    }
+
+
+    > .registrationInput_container{
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #393B3B;
+        border-radius: 999px;
+        height: 48px;
+        padding: 12px;
+        box-sizing: border-box;
+
+        &.validation{
+            border: 1px solid #EB5533;
+        }
+
+        > input{
+            flex: 1;
+            height: 24px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            font-family: Manrope;
+            color: white;
+            font-size: 16px;
+
+            &::placeholder{
+                font-family: Manrope;
+                color: #DDDDDD;
+                opacity: 0.5;
+            }
+        }
+        > button{
+            background-color: transparent;
+            border: none;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            > img{
+                cursor: pointer;
+            }
+        }
+    }
+
+    > .registrationInput_validation{
+        margin-top: 8px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        > span{
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            color: #EB5533;
+        }
+    }
+}

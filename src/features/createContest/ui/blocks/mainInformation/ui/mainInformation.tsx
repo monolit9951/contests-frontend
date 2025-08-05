@@ -7,8 +7,9 @@ import { Combobox, Input, Textarea } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
-import { categories, subcategories } from '../mockData'
+import { categories } from '../mockData'
 
+// import { categories, subcategories } from '../mockData'
 import { ImageUpload } from './imageUpload'
 import { RadioContainer, RadioEl } from './radioContainer'
 
@@ -47,7 +48,7 @@ export const MainInformation = ({ submitError }: Props) => {
                         },
                     })}
                     autoComplete='off'
-                    maxLength={70}
+                    maxLength={100}
                     error={errors.name && (errors.name.message as string)}
                 />
 
@@ -73,7 +74,7 @@ export const MainInformation = ({ submitError }: Props) => {
                             />
                         )}
                     />
-                    <Controller
+                    {/* <Controller
                         name='subcategory'
                         control={control}
                         rules={{ required: 'Select subcategory' }}
@@ -93,12 +94,13 @@ export const MainInformation = ({ submitError }: Props) => {
                                 }
                             />
                         )}
-                    />
+                    /> */}
                 </HStack>
             </VStack>
 
-            <ImageUpload text='Cover image' />
-            <ImageUpload text='Card image' />
+            <ImageUpload text='Cover image' extra='1704/390'/>
+            <ImageUpload text='Card image' extra='376/211'/>
+            
             {submitError &&
                 (!getValues('backgroundImage') ||
                     !getValues('previewImage')) && (
@@ -123,7 +125,7 @@ export const MainInformation = ({ submitError }: Props) => {
                             setQuantity(e.target.value.length)
                         },
                     })}
-                    maxLength={300}
+                    maxLength={3000}
                     error={
                         errors.description &&
                         (errors.description.message as string)
@@ -137,21 +139,21 @@ export const MainInformation = ({ submitError }: Props) => {
                         )}>
                         Please enter at least 40 characters
                     </Text>
-                    <Text Tag='p'>{quantity}/300</Text>
+                    <Text Tag='p'>{quantity}/3000</Text>
                 </HStack>
             </VStack>
 
             <VStack className='mainInfoRadioElContainers_container'>
-                <RadioContainer text='Type of competition' currActive='Open'>
+                {/* <RadioContainer text='Type of competition' currActive='Open'>
                     <RadioEl text='Open' />
                     <RadioEl text='Close' />
-                </RadioContainer>
+                </RadioContainer> */}
 
                 <RadioContainer
                     text='Winner selection type'
                     currActive='Random'>
                     <RadioEl text='Random' />
-                    <RadioEl text='Viewer voting' />
+                    {/* <RadioEl text='Viewer voting' /> */}
                     <RadioEl text="Creator's decision" />
                 </RadioContainer>
             </VStack>

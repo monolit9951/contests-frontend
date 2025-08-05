@@ -3,8 +3,18 @@
         gap: 20px;
     }
     .prizePlace_container {
-        width: 960px;
+        max-width: 960px;
         gap: 20px;
+
+        > .prizePlace_firstPart{
+            display: flex;
+            gap: 10px;
+        }
+
+        > .prizePlace_secondPart{
+            display: flex;
+            gap: 10px;
+        }
 
         .winIcon {
             margin-bottom: 4px;
@@ -51,31 +61,44 @@
         }
     }
 
-    .divider {
-        background-color: var(--grey-medium-dark);
-        height: 1px;
-        width: 960px;
-        margin: 20px 0;
-    }
+    // .divider {
+    //     background-color: var(--grey-medium-dark);
+    //     height: 1px;
+    //     width: 960px;
+    //     margin: 20px 0;
+    // }
 }
 
-@media (max-width: 1280px) {
-    .prizePlace_outercontainer {
-        .prizePlace_container {
-            .winnersNum_input_container {
-                width: 80px;
-            }
+// @media (max-width: 1280px) {
+//     .prizePlace_outercontainer {
+//         .prizePlace_container {
+//             .winnersNum_input_container {
+//                 width: 80px;
+//             }
 
-            .input-wrapper {
-                label {
-                    height: 40px;
-                }
-            }
-        }
+//             .input-wrapper {
+//                 label {
+//                     height: 40px;
+//                 }
+//             }
+//         }
 
-        .prizePlace_container,
-        .divider {
-            width: calc(100% - 68px);
+//         .prizePlace_container,
+//         .divider {
+//             width: calc(100% - 68px);
+//         }
+//     }
+// }
+
+@media (max-width: 650px) {
+    .prizePlace_outercontainer{
+        .prizePlace_container{
+            display: block;
         }
+    }
+
+
+    .winnersNum_input_container{
+         width: 70px !important;
     }
 }

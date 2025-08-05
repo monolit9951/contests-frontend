@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useSelector } from 'react-redux'
 import { Button } from 'shared/ui/button'
 import { Input } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
@@ -14,9 +15,11 @@ interface Props {
 const CommentInput: FC<Props> = (props) => {
     const { inputData, setInputData, onSubmit, onClose } = props
 
+    const user = useSelector((state: RootState) => state.user)
+
     return (
         <HStack className='comment-reply'>
-            <UserIcon size={40} wrapperClassName='align__start' />
+            <UserIcon size={40} wrapperClassName='align__start' src={user.userProfileImg} />
             <VStack className='comment-reply__input-box'>
                 <Input
                     name='commentReply'

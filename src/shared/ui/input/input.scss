@@ -53,6 +53,11 @@ input[type='time']::-webkit-calendar-picker-indicator {
     & > .input-wrapper__label {
         font-size: 14px;
         line-height: 1.43;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        display: block;
     }
 
     & > .input-wrapper__info {

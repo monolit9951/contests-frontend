@@ -12,10 +12,11 @@ import { Text } from 'shared/ui/text'
 interface Props {
     data: Comment
     userId: string
+    handleDeleteMainCommentCallback: (commentId: string) => void
 }
 
 const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
-    const { data, userId } = props
+    const { data, userId, handleDeleteMainCommentCallback} = props
 
     const [repliesShown, setRepliesShown] = useState(false)
     const [repliesNum, setRepliesNum] = useState(data.subCommentsAmount ?? 0)
@@ -25,23 +26,26 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
     const [loading, setLoading] = useState(false)
     const [nextLoading, setNextLoading] = useState(false)
     const [error, setError] = useState<Error | null>(null)
+    const token = localStorage.getItem('userToken')
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    // const params = `pageSize=8&sortDirection=ASC&parentId=${data.id}`
 
-    const params = `pageSize=8&sortDirection=ASC&parentId=${data.id}`
+    // функция загрузки всех сабкомментов
+    
+    // ------------------------------------------------------------------------------
+    // ПЕРЕДЕЛАТЬ, ПОЛУЧАТЬ ПО ДРУГОМУ ЗАПРОСУ, ГДЕ ВСЕ САБКОММЕНТЫ
+    // -----------------------------------------------------------------------------
 
-    const onRepliesClick = async () => {
-        setRepliesShown(!repliesShown)
 
-        if (subComments.length) {
-            return
-        }
-
+    const fetchSubComments = async () =>{
         try {
             setError(null)
             setLoading(true)
+            
+            const response = await instance.get(`comment?parentId=${data.id}`, {headers})
+            // setSubComments((prev) => [...prev, ...response.data.content])
+            setSubComments(response.data.content)
 
-            const response = await instance.get(`comment?page=0&${params}`)
-
-            setSubComments((prev) => [...prev, ...response.data.content])
             setTotalPages(response.data.totalPages)
         } catch (err) {
             setError(err as Error)
@@ -50,23 +54,48 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         }
     }
 
+    // отловить нажатие показать реплаи
+    const onRepliesClick = async () => {
+        setRepliesShown(!repliesShown)
+        if (subComments.length) {
+            return
+        }
+
+        fetchSubComments()
+    }
+
+    // функция для пагинации сабкомментов
     const onLoadMore = async () => {
         try {
             setError(null)
             setNextLoading(true)
 
             const response = await instance.get(
-                `comment?page=${page}&${params}`
+                `comment?page=${page}`, {headers}
             )
 
             setSubComments((prev) => [...prev, ...response.data.content])
             // eslint-disable-next-line no-return-assign
             setPage((prev) => (prev += 1))
+            
         } catch (err) {
             setError(err as Error)
         } finally {
             setNextLoading(false)
         }
+    }
+
+
+    const handleNewSubCommentCallback = () => {
+        setRepliesNum(repliesNum + 1)
+        fetchSubComments()
+        setRepliesShown(true)
+    }
+
+
+    const handleDeleteSubCommentCallback = (commentId: string) =>{
+        setSubComments(prev => prev.filter(comment => comment.id !== commentId));
+        setRepliesNum(repliesNum-1)
     }
 
     return (
@@ -80,6 +109,10 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                 setSubComments={setSubComments}
                 setNextLoading={setNextLoading}
                 setError={setError}
+                handleNewSubCommentCallback = {handleNewSubCommentCallback}
+                handleDeleteMainCommentCallback = {handleDeleteMainCommentCallback}
+                isMain
+                parentId={data.id}
             />
             {!!repliesNum && (
                 <VStack className='comment-replies__wrapper'>
@@ -110,10 +143,10 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                         </Text>
                     )}
 
-                    {repliesShown && !loading && (
+                    {repliesShown && !loading && data && (
                         <ul className='subcomments-list'>
-                            {subComments.map((item) => (
-                                <li key={item.id}>
+                            {subComments.map((item, index) => (
+                                <li key={index}>
                                     <CommentEl
                                         data={item}
                                         userId={userId}
@@ -123,6 +156,10 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                                         setSubComments={setSubComments}
                                         setNextLoading={setNextLoading}
                                         setError={setError}
+                                        handleNewSubCommentCallback={handleNewSubCommentCallback}
+                                        handleDeleteMainCommentCallback={handleDeleteMainCommentCallback}
+                                        handleDeleteSubCommentCallback={handleDeleteSubCommentCallback}
+                                        parentId = {data.id}
                                     />
                                 </li>
                             ))}

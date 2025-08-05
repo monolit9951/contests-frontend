@@ -11,7 +11,7 @@ import CommentItem from './commentItem'
 import './commentsList.scss'
 
 interface Props {
-    ownerId: string
+    workId: string
     userId: string
     comments: Comment[]
     setComments: Dispatch<SetStateAction<Comment[]>>
@@ -21,11 +21,12 @@ interface Props {
     error: Error | null
     setError: Dispatch<SetStateAction<Error | null>>
     className?: string
+    handleCommentsDecreaseCallback: () => void
 }
 
 const CommentsList: React.FC<Props> = (props) => {
     const {
-        ownerId,
+        workId,
         userId,
         comments,
         setComments,
@@ -35,25 +36,28 @@ const CommentsList: React.FC<Props> = (props) => {
         error,
         setError,
         className,
+        handleCommentsDecreaseCallback,
     } = props
 
     const [totalPages, setTotalPages] = useState(0)
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
 
-    const params = `pageSize=8&sortDirection=DESC&parentId=${ownerId}`
+    const params = `pageSize=8&sortDirection=DESC&parentId=${workId}`
 
     const { isIntersecting, measureRef, observer } = useOnScreen({
         threshold: 0.8,
     })
+    const token = localStorage.getItem('userToken')
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
     useEffect(() => {
         const fetchComments = async () => {
             try {
                 setError(null)
                 setLoading(true)
-
-                const { data } = await instance.get(`comment?page=0&${params}`)
+                // const { data } = await instance.get(`comment?page=0&${params}`)
+                const { data } = await instance.get(`/comment?parentId=${workId}`, {headers})
 
                 setComments(data.content)
                 setTotalElements(data.totalElements)
@@ -66,6 +70,7 @@ const CommentsList: React.FC<Props> = (props) => {
         }
 
         fetchComments()
+        
     }, [])
 
     useEffect(() => {
@@ -110,6 +115,13 @@ const CommentsList: React.FC<Props> = (props) => {
         )
     }
 
+    // вместо обновления всех комментов, мы будем дуалять его из общего массива по его айди
+    const handleDeleteMainCommentCallback = (commentId: string) =>{
+        setComments(prev => prev.filter(comment => comment.id !== commentId));
+        handleCommentsDecreaseCallback()
+    }
+
+
     return (
         <ul className={clsx(className)}>
             {loading && <Spinner center />}
@@ -120,6 +132,9 @@ const CommentsList: React.FC<Props> = (props) => {
                     ref={idx === comments.length - 1 ? measureRef : null}
                     userId={userId}
                     data={item}
+                    handleDeleteMainCommentCallback = {handleDeleteMainCommentCallback}
+                    isMain
+                    parentId = {workId}
                 />
             ))}
 

@@ -1,11 +1,13 @@
 /* eslint-disable no-return-assign */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import instance from 'shared/api/api'
 import dislike from 'shared/assets/icons/dislike.svg?react'
-import dislikeF from 'shared/assets/icons/dislikeF.svg?react'
+import dislikeActive from 'shared/assets/icons/dislikeF.svg?react'
 import like from 'shared/assets/icons/like.svg?react'
-import likeF from 'shared/assets/icons/likeF.svg?react'
+import likeActive from 'shared/assets/icons/likeF.svg?react'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 import { Icon } from '../icon'
 import { HStack } from '../stack'
@@ -18,69 +20,88 @@ interface Props {
     likes: number
     work?: boolean
     border?: boolean
+    userLike: string | null
 }
 
 const RateButtons = (props: Props) => {
-    const { id, border, likes, work } = props
+    const { id, border, likes, work, userLike } = props
 
-    const [likesNum, setLikesNum] = useState(likes)
-    const [liked, setLiked] = useState(false)
-    const [disliked, setDisliked] = useState(false)
+    const [likesNum, setLikesNum] = useState<number>(likes)
+    const [liked, setLiked] = useState<boolean>(userLike === 'LIKE')
+    const [disliked, setDisliked] = useState<boolean>(userLike === 'DISLIKE')
+    const {showAlert, Alert} = useAlert()
+    const token = localStorage.getItem('userToken')
 
     const onRate = async (action: string) => {
         try {
-            await instance.patch(
-                `${
-                    work ? 'works' : 'comment'
-                }/addLike/${id}?likeOrDislike=${action}`
-            )
+            await instance.patch(`${work ? 'works' : 'comment'}/addLike/${id}?likeType=${action}`, null, {headers: { Authorization: `Bearer ${token}` }})
         } catch (err) {
-            // eslint-disable-next-line no-console
-            console.error(err)
+            showAlert('ОШИБКА ПРИ ДОБАВЛЕНИИ, ЗАМЕНИТЬ ЭТОТ АЛЁРТ')
         }
     }
 
+    const useTypeSelector: TypedUseSelectorHook <RootState> = useSelector
+    const user = useTypeSelector((state) => state.user)
+    
+    useEffect(() => {
+        setLikesNum(likes)
+    }, [likes])
+
+    useEffect(() => {
+        setLiked(userLike === 'LIKE')
+        setDisliked(userLike === 'DISLIKE')
+    }, [userLike])
+
+
     const onLikeClick = async () => {
-        if (disliked) {
-            setDisliked(!disliked)
-            setLiked(true)
-            setLikesNum((_prev) => (_prev += 2))
+        if(user.userId === null){
+            showAlert("You not authorized")
+        } else{
+            if (disliked) {
+                setDisliked(!disliked)
+                setLiked(true)
+                setLikesNum((_prev) => (_prev += 1))
 
-            await onRate('-dislike')
-            onRate('like')
-        }
-        if (liked) {
-            setLiked(!liked)
-            setLikesNum((_prev) => (_prev -= 1))
+                await onRate('DISLIKE')
+                onRate('LIKE')
+            }
+            if (liked) {
+                setLiked(!liked)
+                setLikesNum((_prev) => (_prev -= 1))
 
-            onRate('-like')
-        } else if (!disliked && !liked) {
-            setLiked(!liked)
-            setLikesNum((_prev) => (_prev += 1))
+                onRate('LIKE')
+            } else if (!disliked && !liked) {
+                setLiked(!liked)
+                setLikesNum((_prev) => (_prev += 1))
 
-            onRate('like')
+                onRate('LIKE')
+            }
         }
     }
 
     const onDislikeClick = async () => {
-        if (liked) {
-            setLiked(!liked)
-            setDisliked(true)
-            setLikesNum((_prev) => (_prev -= 2))
+        if(user.userId === null){
+            showAlert("You not authorized")
+        } else{
+            if (liked) {
+                setLiked(!liked)
+                setDisliked(true)
+                setLikesNum((_prev) => (_prev -= 1))
 
-            await onRate('-like')
-            onRate('dislike')
-        }
-        if (disliked) {
-            setDisliked(!disliked)
-            setLikesNum((_prev) => (_prev += 1))
+                await onRate('LIKE')
+                onRate('DISLIKE')
+            }
+            if (disliked) {
+                setDisliked(!disliked)
+                // setLikesNum((_prev) => (_prev += 1))
 
-            onRate('-dislike')
-        } else if (!disliked && !liked) {
-            setDisliked(!disliked)
-            setLikesNum((_prev) => (_prev -= 1))
+                onRate('DISLIKE')
+            } else if (!disliked && !liked) {
+                setDisliked(!disliked)
+                // setLikesNum((_prev) => (_prev -= 1))
 
-            onRate('dislike')
+                onRate('DISLIKE')
+            }
         }
     }
 
@@ -88,7 +109,7 @@ const RateButtons = (props: Props) => {
         <HStack
             className={clsx('rate-wrapper', border && 'rate-wrapper__border')}>
             <button type='button' aria-label='like' onClick={onLikeClick}>
-                <Icon Svg={liked ? likeF : like} width={20} height={20} />
+                <Icon Svg={liked ? likeActive : like} width={20} height={20} />
             </button>
             {likesNum > 0 && (
                 <Text Tag='span' size='sm'>
@@ -99,11 +120,13 @@ const RateButtons = (props: Props) => {
             )}
             <button type='button' aria-label='dislike' onClick={onDislikeClick}>
                 <Icon
-                    Svg={disliked ? dislikeF : dislike}
+                    Svg={disliked ? dislikeActive : dislike}
                     width={20}
                     height={20}
                 />
             </button>
+
+            <Alert />
         </HStack>
     )
 }

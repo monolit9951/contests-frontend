@@ -10,7 +10,7 @@ export const fetchTextWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byOwnerId/${id}?page=0&pageSize=24&sortDirection=ASC&typeOfWork=text&sortBy=new`
+                `/works/byContestId/${id}?page=0&pageSize=24&sortDirection=ASC&typeOfWork=text&sortBy=new`
             )
 
             if (!response.data) {
@@ -33,7 +33,7 @@ export const fetchNextTextWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byOwnerId/${id}?page=${page}&pageSize=12&sortDirection=ASC&typeOfWork=text&sortBy=new`
+                `/works/byContestId/${id}?page=${page}&pageSize=12&sortDirection=ASC&typeOfWork=text&sortBy=new`
             )
 
             if (!response.data) {

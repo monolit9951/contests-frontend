@@ -20,7 +20,7 @@ const CustomTimePicker: FC<Props> = (props) => {
         value,
         onChange,
         onBlur,
-        placeholder = '12 : 00 AM',
+        placeholder = '12 : 00',
         children,
         className,
     } = props
@@ -33,8 +33,8 @@ const CustomTimePicker: FC<Props> = (props) => {
             showTimeSelect
             showTimeSelectOnly
             showPopperArrow={false}
-            timeFormat='hh:mm aa'
-            dateFormat='hh : mm aa'
+            timeFormat='HH:mm'
+            dateFormat='HH : mm'
             placeholderText={placeholder}
             className={clsx(className)}>
             {children}

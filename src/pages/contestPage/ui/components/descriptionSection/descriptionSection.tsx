@@ -1,4 +1,6 @@
-import { FC, Fragment } from 'react'
+import { FC, Fragment, useState } from 'react'
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Contest } from 'entities/contest'
 import { PrizeIcon } from 'entities/prize'
 import moment from 'moment'
@@ -9,38 +11,75 @@ import { capitalizeStr } from 'shared/helpers'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
 import { Image } from 'shared/ui/image'
+import { ModalWindow } from 'shared/ui/modalWindow'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
+import { Video } from 'shared/ui/videoPlayer'
+import { RegistrationModal } from 'widgets/registrationModal'
+
+import ExampleGaleryModal from '../exampleGaleryModal/exampleGaleryModal'
 
 import './descriptionSection.scss'
 
 interface Props {
     data: Contest
+    handleOpenWorkUploadModal: () => void
 }
 
-const DescriptionSection: FC<Props> = ({ data }) => {
+const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
     const deadline = moment(data.dateEnd).format('DD.MM.YYYY, h a')
+    const dateStart = moment(data.dateStart).format('DD.MM.YYYY, h a')
 
     const contestStatus = () => {
         switch (data.status) {
             case 'FINISHED':
                 return 'Completed'
-
-            case 'INACTIVE':
-                return 'Inactive'
-
-            case 'PAUSED':
-                return 'Paused'
-
             case 'UPCOMING':
                 return 'Upcoming'
-
+            case "ACTIVE":
+                return 'Active'
+            case "MODERATOR_SELECTION":
+                return 'Finished'
+            case "SELECTION_IN_PROGRESS":
+                return 'Finished'
+            case "WINNER_CONFIRMATION":
+                return 'Finished'
             default:
-                return 'Participate'
+                return 'Inactive'
         }
     }
 
-    const onParticipateClick = () => {}
+
+    const [regModal, setRegModal] = useState(false)
+
+    const useTypeSelector: TypedUseSelectorHook<RootState> = useSelector
+    const user = useTypeSelector((state) => state.user)
+
+    const onParticipateClick = () => {
+        // проверка на всякий случай
+        if(data.status === 'FINISHED'){
+            return
+        }
+
+        if(user.userId === null){
+            setRegModal(true)
+        } else {
+            handleOpenWorkUploadModal()
+        }
+    }
+
+    // галерея example media
+    const [exampleGaleryModal, setExampleGaleryModal] = useState<boolean>(false)
+    const [chosenExapmleIndex, setChosenExampleIndex] = useState<number>(0)
+
+    const openExapmpleGaleryModal = (index: number) => {
+        setExampleGaleryModal(true)
+        setChosenExampleIndex(index)
+    }
+
+    const closeExapmpleGaleryModal = () => {
+        setExampleGaleryModal(false)
+    }
 
     return (
         <section className='contest-description'>
@@ -52,29 +91,31 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                     <ul className='tags-list'>
                         <li>
                             <Text Tag='span' size='sm'>
-                                {capitalizeStr(data.status)}
+                                {capitalizeStr(data.contestType)}
                             </Text>
                         </li>
-                        <li>
+                        {/* <li>
                             <Text Tag='span' size='sm'>
                                 {capitalizeStr(data.subcategory)}
                             </Text>
-                        </li>
+                        </li> */}
                         <li>
                             <Text Tag='span' size='sm'>
-                                {data.maxAllowedParticipantAmount} participants
+                                {data.participantAmount} participants
                             </Text>
                         </li>
                     </ul>
                 </VStack>
+                
                 <Button
                     variant='primary'
-                    disabled={!data.contestOpen}
+                    disabled={contestStatus() !== 'Active'}
                     onClick={onParticipateClick}
                     className='participate-btn'>
-                    <Text Tag='span'>{contestStatus()}</Text>
+                    <Text Tag='span'>Participate</Text>
                 </Button>
             </HStack>
+            
             <HStack className='contest-info'>
                 <VStack className='contest-info__left-block'>
                     <VStack>
@@ -83,7 +124,7 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                         </Text>
                         <Text Tag='p'>{data.description}</Text>
                     </VStack>
-                    <VStack>
+                    {/* <VStack>
                         <Text Tag='h4' bold size='l'>
                             Victory conditions
                         </Text>
@@ -92,22 +133,27 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                                 <Text Tag='p'>{data.description}</Text>
                             </li>
                         </ul>
-                    </VStack>
-                    {data.exampleMedia && (
+                    </VStack> */}
+                    {data.exampleMedia && data.exampleMedia.length > 0 && (
                         <VStack>
                             <Text Tag='h4' bold size='l'>
                                 Examples
                             </Text>
                             <ul className='example-list'>
-                                {data.exampleMedia?.map((item, idx) => (
-                                    <li key={item + idx}>
-                                        <Image
-                                            src={item}
-                                            alt={`Example ${idx + 1}`}
-                                            width={135}
-                                            height={132}
-                                            className='example-media'
-                                        />
+                                {data.exampleMedia?.map((item, idx: number) => (
+                                    <li key={idx}>
+                                        <button onClick={() => openExapmpleGaleryModal(idx)} type='button'>
+                                        {item.typeMedia === "VIDEO"? 
+                                            <div className='example-media'><Video light url={item.mediaLink}/></div>
+                                            :
+                                            <Image
+                                                src={item.mediaLink}
+                                                alt={`Example ${idx + 1}`}
+                                                width={135}
+                                                height={132}
+                                                className='example-media'
+                                            />}
+                                        </button>
                                     </li>
                                 ))}
                             </ul>
@@ -154,8 +200,8 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                                                         size='xl'
                                                         bold
                                                         className='prize-text'>
-                                                        {prizeType === 'ITEM'
-                                                            ? prizeText
+                                                        {prizeType === 'COINS'
+                                                            ? `${prizeText} Coins`
                                                             : `${prizeAmount.toFixed(
                                                                   0
                                                               )} 
@@ -164,7 +210,7 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                                                 </HStack>
                                                 <Icon
                                                     Svg={
-                                                        prizeType === 'ITEM'
+                                                        prizeType === 'COINS'
                                                             ? itemIcon
                                                             : moneyIcon
                                                     }
@@ -178,19 +224,35 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                     </VStack>
                     <VStack className='deadline-info__wrapper'>
                         <Text Tag='h4' bold size='l'>
+                            Date start
+                        </Text>
+                        <HStack className='align__center'>
+                            <Icon Svg={calendar} width={36} height={36} />
+                            <Text Tag='span' size='xl'>
+                                {contestStatus() === 'Finished'? `Started: ${dateStart}` : `${dateStart}`}
+                            </Text>
+                        </HStack>
+
+                        <Text Tag='h4' bold size='l'>
                             Deadline
                         </Text>
                         <HStack className='align__center'>
                             <Icon Svg={calendar} width={36} height={36} />
-                            <Text Tag='span' bold={!data.contestOpen} size='xl'>
-                                {data.contestOpen
-                                    ? `${deadline}`
-                                    : contestStatus()}
+                            <Text Tag='span' size='xl'>
+                                {contestStatus() === 'Finished'? `Ended: ${deadline}` : `${deadline}`}
                             </Text>
                         </HStack>
                     </VStack>
+                    
+
+                        {user.userId !== null && user.userId === data.contestOwner.id && <HStack>
+                            <Link to= {`/chooseWinner/${data.id}`}>CHOOSE WINNERS</Link>
+                        </HStack>}
                 </VStack>
             </HStack>
+
+            {regModal && <ModalWindow isOpen onClose={() => (setRegModal(false))}><RegistrationModal onClose={() => (setRegModal(false))} auth/></ModalWindow>}
+            {exampleGaleryModal && <ModalWindow isOpen onClose={closeExapmpleGaleryModal}><ExampleGaleryModal media={data.exampleMedia} index={chosenExapmleIndex}/></ModalWindow>}
         </section>
     )
 }

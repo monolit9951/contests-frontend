@@ -63,3 +63,27 @@
         }
     }
 }
+
+@media (max-width: 650px) {
+    .mainInformation_container{
+        > .mainInformation_title_categories_container{
+            >.categoryInputs_container{
+                display: block;
+            }
+        }
+
+        > .mainInfoRadioElContainers_container{
+            > .radioContainer{
+                > .radioElements_container{
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+                    .radioEl_container {
+                        width: 100%;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+    }
+}

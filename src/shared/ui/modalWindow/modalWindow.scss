@@ -1,68 +1,34 @@
-.modal {
+.modalWindow{
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    display: none;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1050;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
 
-    &.dark-theme {
-        &-modal-content {
-            background-color: var(--primary-dark);
-        }
-    }
-
-    &-open {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        > .modal-wrapper {
-            position: relative;
-            display: flex;
-        }
-        .modal-x {
-            position: absolute;
-            z-index: 1060;
-            right: -68px;
-            border-radius: 50%;
-
-            svg {
-                fill: transparent;
-            }
-            &:hover {
-                box-shadow: 0px 0px 16px rgba(255, 255, 255, 0.5);
-            }
-        }
-    }
-
-    &-overlay {
-        cursor: default;
-        position: fixed;
-        top: 0;
-        left: 0;
+    > .modalWindow_background{
+        position: absolute;
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
-        z-index: 1040;
+        backdrop-filter: blur(5px); 
+        z-index: 10000;
+        outline: none;
+        border: none;
     }
 
-    &-content {
-        background-color: white;
-        border-radius: 5px;
-        z-index: 1060;
+    > .modalWindow_overlay{
+        z-index: 10001;
+        position: relative;
         width: 100%;
-        height: auto;
-        min-height: 40vh;
-        gap: 20px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        pointer-events: none;
 
-        > .flex__col {
-            width: 100%;
-        }
-
-        &.dark {
-            background: var(--dark);
+        > *{
+            pointer-events: all;
         }
     }
 }

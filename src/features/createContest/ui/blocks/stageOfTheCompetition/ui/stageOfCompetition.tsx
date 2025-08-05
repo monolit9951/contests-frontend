@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import { CompetitionTimeInput } from 'shared/ui/competitionTimeInput'
@@ -23,8 +24,18 @@ export const StageOfTheCompetition = ({ dateValidation }: Props) => {
         return dateValidation
     }
 
+    const containerRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        
+    // eslint-disable-next-line
+    if (dateValidation || errors.startTime || errors.endTime) {
+        containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+    }, [dateValidation, errors.startTime, errors.endTime])
+
     return (
-        <VStack className='stageOfTheCompetition_container'>
+        <VStack className='stageOfTheCompetition_container' ref={containerRef}>
             <Text Tag='h2' className='stageOfTheCompetition_header'>
                 Stage of the competition
             </Text>

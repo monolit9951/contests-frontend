@@ -7,7 +7,6 @@
 
     &__head {
         justify-content: space-between;
-
         & > div {
             gap: 16px;
             align-items: baseline;
@@ -21,10 +20,20 @@
 
     &__list {
         position: relative;
-        display: flex;
-        justify-content: center;
         gap: 24px;
-        flex-wrap: wrap;
+        display: grid;
+         grid-template-columns: repeat(auto-fill, minmax(408px, 1fr));
+        justify-content: start;
+
+        > li{
+            width: 100%;
+            // max-width: 408px;
+        }
+
+        &::after{
+            content: '';
+            visibility: hidden;
+        }
     }
 }
 
@@ -78,6 +87,31 @@
 
 @media (max-width: 1440px) {
     .contest-gallery__list {
-        justify-content: space-evenly;
+        // justify-content: space-evenly;
+    }
+}
+
+@media (max-width: 880px) {
+    .contest-gallery{
+        &__list {
+             grid-template-columns: repeat(auto-fill, minmax(408px, 1fr));
+        }
+
+        &__head{
+            align-items: center;
+
+            > div{
+                align-items: center;
+
+                .title__span{
+                    font-size: 16px;
+                }
+
+                .text__title{
+                    font-size: 24px;
+                }
+            }
+        }
+        
     }
 }

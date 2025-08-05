@@ -1,13 +1,17 @@
 import { User } from 'entities/user'
 import { PageEntityDTO } from 'shared/lib/types'
 
+type WorkType = 'TEXT' | 'IMAGE' | 'VIDEO'
+
 export interface Media {
     id: string
-    ownerId: string
     mediaLink: string
+    typeMedia: WorkType | string
+    contestId: string
+    userId: string
+    workId: string
 }
 
-type WorkType = 'TEXT' | 'IMAGE' | 'VIDEO'
 
 export interface Work {
     id: string
@@ -15,11 +19,14 @@ export interface Work {
     description: string
     media: Media[] | null
     likeAmount: number
+    dislikeAmount: number
     commentAmount: number
     user: User
     typeWork: WorkType | string
     popularity: number
     workAddingDate: string
+    possibleWinner: boolean
+    userLike: null | string
 }
 
 export interface WorksResponse extends PageEntityDTO {

@@ -75,11 +75,19 @@
                 > div {
                     position: relative;
                     gap: 8px;
-
-                    > div + span {
+                    flex: 1;
+                    
+                    > div + span {    
                         position: absolute;
                         top: 10px;
                         right: 10px;
+                    }
+
+                    > input{
+                        flex: 1;
+                        width: 10px;
+                        min-width: none;
+            
                     }
                 }
             }
@@ -236,5 +244,11 @@
     }
     .rc-slider-handle {
         background-color: var(--orange);
+    }
+}
+
+@media (max-width: 620px) {
+    .filter-wrapper {
+        width: 100% - (10% / 1.5);
     }
 }

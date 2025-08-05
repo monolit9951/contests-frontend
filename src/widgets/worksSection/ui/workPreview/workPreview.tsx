@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import clsx from 'clsx'
-import { useTheme } from 'entities/theme'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { getWorkById } from 'entities/work/model/services/workServices'
 import { Work } from 'entities/work/model/types'
 import moment from 'moment'
-import Verified from 'shared/assets/icons/SealCheck.svg?react'
-import tripleDot from 'shared/assets/icons/tripleDot.svg?react'
-import prize from 'shared/assets/icons/trophyF.svg?react'
-import { Icon } from 'shared/ui/icon'
+import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
-import { Flex, HStack, VStack } from 'shared/ui/stack'
-import { Text } from 'shared/ui/text'
-import { UserIcon } from 'shared/ui/userIcon'
-import { Video } from 'shared/ui/videoPlayer'
 import { CommentsSection } from 'widgets/commentsSection'
-import { ImageSlider } from 'widgets/worksSection/ui/workPreview/imageSlider/imageSlider'
+import MediaGalery from 'widgets/mediaGalery'
+import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import './workPreview.scss'
 
@@ -22,9 +17,7 @@ interface WorkProps {
 }
 
 export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
-    const { theme } = useTheme()
 
-    const [isReadMore, setIsReadMore] = useState(false)
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
 
     useEffect(() => {
@@ -37,121 +30,44 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
         return () => window.removeEventListener('resize', handleResize)
     }, [windowWidth])
 
-    const { media, workAddingDate, description, user } = work as Work
+    const { media, workAddingDate, user } = work as Work
 
-    const timeAgo = moment(workAddingDate).fromNow()
+    const timeAgo = moment.utc(workAddingDate).local().fromNow();
+    const loginedUser = useSelector((state: RootState) => state.user)
 
-    const toggleReadMore = () => {
-        setIsReadMore(!isReadMore)
-    }
 
-    const onActionClick = () => {
-        // eslint-disable-next-line no-alert
-        alert('action clicked')
-    }
+    // ПОЛУЧЕНИЕ ДАННЫХ ДЛЯ АКТУАЛЬНОГО ОТОБРАЖЕНИЯ ЛАЙКОВ (ПОКА ЗАПРОС НА ВСЮ ИНФУ)
+    const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(work.id), key: [], enabled: true})
 
     return (
-        <Flex className='work-preview'>
-            <HStack>
-                {windowWidth > 1024 &&
-                    media &&
-                    (work.typeWork === 'IMAGE' ? (
-                        <ImageSlider images={media} />
-                    ) : (
-                        <Video
-                            url={media[0].mediaLink}
-                            width={windowWidth >= 1280 ? 668 : 500}
-                            className='preview__video'
-                        />
-                    ))}
+        <div className="workPreview">
+            <div className="workPreview_container">
+                {workDataLoaded && workData.media.length !== 0 && <div className="workPreview_left">
+                    <MediaGalery media={media}/>
+                </div>}
 
-                <VStack
-                    className={clsx(
-                        'work-desc',
-                        work.typeWork === 'TEXT' && 'type-text'
-                    )}>
-                    <VStack className='upper-desc'>
-                        <HStack className='creator-desc'>
-                            <HStack className='align__center'>
-                                <UserIcon
-                                    src={user.profileImage}
-                                    userName={user.name}
-                                    alt={`Creator's profile picture`}
-                                    size={40}
-                                />
-                                {user.verificationStatus && <Verified />}
-                                <Text
-                                    Tag='span'
-                                    className='upper-desc__timeago'>
-                                    {timeAgo}
-                                </Text>
-                            </HStack>
-                            <Icon
-                                Svg={tripleDot}
-                                clickable
-                                onClick={onActionClick}
-                            />
-                        </HStack>
+                <div className="workPreview_right">
+                    <div className="workPreview_right_topSection">
+                        <div>
+                            <Link to={loginedUser.userId === user.id? '/profile' : `/profile/${user.id}`}>
+                                <UserProfileData user = {work.user}/>
+                            </Link>
 
-                        {windowWidth <= 1024 &&
-                            media &&
-                            (work.typeWork === 'IMAGE' ? (
-                                <ImageSlider images={media} />
-                            ) : (
-                                <Video
-                                    url={media[0].mediaLink}
-                                    width={500}
-                                    className='preview__video'
-                                />
-                            ))}
+                            <span>{timeAgo}</span>
+                        </div>
 
-                        {description && (
-                            <Text Tag='p' className='work-desc__text'>
-                                {(description.length < 250 && description) || (
-                                    <>
-                                        {!isReadMore
-                                            ? description.slice(0, 250)
-                                            : `${description} `}
-                                        <button
-                                            type='button'
-                                            className='read-more-btn'
-                                            onClick={toggleReadMore}>
-                                            <Text Tag='span'>
-                                                {!isReadMore
-                                                    ? '... more'
-                                                    : 'show less'}
-                                            </Text>
-                                        </button>
-                                    </>
-                                )}
-                            </Text>
-                        )}
+                        <div className="workPreview_workText">{work.description}</div>
 
-                        <HStack
-                            className={clsx(
-                                theme,
-                                'tag-contest align__center'
-                            )}>
-                            <div className='icon-box'>
-                                <Icon Svg={prize} className='icon-work__prev' />
-                            </div>
-                            <Text Tag='p' size='xs' bold>
-                                Acting Talent Search
-                            </Text>
-                            <Text Tag='span' size='xs'>
-                                &#8226;
-                            </Text>
-                            <Text Tag='span' size='xs'>
-                                Active
-                            </Text>
-                        </HStack>
-                    </VStack>
+                        {/* <div className="active_contest">MAKE COMPONENT </div> */}
 
-                    <MediaFeedback id={work.id} likes={work.likeAmount} />
+                        {workDataLoaded && <MediaFeedback id={work.id} likes={workData.likeAmount} liked={workData.userLike}/>}
+                    </div>
 
-                    <CommentsSection ownerId={work.id} work />
-                </VStack>
-            </HStack>
-        </Flex>
+                    <div className="workPreview_comments">
+                        <CommentsSection work workId={work.id}/>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }

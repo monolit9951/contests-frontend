@@ -3,11 +3,13 @@ import { Organizer } from 'entities/user'
 import { Work } from 'entities/work'
 import { PageEntityDTO } from 'shared/lib/types'
 
-export type Status = 'ACTIVE' | 'INACTIVE' | 'PAUSED' | 'FINISHED' | 'UPCOMING'
+export type Status = 'ACTIVE' | 'FINISHED' | 'UPCOMING' | 'SELECTION_IN_PROGRESS' | 'WINNER_CONFIRMATION' | 'MODERATOR_SELECTION'
 
-export type Category = '' | 'FOR_FUN' | 'FOR_WORK'
+export type Category = '' | 'DARE' | 'CONTEST'
 
 export type SubCategory = 'SUBCATEGORY1' | 'SUBCATEGORY2' | 'SUBCATEGORY3'
+
+export type SelectionType = 'RANDOM' | 'CREATOR_DECISION' | 'VIEWER_VOTING'
 
 export interface WinnersRequest {
     contestId: string
@@ -25,23 +27,32 @@ export interface TopWinners {
     prizeId: string
 }
 
+export interface ContestWinners {
+    contestId: string,
+    userId: string,
+    workId: string,
+    prizeid: string
+}
+
 export interface Contest {
     id: string
     name: string
     status: Status
-    category: Category
+    contestType: Category
     subcategory: SubCategory
     backgroundImage: string
     participantAmount: number
     maxAllowedParticipantAmount: number
     dateStart: string
+    selectionType: SelectionType
     dateEnd: string
     description: string
     prizes: Prize[]
     exampleMedia?: string[]
     popularity: number
     contestOwner: Organizer
-    topWinners: TopWinners[] | null
+    // topWinners: TopWinners[] | null
+    winners: ContestWinners[]
     contestOpen: boolean
 }
 

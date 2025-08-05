@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import clsx from 'clsx'
-import { Work } from 'entities/work'
 import {
     selectContestMedia,
     selectContestOwnerId,
@@ -24,26 +24,27 @@ type WorkSort = 'new' | 'popular'
 
 interface Props {
     worksAmount: number
-    openModal: (work: Work) => void
+    // openModal: (work: Work) => void
 }
 
-const WorksListSection = ({ worksAmount, openModal }: Props) => {
-    const [workType, setWorkType] = useState<WorkType>('media')
+const WorksListSection = ({ worksAmount }: Props) => {
+    const [workType] = useState<WorkType>('media')
     const [selectedSort, setSelectedSort] = useState<WorkSort>('new')
 
     const dispatch = useAppDispatch()
 
     const ownerId = useAppSelector(selectContestOwnerId)
+    const { contestId } = useParams() as { contestId: string };
     const media = useAppSelector(selectContestMedia)
     const text = useAppSelector(selectContestText)
 
     const onFetch = (type: WorkType, sort: WorkSort) => {
         if (sort === 'popular') {
             if (type === 'media' && !media.popular.length) {
-                dispatch(fetchPopularMediaWorks(ownerId))
+                dispatch(fetchPopularMediaWorks(contestId))
             }
             if (type === 'text' && !text.popular.length) {
-                dispatch(fetchPopularTextWorks(ownerId))
+                dispatch(fetchPopularTextWorks(contestId))
             }
         } else {
             if (type === 'media' && !media.new.length) {
@@ -55,14 +56,14 @@ const WorksListSection = ({ worksAmount, openModal }: Props) => {
         }
     }
 
-    const onWorkTypesClick = (type: WorkType) => {
-        if (type === workType) {
-            return
-        }
-        setWorkType(type)
+    // const onWorkTypesClick = (type: WorkType) => {
+    //     if (type === workType) {
+    //         return
+    //     }
+    //     setWorkType(type)
 
-        onFetch(type, selectedSort)
-    }
+    //     onFetch(type, selectedSort)
+    // }
 
     const onSortClick = (sort: WorkSort) => {
         if (sort === selectedSort) {
@@ -86,7 +87,7 @@ const WorksListSection = ({ worksAmount, openModal }: Props) => {
                 </Text>
             </Text>
 
-            <ul className='participants-works__types'>
+            {/* <ul className='participants-works__types'>
                 <li>
                     <button
                         type='button'
@@ -95,15 +96,7 @@ const WorksListSection = ({ worksAmount, openModal }: Props) => {
                         Media
                     </button>
                 </li>
-                <li>
-                    <button
-                        type='button'
-                        className={clsx(workType === 'text' && 'active')}
-                        onClick={() => onWorkTypesClick('text')}>
-                        Text
-                    </button>
-                </li>
-            </ul>
+            </ul> */}
 
             <ul className='participants-works__sort'>
                 <li>
@@ -130,9 +123,8 @@ const WorksListSection = ({ worksAmount, openModal }: Props) => {
             </ul>
 
             <WorksList
-                workType={workType}
+                workType='media'
                 sort={selectedSort}
-                openModal={openModal}
             />
         </section>
     )

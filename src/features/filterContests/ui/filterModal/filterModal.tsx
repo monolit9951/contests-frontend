@@ -13,13 +13,17 @@ import { Text } from 'shared/ui/text'
 import FilterBlock from './filterBlock'
 
 interface FiltersData {
-    ITEM: number
+    COINS: number
     MONEY: number
+
     UPCOMING: number
     ACTIVE: number
+    FINISHED: number
+    MODERATOR_SELECTION: number
+
     BLOGGER: number
     STORE: number
-    FINISHED: number
+    USER: number
     COMPANY: number
 }
 
@@ -43,21 +47,21 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
         if (data) {
             for (const item of status.items) {
                 for (const [key, value] of Object.entries(data)) {
-                    if (item.name.toUpperCase() === key) {
+                    if (item.apiKey.toUpperCase() === key) {
                         item.number = Number(value)
                     }
                 }
             }
             for (const item of prizeType.items) {
                 for (const [key, value] of Object.entries(data)) {
-                    if (item.name.split(' ')[0].toUpperCase() === key) {
+                    if (item.apiKey.toUpperCase() === key) {
                         item.number = Number(value)
                     }
                 }
             }
             for (const item of creators.items) {
                 for (const [key, value] of Object.entries(data)) {
-                    if (item.name.toUpperCase() === key) {
+                    if (item.apiKey.toUpperCase() === key) {
                         item.number = Number(value)
                     }
                 }

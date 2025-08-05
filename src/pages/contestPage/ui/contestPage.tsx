@@ -1,145 +1,142 @@
-import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Contest } from 'entities/contest'
-import { Work } from 'entities/work'
-import useAxios from 'shared/lib/hooks/useAxios'
-import { useAppDispatch, useAppSelector } from 'shared/lib/store'
-import { Button } from 'shared/ui/button'
-import { ModalWindow } from 'shared/ui/modalWindow'
-import Spinner from 'shared/ui/spinner'
-import { VStack } from 'shared/ui/stack'
-import { Text } from 'shared/ui/text'
-import { CommentsSection } from 'widgets/commentsSection'
-import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
+import { useEffect } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Contest } from 'entities/contest';
+import useAxios from 'shared/lib/hooks/useAxios';
+import { useAppDispatch, useAppSelector } from 'shared/lib/store';
+import { Button } from 'shared/ui/button';
+import { ModalWindow } from 'shared/ui/modalWindow';
+import Spinner from 'shared/ui/spinner';
+import { VStack } from 'shared/ui/stack';
+import { Text } from 'shared/ui/text';
+import { CommentsSection } from 'widgets/commentsSection';
+import UploadWorkModal from 'widgets/uploadWorkModal';
 
-import { selectContestMedia, selectContestOwnerId } from '../model/selectors'
-import { fetchMediaWorks } from '../model/services'
-import { contestWorksActions } from '../model/slice'
+import { selectContestMedia, selectContestOwnerId } from '../model/selectors';
+import { fetchMediaWorks } from '../model/services';
+import { contestWorksActions } from '../model/slice';
 
-import DescriptionSection from './components/descriptionSection/descriptionSection'
-import HeroSection from './components/heroSection/heroSection'
-import WinnersSection from './components/winnersSection/winnersSection'
-import WorksListSection from './components/worksListSection/worksListSection'
+import DescriptionSection from './components/descriptionSection/descriptionSection';
+import HeroSection from './components/heroSection/heroSection';
+import WinnersSection from './components/winnersSection/winnersSection';
+import WorksListSection from './components/worksListSection/worksListSection';
 
-import './contestPage.scss'
+import './contestPage.scss';
 
 const ContestPage = () => {
-    const { id } = useParams<{ id: string }>()
+  const { contestId: id } = useParams<{ contestId: string }>();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [selectedWork, setSelectedWork] = useState<Work | null>(null)
-    const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
 
-    const navigate = useNavigate()
+  // для модалок
+  const isUploadModalOpen = location.state?.uploadModal === true
 
-    const dispatch = useAppDispatch()
+  const ownerId = useAppSelector(selectContestOwnerId);
+  const media = useAppSelector(selectContestMedia);
 
-    const ownerId = useAppSelector(selectContestOwnerId)
-    const media = useAppSelector(selectContestMedia)
+  const { data, isLoading, error } = useAxios<Contest>(`contests/${id}`);
 
-    if (!id) {
-        return (
-            <div className='contest__error-message'>
-                <Text Tag='p' bold size='xl'>
-                    Something went wrong
-                </Text>
-                <Button variant='secondary' onClick={() => navigate(-1)}>
-                    Go back
-                </Button>
-            </div>
-        )
+  // пагинация ворков
+  useEffect(() => {
+    if (!id) return;
+    if (id !== ownerId) {
+      dispatch(contestWorksActions.setOwnerId(id));
+      dispatch(contestWorksActions.resetState());
     }
 
-    const { data, isLoading, error } = useAxios<Contest>(`contests/${id}`)
-
-    useEffect(() => {
-        if (id !== ownerId) {
-            dispatch(contestWorksActions.setOwnerId(id))
-            dispatch(contestWorksActions.resetState())
-        }
-
-        if (id !== ownerId || !media.new.length) {
-            dispatch(fetchMediaWorks(id))
-        }
-    }, [dispatch])
-
-    useEffect(() => {
-        if (data) {
-            dispatch(contestWorksActions.setPrizes(data.prizes))
-        }
-    }, [dispatch, data])
-
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth)
-        }
-
-        window.addEventListener('resize', handleResize)
-
-        return () => window.removeEventListener('resize', handleResize)
-    }, [windowWidth])
-
-    if (isLoading) {
-        return <Spinner center />
+    if (id !== ownerId || !media.new.length) {
+      dispatch(fetchMediaWorks(id));
     }
+  }, [dispatch, id, ownerId, media.new.length]);
 
-    if (!data) {
-        return (
-            <div className='contest__error-message'>
-                <Text Tag='p' bold size='xl'>
-                    Request error{`: ${error?.message}`}
-                </Text>
-                <Button variant='secondary' onClick={() => navigate(-1)}>
-                    Go back
-                </Button>
-            </div>
-        )
+  useEffect(() => {
+    if (data) {
+      dispatch(contestWorksActions.setPrizes(data.prizes));
     }
+  }, [dispatch, data]);
 
-    const openModal = (work: Work) => {
-        setSelectedWork(work)
-        setIsModalOpen(true)
-    }
-
-    const getModalMaxWidth = (work: Work | null): string => {
-        if (work?.typeWork === 'TEXT') {
-            return '520px'
-        }
-        return '100%'
-    }
-
+  if (!id) {
     return (
-        <VStack className='contest'>
-            <HeroSection bg={data.backgroundImage} owner={data.contestOwner} />
-            <VStack className='contest__container'>
-                <DescriptionSection data={data} />
-                {data.status === 'FINISHED' && !!data.topWinners?.length && (
-                    <WinnersSection
-                        data={data.topWinners}
-                        openModal={openModal}
-                    />
-                )}
-                <WorksListSection
-                    worksAmount={data.participantAmount}
-                    openModal={openModal}
-                />
-                <CommentsSection ownerId={id} />
-            </VStack>
+      <div className="contest__error-message">
+        <Text Tag="p" bold size="xl">
+          Something went wrong
+        </Text>
+        <Button variant="secondary" onClick={() => navigate(-1)}>
+          Go back
+        </Button>
+      </div>
+    );
+  }
 
-            {isModalOpen && (
-                <ModalWindow
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                    isOuterClose
-                    maxWidth={getModalMaxWidth(selectedWork)}
-                    height={windowWidth > 1024 ? '83%' : '88%'}
-                    maxHeight={windowWidth >= 1024 ? '900px' : ''}
-                    modalContentClass='work-preview-modal'>
-                    {selectedWork && <WorkPreview work={selectedWork} />}
-                </ModalWindow>
-            )}
-        </VStack>
-    )
-}
+  if (isLoading) {
+    return <Spinner center />;
+  }
 
-export default ContestPage
+  if (!data) {
+    return (
+      <div className="contest__error-message">
+        <Text Tag="p" bold size="xl">
+          Request error{`: ${error?.message}`}
+        </Text>
+        <Button variant="secondary" onClick={() => navigate(-1)}>
+          Go back
+        </Button>
+      </div>
+    );
+  }
+
+  const handleOpenWorkUploadModal = () => {
+    // setIsUploadWorkModalOpen(true);
+    const {scrollY} = window;
+    
+    document.body.style.top = `-${scrollY}px`;
+    document.body.classList.add('no-scroll');
+    
+    navigate('', {
+        state: { uploadModal: true, scrollY },
+        preventScrollReset: true
+    });
+  };
+
+  const handleCloseUploadModal = () => {
+    navigate(-1, { 
+      state: { scrollY: location.state?.scrollY },
+      preventScrollReset: true 
+    });
+  }
+  
+  return (
+    <VStack className="contest">
+      <HeroSection bg={data.backgroundImage} owner={data.contestOwner} contestId = {data.id}/>
+
+      <VStack className="contest__container">
+        <DescriptionSection
+          data={data}
+          handleOpenWorkUploadModal={handleOpenWorkUploadModal}
+        />
+
+        {data.winners && <WinnersSection data = {data.winners}/>}
+
+        <WorksListSection
+          worksAmount={data.participantAmount}
+        />
+
+        <CommentsSection workId={id} contest />
+      </VStack>
+
+      {/* Upload work modal */}
+      {isUploadModalOpen && (
+        <ModalWindow
+          isOpen={isUploadModalOpen}
+          isOuterClose
+          onClose={handleCloseUploadModal}
+        >
+          <UploadWorkModal contestId={data.id} onClose={handleCloseUploadModal}/>
+        </ModalWindow>
+      )}
+    </VStack>
+  );
+};
+
+export default ContestPage;

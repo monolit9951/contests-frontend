@@ -8,6 +8,7 @@ import {
 } from 'features/filterContests'
 import { FilterPayloadObj } from 'features/filterContests/model/types'
 import { useAppSelector } from 'shared/lib/store'
+import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 interface FilterItemProps {
@@ -15,10 +16,11 @@ interface FilterItemProps {
     number: number
     filter: FilterObject
     className?: string
+    apiKey: string
 }
 
 export default function FilterItem(props: FilterItemProps) {
-    const { name, number, filter, className } = props
+    const { name, number, filter, className, apiKey } = props
 
     const [itemActive, setItemActive] = useState(false)
 
@@ -34,41 +36,41 @@ export default function FilterItem(props: FilterItemProps) {
         )
     }, [selected.filtersList])
 
+
     const onBtnClick = () => {
         let payload = {
             filterName: '',
             name: '',
+            apiKey: ''
         }
         switch (filter.name) {
             case 'Status':
                 payload = {
                     filterName: 'status',
                     name,
+                    apiKey
                 }
 
-                if (selected.status) {
-                    if (selected.status === name) {
+                // if (selected.status) {
+                    if (selected.filtersList.some((item) => item.name === name)) {
                         dispatch(filterActions.removeFilter(payload))
                         break
                     }
                     dispatch(filterActions.addFilter(payload))
                     break
-                }
-                dispatch(filterActions.addFilter(payload))
-                break
+                // }
+                // dispatch(filterActions.addFilter(payload))
+                // break
 
             case 'Prize type':
                 payload = {
                     filterName: 'prizeType',
                     name,
+                    apiKey
                 }
 
-                if (selected.prizeType) {
-                    if (selected.prizeType === name) {
-                        dispatch(filterActions.removeFilter(payload))
-                        break
-                    }
-                    dispatch(filterActions.addFilter(payload))
+                if (selected.filtersList.some((item) => item.name === name)) {
+                    dispatch(filterActions.removeFilter(payload))
                     break
                 }
                 dispatch(filterActions.addFilter(payload))
@@ -78,14 +80,11 @@ export default function FilterItem(props: FilterItemProps) {
                 payload = {
                     filterName: 'creators',
                     name,
+                    apiKey
                 }
 
-                if (selected.creators) {
-                    if (selected.creators === name) {
-                        dispatch(filterActions.removeFilter(payload))
-                        break
-                    }
-                    dispatch(filterActions.addFilter(payload))
+                if (selected.filtersList.some((item) => item.name === name)) {
+                    dispatch(filterActions.removeFilter(payload))
                     break
                 }
                 dispatch(filterActions.addFilter(payload))
@@ -106,9 +105,9 @@ export default function FilterItem(props: FilterItemProps) {
                 )}>
                 <Text Tag='span'>
                     {name}
-                    <Text Tag='span' size='sm'>
+                    <VStack Tag='span' size='sm'>
                         ({number})
-                    </Text>
+                    </VStack>
                 </Text>
             </button>
         </li>

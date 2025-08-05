@@ -1,0 +1,110 @@
+.notification{
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    > .notification_active{
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        height: 16px;
+        width: 16px;
+        background-color: #0BA486;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 13px;
+    }
+
+    > .notification_list{
+        position: absolute;
+        width: 385px;
+        background-color: #1B2321;
+        color: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-sizing: border-box;
+        z-index: 100;
+        right: -20px;
+        top: 35px;
+        box-sizing: border-box;
+
+        > .notification_list_header{
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #393B3B;
+            padding-bottom: 8px;
+
+            > .notification_list_heading{
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 28px;
+                margin-bottom: 8px;
+            }
+
+            > .notification_list_cross{
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                cursor: pointer;
+            }
+        }
+
+        > ul{
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            
+        }
+
+        > .notification_list_readAll{
+            border-top: 1px solid #393B3B;
+            padding-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+
+            > button{
+                cursor: pointer;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                background-color: transparent;
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: 0%;
+                color: #DDDDDD;
+                border: none;
+                font-family: 'Manrope';
+            }
+        }
+        
+        > .notification_list_empty{
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        
+    }
+
+    > .notification_list_onBlur{
+        position: fixed;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 99;
+    }
+}

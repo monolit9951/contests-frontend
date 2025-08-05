@@ -3,6 +3,10 @@ import instance from 'shared/api/api'
 
 import { selectContestMedia } from '../selectors'
 
+const token = localStorage.getItem('userToken')
+const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+// получение всех медиаВорков
 export const fetchMediaWorks = createAsyncThunk(
     'works/fetchContestMedia',
     async (id: string, thunkApi) => {
@@ -10,9 +14,8 @@ export const fetchMediaWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byOwnerId/${id}?page=0&pageSize=9&sortDirection=ASC&typeOfWork=media&sortBy=new`
+                `/works/byContestId/${id}`, {headers}
             )
-
             if (!response.data) {
                 throw new Error()
             }
@@ -24,6 +27,7 @@ export const fetchMediaWorks = createAsyncThunk(
     }
 )
 
+// получение всех медиаВорков
 export const fetchNextMediaWorks = createAsyncThunk(
     'works/fetchNextContestMedia',
     async (id: string, thunkApi) => {
@@ -33,13 +37,12 @@ export const fetchNextMediaWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byOwnerId/${id}?page=${page}&pageSize=9&sortDirection=ASC&typeOfWork=media&sortBy=new`
+                `/works/byContestId/${id}?page=${page}&pageSize=9&sortDirection=ASC&sortBy=new`, {headers}
             )
-
             if (!response.data) {
                 throw new Error()
             }
-
+            
             return response.data
         } catch (e) {
             return rejectWithValue(`Request error: ${e as string}`)
@@ -47,6 +50,7 @@ export const fetchNextMediaWorks = createAsyncThunk(
     }
 )
 
+// получение популярных медиаворков
 export const fetchPopularMediaWorks = createAsyncThunk(
     'works/fetchPopularContestMedia',
     async (id: string, thunkApi) => {
@@ -54,7 +58,7 @@ export const fetchPopularMediaWorks = createAsyncThunk(
 
         try {
             const response = await instance.get(
-                `/works/byOwnerId/${id}?page=0&pageSize=9&sortDirection=ASC&typeOfWork=media&sortBy=popular`
+                `/works/popular/${id}?page=0&pageSize=9`, {headers}
             )
 
             if (!response.data) {

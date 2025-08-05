@@ -90,8 +90,7 @@ export const ContestPaymentModal = ({
                 </Button>
                 <Button
                     className='paymentModal__btnsContainer__btn topUp'
-                    variant='primary'
-                    onClick={() => console.log('Top up your account')}>
+                    variant='primary'>
                     <Text Tag='p'>Top up your account</Text>
                 </Button>
             </HStack>
