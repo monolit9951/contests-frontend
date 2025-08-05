@@ -102,8 +102,8 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         try{
             // потом поменять роль юзера
             await instance.post('/auth/register', {
+                email: login,
                 name: nickname,
-                login,
                 password,
                 role: 'USER',
                 confirmPassword: checkPassword
@@ -127,7 +127,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
 
     // гугл регистрация или лог ин
     const handleRegistrationWithGoogle = () => {
-        window.open('http://localhost:8080/oauth2/authorization/google', '_blank');
+        window.open('http://localhost:8080/oauth2/authorization/google', '_self');
     }
 
     // обработчик инпута никнейм
@@ -177,7 +177,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
 
             <div className="registrationModal_inputs">
                 <RegistrationInput validationText={loginError} value = {login} type="email" changeCallBack = {handleLoginCallback} placeholder="Enter your email" label="Email" />
-                {authType === 'SIGNUP' && <RegistrationInput validationText={nicknameError} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Enter your name" label="Name" />}
+                {authType === 'SIGNUP' && <RegistrationInput validationText={nicknameError} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Enter your username" label="Username" />}
                 <RegistrationInput validationText={passwordError} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
                 {authType === 'SIGNUP' && <RegistrationInput validationText={checkPasswordError} value={checkPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
 
@@ -189,7 +189,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
             </div>
 
             <div className="registrationModal_controls">
-                <button type="button" className="registrationModal_countinue" onClick={authType === 'LOGIN' ? handleStandartAuth : handleStandartRegistration}>Start Your Quest</button>
+                <button type="button" className="registrationModal_countinue" onClick={authType === 'LOGIN' ? handleStandartAuth : handleStandartRegistration}>{authType === 'LOGIN'? 'Log in' : 'Registration'}</button>
 
                 <div className="registrationModal_controls_explain">Or continue with</div>
                 

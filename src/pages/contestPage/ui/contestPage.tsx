@@ -23,7 +23,7 @@ import WorksListSection from './components/worksListSection/worksListSection';
 import './contestPage.scss';
 
 const ContestPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { contestId: id } = useParams<{ contestId: string }>();
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

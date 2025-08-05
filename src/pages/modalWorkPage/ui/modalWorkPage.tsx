@@ -18,6 +18,7 @@ const ModalWorkPage: FC = () => {
         }
     }
 
+    // сделано криво и данные выходит загружаются 2 раза - тут и в самой модалке
     const {data, isLoading} = useAxios<Work>(`works/${workId}`)
 
     return(
