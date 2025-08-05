@@ -28,13 +28,13 @@ interface Props {
 }
 
 const WorksListSection = ({ worksAmount }: Props) => {
-    const [workType, setWorkType] = useState<WorkType>('media')
+    const [workType] = useState<WorkType>('media')
     const [selectedSort, setSelectedSort] = useState<WorkSort>('new')
 
     const dispatch = useAppDispatch()
 
     const ownerId = useAppSelector(selectContestOwnerId)
-    const { id: contestId } = useParams() as { id: string };
+    const { contestId } = useParams() as { contestId: string };
     const media = useAppSelector(selectContestMedia)
     const text = useAppSelector(selectContestText)
 
@@ -56,14 +56,14 @@ const WorksListSection = ({ worksAmount }: Props) => {
         }
     }
 
-    const onWorkTypesClick = (type: WorkType) => {
-        if (type === workType) {
-            return
-        }
-        setWorkType(type)
+    // const onWorkTypesClick = (type: WorkType) => {
+    //     if (type === workType) {
+    //         return
+    //     }
+    //     setWorkType(type)
 
-        onFetch(type, selectedSort)
-    }
+    //     onFetch(type, selectedSort)
+    // }
 
     const onSortClick = (sort: WorkSort) => {
         if (sort === selectedSort) {
@@ -87,7 +87,7 @@ const WorksListSection = ({ worksAmount }: Props) => {
                 </Text>
             </Text>
 
-            <ul className='participants-works__types'>
+            {/* <ul className='participants-works__types'>
                 <li>
                     <button
                         type='button'
@@ -96,7 +96,7 @@ const WorksListSection = ({ worksAmount }: Props) => {
                         Media
                     </button>
                 </li>
-            </ul>
+            </ul> */}
 
             <ul className='participants-works__sort'>
                 <li>

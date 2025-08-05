@@ -134,7 +134,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
                             </li>
                         </ul>
                     </VStack> */}
-                    {data.exampleMedia && (
+                    {data.exampleMedia && data.exampleMedia.length > 0 && (
                         <VStack>
                             <Text Tag='h4' bold size='l'>
                                 Examples
