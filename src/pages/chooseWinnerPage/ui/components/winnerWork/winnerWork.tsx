@@ -13,6 +13,8 @@ import CustomSelector from "widgets/customSelector";
 import UserProfileData from "widgets/userProfileData/userProfileData";
 import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
 
+import { optionsType } from "../winnersSelectors/winnerSelectors";
+
 import './winnerWork.scss'
 
 interface WinnerWorkInterface {
@@ -46,7 +48,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
                 await instance.delete(`winners/possible/${work.id}`, {headers: {Authorization: `Bearer ${token}`}})
                 setIsWinner(false)
             } catch (error){
-                showAlert('ERROR', error.response.data.error)
+                showAlert('ERROR', 'CHANGE THAT ERROR')
             }
         } else{
             // добавляем победителя
@@ -56,7 +58,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             } catch (error){
                 if(error){
                     setPlaceError(true)
-                    showAlert('ERROR', error.response.data.error)
+                    showAlert('ERROR', 'CHANGE THAT ERROR')
                 }
             }
         }
@@ -104,7 +106,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
             <div className="winnerWork_right">
                 <CustomCheckbox value="Winner" checked={isWinner} handleCheckbox={handleCheckbox} controlled/>
-                <CustomSelector options={options} maxWidth={200} name="Place" chooseSelectorCallback={handlePlaceSelector} currentPlace = {work.place} error = {placeError}/>
+                <CustomSelector options={options} maxWidth={200} chooseSelectorCallback={handlePlaceSelector} currentPlace = {work.place} error = {placeError}/>
             </div>
 
             {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview work={work} /></ModalWindow>}

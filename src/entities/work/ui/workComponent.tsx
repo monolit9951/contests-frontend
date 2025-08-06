@@ -108,10 +108,10 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                 {media?.[0]?.mediaLink && media?.[0]?.typeMedia === 'VIDEO' && (
                     <Video
                         url={media[0].mediaLink}
-                        width={420}
-                        height={720}
+                        // width={420}
+                        // height={720}
                         light
-                        className='work-component__video'
+                        // className='work-component__video'
                     />
                 )}
             </Button>

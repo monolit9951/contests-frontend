@@ -52,7 +52,7 @@ export default function FilterItem(props: FilterItemProps) {
                 }
 
                 // if (selected.status) {
-                    if (selected.filtersList.some((item) => item.name === name)) {
+                    if (selected.filtersList.some((item: FilterPayloadObj) => item.name === name)) {
                         dispatch(filterActions.removeFilter(payload))
                         break
                     }
@@ -69,7 +69,7 @@ export default function FilterItem(props: FilterItemProps) {
                     apiKey
                 }
 
-                if (selected.filtersList.some((item) => item.name === name)) {
+                if (selected.filtersList.some((item: FilterPayloadObj) => item.name === name)) {
                     dispatch(filterActions.removeFilter(payload))
                     break
                 }
@@ -83,7 +83,7 @@ export default function FilterItem(props: FilterItemProps) {
                     apiKey
                 }
 
-                if (selected.filtersList.some((item) => item.name === name)) {
+                if (selected.filtersList.some((item: FilterPayloadObj) => item.name === name)) {
                     dispatch(filterActions.removeFilter(payload))
                     break
                 }
@@ -112,7 +112,7 @@ export default function FilterItem(props: FilterItemProps) {
                 )}>
                 <Text Tag='span'>
                     {name}
-                    <VStack Tag='span' size='sm'>
+                    <VStack>
                         ({number})
                     </VStack>
                 </Text>

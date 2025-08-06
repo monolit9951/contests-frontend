@@ -3,7 +3,7 @@ import CustomSelector from "widgets/customSelector";
 
 import './winnerSelectors.scss'
 
-interface optionsType {
+export interface optionsType {
     text: string,
     key: string
 }

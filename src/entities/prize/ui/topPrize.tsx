@@ -46,7 +46,7 @@ const TopPrize: FC<Props> = (props) => {
                 size='sm'
                 bold
                 className={`top-prize__${place}-amount`}>
-                {prizeType === 'ITEM'
+                {prizeType === 'COINS'
                     ? `${prizeText}`
                     : `${prizeAmount} ${currencySymbol()}`}
             </Text>

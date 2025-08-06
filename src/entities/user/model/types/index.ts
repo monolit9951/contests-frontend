@@ -9,4 +9,5 @@ export interface User {
     profileImage: string
 }
 
-export type Organizer = Omit<User, 'participantRating'>
+export type Organizer = User
+// export type Organizer = Omit<User, 'participantRating'>

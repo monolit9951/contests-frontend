@@ -88,7 +88,7 @@ const WorkCard: FC<Props> = (props) => {
                     {workDataLoaded && <MediaOverlay
                         prize={workData.prize}
                         user={workData.user}
-                        imageCards={workData.typeWork === 'IMAGE'}
+                        // imageCards={workData.typeWork === 'IMAGE'}
                         handleReportCallback = {handleReportCallback}
                     />}
                     {workDataLoaded && workData.media && workData.media[0]?.typeMedia === 'VIDEO' && workData.media?.[0]?.mediaLink && (
