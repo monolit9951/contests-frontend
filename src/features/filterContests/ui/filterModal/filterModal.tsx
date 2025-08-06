@@ -38,7 +38,7 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
 
         const dispatch = useDispatch()
 
-        const { status, prizeType, creators } = mockFilterData
+        const { status, prizeType, creators, contestType } = mockFilterData
 
         const { data } = useAxios<FiltersData>(
             'contests/amountContestsByFilters'
@@ -95,6 +95,8 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
                 <hr />
 
                 <FilterBlock filter={status} />
+
+                <FilterBlock filter={contestType} />
 
                 <FilterBlock filter={prizeType} />
 

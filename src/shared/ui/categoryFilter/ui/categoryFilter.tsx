@@ -14,19 +14,19 @@ export const CategoryFilter = () => {
     return (
         <div className='categoryFilter_container'>
             <CategoryFilterOption
-                _currFilter={_currFilter}
+                _currFilter={category}
                 setCurrFilter={setCurrFilter}
                 FilterOption=''
                 text='All'
             />
             <CategoryFilterOption
-                _currFilter={_currFilter}
+                _currFilter={category}
                 setCurrFilter={setCurrFilter}
                 FilterOption='DARE'
                 text='Dare'
             />
             <CategoryFilterOption
-                _currFilter={_currFilter}
+                _currFilter={category}
                 setCurrFilter={setCurrFilter}
                 FilterOption='CONTEST'
                 text='Contest'

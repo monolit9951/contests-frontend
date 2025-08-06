@@ -76,7 +76,7 @@ export default function FilterItem(props: FilterItemProps) {
                 dispatch(filterActions.addFilter(payload))
                 break
 
-            default:
+            case 'creators':
                 payload = {
                     filterName: 'creators',
                     name,
@@ -89,6 +89,14 @@ export default function FilterItem(props: FilterItemProps) {
                 }
                 dispatch(filterActions.addFilter(payload))
                 break
+
+            case 'Contest Type':{
+                console.log(name)
+                
+                dispatch(filterActions.changeCategory(apiKey))
+                break
+            }
+            default: break
         }
     }
 

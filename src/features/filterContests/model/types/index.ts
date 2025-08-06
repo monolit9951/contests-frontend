@@ -33,6 +33,7 @@ export interface FilterData {
     status: FilterObject
     prizeType: FilterObject
     creators: FilterObject
+    contestType: FilterObject
 }
 
 export interface FiltersObj {

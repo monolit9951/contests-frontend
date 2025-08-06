@@ -112,6 +112,8 @@ const ContestsSection: FC<Props> = (props) => {
 
     const onFilterClearClick = () => {
         dispatch(filterActions.clearFilters())
+        dispatch(contestsPageActions.resetSearchString())
+        // не удаляет сёрчстринг
     }
 
     const onSeeAllClick = () => {}
