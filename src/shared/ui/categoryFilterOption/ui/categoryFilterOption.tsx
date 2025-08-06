@@ -8,14 +8,14 @@ import './categoryFilterOption.scss'
 interface CategoryFilterOptionProps {
     _currFilter: Category
     FilterOption: Category
-    setCurrFilter: React.Dispatch<React.SetStateAction<Category>>
+    // setCurrFilter: React.Dispatch<React.SetStateAction<Category>>
     text: string
 }
 
 export const CategoryFilterOption = ({
     _currFilter,
     FilterOption,
-    setCurrFilter,
+    // setCurrFilter,
     text,
 }: CategoryFilterOptionProps) => {
     const { toggleCategoryTheme } = useTheme()
@@ -46,7 +46,7 @@ export const CategoryFilterOption = ({
                 break
         }
         dispatch(filterActions.changeCategory(category))
-        setCurrFilter(FilterOption)
+        // setCurrFilter(FilterOption)
         toggleCategoryTheme(categoryTheme)
     }
 

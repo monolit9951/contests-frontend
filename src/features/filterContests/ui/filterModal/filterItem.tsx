@@ -91,7 +91,6 @@ export default function FilterItem(props: FilterItemProps) {
                 break
 
             case 'Contest Type':{
-                console.log(name)
                 
                 dispatch(filterActions.changeCategory(apiKey))
                 break

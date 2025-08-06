@@ -97,7 +97,7 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
             setComments((prev) => [data, ...prev])
         } catch (err) {
             // setError(err as Error)
-            showAlert(err)
+            showAlert('ERROR', 'CHANGE THAT ERROR')
         } finally {
             setNextLoading(false)
         }

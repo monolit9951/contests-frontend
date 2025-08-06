@@ -85,12 +85,10 @@ const ContestsSection: FC<Props> = (props) => {
     }, [windowWidth])
 
     const prizeRangeCondition = () => {
-        console.log(active)
         return active.prizeRange[0] !== 0 || active.prizeRange[1] !== 100000
     }
 
     const coinRangeCondition = () => {
-        console.log(active.coinRange)
         return active.coinRange[0] !== 0 || active.coinRange[1] !== 100000
     }
 

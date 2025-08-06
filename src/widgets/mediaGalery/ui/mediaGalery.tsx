@@ -18,14 +18,14 @@ export interface MediaInterface {
     workId: string;
 }
 
-interface MediaGaleryInterface {
+interface Prop {
     media: MediaInterface[];
     type?: 'TYPED' | 'ARRAYOFLINKS'
     className?: string
     index?: number
 }
 
-const MediaGalery: FC<MediaGaleryInterface> = ({ media, type = 'TYPED', className, index = 0 }) => {
+const MediaGalery: FC<Prop> = ({ media, type = 'TYPED', className, index = 0 }) => {
     const [currentIndex, setCurrentIndex] = useState(index);
     const [direction, setDirection] = useState<'next' | 'prev'>('next');
 

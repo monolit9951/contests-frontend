@@ -23,7 +23,7 @@ import './coverSelectionModal.scss'
 interface CoverSelectionModalProps {
     isOpen: boolean
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-    setChosenImg: React.Dispatch<React.SetStateAction<string>>
+    setChosenImg: React.Dispatch<React.SetStateAction<string | Blob>>
     isCover: boolean
     setImageValidationMessage: (str: string) => void
     extra: string

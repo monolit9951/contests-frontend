@@ -9,6 +9,7 @@ import {
 import debounce from 'lodash.debounce'
 import Slider from 'rc-slider'
 import caretRight from 'shared/assets/icons/caretRight.svg?react'
+import { capitalizeStr } from 'shared/helpers'
 import { useAppSelector } from 'shared/lib/store'
 import { Icon } from 'shared/ui/icon'
 import { Input } from 'shared/ui/input'
@@ -18,7 +19,6 @@ import { Text } from 'shared/ui/text'
 import FilterItem from './filterItem'
 
 import 'rc-slider/assets/index.css'
-import { capitalizeStr } from 'shared/helpers'
 
 interface FilterBlockProps {
     filter?: FilterObject
@@ -51,14 +51,14 @@ export default function FilterBlock(props: FilterBlockProps) {
     }, [activeRange])
 
     const onLowerBoundChange = (e: ChangeEvent<HTMLInputElement>) => {
-        let inputValue = e.target.value.slice(0, 6)
+        const inputValue = e.target.value.slice(0, 6)
         const num = Number(inputValue)
         setLowerBound(num)
         setSliderValue([num, upperBound])
     }
 
     const onUpperBoundChange = (e: ChangeEvent<HTMLInputElement>) => {
-        let inputValue = e.target.value.slice(0, 6)
+        const inputValue = e.target.value.slice(0, 6)
         const num = Number(inputValue)
         setUpperBound(num)
         setSliderValue([lowerBound, num])

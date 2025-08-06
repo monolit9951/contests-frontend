@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Contest } from 'entities/contest';
 import useAxios from 'shared/lib/hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'shared/lib/store';
@@ -60,7 +60,7 @@ const ContestPage = () => {
     if (!location.pathname.includes("/work/")) {
       const savedScroll = sessionStorage.getItem("contestScroll");
       if (savedScroll) {
-        window.scrollTo(0, parseInt(savedScroll));
+        window.scrollTo(0, parseInt(savedScroll, 10));
       }
     }
   }, [location]);

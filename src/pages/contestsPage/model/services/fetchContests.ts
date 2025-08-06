@@ -21,7 +21,6 @@ export const fetchContests = createAsyncThunk(
         const category = selectCategory(getState())
         const activeFilters = selectActiveFilters(getState())
         
-        console.log(activeFilters)
 
         try {
             const response = await instance.get(

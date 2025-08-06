@@ -1,4 +1,5 @@
 import { FC, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 // import { useLocation, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
@@ -19,7 +20,6 @@ import { Work } from '../model/types'
 import MediaOverlay from './overlay/mediaOverlay'
 
 import './workCard.scss'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 interface Props {
     data: Work

@@ -62,7 +62,7 @@ const ProfileWallet: FC <Props>= ({userId}) =>{
 
             <div className="profileWallet_balance_history">
                 {
-                    transactionsLoaded && transactions.content?.map((data: Transaction, index: number) => (
+                    transactionsLoaded && transactions?.content?.map((data: Transaction, index: number) => (
                         <WalletTrasaction transaction = {data} key={index}/>
                     ))
                 }

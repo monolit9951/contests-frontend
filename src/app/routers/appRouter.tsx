@@ -9,7 +9,7 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 import { Layout } from 'app/layout'
-import { RootState } from 'app/providers/store'
+// import { RootState } from 'app/providers/store'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
 import { BattlesPage } from 'pages/battlesPage'
@@ -139,7 +139,7 @@ return (
     {checkUser && <RouterProvider router={router} />}
     {userAuth && (
       <ModalWindow isOpen={userAuth} onClose={handleModalRegClose}>
-        <RegistrationModal auth />
+        <RegistrationModal auth onClose={() =>{}}/>
       </ModalWindow>
     )}
   </div>
