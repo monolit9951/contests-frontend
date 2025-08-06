@@ -56,6 +56,15 @@ const ContestPage = () => {
     }
   }, [dispatch, data]);
 
+  useEffect(() => {
+    if (!location.pathname.includes("/work/")) {
+      const savedScroll = sessionStorage.getItem("contestScroll");
+      if (savedScroll) {
+        window.scrollTo(0, parseInt(savedScroll));
+      }
+    }
+  }, [location]);
+
   if (!id) {
     return (
       <div className="contest__error-message">
@@ -105,6 +114,7 @@ const ContestPage = () => {
       preventScrollReset: true 
     });
   }
+
   
   return (
     <VStack className="contest">

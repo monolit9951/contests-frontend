@@ -48,7 +48,8 @@ const WorkCard: FC<Props> = (props) => {
         if(type ==='MODAL'){
             setOpenModal(true)
         } else {
-            navigate(`work/${data.id}`)
+            sessionStorage.setItem("contestScroll", String(window.scrollY));
+            navigate(`work/${data.id}`, {preventScrollReset: true})
         }
         
     }
