@@ -18,7 +18,7 @@ import { ContestPage } from 'pages/contestPage'
 import { ContestsCreationPage } from 'pages/contestsCreationPage'
 import { ContestsPage } from 'pages/contestsPage'
 import { FeedPage } from 'pages/feedPage'
-// import ModalWorkPage from 'pages/modalWorkPage/ui/modalWorkPage'
+import ModalWorkPage from 'pages/modalWorkPage/ui/modalWorkPage'
 import ProfilePage from 'pages/profilePage'
 import ProfileSettingsPage from 'pages/profileSettingsPage'
 import { TopUsersPage } from 'pages/topUsersPage'
@@ -116,7 +116,7 @@ const routes = createRoutesFromElements(
     <Route path='/battles' element={<BattlesPage />} />
     <Route path='/contests' element={<ContestsPage />} />
     <Route path='/contests/:contestId' element={<ContestPage />} >
-      {/* <Route path='/work/:workId' element={<ModalWorkPage />}/> */}
+      <Route path='work/:workId' element={<ModalWorkPage />}/>
     </Route>
     <Route path='/topUsers' element={<TopUsersPage />} />
     <Route path='profile/:id' element={<ProfilePage />} />

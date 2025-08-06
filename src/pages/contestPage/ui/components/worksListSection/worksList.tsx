@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { Work, WorkCard, WorkCardSkeleton } from 'entities/work'
 import {
@@ -224,6 +224,9 @@ export const WorksList: FC<Props> = (props) => {
                         Show more works
                     </Button>
                 ))}
+
+                <Link to='work/688ccc962381947894a3e603'>dada</Link>
+                <Outlet />
 
             {isModalOpen && <ModalWindow isOpen onClose={handleCloseModal}  maxWidth={getModalMaxWidth(selectedWork)}><WorkPreview work={selectedWork} /></ModalWindow>}
         </VStack>

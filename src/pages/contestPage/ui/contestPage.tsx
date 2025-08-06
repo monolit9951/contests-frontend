@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Contest } from 'entities/contest';
 import useAxios from 'shared/lib/hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'shared/lib/store';
@@ -121,7 +121,6 @@ const ContestPage = () => {
         <WorksListSection
           worksAmount={data.participantAmount}
         />
-
         <CommentsSection workId={id} contest />
       </VStack>
 
