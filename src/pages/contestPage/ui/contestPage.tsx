@@ -134,6 +134,8 @@ const ContestPage = () => {
           <UploadWorkModal contestId={data.id} onClose={handleCloseUploadModal}/>
         </ModalWindow>
       )}
+
+      <Outlet />
     </VStack>
   );
 };

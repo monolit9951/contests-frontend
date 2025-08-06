@@ -82,38 +82,6 @@ export const WorksList: FC<Props> = (props) => {
             dispatch(fetchNextTextWorks(ownerId))
         }
     }
-    
-
-
-    const location = useLocation()
-    const isModalOpen = location.state?.modal === true
-    const navigate = useNavigate()
-    const [selectedWork, setSelectedWork] = useState<Work | null>(null)
-    // открытие модалки ворка
-    const openModal = (work: Work) => {
-        const {scrollY} = window;
-        
-        document.body.style.top = `-${scrollY}px`;
-        document.body.classList.add('no-scroll');
-        
-        setSelectedWork(work);
-
-        navigate('', {
-            state: { modal: true, scrollY },
-            preventScrollReset: true
-        });
-    };
-
-    // закрытие модалки ворка
-    const handleCloseModal = () => {
-        navigate(-1, { 
-        state: { scrollY: location.state?.scrollY },
-        preventScrollReset: true 
-        });
-    }
-        const getModalMaxWidth = (work: Work | null): string => {
-        return work?.typeWork === 'TEXT' ? '520px' : '100%';
-    };
 
 
     const renderList = () => {
@@ -157,7 +125,7 @@ export const WorksList: FC<Props> = (props) => {
                     )
                 }
                 return newMediaWorks?.map((item, index: number) => (
-                    <WorkCard key={index} data={item} />
+                    <WorkCard key={index} data={item} type='LINK'/>
                 ))
             }
 
@@ -171,7 +139,7 @@ export const WorksList: FC<Props> = (props) => {
                 )
             }
             return popularMediaWorks?.map((item) => (
-                <WorkCard key={item.id} data={item}/>
+                <WorkCard key={item.id} data={item} type='LINK'/>
             ))
         }
 
@@ -187,7 +155,6 @@ export const WorksList: FC<Props> = (props) => {
                       <WorkCard
                           key={item.id}
                           data={item}
-                          openModal={openModal}
                       />
                   ))
             : (!popularTextWorks.length && (
@@ -201,7 +168,7 @@ export const WorksList: FC<Props> = (props) => {
                       <WorkCard
                           key={item.id}
                           data={item}
-                          openModal={openModal}
+                          type='LINK'
                       />
                   ))
     }
@@ -225,10 +192,7 @@ export const WorksList: FC<Props> = (props) => {
                     </Button>
                 ))}
 
-                <Link to='work/688ccc962381947894a3e603'>dada</Link>
-                <Outlet />
-
-            {isModalOpen && <ModalWindow isOpen onClose={handleCloseModal}  maxWidth={getModalMaxWidth(selectedWork)}><WorkPreview work={selectedWork} /></ModalWindow>}
+            {/* {isModalOpen && <ModalWindow isOpen onClose={handleCloseModal}  maxWidth={getModalMaxWidth(selectedWork)}><WorkPreview work={selectedWork} /></ModalWindow>} */}
         </VStack>
     )
 }

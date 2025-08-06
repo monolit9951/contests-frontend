@@ -19,18 +19,22 @@ import { Work } from '../model/types'
 import MediaOverlay from './overlay/mediaOverlay'
 
 import './workCard.scss'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 interface Props {
     data: Work
     // prizeId?: string
     className?: string,
+    type?: "MODAL" | "LINK"
 }
 
 
 const WorkCard: FC<Props> = (props) => {
     const { data, 
         // prizeId,
-         className } = props
+        className,
+        type = 'MODAL'
+        } = props
 
     // const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
@@ -38,9 +42,15 @@ const WorkCard: FC<Props> = (props) => {
 
     const [openModal, setOpenModal] = useState<boolean>(false)
     const [workKey, setWorkKey] = useState<number>(0)
+    const navigate = useNavigate()
 
     const handleOpenModal = async () => {
-        setOpenModal(true)
+        if(type ==='MODAL'){
+            setOpenModal(true)
+        } else {
+            navigate(`work/${data.id}`)
+        }
+        
     }
 
     const handleCloseModal = () => {
@@ -110,7 +120,7 @@ const WorkCard: FC<Props> = (props) => {
                     liked = {workData.userLike}
                 />}
             </VStack>
-            
+
             {reportModal && <ModalWindow isOpen onClose={() => setReportModal(false)}><ModalReport targetType='WORK' targetId={workData.id}/></ModalWindow>}
             {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={workData} /></ModalWindow>}
         </li>
