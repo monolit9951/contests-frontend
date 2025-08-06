@@ -117,7 +117,7 @@ const slice = createSlice({
                 status: '',
                 prizeType: '',
                 prizeRange: [0, 100000],
-                coinRange: [0, 10000],
+                coinRange: [0, 100000],
                 creators: '',
             }
             state.active = {
@@ -125,7 +125,7 @@ const slice = createSlice({
                 status: '',
                 prizeType: '',
                 prizeRange: [0, 100000],
-                coinRange: [0, 10000],
+                coinRange: [0, 100000],
                 creators: '',
             }
             state.error = null

@@ -85,10 +85,12 @@ const ContestsSection: FC<Props> = (props) => {
     }, [windowWidth])
 
     const prizeRangeCondition = () => {
+        console.log(active)
         return active.prizeRange[0] !== 0 || active.prizeRange[1] !== 100000
     }
 
     const coinRangeCondition = () => {
+        console.log(active.coinRange)
         return active.coinRange[0] !== 0 || active.coinRange[1] !== 100000
     }
 
@@ -96,10 +98,14 @@ const ContestsSection: FC<Props> = (props) => {
     const onFilterDeleteClick = (filter?: FilterPayloadObj) => {
         if (filter) {
             dispatch(filterActions.removeActiveFilter(filter))
-        } else {
+        }
+    }
 
-            // СДЕЛАТЬ РАЗДЕЛЕНИЕ ПО КОИНАМ И ДЕНЬГАМ
+    // очищение инпут рендж
+    const onRangeDeleteClick = (filteRange: 'MONEY' | 'COINS') => {
+        if(filteRange === 'MONEY'){
             dispatch(filterActions.resetPrizeRange())
+        } else {
             dispatch(filterActions.resetCoinRange())
         }
     }
@@ -238,6 +244,7 @@ const ContestsSection: FC<Props> = (props) => {
             {section === 'all' &&
                 (filters?.length >= 1 ||
                     prizeRangeCondition() ||
+                    coinRangeCondition() ||
                     searchString) && (
                     <HStack className='active-filter__block'>
                         <ul className='active-filter__list'>
@@ -279,7 +286,7 @@ const ContestsSection: FC<Props> = (props) => {
                                         width={16}
                                         height={16}
                                         clickable
-                                        onClick={() => onFilterDeleteClick()}
+                                        onClick={() => onRangeDeleteClick('MONEY')}
                                     />
                                 </li>
                             )}
@@ -291,7 +298,7 @@ const ContestsSection: FC<Props> = (props) => {
                                         width={16}
                                         height={16}
                                         clickable
-                                        onClick={() => onFilterDeleteClick()}
+                                        onClick={() => onRangeDeleteClick('COINS')}
                                     />
                                 </li>
                             )}
@@ -307,7 +314,7 @@ const ContestsSection: FC<Props> = (props) => {
                                     (
                                     {filters.length +
                                         (searchString ? 1 : 0) +
-                                        (prizeRangeCondition() ? 1 : 0)}
+                                        (prizeRangeCondition() ? 1 : 0) + (coinRangeCondition() ? 1 : 0)}
                                     )
                                 </Text>
                             </Text>

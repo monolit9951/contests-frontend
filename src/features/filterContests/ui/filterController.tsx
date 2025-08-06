@@ -83,6 +83,7 @@ const FilterController = (props: IFilterController) => {
                     )}
                 </Text>
             </Button>
+            
             <FilterModal
                 ref={filterRef}
                 onClose={onFilterToggle}
