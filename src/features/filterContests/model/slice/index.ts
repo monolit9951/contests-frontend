@@ -11,6 +11,7 @@ const initialState: FilterSchema = {
         status: '',
         prizeType: '',
         prizeRange: [0, 100000],
+        coinRange: [0, 10000],
         creators: '',
     },
     active: {
@@ -18,6 +19,7 @@ const initialState: FilterSchema = {
         status: '',
         prizeType: '',
         prizeRange: [0, 100000],
+        coinRange: [0, 10000],
         creators: '',
     },
 
@@ -98,9 +100,16 @@ const slice = createSlice({
         updatePrizeRange: (state, action: PayloadAction<number[]>) => {
             state.selected.prizeRange = action.payload
         },
+        updateCoinRange: (state, action: PayloadAction<number[]>) => {
+            state.selected.coinRange = action.payload
+        },
         resetPrizeRange: (state) => {
             state.selected.prizeRange = [0, 100000]
             state.active.prizeRange = [0, 100000]
+        },
+        resetCoinRange: (state) => {
+            state.selected.coinRange = [0, 100000]
+            state.active.coinRange = [0, 100000]
         },
         clearFilters: (state) => {
             state.selected = {
@@ -108,6 +117,7 @@ const slice = createSlice({
                 status: '',
                 prizeType: '',
                 prizeRange: [0, 100000],
+                coinRange: [0, 10000],
                 creators: '',
             }
             state.active = {
@@ -115,6 +125,7 @@ const slice = createSlice({
                 status: '',
                 prizeType: '',
                 prizeRange: [0, 100000],
+                coinRange: [0, 10000],
                 creators: '',
             }
             state.error = null

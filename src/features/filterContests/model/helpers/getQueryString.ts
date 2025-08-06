@@ -41,6 +41,18 @@ export const getQueryString = (filters: FiltersObj) => {
         }
     }
 
+    if (filters.coinRange) {
+        const minPrizeAmount = filters.coinRange[0]
+        const maxPrizeAmount = filters.coinRange[1]
+
+        if (minPrizeAmount !== 0) {
+            paramsArr.push(`val=minCoinPrizeAmount=${minPrizeAmount}`)
+        }
+        if (maxPrizeAmount !== 100000) {
+            paramsArr.push(`val=maxCoinPrizeAmount=${maxPrizeAmount}`)
+        }
+    }
+
     // console.log(paramsArr.join('&'))
 
     // if (filters.status) {

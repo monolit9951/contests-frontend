@@ -98,7 +98,9 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
 
                 <FilterBlock filter={prizeType} />
 
-                <FilterBlock />
+                <FilterBlock rangeFilter='MONEY'/>
+
+                <FilterBlock rangeFilter='COINS'/>
 
                 <FilterBlock filter={creators} />
 

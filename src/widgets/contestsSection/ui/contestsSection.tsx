@@ -88,11 +88,19 @@ const ContestsSection: FC<Props> = (props) => {
         return active.prizeRange[0] !== 0 || active.prizeRange[1] !== 100000
     }
 
+    const coinRangeCondition = () => {
+        return active.coinRange[0] !== 0 || active.coinRange[1] !== 100000
+    }
+
+    // очищение фильтров
     const onFilterDeleteClick = (filter?: FilterPayloadObj) => {
         if (filter) {
             dispatch(filterActions.removeActiveFilter(filter))
         } else {
+
+            // СДЕЛАТЬ РАЗДЕЛЕНИЕ ПО КОИНАМ И ДЕНЬГАМ
             dispatch(filterActions.resetPrizeRange())
+            dispatch(filterActions.resetCoinRange())
         }
     }
 
@@ -144,6 +152,7 @@ const ContestsSection: FC<Props> = (props) => {
         ))
     }
 
+    // скелеты 
     const renderAll = () => {
         if (all.loading) {
             return (
@@ -264,7 +273,19 @@ const ContestsSection: FC<Props> = (props) => {
                             ))}
                             {prizeRangeCondition() && (
                                 <li>
-                                    <Text Tag='span'>Prize Range</Text>
+                                    <Text Tag='span'>Money Range</Text>
+                                    <Icon
+                                        Svg={cross}
+                                        width={16}
+                                        height={16}
+                                        clickable
+                                        onClick={() => onFilterDeleteClick()}
+                                    />
+                                </li>
+                            )}
+                            {coinRangeCondition() && (
+                                <li>
+                                    <Text Tag='span'>Coin Range</Text>
                                     <Icon
                                         Svg={cross}
                                         width={16}

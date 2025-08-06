@@ -40,6 +40,7 @@ export interface FiltersObj {
     status: StatusFilter
     prizeType: PrizeTypeFilter
     prizeRange: number[]
+    coinRange: number[]
     creators: CreatorsFilter
 }
 
