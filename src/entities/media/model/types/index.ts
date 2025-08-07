@@ -1,5 +1,5 @@
-export interface Media {
-    id: string
-    ownerId: string
-    mediaLink: string
-}
+// export interface Media {
+//     id: string
+//     ownerId: string
+//     mediaLink: string
+// }

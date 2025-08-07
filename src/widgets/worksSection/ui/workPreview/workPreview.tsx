@@ -43,7 +43,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
         <div className="workPreview">
             <div className="workPreview_container">
                 {workDataLoaded && workData.media.length !== 0 && <div className="workPreview_left">
-                    <MediaGalery media={media}/>
+                    {media !== null && <MediaGalery media={media}/>}
                 </div>}
 
                 <div className="workPreview_right">

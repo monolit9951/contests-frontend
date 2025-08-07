@@ -7,6 +7,7 @@ import { Combobox, Input, Textarea } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
+import { GalleryUpload } from '../../galleryUpload'
 import { categories } from '../mockData'
 
 // import { categories, subcategories } from '../mockData'
@@ -14,7 +15,6 @@ import { ImageUpload } from './imageUpload'
 import { RadioContainer, RadioEl } from './radioContainer'
 
 import './mainInformation.scss'
-import { GalleryUpload } from '../../galleryUpload'
 
 interface Props {
     submitError: boolean

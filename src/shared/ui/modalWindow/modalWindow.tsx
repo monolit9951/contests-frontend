@@ -47,7 +47,7 @@ export const ModalWindow: FC<Props> = ({
             rest.onClose()
         }
     }
-        const clonedChildren = isValidElement(rest.children) ? cloneElement(rest.children, { onClose: rest.onClose }) : rest.children
+        const clonedChildren = isValidElement(rest.children) ? cloneElement(rest.children) : rest.children
 
     return (
         <div className="modalWindow">

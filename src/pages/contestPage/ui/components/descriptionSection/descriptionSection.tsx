@@ -16,6 +16,7 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 import { Video } from 'shared/ui/videoPlayer'
 import { RegistrationModal } from 'widgets/registrationModal'
+import UploadWorkModal from 'widgets/uploadWorkModal'
 
 import ExampleGaleryModal from '../exampleGaleryModal/exampleGaleryModal'
 
@@ -23,13 +24,13 @@ import './descriptionSection.scss'
 
 interface Props {
     data: Contest
-    handleOpenWorkUploadModal: () => void
+    // handleOpenWorkUploadModal: () => void
 }
 
-const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
+const DescriptionSection: FC<Props> = ({ data }) => {
     const deadline = moment(data.dateEnd).format('DD.MM.YYYY, h a')
     const dateStart = moment(data.dateStart).format('DD.MM.YYYY, h a')
-
+    
     const contestStatus = () => {
         switch (data.status) {
             case 'FINISHED':
@@ -51,7 +52,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
 
 
     const [regModal, setRegModal] = useState(false)
-
+    const [uploadWorkModal, setUploadWorkModal] = useState<boolean>(false)
     const useTypeSelector: TypedUseSelectorHook<RootState> = useSelector
     const user = useTypeSelector((state) => state.user)
 
@@ -64,7 +65,7 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
         if(user.userId === null){
             setRegModal(true)
         } else {
-            handleOpenWorkUploadModal()
+            setUploadWorkModal(true)
         }
     }
 
@@ -253,6 +254,9 @@ const DescriptionSection: FC<Props> = ({ data, handleOpenWorkUploadModal }) => {
 
             {regModal && <ModalWindow isOpen onClose={() => (setRegModal(false))}><RegistrationModal onClose={() => (setRegModal(false))} auth/></ModalWindow>}
             {exampleGaleryModal && <ModalWindow isOpen onClose={closeExapmpleGaleryModal}><ExampleGaleryModal media={data.exampleMedia} index={chosenExapmleIndex}/></ModalWindow>}
+            {uploadWorkModal && (
+            <ModalWindow isOpen={uploadWorkModal} isOuterClose onClose={() => setUploadWorkModal(false)}><UploadWorkModal contestId={data.id} onClose={() => setUploadWorkModal(false)}/></ModalWindow>
+      )}
         </section>
     )
 }

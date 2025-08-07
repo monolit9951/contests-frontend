@@ -4,12 +4,10 @@ import { Contest } from 'entities/contest';
 import useAxios from 'shared/lib/hooks/useAxios';
 import { useAppDispatch, useAppSelector } from 'shared/lib/store';
 import { Button } from 'shared/ui/button';
-import { ModalWindow } from 'shared/ui/modalWindow';
 import Spinner from 'shared/ui/spinner';
 import { VStack } from 'shared/ui/stack';
 import { Text } from 'shared/ui/text';
 import { CommentsSection } from 'widgets/commentsSection';
-import UploadWorkModal from 'widgets/uploadWorkModal';
 
 import { selectContestMedia, selectContestOwnerId } from '../model/selectors';
 import { fetchMediaWorks } from '../model/services';
@@ -17,7 +15,7 @@ import { contestWorksActions } from '../model/slice';
 
 import DescriptionSection from './components/descriptionSection/descriptionSection';
 import HeroSection from './components/heroSection/heroSection';
-import WinnersSection from './components/winnersSection/winnersSection';
+// import WinnersSection from './components/winnersSection/winnersSection';
 import WorksListSection from './components/worksListSection/worksListSection';
 
 import './contestPage.scss';
@@ -30,7 +28,6 @@ const ContestPage = () => {
 
 
   // для модалок
-  const isUploadModalOpen = location.state?.uploadModal === true
 
   const ownerId = useAppSelector(selectContestOwnerId);
   const media = useAppSelector(selectContestMedia);
@@ -94,27 +91,6 @@ const ContestPage = () => {
       </div>
     );
   }
-
-  const handleOpenWorkUploadModal = () => {
-    // setIsUploadWorkModalOpen(true);
-    const {scrollY} = window;
-    
-    document.body.style.top = `-${scrollY}px`;
-    document.body.classList.add('no-scroll');
-    
-    navigate('', {
-        state: { uploadModal: true, scrollY },
-        preventScrollReset: true
-    });
-  };
-
-  const handleCloseUploadModal = () => {
-    navigate(-1, { 
-      state: { scrollY: location.state?.scrollY },
-      preventScrollReset: true 
-    });
-  }
-
   
   return (
     <VStack className="contest">
@@ -123,27 +99,16 @@ const ContestPage = () => {
       <VStack className="contest__container">
         <DescriptionSection
           data={data}
-          handleOpenWorkUploadModal={handleOpenWorkUploadModal}
+          // handleOpenWorkUploadModal={handleOpenWorkUploadModal}
         />
 
-        {data.winners && <WinnersSection data = {data.winners}/>}
+        {/* {data.winners && <WinnersSection data = {data.winners}/>} */}
 
         <WorksListSection
           worksAmount={data.participantAmount}
         />
         <CommentsSection workId={id} contest />
       </VStack>
-
-      {/* Upload work modal */}
-      {isUploadModalOpen && (
-        <ModalWindow
-          isOpen={isUploadModalOpen}
-          isOuterClose
-          onClose={handleCloseUploadModal}
-        >
-          <UploadWorkModal contestId={data.id} onClose={handleCloseUploadModal}/>
-        </ModalWindow>
-      )}
 
       <Outlet />
     </VStack>

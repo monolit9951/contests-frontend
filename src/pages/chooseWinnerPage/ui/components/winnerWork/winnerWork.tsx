@@ -3,7 +3,7 @@ import { Work } from "entities/work";
 import moment from "moment";
 import instance from "shared/api/api";
 import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
-import sampleVideo from "shared/assets/testVideos/testVideo.mp4"
+import sampleVideo from "shared/assets/testVideos/wideVideo.mp4"
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import { Button } from "shared/ui/button";
 import { ModalWindow } from "shared/ui/modalWindow";
@@ -74,12 +74,12 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
     // МЕМОИЗАЦИЯ ДЛЯ ПРЕДОТВРАЩЕНИЯ ПЕРЕРЕНДЕРА
     const videoBlock = useMemo(() => {
-        if (work.media[0].typeMedia === 'IMAGE') {
+        if (work.media !== null && work.media[0].typeMedia === 'IMAGE') {
             return <img src={sampleWorkImage} alt="workImage" />;
         } 
             return <Video url={sampleVideo} light />;
         
-    }, [work.media[0].typeMedia]);
+    }, [work.media]);
 
     return(
         <div className={isWin? "winnerWork winner" : "winnerWork"}>

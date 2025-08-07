@@ -11,12 +11,11 @@ import { Text } from 'shared/ui/text'
 
 interface Props {
     data: Comment
-    userId: string
     handleDeleteMainCommentCallback: (commentId: string) => void
 }
 
 const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
-    const { data, userId, handleDeleteMainCommentCallback} = props
+    const { data, handleDeleteMainCommentCallback} = props
 
     const [repliesShown, setRepliesShown] = useState(false)
     const [repliesNum, setRepliesNum] = useState(data.subCommentsAmount ?? 0)
@@ -102,11 +101,11 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
         <li ref={ref}>
             <CommentEl
                 data={data}
-                userId={userId}
-                setRepliesShown={setRepliesShown}
-                setRepliesNum={setRepliesNum}
-                setTotalPages={setTotalPages}
-                setSubComments={setSubComments}
+                // userId={userId}
+                // setRepliesShown={setRepliesShown}
+                // setRepliesNum={setRepliesNum}
+                // setTotalPages={setTotalPages}
+                // setSubComments={setSubComments}
                 setNextLoading={setNextLoading}
                 setError={setError}
                 handleNewSubCommentCallback = {handleNewSubCommentCallback}
@@ -149,11 +148,11 @@ const CommentItem = forwardRef<HTMLLIElement, Props>((props, ref) => {
                                 <li key={index}>
                                     <CommentEl
                                         data={item}
-                                        userId={userId}
-                                        setRepliesShown={setRepliesShown}
-                                        setRepliesNum={setRepliesNum}
-                                        setTotalPages={setTotalPages}
-                                        setSubComments={setSubComments}
+                                        // userId={userId}
+                                        // setRepliesShown={setRepliesShown}
+                                        // setRepliesNum={setRepliesNum}
+                                        // setTotalPages={setTotalPages}
+                                        // setSubComments={setSubComments}
                                         setNextLoading={setNextLoading}
                                         setError={setError}
                                         handleNewSubCommentCallback={handleNewSubCommentCallback}

@@ -110,7 +110,7 @@ const ChooseWinnerPage: FC = () => {
             {!contestAccessPending && contestAccess && contest?.selectionType === 'RANDOM' &&<div className="chooseWinnerPage_random">
                     <h3>RANDOM WINNER (не реализовано)</h3>
 
-                    <Button variant='primary' type="button" onClick={getRandomWork}>Get random work</Button>
+                    <Button variant='primary' type="button">Get random work</Button>
 
                     {/* По нажатию на кнопку, будет появляться рандомная работа, можно будет просмотреть её превью
                     (как модалку) и затем выбрать её как победителя. либо сгенирировать занов (до 3х раз). После чего

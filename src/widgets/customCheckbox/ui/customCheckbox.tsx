@@ -17,7 +17,8 @@ const CustomCheckbox: FC <CustomCheckboxInterface> = ({value = 'Insert value on 
 
     const handleCheck = (event: ChangeEvent<HTMLInputElement>) => {
         if(controlled){
-            handleCheckbox()
+            // ранее было без ивента
+            handleCheckbox?.(event)
         } else {
             setInputCheck(event.target.checked)
             handleCheckbox?.(event) 

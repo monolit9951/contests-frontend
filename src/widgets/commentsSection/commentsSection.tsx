@@ -162,7 +162,7 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
             )}
 
             <CommentsList workId={workId}
-                userId={userId} // TODO delete upon integrating login feature
+                // userId={userId}
                 comments={comments}
                 setComments={setComments}
                 setTotalElements={setTotalElements}

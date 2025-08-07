@@ -28,6 +28,7 @@ export interface WalletBalance {
     walletId: string
 }
 
+// тестовые данные
 const transaction = {
     amount: 1000,
     createdAr: [10, 10, 10, 10, 10],

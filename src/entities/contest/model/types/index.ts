@@ -1,6 +1,7 @@
 import { Prize, PrizePreview } from 'entities/prize'
 import { Organizer } from 'entities/user'
 import { Work } from 'entities/work'
+import { Media } from 'entities/work/model/types'
 import { PageEntityDTO } from 'shared/lib/types'
 
 export type Status = 'ACTIVE' | 'FINISHED' | 'UPCOMING' | 'SELECTION_IN_PROGRESS' | 'WINNER_CONFIRMATION' | 'MODERATOR_SELECTION'
@@ -48,7 +49,7 @@ export interface Contest {
     dateEnd: string
     description: string
     prizes: Prize[]
-    exampleMedia?: string[]
+    exampleMedia?: Media[]
     popularity: number
     contestOwner: Organizer
     // topWinners: TopWinners[] | null
@@ -66,6 +67,6 @@ export interface ContestPreview
         | 'topWinners'
         | 'contestOpen'
     > {
-    previewImage: string | null
+    previewImage: string | undefined
     prizesPreviews: PrizePreview[]
 }

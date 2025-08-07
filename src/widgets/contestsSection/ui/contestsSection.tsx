@@ -21,6 +21,7 @@ import {
 } from 'pages/contestsPage'
 import { selectSearchString } from 'pages/contestsPage/model/selectors'
 import cross from 'shared/assets/icons/X.svg?react'
+import { capitalizeStr } from 'shared/helpers'
 import useOnScreen from 'shared/lib/hooks/useOnScreen'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
@@ -31,7 +32,6 @@ import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './contestsSection.scss'
-import { capitalizeStr } from 'shared/helpers'
 
 type SectionType = 'popular' | 'all'
 

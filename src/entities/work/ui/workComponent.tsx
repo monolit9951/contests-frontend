@@ -32,6 +32,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
         likeAmount,
         // typeWork,
         workAddingDate,
+        userLike
     } = work
     
     const timeAgo = moment.utc(workAddingDate).local().fromNow();
@@ -122,6 +123,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                 comments={commentAmount}
                 onCommentsClick={onCommentsClick}
                 className='workComponent_mediafeedback'
+                liked={userLike}
             />
         </div>
     )

@@ -24,9 +24,9 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
     const [currentFilter, setCurrentFilter] = useState<string>('allWorks')
 
     // eslint-disable-next-line
-    const [currentPage, setCurrentPage] = useState<number>(0)
+    // const [currentPage, setCurrentPage] = useState<number>(0)
 
-    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id), currentPage), key: [worksKey], enabled: true})
+    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id)), key: [worksKey], enabled: true})
     const {data: winners, isLoaded: winnersLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners(contest.id), key: [winnersKey], enabled: true})
 
     const options = contest.prizes.map((prize: Prize) => ({

@@ -1,10 +1,9 @@
+import { useEffect, useState } from 'react'
 import { Category } from 'entities/contest'
-import { CategoryTheme, useTheme } from 'entities/theme'
-import { filterActions, selectCategory } from 'features/filterContests'
-import { useAppDispatch, useAppSelector } from 'shared/lib/store'
+import { filterActions } from 'features/filterContests'
+import { useAppDispatch } from 'shared/lib/store'
 
 import './categoryFilterOption.scss'
-import { useEffect, useState } from 'react'
 
 interface CategoryFilterOptionProps {
     _currFilter: Category

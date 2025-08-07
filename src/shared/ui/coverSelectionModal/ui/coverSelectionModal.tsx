@@ -39,7 +39,8 @@ export const CoverSelectionModal = ({
     setImageValidationMessage,
     extra
 }: CoverSelectionModalProps) => {
-    const [currImg, setCurrImg] = useState<string | Blob>('')
+    // не помню точно, но можно курр имг заменить на стринг | блоб
+    const [currImg, setCurrImg] = useState<string>('')
     const [imgName, setImgName] = useState<string>('')
     const [isDisabledUploadBtn, setIsDisabledUploadBtn] =
         useState<boolean>(true)
@@ -91,7 +92,7 @@ export const CoverSelectionModal = ({
         onCancel()
     }
 
-    const [imageSrc, setImageSrc] = useState<String | null>(null)
+    const [imageSrc, setImageSrc] = useState<string | null>(null)
 
     // получаем фото
     const handleFileChange = async(event: React.ChangeEvent<HTMLInputElement>) =>{

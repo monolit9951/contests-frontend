@@ -14,6 +14,6 @@ export const fetchAllNotifications = async (): Promise<Notification[] | string> 
         
         return response.data
     } catch (error) {
-        return error
+        return (error as Error).message
     }
 }

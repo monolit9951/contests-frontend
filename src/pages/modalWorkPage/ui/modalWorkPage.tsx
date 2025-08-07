@@ -23,7 +23,11 @@ const ModalWorkPage: FC = () => {
 
     return(
         <ModalWindow isOpen onClose={handlePageClose} >
-            {!isLoading && data && <WorkPreview onClose={handlePageClose} work={data}/>}
+            {!isLoading && data && 
+                <WorkPreview 
+                    // onClose={handlePageClose} 
+                    work={data}
+                />}
         </ModalWindow>
     )
 }

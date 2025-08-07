@@ -20,7 +20,7 @@ interface ImageUploadProps {
 
 export const ImageUpload = ({ text, extra }: ImageUploadProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const [chosenImg, setChosenImg] = useState<string>('')
+    const [chosenImg, setChosenImg] = useState<string | Blob>('')
     const [imageValidationMessage, setImageValidationMessage] = useState('')
     
 

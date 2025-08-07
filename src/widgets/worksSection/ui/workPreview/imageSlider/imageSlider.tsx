@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import { Media } from 'entities/media'
+import { Media } from 'entities/work/model/types'
 
 import './imageSlider.scss'
 
