@@ -9,6 +9,7 @@ import {
     filterActions,
     FilterController,
     selectActiveFilters,
+    selectCategory,
 } from 'features/filterContests'
 import { FilterPayloadObj } from 'features/filterContests/model/types'
 import {
@@ -30,6 +31,7 @@ import { HStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './contestsSection.scss'
+import { capitalizeStr } from 'shared/helpers'
 
 type SectionType = 'popular' | 'all'
 
@@ -54,6 +56,7 @@ const ContestsSection: FC<Props> = (props) => {
 
     const allContests = all.contests as ContestPreview[]
     const popularContests = popular.contests as ContestPreview[]
+    const category = useAppSelector(selectCategory)
 
     const { isIntersecting, measureRef, observer } = useOnScreen({
         threshold: 0.8,
@@ -111,7 +114,6 @@ const ContestsSection: FC<Props> = (props) => {
     const onFilterClearClick = () => {
         dispatch(filterActions.clearFilters())
         dispatch(contestsPageActions.resetSearchString())
-        // не удаляет сёрчстринг
     }
 
     const onSeeAllClick = () => {}
@@ -157,6 +159,11 @@ const ContestsSection: FC<Props> = (props) => {
             </li>
         ))
     }
+    
+    const handleCategoryDelete = () => {
+        dispatch(filterActions.changeCategory(''))
+    }
+
 
     // скелеты 
     const renderAll = () => {
@@ -245,6 +252,7 @@ const ContestsSection: FC<Props> = (props) => {
                 (filters?.length >= 1 ||
                     prizeRangeCondition() ||
                     coinRangeCondition() ||
+                    category ||
                     searchString) && (
                     <HStack className='active-filter__block'>
                         <ul className='active-filter__list'>
@@ -302,6 +310,18 @@ const ContestsSection: FC<Props> = (props) => {
                                     />
                                 </li>
                             )}
+                            { category &&
+                                <li>
+                                    <Text Tag='span'>{capitalizeStr(category)}</Text>
+                                    <Icon
+                                        Svg={cross}
+                                        width={16}
+                                        height={16}
+                                        clickable
+                                        onClick={handleCategoryDelete}
+                                    />
+                                </li>
+                            }
                         </ul>
                         <Button
                             variant='ghost'
@@ -314,7 +334,10 @@ const ContestsSection: FC<Props> = (props) => {
                                     (
                                     {filters.length +
                                         (searchString ? 1 : 0) +
-                                        (prizeRangeCondition() ? 1 : 0) + (coinRangeCondition() ? 1 : 0)}
+                                        (prizeRangeCondition() ? 1 : 0) + 
+                                        (coinRangeCondition() ? 1 : 0) +
+                                        (category? 1: 0)
+                                        }
                                     )
                                 </Text>
                             </Text>

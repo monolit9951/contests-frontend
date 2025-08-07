@@ -11,7 +11,7 @@ const initialState: FilterSchema = {
         status: '',
         prizeType: '',
         prizeRange: [0, 100000],
-        coinRange: [0, 10000],
+        coinRange: [0, 100000],
         creators: '',
     },
     active: {
@@ -19,7 +19,7 @@ const initialState: FilterSchema = {
         status: '',
         prizeType: '',
         prizeRange: [0, 100000],
-        coinRange: [0, 10000],
+        coinRange: [0, 100000],
         creators: '',
     },
 
