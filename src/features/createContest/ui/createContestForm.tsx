@@ -171,7 +171,7 @@ const CreateContestForm = () => {
                 <MainInformation submitError={submitError} />
                 <StageOfTheCompetition dateValidation={dateValidation} />
                 <PrizeInformation />
-                <GalleryUpload />
+                {/* <GalleryUpload /> */}
 
                 <HStack className='preview_create_container'>
                     <Button

@@ -14,6 +14,7 @@ import { ImageUpload } from './imageUpload'
 import { RadioContainer, RadioEl } from './radioContainer'
 
 import './mainInformation.scss'
+import { GalleryUpload } from '../../galleryUpload'
 
 interface Props {
     submitError: boolean
@@ -110,7 +111,11 @@ export const MainInformation = ({ submitError }: Props) => {
                     </HStack>
                 )}
 
+
+            {/* Добавть инпут во весь размер текстареа */}
             <VStack className='descriptionInput_container'>
+
+
                 <Textarea
                     label='Description'
                     className={clsx(
@@ -131,6 +136,8 @@ export const MainInformation = ({ submitError }: Props) => {
                         (errors.description.message as string)
                     }
                 />
+
+                <GalleryUpload />
                 <HStack className='description_requirements'>
                     <Text
                         Tag='p'
