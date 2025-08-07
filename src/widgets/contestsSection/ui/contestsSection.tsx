@@ -111,9 +111,14 @@ const ContestsSection: FC<Props> = (props) => {
         }
     }
 
+    const handleCategoryDelete = () => {
+        dispatch(filterActions.changeCategory(''))
+    }
+    
     const onFilterClearClick = () => {
         dispatch(filterActions.clearFilters())
         dispatch(contestsPageActions.resetSearchString())
+        handleCategoryDelete()
     }
 
     const onSeeAllClick = () => {}
@@ -160,9 +165,6 @@ const ContestsSection: FC<Props> = (props) => {
         ))
     }
     
-    const handleCategoryDelete = () => {
-        dispatch(filterActions.changeCategory(''))
-    }
 
 
     // скелеты 
