@@ -4,7 +4,6 @@ import clsx from 'clsx'
 import {
     filterActions,
     FilterObject,
-    selectCategory,
     selectSelectedFilters,
 } from 'features/filterContests'
 import { FilterPayloadObj } from 'features/filterContests/model/types'
@@ -28,7 +27,6 @@ export default function FilterItem(props: FilterItemProps) {
     const dispatch = useDispatch()
 
     const selected = useAppSelector(selectSelectedFilters)
-    const category = useAppSelector(selectCategory)
 
     useEffect(() => {
         setItemActive(
@@ -37,8 +35,6 @@ export default function FilterItem(props: FilterItemProps) {
             )
         )
     }, [selected.filtersList])
-
-
     const onBtnClick = () => {
         let payload = {
             filterName: '',
@@ -91,34 +87,10 @@ export default function FilterItem(props: FilterItemProps) {
                 }
                 dispatch(filterActions.addFilter(payload))
                 break
-
-                case 'Contest Type': {
-                    let categoryPayload
-                    if (category === '') {
-                        categoryPayload = apiKey
-                    } else if (category === apiKey) {
-                        categoryPayload = ''
-                    } else {
-                        categoryPayload = apiKey
-                    }
-                    dispatch(filterActions.changeCategory(categoryPayload))
-                    break
-                }
             default: break
         }
     }
 
-
-    // по правильному было бы выносить вообще выбор категории в отдельный компонент
-    // из-за другой логики
-    
-    useEffect(() => {
-        if(category === apiKey && filter.name === 'Contest Type'){
-            setItemActive(true)
-        } else {
-            setItemActive(false)
-        }
-    }, [category])
 
     return (
         <li>

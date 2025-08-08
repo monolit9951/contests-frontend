@@ -19,6 +19,7 @@ import { Text } from 'shared/ui/text'
 import FilterItem from './filterItem'
 
 import 'rc-slider/assets/index.css'
+import FilterItemCategory from './filterItemCategory'
 
 interface FilterBlockProps {
     filter?: FilterObject
@@ -109,7 +110,16 @@ export default function FilterBlock(props: FilterBlockProps) {
                         blockShown && 'filter-block__hidden'
                     )}>
                         {filter.items.map(({ name, number, apiKey }) => (
+                            filter.name !== 'Contest Type'?
                             <FilterItem
+                                key={name}
+                                name={name}
+                                number={number}
+                                filter={filter}
+                                apiKey={apiKey}
+                            />
+                            :
+                            <FilterItemCategory
                                 key={name}
                                 name={name}
                                 number={number}
