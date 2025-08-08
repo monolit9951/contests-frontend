@@ -41,8 +41,7 @@ export default function FilterItemCategory(props: FilterItemProps) {
 
     // бля назначения актив при любых изменениях категории в фильтрах и в heroSection
     useEffect(() => {
-        console.log(1)
-        if(category === apiKey && name === 'Contest Type'){
+        if(category === apiKey && filter.name === 'Contest Type'){
             setItemActive(true)
         } else {
             setItemActive(false)
