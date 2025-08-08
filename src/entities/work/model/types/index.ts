@@ -14,6 +14,7 @@ export interface Media {
 
 
 export interface Work {
+    place: string
     id: string
     ownerId: string
     description: string

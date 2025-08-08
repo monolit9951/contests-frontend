@@ -9,6 +9,7 @@ import {
     filterActions,
     FilterController,
     selectActiveFilters,
+    selectCategory,
 } from 'features/filterContests'
 import { FilterPayloadObj } from 'features/filterContests/model/types'
 import {
@@ -20,6 +21,7 @@ import {
 } from 'pages/contestsPage'
 import { selectSearchString } from 'pages/contestsPage/model/selectors'
 import cross from 'shared/assets/icons/X.svg?react'
+import { capitalizeStr } from 'shared/helpers'
 import useOnScreen from 'shared/lib/hooks/useOnScreen'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
@@ -54,6 +56,7 @@ const ContestsSection: FC<Props> = (props) => {
 
     const allContests = all.contests as ContestPreview[]
     const popularContests = popular.contests as ContestPreview[]
+    const category = useAppSelector(selectCategory)
 
     const { isIntersecting, measureRef, observer } = useOnScreen({
         threshold: 0.8,
@@ -88,16 +91,34 @@ const ContestsSection: FC<Props> = (props) => {
         return active.prizeRange[0] !== 0 || active.prizeRange[1] !== 100000
     }
 
+    const coinRangeCondition = () => {
+        return active.coinRange[0] !== 0 || active.coinRange[1] !== 100000
+    }
+
+    // очищение фильтров
     const onFilterDeleteClick = (filter?: FilterPayloadObj) => {
         if (filter) {
             dispatch(filterActions.removeActiveFilter(filter))
-        } else {
-            dispatch(filterActions.resetPrizeRange())
         }
     }
 
+    // очищение инпут рендж
+    const onRangeDeleteClick = (filteRange: 'MONEY' | 'COINS') => {
+        if(filteRange === 'MONEY'){
+            dispatch(filterActions.resetPrizeRange())
+        } else {
+            dispatch(filterActions.resetCoinRange())
+        }
+    }
+
+    const handleCategoryDelete = () => {
+        dispatch(filterActions.changeCategory(''))
+    }
+    
     const onFilterClearClick = () => {
         dispatch(filterActions.clearFilters())
+        dispatch(contestsPageActions.resetSearchString())
+        handleCategoryDelete()
     }
 
     const onSeeAllClick = () => {}
@@ -143,7 +164,10 @@ const ContestsSection: FC<Props> = (props) => {
             </li>
         ))
     }
+    
 
+
+    // скелеты 
     const renderAll = () => {
         if (all.loading) {
             return (
@@ -229,6 +253,8 @@ const ContestsSection: FC<Props> = (props) => {
             {section === 'all' &&
                 (filters?.length >= 1 ||
                     prizeRangeCondition() ||
+                    coinRangeCondition() ||
+                    category ||
                     searchString) && (
                     <HStack className='active-filter__block'>
                         <ul className='active-filter__list'>
@@ -264,16 +290,40 @@ const ContestsSection: FC<Props> = (props) => {
                             ))}
                             {prizeRangeCondition() && (
                                 <li>
-                                    <Text Tag='span'>Prize Range</Text>
+                                    <Text Tag='span'>Money Range</Text>
                                     <Icon
                                         Svg={cross}
                                         width={16}
                                         height={16}
                                         clickable
-                                        onClick={() => onFilterDeleteClick()}
+                                        onClick={() => onRangeDeleteClick('MONEY')}
                                     />
                                 </li>
                             )}
+                            {coinRangeCondition() && (
+                                <li>
+                                    <Text Tag='span'>Coin Range</Text>
+                                    <Icon
+                                        Svg={cross}
+                                        width={16}
+                                        height={16}
+                                        clickable
+                                        onClick={() => onRangeDeleteClick('COINS')}
+                                    />
+                                </li>
+                            )}
+                            { category &&
+                                <li>
+                                    <Text Tag='span'>{capitalizeStr(category)}</Text>
+                                    <Icon
+                                        Svg={cross}
+                                        width={16}
+                                        height={16}
+                                        clickable
+                                        onClick={handleCategoryDelete}
+                                    />
+                                </li>
+                            }
                         </ul>
                         <Button
                             variant='ghost'
@@ -286,7 +336,10 @@ const ContestsSection: FC<Props> = (props) => {
                                     (
                                     {filters.length +
                                         (searchString ? 1 : 0) +
-                                        (prizeRangeCondition() ? 1 : 0)}
+                                        (prizeRangeCondition() ? 1 : 0) + 
+                                        (coinRangeCondition() ? 1 : 0) +
+                                        (category? 1: 0)
+                                        }
                                     )
                                 </Text>
                             </Text>

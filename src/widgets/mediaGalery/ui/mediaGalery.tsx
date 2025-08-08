@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import { Media } from "entities/work/model/types";
 import navLeft from 'shared/assets/icons/navLeft.svg';
 import navRight from 'shared/assets/icons/navRight.svg';
 import { Video } from "shared/ui/videoPlayer";
@@ -18,14 +19,14 @@ export interface MediaInterface {
     workId: string;
 }
 
-interface MediaGaleryInterface {
-    media: MediaInterface[];
-    type?: 'TYPED' | 'ARRAYOFLINKS'
+interface Prop {
+    media: Media[];
+    // type?: 'TYPED' | 'ARRAYOFLINKS'
     className?: string
     index?: number
 }
 
-const MediaGalery: FC<MediaGaleryInterface> = ({ media, type = 'TYPED', className, index = 0 }) => {
+const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
     const [currentIndex, setCurrentIndex] = useState(index);
     const [direction, setDirection] = useState<'next' | 'prev'>('next');
 
@@ -57,7 +58,7 @@ const MediaGalery: FC<MediaGaleryInterface> = ({ media, type = 'TYPED', classNam
                     <Video url={currentMedia.mediaLink} />
                 ) : (
                     <img
-                        src={type === 'TYPED'? currentMedia.mediaLink : currentMedia}
+                        src={currentMedia.mediaLink}
                         className="mediaGalery_media_image"
                         alt="workImg"
                     />

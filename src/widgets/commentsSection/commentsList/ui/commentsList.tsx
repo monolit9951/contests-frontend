@@ -12,7 +12,7 @@ import './commentsList.scss'
 
 interface Props {
     workId: string
-    userId: string
+    // userId: string
     comments: Comment[]
     setComments: Dispatch<SetStateAction<Comment[]>>
     setTotalElements: (num: number) => void
@@ -27,7 +27,7 @@ interface Props {
 const CommentsList: React.FC<Props> = (props) => {
     const {
         workId,
-        userId,
+        // userId,
         comments,
         setComments,
         setTotalElements,
@@ -130,11 +130,11 @@ const CommentsList: React.FC<Props> = (props) => {
                 <CommentItem
                     key={item.id}
                     ref={idx === comments.length - 1 ? measureRef : null}
-                    userId={userId}
+                    // userId={userId}
                     data={item}
                     handleDeleteMainCommentCallback = {handleDeleteMainCommentCallback}
-                    isMain
-                    parentId = {workId}
+                    // isMain
+                    // parentId = {workId}
                 />
             ))}
 

@@ -1,4 +1,5 @@
 import { FC, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 // import { useLocation, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
@@ -24,13 +25,16 @@ interface Props {
     data: Work
     // prizeId?: string
     className?: string,
+    type?: "MODAL" | "LINK"
 }
 
 
 const WorkCard: FC<Props> = (props) => {
     const { data, 
         // prizeId,
-         className } = props
+        className,
+        type = 'MODAL'
+        } = props
 
     // const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
@@ -38,9 +42,16 @@ const WorkCard: FC<Props> = (props) => {
 
     const [openModal, setOpenModal] = useState<boolean>(false)
     const [workKey, setWorkKey] = useState<number>(0)
+    const navigate = useNavigate()
 
     const handleOpenModal = async () => {
-        setOpenModal(true)
+        if(type ==='MODAL'){
+            setOpenModal(true)
+        } else {
+            sessionStorage.setItem("contestScroll", String(window.scrollY));
+            navigate(`work/${data.id}`, {preventScrollReset: true})
+        }
+        
     }
 
     const handleCloseModal = () => {
@@ -77,7 +88,7 @@ const WorkCard: FC<Props> = (props) => {
                     {workDataLoaded && <MediaOverlay
                         prize={workData.prize}
                         user={workData.user}
-                        imageCards={workData.typeWork === 'IMAGE'}
+                        // imageCards={workData.typeWork === 'IMAGE'}
                         handleReportCallback = {handleReportCallback}
                     />}
                     {workDataLoaded && workData.media && workData.media[0]?.typeMedia === 'VIDEO' && workData.media?.[0]?.mediaLink && (
@@ -110,7 +121,7 @@ const WorkCard: FC<Props> = (props) => {
                     liked = {workData.userLike}
                 />}
             </VStack>
-            
+
             {reportModal && <ModalWindow isOpen onClose={() => setReportModal(false)}><ModalReport targetType='WORK' targetId={workData.id}/></ModalWindow>}
             {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={workData} /></ModalWindow>}
         </li>

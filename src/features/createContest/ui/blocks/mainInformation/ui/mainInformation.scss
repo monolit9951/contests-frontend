@@ -30,37 +30,48 @@
 
     .descriptionInput_container {
         max-width: 960px;
+        position: relative;
+        .descriptionInput_dragNDrop{
+            box-sizing: border-box;
 
-        .description_placeholder {
-            width: 100%;
-            min-height: 96px;
-            max-height: 300px;
-
-            &.error {
-                border: 1px solid var(--danger);
+            &.dropActive{
+                background: rgba(0, 123, 255, 0.05);
+                border: 3px dashed #007bff;
+                pointer-events: none;
+                // z-index: 9999;
             }
-        }
 
-        .description_requirements {
-            justify-content: space-between;
-
-            > p {
-                margin-top: 8px;
-                font-size: 12px;
-                line-height: 16px;
+            .description_placeholder {
+                width: 100%;
+                min-height: 96px;
+                max-height: 300px;
 
                 &.error {
-                    color: var(--danger);
-                }
-
-                .dark & + p {
-                    color: var(--white-transp-50);
-                }
-                .light & + p {
-                    color: var(--text-placeholder);
+                    border: 1px solid var(--danger);
                 }
             }
         }
+
+            .description_requirements {
+                justify-content: space-between;
+
+                > p {
+                    margin-top: 8px;
+                    font-size: 12px;
+                    line-height: 16px;
+
+                    &.error {
+                        color: var(--danger);
+                    }
+
+                    .dark & + p {
+                        color: var(--white-transp-50);
+                    }
+                    .light & + p {
+                        color: var(--text-placeholder);
+                    }
+                }
+            }
     }
 }
 

@@ -1,3 +1,4 @@
+import { PagedRequest } from "entities/request/intex"
 import instance from "shared/api/api"
 
 import { Transaction, WalletBalance } from "../../components/profileWallet/profileWallet"
@@ -22,7 +23,7 @@ export const fetchWalletBalance = async ( userId: string): Promise<WalletBalance
 }
 
 // получение транзакций пользователя
-export const fetchWalletTransactions = async ( userId: string): Promise<Transaction[] | string> => {
+export const fetchWalletTransactions = async ( userId: string): Promise<PagedRequest<Transaction> | string> => {
     try {
         const response = await instance.get(`users/transactions/${userId}`)
 

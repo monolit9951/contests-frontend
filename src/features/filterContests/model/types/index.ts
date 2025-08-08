@@ -33,6 +33,7 @@ export interface FilterData {
     status: FilterObject
     prizeType: FilterObject
     creators: FilterObject
+    contestType: FilterObject
 }
 
 export interface FiltersObj {
@@ -40,6 +41,7 @@ export interface FiltersObj {
     status: StatusFilter
     prizeType: PrizeTypeFilter
     prizeRange: number[]
+    coinRange: number[]
     creators: CreatorsFilter
 }
 

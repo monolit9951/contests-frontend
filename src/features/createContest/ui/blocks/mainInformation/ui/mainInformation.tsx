@@ -110,7 +110,11 @@ export const MainInformation = ({ submitError }: Props) => {
                     </HStack>
                 )}
 
+
+            {/* Добавть инпут во весь размер текстареа */}
             <VStack className='descriptionInput_container'>
+
+
                 <Textarea
                     label='Description'
                     className={clsx(
@@ -131,6 +135,7 @@ export const MainInformation = ({ submitError }: Props) => {
                         (errors.description.message as string)
                     }
                 />
+
                 <HStack className='description_requirements'>
                     <Text
                         Tag='p'

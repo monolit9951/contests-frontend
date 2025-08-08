@@ -25,8 +25,8 @@ interface Props {
     setNextLoading: (bool: boolean) => void
     setError: (err: Error | null) => void
     handleNewSubCommentCallback: () => void
-    handleDeleteMainCommentCallback: (commentId: string) => void
-    handleDeleteSubCommentCallback: (commentId: string) => void
+    handleDeleteMainCommentCallback?: (commentId: string) => void
+    handleDeleteSubCommentCallback?: (commentId: string) => void
     isMain?: boolean
     parentId: string
 }
@@ -107,7 +107,7 @@ const CommentEl: FC<Props> = (props) => {
             // setSubComments((prev) => [...prev, newSubComment])
         } catch (err) {
             // setError(err as Error)
-            showAlert(err)
+            showAlert('ERROR', 'CHANGE THAT ERROR')
         } finally {
             setNextLoading(false)
             toggleReplyInput()
@@ -125,9 +125,9 @@ const CommentEl: FC<Props> = (props) => {
 
         // если у коммента есть воркайди, то он первого уровня, потому удаление другое
         if (isMain){
-            handleDeleteMainCommentCallback(data.id)
+            handleDeleteMainCommentCallback?.(data.id)
         } else {
-            handleDeleteSubCommentCallback(data.id)
+            handleDeleteSubCommentCallback?.(data.id)
         }
     }
 

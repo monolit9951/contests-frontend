@@ -59,7 +59,7 @@ export const GalleryUpload = () => {
                         key={galleryItem.id}
                         galleryItem={galleryItem}
                         galleryItems={galleryItems}
-                        setGalleryItems={setGalleryItems}
+                        setGalleryItems={setGalleryItems as any}
                     />
                 ))}
             </div>

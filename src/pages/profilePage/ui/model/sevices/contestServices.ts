@@ -1,4 +1,5 @@
 import { Contest } from "entities/contest"
+import { PagedRequest } from "entities/request/intex"
 import instance from "shared/api/api"
 
 // получение всех контестов связанных с пользователем (БЕЗ ПАГИНАЦИИ, НЕТ ДЖЕНЕРИКА)
@@ -77,7 +78,7 @@ export const fetchOrganizingContests = async (userId: string): Promise<Contest[]
 }
 
 // ОДНА ФУНКЦИЯ ДЛЯ ВСЕХ КОНТЕСТОВ ПРОФИЛЯ
-export const fetchProfileContests = async (extraPath: string, userId: string): Promise<Contest[] | string> => {
+export const fetchProfileContests = async (extraPath: string, userId: string): Promise<PagedRequest<Contest> | string> => {
     try {
         const response = await instance.get(`contests/${extraPath}/${userId}`)
 

@@ -1,8 +1,11 @@
-export default function getCroppedImg(imageSrc: string, crop: any): Promise<Blob> {
+import { Area } from "react-easy-crop";
+
+export default function getCroppedImg(imageSrc: string, crop: Area): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.crossOrigin = 'anonymous';
     image.src = imageSrc;
+
     image.onload = () => {
       const canvas = document.createElement('canvas');
       canvas.width = crop.width;
@@ -34,6 +37,7 @@ export default function getCroppedImg(imageSrc: string, crop: any): Promise<Blob
         resolve(blob);
       }, 'image/jpeg');
     };
+
     image.onerror = () => reject(new Error('Failed to load image'));
   });
 }

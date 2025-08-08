@@ -35,8 +35,6 @@ export default function FilterItem(props: FilterItemProps) {
             )
         )
     }, [selected.filtersList])
-
-
     const onBtnClick = () => {
         let payload = {
             filterName: '',
@@ -52,7 +50,7 @@ export default function FilterItem(props: FilterItemProps) {
                 }
 
                 // if (selected.status) {
-                    if (selected.filtersList.some((item) => item.name === name)) {
+                    if (selected.filtersList.some((item: FilterPayloadObj) => item.name === name)) {
                         dispatch(filterActions.removeFilter(payload))
                         break
                     }
@@ -69,28 +67,30 @@ export default function FilterItem(props: FilterItemProps) {
                     apiKey
                 }
 
-                if (selected.filtersList.some((item) => item.name === name)) {
+                if (selected.filtersList.some((item: FilterPayloadObj) => item.name === name)) {
                     dispatch(filterActions.removeFilter(payload))
                     break
                 }
                 dispatch(filterActions.addFilter(payload))
                 break
 
-            default:
+            case 'creators':
                 payload = {
                     filterName: 'creators',
                     name,
                     apiKey
                 }
 
-                if (selected.filtersList.some((item) => item.name === name)) {
+                if (selected.filtersList.some((item: FilterPayloadObj) => item.name === name)) {
                     dispatch(filterActions.removeFilter(payload))
                     break
                 }
                 dispatch(filterActions.addFilter(payload))
                 break
+            default: break
         }
     }
+
 
     return (
         <li>
@@ -105,7 +105,7 @@ export default function FilterItem(props: FilterItemProps) {
                 )}>
                 <Text Tag='span'>
                     {name}
-                    <VStack Tag='span' size='sm'>
+                    <VStack>
                         ({number})
                     </VStack>
                 </Text>

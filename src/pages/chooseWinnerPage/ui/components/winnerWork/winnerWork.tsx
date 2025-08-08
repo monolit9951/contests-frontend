@@ -2,8 +2,6 @@ import { FC, useMemo, useState } from "react";
 import { Work } from "entities/work";
 import moment from "moment";
 import instance from "shared/api/api";
-import sampleWorkImage from 'shared/assets/testImages/sampleWorkImage.png'
-import sampleVideo from "shared/assets/testVideos/testVideo.mp4"
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import { Button } from "shared/ui/button";
 import { ModalWindow } from "shared/ui/modalWindow";
@@ -12,6 +10,8 @@ import CustomCheckbox from "widgets/customCheckbox";
 import CustomSelector from "widgets/customSelector";
 import UserProfileData from "widgets/userProfileData/userProfileData";
 import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
+
+import { optionsType } from "../winnersSelectors/winnerSelectors";
 
 import './winnerWork.scss'
 
@@ -46,7 +46,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
                 await instance.delete(`winners/possible/${work.id}`, {headers: {Authorization: `Bearer ${token}`}})
                 setIsWinner(false)
             } catch (error){
-                showAlert('ERROR', error.response.data.error)
+                showAlert('ERROR', 'CHANGE THAT ERROR')
             }
         } else{
             // добавляем победителя
@@ -56,7 +56,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             } catch (error){
                 if(error){
                     setPlaceError(true)
-                    showAlert('ERROR', error.response.data.error)
+                    showAlert('ERROR', 'CHANGE THAT ERROR')
                 }
             }
         }
@@ -72,12 +72,16 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
     // МЕМОИЗАЦИЯ ДЛЯ ПРЕДОТВРАЩЕНИЯ ПЕРЕРЕНДЕРА
     const videoBlock = useMemo(() => {
-        if (work.media[0].typeMedia === 'IMAGE') {
-            return <img src={sampleWorkImage} alt="workImage" />;
-        } 
-            return <Video url={sampleVideo} light />;
+        if(work.media !== null){
+            if (work.media !== null && work.media[0].typeMedia === 'IMAGE') {
+                return <img src={work.media[0].mediaLink} alt="workImage" />;
+            } 
+                return <Video url={work.media[0].mediaLink} light />;
+        }
+
+        return <div>no media</div>
         
-    }, [work.media[0].typeMedia]);
+    }, [work.media]);
 
     return(
         <div className={isWin? "winnerWork winner" : "winnerWork"}>
@@ -104,7 +108,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
             <div className="winnerWork_right">
                 <CustomCheckbox value="Winner" checked={isWinner} handleCheckbox={handleCheckbox} controlled/>
-                <CustomSelector options={options} maxWidth={200} name="Place" chooseSelectorCallback={handlePlaceSelector} currentPlace = {work.place} error = {placeError}/>
+                <CustomSelector options={options} maxWidth={200} chooseSelectorCallback={handlePlaceSelector} currentPlace = {work.place} error = {placeError}/>
             </div>
 
             {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview work={work} /></ModalWindow>}

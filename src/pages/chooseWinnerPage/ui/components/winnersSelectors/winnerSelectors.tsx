@@ -3,7 +3,7 @@ import CustomSelector from "widgets/customSelector";
 
 import './winnerSelectors.scss'
 
-interface optionsType {
+export interface optionsType {
     text: string,
     key: string
 }
@@ -25,7 +25,7 @@ const WinnerSelectors: FC<Props> = ({chooseSelectorCallback}) => {
 
     return(
         <div className="customSelectors">
-            <CustomSelector options = {reatingOptions} name="Reating" maxWidth={300} defaultItem chooseSelectorCallback={chooseSelectorCallback}/>
+            <CustomSelector options = {reatingOptions} maxWidth={300} defaultItem chooseSelectorCallback={chooseSelectorCallback}/>
             {/* <CustomSelector options = {reatingOptions} name="Reating" maxWidth={200} chooseSelectorCallback={chooseSelectorCallback}/> */}
             {/* <CustomSelector options = {reatingOptions} name="Reating" maxWidth={500} chooseSelectorCallback={chooseSelectorCallback}/> */}
         </div>

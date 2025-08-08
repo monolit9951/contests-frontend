@@ -2,7 +2,7 @@ import { FC } from "react";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
-import { RootState } from "../store";
+// import { RootState } from "../store";
 
 interface ProtectedRouteInterface {
   role?: 'USER' | 'ADMIN';

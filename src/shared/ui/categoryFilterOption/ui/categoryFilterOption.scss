@@ -18,25 +18,37 @@
     }
 }
 
-.activeFilter {
-    div.app.light & {
-        background-color: var(--blue-primary);
-        color: var(--white);
-    }
+// .activeAll {
+//     div.app.light & {
+//         background-color: var(--blue-primary);
+//         color: var(--white);
+//     }
 
-    div.app.dark & {
-        color: var(--white);
-    }
+//     div.app.dark & {
+//         color: var(--white);
+//     }
 
-    .dark.all & {
-        background-color: var(--green);
-    }
+//     .dark.all & {
+//         background-color: var(--green);
+//     }
 
-    .dark.fun & {
-        background-color: var(--purple);
-    }
+//     .dark.fun & {
+//         background-color: var(--purple);
+//     }
 
-    .dark.work & {
-        background-color: var(--orange);
-    }
+//     .dark.work & {
+//         background-color: var(--orange);
+//     }
+// }
+
+.activeAll{
+    background-color: var(--green);
+}
+
+.activeContest{
+    background-color: var(--orange);
+}
+
+.activeDare{
+    background-color: var(--purple);
 }

@@ -32,6 +32,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
         likeAmount,
         // typeWork,
         workAddingDate,
+        userLike
     } = work
     
     const timeAgo = moment.utc(workAddingDate).local().fromNow();
@@ -108,10 +109,10 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                 {media?.[0]?.mediaLink && media?.[0]?.typeMedia === 'VIDEO' && (
                     <Video
                         url={media[0].mediaLink}
-                        width={420}
-                        height={720}
+                        // width={420}
+                        // height={720}
                         light
-                        className='work-component__video'
+                        // className='work-component__video'
                     />
                 )}
             </Button>
@@ -122,6 +123,7 @@ const WorkComponent: React.FC<WorkProps> = ({ work, openModal }) => {
                 comments={commentAmount}
                 onCommentsClick={onCommentsClick}
                 className='workComponent_mediafeedback'
+                liked={userLike}
             />
         </div>
     )

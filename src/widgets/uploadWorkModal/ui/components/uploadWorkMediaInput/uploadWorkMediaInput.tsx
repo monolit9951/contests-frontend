@@ -27,7 +27,7 @@ const UploadWorkMediaInput: FC<UploadWorkMediaInputInterface> = ({ handleMediaIn
   const {showAlert, Alert} = useAlert()
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if(allowedTypes.includes(event.target.files[0].type)){
+    if(event.target.files !== null && allowedTypes.includes(event.target.files[0].type)){
       handleMediaInputCallback(event);
       if (inputRef.current) inputRef.current.value = '';
     } else {

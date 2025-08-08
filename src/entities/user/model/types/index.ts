@@ -7,6 +7,9 @@ export interface User {
     participantRating: number
     verificationStatus: VerificationStatus | null
     profileImage: string
+    createdAt: string
+    email: string
 }
 
-export type Organizer = Omit<User, 'participantRating'>
+export type Organizer = User
+// export type Organizer = Omit<User, 'participantRating'>

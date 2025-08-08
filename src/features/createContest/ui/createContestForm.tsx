@@ -11,7 +11,6 @@ import { RegistrationModal } from 'widgets/registrationModal'
 
 import { ContestCreationFormData } from '../model/types'
 
-import { GalleryUpload } from './blocks/galleryUpload'
 import { MainInformation } from './blocks/mainInformation'
 import { PrizeInformation } from './blocks/prizeInformation'
 import { StageOfTheCompetition } from './blocks/stageOfTheCompetition'
@@ -171,7 +170,7 @@ const CreateContestForm = () => {
                 <MainInformation submitError={submitError} />
                 <StageOfTheCompetition dateValidation={dateValidation} />
                 <PrizeInformation />
-                <GalleryUpload />
+                {/* <GalleryUpload /> */}
 
                 <HStack className='preview_create_container'>
                     <Button
@@ -185,7 +184,7 @@ const CreateContestForm = () => {
                 </HStack>
             </form>
 
-            {authReq && <ModalWindow isOpen onClose={() => setAuthReq(false)}><RegistrationModal auth/></ModalWindow>}
+            {authReq && <ModalWindow isOpen onClose={() => setAuthReq(false)}><RegistrationModal onClose={() => setAuthReq(false)} auth/></ModalWindow>}
         </FormProvider>
     )
 }

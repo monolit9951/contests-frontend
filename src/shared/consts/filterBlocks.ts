@@ -28,4 +28,11 @@ export const mockFilterData: FilterData = {
             { name: 'User', number: 0, apiKey: 'User'}
         ],
     },
+    contestType: {
+        name: 'Contest Type',
+        items: [
+            {name: 'Contest', number: 0, apiKey: 'CONTEST'},
+            {name: 'Dare', number: 0, apiKey: 'DARE'}
+        ]
+    }
 }

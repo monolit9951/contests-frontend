@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { Work, WorkCard, WorkCardSkeleton } from 'entities/work'
 import {
@@ -13,11 +12,11 @@ import {
 } from 'pages/contestPage/model/services'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
-import { ModalWindow } from 'shared/ui/modalWindow'
+// import { ModalWindow } from 'shared/ui/modalWindow'
 import Spinner from 'shared/ui/spinner'
 import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
-import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
+// import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 interface Props {
     workType: 'media' | 'text'
@@ -82,38 +81,6 @@ export const WorksList: FC<Props> = (props) => {
             dispatch(fetchNextTextWorks(ownerId))
         }
     }
-    
-
-
-    const location = useLocation()
-    const isModalOpen = location.state?.modal === true
-    const navigate = useNavigate()
-    const [selectedWork, setSelectedWork] = useState<Work | null>(null)
-    // открытие модалки ворка
-    const openModal = (work: Work) => {
-        const {scrollY} = window;
-        
-        document.body.style.top = `-${scrollY}px`;
-        document.body.classList.add('no-scroll');
-        
-        setSelectedWork(work);
-
-        navigate('', {
-            state: { modal: true, scrollY },
-            preventScrollReset: true
-        });
-    };
-
-    // закрытие модалки ворка
-    const handleCloseModal = () => {
-        navigate(-1, { 
-        state: { scrollY: location.state?.scrollY },
-        preventScrollReset: true 
-        });
-    }
-        const getModalMaxWidth = (work: Work | null): string => {
-        return work?.typeWork === 'TEXT' ? '520px' : '100%';
-    };
 
 
     const renderList = () => {
@@ -157,7 +124,7 @@ export const WorksList: FC<Props> = (props) => {
                     )
                 }
                 return newMediaWorks?.map((item, index: number) => (
-                    <WorkCard key={index} data={item} />
+                    <WorkCard key={index} data={item} type='LINK'/>
                 ))
             }
 
@@ -171,7 +138,7 @@ export const WorksList: FC<Props> = (props) => {
                 )
             }
             return popularMediaWorks?.map((item) => (
-                <WorkCard key={item.id} data={item}/>
+                <WorkCard key={item.id} data={item} type='LINK'/>
             ))
         }
 
@@ -187,7 +154,6 @@ export const WorksList: FC<Props> = (props) => {
                       <WorkCard
                           key={item.id}
                           data={item}
-                          openModal={openModal}
                       />
                   ))
             : (!popularTextWorks.length && (
@@ -201,7 +167,7 @@ export const WorksList: FC<Props> = (props) => {
                       <WorkCard
                           key={item.id}
                           data={item}
-                          openModal={openModal}
+                          type='LINK'
                       />
                   ))
     }
@@ -225,7 +191,7 @@ export const WorksList: FC<Props> = (props) => {
                     </Button>
                 ))}
 
-            {isModalOpen && <ModalWindow isOpen onClose={handleCloseModal}  maxWidth={getModalMaxWidth(selectedWork)}><WorkPreview work={selectedWork} /></ModalWindow>}
+            {/* {isModalOpen && <ModalWindow isOpen onClose={handleCloseModal}  maxWidth={getModalMaxWidth(selectedWork)}><WorkPreview work={selectedWork} /></ModalWindow>} */}
         </VStack>
     )
 }

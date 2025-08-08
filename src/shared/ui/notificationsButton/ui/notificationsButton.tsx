@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Client } from '@stomp/stompjs';
 import { Notification } from 'entities/notification';
+import { PagedRequest } from 'entities/request/intex';
 import instance from 'shared/api/api';
 import bellF from 'shared/assets/icons/bellF.svg?react'
 import cross from 'shared/assets/icons/X.svg'
@@ -24,7 +25,7 @@ export const NotificationsButton = () => {
     // ТИПИЗАЦИЯ НОТИФИКАЦИИ, СДЕЛАТЬ ПОЗЖЕ
     const [notifications, setNotifications] = useState<Notification[]>([])
 
-    const {data: notifData, isLoaded: notifDataLoaded} = useGetRequest<Notification[] | string>({fetchFunc: () => fetchAllNotifications(), key: [], enabled: true})
+    const {data: notifData, isLoaded: notifDataLoaded} = useGetRequest<PagedRequest<Notification> | string>({fetchFunc: () => fetchAllNotifications(), key: [], enabled: true})
 
     const token = localStorage.getItem('userToken')
 
@@ -69,11 +70,11 @@ export const NotificationsButton = () => {
 
     // при первом рендере сразу проверяем есть ли непрочитанные
     useEffect(() => {
-        if(notifDataLoaded){
-            setNotifications(notifData.content)
-            setUnread(notifData.content.some(item => item.read === false))
-        }
-    }, [notifDataLoaded])
+    if (notifDataLoaded && notifData && typeof notifData !== 'string') {
+        setNotifications(notifData.content)
+        setUnread(notifData.content.some(item => !item.read))
+    }
+    }, [notifDataLoaded, notifData])
 
     
     // прочитать все

@@ -84,7 +84,7 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
           });
           onClose()
         } catch (error){
-          showAlert('Error', error.response.data.description)
+          showAlert('Error', 'CHANGE THAT ERROR')
           if(error){
             instance.delete(`/works/${workId}`)
           }
@@ -94,7 +94,7 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
       }
     } catch (error) {
       // console.log(error.response.data)
-      showAlert('Error', error.response.data.description)
+      showAlert('Error', 'CHANGE THAT ERROR')
       // console.error('Error submitting work or media:', error);
     }
   };

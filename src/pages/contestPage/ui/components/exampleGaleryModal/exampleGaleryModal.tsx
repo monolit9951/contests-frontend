@@ -5,15 +5,22 @@ import './exampleGaleryModal.scss'
 
 interface Props {
     media: any
-    type?: 'TYPED' | 'ARRAYOFLINKS'
+    // type?: 'TYPED' | 'ARRAYOFLINKS'
     index?: number
 }
 
-const ExampleGaleryModal: FC<Props> = ({media, type = 'TYPED', index = 0}) => {
+const ExampleGaleryModal: FC<Props> = ({
+    media, 
+    // type = 'TYPED', 
+    index = 0}) => {
 
     return(
         <div className="exampleGaleryModal">
-            <MediaGalery media={media} type={type} className="exampleGaleryModal_galery" index={index}/>
+            <MediaGalery 
+            media={media} 
+            className="exampleGaleryModal_galery" 
+            // type = "TYPED"
+            index={index}/>
         </div>
     )
 }
