@@ -17,9 +17,9 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import FilterItem from './filterItem'
+import FilterItemCategory from './filterItemCategory'
 
 import 'rc-slider/assets/index.css'
-import FilterItemCategory from './filterItemCategory'
 
 interface FilterBlockProps {
     filter?: FilterObject

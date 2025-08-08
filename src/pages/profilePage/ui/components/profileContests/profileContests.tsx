@@ -58,6 +58,10 @@ const ProfileContests: FC <ProfileContestsInterface> = ({userId}) => {
         setContestsKey(contestsKey + 1)
     }
 
+    if (typeof contests === 'string') {
+    return <div>Error: {contests}</div>
+    }
+
     return(
         <div className="profileContests">
             <div className="profileContests_header">

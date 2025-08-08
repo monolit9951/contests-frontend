@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { PagedRequest } from "entities/request/intex";
 import profileWallet from 'shared/assets/icons/profileWallet.svg'
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 import { Button } from "shared/ui/button";
@@ -41,8 +42,12 @@ const ProfileWallet: FC <Props>= ({userId}) =>{
 
     // запрос на получение данных кошелька
     const {data: wallet, isLoaded: walletLoaded} = useGetRequest<WalletBalance | string>({fetchFunc: () => fetchWalletBalance(userId), enabled: true, key: []})
-    const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest<Transaction[] | string>({fetchFunc: () => fetchWalletTransactions(userId), enabled: true, key: []})
+    const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest<PagedRequest<Transaction> | string>({fetchFunc: () => fetchWalletTransactions(userId), enabled: true, key: []})
 
+    if(typeof(wallet) === "string"){
+        return <div>ERROR WALLET</div>
+    }
+    const transactionsList = (transactions && typeof transactions !== 'string') ? transactions.content : [];
     return(
         <div className="profileWallet">
             <div className="profileWallet_header">
@@ -63,7 +68,7 @@ const ProfileWallet: FC <Props>= ({userId}) =>{
 
             <div className="profileWallet_balance_history">
                 {
-                    transactionsLoaded && transactions?.content?.map((data: Transaction, index: number) => (
+                    transactionsLoaded && transactionsList.map((data: Transaction, index: number) => (
                         <WalletTrasaction transaction = {data} key={index}/>
                     ))
                 }

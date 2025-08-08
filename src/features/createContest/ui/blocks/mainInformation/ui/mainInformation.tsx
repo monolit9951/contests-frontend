@@ -7,7 +7,6 @@ import { Combobox, Input, Textarea } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
-import { GalleryUpload } from '../../galleryUpload'
 import { categories } from '../mockData'
 
 // import { categories, subcategories } from '../mockData'
@@ -137,7 +136,6 @@ export const MainInformation = ({ submitError }: Props) => {
                     }
                 />
 
-                <GalleryUpload />
                 <HStack className='description_requirements'>
                     <Text
                         Tag='p'

@@ -5,9 +5,7 @@ import {
     filterActions,
     FilterObject,
     selectCategory,
-    selectSelectedFilters,
 } from 'features/filterContests'
-import { FilterPayloadObj } from 'features/filterContests/model/types'
 import { useAppSelector } from 'shared/lib/store'
 import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
@@ -36,7 +34,7 @@ export default function FilterItemCategory(props: FilterItemProps) {
         } else {
             categoryPayload = apiKey
         }
-        dispatch(filterActions.changeCategory(categoryPayload))
+        dispatch(filterActions.changeCategory(categoryPayload as any))
     }
 
     // бля назначения актив при любых изменениях категории в фильтрах и в heroSection

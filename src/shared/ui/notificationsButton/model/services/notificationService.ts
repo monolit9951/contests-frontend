@@ -1,8 +1,9 @@
 import { Notification } from "entities/notification";
+import { PagedRequest } from "entities/request/intex";
 import instance from "shared/api/api"
 
 
-export const fetchAllNotifications = async (): Promise<Notification[] | string> => {
+export const fetchAllNotifications = async (): Promise<PagedRequest<Notification> | string> => {
     try {
         const token = localStorage.getItem('userToken')
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
