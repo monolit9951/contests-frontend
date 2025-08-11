@@ -1,10 +1,10 @@
 import { FC } from "react"
 import { Notification } from "entities/notification"
+import moment from "moment"
 import statusRead from 'shared/assets/icons/statusRead.svg'
 import statusUnread from 'shared/assets/icons/statusUnread.svg'
 
 import './notificationItem.scss'
-import moment from "moment"
 
 interface Props{
     notification: Notification
