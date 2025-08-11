@@ -28,8 +28,7 @@ const ContestCard: React.FC<Props> = (props) => {
 
     const navigate = useNavigate()
 
-    // const deadline = moment(rest.dateEnd).format('DD.MM.YYYY')
-    const startline = moment(rest.dateStart).format('DD.MM.YYYY')
+    const startline = moment.utc(rest.dateStart).local().format('DD.MM.YYYY')
 
     const tagType = rest.contestType
 

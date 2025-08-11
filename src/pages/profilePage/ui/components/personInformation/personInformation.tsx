@@ -61,7 +61,7 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
                             <div className="personInformation_data_header_heading">Member Since</div>
                         </div>
 
-                        <div className="personInformation_data_content">{ moment(data.createdAt).format("YYYY.MM.DD")}</div>
+                        <div className="personInformation_data_content">{ moment.utc(data.createdAt).local().format("YYYY.MM.DD")}</div>
                     </div>
 
                 </div>

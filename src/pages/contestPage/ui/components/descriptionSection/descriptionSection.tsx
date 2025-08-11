@@ -28,8 +28,8 @@ interface Props {
 }
 
 const DescriptionSection: FC<Props> = ({ data }) => {
-    const deadline = moment(data.dateEnd).format('DD.MM.YYYY, h a')
-    const dateStart = moment(data.dateStart).format('DD.MM.YYYY, h a')
+    const deadline = moment.utc(data.dateEnd).local().format('DD.MM.YYYY, h a')
+    const dateStart = moment.utc(data.dateStart).local().format('DD.MM.YYYY, h a')
     
     const contestStatus = () => {
         switch (data.status) {
