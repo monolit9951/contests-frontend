@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import clsx from 'clsx'
+import addFileSvg from 'shared/assets/icons/addFile.svg'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import cross from 'shared/assets/icons/X.svg'
 import { Icon } from 'shared/ui/icon'
@@ -46,14 +47,29 @@ export const MainInformation = ({ submitError }: Props) => {
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault()
         setIsDragOver(false)
-
         const files = Array.from(event.dataTransfer.files)
+
+        if (!files[0].type.startsWith('image/')){
+            return
+        }
+        
         setExamples(prev => [...prev, ...files]);
     };
 
     const handleDeleteExample = (item: File) => {
         setExamples(examples.filter(example => example !== item))
     }
+
+const handleUploadExampleByInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return
+
+    const files = Array.from(event.target.files)
+        .filter(file => file.type.startsWith('image/'))
+
+    setExamples(prev => [...prev, ...files])
+
+    event.target.value = ''
+}
 
     useEffect(() => {
         setValue('exampleMedia', examples)
@@ -172,6 +188,12 @@ export const MainInformation = ({ submitError }: Props) => {
                             (errors.description.message as string)
                         }
                     />
+                    <div className="descriptionInput_addFile">
+                        <div className="descriptionInput_addFile_container">
+                            <img src={addFileSvg} alt="addFile" />
+                            <input type="file" onChange={handleUploadExampleByInput} accept="image/*"/>
+                        </div>
+                    </div>
                 </div>
                 
                 <HStack className='description_requirements'>
@@ -185,18 +207,21 @@ export const MainInformation = ({ submitError }: Props) => {
                     <Text Tag='p'>{quantity}/3000</Text>
                 </HStack>
 
-                <span>EXAMPLES</span>
-                <div className="descriptionInput_mediaList">
-                    {examples.map((item: File, index: number) => (
-                        <div className="exapmleItem" key={index}>
-                            <img src={URL.createObjectURL(item)} alt="example" />
+                {examples.length > 0 && 
+                <>
+                    <span className='descriptionInput_heading'>EXAMPLES</span>
+                    <div className="descriptionInput_mediaList">
+                        {examples.map((item: File, index: number) => (
+                            <div className="exapmleItem" key={index}>
+                                <img src={URL.createObjectURL(item)} alt="example"/>
 
-                            <button className="exapmleItem_cross" type='button' onClick={() => handleDeleteExample(item)}>
-                                <img src={cross} alt="cross" />
-                            </button>
-                        </div>
-                    ))}
-                </div>
+                                <button className="exapmleItem_cross" type='button' onClick={() => handleDeleteExample(item)}>
+                                    <img src={cross} alt="cross" />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </>}
             </VStack>
 
             <VStack className='mainInfoRadioElContainers_container'>
