@@ -29,10 +29,17 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
     const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id)), key: [worksKey], enabled: true})
     const {data: winners, isLoaded: winnersLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners(contest.id), key: [winnersKey], enabled: true})
 
-    const options = contest.prizes.map((prize: Prize) => ({
-        text: `Place №${prize.place}` ,
+    const options = [
+    ...contest.prizes.map((prize: Prize) => ({
+        text: `Place №${prize.place}`,
         key: prize.id,
-    }));
+    })),
+    { text: 'Empty', key: 'Empty' }
+    ];
+
+
+
+    console.log(options)
 
     // отловить значение селектора (все ворки / победители)
     const chooseSelectorCallback = (key: string) => {
