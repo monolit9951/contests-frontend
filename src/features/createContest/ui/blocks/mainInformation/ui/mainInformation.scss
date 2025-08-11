@@ -31,13 +31,23 @@
     .descriptionInput_container {
         max-width: 960px;
         position: relative;
-        .descriptionInput_dragNDrop{
-            box-sizing: border-box;
+        box-sizing: border-box;
 
-            &.dropActive{
+        .descriptionInput_heading{
+            margin-bottom: 8px;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: -1.1%;
+        }
+
+        .descriptionInput_textarea{
+            box-sizing: border-box;
+            position: relative;
+            &.drag-over{
                 background: rgba(0, 123, 255, 0.05);
-                border: 3px dashed #007bff;
-                pointer-events: none;
+                box-sizing: border-box;
+                border: 1px dashed #007bff;
                 // z-index: 9999;
             }
 
@@ -50,28 +60,81 @@
                     border: 1px solid var(--danger);
                 }
             }
-        }
 
-            .description_requirements {
-                justify-content: space-between;
+            > .descriptionInput_addFile{
+                position: absolute;
+                right: 10px;
+                top: 10px;
 
-                > p {
-                    margin-top: 8px;
-                    font-size: 12px;
-                    line-height: 16px;
+                > .descriptionInput_addFile_container{
+                    position: relative;
 
-                    &.error {
-                        color: var(--danger);
-                    }
-
-                    .dark & + p {
-                        color: var(--white-transp-50);
-                    }
-                    .light & + p {
-                        color: var(--text-placeholder);
+                    > input{
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        opacity: 0;
+                        display: block;
+                        cursor: pointer;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 1000;
                     }
                 }
             }
+        }
+
+        .description_requirements {
+            justify-content: space-between;
+
+            > p {
+                margin-top: 8px;
+                font-size: 12px;
+                line-height: 16px;
+
+                &.error {
+                    color: var(--danger);
+                }
+
+                .dark & + p {
+                    color: var(--white-transp-50);
+                }
+                .light & + p {
+                    color: var(--text-placeholder);
+                }
+            }
+        }
+
+        > .descriptionInput_mediaList{
+            display: flex;
+            gap: 5px;
+
+            > .exapmleItem{
+                position: relative;
+                > img{
+                    height: 100px;
+                    width: 100px;
+                    object-fit: contain;
+                    background-color: black;
+                    border-radius: 12px;
+                }
+
+                > .exapmleItem_cross{
+                    padding: 2px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    border-radius: 50%;
+                    background-color: grey;
+                    position: absolute;
+                    top: -4px;
+                    right: -4px;
+                    cursor: pointer;
+                    border: none;
+                    outline: none;
+                }
+            }
+        }
     }
 }
 
