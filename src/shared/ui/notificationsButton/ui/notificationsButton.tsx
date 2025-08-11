@@ -123,7 +123,7 @@ export const NotificationsButton = () => {
                     </div>
 
                     {notifications.length > 0? <ul>
-                        {notifications.slice(0, 3).map((data: Notification, index: number) => (
+                        {notifications.map((data: Notification, index: number) => (
                             <NotificationItem key={index} notification={data}/>
                         ))}
                     </ul>
