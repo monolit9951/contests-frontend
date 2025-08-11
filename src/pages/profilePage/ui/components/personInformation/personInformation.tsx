@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { User } from 'entities/user'
 import moment from 'moment'
 import calendar from 'shared/assets/icons/calendar.svg'
@@ -20,14 +20,14 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
     // нету типизации
     const { data, isLoading } = useAxios<User>(`users/${userId}`)
 
-
+    const {id} = useParams()
 
     return(
         <div className="personInformation">
             <div className="personInformation_header">
                 <div className="personInformation_header_heading">Personal Information</div>
 
-                <Link to='/profile/settings'><img src={pencil} alt='settings' /></Link>
+                {!id && <Link to='/profile/settings'><img src={pencil} alt='settings' /></Link>}
             </div>
 
             {!isLoading && data && <div className="personInformation_content">
