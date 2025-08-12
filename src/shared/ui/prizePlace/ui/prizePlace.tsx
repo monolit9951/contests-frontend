@@ -87,8 +87,8 @@ export const PrizePlace: FC<PrizePlaceProps> = ({
                             {...register(`prizes.${index}.prizeText`, {
                                 required: true,
                             })}
-                            type='text'
-                            placeholder='10 000 $'
+                            type='number'
+                            placeholder='10 000'
                             onChange={(e) => {
                                 if (!Number.isNaN(Number(e.target.value))) {
                                     setValue(

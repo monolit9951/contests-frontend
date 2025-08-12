@@ -46,7 +46,7 @@ export const RadioContainer: React.FC<RadioContainerProps> = ({
     return (
         <VStack className='radioContainer'>
             <HStack className='text_icon_container'>
-                <Text Tag='p'>{text}</Text>
+                <Text Tag='p' className='radioContainer_text'>{text}</Text>
                 <Icon Svg={questionMark} height={20} width={20} />
             </HStack>
             <HStack className='radioElements_container'>

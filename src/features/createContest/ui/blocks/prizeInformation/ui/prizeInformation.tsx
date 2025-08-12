@@ -50,12 +50,12 @@ export const PrizeInformation = () => {
                 Prize Information
             </Text>
 
-                <Input
+            <Input
                 label='Participant amount'
                 {...register(`maxAllowedParticipantAmount`, {
                     required: true,
                 })}
-                type='text'
+                type='number'
                 placeholder='Enter participant amount'
                 onChange={(e) => {
                     if (!Number.isNaN(Number(e.target.value))) {
@@ -67,7 +67,7 @@ export const PrizeInformation = () => {
                 }}
                 error={errors.maxAllowedParticipantAmount && (errors.maxAllowedParticipantAmount.message as string)}
                 autoComplete='off'
-                className='prizeName_input'
+                className='participant_input'
                 maxLength={100}
                 wrapperClassName='prizeName_input_container'
             />
@@ -90,6 +90,7 @@ export const PrizeInformation = () => {
                 onClick={() => addPrize()}>
                 <Text Tag='p'>Add prize place</Text>
             </Button>
+
             {errors.prizes && (
                 <HStack className='input-error-container'>
                     <Icon Svg={alertIcon} />
