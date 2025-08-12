@@ -1,4 +1,5 @@
 import { FC } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
 
 interface Props {

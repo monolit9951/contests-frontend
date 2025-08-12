@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import instance from "shared/api/api";
 import googleSVG from 'shared/assets/icons/google.svg'
+import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import CustomCheckbox from "widgets/customCheckbox";
 
 import { userByToken } from "../model/service/registrationModalService";
@@ -12,7 +13,6 @@ import RegistrationInput from "./components/registrationInput/registrationInput"
 import Switcher from "./components/switcher/switcher";
 
 import './registrationModal.scss'
-import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 
 interface RegistrationModalInterface {
     onClose: () => void
@@ -119,7 +119,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
             setNicknameError('')
         } catch (error){
             if (axios.isAxiosError(error)) {
-                console.log(error.response?.data)
+                // console.log(error.response?.data)
                 showAlert('TEST', 'F12 -> CONSOLE TO SEE ERROR');
             }
         }

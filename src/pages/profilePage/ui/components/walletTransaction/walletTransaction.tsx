@@ -1,15 +1,12 @@
 import { FC } from 'react'
-import  plus from'shared/assets/icons/plusSmall.svg'
 import minus from 'shared/assets/icons/minusSmall.svg'
+import  plus from'shared/assets/icons/plusSmall.svg'
+
 import './walletTransaction.scss'
 
 
 
-interface Props {
-    transaction: any
-}
-
-const WalletTrasaction: FC<Props> = () => {
+const WalletTrasaction: FC = () => {
 
     // const transactionDate = `${transaction.createdAt[0]}/${transaction.createdAt[1]}/${transaction.createdAt[2]} `
 

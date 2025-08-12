@@ -1,7 +1,17 @@
 import { PagedRequest } from "entities/request/intex"
 import instance from "shared/api/api"
 
-import { Transaction, WalletBalance } from "../../components/profileWallet/profileWallet"
+import { Transaction } from "../../components/profileWallet/profileWallet"
+
+export interface WalletBalance {
+    balance: number,
+    bonusBalance: number,
+    updatedAt: string,
+    userId: string,
+    walletId: string
+}
+
+
 
 // получение баланса пользователя
 export const fetchWalletBalance = async ( userId: string): Promise<WalletBalance | string> => {

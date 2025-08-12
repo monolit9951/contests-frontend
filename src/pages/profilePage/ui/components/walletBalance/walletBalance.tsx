@@ -1,9 +1,10 @@
 import { FC } from "react";
-import './walletBalance.scss'
-import coins from 'shared/assets/icons/Coins.svg'
 import dollars from 'shared/assets/icons/bigDollar.svg'
-import { SparklineChart } from "widgets/sparklineChart";
+import coins from 'shared/assets/icons/Coins.svg'
 import { Button } from "shared/ui/button";
+import { SparklineChart } from "widgets/sparklineChart";
+
+import './walletBalance.scss'
 
 interface Props {
     type: 'COINS' | 'USD'
