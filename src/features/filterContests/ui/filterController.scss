@@ -73,7 +73,8 @@
         .filter-range {
             &__block {
                 margin-bottom: 12px;
-
+                display: flex;
+                gap: 20px;
                 > div {
                     position: relative;
                     gap: 8px;
@@ -84,12 +85,16 @@
                         top: 10px;
                         right: 10px;
                     }
+                    
+                    > img{
+                        width: 32px;
+                    }
 
                     > input{
                         flex: 1;
                         width: 10px;
                         min-width: none;
-            
+                        
                     }
                 }
             }
