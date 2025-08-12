@@ -18,9 +18,9 @@ import { getWorkById } from '../model/services/workServices'
 import { Work } from '../model/types'
 
 import MediaOverlay from './overlay/mediaOverlay'
+import WorkCardSkeleton from './workCardSkeleton'
 
 import './workCard.scss'
-import WorkCardSkeleton from './workCardSkeleton'
 
 interface Props {
     data: Work
