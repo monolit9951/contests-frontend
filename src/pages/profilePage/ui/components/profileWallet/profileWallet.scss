@@ -1,82 +1,44 @@
 .profileWallet{
-    width: 651px;
-    background-color: #1B2321;
-    padding: 32px 32px 32px 32px;
+    background-color: transparent;
+    max-width: 659px ;
+    padding: 32px 32px 32px 32px; 
     box-sizing: border-box;
     border-radius: 24px;
+    border: #393B3B 1px solid;
 
     > .profileWallet_header{
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
 
-        > .profileWallet_header_heading{
+        > .profileWallet_heading{
             font-size: 24px;
             line-height: 32px;
             letter-spacing: 0%;
             font-weight: 400;
         }
-    }
 
-    > .profileWallet_currentBalanceGroup{
-        margin-top: 18px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        > .profileWallet_currentBalanceGroup_balance{
-            font-size: 36px;
-            font-weight: 600;
-            letter-spacing: 0%;
-            line-height: 42px;
-        }
-
-        > .profileWallet_currentBalanceGroup_desc{
+        > .profileWallet_seeMore{
+            text-decoration: none;
             color: #DDDDDD;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
-            letter-spacing: -1,1%;
-        }
-    }
-
-    > .profileWallet_balance_manipulation{
-        margin-top: 18px;
-        width: 100%;
-        display: flex;
-        gap: 12px;
-
-        > button{
-            flex: 1;
-            border: none;
-            outline: none;
-            height: 56px;
-            border-radius: 9999px;
-            background-color: #0BA486;
-            color: white;
-            font-weight: 700;
-            font-family: Manrope;
-            font-size: 16px;
+            font-weight: 16px;
             line-height: 24px;
             letter-spacing: 0%;
-            display: flex;
-            justify-content: space-around;
-            
-            &:last-child{
-                background-color: #393B3B;
-            }
         }
     }
 
-    > .profileWallet_balance_history{
-
+    > .profileWallet_balanceList{
+        margin-top: 16px;
+        display: flex;
+        gap: 12px;
     }
-}
 
-// поменять педдинги
-@media (max-width: 1500px) {
-    .profileWallet{
-        flex: 1;
-        width: 100%;
+    > .profileWallet_transactions{
+        margin-top: 16px;
+        padding: 24px;
+        background-color: #1B2321;
+        border-radius: 42px;
+
+        // сделать скроллбар
     }
 }

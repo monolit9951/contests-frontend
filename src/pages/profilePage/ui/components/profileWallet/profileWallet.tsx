@@ -8,6 +8,8 @@ import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices
 import WalletTrasaction from "../walletTransaction/walletTransaction";
 
 import './profileWallet.scss'
+import { Link } from "react-router-dom";
+import WalletBalance from "../walletBalance/walletBalance";
 
 interface Props {
     userId: string
@@ -44,35 +46,32 @@ const ProfileWallet: FC <Props>= ({userId}) =>{
     const {data: wallet, isLoaded: walletLoaded} = useGetRequest<WalletBalance | string>({fetchFunc: () => fetchWalletBalance(userId), enabled: true, key: []})
     const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest<PagedRequest<Transaction> | string>({fetchFunc: () => fetchWalletTransactions(userId), enabled: true, key: []})
 
-    if(typeof(wallet) === "string"){
-        return <div>ERROR WALLET</div>
-    }
+    // if(typeof(wallet) === "string"){
+    //     return <div>ERROR WALLET</div>
+    // }
+
     const transactionsList = (transactions && typeof transactions !== 'string') ? transactions.content : [];
+    
     return(
         <div className="profileWallet">
             <div className="profileWallet_header">
-                <div className="profileWallet_header_heading">Wallet</div>
-                
-                <img src={profileWallet} alt="wallet" />
+                <div className="profileWallet_heading">Wallet</div>
+
+                <Link to='/transactions' className="profileWallet_seeMore">See more</Link>
             </div>
 
-            <div className="profileWallet_currentBalanceGroup">
-                {walletLoaded && wallet && <div className="profileWallet_currentBalanceGroup_balance">$ {wallet.balance? wallet.balance : 0}</div>}
-                <div className="profileWallet_currentBalanceGroup_desc">Current Balance</div>
+
+            <div className="profileWallet_balanceList">
+                <WalletBalance type='COINS'/>
+                <WalletBalance type='USD' />
             </div>
 
-            <div className="profileWallet_balance_manipulation">
-                <Button type="button" variant="primary">Deposit</Button>
-                <Button type="button" variant="primary">Withdraw</Button>
-            </div>
-
-            <div className="profileWallet_balance_history">
-                {
-                    transactionsLoaded && transactionsList.map((data: Transaction, index: number) => (
-                        <WalletTrasaction transaction = {data} key={index}/>
-                    ))
-                }
-                <WalletTrasaction transaction = {transaction}/>
+            <div className="profileWallet_transactions">
+                <WalletTrasaction />
+                <WalletTrasaction />
+                <WalletTrasaction />
+                <WalletTrasaction />
+                <WalletTrasaction />
             </div>
         </div>
     )
