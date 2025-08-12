@@ -25,6 +25,12 @@
         .timeInput {
             width: 108px;
             height: 48px;
+
         }
     }
+}
+
+.react-datepicker__time-list-item {
+    width: 108px !important;
+    padding: 8px !important;
 }
