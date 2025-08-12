@@ -50,6 +50,9 @@ const DescriptionSection: FC<Props> = ({ data }) => {
         }
     }
 
+    if(contestStatus() === 'Inactive'){
+        console.log(data.status)
+    }
 
     const [regModal, setRegModal] = useState(false)
     const [uploadWorkModal, setUploadWorkModal] = useState<boolean>(false)
