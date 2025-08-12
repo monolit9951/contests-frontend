@@ -1,5 +1,5 @@
-import { FC, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { FC, useEffect, useMemo, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 // import { useLocation, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
@@ -43,6 +43,7 @@ const WorkCard: FC<Props> = (props) => {
     const [openModal, setOpenModal] = useState<boolean>(false)
     const [workKey, setWorkKey] = useState<number>(0)
     const navigate = useNavigate()
+    const location = useLocation()
 
     const handleOpenModal = async () => {
         if(type ==='MODAL'){
@@ -54,12 +55,19 @@ const WorkCard: FC<Props> = (props) => {
         
     }
 
+    // при открытии модалки ворка БЕЗ ССЫЛКИ
     const handleCloseModal = () => {
         setOpenModal(false)
-
-        // при закрытии модалки, заново делаем запрос на сервер, чтоб обновить инфу
-        setWorkKey(workKey + 1)         
+        setWorkKey(workKey + 1)
     }
+
+    // при открытии модалки ворка ЧЕРЕЗ ССЫЛКУ 
+    useEffect(() => {
+        // console.log(location.state)
+        if(location.state !== null && location.state.refreshWork && location.state.workId === data.id){
+            setWorkKey(workKey + 1)
+        }
+    }, [location.state])
 
     const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(data.id), key: [workKey], enabled: true})
 
