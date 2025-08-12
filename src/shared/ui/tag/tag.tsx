@@ -37,6 +37,10 @@ export default function Tag(props: TagProps) {
             
     }
 
+    if(statusTranslation(type) === 'Inactive'){
+        console.log(type)
+    }
+
     return (
         <Text
             Tag='span'
