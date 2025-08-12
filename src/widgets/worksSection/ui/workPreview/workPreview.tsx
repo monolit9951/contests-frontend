@@ -9,7 +9,7 @@ import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { CommentsSection } from 'widgets/commentsSection'
 import MediaGalery from 'widgets/mediaGalery'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
-
+import Spinner from 'shared/ui/spinner'
 import './workPreview.scss'
 
 interface WorkProps {
@@ -44,6 +44,9 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
             <div className="workPreview_container">
                 {workDataLoaded && workData.media.length !== 0 && <div className="workPreview_left">
                     {media !== null && <MediaGalery media={media}/>}
+                </div>}
+                {!workDataLoaded &&  <div className="workPreview_left">
+                    <Spinner center/>
                 </div>}
 
                 <div className="workPreview_right">

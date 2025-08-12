@@ -15,12 +15,14 @@
 
         > .workPreview_left{
             flex: 1;
+            position: relative;
         }
 
         > .workPreview_right{
             box-sizing: border-box;
             flex: 1;
             display: flex;
+            max-width: 520px;
             flex-direction: column;
 
             >.workPreview_right_topSection{
