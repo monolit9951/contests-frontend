@@ -39,8 +39,6 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
 
 
 
-    console.log(options)
-
     // отловить значение селектора (все ворки / победители)
     const chooseSelectorCallback = (key: string) => {
 

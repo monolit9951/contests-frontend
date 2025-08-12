@@ -6,10 +6,11 @@ import { Work } from 'entities/work/model/types'
 import moment from 'moment'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
+import Spinner from 'shared/ui/spinner'
 import { CommentsSection } from 'widgets/commentsSection'
 import MediaGalery from 'widgets/mediaGalery'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
-import Spinner from 'shared/ui/spinner'
+
 import './workPreview.scss'
 
 interface WorkProps {
