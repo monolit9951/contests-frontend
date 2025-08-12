@@ -20,6 +20,7 @@ import { Work } from '../model/types'
 import MediaOverlay from './overlay/mediaOverlay'
 
 import './workCard.scss'
+import WorkCardSkeleton from './workCardSkeleton'
 
 interface Props {
     data: Work
@@ -91,7 +92,7 @@ const WorkCard: FC<Props> = (props) => {
 
     return (
         <li className='li'>
-            <VStack className={clsx('media-work', className)}>
+            {workDataLoaded && <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
                     {workDataLoaded && <MediaOverlay
                         prize={workData.prize}
@@ -128,7 +129,9 @@ const WorkCard: FC<Props> = (props) => {
                     onCommentsClick={handleOpenModal}
                     liked = {workData.userLike}
                 />}
-            </VStack>
+            </VStack>}
+
+            {!workDataLoaded && <WorkCardSkeleton media/>}
 
             {reportModal && <ModalWindow isOpen onClose={() => setReportModal(false)}><ModalReport targetType='WORK' targetId={workData.id}/></ModalWindow>}
             {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={workData} /></ModalWindow>}
