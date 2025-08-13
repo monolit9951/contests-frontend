@@ -6,10 +6,10 @@
     color: white;
     text-decoration: none;
     
-    // &:last-child{
-    //     // border-bottom: none;
-    //     padding: 16px 16px 16px 16px;
-    // }
+    &:last-child{
+        border-bottom: none;
+        // padding: 16px 16px 16px 16px;
+    }
 
     > .profileContest_leftGroup{
         display: flex;
@@ -120,7 +120,7 @@
             font-weight: 700;
             line-height: 36px;
             letter-spacing: 0%;
-            color: #0BA486;
+            color: white;
             text-align: end;
             text-overflow: ellipsis;
         }

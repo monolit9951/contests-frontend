@@ -123,6 +123,13 @@
             &::-webkit-scrollbar-thumb:hover {
                 background-color: #555;
             }
+            > .profileContests_contestsList_empty{
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                opacity: 0.5;
+                font-size: 24px;
+            }
         }
     }
 
