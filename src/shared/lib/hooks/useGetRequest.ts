@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"
 
 interface UseGetRequestInterface<T> {
     enabled: boolean
-    key: number[]
+    key: any
     mutationFunc?: (data: any) => any
     fetchFunc: () => Promise<T>
 }

@@ -19,7 +19,7 @@ const ProfileContests: FC<ProfileContestsInterface> = ({ userId }) => {
     const [listPage, setListPage] = useState<number>(0);
 
     // локальный стейт для всего списка
-    const [allContests, setAllContests] = useState<PagedRequest<Contest>>([]);
+    const [allContests, setAllContests] = useState<Contest[]>([]);
 
     const { data: contests, isLoaded: contestsLoaded } = useGetRequest<PagedRequest<Contest> | string>({
         fetchFunc: () => fetchProfileContests(extraPath, userId, 0, 3),
@@ -110,7 +110,7 @@ const ProfileContests: FC<ProfileContestsInterface> = ({ userId }) => {
             <div className="profileContests_contestsList">
                 <div className="profileContests_contestsList_container">
                     {contestsLoaded && allContests.length > 0 &&
-                        allContests.map((data, index) => (
+                        allContests.map((data: Contest, index: number) => (
                             <ProfileContestsContest key={index} data={data} />
                         ))
                     }
