@@ -46,6 +46,8 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
 
     const currentMedia = media[currentIndex];
 
+    console.log(media.length)
+
     return (
         <div className={`mediaGalery ${className}`}>
             <div
@@ -65,22 +67,25 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
                 )}
             </div>
 
-            <GaleryNavButton
-                imgSrc={navLeft}
-                handleFunc={handlePrev}
-                classname="mediaGalery_navigationDataLeft"
-            />
-            <GaleryNavButton
-                imgSrc={navRight}
-                handleFunc={handleNext}
-                classname="mediaGalery_navigationDataRight"
-            />
-            <GaleryNavDots
-                classname="mediaGalery_navigationDataInfo"
-                setMediaIndex={setMediaIndex}
-                currentIndex={currentIndex}
-                arrayLengh={media.length}
-            />
+            {media.length !== 1 && 
+            <>
+                <GaleryNavButton
+                    imgSrc={navLeft}
+                    handleFunc={handlePrev}
+                    classname="mediaGalery_navigationDataLeft"
+                />
+                <GaleryNavButton
+                    imgSrc={navRight}
+                    handleFunc={handleNext}
+                    classname="mediaGalery_navigationDataRight"
+                />
+                <GaleryNavDots
+                    classname="mediaGalery_navigationDataInfo"
+                    setMediaIndex={setMediaIndex}
+                    currentIndex={currentIndex}
+                    arrayLengh={media.length}
+                />
+            </>}
         </div>
     );
 };
