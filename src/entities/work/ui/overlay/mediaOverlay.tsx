@@ -53,6 +53,8 @@ const MediaOverlay = ({ prize, user, handleReportCallback }: Props) => {
                 {controlModal && <div className="media__overlay__4__control">
                     <button onClick = {handleReportCallback} type='button'>Report</button>
                     {/* <button onClick = {handleWinner} type='button'>Promote to winners</button> */}
+                    {/* eslint-disable-next-line */}
+                    <div className="media__overlay__4_background" onClick={() => setControlModal(false)}/>
                 </div>}
             </div>
             

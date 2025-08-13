@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import './profileSettingsPage.scss'
 
 const ProfileSettingsPage: FC = () => {
