@@ -17,7 +17,6 @@ interface PersonInformationInterface {
 
 const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
 
-    // нету типизации
     const { data, isLoading } = useAxios<User>(`users/${userId}`)
 
     const {id} = useParams()

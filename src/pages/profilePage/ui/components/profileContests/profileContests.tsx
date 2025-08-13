@@ -123,7 +123,7 @@ const ProfileContests: FC<ProfileContestsInterface> = ({ userId }) => {
                 </div>
             </div>
 
-            {contestsLoaded && contests && contests.totalPages - 1 !== listPage && (
+            {contestsLoaded && contests && contests.totalPages - 1 !== listPage && contests.totalPages !== 0 && (
                 <div className="profileContests_showMore">
                     <Button variant="secondary" type="button" onClick={handleMore}>
                         More
