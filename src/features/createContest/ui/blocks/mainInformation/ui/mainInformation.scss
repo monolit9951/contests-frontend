@@ -44,11 +44,13 @@
         .descriptionInput_textarea{
             box-sizing: border-box;
             position: relative;
+            height: 100%;
+            border: 1px dashed transparent;
+
             &.drag-over{
                 background: rgba(0, 123, 255, 0.05);
                 box-sizing: border-box;
                 border: 1px dashed #007bff;
-                // z-index: 9999;
             }
 
             .description_placeholder {
@@ -106,29 +108,41 @@
         }
 
         > .descriptionInput_mediaList{
+            margin-top: 8px;
             display: flex;
-            gap: 5px;
+            gap: 8px;
 
             > .exapmleItem{
                 position: relative;
+                border: 1px dashed #393B3B;
+                width: 112px;
+                height: 112px;
+                aspect-ratio: 1/1;
+                flex-shrink: 0;
+                border-radius: 12px;
+
                 > img{
-                    height: 100px;
-                    width: 100px;
-                    object-fit: contain;
-                    background-color: black;
                     border-radius: 12px;
+                    height: 100%;
+                    width: 100%;
+                    object-fit: contain;
+                    background-color: #1B2321;
                 }
 
                 > .exapmleItem_cross{
+                    height: 36px;
+                    width: 36px;
+                    aspect-ratio: 1/1;
+                    flex-shrink: 0;
                     padding: 2px;
                     display: flex;
                     align-items: center;
                     justify-content: space-around;
                     border-radius: 50%;
-                    background-color: grey;
+                    background-color: #393B3B;
                     position: absolute;
-                    top: -4px;
-                    right: -4px;
+                    top: -8px;
+                    right: -8px;
                     cursor: pointer;
                     border: none;
                     outline: none;

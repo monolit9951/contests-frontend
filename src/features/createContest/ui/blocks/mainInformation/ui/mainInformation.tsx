@@ -209,7 +209,7 @@ const handleUploadExampleByInput = (event: React.ChangeEvent<HTMLInputElement>) 
 
                 {examples.length > 0 && 
                 <>
-                    <span className='descriptionInput_heading'>EXAMPLES</span>
+                    {/* <span className='descriptionInput_heading'>EXAMPLES</span> */}
                     <div className="descriptionInput_mediaList">
                         {examples.map((item: File, index: number) => (
                             <div className="exapmleItem" key={index}>
