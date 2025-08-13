@@ -41,7 +41,7 @@
             gap: 8px;
 
             > li{
-                padding: 8px 32px;
+                padding: 4px 12px;
                 background-color: transparent;
                 border: 1px #393B3B solid;
                 border-radius: 999px;
@@ -49,28 +49,34 @@
                 font-size: 14px;
                 line-height: 20px;
                 letter-spacing: -1.1%;
-                height: 36px;
+                height: 28px;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
 
                 &.statusFinished{
-                    background-color: #525856;
+                    color: white;
+                    background-color: white;
                 }
 
                 &.statusActive{
-                    background-color: #044337;
+                    color: #0BA486;
                     border: #0BA486 1px solid;
                 }
 
                 &.winner{
-                    background-color: #524000;
+                    color: #EDB900;
                     border: #EDB900 1px solid;
                 }
 
                 &.organizer{
-                    background-color: #3D0746;
+                    color: #A65CEF;
                     border: #DA5CEF 1px solid;
+                }
+
+                &.pariticipant{
+                    color: #DDDDDD;
+                    border: #DDDDDD 1px solid;
                 }
             }
         }

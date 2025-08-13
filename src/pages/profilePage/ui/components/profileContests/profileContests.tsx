@@ -8,6 +8,7 @@ import { fetchProfileContests } from "../../model/sevices/contestServices";
 import ProfileContestsContest from "../profileContestsContest/profileContestsContest";
 
 import './profileContests.scss'
+import { Link } from "react-router-dom";
 
 interface ProfileContestsInterface {
     userId: string
@@ -67,10 +68,11 @@ const ProfileContests: FC <ProfileContestsInterface> = ({userId}) => {
             <div className="profileContests_header">
                 <div className="profileContests_header_heading">
                     <span>Contests</span>
-                    <img src={win} alt="win" />
+                    {/* <img src={win} alt="win" /> */}
+                    <Link to='/contests'>See more</Link>
                 </div>
 
-                <div className="profileContests_header_desc">Manage your profile, wallet and contents</div>
+                {/* <div className="profileContests_header_desc">Manage your profile, wallet and contents</div> */}
             </div>
 
             <ul className="profileContests_switch">
@@ -81,9 +83,11 @@ const ProfileContests: FC <ProfileContestsInterface> = ({userId}) => {
             </ul>
 
             <div className="profileContests_contestsList">
-                {contestsLoaded && contests?.content.map((data: Contest, index: number) => (
-                    <ProfileContestsContest key={index} data={data}/>
-                ))}    
+                <div className="profileContests_contestsList_container">
+                    {contestsLoaded && contests?.content.map((data: Contest, index: number) => (
+                        <ProfileContestsContest key={index} data={data}/>
+                    ))}
+                </div>
             </div>
 
             <div className="profileContests_showMore">
