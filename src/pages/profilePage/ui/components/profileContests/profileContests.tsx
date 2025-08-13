@@ -1,13 +1,14 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useEffect,useState } from "react";
+import { Link } from "react-router-dom";
 import { Contest } from "entities/contest";
+import { PagedRequest } from "entities/request/intex";
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 import { Button } from "shared/ui/button";
+
 import { fetchProfileContests } from "../../model/sevices/contestServices";
 import ProfileContestsContest from "../profileContestsContest/profileContestsContest";
-import { Link } from "react-router-dom";
 
 import "./profileContests.scss";
-import { PagedRequest } from "entities/request/intex";
 
 interface ProfileContestsInterface {
     userId: string;

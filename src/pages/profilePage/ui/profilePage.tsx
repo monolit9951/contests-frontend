@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import PersonInformation from './components/personInformation/personInformation'
 import ProfileContests from './components/profileContests/profileContests'
+import ProfileStatistics from './components/profileStatistics/profileStatistics'
 import ProfileWallet from './components/profileWallet/profileWallet'
 
 import './profilePage.scss'
@@ -35,6 +36,7 @@ const ProfilePage: FC = () => {
 
                 <div className="profilePage_rightContainer">
                     <ProfileContests userId = {id ?? user.userId}/>
+                    <ProfileStatistics />
                 </div>
                 
             </div>

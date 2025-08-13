@@ -46,8 +46,6 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
 
     const currentMedia = media[currentIndex];
 
-    console.log(media.length)
-
     return (
         <div className={`mediaGalery ${className}`}>
             <div
