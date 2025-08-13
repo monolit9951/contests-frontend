@@ -25,7 +25,7 @@ export default function Tag(props: TagProps) {
                 return 'Upcoming'
             case "ACTIVE":
                 return 'Active'
-            case "MODERATOR_SELECTION":
+            case "REVIEW":
                 return 'Review'
             case "SELECTION_IN_PROGRESS":
                 return 'Review'
