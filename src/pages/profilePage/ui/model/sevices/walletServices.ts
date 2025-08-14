@@ -34,9 +34,9 @@ export const fetchWalletBalance = async ( userId: string): Promise<WalletBalance
 }
 
 // получение транзакций пользователя
-export const fetchWalletTransactions = async ( userId: string): Promise<PagedRequest<Transaction> | string> => {
+export const fetchWalletTransactions = async (userId: string, page: number, pageSize: number): Promise<PagedRequest<Transaction> | string> => {
     try {
-        const response = await instance.get(`users/transactions/${userId}`, {headers})
+        const response = await instance.get(`users/transactions/${userId}?page=${page}&pageSize=${pageSize}`, {headers})
 
         if (!response.data) {
             throw new Error("No data received")

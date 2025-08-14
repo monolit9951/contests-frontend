@@ -40,6 +40,42 @@
         background-color: #1B2321;
         border-radius: 42px;
 
-        // сделать скроллбар
+        > .profileWallet_transactions_container{
+            max-height: 200px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #393B3B transparent;
+
+            // скроллбар
+            &::-webkit-scrollbar {
+                width: 8px;
+                background: transparent;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: #393B3B;
+                border-radius: 4px;
+
+                border-top: 2px solid black;
+                border-bottom: 2px solid black;
+
+                box-sizing: border-box;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background-color: #555;
+            }
+        }
+    }
+
+    > .profileWallet_showMore{
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
     }
 }
