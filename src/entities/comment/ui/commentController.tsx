@@ -71,6 +71,9 @@ const CommentController = ({ onControllerClose, handleDeleteCommentCallback, han
             </button>
 
             {modalReport && <ModalWindow isOpen onClose={() => setModalReport(false)}><ModalReport targetType='COMMENT' targetId={commentId} /></ModalWindow>}
+
+                {/* eslint-disable-next-line */}
+            <div className="comment-action__box_onBlur" onClick={onControllerClose}/>
             <Alert />
         </VStack>
     )

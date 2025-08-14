@@ -104,7 +104,7 @@ const ContestPage = () => {
           // handleOpenWorkUploadModal={handleOpenWorkUploadModal}
         />
 
-        {data.winners && <WinnersSection data = {data.winners}/>}
+        {data.winners && <WinnersSection />}
 
         <WorksListSection
           worksAmount={data.participantAmount}

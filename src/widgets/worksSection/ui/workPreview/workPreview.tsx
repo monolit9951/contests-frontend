@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom'
 import { getWorkById } from 'entities/work/model/services/workServices'
 import { Work } from 'entities/work/model/types'
 import moment from 'moment'
+import dots from 'shared/assets/icons/tripleDot.svg'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
+import { ModalWindow } from 'shared/ui/modalWindow'
 import Spinner from 'shared/ui/spinner'
 import { CommentsSection } from 'widgets/commentsSection'
 import MediaGalery from 'widgets/mediaGalery'
+import ModalReport from 'widgets/modalReport'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import './workPreview.scss'
@@ -20,6 +23,8 @@ interface WorkProps {
 export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
 
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
+    const [controller, setController] = useState<boolean>(false)
+    const [modalReport, setModalReport] = useState<boolean>(false)
 
     useEffect(() => {
         const handleResize = () => {
@@ -40,6 +45,15 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
     // ПОЛУЧЕНИЕ ДАННЫХ ДЛЯ АКТУАЛЬНОГО ОТОБРАЖЕНИЯ ЛАЙКОВ (ПОКА ЗАПРОС НА ВСЮ ИНФУ)
     const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(work.id), key: [], enabled: true})
 
+    const handleController = () => {
+        setController(!controller)
+    }
+
+    const handleReportWork = () => {
+        setController(false)
+        setModalReport(true)
+    }
+
     return (
         <div className="workPreview">
             <div className="workPreview_container">
@@ -53,11 +67,25 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                 <div className="workPreview_right">
                     <div className="workPreview_right_topSection">
                         <div>
-                            <Link to={loginedUser.userId === user.id? '/profile' : `/profile/${user.id}`}>
-                                <UserProfileData user = {work.user}/>
-                            </Link>
+                            <div className="leftPart">
+                                <Link to={loginedUser.userId === user.id? '/profile' : `/profile/${user.id}`}>
+                                    <UserProfileData user = {work.user}/>
+                                </Link>
 
-                            <span>{timeAgo}</span>
+                                <span>{timeAgo}</span>
+                            </div>
+                            
+                            <div className="rightPart">
+                                <div className='rightPart_controller'>
+                                    <button onClick={handleController} type='button'><img src={dots} alt="dots"/></button>
+
+                                    {controller && <ul className='rightPart_controls'>
+                                        <li><button type='button' onClick={handleReportWork}>Report</button></li>
+                                    </ul>}
+                                    {/* eslint-disable-next-line */}
+                                    {controller && <div className="rightPart_reportBtn_onBlur" onClick={handleController}/>}
+                                </div>
+                            </div>
                         </div>
 
                         <div className="workPreview_workText">{work.description}</div>
@@ -72,6 +100,8 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                     </div>
                 </div>
             </div>
+
+            {modalReport && <ModalWindow isOpen onClose={() => {setModalReport(false)}}><ModalReport targetId={workData.id} targetType='WORK'/></ModalWindow>}
         </div>
     )
 }
