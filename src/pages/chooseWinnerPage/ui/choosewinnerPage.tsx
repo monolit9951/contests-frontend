@@ -49,7 +49,7 @@ const ChooseWinnerPage: FC = () => {
                     setContestAccessPending(false)
                     // ПОКА НЕ ЗНАЮ КАК ЭТО БУДЕТ РЕАЛИЗОВАНО
                     break
-                case 'MODERATOR_SELECTION':
+                case 'REVIEW':
                     if(user.userRole === 'admin'){
                         setContestAccess(true)
                         setContestAccessPending(false)

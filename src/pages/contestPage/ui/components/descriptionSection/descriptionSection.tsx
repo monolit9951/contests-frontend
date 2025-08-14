@@ -39,7 +39,7 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                 return 'Upcoming'
             case "ACTIVE":
                 return 'Active'
-            case "MODERATOR_SELECTION":
+            case "REVIEW":
                 return 'Finished'
             case "SELECTION_IN_PROGRESS":
                 return 'Finished'

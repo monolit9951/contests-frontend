@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PagedRequest } from "entities/request/model";
 import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import { Button } from "shared/ui/button";
 import Spinner from "shared/ui/spinner";
 
 import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices/walletServices";
@@ -15,7 +16,6 @@ import WalletBalance from "../walletBalance/walletBalance";
 import WalletTrasaction from "../walletTransaction/walletTransaction";
 
 import './profileWallet.scss'
-import { Button } from "shared/ui/button";
 
 interface Props {
     userId: string
@@ -46,7 +46,7 @@ const ProfileWallet: FC <Props>= ({userId}) =>{
 
     // запрос на получение данных кошелька
     const {data: wallet, isLoaded: walletLoaded} = useGetRequest<any | string>({fetchFunc: () => fetchWalletBalance(userId), enabled: true, key: []})
-    const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest<PagedRequest<Transaction> | string>({fetchFunc: () => fetchWalletTransactions(userId, nextPage, 3), enabled: true, key: []})
+    const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest<PagedRequest<Transaction> | string>({fetchFunc: () => fetchWalletTransactions(userId, nextPage - 1, 3), enabled: true, key: []})
     // if(typeof(wallet) === "string"){
     //     return <div>ERROR WALLET</div>
     // }
@@ -63,8 +63,10 @@ const ProfileWallet: FC <Props>= ({userId}) =>{
 
     const handleLoadMore = async() => {
         const response = await fetchWalletTransactions(userId, nextPage, 3)
-        setPagedTransactions((prev) => [...prev, ...response.content]);
-        setNextPage(nextPage + 1)
+        if(response && typeof(response) !== 'string'){
+            setPagedTransactions((prev) => [...prev, ...response.content]);
+            setNextPage(nextPage + 1)
+        }
     }
 
     return(

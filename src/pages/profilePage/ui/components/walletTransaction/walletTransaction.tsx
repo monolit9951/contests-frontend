@@ -1,11 +1,11 @@
 import { FC } from 'react'
+import moment from 'moment'
 import minus from 'shared/assets/icons/minusSmall.svg'
 import  plus from'shared/assets/icons/plusSmall.svg'
 
 import { Transaction } from '../profileWallet/profileWallet'
 
 import './walletTransaction.scss'
-import moment from 'moment'
 
 interface Props {
     data: Transaction
