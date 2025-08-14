@@ -9,6 +9,7 @@ import { Text } from 'shared/ui/text'
 export const WorkLinkRenderer: FC<{
     value: string
     openModal: (work: Work) => void
+    
 }> = ({ value, openModal }) => {
     const handleClick = async () => {
         try {

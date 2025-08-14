@@ -15,6 +15,7 @@ import { contestWorksActions } from '../model/slice';
 
 import DescriptionSection from './components/descriptionSection/descriptionSection';
 import HeroSection from './components/heroSection/heroSection';
+import WinnersSection from './components/winnersSection/winnersSection';
 // import WinnersSection from './components/winnersSection/winnersSection';
 import WorksListSection from './components/worksListSection/worksListSection';
 
@@ -91,6 +92,7 @@ const ContestPage = () => {
       </div>
     );
   }
+
   
   return (
     <VStack className="contest">
@@ -102,7 +104,7 @@ const ContestPage = () => {
           // handleOpenWorkUploadModal={handleOpenWorkUploadModal}
         />
 
-        {/* {data.winners && <WinnersSection data = {data.winners}/>} */}
+        {data.winners && <WinnersSection data = {data.winners}/>}
 
         <WorksListSection
           worksAmount={data.participantAmount}
