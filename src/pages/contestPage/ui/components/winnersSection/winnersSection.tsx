@@ -43,13 +43,13 @@ const WinnersSection: FC<Props> = (props) => {
             ))} */}
 
                 <VStack className='winners__other'>
-                    <Text
+                    {/* <Text
                         Tag='h3'
                         size='xl'
                         bold
                         className='winners__other-title'>
                         Other places
-                    </Text>
+                    </Text> */}
                     <ContestWinnersTable />
                 </VStack>
         </section>

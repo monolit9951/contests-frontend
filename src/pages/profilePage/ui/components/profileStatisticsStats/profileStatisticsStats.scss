@@ -19,12 +19,24 @@
             justify-content: space-around;
 
             > .profileStatisticsStats_card_container{
-                display: flex;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
                 gap: 4px;
+
+                > .profileStatisticsStats_card_svg{
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    img{
+
+                    }
+                }
 
                 > .profileStatisticsStats_card_right{
                     display: flex;
                     flex-direction: column;
+                    width: 62px;
 
                     > span{
                         font-weight: 700;

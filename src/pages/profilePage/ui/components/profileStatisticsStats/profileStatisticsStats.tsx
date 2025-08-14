@@ -13,7 +13,9 @@ const ProfileStatisticsStats: FC = () => {
 
                 <div className="profileStatisticsStats_card">
                     <div className="profileStatisticsStats_card_container">
-                        <img src={peopleStat} alt="stat" />
+                        <div className="profileStatisticsStats_card_svg">
+                            <img src={peopleStat} alt="stat" />
+                        </div>
 
                         <div className="profileStatisticsStats_card_right">
                             <span>911</span>
@@ -24,18 +26,24 @@ const ProfileStatisticsStats: FC = () => {
 
                 <div className="profileStatisticsStats_card">
                     <div className="profileStatisticsStats_card_container">
-                        <img src={commentStat} alt="stat" />
+
+                        <div className="profileStatisticsStats_card_svg">
+                            <img src={commentStat} alt="stat" />
+                        </div>
 
                         <div className="profileStatisticsStats_card_right">
                             <span>228</span>
                             <span>Comments</span>
                         </div>
+                        
                     </div>
                 </div>
 
                 <div className="profileStatisticsStats_card">
                     <div className="profileStatisticsStats_card_container">
-                        <img src={mediaStat} alt="stat" />
+                        <div className="profileStatisticsStats_card_svg">
+                            <img src={mediaStat} alt="stat" />
+                        </div>
 
                         <div className="profileStatisticsStats_card_right">
                             <span>69</span>
@@ -46,7 +54,9 @@ const ProfileStatisticsStats: FC = () => {
 
                 <div className="profileStatisticsStats_card">
                     <div className="profileStatisticsStats_card_container">
-                        <img src={likeStat} alt="stat" />
+                        <div className="profileStatisticsStats_card_svg">
+                            <img src={likeStat} alt="stat" />
+                        </div>
 
                         <div className="profileStatisticsStats_card_right">
                             <span>1488</span>
