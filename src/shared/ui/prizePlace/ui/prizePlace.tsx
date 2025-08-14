@@ -83,12 +83,12 @@ export const PrizePlace: FC<PrizePlaceProps> = ({
 
                     <div className="prizePlace_secondPart">
                         <Input
-                            label='Prize name'
+                            label='Prize value'
                             {...register(`prizes.${index}.prizeText`, {
                                 required: true,
                             })}
-                            type='text'
-                            placeholder='10 000 $'
+                            type='number'
+                            placeholder='10 000'
                             onChange={(e) => {
                                 if (!Number.isNaN(Number(e.target.value))) {
                                     setValue(

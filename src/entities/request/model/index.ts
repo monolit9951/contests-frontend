@@ -1,5 +1,5 @@
 export interface PagedRequest<T> {
-    contest: T
+    content: T[]
     pageable: any
     last: boolean
     totalElements: number

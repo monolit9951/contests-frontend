@@ -28,8 +28,8 @@ interface Props {
 }
 
 const DescriptionSection: FC<Props> = ({ data }) => {
-    const deadline = moment(data.dateEnd).format('DD.MM.YYYY, h a')
-    const dateStart = moment(data.dateStart).format('DD.MM.YYYY, h a')
+    const deadline = moment.utc(data.dateEnd).local().format('DD.MM.YYYY, h a')
+    const dateStart = moment.utc(data.dateStart).local().format('DD.MM.YYYY, h a')
     
     const contestStatus = () => {
         switch (data.status) {
@@ -39,7 +39,7 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                 return 'Upcoming'
             case "ACTIVE":
                 return 'Active'
-            case "MODERATOR_SELECTION":
+            case "REVIEW":
                 return 'Finished'
             case "SELECTION_IN_PROGRESS":
                 return 'Finished'
@@ -49,7 +49,6 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                 return 'Inactive'
         }
     }
-
 
     const [regModal, setRegModal] = useState(false)
     const [uploadWorkModal, setUploadWorkModal] = useState<boolean>(false)

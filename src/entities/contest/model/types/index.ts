@@ -4,7 +4,7 @@ import { Work } from 'entities/work'
 import { Media } from 'entities/work/model/types'
 import { PageEntityDTO } from 'shared/lib/types'
 
-export type Status = 'ACTIVE' | 'FINISHED' | 'UPCOMING' | 'SELECTION_IN_PROGRESS' | 'WINNER_CONFIRMATION' | 'MODERATOR_SELECTION'
+export type Status = 'ACTIVE' | 'FINISHED' | 'UPCOMING' | 'SELECTION_IN_PROGRESS' | 'WINNER_CONFIRMATION' | 'REVIEW'
 
 export type Category = '' | 'DARE' | 'CONTEST'
 

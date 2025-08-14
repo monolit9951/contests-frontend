@@ -9,7 +9,7 @@ export const mockFilterData: FilterData = {
             // { name: 'Paused', number: 0 },
             { name: 'Finished', number: 0, apiKey: 'Finished' },
             { name: 'Upcoming', number: 0, apiKey: 'Upcoming'  },
-            { name: 'Choise winner', number: 0, apiKey: 'MODERATOR_SELECTION'  },
+            { name: 'Review', number: 0, apiKey: 'MODERATOR_SELECTION'  },
         ],
     },
     prizeType: {

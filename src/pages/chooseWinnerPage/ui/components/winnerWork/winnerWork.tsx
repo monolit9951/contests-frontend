@@ -32,6 +32,8 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
     const {showAlert, Alert} = useAlert()
     const token = localStorage.getItem('userToken')
     const creationDate = moment.utc(work.workAddingDate).local().fromNow();
+    const [currentPlace, setCurrentPlace] = useState<string>(work.place)
+
 
     // открытие модалки работы
     const handleWorkModal = () => {
@@ -45,6 +47,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             try{
                 await instance.delete(`winners/possible/${work.id}`, {headers: {Authorization: `Bearer ${token}`}})
                 setIsWinner(false)
+                setCurrentPlace('Empty')
             } catch (error){
                 showAlert('ERROR', 'CHANGE THAT ERROR')
             }
@@ -108,7 +111,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
             <div className="winnerWork_right">
                 <CustomCheckbox value="Winner" checked={isWinner} handleCheckbox={handleCheckbox} controlled/>
-                <CustomSelector options={options} maxWidth={200} chooseSelectorCallback={handlePlaceSelector} currentPlace = {work.place} error = {placeError}/>
+                <CustomSelector options={options} maxWidth={200} chooseSelectorCallback={handlePlaceSelector} currentPlace = {currentPlace} error = {placeError}/>
             </div>
 
             {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview work={work} /></ModalWindow>}

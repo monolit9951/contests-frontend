@@ -27,6 +27,10 @@
     }
 
     .participate-btn{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 240px;
         white-space: nowrap;
     }
 
@@ -56,25 +60,33 @@
             }
 
             .example-list {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                // display: flex;
+                // display: grid;
+                // grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+                display: flex;
+                flex-wrap: wrap;
                 gap: 8px;
 
                 > li{
-                    button{
+                    > button{
+                        padding: 0;
                         background-color: transparent;
                         border: none;
                         outline: none;
-                    }
-                }
 
-                .example-media {
-                    border-radius: 8px;
-                    width: 100%;
-                    height: 300px;
-                    aspect-ratio: 135/132;
-                    pointer-events: none;
+                        > .example-media {
+                            width: 135px;
+                            height: 132px;
+                            border-radius: 8px;
+                            overflow: hidden;
+                            pointer-events: none;
+                            
+                            > .plyr{
+                                transform: translateX(-50%);
+                                position: relative;
+                                left: 50%;
+                            }
+                        }
+                    }
                 }
             }
         }

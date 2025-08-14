@@ -1,28 +1,44 @@
 import { FC } from 'react'
+import moment from 'moment'
+import minus from 'shared/assets/icons/minusSmall.svg'
+import  plus from'shared/assets/icons/plusSmall.svg'
+
+import { Transaction } from '../profileWallet/profileWallet'
 
 import './walletTransaction.scss'
 
 interface Props {
-    transaction: any
+    data: Transaction
 }
 
-const WalletTrasaction: FC<Props> = ({transaction}) => {
+const WalletTrasaction: FC<Props> = ({data}) => {
 
-    // const transactionDate = `${transaction.createdAt[0]}/${transaction.createdAt[1]}/${transaction.createdAt[2]} `
-    const transactionDate = '2/2/2'
+    const date = moment.utc([
+        data.createdAt[0],
+        data.createdAt[1] - 1,
+        data.createdAt[2],
+        data.createdAt[3],
+        data.createdAt[4],
+        data.createdAt[5],
+        Math.floor(data.createdAt[6] / 1000000)
+    ]);
+
+    const createDate = moment.utc(date).local().format("YYYY/MM/DD")
 
     return(
-        <div className="profileWallet_balance_action">
-            <div className="profileWallet_balance_action_left">
-                <div className="profileWallet_balance_action_type">+</div>
+        <div className="profileWallet_transaction">
+            <div className="profileWallet_transaction_left">
+                <div className={true? "profileWallet_transaction_status" : 'profileWallet_transaction_status minus'}>
+                    <img src={true? plus : minus} alt="status" />
+                </div>
 
-                <div className="profileWallet_balance_action_info">
-                    <div className="profileWallet_balance_action_info_name">{transaction.direction}</div>
-                    <div className="profileWallet_balance_action_info_desc">{transactionDate}</div>
+                <div className="profileWallet_transaction_info">
+                    <div className="profileWallet_transaction_info_action">{data.direction}</div>
+                    <div className="profileWallet_transaction_info_date">{createDate}</div>
                 </div>
             </div>
 
-            <div className="profileWallet_balance_action_right">+${transaction.amount}</div>
+            <div className="profileWallet_transaction_right">{true? '+' : '-'}{data.amount}{data.currencyType ==='BONUS'? 'c' : '$'}</div>
         </div>
     )
 }

@@ -51,7 +51,7 @@ const CommentEl: FC<Props> = (props) => {
     const token = localStorage.getItem('userToken')
     const { user, commentDate, commentText, id } = data
     const loginedUser = useSelector((state: RootState) => state.user)
-    const formatted = moment(commentDate).format("YYYY/MM/DD HH:mm");
+    const formatted = moment.utc(commentDate).local().format("YYYY/MM/DD HH:mm");
 
 
     const onActionClick = () => {
@@ -138,7 +138,11 @@ const CommentEl: FC<Props> = (props) => {
 
     // отловить появление редактора
     const handleSetEditCallback = () => {
-        setEdit(true)
+        if(data.user.id === userAuth.userId){
+            setEdit(true)
+        } else {
+            showAlert('ERROR', 'YOU ARE NOT COMMENT CREATOR')
+        }
     }
 
     // отловить инпут редактирования

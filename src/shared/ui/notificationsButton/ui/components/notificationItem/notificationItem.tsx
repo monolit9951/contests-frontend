@@ -1,5 +1,6 @@
 import { FC } from "react"
 import { Notification } from "entities/notification"
+import moment from "moment"
 import statusRead from 'shared/assets/icons/statusRead.svg'
 import statusUnread from 'shared/assets/icons/statusUnread.svg'
 
@@ -10,8 +11,8 @@ interface Props{
 }
 
 const NotificationItem: FC<Props> = ({notification}) => {
-    // время в UTC 
 
+    const createdAt = moment.utc(notification.createdAt).local().format('DD.MM.YYYY, H:m')
 
     return(
         <li className={`notificationItem ${!notification.read && 'unread'}`} >
@@ -22,7 +23,7 @@ const NotificationItem: FC<Props> = ({notification}) => {
             </div>
 
             <div className="notificationItem_additional">
-                <div className="notificationItem_time">{notification.createdAt}</div>
+                <div className="notificationItem_time">{createdAt}</div>
                 <img src={notification.read? statusRead : statusUnread} alt="status" />
             </div>
         </li>

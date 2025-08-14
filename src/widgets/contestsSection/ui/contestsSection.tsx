@@ -324,26 +324,29 @@ const ContestsSection: FC<Props> = (props) => {
                                     />
                                 </li>
                             }
+
+                            <li>
+                                <Button
+                                    variant='ghost'
+                                    size='s'
+                                    onClick={onFilterClearClick}
+                                    className='active-filter__clear-btn'>
+                                    <Text Tag='span'>
+                                        Clear filters{' '}
+                                        <Text Tag='span' size='sm'>
+                                            (
+                                            {filters.length +
+                                                (searchString ? 1 : 0) +
+                                                (prizeRangeCondition() ? 1 : 0) + 
+                                                (coinRangeCondition() ? 1 : 0) +
+                                                (category? 1: 0)
+                                                }
+                                            )
+                                        </Text>
+                                    </Text>
+                                </Button>
+                            </li>
                         </ul>
-                        <Button
-                            variant='ghost'
-                            size='s'
-                            onClick={onFilterClearClick}
-                            className='active-filter__clear-btn'>
-                            <Text Tag='span'>
-                                Clear filters{' '}
-                                <Text Tag='span' size='sm'>
-                                    (
-                                    {filters.length +
-                                        (searchString ? 1 : 0) +
-                                        (prizeRangeCondition() ? 1 : 0) + 
-                                        (coinRangeCondition() ? 1 : 0) +
-                                        (category? 1: 0)
-                                        }
-                                    )
-                                </Text>
-                            </Text>
-                        </Button>
                     </HStack>
                 )}
 

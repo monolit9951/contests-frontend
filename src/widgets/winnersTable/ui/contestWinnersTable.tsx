@@ -1,16 +1,15 @@
 import { FC, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { ColDef } from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
 import { Prize } from 'entities/prize'
 import { useTheme } from 'entities/theme'
 import { Work } from 'entities/work'
-import { selectContestOwnerId } from 'pages/contestPage/model/selectors'
 import instance from 'shared/api/api'
 import desc from 'shared/assets/icons/caretDown.svg'
 import asc from 'shared/assets/icons/caretUp.svg'
 import none from 'shared/assets/icons/caretUpDown.svg'
-import { useAppSelector } from 'shared/lib/store'
 import { Pagination } from 'widgets/winnersTable/ui/customPagination/customPagination'
 
 import {
@@ -33,14 +32,23 @@ interface ContestWinner extends Omit<Prize, 'id' | 'winnersAmount'> {
     workId: string
 }
 
-interface Props {
-    openModal: (work: Work) => void
-}
-
-export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
+export const ContestWinnersTable: FC = () => {
     const { theme } = useTheme()
+    const {contestId} = useParams()
+
 
     const [rowData, setRowData] = useState<ContestWinner[]>([])
+
+    const navigate = useNavigate()
+
+    const handleWorkLink = (value: Work) => {
+        // console.log(1)
+
+        sessionStorage.setItem("contestScroll", String(window.scrollY));
+        navigate(`work/${value.id}`, {preventScrollReset: true})
+    }
+
+
     const [columnDefs] = useState<ColDef[]>([
         {
             headerName: 'Place',
@@ -106,7 +114,7 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
             field: 'workId',
             cellRenderer: WorkLinkRenderer,
             cellRendererParams: {
-                openModal,
+                openModal: handleWorkLink,
             },
             sortable: false,
             headerClass: 'custom-header custom__work-link',
@@ -119,13 +127,12 @@ export const ContestWinnersTable: FC<Props> = ({ openModal }) => {
 
     const pageSize = 10
 
-    const ownerId = useAppSelector(selectContestOwnerId)
 
     useEffect(() => {
         const fetchOtherPrizes = async () => {
             try {
                 const { data } = await instance.get(
-                    `contests/winners/${ownerId}?page=${
+                    `winners/${contestId}?page=${
                         currentPage - 1
                     }&pageSize=${pageSize}&sortDirection=ASC`
                 )

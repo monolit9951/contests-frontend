@@ -27,6 +27,10 @@ const MediaOverlay = ({ prize, user, handleReportCallback }: Props) => {
         setControlModal(!controlModal)
     }
 
+    const handleReport = () => {
+        setControlModal(false)
+        handleReportCallback()
+    }
     
     const loginedUser = useSelector((state: RootState) => state.user)
 
@@ -51,9 +55,12 @@ const MediaOverlay = ({ prize, user, handleReportCallback }: Props) => {
                 <button type='button' onClick={handleControlModal} aria-label="Open modal"><Icon Svg={action} /></button>
 
                 {controlModal && <div className="media__overlay__4__control">
-                    <button onClick = {handleReportCallback} type='button'>Report</button>
+                    <button onClick = {handleReport} type='button'>Report</button>
                     {/* <button onClick = {handleWinner} type='button'>Promote to winners</button> */}
+                    {/* eslint-disable-next-line */}
+                    <div className="media__overlay__4_background" onClick={handleControlModal}/>
                 </div>}
+
             </div>
             
         </VStack>

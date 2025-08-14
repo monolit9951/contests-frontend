@@ -1,57 +1,61 @@
-.profileWallet_balance_action{
+.profileWallet_transaction{
     display: flex;
+    padding: 16px 12px;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 16px;
-    border-bottom: #3B3B3B 1px solid;
+    border-bottom: #02140E 1px solid;
 
-    > .profileWallet_balance_action_left{
+    &:last-child{
+        border: none;
+    }
+
+    > .profileWallet_transaction_left{
         display: flex;
-        align-items: center;
         gap: 12px;
+        align-items: center;
 
-        > .profileWallet_balance_action_type{
-            background-color: #0BA486;
+        > .profileWallet_transaction_status{
+            height: 32px;
             width: 32px;
             aspect-ratio: 1/1;
+            flex-shrink: 0;
+            background-color: #0BA486;
             display: flex;
+            border-radius: 50%;
             align-items: center;
             justify-content: space-around;
-            border-radius: 50%;
+        
+            &.minus{
+                background-color: #393B3B;
+            }
         }
 
-        > .profileWallet_balance_action_info{
-            > .profileWallet_balance_action_info_name{
+        > .profileWallet_transaction_info{
+            display: flex;
+            flex-direction: column;
+
+            > .profileWallet_transaction_info_action{
                 font-weight: 600;
                 font-size: 14px;
                 line-height: 21px;
                 letter-spacing: 0%;
             }
 
-            > .profileWallet_balance_action_info_desc{
+            > .profileWallet_transaction_info_date{
+                color: #DDDDDD;
                 font-weight: 400;
                 font-size: 12px;
                 line-height: 18px;
                 letter-spacing: 0%;
-                color: #DDDDDD;
             }
         }
     }
 
-    > .profileWallet_balance_action_right{
-        font-size: 16px;
+    > .profileWallet_transaction_right{
+        color: #0BA486;
         font-weight: 700;
         line-height: 24px;
+        font-size: 16px;
         letter-spacing: 0%;
-        color: #0BA486;
-    }
-
-    &:first-child{
-        margin-top: 18px;
-        border-top: #3B3B3B 1px solid;
-    }
-
-    &:last-child{
-        border-bottom: none;
     }
 }

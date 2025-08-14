@@ -9,6 +9,8 @@ import {
 import debounce from 'lodash.debounce'
 import Slider from 'rc-slider'
 import caretRight from 'shared/assets/icons/caretRight.svg?react'
+import coins from 'shared/assets/icons/Coins.svg'
+import dollar from 'shared/assets/icons/currencyCircleDollar.svg'
 import { capitalizeStr } from 'shared/helpers'
 import { useAppSelector } from 'shared/lib/store'
 import { Icon } from 'shared/ui/icon'
@@ -168,7 +170,8 @@ export default function FilterBlock(props: FilterBlockProps) {
                                     onBlur={onInputBlur}
                                     className='filter-range__number'
                                 />
-                                <Text Tag='span'>{isMoney ? '$' : 'С'}</Text>
+                                {/* <Text Tag='span'>{isMoney ? '$' : 'С'}</Text> */}
+                                <img src={isMoney? dollar : coins} alt="currency" />
                             </HStack>
                             <HStack className='align__center'>
                                 <Text Tag='span'>To</Text>
@@ -183,7 +186,8 @@ export default function FilterBlock(props: FilterBlockProps) {
                                     onBlur={onInputBlur}
                                     className='filter-range__number'
                                 />
-                                <Text Tag='span'>{isMoney ? '$' : 'С'}</Text>
+                                <img src={isMoney? dollar : coins} alt="currency" />
+                                {/* <Text Tag='span'>{isMoney ? '$' : 'С'}</Text> */}
                             </HStack>
                         </HStack>
                         <Slider

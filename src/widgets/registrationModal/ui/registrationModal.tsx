@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import instance from "shared/api/api";
 import googleSVG from 'shared/assets/icons/google.svg'
+import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import CustomCheckbox from "widgets/customCheckbox";
 
 import { userByToken } from "../model/service/registrationModalService";
@@ -35,10 +36,11 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
     const [passwordError, setPasswordError] = useState<string>('')
     const [checkPasswordError, setCheckPasswordError] = useState<string>('')
     const [nicknameError, setNicknameError] = useState<string>('')
-
+    const {showAlert, Alert} = useAlert()
     // обычный LogIn
     // НЕ ОБРАБОТАНЫ ОШИБКИ ПАРОЛЯ ИЛИ ЛОГИНА
     const handleStandartAuth = async () => {
+
 
         // ошибки пароля или юзернейм
         if(login === '' || password === ''){
@@ -117,8 +119,8 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
             setNicknameError('')
         } catch (error){
             if (axios.isAxiosError(error)) {
-                const message = error.response?.data?.error || 'Произошла ошибка';
-                setNicknameError(message);
+                // console.log(error.response?.data)
+                showAlert('TEST', 'F12 -> CONSOLE TO SEE ERROR');
             }
         }
     }
@@ -202,6 +204,8 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
 
                 <div className="registrationModal_controls_explain">Join thousands of adventurers on epic quests!</div>
             </div>
+
+            <Alert />
         </div>
     )
 }

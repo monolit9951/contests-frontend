@@ -11,6 +11,7 @@
     .radioEl_container_text {
         letter-spacing: -0.011em;
         color: var(--white-muted);
+        font-size: 14px;
     }
 
     &.active {
@@ -18,6 +19,7 @@
 
         .radioEl_container_text {
             font-weight: 600;
+            font-size: 14px;
         }
     }
 }

@@ -78,20 +78,26 @@ export const fetchOrganizingContests = async (userId: string): Promise<Contest[]
 }
 
 // ОДНА ФУНКЦИЯ ДЛЯ ВСЕХ КОНТЕСТОВ ПРОФИЛЯ
-export const fetchProfileContests = async (extraPath: string, userId: string): Promise<PagedRequest<Contest> | string> => {
+export const fetchProfileContests = async (
+    extraPath: string, 
+    userId: string, 
+    page: number, 
+    pageSize = 3
+): Promise<PagedRequest<Contest> | string> => {
     try {
-        const response = await instance.get(`contests/${extraPath}/${userId}`)
+        const response = await instance.get(
+            `contests/${extraPath}/${userId}?page=${page}&pageSize=${pageSize}`
+        );
 
         if (!response.data) {
-            throw new Error("No data received")
+            throw new Error("No data received");
         }
 
-        return response.data
+        return response.data;
     } catch (error) {
         if (error instanceof Error) {
-            return `Request error: ${error.message}`
+            return `Request error: ${error.message}`;
         }
-
-        return "Unknown request error"
+        return "Unknown request error";
     }
-}
+};

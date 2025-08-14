@@ -1,8 +1,9 @@
 .profileContests{
-    background-color: #1B2321;
-    padding: 32px 32px 32px 32px; 
+    background-color: transparent;
+    padding: 24px 24px 24px 24px; 
     box-sizing: border-box;
     border-radius: 24px;
+    border: 1px #393B3B solid;
     
     > .profileContests_header{
         display: flex;
@@ -18,6 +19,14 @@
                 font-size: 24px;
                 line-height: 32px;
                 letter-spacing: 0%;
+                font-weight: 400;
+            }
+
+            > a{
+                text-decoration: none;
+                color: #DDDDDD;
+                font-size: 16px;
+                line-height: 24px;
                 font-weight: 400;
             }
         }
@@ -60,6 +69,7 @@
                 font-size: 16px;
                 line-height: 24px;
                 letter-spacing: 0%;
+                font-weight: 400;
                             
                 &.switched {
                     color: white;
@@ -80,6 +90,47 @@
 
     > .profileContests_contestsList{
         margin-top: 16px;
+        padding: 24px;
+        background-color: #1B2321;
+        border-radius: 42px;
+
+        > .profileContests_contestsList_container{
+            max-height: 398px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #393B3B transparent;
+
+            // скроллбар
+            &::-webkit-scrollbar {
+                width: 8px;
+                background: transparent;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: #393B3B;
+                border-radius: 4px;
+
+                border-top: 2px solid black;
+                border-bottom: 2px solid black;
+
+                box-sizing: border-box;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background-color: #555;
+            }
+            > .profileContests_contestsList_empty{
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                opacity: 0.5;
+                font-size: 24px;
+            }
+        }
     }
 
     > .profileContests_showMore{

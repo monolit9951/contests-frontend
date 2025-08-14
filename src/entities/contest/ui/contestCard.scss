@@ -86,8 +86,8 @@
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
-                min-width: 70px; // можно и меньше — 70px это около 7 символов
-                max-width: 100%; // ограничим максимальную ширину контейнером
+                // min-width: 70px;
+                max-width: 100%;
             }
         }
 

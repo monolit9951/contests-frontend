@@ -74,7 +74,7 @@ export default function FilterItem(props: FilterItemProps) {
                 dispatch(filterActions.addFilter(payload))
                 break
 
-            case 'creators':
+            case 'Creators of contest':
                 payload = {
                     filterName: 'creators',
                     name,
@@ -85,6 +85,7 @@ export default function FilterItem(props: FilterItemProps) {
                     dispatch(filterActions.removeFilter(payload))
                     break
                 }
+
                 dispatch(filterActions.addFilter(payload))
                 break
             default: break

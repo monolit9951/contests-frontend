@@ -5,7 +5,7 @@ import moment from 'moment'
 import calendar from 'shared/assets/icons/calendar.svg'
 import email from 'shared/assets/icons/email.svg'
 // import mapMark from 'shared/assets/icons/mapMark.svg'
-import pencil from 'shared/assets/icons/pencil.svg'
+// import pencil from 'shared/assets/icons/pencil.svg'
 import profilePerson from 'shared/assets/icons/profilePerson.svg'
 import useAxios from 'shared/lib/hooks/useAxios'
 
@@ -17,7 +17,6 @@ interface PersonInformationInterface {
 
 const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
 
-    // нету типизации
     const { data, isLoading } = useAxios<User>(`users/${userId}`)
 
     const {id} = useParams()
@@ -27,7 +26,7 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
             <div className="personInformation_header">
                 <div className="personInformation_header_heading">Personal Information</div>
 
-                {!id && <Link to='/profile/settings'><img src={pencil} alt='settings' /></Link>}
+                {!id && <Link to='/profile/settings'>Edit</Link>}
             </div>
 
             {!isLoading && data && <div className="personInformation_content">
@@ -61,11 +60,22 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
                             <div className="personInformation_data_header_heading">Member Since</div>
                         </div>
 
-                        <div className="personInformation_data_content">{ moment(data.createdAt).format("YYYY.MM.DD")}</div>
+                        <div className="personInformation_data_content">{ moment.utc(data.createdAt).local().format("YYYY.MM.DD")}</div>
                     </div>
 
                 </div>
             </div>}
+
+            <div className="personInformation_bio">
+                <div className="personInformation_bio_heading">About me</div>
+
+                <div className="personInformation_bio_text">
+                    This section is still under construction. More information about my activities, 
+                    experience, goals and interests will be available soon.I am working on presenting 
+                    myself as honestly and openly as possible, so please be patient:An 
+                    update will be coming soon — thanks for stopping by!
+                </div>
+            </div>
         </div>
     )
 }

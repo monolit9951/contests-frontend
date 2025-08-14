@@ -12,7 +12,7 @@ const ModalWorkPage: FC = () => {
 
     const handlePageClose = () =>{
         if(contestId){
-            navigate(`/contests/${contestId}`)
+            navigate(`/contests/${contestId}`, {state: {refreshWork: true, workId}})
         } else {
             navigate(`/`)
         }

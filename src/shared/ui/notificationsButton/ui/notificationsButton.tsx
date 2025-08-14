@@ -96,14 +96,22 @@ export const NotificationsButton = () => {
         }
     }
 
-    // прочитать все спустя 5 секунд после открытия
-    useEffect(() =>{
-        if(dropList === true){
-            setTimeout(() => {
-                handleReadAll()
-            }, 5000);
+    useEffect(() => {
+    let timerId: any;
+
+    if (dropList === true) {
+        timerId = setTimeout(() => {
+        handleReadAll();
+        }, 5000);
+    }
+
+    return () => {
+        if (timerId) {
+        clearTimeout(timerId);
         }
-    }, [dropList])
+    };
+    }, [dropList]);
+
 
 
 
@@ -123,7 +131,7 @@ export const NotificationsButton = () => {
                     </div>
 
                     {notifications.length > 0? <ul>
-                        {notifications.slice(0, 3).map((data: Notification, index: number) => (
+                        {notifications.map((data: Notification, index: number) => (
                             <NotificationItem key={index} notification={data}/>
                         ))}
                     </ul>

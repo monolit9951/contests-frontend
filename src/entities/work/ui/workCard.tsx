@@ -1,5 +1,5 @@
-import { FC, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { FC, useEffect, useMemo, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 // import { useLocation, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
@@ -18,6 +18,7 @@ import { getWorkById } from '../model/services/workServices'
 import { Work } from '../model/types'
 
 import MediaOverlay from './overlay/mediaOverlay'
+import WorkCardSkeleton from './workCardSkeleton'
 
 import './workCard.scss'
 
@@ -43,6 +44,7 @@ const WorkCard: FC<Props> = (props) => {
     const [openModal, setOpenModal] = useState<boolean>(false)
     const [workKey, setWorkKey] = useState<number>(0)
     const navigate = useNavigate()
+    const location = useLocation()
 
     const handleOpenModal = async () => {
         if(type ==='MODAL'){
@@ -54,12 +56,19 @@ const WorkCard: FC<Props> = (props) => {
         
     }
 
+    // при открытии модалки ворка БЕЗ ССЫЛКИ
     const handleCloseModal = () => {
         setOpenModal(false)
-
-        // при закрытии модалки, заново делаем запрос на сервер, чтоб обновить инфу
-        setWorkKey(workKey + 1)         
+        setWorkKey(workKey + 1)
     }
+
+    // при открытии модалки ворка ЧЕРЕЗ ССЫЛКУ 
+    useEffect(() => {
+        // console.log(location.state)
+        if(location.state !== null && location.state.refreshWork && location.state.workId === data.id){
+            setWorkKey(workKey + 1)
+        }
+    }, [location.state])
 
     const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(data.id), key: [workKey], enabled: true})
 
@@ -83,7 +92,7 @@ const WorkCard: FC<Props> = (props) => {
 
     return (
         <li className='li'>
-            <VStack className={clsx('media-work', className)}>
+            {workDataLoaded && <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
                     {workDataLoaded && <MediaOverlay
                         prize={workData.prize}
@@ -120,7 +129,9 @@ const WorkCard: FC<Props> = (props) => {
                     onCommentsClick={handleOpenModal}
                     liked = {workData.userLike}
                 />}
-            </VStack>
+            </VStack>}
+
+            {!workDataLoaded && <WorkCardSkeleton media/>}
 
             {reportModal && <ModalWindow isOpen onClose={() => setReportModal(false)}><ModalReport targetType='WORK' targetId={workData.id}/></ModalWindow>}
             {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={workData} /></ModalWindow>}

@@ -1,9 +1,10 @@
 .personInformation{
-    background-color: #1B2321;
+    background-color: transparent;
     max-width: 659px ;
     padding: 32px 32px 32px 32px; 
     box-sizing: border-box;
     border-radius: 24px;
+    border: #393B3B 1px solid;
 
     > .personInformation_header{
         display: flex;
@@ -15,6 +16,14 @@
             line-height: 32px;
             letter-spacing: 0%;
             font-weight: 400;
+        }
+
+        > a{
+            text-decoration: none;
+            color: #DDDDDD;
+            font-weight: 16px;
+            line-height: 24px;
+            letter-spacing: 0%;
         }
     }
 
@@ -46,13 +55,19 @@
 
         > .personInformation_data{
             display: flex;
+            max-height: 212px;
+            flex: 1;
             flex-direction: column;
-            gap: 16px;
+            gap: 10px;
+            background-color: #1B2321;
+            padding: 18px;
+            box-sizing: border-box;
+            border-radius: 24px;
 
             > .personInformation_data_item{
                 display: flex;
                 flex-direction: column;
-                gap: 8px;
+                gap: 3px;
 
                 > .personInformation_data_header{
                     display: flex;
@@ -70,12 +85,30 @@
 
                 > .personInformation_data_content{
                     font-weight: 600;
-                    font-size: 20px;
-                    line-height: 28px;
+                    font-size: 16px;
+                    line-height: 24px;
                     letter-spacing: 0%;
                     color: white;
                 }
             }
+        }
+    }
+
+    > .personInformation_bio{
+        margin-top: 24px;
+        > .personInformation_bio_heading{
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0%;
+        }
+
+        > .personInformation_bio_text{
+            margin-top: 8px;
+            color: #DDDDDD;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
         }
     }
 }

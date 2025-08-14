@@ -1,10 +1,14 @@
 .text.tag {
-    padding: 4px 12px;
-    border-radius: 8px;
-
+    align-self: flex-start;
+    padding: 0 12px;
+    border-radius: 14px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     line-height: 1.25;
     letter-spacing: -0.011rem;
-    background-color: var(--grey);
+    background-color: transparent;
 
     &.light {
         color: var(--text-light);
@@ -19,5 +23,30 @@
 
     &__Contest {
         color: var(--orange);
+    }
+
+    &__Finished{
+        color: white;
+        border: 1px solid white;
+    }
+
+    &__Upcoming{
+        color: #A65CEF;
+        border: 1px solid #A65CEF;
+    }
+
+    &__Active{
+        color: #0BA486;
+        border: 1px solid #0BA486;
+    }
+
+    &__Review{
+        color: #A65CEF;
+        border: 1px solid #A65CEF;
+    }
+
+    &__Inactive{
+        color: white;
+        border: 1px solid white;
     }
 }
