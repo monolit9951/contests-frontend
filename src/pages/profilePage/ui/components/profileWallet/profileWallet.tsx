@@ -1,12 +1,17 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { PagedRequest } from "entities/request/model";
+import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import Spinner from "shared/ui/spinner";
 
+import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices/walletServices";
+import WalletBalance from "../walletBalance/walletBalance";
 // import { PagedRequest } from "entities/request/intex";
 // import profileWallet from 'shared/assets/icons/profileWallet.svg'
 // import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 // import { Button } from "shared/ui/button";
 // import { fetchWalletBalance, fetchWalletTransactions } from "../../model/sevices/walletServices";
-import WalletBalance from "../walletBalance/walletBalance";
+// import WalletBalance from "../walletBalance/walletBalance";
 import WalletTrasaction from "../walletTransaction/walletTransaction";
 
 import './profileWallet.scss'
@@ -21,6 +26,7 @@ export interface Transaction {
     id: string,
     direction: string,
     type: string
+    currencyType: "BONUS" | "MONEY"
 }
 
 // export interface WalletBalance {
@@ -32,18 +38,17 @@ export interface Transaction {
 // }
 
 
-const ProfileWallet: FC <Props>= () =>{
+const ProfileWallet: FC <Props>= ({userId}) =>{
 
     // запрос на получение данных кошелька
-    // const {data: wallet, isLoaded: walletLoaded} = useGetRequest<WalletBalance | string>({fetchFunc: () => fetchWalletBalance(userId), enabled: true, key: []})
-    // const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest<PagedRequest<Transaction> | string>({fetchFunc: () => fetchWalletTransactions(userId), enabled: true, key: []})
+    const {data: wallet, isLoaded: walletLoaded} = useGetRequest<any | string>({fetchFunc: () => fetchWalletBalance(userId), enabled: true, key: []})
+    const {data: transactions, isLoaded: transactionsLoaded} = useGetRequest<PagedRequest<Transaction> | string>({fetchFunc: () => fetchWalletTransactions(userId), enabled: true, key: []})
 
     // if(typeof(wallet) === "string"){
     //     return <div>ERROR WALLET</div>
     // }
 
-    // const transactionsList = (transactions && typeof transactions !== 'string') ? transactions.content : [];
-    
+
     return(
         <div className="profileWallet">
             <div className="profileWallet_header">
@@ -54,16 +59,21 @@ const ProfileWallet: FC <Props>= () =>{
 
 
             <div className="profileWallet_balanceList">
-                <WalletBalance type='COINS'/>
-                <WalletBalance type='USD' />
+                {walletLoaded &&
+                <>
+                    <WalletBalance type='COINS' value={wallet.balanceBonus}/>
+                    <WalletBalance type='USD' value={wallet.balanceUsdt}/>
+                </>}
+                {
+                    !walletLoaded && <Spinner center/>
+                }
             </div>
 
             <div className="profileWallet_transactions">
-                <WalletTrasaction />
-                <WalletTrasaction />
-                <WalletTrasaction />
-                <WalletTrasaction />
-                <WalletTrasaction />
+                {transactionsLoaded && typeof(transactions) !== 'string' && transactions?.content.map((item: Transaction, index: number) => (
+                    <WalletTrasaction data={item} key={index}/>
+                ))}
+                
             </div>
         </div>
     )

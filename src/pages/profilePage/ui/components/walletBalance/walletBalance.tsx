@@ -8,6 +8,7 @@ import './walletBalance.scss'
 
 interface Props {
     type: 'COINS' | 'USD'
+    value: number
 }
 
 // тестовые данные, потом поменять
@@ -15,7 +16,7 @@ const dataCoins = [-2, -5, 0, 20, 8, 15];
 const dataUSD = [10, -20, 10, 2, 0, 2, 4, 6, 1];
 
 
-const WalletBalance: FC<Props> = ({type}) => {
+const WalletBalance: FC<Props> = ({type, value}) => {
     return(
         <div className="walletBalance">
             <div className="walletBalance_header">
@@ -28,7 +29,7 @@ const WalletBalance: FC<Props> = ({type}) => {
                 <div className="walletBalance_header_difference">+99.9%</div>
             </div>
 
-            <div className="walletBalance_balance">12,450.75</div>
+            <div className="walletBalance_balance">{value}</div>
 
             <div className="walletBalance_graph">
                 <SparklineChart data={type === 'COINS'? dataCoins : dataUSD}/>

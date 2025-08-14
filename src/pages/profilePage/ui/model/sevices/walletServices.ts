@@ -11,12 +11,13 @@ export interface WalletBalance {
     walletId: string
 }
 
-
+const token = localStorage.getItem('userToken')
+const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
 // получение баланса пользователя
 export const fetchWalletBalance = async ( userId: string): Promise<WalletBalance | string> => {
     try {
-        const response = await instance.get(`users/balance/${userId}`)
+        const response = await instance.get(`users/balance/${userId}`, {headers})
 
         if (!response.data) {
             throw new Error("No data received")
@@ -35,7 +36,7 @@ export const fetchWalletBalance = async ( userId: string): Promise<WalletBalance
 // получение транзакций пользователя
 export const fetchWalletTransactions = async ( userId: string): Promise<PagedRequest<Transaction> | string> => {
     try {
-        const response = await instance.get(`users/transactions/${userId}`)
+        const response = await instance.get(`users/transactions/${userId}`, {headers})
 
         if (!response.data) {
             throw new Error("No data received")
