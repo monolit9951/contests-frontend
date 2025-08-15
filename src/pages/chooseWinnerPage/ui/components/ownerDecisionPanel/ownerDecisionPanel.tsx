@@ -10,6 +10,7 @@ import WinnerSelectors from "../winnersSelectors/winnerSelectors";
 import WinnerWork from "../winnerWork/winnerWork";
 
 import './ownerDecisionPanel.scss'
+import ControlledSelector from "shared/ui/controlledSelector/ui/controlledSelector";
 
 interface Props {
     contest: Contest
@@ -55,7 +56,15 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
                 break
         }
     }
+  const options2 = [
+    { value: "apple", label: "🍏 Apple" },
+    { value: "banana", label: "🍌 Banana" },
+    { value: "cherry", label: "🍒 Cherry" },
+  ];
 
+  const onChange = (value: string) => {
+    console.log(value)
+  }
 
     return(
         <div className="ownerDecosonPanel">
@@ -75,6 +84,9 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
                 <div className="chooseWinnerPage_paginationBtn">
                     <Button variant="primary" >Load more</Button>
                 </div>
+
+            {/* <ControlledSelector options={options}/> */}
+            <ControlledSelector options={options2} onChange={onChange}/>
         </div>
     )
 }
