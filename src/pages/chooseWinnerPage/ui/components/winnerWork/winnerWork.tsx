@@ -86,6 +86,9 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
         if(option){
             setPlaceValue(option.label)
             setPrizeId(option.value)
+            if(isWinner){
+                handleCheckbox()
+            }
         }
     }
 
