@@ -26,18 +26,15 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
     // eslint-disable-next-line
     // const [currentPage, setCurrentPage] = useState<number>(0)
 
-    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id)), key: [worksKey], enabled: true})
-    const {data: winners, isLoaded: winnersLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners(contest.id), key: [winnersKey], enabled: true})
+    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id), 0, 3), key: [worksKey], enabled: true})
+    const {data: winners, isLoaded: winnersLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners((contest.id), 0, 3), key: [winnersKey], enabled: true})
 
+    // создаём опции
     const options = [
     ...contest.prizes.map((prize: Prize) => ({
-        text: `Place №${prize.place}`,
-        key: prize.id,
-    })),
-    { text: 'Empty', key: 'Empty' }
-    ];
-
-
+        label: `Place №${prize.place}`,
+        value: prize.id,
+    }))]
 
     // отловить значение селектора (все ворки / победители)
     const chooseSelectorCallback = (key: string) => {
@@ -56,7 +53,10 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
         }
     }
 
-
+    const handleLoadMore = () => {
+        console.log('loadMore')
+    }
+    
     return(
         <div className="ownerDecosonPanel">
             <div className="chooseWinnerPage_selectors">
@@ -73,7 +73,7 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
                 </div>
 
                 <div className="chooseWinnerPage_paginationBtn">
-                    <Button variant="primary" >Load more</Button>
+                    <Button variant="primary" onClick={handleLoadMore} type="button">Load more</Button>
                 </div>
         </div>
     )

@@ -41,6 +41,7 @@
         border-radius: 42px;
 
         > .profileWallet_transactions_container{
+            position: relative;
             max-height: 200px;
             overflow-y: auto;
             scrollbar-width: thin;
