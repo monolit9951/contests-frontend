@@ -4,10 +4,10 @@ import moment from "moment";
 import instance from "shared/api/api";
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import { Button } from "shared/ui/button";
+import ControlledSelector from "shared/ui/controlledSelector/ui/controlledSelector";
 import { ModalWindow } from "shared/ui/modalWindow";
 import { Video } from "shared/ui/videoPlayer";
 import CustomCheckbox from "widgets/customCheckbox";
-import CustomSelector from "widgets/customSelector";
 import UserProfileData from "widgets/userProfileData/userProfileData";
 import { WorkPreview } from "widgets/worksSection/ui/workPreview/workPreview";
 
@@ -25,6 +25,8 @@ interface WinnerWorkInterface {
 
 const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
+    const [placeValue, setPlaceValue] = useState<string>('EMPTY')
+
     const [modalWork, setModalWork] = useState<boolean>(false)
     const [prizeId, setPrizeId] = useState<string>('')
     const [placeError, setPlaceError] = useState<boolean>(false)
@@ -32,7 +34,6 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
     const {showAlert, Alert} = useAlert()
     const token = localStorage.getItem('userToken')
     const creationDate = moment.utc(work.workAddingDate).local().fromNow();
-    const [currentPlace, setCurrentPlace] = useState<string>(work.place)
 
 
     // открытие модалки работы
@@ -47,7 +48,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
             try{
                 await instance.delete(`winners/possible/${work.id}`, {headers: {Authorization: `Bearer ${token}`}})
                 setIsWinner(false)
-                setCurrentPlace('Empty')
+                setPlaceValue('Empty')
             } catch (error){
                 showAlert('ERROR', 'CHANGE THAT ERROR')
             }
@@ -65,14 +66,6 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
         }
     }
 
-    // отловить выбор места
-    const handlePlaceSelector = (key: string) => {
-        setPlaceError(false)
-        setPrizeId(key)
-    }
-
-    // колбек для очищения селектора
-
     // МЕМОИЗАЦИЯ ДЛЯ ПРЕДОТВРАЩЕНИЯ ПЕРЕРЕНДЕРА
     const videoBlock = useMemo(() => {
         if(work.media !== null){
@@ -85,6 +78,17 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
         return <div>no media</div>
         
     }, [work.media]);
+
+    // выбор селектора
+    const onPlaceChange = (chosenPlaceValue: string) => {
+        const option = options.find(opt => opt.value === chosenPlaceValue);
+
+        if(option){
+            setPlaceValue(option.label)
+            setPrizeId(option.value)
+        }
+    }
+
 
     return(
         <div className={isWin? "winnerWork winner" : "winnerWork"}>
@@ -111,7 +115,8 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
             <div className="winnerWork_right">
                 <CustomCheckbox value="Winner" checked={isWinner} handleCheckbox={handleCheckbox} controlled/>
-                <CustomSelector options={options} maxWidth={200} chooseSelectorCallback={handlePlaceSelector} currentPlace = {currentPlace} error = {placeError}/>
+                {/* <CustomSelector options={options} maxWidth={200} chooseSelectorCallback={handlePlaceSelector} currentPlace = {currentPlace} error = {placeError}/> */}
+                <ControlledSelector error={placeError} maxWidth={200} options={options} onChange={onPlaceChange} value={placeValue}/>
             </div>
 
             {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview work={work} /></ModalWindow>}

@@ -1,8 +1,7 @@
 import { FC, useState } from "react";
-import CustomSelector from "widgets/customSelector";
+import ControlledSelector from "shared/ui/controlledSelector/ui/controlledSelector";
 
 import './winnerSelectors.scss'
-import ControlledSelector from "shared/ui/controlledSelector/ui/controlledSelector";
 
 export interface optionsType {
     label: string,

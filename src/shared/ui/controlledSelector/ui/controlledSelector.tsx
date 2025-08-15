@@ -1,6 +1,9 @@
 import { FC, useState } from "react";
 import tick from 'shared/assets/icons/fullTick.svg'
 
+import './controlledSelector.scss'
+
+
 interface Option {
   value: string;
   label: string;

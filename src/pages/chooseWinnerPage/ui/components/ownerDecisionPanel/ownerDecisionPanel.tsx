@@ -10,7 +10,6 @@ import WinnerSelectors from "../winnersSelectors/winnerSelectors";
 import WinnerWork from "../winnerWork/winnerWork";
 
 import './ownerDecisionPanel.scss'
-import ControlledSelector from "shared/ui/controlledSelector/ui/controlledSelector";
 
 interface Props {
     contest: Contest
@@ -32,11 +31,9 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
 
     const options = [
     ...contest.prizes.map((prize: Prize) => ({
-        text: `Place №${prize.place}`,
-        key: prize.id,
-    })),
-    { text: 'Empty', key: 'Empty' }
-    ];
+        label: `Place №${prize.place}`,
+        value: prize.id,
+    }))]
 
 
 
@@ -56,19 +53,6 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
                 break
         }
     }
-  const options2 = [
-    { value: "apple", label: "🍏 Apple" },
-    { value: "banana", label: "🍌 Banana" },
-    { value: "cherry", label: "🍒 Cherry" },
-  ];
-
-
-  const [selectorValue, setSelectorValue] = useState<string>('Empty')
-
-  const onChange = (value: string) => {
-    console.log(value)
-    setSelectorValue(value)
-  }
 
     return(
         <div className="ownerDecosonPanel">
@@ -88,9 +72,6 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
                 <div className="chooseWinnerPage_paginationBtn">
                     <Button variant="primary" >Load more</Button>
                 </div>
-
-            {/* <ControlledSelector options={options}/> */}
-            <ControlledSelector value = {selectorValue}options={options2} onChange={onChange} maxWidth={300}/>
         </div>
     )
 }
