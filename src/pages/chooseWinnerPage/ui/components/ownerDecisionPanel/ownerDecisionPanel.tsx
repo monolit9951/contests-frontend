@@ -62,8 +62,12 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
     { value: "cherry", label: "🍒 Cherry" },
   ];
 
+
+  const [selectorValue, setSelectorValue] = useState<string>('Empty')
+
   const onChange = (value: string) => {
     console.log(value)
+    setSelectorValue(value)
   }
 
     return(
@@ -86,7 +90,7 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
                 </div>
 
             {/* <ControlledSelector options={options}/> */}
-            <ControlledSelector options={options2} onChange={onChange}/>
+            <ControlledSelector value = {selectorValue}options={options2} onChange={onChange} maxWidth={300}/>
         </div>
     )
 }

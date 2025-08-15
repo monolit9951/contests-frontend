@@ -11,16 +11,21 @@ interface SelectProps {
   value: string | null;
   onChange: (value: string) => void;
   error?: boolean
+  maxWidth: number
 }
 
-const ControlledSelector: FC<SelectProps> = ({ options, value, onChange, error = false}) => {
+const ControlledSelector: FC<SelectProps> = ({maxWidth, options, value = 'Empty', onChange, error = false}) => {
 
-    const maxWidth = 300
     
     const [selectorOpen, setSelectorOpen] = useState<boolean>(false)
 
-    const handleSelectorToggle =() => {
+    const handleSelectorToggle = () => {
         setSelectorOpen(!selectorOpen)
+    }
+
+    const handleSelectorChoise = (chosenValue: string) =>{
+        onChange(chosenValue)
+        setSelectorOpen(false)
     }
 
 
@@ -33,7 +38,7 @@ const ControlledSelector: FC<SelectProps> = ({ options, value, onChange, error =
 
             {selectorOpen && <div className="customSelector_options">
                 {options.map((item: Option, index: number) => (
-                    <button type="button" key={index} className="customSelector_options_option" onClick={() => onChange('da')}>{item.label}</button>
+                    <button type="button" key={index} className="customSelector_options_option" onClick={() => handleSelectorChoise(item.value)}>{item.label}</button>
                 ))}
             </div>}
         </div>
