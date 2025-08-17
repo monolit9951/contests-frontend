@@ -1,11 +1,11 @@
-import { FC } from "react";
-import CustomSelector from "widgets/customSelector";
+import { FC, useState } from "react";
+import ControlledSelector from "shared/ui/controlledSelector/ui/controlledSelector";
 
 import './winnerSelectors.scss'
 
 export interface optionsType {
-    text: string,
-    key: string
+    label: string,
+    value: string
 }
 
 interface Props {
@@ -16,18 +16,27 @@ const WinnerSelectors: FC<Props> = ({chooseSelectorCallback}) => {
 
     const reatingOptions: optionsType[] = 
     [{
-        text: 'All works',
-        key: 'allWorks'
+        label: 'All works',
+        value: 'allWorks'
     },{
-        text: 'Winners works',
-        key: 'winWorks'
+        label: 'Winners works',
+        value: 'winWorks'
     }]
+
+    const [reatingValue, setReatingValue] = useState<string>(reatingOptions[0].label)
+
+    const onReatingChange = (value: string) => {
+        const option = reatingOptions.find(opt => opt.value === value);
+        
+        if (option) {
+            setReatingValue(option.label);
+            chooseSelectorCallback(option.value);
+        }
+    };
 
     return(
         <div className="customSelectors">
-            <CustomSelector options = {reatingOptions} maxWidth={300} defaultItem chooseSelectorCallback={chooseSelectorCallback}/>
-            {/* <CustomSelector options = {reatingOptions} name="Reating" maxWidth={200} chooseSelectorCallback={chooseSelectorCallback}/> */}
-            {/* <CustomSelector options = {reatingOptions} name="Reating" maxWidth={500} chooseSelectorCallback={chooseSelectorCallback}/> */}
+            <ControlledSelector options={reatingOptions} maxWidth={300} onChange={onReatingChange} value={reatingValue}/>
         </div>
     )
 }
