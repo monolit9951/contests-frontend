@@ -17,7 +17,7 @@
 [shields-react-domain]: https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
 [shields-redux-domain]: https://img.shields.io/badge/redux_toolkit-%2320232a.svg?style=for-the-badge&logo=redux&logoColor=%764abc
 [shields-sass-domain]: https://img.shields.io/badge/sass-F2F2F2?style=for-the-badge&logo=sass
-
+d
 ## Getting started
 
 This project was bootstrapped with [Create Vite](https://vitejs.dev/guide/#getting-started)
