@@ -1,5 +1,4 @@
 .cover_selection {
-    
     &_container {
         align-items: center;
         background-color: #02140E;
@@ -206,6 +205,14 @@ input[type='file'] {
   border: 3px dashed #007bff;
   pointer-events: none;
   z-index: 9999;
+}
+
+.crop_container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
 // @media (max-width: 1024px) {

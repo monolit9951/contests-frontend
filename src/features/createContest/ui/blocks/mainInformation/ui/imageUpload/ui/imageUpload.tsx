@@ -4,6 +4,7 @@ import info from 'shared/assets/icons/question-mark.svg?react'
 import upload from 'shared/assets/icons/upload.svg?react'
 import cardIMGPlaceholder from 'shared/assets/img/cardIMGPlaceholder.jpg'
 import coverIMGPlaceholder from 'shared/assets/img/coverIMGPlaceholder.jpg'
+import { capitalizeStr } from 'shared/helpers'
 import { Button } from 'shared/ui/button'
 import { CoverSelectionModal } from 'shared/ui/coverSelectionModal'
 import { Icon } from 'shared/ui/icon'
@@ -12,7 +13,6 @@ import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './imageUpload.scss'
-import { capitalizeStr } from 'shared/helpers'
 
 interface ImageUploadProps {
     text: string

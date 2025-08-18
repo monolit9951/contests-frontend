@@ -1,9 +1,9 @@
 import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import upload from 'shared/assets/icons/upload.svg';
+import { allowedMediaTypes } from "shared/helpers/allowedMediaTypes";
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 
 import './uploadWorkMediaInput.scss';
-import { allowedMediaTypes } from "shared/helpers/allowedMediaTypes";
 
 interface UploadWorkMediaInputInterface {
   handleMediaInputCallback: (event: React.ChangeEvent<HTMLInputElement>) => void;

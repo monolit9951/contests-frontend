@@ -4,6 +4,8 @@ import clsx from 'clsx'
 import addFileSvg from 'shared/assets/icons/addFile.svg'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import cross from 'shared/assets/icons/X.svg'
+import { allowedMediaTypes } from 'shared/helpers/allowedMediaTypes'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 import { Icon } from 'shared/ui/icon'
 import { Combobox, Input, Textarea } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
@@ -16,8 +18,6 @@ import { ImageUpload } from './imageUpload'
 import { RadioContainer, RadioEl } from './radioContainer'
 
 import './mainInformation.scss'
-import { allowedMediaTypes } from 'shared/helpers/allowedMediaTypes'
-import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 interface Props {
     submitError: boolean
