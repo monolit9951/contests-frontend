@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import instance from "shared/api/api";
@@ -37,6 +37,12 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
     const [checkPasswordError, setCheckPasswordError] = useState<string>('')
     const [nicknameError, setNicknameError] = useState<string>('')
     const {showAlert, Alert} = useAlert()
+    
+    useEffect(() => {
+        localStorage.removeItem('rememberMe')
+    }, [])
+    
+    
     // обычный LogIn
     // НЕ ОБРАБОТАНЫ ОШИБКИ ПАРОЛЯ ИЛИ ЛОГИНА
     const handleStandartAuth = async () => {
@@ -166,6 +172,15 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         setNickname(nick)
     }
 
+    const handleCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        if(event.target.checked){
+            localStorage.setItem('rememberMe', 'true')
+        } else {
+            localStorage.removeItem('rememberMe')
+        }
+    }
+
     return(
         <div className="registrationModal">
             <div className="registrationModal_header">
@@ -184,7 +199,7 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
                 {authType === 'SIGNUP' && <RegistrationInput validationText={checkPasswordError} value={checkPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
 
                 <div className="registrationModal_inputs_special">
-                    <CustomCheckbox value="Remember me" checked={false}/>
+                    <CustomCheckbox value="Remember me" checked={false} handleCheckbox = {handleCheckbox}/>
 
                     <button type="button">Forgot password?</button>
                 </div>
