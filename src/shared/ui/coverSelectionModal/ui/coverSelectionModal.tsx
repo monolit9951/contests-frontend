@@ -9,7 +9,7 @@ import basicCover1 from 'shared/assets/img/basicCover1.png'
 import basicCover2 from 'shared/assets/img/basicCover2.png'
 import basicCover3 from 'shared/assets/img/basicCover3.png'
 import basicCover4 from 'shared/assets/img/basicCover4.png'
-import { allowedMediaTypes } from 'shared/helpers/allowedMediaTypes'
+import { allowedImageTypes } from 'shared/helpers/allowedMediaTypes'
 import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 import { Button } from 'shared/ui/button'
 import { Divider } from 'shared/ui/divider'
@@ -100,7 +100,7 @@ export const CoverSelectionModal = ({
     // получаем фото
     const handleFileChange = async(event: React.ChangeEvent<HTMLInputElement>) =>{
         const file = event.target.files?.[0]
-        if(file && !allowedMediaTypes.includes(file?.type)){
+        if(file && !allowedImageTypes.includes(file?.type)){
             showAlert('ERROR', "Wrong file type 1111")
             return
         }
@@ -154,7 +154,7 @@ export const CoverSelectionModal = ({
             e.preventDefault();
             setIsDragging(false);
 
-            if(e.dataTransfer && !allowedMediaTypes.includes(e.dataTransfer?.files[0].type)){
+            if(e.dataTransfer && !allowedImageTypes.includes(e.dataTransfer?.files[0].type)){
                 showAlert('ERROR', 'Wrong file type')
                 return
             }

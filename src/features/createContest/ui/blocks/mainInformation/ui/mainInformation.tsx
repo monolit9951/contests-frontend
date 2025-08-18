@@ -18,6 +18,7 @@ import { ImageUpload } from './imageUpload'
 import { RadioContainer, RadioEl } from './radioContainer'
 
 import './mainInformation.scss'
+import { Video } from 'shared/ui/videoPlayer'
 
 interface Props {
     submitError: boolean
@@ -225,8 +226,10 @@ const handleUploadExampleByInput = (event: React.ChangeEvent<HTMLInputElement>) 
                     <div className="descriptionInput_mediaList">
                         {examples.map((item: File, index: number) => (
                             <div className="exapmleItem" key={index}>
-                                <img src={URL.createObjectURL(item)} alt="example"/>
-
+                                <div className="exapmleItem_container">
+                                    {item.type.startsWith("image/") && <img src={URL.createObjectURL(item)} alt="example"/>}
+                                    {item.type.startsWith("video/") && <Video url={URL.createObjectURL(item)} light/>}
+                                </div>
                                 <button className="exapmleItem_cross" type='button' onClick={() => handleDeleteExample(item)}>
                                     <img src={cross} alt="cross" />
                                 </button>

@@ -120,13 +120,30 @@
                 aspect-ratio: 1/1;
                 flex-shrink: 0;
                 border-radius: 12px;
+                box-sizing: border-box;
 
-                > img{
+                > .exapmleItem_container{
+                    position: relative;
+                    overflow: hidden;
+                    aspect-ratio: 1/1;
+                    width: 110px;
+                    height: 110px;
                     border-radius: 12px;
-                    height: 100%;
-                    width: 100%;
-                    object-fit: contain;
-                    background-color: #1B2321;
+
+                    > .plyr{
+                        transform: translateX(-50%);
+                        position: relative;
+                        left: 50%;
+                        pointer-events: none;
+                    }
+
+                    > img{
+                        border-radius: 12px;
+                        height: 100%;
+                        width: 100%;
+                        object-fit: contain;
+                        background-color: #1B2321;
+                    }
                 }
 
                 > .exapmleItem_cross{
