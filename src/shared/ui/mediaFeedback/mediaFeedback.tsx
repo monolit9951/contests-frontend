@@ -2,16 +2,16 @@ import { FC, useState } from 'react'
 import clsx from 'clsx'
 import bubble from 'shared/assets/icons/chat.svg?react'
 import share from 'shared/assets/icons/share.svg?react'
+import ShareModal from 'widgets/shareModal'
 
 import { Button } from '../button'
 import { Icon } from '../icon'
+import { ModalWindow } from '../modalWindow'
 import { RateButtons } from '../rateButtons'
 import { HStack } from '../stack'
 import { Text } from '../text'
 
 import './mediaFeedback.scss'
-import { ModalWindow } from '../modalWindow'
-import ShareModal from 'widgets/shareModal'
 
 interface Props {
     id: string
@@ -58,7 +58,7 @@ const MediaFeedback: FC<Props> = (props) => {
                 </Text>
             </Button>
 
-            {shareModal && <ModalWindow isOpen onClose={() => setShareModal(false)}><ShareModal text='some text' url='https://www.youtube.com/shorts/sHVzhPYua7g'/></ModalWindow>}
+            {shareModal && <ModalWindow isOpen onClose={() => setShareModal(false)}><ShareModal text='some text' url={`${window.location.href}/work/${id}`}/></ModalWindow>}
         </HStack>
     )
 }

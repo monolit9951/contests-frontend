@@ -10,6 +10,7 @@ import { Icon } from 'shared/ui/icon'
 import { Combobox, Input, Textarea } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
+import { Video } from 'shared/ui/videoPlayer'
 
 import { categories } from '../mockData'
 
@@ -18,7 +19,6 @@ import { ImageUpload } from './imageUpload'
 import { RadioContainer, RadioEl } from './radioContainer'
 
 import './mainInformation.scss'
-import { Video } from 'shared/ui/videoPlayer'
 
 interface Props {
     submitError: boolean
