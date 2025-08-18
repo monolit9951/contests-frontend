@@ -4,6 +4,25 @@
 
     .text_icon_container {
         gap: 4px;
+
+        > .hint{
+            position: relative;
+
+            &:hover .hint_text{
+                display: block;
+            }
+
+            > .hint_text{
+                display: none;
+                position: absolute;
+                top: 25px;
+                left: 0px;
+                width: 160px;
+                background-color: blue;
+                padding: 5px;
+                border-radius: 5px;
+            }
+        }
     }
     p {
         font-size: 14px;

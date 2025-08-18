@@ -144,8 +144,8 @@ const handleUploadExampleByInput = (event: React.ChangeEvent<HTMLInputElement>) 
                 </HStack>
             </VStack>
 
-            <ImageUpload text='Cover image' extra='1704/390'/>
-            <ImageUpload text='Card image' extra='376/211'/>
+            <ImageUpload text='Cover image' extra='1704/390' hint = 'Image which you will see like a banner for your contest.'/>
+            <ImageUpload text='Card image' extra='376/211'hint = 'Image which will be used in all contest preview.'/>
             
             {submitError &&
                 (!getValues('backgroundImage') ||
