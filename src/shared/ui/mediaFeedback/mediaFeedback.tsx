@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import clsx from 'clsx'
 import bubble from 'shared/assets/icons/chat.svg?react'
 import share from 'shared/assets/icons/share.svg?react'
@@ -10,6 +10,8 @@ import { HStack } from '../stack'
 import { Text } from '../text'
 
 import './mediaFeedback.scss'
+import { ModalWindow } from '../modalWindow'
+import ShareModal from 'widgets/shareModal'
 
 interface Props {
     id: string
@@ -23,8 +25,8 @@ interface Props {
 const MediaFeedback: FC<Props> = (props) => {
     const { id, likes, comments, onCommentsClick, className, liked } = props
 
+    const [shareModal, setShareModal] = useState<boolean>(false)
 
-    const onShare = () => {}
 
     return (
         <HStack className={clsx('feedback__wrapper', className)}>
@@ -49,13 +51,14 @@ const MediaFeedback: FC<Props> = (props) => {
                 variant='secondary'
                 size='s'
                 icon={share}
-                onClick={onShare}
+                onClick={() => setShareModal(true)}
                 className='feedback__button'>
                 <Text Tag='p' size='sm' bold>
                     Share
                 </Text>
             </Button>
 
+            {shareModal && <ModalWindow isOpen onClose={() => setShareModal(false)}><ShareModal text='some text' url='https://www.youtube.com/shorts/sHVzhPYua7g'/></ModalWindow>}
         </HStack>
     )
 }

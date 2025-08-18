@@ -1,0 +1,72 @@
+import { FC } from "react";
+import './shareModal.scss'
+
+
+interface Props {
+    text: string
+    url: string
+}
+
+const ShareModal: FC<Props> = ({text, url}) => {
+
+    const copyLink = async () => {
+        await navigator.clipboard.writeText(url);
+    }
+
+
+    const handleWebShare = async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({text, url })
+            } catch (err) {
+                // ALERT
+                console.log("Share error", err)
+            }
+        } else {
+            // ALERT
+            console.log("Web Share API CANT WORK")
+        }
+    }
+
+    return(
+        <div className="shareModal">
+
+            <div className="shareModal_heading">Share to...</div>
+
+            <ul>
+                <li>
+                    <div className="shareModal_link_container">
+                        {/* какой-то дизайн */}
+                        <a href={`https://t.me/share/url?url=${url}&text=${text}`}>Telegram</a>
+                    </div>
+                </li>
+                <li>
+                    <div className="shareModal_link_container">
+                        {/* какой-то дизайн */}
+                        <a href={`https://twitter.com/intent/tweet?url=${url}&text=${text}`}>Twitter X</a>
+                    </div>
+                </li>
+                <li>
+                    <div className="shareModal_link_container">
+                        {/* какой-то дизайн */}
+                        <a href={`https://api.whatsapp.com/send?text=${text}%20${url}`}>whatsapp</a>
+                    </div>
+                </li>
+                <li>
+                    <div className="shareModal_link_container">
+                        {/* какой-то дизайн */}
+                        <button type="button" onClick={copyLink}>Copy link</button>
+                    </div>
+                </li>
+                <li>
+                    <div className="shareModal_link_container">
+                        {/* какой-то дизайн */}
+                        <button type="button" onClick={handleWebShare}>More...</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    )
+}
+
+export default ShareModal
