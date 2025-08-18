@@ -11,11 +11,11 @@ export interface WalletBalance {
     walletId: string
 }
 
-const token = localStorage.getItem('userToken')
-const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
 // получение баланса пользователя
 export const fetchWalletBalance = async ( userId: string): Promise<WalletBalance | string> => {
+
+    const token = localStorage.getItem('userToken')
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
     try {
         const response = await instance.get(`users/balance/${userId}`, {headers})
 
@@ -35,6 +35,10 @@ export const fetchWalletBalance = async ( userId: string): Promise<WalletBalance
 
 // получение транзакций пользователя
 export const fetchWalletTransactions = async (userId: string, page: number, pageSize: number): Promise<PagedRequest<Transaction> | string> => {
+
+    const token = localStorage.getItem('userToken')
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    
     try {
         const response = await instance.get(`users/transactions/${userId}?page=${page}&pageSize=${pageSize}`, {headers})
 
