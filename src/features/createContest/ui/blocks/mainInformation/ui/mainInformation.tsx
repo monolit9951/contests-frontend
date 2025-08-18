@@ -16,6 +16,8 @@ import { ImageUpload } from './imageUpload'
 import { RadioContainer, RadioEl } from './radioContainer'
 
 import './mainInformation.scss'
+import { allowedMediaTypes } from 'shared/helpers/allowedMediaTypes'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 interface Props {
     submitError: boolean
@@ -23,6 +25,7 @@ interface Props {
 
 export const MainInformation = ({ submitError }: Props) => {
     const [quantity, setQuantity] = useState(0)
+    const {showAlert, Alert} = useAlert()
 
     const {
         register,
@@ -49,7 +52,9 @@ export const MainInformation = ({ submitError }: Props) => {
         setIsDragOver(false)
         const files = Array.from(event.dataTransfer.files)
 
-        if (!files[0].type.startsWith('image/')){
+        if (files[0].type && !allowedMediaTypes.includes(files[0].type)){
+            
+            showAlert('ERROR', 'Wrong file type')
             return
         }
         
@@ -61,7 +66,14 @@ export const MainInformation = ({ submitError }: Props) => {
     }
 
 const handleUploadExampleByInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return
+    if (!event.target.files){
+        return
+    }
+
+    if (!allowedMediaTypes.includes(event.target.files[0].type)){
+        showAlert('ERROR', 'Wrong file type')
+            return
+    }
 
     const files = Array.from(event.target.files)
         .filter(file => file.type.startsWith('image/'))
@@ -238,6 +250,8 @@ const handleUploadExampleByInput = (event: React.ChangeEvent<HTMLInputElement>) 
                     <RadioEl text="Creator's decision" />
                 </RadioContainer>
             </VStack>
+
+            <Alert />
         </VStack>
     )
 }

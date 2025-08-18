@@ -19,6 +19,8 @@ import { Text } from 'shared/ui/text'
 import ImageCropper from 'widgets/imageCropper/ui/imageCropper'
 
 import './coverSelectionModal.scss'
+import { allowedMediaTypes } from 'shared/helpers/allowedMediaTypes'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
 interface CoverSelectionModalProps {
     isOpen: boolean
@@ -50,6 +52,7 @@ export const CoverSelectionModal = ({
     const [isDragging, setIsDragging] = useState(false);
     // const [currFile, setCurrFile] = useState<any>(null)
     const { setValue } = useFormContext()
+    const {showAlert, Alert} = useAlert()
 
     // подготовленные базовые фото
     const setDefaultImage = async (image: string) => {
@@ -97,6 +100,11 @@ export const CoverSelectionModal = ({
     // получаем фото
     const handleFileChange = async(event: React.ChangeEvent<HTMLInputElement>) =>{
         const file = event.target.files?.[0]
+        if(file && !allowedMediaTypes.includes(file?.type)){
+            showAlert('ERROR', "Wrong file type")
+            return
+        }
+
         // setCurrFile(file)
         if(file){
             if(file.size > 6 * 1024 * 1024){
@@ -129,32 +137,36 @@ export const CoverSelectionModal = ({
 
     useEffect(() => {
         const onDragEnter = (e: DragEvent) => {
-        e.preventDefault();
-        setIsDragging(true);
+            e.preventDefault();
+            setIsDragging(true);
         };
 
         const onDragLeave = (e: DragEvent) => {
         e.preventDefault();
-        if (e.relatedTarget === null) setIsDragging(false);
+            if (e.relatedTarget === null) setIsDragging(false);
         };
 
         const onDragOver = (e: DragEvent) => {
-        e.preventDefault();
+            e.preventDefault();
         };
 
         const onDrop = (e: DragEvent) => {
-        e.preventDefault();
-        setIsDragging(false);
+            e.preventDefault();
+            setIsDragging(false);
 
-        if (e.dataTransfer?.files && inputRef.current) {
-            const fileList = new DataTransfer();
-            Array.from(e.dataTransfer.files).forEach(file => fileList.items.add(file));
-            inputRef.current.files = fileList.files;
+            if(e.dataTransfer && allowedMediaTypes.includes(e.dataTransfer?.files[0].type)){
+                showAlert('ERROR', 'Wrong file type')
+            }
 
-            // вручную вызвать change, т.к. inputRef.current.value не обновляется
-            const event = new Event('change', { bubbles: true });
-            inputRef.current.dispatchEvent(event);
-        }
+            if (e.dataTransfer?.files && inputRef.current) {
+                const fileList = new DataTransfer();
+                Array.from(e.dataTransfer.files).forEach(file => fileList.items.add(file));
+                inputRef.current.files = fileList.files;
+
+                // вручную вызвать change, т.к. inputRef.current.value не обновляется
+                const event = new Event('change', { bubbles: true });
+                inputRef.current.dispatchEvent(event);
+            }
         };
 
         window.addEventListener("dragenter", onDragEnter);
@@ -331,7 +343,8 @@ export const CoverSelectionModal = ({
                 )}
             </VStack>
 
-            {isDragging && <div className='dragOverlay'>1</div>}
+            <Alert />
+            {isDragging && <div className='dragOverlay'> </div>}
             {imageSrc && <ImageCropper imageSrc = {imageSrc} aspect = {extraNumber} onCropComplete={handleCropComplete}/>}
         </ModalWindow>
     )
