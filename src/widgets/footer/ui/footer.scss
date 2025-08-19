@@ -7,7 +7,7 @@ footer{
     height: 66px;
     background-color: #161616F0;
     border-top: #545458A6 1px solid;
-    display: flex;
+    display: none;
     justify-content: space-around;
     align-items: center;
 
@@ -43,5 +43,11 @@ footer{
                 }
             }
         }
+    }
+}
+
+@media (max-width: 1000px) {
+    footer{
+        display: flex;
     }
 }
