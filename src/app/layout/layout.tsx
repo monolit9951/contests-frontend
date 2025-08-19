@@ -42,7 +42,7 @@ export const Layout = () => {
                         <Outlet />
                     </main>
 
-                    <Footer className='layout__footer' />
+                    <Footer />
                 </div>
                 <ScrollRestoration />
             </SkeletonTheme>
