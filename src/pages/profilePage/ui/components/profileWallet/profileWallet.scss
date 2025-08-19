@@ -80,3 +80,9 @@
         justify-content: space-around;
     }
 }
+
+@media (max-width: 1350px) {
+    .profileWallet{
+        max-width: none;
+    }
+}

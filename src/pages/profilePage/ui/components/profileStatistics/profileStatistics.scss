@@ -24,3 +24,11 @@
         }
     }
 }
+
+@media (max-width: 800px) {
+    .profileStatistics{
+        > .profileStatistics_container{
+            flex-direction: column;
+        }
+    }
+}
