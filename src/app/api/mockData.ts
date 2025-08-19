@@ -18,7 +18,7 @@ export const mockNavData = [
         svgSrc: trophy,
         svgFilledSrc: trophyF,
         text: 'Contests',
-        route: '/contests',
+        route: '/Contests',
     },
     // {
     //     svgSrc: sword,
