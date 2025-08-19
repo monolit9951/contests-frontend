@@ -40,6 +40,8 @@ export const AppRouter = () => {
 
   const [currentSearch, setCurrentSearch] = useState(window.location.search)
 
+
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (window.location.search !== currentSearch) {
@@ -49,6 +51,7 @@ export const AppRouter = () => {
 
     return () => clearInterval(interval)
   }, [currentSearch])
+
 
 
   useEffect(() => {
@@ -69,11 +72,13 @@ export const AppRouter = () => {
       localStorage.setItem('userToken', googleToken)
     }
 
+    console.log(googleToken, searchParams)
+
     const token = localStorage.getItem('userToken')
-    const rememberMe = localStorage.getItem('rememberMe')
+    // const rememberMe = localStorage.getItem('rememberMe')
     
     const checkUserAsync = async () => {
-      if (token && rememberMe) {
+      if (token) {
         try {
           const userResponse = await userByToken(token)
 
