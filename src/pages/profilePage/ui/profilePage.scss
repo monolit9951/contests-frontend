@@ -85,12 +85,25 @@
 
 @media (max-width: 1060px) {
     .profilePage{
-        padding: 65px 20px;
+        padding: 65px 16px;
     }
 }
 
 @media (max-width: 650px) {
     .profilePage{
-        padding: 65px 10px;
+        padding: 65px 8px;
+        > .profilePage_inner{
+            > .profilePage_container{
+                gap: 16px;
+
+                > .profilePage_leftContainer{
+                    gap: 16px;
+                }
+
+                > .profilePage_rightContainer{
+                    gap: 16px;
+                }
+            }
+        }
     }
 }

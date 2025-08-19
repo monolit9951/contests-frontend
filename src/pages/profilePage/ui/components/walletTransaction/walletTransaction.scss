@@ -59,3 +59,9 @@
         letter-spacing: 0%;
     }
 }
+
+@media (max-width: 600px) {
+    .profileWallet_transaction{
+        padding: 16px 12px;
+    }
+}
