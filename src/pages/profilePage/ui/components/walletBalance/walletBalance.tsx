@@ -26,7 +26,7 @@ const WalletBalance: FC<Props> = ({type, value}) => {
 
                 <div className="walletBalance_header_heading">Balance {type === 'COINS'? 'Coin' : 'USDT'}</div>
 
-                <div className="walletBalance_header_difference">+99.9%</div>
+                {/* <div className="walletBalance_header_difference">+99.9%</div> */}
             </div>
 
             <div className="walletBalance_balance">{value}</div>

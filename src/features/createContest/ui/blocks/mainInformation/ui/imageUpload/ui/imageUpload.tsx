@@ -4,6 +4,7 @@ import info from 'shared/assets/icons/question-mark.svg?react'
 import upload from 'shared/assets/icons/upload.svg?react'
 import cardIMGPlaceholder from 'shared/assets/img/cardIMGPlaceholder.jpg'
 import coverIMGPlaceholder from 'shared/assets/img/coverIMGPlaceholder.jpg'
+import { capitalizeStr } from 'shared/helpers'
 import { Button } from 'shared/ui/button'
 import { CoverSelectionModal } from 'shared/ui/coverSelectionModal'
 import { Icon } from 'shared/ui/icon'
@@ -16,9 +17,10 @@ import './imageUpload.scss'
 interface ImageUploadProps {
     text: string
     extra: string
+    hint: string
 }
 
-export const ImageUpload = ({ text, extra }: ImageUploadProps) => {
+export const ImageUpload = ({ text, extra, hint }: ImageUploadProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [chosenImg, setChosenImg] = useState<string | Blob>('')
     const [imageValidationMessage, setImageValidationMessage] = useState('')
@@ -39,7 +41,11 @@ export const ImageUpload = ({ text, extra }: ImageUploadProps) => {
                 <VStack className='imagePreview_container'>
                     <HStack className='text_icon_container'>
                         <Text Tag='p'>{text}</Text>
-                        <Icon Svg={info} height={20} width={20} />
+
+                        <div className="hint">
+                            <Icon Svg={info} height={20} width={20} className='hint_icon'/>
+                            <div className="hint_text">{capitalizeStr(hint)}</div>
+                        </div>
                     </HStack>
                     <HStack className='imageUpload_imagecontainer'>
                         <Image

@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import upload from 'shared/assets/icons/upload.svg';
+import { allowedMediaTypes } from "shared/helpers/allowedMediaTypes";
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 
 import './uploadWorkMediaInput.scss';
@@ -8,18 +9,6 @@ interface UploadWorkMediaInputInterface {
   handleMediaInputCallback: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-// вынести в отдельный файл для экспорта
-const allowedTypes = [
-    'image/jpeg',
-    'image/png', 
-    // 'image/gif', 
-    'image/webp',
-
-    'video/mp4', 
-    'video/webm', 
-    // 'video/quicktime',
-];
-
 
 const UploadWorkMediaInput: FC<UploadWorkMediaInputInterface> = ({ handleMediaInputCallback }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -27,7 +16,7 @@ const UploadWorkMediaInput: FC<UploadWorkMediaInputInterface> = ({ handleMediaIn
   const {showAlert, Alert} = useAlert()
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if(event.target.files !== null && allowedTypes.includes(event.target.files[0].type)){
+    if(event.target.files !== null && allowedMediaTypes.includes(event.target.files[0].type)){
       handleMediaInputCallback(event);
       if (inputRef.current) inputRef.current.value = '';
     } else {

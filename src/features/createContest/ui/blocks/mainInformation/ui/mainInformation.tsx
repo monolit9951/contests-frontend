@@ -4,10 +4,13 @@ import clsx from 'clsx'
 import addFileSvg from 'shared/assets/icons/addFile.svg'
 import alertIcon from 'shared/assets/icons/alert.svg?react'
 import cross from 'shared/assets/icons/X.svg'
+import { allowedMediaTypes } from 'shared/helpers/allowedMediaTypes'
+import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 import { Icon } from 'shared/ui/icon'
 import { Combobox, Input, Textarea } from 'shared/ui/input'
 import { HStack, VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
+import { Video } from 'shared/ui/videoPlayer'
 
 import { categories } from '../mockData'
 
@@ -23,6 +26,7 @@ interface Props {
 
 export const MainInformation = ({ submitError }: Props) => {
     const [quantity, setQuantity] = useState(0)
+    const {showAlert, Alert} = useAlert()
 
     const {
         register,
@@ -49,7 +53,9 @@ export const MainInformation = ({ submitError }: Props) => {
         setIsDragOver(false)
         const files = Array.from(event.dataTransfer.files)
 
-        if (!files[0].type.startsWith('image/')){
+        if (files[0].type && !allowedMediaTypes.includes(files[0].type)){
+            
+            showAlert('ERROR', 'Wrong file type')
             return
         }
         
@@ -61,7 +67,14 @@ export const MainInformation = ({ submitError }: Props) => {
     }
 
 const handleUploadExampleByInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return
+    if (!event.target.files){
+        return
+    }
+
+    if (!allowedMediaTypes.includes(event.target.files[0].type)){
+        showAlert('ERROR', 'Wrong file type')
+            return
+    }
 
     const files = Array.from(event.target.files)
         .filter(file => file.type.startsWith('image/'))
@@ -144,8 +157,8 @@ const handleUploadExampleByInput = (event: React.ChangeEvent<HTMLInputElement>) 
                 </HStack>
             </VStack>
 
-            <ImageUpload text='Cover image' extra='1704/390'/>
-            <ImageUpload text='Card image' extra='376/211'/>
+            <ImageUpload text='Cover image' extra='1704/390' hint = 'Image which you will see like a banner for your contest.'/>
+            <ImageUpload text='Card image' extra='376/211'hint = 'Image which will be used in all contest preview.'/>
             
             {submitError &&
                 (!getValues('backgroundImage') ||
@@ -213,8 +226,10 @@ const handleUploadExampleByInput = (event: React.ChangeEvent<HTMLInputElement>) 
                     <div className="descriptionInput_mediaList">
                         {examples.map((item: File, index: number) => (
                             <div className="exapmleItem" key={index}>
-                                <img src={URL.createObjectURL(item)} alt="example"/>
-
+                                <div className="exapmleItem_container">
+                                    {item.type.startsWith("image/") && <img src={URL.createObjectURL(item)} alt="example"/>}
+                                    {item.type.startsWith("video/") && <Video url={URL.createObjectURL(item)} light/>}
+                                </div>
                                 <button className="exapmleItem_cross" type='button' onClick={() => handleDeleteExample(item)}>
                                     <img src={cross} alt="cross" />
                                 </button>
@@ -238,6 +253,8 @@ const handleUploadExampleByInput = (event: React.ChangeEvent<HTMLInputElement>) 
                     <RadioEl text="Creator's decision" />
                 </RadioContainer>
             </VStack>
+
+            <Alert />
         </VStack>
     )
 }

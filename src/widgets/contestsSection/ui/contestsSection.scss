@@ -22,7 +22,7 @@
         position: relative;
         gap: 24px;
         display: grid;
-         grid-template-columns: repeat(auto-fill, minmax(408px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(408px, 1fr));
         justify-content: start;
 
         > li{
@@ -119,5 +119,13 @@
             }
         }
         
+    }
+}
+
+@media (max-width: 500px) {
+    .contest-gallery{
+        &__list {
+                grid-template-columns: 1fr;
+        }
     }
 }

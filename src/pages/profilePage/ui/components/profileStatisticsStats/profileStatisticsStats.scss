@@ -28,15 +28,12 @@
                     display: flex;
                     align-items: center;
                     justify-content: flex-end;
-                    img{
-
-                    }
                 }
 
                 > .profileStatisticsStats_card_right{
                     display: flex;
                     flex-direction: column;
-                    width: 62px;
+                    max-width: 62px;
 
                     > span{
                         font-weight: 700;
@@ -52,19 +49,16 @@
                         text-align: center;
                         color: #94A3B8;
                     }
+                }
             }
-            }
-
         }
-
-
-
     }
 
     > .profileStatisticsStats_additional{
         display: flex;
         justify-content: space-around;
         margin-top: 40px;
+        gap: 5px;
 
         > .profileStatisticsStats_additional_column{
             display: flex;
@@ -86,6 +80,14 @@
                     line-height: 21px;
                 }
             }
+        }
+    }
+}
+
+@media (max-width: 1820px) {
+    .profileStatisticsStats{
+        > .profileStatisticsStats_grid{
+            grid-template-columns: 1fr;
         }
     }
 }

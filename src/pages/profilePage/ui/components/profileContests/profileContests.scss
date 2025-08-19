@@ -140,3 +140,9 @@
         justify-content: space-around;
     }
 }
+
+@media (max-width: 650px) {
+    .profileContests{
+        padding: 8px;
+    }
+}

@@ -80,3 +80,23 @@
         justify-content: space-around;
     }
 }
+
+@media (max-width: 1350px) {
+    .profileWallet{
+        max-width: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .profileWallet{
+        padding: 8px;
+        
+        > .profileWallet_balanceList{
+            flex-direction: column;
+        }
+
+        > .profileWallet_transactions{
+            padding: 8px;
+        }
+    }
+}

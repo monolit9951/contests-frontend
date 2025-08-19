@@ -4,6 +4,8 @@
     padding: 24px;
     border-radius: 24px;
     display: flex;
+    box-sizing: border-box;
+    gap: 24px;
     align-items: center;
     justify-content: space-between;
 
@@ -60,8 +62,16 @@
                 line-height: 24px;
                 letter-spacing: -1.1%;
                 color: #DDDDDD;
-            }
-            
+            }           
         }
+    }
+}
+
+@media (max-width: 1820px) {
+    .profileDiagram{
+        // display: flex;
+        // padding: 24px;
+        justify-content: space-around;
+        flex-direction: column;
     }
 }

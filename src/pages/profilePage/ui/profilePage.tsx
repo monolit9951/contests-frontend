@@ -22,23 +22,26 @@ const ProfilePage: FC = () => {
 
     return (
         <div className="profilePage">
-            <div className="profilePage_heading">
-                <h2>Personal Dashboard</h2>
-                <div className="profilePage_heading_addiional">Manage your profile, wallet and contents</div>
-            </div>
 
-            <div className="profilePage_Container">
-
-                <div className="profilePage_leftContainer">
-                    <PersonInformation userId = {id ?? user.userId}/>
-                    {!id && <ProfileWallet userId = {user.userId}/>}
+            <div className="profilePage_inner">
+                <div className="profilePage_heading">
+                    <h2>Personal Dashboard</h2>
+                    <div className="profilePage_heading_addiional">Manage your profile, wallet and contents</div>
                 </div>
 
-                <div className="profilePage_rightContainer">
-                    <ProfileContests userId = {id ?? user.userId}/>
-                    <ProfileStatistics />
+                <div className="profilePage_container">
+
+                    <div className="profilePage_leftContainer">
+                        <PersonInformation userId = {id ?? user.userId}/>
+                        {!id && <ProfileWallet userId = {user.userId}/>}
+                    </div>
+
+                    <div className="profilePage_rightContainer">
+                        <ProfileContests userId = {id ?? user.userId}/>
+                        <ProfileStatistics />
+                    </div>
+                    
                 </div>
-                
             </div>
         </div>
     )

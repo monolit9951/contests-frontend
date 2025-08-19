@@ -9,7 +9,11 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
 
-    
+    > .works-section__content{
+        display: flex;
+        justify-content: center;
+    }
+
     &__error-message {
         position: absolute;
         top: 50%;
