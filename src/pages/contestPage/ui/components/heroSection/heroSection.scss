@@ -107,9 +107,6 @@
     }
 }
 
-
-
-
 .dark {
     .contest-hero {
         &__creator {
@@ -124,6 +121,64 @@
         &__creator {
             > img {
                 border-color: var(--white-medium-light);
+            }
+        }
+    }
+}
+
+@media (max-width: 1920px) {
+    .contestHero{
+        > .contestHero_container {
+            // padding: 0 65px 56px;
+            padding: 0 65px;
+
+            > a{
+                > .contestHero_creator{
+                    left: 65px;
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 1060px) {
+    .contestHero{
+        
+        > .contestHero_container {
+            // padding: 0 65px 56px;
+            padding: 0 16px;
+
+            > a{
+                > .contestHero_creator{
+                    left: 16px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .contestHero{
+        > .contestHero_image{
+            height: 85px;
+        }
+
+        > .contestHero_container {
+            // padding: 0 65px 56px;
+            padding: 0 16px;
+
+            > a{
+                > .contestHero_creator{
+                    display: flex;
+                    position: relative;
+                    justify-content: space-around;
+                    > img{
+                        height: 60px;
+                        width: 60px;
+                        flex-shrink: 0;
+                    }
+                }
             }
         }
     }

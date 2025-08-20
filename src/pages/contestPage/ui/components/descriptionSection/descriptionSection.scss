@@ -239,3 +239,24 @@
         }
     }
 }
+
+@media (max-width: 650px) {
+    .contest-description{
+        gap: 20px;
+
+        > div{
+            flex-direction: column;
+            gap: 16px;
+
+            > .participate-btn{
+                width: 100% !important;
+            }
+        }
+
+        > .contest-info{
+            > .contest-info__right-block{
+                gap: 20px;
+            }
+        }
+    }
+}
