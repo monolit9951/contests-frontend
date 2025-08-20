@@ -70,10 +70,9 @@ export const AppRouter = () => {
     }
 
     const token = localStorage.getItem('userToken')
-    const rememberMe = localStorage.getItem('rememberMe')
     
     const checkUserAsync = async () => {
-      if (token && rememberMe) {
+      if (token) {
         try {
           const userResponse = await userByToken(token)
 
