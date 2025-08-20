@@ -104,9 +104,9 @@ const ContestPage = () => {
           // handleOpenWorkUploadModal={handleOpenWorkUploadModal}
         />
 
-        {data.winners.length > 0 && <WinnersSection />}
+        {/* {data.winners && data.winners.length > 0 && <WinnersSection winners = {data.winners.slice(0, 3)}/>} */}
 
-        {/* <WorksListSection worksAmount={data.participantAmount}/> */}
+        <WorksListSection worksAmount={data.participantAmount}/>
         <CommentsSection workId={id} contest />
       </VStack>
 

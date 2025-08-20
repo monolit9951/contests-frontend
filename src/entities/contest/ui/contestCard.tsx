@@ -33,7 +33,9 @@ const ContestCard: React.FC<Props> = (props) => {
 
     const tagType = rest.contestType
 
+
     const { currency, prizeAmount, prizeText, prizeType } = prizesPreviews[0]
+    console.log(currency, prizeAmount, prizeText, prizeType )
 
     const getBgColor = () => {
         if (tagType === 'DARE') {
@@ -101,7 +103,7 @@ const ContestCard: React.FC<Props> = (props) => {
                         <PrizeIcon />
                         <Text Tag='span'>
                             {prizeType === 'COINS'
-                                ? `${prizeText} ${currency}`
+                                ? `${prizeAmount} Coins`
                                 : `${prizeAmount} ${currency}`}
                         </Text>
                     </div>

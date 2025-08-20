@@ -8,17 +8,23 @@ import { Text } from 'shared/ui/text'
 import { ContestWinnersTable } from 'widgets/winnersTable'
 
 import './winnersSection.scss'
+import { TopWinners } from 'entities/contest'
+import { WorkCard } from 'entities/work'
 
 interface Props {
     className?: string
+    winners: TopWinners[]
 }
 
-const WinnersSection: FC<Props> = (props) => {
-    const { className } = props
+const WinnersSection: FC<Props> = (props, ) => {
+    const { className, winners } = props
 
     // const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
     // const otherPrizes = data.length < prizes.reduce((acc, item) => acc + item.winnersAmount, 0)
+
+    console.log(winners.slice(0, 3))
+
 
     return (
         <section className={clsx('winners', className)}>
@@ -26,21 +32,18 @@ const WinnersSection: FC<Props> = (props) => {
                 Winners
             </Text>
 
-            {/* <ul className='winners__list'>
-                {data.map((work, idx) => (
+            <ul className='winners__list'>
+                {winners.map((work, index: number) => (
                     <WorkCard
-                        key={work.workId}
-                        data={work}
-                        prizeId={work.prizeId}
-                        openModal={openModal}
-                        className={clsx(idx === 0 && 'first-place')}
+                        key={index}
+                        // data={work}
+                        workId={work.workId}
+                        // prizeId={work.prizeId}
+                        // openModal={openModal}
+                        // className={clsx(idx === 0 && 'first-place')}
                     />
                 ))}
-            </ul> */}
-
-            {/* {data.map((item, index) => (
-                <div key={index}>{item.workId}</div>
-            ))} */}
+            </ul>
 
                 <VStack className='winners__other'>
                     {/* <Text

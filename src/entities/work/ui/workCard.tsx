@@ -24,6 +24,7 @@ import './workCard.scss'
 
 interface Props {
     data: Work
+    workId?: string
     // prizeId?: string
     className?: string,
     type?: "MODAL" | "LINK"
@@ -34,7 +35,8 @@ const WorkCard: FC<Props> = (props) => {
     const { data, 
         // prizeId,
         className,
-        type = 'MODAL'
+        type = 'MODAL',
+        workId
         } = props
 
     // const prizes = useAppSelector(selectContestPrizes) as Prize[]
