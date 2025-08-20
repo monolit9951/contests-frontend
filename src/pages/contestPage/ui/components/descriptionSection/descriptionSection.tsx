@@ -174,7 +174,6 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                                     currency,
                                     prizeAmount,
                                     prizeType,
-                                    prizeText,
                                 } = item
 
                                 return (

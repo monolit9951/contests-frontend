@@ -15,7 +15,6 @@ import ModalReport from 'widgets/modalReport'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 import { getWorkById } from '../model/services/workServices'
-import { Work } from '../model/types'
 
 import MediaOverlay from './overlay/mediaOverlay'
 import WorkCardSkeleton from './workCardSkeleton'
@@ -23,8 +22,8 @@ import WorkCardSkeleton from './workCardSkeleton'
 import './workCard.scss'
 
 interface Props {
-    data: Work
-    workId?: string
+    // data: Work
+    workId: string
     // prizeId?: string
     className?: string,
     type?: "MODAL" | "LINK"
@@ -32,7 +31,7 @@ interface Props {
 
 
 const WorkCard: FC<Props> = (props) => {
-    const { data, 
+    const { 
         // prizeId,
         className,
         type = 'MODAL',
@@ -53,7 +52,7 @@ const WorkCard: FC<Props> = (props) => {
             setOpenModal(true)
         } else {
             sessionStorage.setItem("contestScroll", String(window.scrollY));
-            navigate(`work/${data.id}`, {preventScrollReset: true})
+            navigate(`work/${workId}`, {preventScrollReset: true})
         }
         
     }
@@ -67,12 +66,12 @@ const WorkCard: FC<Props> = (props) => {
     // при открытии модалки ворка ЧЕРЕЗ ССЫЛКУ 
     useEffect(() => {
         // console.log(location.state)
-        if(location.state !== null && location.state.refreshWork && location.state.workId === data.id){
+        if(location.state !== null && location.state.refreshWork && location.state.workId === workId){
             setWorkKey(workKey + 1)
         }
     }, [location.state])
 
-    const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(data.id), key: [workKey], enabled: true})
+    const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(workId), key: [workKey], enabled: true})
 
     
     // мемоизация видео, необходимо из-за особенности ререндера Plyr-видео

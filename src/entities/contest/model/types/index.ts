@@ -29,10 +29,11 @@ export interface TopWinners {
 }
 
 export interface ContestWinners {
-    contestId: string,
-    userId: string,
+    contestId: string | null,
+    userId: string | null,
     workId: string,
-    prizeid: string
+    prizeid: string,
+    confirmed: boolean
 }
 
 export interface Contest {
