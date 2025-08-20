@@ -201,7 +201,7 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                                                         bold
                                                         className='prize-text'>
                                                         {prizeType === 'COINS'
-                                                            ? `${prizeText} Coins`
+                                                            ? `${prizeAmount} Coins`
                                                             : `${prizeAmount.toFixed(
                                                                   0
                                                               )} 
