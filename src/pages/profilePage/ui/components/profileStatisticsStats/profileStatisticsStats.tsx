@@ -6,7 +6,15 @@ import peopleStat from 'shared/assets/icons/statPeople.svg'
 
 import './profileStatisticsStats.scss'
 
-const ProfileStatisticsStats: FC = () => {
+interface Props {
+    statistics: any
+}
+
+
+const ProfileStatisticsStats: FC<Props> = ({statistics}) => {
+
+    console.log(statistics)
+    
     return(
         <div className="profileStatisticsStats">
             <div className="profileStatisticsStats_grid">
@@ -18,7 +26,7 @@ const ProfileStatisticsStats: FC = () => {
                         </div>
 
                         <div className="profileStatisticsStats_card_right">
-                            <span>911</span>
+                            <span>{statistics.contestsCreated}</span>
                             <span>Created</span>
                         </div>
                     </div>
@@ -32,7 +40,7 @@ const ProfileStatisticsStats: FC = () => {
                         </div>
 
                         <div className="profileStatisticsStats_card_right">
-                            <span>228</span>
+                            <span>{statistics.commentsTotal}</span>
                             <span>Comments</span>
                         </div>
                         
@@ -46,7 +54,7 @@ const ProfileStatisticsStats: FC = () => {
                         </div>
 
                         <div className="profileStatisticsStats_card_right">
-                            <span>69</span>
+                            <span>{statistics.mediaTotal}</span>
                             <span>Media</span>
                         </div>
                     </div>
@@ -59,7 +67,7 @@ const ProfileStatisticsStats: FC = () => {
                         </div>
 
                         <div className="profileStatisticsStats_card_right">
-                            <span>1488</span>
+                            <span>{statistics.totalLikesGiven}</span>
                             <span>Reactions</span>
                         </div>
                     </div>
