@@ -77,15 +77,15 @@ const ProfileStatisticsStats: FC<Props> = ({statistics}) => {
 
             <div className="profileStatisticsStats_additional">
                 <ul className="profileStatisticsStats_additional_column">
-                    <li>Total Likes <span>222</span></li>
-                    <li>Total Dislikes <span>222</span></li>
-                    <li>Work Likes <span>222</span></li>
+                    <li>Total Likes <span>{statistics.totalLikesReceived}</span></li>
+                    <li>Total Dislikes <span>{statistics.totalDislikesReceived}</span></li>
+                    <li>Work Likes <span>{statistics.workLikesReceived}</span></li>
                 </ul>
 
                 <ul className="profileStatisticsStats_additional_column">
-                    <li>Total Likes <span>222</span></li>
-                    <li>Total Dislikes <span>222</span></li>
-                    <li>Work Likes <span>222</span></li>
+                    <li>Total Likes <span>{statistics.totalLikesReceived}</span></li>
+                    <li>Total Dislikes <span>{statistics.totalDislikesReceived}</span></li>
+                    <li>Work Likes <span>{statistics.workLikesReceived}</span></li>
                 </ul>
             </div>
         </div>
