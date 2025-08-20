@@ -72,8 +72,6 @@ export const AppRouter = () => {
       localStorage.setItem('userToken', googleToken)
     }
 
-    console.log(googleToken, searchParams)
-
     const token = localStorage.getItem('userToken')
     // const rememberMe = localStorage.getItem('rememberMe')
     

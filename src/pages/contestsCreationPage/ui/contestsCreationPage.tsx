@@ -4,6 +4,7 @@ import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
 
 import './contestsCreationPage.scss'
+import { CreateContestForm } from 'features/createContest'
 
 export const ContestsCreationPage = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -15,7 +16,7 @@ export const ContestsCreationPage = () => {
             <VStack className='contestsCreationPage_container'>
                 <Text Tag='h2'>Contest creation</Text>
 
-                {/* <CreateContestForm /> */}
+                <CreateContestForm />
             </VStack>
         </>
     )
