@@ -34,8 +34,7 @@ const ContestCard: React.FC<Props> = (props) => {
     const tagType = rest.contestType
 
 
-    const { currency, prizeAmount, prizeText, prizeType } = prizesPreviews[0]
-    console.log(currency, prizeAmount, prizeText, prizeType )
+    const { currency, prizeAmount, prizeType } = prizesPreviews[0]
 
     const getBgColor = () => {
         if (tagType === 'DARE') {

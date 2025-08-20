@@ -1,5 +1,7 @@
 import { FC } from 'react'
 import clsx from 'clsx'
+import { ContestWinners } from 'entities/contest/model/types'
+import { WorkCard } from 'entities/work'
 // import { Prize } from 'entities/prize'
 // import { selectContestPrizes } from 'pages/contestPage/model/selectors'
 // import { useAppSelector } from 'shared/lib/store'
@@ -8,22 +10,22 @@ import { Text } from 'shared/ui/text'
 import { ContestWinnersTable } from 'widgets/winnersTable'
 
 import './winnersSection.scss'
-import { TopWinners } from 'entities/contest'
-import { WorkCard } from 'entities/work'
 
 interface Props {
     className?: string
-    winners: TopWinners[]
+    winners: ContestWinners[]
 }
 
 const WinnersSection: FC<Props> = (props, ) => {
     const { className, winners } = props
 
+    console.log(winners)
+
     // const prizes = useAppSelector(selectContestPrizes) as Prize[]
 
     // const otherPrizes = data.length < prizes.reduce((acc, item) => acc + item.winnersAmount, 0)
 
-    console.log(winners.slice(0, 3))
+    // console.log(winners.slice(0, 3))
 
 
     return (

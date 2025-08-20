@@ -124,7 +124,7 @@ export const WorksList: FC<Props> = (props) => {
                     )
                 }
                 return newMediaWorks?.map((item, index: number) => (
-                    <WorkCard key={index} data={item} type='LINK'/>
+                    <WorkCard key={index} workId={item.id} type='LINK'/>
                 ))
             }
 
@@ -138,7 +138,7 @@ export const WorksList: FC<Props> = (props) => {
                 )
             }
             return popularMediaWorks?.map((item) => (
-                <WorkCard key={item.id} data={item} type='LINK'/>
+                <WorkCard key={item.id} workId={item.id} type='LINK'/>
             ))
         }
 
@@ -153,7 +153,7 @@ export const WorksList: FC<Props> = (props) => {
                   newTextWorks?.map((item) => (
                       <WorkCard
                           key={item.id}
-                          data={item}
+                          workId={item.id}
                       />
                   ))
             : (!popularTextWorks.length && (
@@ -166,7 +166,7 @@ export const WorksList: FC<Props> = (props) => {
                   popularTextWorks?.map((item) => (
                       <WorkCard
                           key={item.id}
-                          data={item}
+                          workId={item.id}
                           type='LINK'
                       />
                   ))
