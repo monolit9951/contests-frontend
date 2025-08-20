@@ -10,7 +10,7 @@ import { ContestsSection } from 'widgets/contestsSection'
 import { HeroSection } from 'widgets/heroSection/ui/heroSection'
 
 import { selectSearchString } from '../model/selectors'
-import { fetchContests, fetchPopularContests } from '../model/services'
+import { fetchContests } from '../model/services'
 
 import './contestsPage.scss'
 
@@ -26,9 +26,9 @@ export const ContestsPage = () => {
         dispatch(fetchContests())
     }, [dispatch, activeFilters, category, sortDirection, searchString])
 
-    useEffect(() => {
-        dispatch(fetchPopularContests())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(fetchPopularContests())
+    // }, [dispatch])
 
     return (
         <div className='contestsPage_container'>

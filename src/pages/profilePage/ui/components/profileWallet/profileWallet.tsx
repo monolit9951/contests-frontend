@@ -91,19 +91,20 @@ const ProfileWallet: FC<Props> = ({ userId }) => {
                 )}
             </div>
 
-            <div className="profileWallet_transactions">
-                <div
-                className="profileWallet_transactions_container"
-                onScroll={handleScroll}>
-                    
-                {transactionsLoaded &&
-                pagedTransactions.map((item: Transaction, index: number) => (
-                    <WalletTrasaction data={item} key={item.id ?? index} />
-                ))}
+            {transactionsLoaded && pagedTransactions.length > 0 && <div className="profileWallet_transactions">
+                    <div
+                    className="profileWallet_transactions_container"
+                    onScroll={handleScroll}>
+                        
+                        {transactionsLoaded &&
+                        pagedTransactions.map((item: Transaction, index: number) => (
+                            <WalletTrasaction data={item} key={item.id ?? index} />
+                        ))}
 
-                {isLoadingMore && <Spinner center />}
+                        {isLoadingMore && <Spinner center />}
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     );
 };

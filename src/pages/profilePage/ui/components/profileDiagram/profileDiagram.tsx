@@ -3,7 +3,14 @@ import { PieChart } from "react-minimal-pie-chart";
 
 import './profileDiagram.scss'
 
-const ProfileDiagram: FC = () => {
+interface Props {
+    statistics: any
+}
+
+const ProfileDiagram: FC<Props> = ({statistics}) => {
+
+    console.log(statistics)
+    
     return(
         <div className="profileDiagram">
             

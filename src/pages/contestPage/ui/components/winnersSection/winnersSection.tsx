@@ -19,7 +19,6 @@ interface Props {
 const WinnersSection: FC<Props> = (props, ) => {
     const { className, winners } = props
 
-    console.log(winners)
 
     // const prizes = useAppSelector(selectContestPrizes) as Prize[]
 

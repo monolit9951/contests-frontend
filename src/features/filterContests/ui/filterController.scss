@@ -13,6 +13,43 @@
     right: calc(10% / 3);
     z-index: 50;
 
+    max-height: 100vh;
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+    scrollbar-color: #393B3B transparent;
+
+    // скроллбар
+    &::-webkit-scrollbar {
+        width: 8px;
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #393B3B;
+        border-radius: 4px;
+
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+
+        box-sizing: border-box;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+    }
+    > .profileContests_contestsList_empty{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        opacity: 0.5;
+        font-size: 24px;
+    }
+
     &.filter-hidden {
         visibility: hidden;
         pointer-events: none;

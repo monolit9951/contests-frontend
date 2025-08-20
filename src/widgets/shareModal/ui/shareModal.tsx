@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 
 import './shareModal.scss'
 
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const ShareModal: FC<Props> = ({text, url}) => {
+
+    const {showAlert, Alert} = useAlert()
 
     const copyLink = async () => {
         await navigator.clipboard.writeText(url);
@@ -21,11 +24,11 @@ const ShareModal: FC<Props> = ({text, url}) => {
                 await navigator.share({text, url })
             } catch (err) {
                 // ALERT
-                console.log("Share error", err)
+                showAlert("SHARE ERROR", 'Cannot share')
             }
         } else {
             // ALERT
-            console.log("Web Share API CANT WORK")
+           showAlert("ERRPR", "Web Share API CANT WORK")
         }
     }
 
@@ -66,6 +69,8 @@ const ShareModal: FC<Props> = ({text, url}) => {
                     </div>
                 </li>
             </ul>
+
+            <Alert />
         </div>
     )
 }

@@ -1,21 +1,35 @@
 import { FC } from "react";
+import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import Spinner from "shared/ui/spinner";
 
+import { fetchUserStatistic } from "../../model/sevices/statisticServices";
 import ProfileDiagram from "../profileDiagram/profileDiagram";
 import ProfileStatisticsStats from "../profileStatisticsStats/profileStatisticsStats";
 
 import './profileStatistics.scss'
 
-const ProfileStatistics: FC = () => {
-    return(
+interface Props {
+    userId: string
+}
+
+const ProfileStatistics: FC<Props> = ({userId}) => {
+    
+    const {data: statistics, isLoaded: statisticsLoaded} = useGetRequest({fetchFunc: () => fetchUserStatistic(userId), enabled: true, key: []})
+    
+    return(        
+
         <div className="profileStatistics">
+            
             <div className="profileStatistics_heading">Activity Overview</div>
 
 
-            <div className="profileStatistics_container">
-                <ProfileDiagram />
+            {statisticsLoaded? <div className="profileStatistics_container">
+                <ProfileDiagram statistics={statistics}/>
 
-                <ProfileStatisticsStats />
-            </div>
+                <ProfileStatisticsStats statistics={statistics}/>
+            </div> 
+            :
+            <Spinner center />}
         </div>
     )
 }

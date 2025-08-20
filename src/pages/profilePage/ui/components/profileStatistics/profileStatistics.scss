@@ -1,5 +1,6 @@
 
 .profileStatistics{
+    position: relative;
     background-color: transparent;
     padding: 32px 32px 32px 32px; 
     box-sizing: border-box;
@@ -35,6 +36,6 @@
 
 @media (max-width: 650px) {
     .profileStatistics{
-        padding: 8px;
+        padding: 16px;
     }
 }

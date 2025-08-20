@@ -53,9 +53,9 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
         }
     }
 
-    const handleLoadMore = () => {
-        console.log('loadMore')
-    }
+    // const handleLoadMore = () => {
+    //     console.log('loadMore')
+    // }
     
     return(
         <div className="ownerDecosonPanel">
@@ -73,7 +73,7 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
                 </div>
 
                 <div className="chooseWinnerPage_paginationBtn">
-                    <Button variant="primary" onClick={handleLoadMore} type="button">Load more</Button>
+                    <Button variant="primary" type="button">Load more</Button>
                 </div>
         </div>
     )

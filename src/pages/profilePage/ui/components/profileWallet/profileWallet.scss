@@ -89,14 +89,14 @@
 
 @media (max-width: 600px) {
     .profileWallet{
-        padding: 8px;
+        padding: 16px;
         
         > .profileWallet_balanceList{
             flex-direction: column;
         }
 
         > .profileWallet_transactions{
-            padding: 8px;
+            padding: 16px;
         }
     }
 }
