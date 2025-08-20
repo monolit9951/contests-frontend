@@ -17,6 +17,9 @@ const dataUSD = [10, -20, 10, 2, 0, 2, 4, 6, 1];
 
 
 const WalletBalance: FC<Props> = ({type, value}) => {
+
+    console.log(value === 0)
+
     return(
         <div className="walletBalance">
             <div className="walletBalance_header">
@@ -31,9 +34,9 @@ const WalletBalance: FC<Props> = ({type, value}) => {
 
             <div className="walletBalance_balance">{value}</div>
 
-            <div className="walletBalance_graph">
+            {value !== 0 && <div className="walletBalance_graph">
                 <SparklineChart data={type === 'COINS'? dataCoins : dataUSD}/>
-            </div>
+            </div>}
 
             <div className="walletBalance_button">
                 <Button type="button" variant="primary">Deposit</Button>
