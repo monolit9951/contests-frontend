@@ -12,11 +12,14 @@ const useAxios = <T>(
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<Error | null>(null)
 
+    const token = localStorage.getItem('userToken')
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response: AxiosResponse<T> = await instance.get<T>(
-                    `${path}`
+                    `${path}`, {headers}
                 )
 
                 setData(response.data)
