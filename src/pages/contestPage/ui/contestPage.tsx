@@ -103,10 +103,10 @@ const ContestPage = () => {
           data={data}
         />
 
-        {/* {data.winners.length > 0 && <WinnersSection />} */}
+        {data.winners.length > 0 && <WinnersSection />}
 
         {/* <WorksListSection worksAmount={data.participantAmount}/> */}
-        {/* <CommentsSection workId={id} contest /> */}
+        <CommentsSection workId={id} contest />
       </VStack>
 
       <Outlet />
