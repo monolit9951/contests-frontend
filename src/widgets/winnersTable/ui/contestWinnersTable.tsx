@@ -81,7 +81,7 @@ export const ContestWinnersTable: FC = () => {
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
             cellRenderer: PrizeRenderer,
-            minWidth: 200,
+            minWidth: 100,
             maxWidth: 500,
             unSortIcon: true,
         },
@@ -185,7 +185,7 @@ export const ContestWinnersTable: FC = () => {
     return (
         <div
             className={clsx(theme, 'ag-theme-alpine')}
-            style={{ width: '1415px' }}>
+            style={{ width: '100%', maxWidth: '100%' }}>
             <AgGridReact
                 rowData={rowData}
                 columnDefs={columnDefs.map((col) => ({

@@ -106,9 +106,7 @@ const ContestPage = () => {
 
         {data.winners.length > 0 && <WinnersSection />}
 
-        <WorksListSection
-          worksAmount={data.participantAmount}
-        />
+        {/* <WorksListSection worksAmount={data.participantAmount}/> */}
         <CommentsSection workId={id} contest />
       </VStack>
 

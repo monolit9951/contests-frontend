@@ -20,6 +20,11 @@ interface Props {
 }
 
 const ContestHeroSection = ({ bg, owner, contestId }: Props) => {
+
+
+    // КОНТЕСТ ХИРО КОНТЕЙНЕР ПОМЕНЯТЬ ПОЛНОСТЬЮ, БЕЗ ПОЗИШН АБСОЛЮТ
+
+
     const contestHeroIMG =
         'http://localhost:3000/src/shared/assets/img/contest@2x.jpg'
 
@@ -57,12 +62,9 @@ const ContestHeroSection = ({ bg, owner, contestId }: Props) => {
 
                         <div className='contestHero_creator_name'>
                             {owner?.name ? (
-                                <>
                                     <Text Tag='span' bold size='l'>
                                         {owner?.name}
                                     </Text>
-                                    {/* {owner.verificationStatus && <Verified />} */}
-                                </>
                             ) : (
                                 <Text Tag='span' bold size='l'>
                                     No name
