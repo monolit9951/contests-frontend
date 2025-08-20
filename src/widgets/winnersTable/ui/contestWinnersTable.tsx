@@ -81,7 +81,7 @@ export const ContestWinnersTable: FC = () => {
             headerClass: 'custom-header',
             cellClass: 'custom-cell',
             cellRenderer: PrizeRenderer,
-            minWidth: 200,
+            minWidth: 100,
             maxWidth: 500,
             unSortIcon: true,
         },
