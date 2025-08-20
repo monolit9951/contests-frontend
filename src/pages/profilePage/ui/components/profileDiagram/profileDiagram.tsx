@@ -8,6 +8,9 @@ interface Props {
 }
 
 const ProfileDiagram: FC<Props> = ({statistics}) => {
+
+    console.log(statistics)
+    
     return(
         <div className="profileDiagram">
             

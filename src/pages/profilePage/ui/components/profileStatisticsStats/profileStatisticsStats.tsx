@@ -13,8 +13,6 @@ interface Props {
 
 const ProfileStatisticsStats: FC<Props> = ({statistics}) => {
 
-    console.log(statistics)
-    
     return(
         <div className="profileStatisticsStats">
             <div className="profileStatisticsStats_grid">

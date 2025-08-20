@@ -1,12 +1,12 @@
 import { FC } from "react";
+import { useGetRequest } from "shared/lib/hooks/useGetRequest";
+import Spinner from "shared/ui/spinner";
 
+import { fetchUserStatistic } from "../../model/sevices/statisticServices";
 import ProfileDiagram from "../profileDiagram/profileDiagram";
 import ProfileStatisticsStats from "../profileStatisticsStats/profileStatisticsStats";
 
 import './profileStatistics.scss'
-import { useGetRequest } from "shared/lib/hooks/useGetRequest";
-import { fetchUserStatistic } from "../../model/sevices/statisticServices";
-import Spinner from "shared/ui/spinner";
 
 interface Props {
     userId: string

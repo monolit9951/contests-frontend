@@ -18,8 +18,6 @@ const dataUSD = [10, -20, 10, 2, 0, 2, 4, 6, 1];
 
 const WalletBalance: FC<Props> = ({type, value}) => {
 
-    console.log(value === 0)
-
     return(
         <div className="walletBalance">
             <div className="walletBalance_header">
