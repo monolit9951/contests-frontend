@@ -7,7 +7,7 @@ export const Logo = () => {
     return (
         <Link to='/' className='logo-link'>
             <Text Tag='h2' size='xl'>
-                Logotype
+                DareBay
             </Text>
         </Link>
     )
