@@ -70,7 +70,6 @@ const ProfileWallet: FC<Props> = ({ userId }) => {
         }
     };
 
-
     return (
         <div className="profileWallet">
             <div className="profileWallet_header">

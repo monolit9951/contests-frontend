@@ -16,8 +16,13 @@ export const fetchWalletBalance = async ( userId: string): Promise<WalletBalance
 
     const token = localStorage.getItem('userToken')
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+    console.log(userId)
+
     try {
         const response = await instance.get(`users/balance/${userId}`, {headers})
+        console.log(headers)
+        console.log(response)
 
         if (!response.data) {
             throw new Error("No data received")
