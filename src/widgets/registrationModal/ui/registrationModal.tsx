@@ -131,11 +131,11 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
         }
     }
 
-    // ENV
+
 
     // гугл регистрация или лог ин
     const handleRegistrationWithGoogle = () => {
-        window.open('https://darebay.com/oauth2/authorization/google', '_self');
+        window.open('http://localhost:8080/oauth2/authorization/google', '_self');
     }
 
     // обработчик инпута никнейм

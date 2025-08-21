@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { filterActions } from 'features/filterContests'
 import { contestsPageActions } from 'pages/contestsPage'
@@ -11,19 +11,11 @@ import {RegistrationModal} from 'widgets/registrationModal'
 import { UserPanel } from 'widgets/userPanel'
 
 import './header.scss'
-import { useLocation } from 'react-router-dom'
 
 export const Header = () => {
     const [inputData, setInputData] = useState('')
 
     const dispatch = useAppDispatch()
-
-
-    const location = useLocation()
-
-    useEffect(() => {
-        console.log(location)
-    }, [location])
 
     const onSearchSubmit = () => {
         if (inputData.trim()) {

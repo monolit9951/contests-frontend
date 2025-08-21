@@ -45,13 +45,18 @@
     }
 }
 
+// @media (max-width: 1920px) {
+//     .header{
+//         padding: 12px 24px;
+//     }
+// }
+
+
 @media (max-width: 1060px) {
     .header{
-
         padding: 12px 16px 12px 16px;
         display: flex;
         gap: 16px;
-
 
         > .header_logoGroup{
             gap: 20px;
@@ -70,9 +75,11 @@
     }
 }
 
+
+
 @media (max-width: 650px) {
     .header{
-        padding: 12px 10px 12px 10px;
+        padding: 12px 8px 12px 8px;
         
         > .header_logoGroup{
             gap: 10px;

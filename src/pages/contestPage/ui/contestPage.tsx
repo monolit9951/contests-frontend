@@ -101,7 +101,6 @@ const ContestPage = () => {
       <VStack className="contest__container">
         <DescriptionSection
           data={data}
-          // handleOpenWorkUploadModal={handleOpenWorkUploadModal}
         />
 
         {data.winners && data.winners.length > 0 && <WinnersSection winners = {data.winners.slice(0, 3)}/>}

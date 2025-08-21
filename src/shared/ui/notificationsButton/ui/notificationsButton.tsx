@@ -30,7 +30,7 @@ export const NotificationsButton = () => {
     const token = localStorage.getItem('userToken')
 
     // ENV
-    const SOCKET_URL = `https://darebay.com/ws-sockjs?token=${token}`;
+    const SOCKET_URL = `http://localhost:8080/ws-sockjs?token=${token}`;
     
     // дропдаун лист для уведомлений
     const [dropList, setDropList] = useState<boolean>(false)

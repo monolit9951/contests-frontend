@@ -1,11 +1,9 @@
 import axios from 'axios'
 
-// ENV
-// const baseUrl = 'http://localhost:8080/api'
-const realUrl = 'https://darebay.com/api'
+const baseUrl = 'http://localhost:8080/api'
 
 const instance = axios.create({
-    baseURL: realUrl,
+    baseURL: baseUrl,
     headers: {
         'Content-Type': 'application/json',
     },
