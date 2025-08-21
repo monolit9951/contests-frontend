@@ -59,6 +59,12 @@
             max-width: 242px;
             max-height: 210px;
             pointer-events: none;
+
+            > img{
+                object-fit: contain;
+                max-width: 242px;
+                max-height: 210px;
+            }
         }
     }
 
