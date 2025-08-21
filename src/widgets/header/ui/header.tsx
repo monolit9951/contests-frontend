@@ -75,15 +75,8 @@ export const Header = () => {
             />
             {/* <button onClick={handleRegistration} type='button'>registration</button> */}
 
-            {user.userId? <UserPanel /> : <Button type='button' onClick={handleRegistration} className='header_registration' variant='primary'>Log in/ Sign in</Button>}
+            {user.userId? <UserPanel /> : <Button type='button' onClick={handleRegistration} className='header_registration' variant='primary'>Log in<span>/ Sign in</span></Button>}
 
-            {/* <div className={clsx('header_sideNavBar', { open: sidebar })}>
-                <nav>
-                    {mockNavData.map((navItem, index) => (
-                        <NavElement key={index} {...navItem} />
-                    ))}
-                </nav>
-            </div> */}
 
             {registrationModal && <ModalWindow 
                 isOuterClose 

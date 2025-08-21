@@ -16,6 +16,7 @@ export const fetchWalletBalance = async ( userId: string): Promise<WalletBalance
 
     const token = localStorage.getItem('userToken')
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
     try {
         const response = await instance.get(`users/balance/${userId}`, {headers})
 

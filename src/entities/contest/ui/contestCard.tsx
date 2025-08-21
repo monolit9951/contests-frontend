@@ -47,7 +47,7 @@ const ContestCard: React.FC<Props> = (props) => {
     }
 
     const onDetailsClick = () => {
-        navigate(`./${rest.id}`)
+        navigate(`contests/${rest.id}`)
     }
 
     // const contestStatus = () => {

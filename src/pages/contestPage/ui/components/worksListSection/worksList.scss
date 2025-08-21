@@ -1,29 +1,19 @@
-.winners {
+.worksList{
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    align-items: center;
+    gap: 20px;
 
-    &__title {
-        line-height: 28px;
-    }
-
-    &__list {
+    > ul{
+        width: 100%;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-        gap: 16px;
-    }
-
-    &__other {
-        gap: 24px;
-    }
-
-    &__other-title {
-        line-height: 24px;
+        gap: 20px;
     }
 }
 
 @media (max-width: 850px) {
-    .winners{
+    .worksList{
         > ul{
             grid-template-columns: 1fr;
         }

@@ -14,15 +14,15 @@ export const Footer = () => {
         <footer>
             <ul>
                 <li>
-                    <Link to ='/'>
-                        <FeedLink color={(location.pathname === '/feed' || location.pathname === '/') ? '#0BA486' : undefined}/>
-                        <span style={(location.pathname === '/feed' || location.pathname === '/') ? {color: '#0BA486'} : {}}>Feed</span>
+                    <Link to ='/feed'>
+                        <FeedLink color={(location.pathname === '/feed') ? '#0BA486' : undefined}/>
+                        <span style={(location.pathname === '/feed') ? {color: '#0BA486'} : {}}>Feed</span>
                     </Link>
                 </li>
                 <li>
-                    <Link to ='/contests'>
-                        <ContestsLink color={location.pathname === '/contests' ? '#0BA486' : undefined}/>
-                        <span style={location.pathname === '/contests'? {color: '#0BA486'} : {}}>Contests</span>
+                    <Link to ='/'>
+                        <ContestsLink color={location.pathname === '/contests'|| location.pathname === '/' ? '#0BA486' : undefined}/>
+                        <span style={location.pathname === '/contests' || location.pathname === '/'? {color: '#0BA486'} : {}}>Contests</span>
                     </Link>
                 </li>
                 <li>

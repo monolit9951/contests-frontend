@@ -9,16 +9,16 @@ import trophyF from '../../shared/assets/icons/trophyF.svg?react'
 
 export const mockNavData = [
     {
-        svgSrc: house,
-        svgFilledSrc: houseF,
-        text: 'Feed',
-        route: '/',
-    },
-    {
         svgSrc: trophy,
         svgFilledSrc: trophyF,
         text: 'Contests',
-        route: '/Contests',
+        route: '/',
+    },
+    {
+        svgSrc: house,
+        svgFilledSrc: houseF,
+        text: 'Feed',
+        route: '/feed',
     },
     // {
     //     svgSrc: sword,

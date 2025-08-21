@@ -115,10 +115,10 @@ export const AppRouter = () => {
 
 const routes = createRoutesFromElements(
   <Route path='/' element={<Layout />} handle={{ crumb: <Link to='/'>Home</Link> }}>
-    <Route index element={<FeedPage />} />
+    <Route index element={<ContestsPage />} />
 
+    <Route path='/feed' element={<FeedPage />} />
     <Route path='/battles' element={<BattlesPage />} />
-    <Route path='/contests' element={<ContestsPage />} />
     <Route path='/contests/:contestId' element={<ContestPage />} >
       <Route path='work/:workId' element={<ModalWorkPage />}/>
     </Route>

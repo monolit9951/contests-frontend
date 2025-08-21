@@ -18,7 +18,8 @@ export const Searchbar = (props: SearchbarProps) => {
 
     return (
         <div className='searchbar_container'>
-            <Icon Svg={magnifyingGlass} clickable onClick={onSubmit} />
+            <Icon Svg={magnifyingGlass} clickable onClick={onSubmit} className='searchbar_search'/>
+            
             <Input
                 name='search'
                 type='text'
