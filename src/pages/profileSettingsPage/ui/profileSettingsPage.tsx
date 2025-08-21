@@ -1,8 +1,22 @@
 import { FC } from 'react';
 
 import './profileSettingsPage.scss'
+import { Button } from 'shared/ui/button';
+import { useDispatch } from 'react-redux';
+import { clearUser } from 'widgets/registrationModal/model/slice/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileSettingsPage: FC = () => {
+
+  const disaptch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleLogout = () =>{
+    localStorage.removeItem("userToken")
+
+    disaptch(clearUser())
+    navigate('/')
+  }
 
   return (
     <div className='profileSettingsPage'>
@@ -14,7 +28,7 @@ const ProfileSettingsPage: FC = () => {
       <div className="profileSettingsPage_container">
         
         <div className="profileSettingsPage_avatar">
-          avatar
+          <Button variant='primary' type='button' onClick={handleLogout}>Logout</Button>
         </div>
 
       </div>

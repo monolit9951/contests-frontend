@@ -64,6 +64,11 @@
     flex-direction: column;
     overflow: hidden;
 
+    &.conestComments{
+        padding: 0px;
+    }
+
+
     > .text{
         padding-bottom: 16px;
     }
@@ -147,3 +152,4 @@
     display: flex;
     align-items: center;
 }
+

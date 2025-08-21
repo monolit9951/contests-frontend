@@ -111,7 +111,7 @@ const СommentsSection = ({ workId, work, contest }: Props) => {
     }
     
     return (
-        <section className='comments'>
+        <section className={`comments ${contest && 'conestComments'}`}>
             <Text
                 Tag='h2'
                 size={work ? 'l' : 'title'}
