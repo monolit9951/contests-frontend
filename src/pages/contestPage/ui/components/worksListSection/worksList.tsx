@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import clsx from 'clsx'
-import { Work, WorkCard, WorkCardSkeleton } from 'entities/work'
+import { Work, WorkCard } from 'entities/work'
 import {
     selectContestMedia,
     selectContestOwnerId,
@@ -14,8 +13,8 @@ import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 // import { ModalWindow } from 'shared/ui/modalWindow'
 import Spinner from 'shared/ui/spinner'
-import { VStack } from 'shared/ui/stack'
 import { Text } from 'shared/ui/text'
+
 // import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 import './worksList.scss'
 
