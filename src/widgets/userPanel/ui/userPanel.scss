@@ -32,7 +32,12 @@
 
 @media (max-width: 650px) {
     .userPanel_container {
+        gap: 16px;
         > .createBtn{
+            display: none;
+        }
+
+        > a{
             display: none;
         }
     }
