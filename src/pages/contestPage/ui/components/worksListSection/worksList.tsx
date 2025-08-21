@@ -89,7 +89,7 @@ export const WorksList: FC<Props> = (props) => {
                         </li>
                     )
                 }
-                return newMediaWorks.slice(0, 3)?.map((item, index: number) => (
+                return newMediaWorks?.map((item, index: number) => (
                     <WorkCard key={index} workId={item.id} type='LINK'/>
                 ))
             }

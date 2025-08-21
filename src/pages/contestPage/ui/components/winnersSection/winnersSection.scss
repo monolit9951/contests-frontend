@@ -21,3 +21,11 @@
         line-height: 24px;
     }
 }
+
+@media (max-width: 850px) {
+    .winners{
+        > ul{
+            grid-template-columns: 1fr;
+        }
+    }
+}
