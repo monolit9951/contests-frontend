@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react'
 import clsx from 'clsx'
 import {
     ContestCard,
-    ContestCardSkeleton,
     ContestPreview,
 } from 'entities/contest'
 import {
@@ -124,28 +123,28 @@ const ContestsSection: FC<Props> = (props) => {
     const onSeeAllClick = () => {}
 
     const renderPopular = () => {
-        if (popular.loading) {
-            return (
-                <>
-                    <li>
-                        <ContestCardSkeleton />
-                    </li>
-                    <li>
-                        <ContestCardSkeleton />
-                    </li>
-                    {windowWidth > 1440 && (
-                        <>
-                            <li>
-                                <ContestCardSkeleton />
-                            </li>
-                            <li>
-                                <ContestCardSkeleton />
-                            </li>
-                        </>
-                    )}
-                </>
-            )
-        }
+        // if (popular.loading) {
+        //     return (
+        //         <>
+        //             <li>
+        //                 <ContestCardSkeleton />
+        //             </li>
+        //             <li>
+        //                 <ContestCardSkeleton />
+        //             </li>
+        //             {windowWidth > 1440 && (
+        //                 <>
+        //                     <li>
+        //                         <ContestCardSkeleton />
+        //                     </li>
+        //                     <li>
+        //                         <ContestCardSkeleton />
+        //                     </li>
+        //                 </>
+        //             )}
+        //         </>
+        //     )
+        // }
         if (popularContests.length === 0) {
             return (
                 <li>
