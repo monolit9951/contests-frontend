@@ -21,9 +21,9 @@ export default defineConfig({
       widgets: '/src/widgets',
     },
   },
-  define: {
-    global: 'window',
-  },
+  // define: {
+  //   global: 'window',
+  // },
   server: {
     port: 3000,
   }
