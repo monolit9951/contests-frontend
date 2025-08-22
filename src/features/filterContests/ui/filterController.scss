@@ -1,10 +1,12 @@
 @use "sass:math";
 
 .filter-wrapper {
+    
     width: 551px;
     padding: 24px;
     border-radius: 16px;
 
+    
     gap: 24px;
 
     position: fixed;
@@ -13,7 +15,7 @@
     right: calc(10% / 3);
     z-index: 1000;
 
-    max-height: 100vh;
+    max-height: 100dvh;
     overflow-y: auto;
 
     scrollbar-width: thin;

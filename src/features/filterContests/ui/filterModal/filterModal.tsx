@@ -80,6 +80,7 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
 
         return (
             <VStack ref={ref} className={clsx('filter-wrapper', className)}>
+
                 <HStack className='filter-wrapper__title-block justify__between'>
                     <Text Tag='h3' size='l' bold>
                         Filters
