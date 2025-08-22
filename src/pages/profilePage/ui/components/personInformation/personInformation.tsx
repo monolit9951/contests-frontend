@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { Helmet } from "react-helmet";
 import { Link, useParams } from 'react-router-dom'
 import { User } from 'entities/user'
 import moment from 'moment'
@@ -23,6 +24,16 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
 
     return(
         <div className="personInformation">
+
+            <Helmet>
+                <title>DareBay | Profile | {!isLoading && data? data.name : 'Loading...'}</title>
+                <meta property="og:title" content={!isLoading && data? data.name : 'Profile page'} />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={window.location.href} />
+                <meta name="description"  content={!isLoading && data? data.name?.slice(0, 160) : 'Profile page'} />
+                <meta property="og:description" content={!isLoading && data? data.name?.slice(0, 160) : 'Profile page'} />
+            </Helmet>
+
             <div className="personInformation_header">
                 <div className="personInformation_header_heading">Personal Information</div>
 

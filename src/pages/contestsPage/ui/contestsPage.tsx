@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { Helmet } from "react-helmet";
 import {
     selectActiveFilters,
     selectCategory,
@@ -32,6 +33,16 @@ export const ContestsPage = () => {
 
     return (
         <div className='contestsPage_container'>
+
+            <Helmet>
+                <title>DareBay | All contests</title>
+                <meta property="og:title" content='All contests page' />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={window.location.href} />
+                <meta name="description"  content='DareBay all contests page' />
+                <meta property="og:description" content='DareBay all contests page' />
+            </Helmet>
+
             <HeroSection />
             <VStack className='contest-gallery__container'>
                 {/* <ContestsSection section='popular' /> */}

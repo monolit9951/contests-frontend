@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Helmet } from "react-helmet";
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Contest } from 'entities/contest';
 import useAxios from 'shared/lib/hooks/useAxios';
@@ -96,6 +97,16 @@ const ContestPage = () => {
   
   return (
     <VStack className="contest">
+
+      <Helmet>
+          <title>DareBay | {!isLoading? data.name : 'Loading...'}</title>
+          <meta property="og:title" content={!isLoading? data.name : 'Contest page'} />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={window.location.href} />
+          <meta name="description"  content={!isLoading? data.description?.slice(0, 160) : 'DareBay Contest'} />
+          <meta property="og:description" content={!isLoading? data.description?.slice(0, 160) : 'DareBay Contest'} />
+      </Helmet>
+
       <HeroSection bg={data.backgroundImage} owner={data.contestOwner} contestId = {data.id}/>
 
       <VStack className="contest__container">

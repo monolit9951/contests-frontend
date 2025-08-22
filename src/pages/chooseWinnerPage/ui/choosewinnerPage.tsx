@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Contest } from "entities/contest";
@@ -81,6 +82,15 @@ const ChooseWinnerPage: FC = () => {
     
     return(
         <>
+        <Helmet>
+            <title>DareBay | Choose winner</title>
+            <meta property="og:title" content='Choose winner page' />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={window.location.href} />
+            <meta name="description"  content='DareBay Contest winner selection' />
+            <meta property="og:description" content='DareBay Contest winner selection' />
+        </Helmet>
+        
             {contestAccessPending && <div>LOADER</div>}
 
             {!contestAccessPending && contestAccess && contest?.selectionType === 'CREATOR_DECISION' && <div className="chooseWinnerPage">

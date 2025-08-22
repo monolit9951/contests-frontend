@@ -7,7 +7,7 @@ export const HomePage = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        navigate('/feed')
+        navigate('/contests')
     }, [])
 
     return <div>Homepage</div>

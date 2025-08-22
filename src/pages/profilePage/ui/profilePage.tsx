@@ -23,6 +23,8 @@ const ProfilePage: FC = () => {
     return (
         <div className="profilePage">
 
+            {/* HELMET INSIDE PERSONAL INFORMATION */}
+
             <div className="profilePage_inner">
                 <div className="profilePage_heading">
                     <h2>Personal Dashboard</h2>
