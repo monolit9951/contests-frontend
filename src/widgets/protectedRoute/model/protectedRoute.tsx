@@ -24,7 +24,7 @@ const ProtectedRoute: FC<ProtectedRouteInterface> = ({ role, auth }) => {
   // Если требуется авторизация
   if (auth) {
     if (!user.userId) {
-      return <Navigate to="/feed?auth=false" replace />;
+      return <Navigate to="/?auth=false" replace />;
     }
     return <Outlet />;
   }

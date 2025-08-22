@@ -109,9 +109,7 @@ export const AppRouter = () => {
     checkUserAsync()
   }, [])
 
-  const handleModalRegClose = () => {
-    setUserAuth(false)
-  }
+
 
 const routes = createRoutesFromElements(
   <Route path='/' element={<Layout />} handle={{ crumb: <Link to='/'>Home</Link> }}>
@@ -138,12 +136,24 @@ const routes = createRoutesFromElements(
 
 const router = createBrowserRouter(routes)
 
+  const handleModalRegClose = () => {
+    setUserAuth(false)
+
+    const params = new URLSearchParams(window.location.search)
+    params.delete('auth')
+
+    router.navigate({
+      pathname: window.location.pathname,
+      search: params.toString() ? `?${params.toString()}` : ''
+    }, { replace: true })
+  }
+
 return (
   <div className={clsx('app', theme, categoryTheme)}>
     {checkUser && <RouterProvider router={router} />}
     {userAuth && (
       <ModalWindow isOpen={userAuth} onClose={handleModalRegClose}>
-        <RegistrationModal auth onClose={() =>{}}/>
+        <RegistrationModal auth onClose={handleModalRegClose}/>
       </ModalWindow>
     )}
   </div>

@@ -22,7 +22,7 @@ export default defineConfig({
     },
   },
   define: {
-    global: 'window', // <-- добавляем полифилл для global
+    global: 'window',
   },
   server: {
     port: 3000,
