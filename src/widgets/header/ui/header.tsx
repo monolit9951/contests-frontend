@@ -71,6 +71,7 @@ export const Header = () => {
 
 
             {registrationModal && <ModalWindow 
+                portal
                 isOuterClose 
                 isOpen={registrationModal} 
                 onClose={() => setRegistrationModal(false)}>
