@@ -53,10 +53,10 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
 
   // создание ворка
   const handleWorkSubmit = async () => {
-    if (text === '' || text.length < 10 || text.length > 500) {
-      setTextAreaError('Text must be from 10 to 500 letters')
-      return;
-    }
+    // if (text === '' || text.length < 10 || text.length > 500) {
+    //   setTextAreaError('Text must be from 10 to 500 letters')
+    //   return;
+    // }
 
     const token = localStorage.getItem('userToken')
     try {

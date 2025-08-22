@@ -183,41 +183,44 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
 
     return(
         <div className="registrationModal">
-            <div className="registrationModal_header">
-                <div className="registrationModal_header_heading">{auth? 'Authorization Required' : 'Welcome, Adventurer!'}</div>
-                <div className="registrationModal_header_desc">Begin your quest by joining our community</div>
-            </div>
 
-            <div className="registrationModal_switchMode">
-                <Switcher handleSwitcherCallBack = {handleSwitcherCallBack} mode={authType}/>
-            </div>
-
-            <div className="registrationModal_inputs">
-                <RegistrationInput validationText={loginError} value = {login} type="email" changeCallBack = {handleLoginCallback} placeholder="Enter your email" label="Email" />
-                {authType === 'SIGNUP' && <RegistrationInput validationText={nicknameError} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Enter your username" label="Username" />}
-                <RegistrationInput validationText={passwordError} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
-                {authType === 'SIGNUP' && <RegistrationInput validationText={checkPasswordError} value={checkPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
-
-                <div className="registrationModal_inputs_special">
-                    <CustomCheckbox value="Remember me" checked={false} handleCheckbox = {handleCheckbox}/>
-
-                    <button type="button">Forgot password?</button>
+            <div className="registrationModal_container">
+                <div className="registrationModal_header">
+                    <div className="registrationModal_header_heading">{auth? 'Authorization Required' : 'Welcome, Adventurer!'}</div>
+                    <div className="registrationModal_header_desc">Begin your quest by joining our community</div>
                 </div>
-            </div>
 
-            <div className="registrationModal_controls">
-                <button type="button" className="registrationModal_countinue" onClick={authType === 'LOGIN' ? handleStandartAuth : handleStandartRegistration}>{authType === 'LOGIN'? 'Log in' : 'Registration'}</button>
+                <div className="registrationModal_switchMode">
+                    <Switcher handleSwitcherCallBack = {handleSwitcherCallBack} mode={authType}/>
+                </div>
 
-                <div className="registrationModal_controls_explain">Or continue with</div>
-                
-                <button className="google_auth" type="button" onClick={handleRegistrationWithGoogle}>
-                    <div className="google_auth_container">
-                        <img src={googleSVG} alt="Google" />
-                        <span>Sign in with google</span>
+                <div className="registrationModal_inputs">
+                    <RegistrationInput validationText={loginError} value = {login} type="email" changeCallBack = {handleLoginCallback} placeholder="Enter your email" label="Email" />
+                    {authType === 'SIGNUP' && <RegistrationInput validationText={nicknameError} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Enter your username" label="Username" />}
+                    <RegistrationInput validationText={passwordError} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
+                    {authType === 'SIGNUP' && <RegistrationInput validationText={checkPasswordError} value={checkPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
+
+                    <div className="registrationModal_inputs_special">
+                        <CustomCheckbox value="Remember me" checked={false} handleCheckbox = {handleCheckbox}/>
+
+                        <button type="button">Forgot password?</button>
                     </div>
-                </button>
+                </div>
 
-                <div className="registrationModal_controls_explain">Join thousands of adventurers on epic quests!</div>
+                <div className="registrationModal_controls">
+                    <button type="button" className="registrationModal_countinue" onClick={authType === 'LOGIN' ? handleStandartAuth : handleStandartRegistration}>{authType === 'LOGIN'? 'Log in' : 'Registration'}</button>
+
+                    <div className="registrationModal_controls_explain">Or continue with</div>
+                    
+                    <button className="google_auth" type="button" onClick={handleRegistrationWithGoogle}>
+                        <div className="google_auth_container">
+                            <img src={googleSVG} alt="Google" />
+                            <span>Sign in with google</span>
+                        </div>
+                    </button>
+
+                    <div className="registrationModal_controls_explain">Join thousands of adventurers on epic quests!</div>
+                </div>
             </div>
 
             <Alert />

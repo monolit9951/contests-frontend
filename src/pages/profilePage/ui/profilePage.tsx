@@ -18,8 +18,6 @@ const ProfilePage: FC = () => {
     const useTypeSelector: TypedUseSelectorHook <RootState> = useSelector
     const user = useTypeSelector((state) => state.user)
 
-    
-
     return (
         <div className="profilePage">
 

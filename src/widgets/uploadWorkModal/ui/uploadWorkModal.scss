@@ -1,5 +1,4 @@
 .uploadWorkModal{
-    // height: 100%;
     width: 100%;
     max-height: 883px;
     max-width: 748px;
@@ -7,15 +6,36 @@
     padding: 24px 0;
     background-color: #02140E;
     border-radius: 24px;
+    overflow: hidden;
 
-    .uploadWorkModal_container{
-        max-height: 800px;
-        overflow-y: scroll;
+    > .uploadWorkModal_container{
+        max-height: 90dvh;
+        overflow-y: auto;
         scrollbar-width: none; 
-        -ms-overflow-style: none;  
-    
-        > .uploadWorkModal::-webkit-scrollbar {
-            display: none;
+        -ms-overflow-style: none;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #393B3B transparent;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #393B3B;
+            border-radius: 4px;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            box-sizing: border-box;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
         }
 
         > .uploadWorkModal_heading{
