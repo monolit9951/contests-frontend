@@ -47,4 +47,4 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd ${{ secrets.PROJECT_PATH_RELEASE }}
-            /bin/bash redeploy.sh
+            /bin/bash redeploy-frontend.sh
