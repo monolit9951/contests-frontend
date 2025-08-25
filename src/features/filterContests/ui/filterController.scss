@@ -1,7 +1,7 @@
 @use "sass:math";
 
 .filter-wrapper {
-    
+    margin-top: 10px;
     width: 551px;
     padding: 24px;
     border-radius: 16px;
@@ -14,7 +14,7 @@
     transform: translateY(-50%);
     right: calc(10% / 3);
     z-index: 1000;
-
+    overflow: hidden;
     max-height: 100dvh;
     overflow-y: auto;
 
