@@ -14,6 +14,7 @@ export interface Media {
 
 
 export interface Work {
+    contestId: string
     place: string
     id: string
     ownerId: string

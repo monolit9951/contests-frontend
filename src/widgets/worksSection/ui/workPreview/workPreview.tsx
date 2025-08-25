@@ -18,13 +18,16 @@ import './workPreview.scss'
 
 interface WorkProps {
     work: Work
+    contestLink?: boolean
 }
 
-export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
+export const WorkPreview: React.FC<WorkProps> = ({ work, contestLink }) => {
 
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
     const [controller, setController] = useState<boolean>(false)
     const [modalReport, setModalReport] = useState<boolean>(false)
+
+    console.log(work)
 
     useEffect(() => {
         const handleResize = () => {
@@ -91,6 +94,7 @@ export const WorkPreview: React.FC<WorkProps> = ({ work }) => {
                         <div className="workPreview_workText">{work.description}</div>
 
                         {/* <div className="active_contest">MAKE COMPONENT </div> */}
+                        {contestLink && <Link to={`/contests/${work.contestId}`}>contest</Link>}
 
                         {workDataLoaded && <MediaFeedback id={work.id} likes={workData.likeAmount} liked={workData.userLike}/>}
                     </div>

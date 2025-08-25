@@ -48,6 +48,7 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
 
     return (
         <div className={`mediaGalery ${className}`}>
+            
             <div
                 className={
                     `mediaGalery_media ${  direction === 'next' ? "slideInNext" : "slideInPrev"}`
@@ -84,6 +85,7 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
                     arrayLengh={media.length}
                 />
             </>}
+
         </div>
     );
 };
