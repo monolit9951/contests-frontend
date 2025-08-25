@@ -11,7 +11,7 @@ interface Props {
 const PrizeList: FC<Props> = ({prizes}) => {
     return (
         <div className="prizeList">
-            <h3>Prize list (просто для отображения призов)</h3>
+            <h3>Prize list</h3>
 
             <ul className="prizeList_list">
                 {prizes.map((item: Prize, index: number) => (

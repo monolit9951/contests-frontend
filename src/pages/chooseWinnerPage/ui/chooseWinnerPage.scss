@@ -1,5 +1,5 @@
 .chooseWinnerPage{
-    padding: 24px 56px;
+    padding: 24px 65px;
     position: relative;
 
     > .chooseWinnerPage_header{
@@ -65,5 +65,23 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
+    }
+}
+
+@media (max-width: 1060px) {
+    .chooseWinnerPage{
+        padding: 65px 16px 85px 16px;
+    }
+}
+
+@media (max-width: 650px) {
+    .chooseWinnerPage{
+        padding: 25px 8px 85px 8px;
+
+        > .chooseWinnerPage_header{
+            flex-direction: column;
+            align-items: start;
+            gap: 20px;
+        }
     }
 }

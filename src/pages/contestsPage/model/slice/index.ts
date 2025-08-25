@@ -20,7 +20,7 @@ const initialState: ContestsPageSchema = {
     all: {
         contests: [],
 
-        page: 2,
+        page: 1,
         pageSize: 8,
 
         totalPages: 0,
@@ -50,7 +50,6 @@ const slice = createSlice({
                 state.all.totalPages = payload.totalPages
                 state.all.totalElements = payload.totalElements
                 state.all.page = 1
-
                 state.all.loading = false
             })
             .addCase(fetchPopularContests.fulfilled, (state, { payload }) => {
@@ -61,7 +60,6 @@ const slice = createSlice({
                 state.all.contests = state.all.contests.concat(payload.content)
                 state.all.totalPages = payload.totalPages
                 state.all.page += 1
-
                 state.all.nextLoading = false
             })
 

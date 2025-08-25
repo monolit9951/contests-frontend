@@ -65,10 +65,10 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
 
                 <div className="winnersList">
                     {currentFilter === 'allWorks' && worksIsLoaded && works.content.map((data: Work, index: number) => (
-                        <WinnerWork isWin work = {data} key={index} options = {options} />
+                        <WinnerWork work = {data} key={index} options = {options} />
                     ))}
                     {currentFilter === 'winWorks' && winnersLoaded && winners.map((data: Work, index: number) => (
-                        <WinnerWork isWin work = {data} key={index} options = {options} />
+                        <WinnerWork work = {data} key={index} options = {options} />
                     ))}
                 </div>
 

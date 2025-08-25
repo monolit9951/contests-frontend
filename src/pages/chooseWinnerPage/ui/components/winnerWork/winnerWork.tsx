@@ -16,14 +16,13 @@ import { optionsType } from "../winnersSelectors/winnerSelectors";
 import './winnerWork.scss'
 
 interface WinnerWorkInterface {
-    isWin?: boolean
     work: Work
     options: optionsType[]
 }
 
 
 
-const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
+const WinnerWork: FC <WinnerWorkInterface> = ({work, options}) => {
 
     const [placeValue, setPlaceValue] = useState<string>('EMPTY')
 
@@ -94,7 +93,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({isWin, work, options}) => {
 
 
     return(
-        <div className={isWin? "winnerWork winner" : "winnerWork"}>
+        <div className={isWinner? "winnerWork winner" : "winnerWork"}>
             <div className="winnerWork_left">
                 
                 <div className="winnerWork_left_media">
