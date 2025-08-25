@@ -309,15 +309,11 @@ export const CoverSelectionModal = ({
                                 />
                             </label>
 
-                            {/* ДОБАВЛЕНИЕ КРОПА ФОТО */}
                             <input
                                 type='file'
                                 id='custom-cover-upload-btn_id'
                                 accept='.webp,.png,.jpg,.jpeg'
                                 ref={inputRef}
-                                // onChange={(e) => {
-                                //     setImage(e)
-                                // }}
 
                                 onChange={handleFileChange}
                             />
