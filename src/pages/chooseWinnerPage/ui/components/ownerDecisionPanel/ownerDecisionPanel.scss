@@ -4,15 +4,16 @@
     flex-direction: column;
     gap: 10px;
 
-    > .chooseWinnerPage_paginationBtn{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-    }
 
     > .winnersList{
         display: flex;
         flex-direction: column;
         gap: 10px;
+    }
+
+    .chooseWinnerPage_paginationBtn{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
     }
 }

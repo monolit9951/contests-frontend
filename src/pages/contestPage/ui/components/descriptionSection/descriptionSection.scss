@@ -190,6 +190,11 @@
                 .prizes-list > hr {
                     background-color: var(--grey-border);
                 }
+
+                button{
+                    justify-content: space-around;
+                    font-size: 16px;
+                }
             }
         }
     }

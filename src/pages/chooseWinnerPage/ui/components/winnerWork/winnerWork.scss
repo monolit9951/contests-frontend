@@ -59,7 +59,7 @@
             max-width: 242px;
             max-height: 210px;
             pointer-events: none;
-
+            flex-shrink: 0;
             > img{
                 object-fit: fill;
                 border-radius: 8px;

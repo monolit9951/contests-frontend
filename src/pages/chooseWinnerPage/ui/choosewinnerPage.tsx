@@ -33,7 +33,7 @@ const ChooseWinnerPage: FC = () => {
         if(!contestIsLoading){
 
             // если зашёл не создатель или не админ
-            if (!(contest?.contestOwner.id === user.userId || user.userRole === 'admin')){
+            if (!(contest?.contestOwner.id === user.userId || user.userRole === 'ADMIN')){
                 showAlert('ACCESS DENIED (you are not creator or admin)')
                 navigate(`/contests/${id}`)
                 return

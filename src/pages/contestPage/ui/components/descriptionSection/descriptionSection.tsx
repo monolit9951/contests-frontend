@@ -1,6 +1,6 @@
 import { FC, Fragment, useState } from 'react'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Contest } from 'entities/contest'
 import { PrizeIcon } from 'entities/prize'
 import moment from 'moment'
@@ -30,7 +30,7 @@ interface Props {
 const DescriptionSection: FC<Props> = ({ data }) => {
     const deadline = moment.utc(data.dateEnd).local().format('DD.MM.YYYY, h a')
     const dateStart = moment.utc(data.dateStart).local().format('DD.MM.YYYY, h a')
-    
+    const navigate = useNavigate()
     const contestStatus = () => {
         switch (data.status) {
             case 'FINISHED':
@@ -244,9 +244,9 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                     </VStack>
                     
 
-                        {user.userId !== null && user.userId === data.contestOwner.id && <HStack>
-                            <Link to= {`/chooseWinner/${data.id}`}>CHOOSE WINNERS</Link>
-                        </HStack>}
+                    {user.userId !== null && (user.userId === data.contestOwner.id || user.userRole === 'ADMIN') && <Button type='button' variant='primary' onClick={() => {navigate(`/chooseWinner/${data.id}`)}}>
+                        Choose winners
+                    </Button>}
                 </VStack>
             </HStack>
 
