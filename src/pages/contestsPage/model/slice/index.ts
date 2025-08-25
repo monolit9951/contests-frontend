@@ -49,7 +49,7 @@ const slice = createSlice({
                 state.all.contests = payload.content
                 state.all.totalPages = payload.totalPages
                 state.all.totalElements = payload.totalElements
-                state.all.page = 2
+                state.all.page = 1
 
                 state.all.loading = false
             })
