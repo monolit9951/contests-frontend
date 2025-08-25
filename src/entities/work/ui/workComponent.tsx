@@ -1,27 +1,18 @@
-import React, { useState } from 'react'
-import clsx from 'clsx'
+import { FC } from 'react'
 import { Work } from 'entities/work'
-import moment from 'moment'
-import Verified from 'shared/assets/icons/SealCheck.svg?react'
-import prize from 'shared/assets/icons/trophyF.svg?react'
+import dots from 'shared/assets/icons/tripleDot.svg'
 import { Button } from 'shared/ui/button'
-import { Icon } from 'shared/ui/icon'
-import { Image } from 'shared/ui/image'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
-import { HStack } from 'shared/ui/stack'
-import { Text } from 'shared/ui/text'
-import { UserIcon } from 'shared/ui/userIcon'
 import { Video } from 'shared/ui/videoPlayer'
+import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import './workComponent.scss'
-import VideoPlayer from 'shared/ui/videoPlayer/videoPlayer'
 
-interface WorkProps {
+interface Props {
     work: Work
 }
 
-const WorkComponent: React.FC<WorkProps> = ({ work }) => {
-    const [isReadMore, setIsReadMore] = useState(false)
+const WorkComponent: FC<Props> = ({ work }) => {
 
     const {
         id,
@@ -31,24 +22,32 @@ const WorkComponent: React.FC<WorkProps> = ({ work }) => {
         commentAmount,
         likeAmount,
         // typeWork,
-        workAddingDate,
+        // workAddingDate,
         userLike
     } = work
     
-    const timeAgo = moment.utc(workAddingDate).local().fromNow();
+    // const timeAgo = moment.utc(workAddingDate).local().fromNow();
 
-    const toggleReadMore = () => {
-        setIsReadMore(!isReadMore)
-    }
-
-    console.log(work)
 
     return (
         <div className="workComponent">
 
+            <div className="workComponent_info">
+
+                <div className="workComponent_info_header">
+                    <UserProfileData user={user}/>
+
+                    <button type='button'><img src={dots} alt="dots" /></button>
+                </div>
+
+                <div className="workComponent_info_workText">{description}</div>
+
+            </div>
+
+
             <Button className="workComponent_container" variant='primary'>
-                {work.media && work.media[0].typeMedia === 'IMAGE' && <img src={work.media[0].mediaLink} alt='mediaWork' />}
-                {work.media && work.media[0].typeMedia === 'VIDEO' && <Video url={work.media[0].mediaLink} light/>}
+                {media && media[0].typeMedia === 'IMAGE' && <img src={media[0].mediaLink} alt='mediaWork' />}
+                {media && media[0].typeMedia === 'VIDEO' && <Video url={media[0].mediaLink} light/>}
             </Button>
 
             <MediaFeedback
