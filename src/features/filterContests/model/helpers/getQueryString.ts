@@ -34,10 +34,10 @@ export const getQueryString = (filters: FiltersObj) => {
         const maxPrizeAmount = filters.prizeRange[1]
 
         if (minPrizeAmount !== 0) {
-            paramsArr.push(`val=minPrizeAmount=${minPrizeAmount}`)
+            paramsArr.push(`minMoney=${minPrizeAmount}`)
         }
         if (maxPrizeAmount !== 100000) {
-            paramsArr.push(`val=maxPrizeAmount=${maxPrizeAmount}`)
+            paramsArr.push(`maxMoney=${maxPrizeAmount}`)
         }
     }
 
@@ -46,10 +46,10 @@ export const getQueryString = (filters: FiltersObj) => {
         const maxPrizeAmount = filters.coinRange[1]
 
         if (minPrizeAmount !== 0) {
-            paramsArr.push(`val=minCoinPrizeAmount=${minPrizeAmount}`)
+            paramsArr.push(`minCoins=${minPrizeAmount}`)
         }
         if (maxPrizeAmount !== 100000) {
-            paramsArr.push(`val=maxCoinPrizeAmount=${maxPrizeAmount}`)
+            paramsArr.push(`maxCoins=${maxPrizeAmount}`)
         }
     }
 

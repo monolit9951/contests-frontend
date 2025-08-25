@@ -86,7 +86,7 @@ const WorksSection: React.FC = () => {
                                 </li>
                             )
                     })}
-</ul>
+                </ul>
             </div>
         </div>
     )

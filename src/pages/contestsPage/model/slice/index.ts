@@ -21,7 +21,7 @@ const initialState: ContestsPageSchema = {
         contests: [],
 
         page: 2,
-        pageSize: 16,
+        pageSize: 8,
 
         totalPages: 0,
         totalElements: 0,
