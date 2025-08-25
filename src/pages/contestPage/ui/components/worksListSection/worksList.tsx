@@ -159,7 +159,7 @@ export const WorksList: FC<Props> = (props) => {
 
         <div className="worksList">
             <ul>{renderList()}</ul>
-
+            {(sort === 'new' && !newMediaWorks.length) || (sort=== 'popular' && !popularMediaWorks.length) && <div className="worksList_noWorks">No {sort === 'popular' && 'popular'} works</div>}
             {(media.nextLoading || text.nextLoading) && <Spinner />}
 
             {loadMoreCondition() ||

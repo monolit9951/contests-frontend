@@ -1,14 +1,16 @@
 .crop_container{
     z-index: 10000;
-
+    position: relative;
     > .crop_container_button{
-        position: relative;
+        // position: relative;
         display: flex;
         align-items: center;
         justify-content: space-around;
 
         > button{
+            position: absolute;
             max-width: 330px;
+            bottom: 30px;
             width: 100%;
             align-items: center;
             display: flex;
