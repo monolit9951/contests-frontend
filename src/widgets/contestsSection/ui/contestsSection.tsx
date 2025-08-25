@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import clsx from 'clsx'
 import {
     ContestCard,
+    ContestCardSkeleton,
     ContestPreview,
 } from 'entities/contest'
 import {
@@ -168,40 +169,40 @@ const ContestsSection: FC<Props> = (props) => {
 
     // скелеты 
     const renderAll = () => {
-        // if (all.loading) {
-        //     return (
-        //         <>
-        //             <li>
-        //                 <ContestCardSkeleton />
-        //             </li>
-        //             <li>
-        //                 <ContestCardSkeleton />
-        //             </li>
-        //             <li>
-        //                 <ContestCardSkeleton />
-        //             </li>
-        //             <li>
-        //                 <ContestCardSkeleton />
-        //             </li>
-        //             {windowWidth > 1440 && (
-        //                 <>
-        //                     <li>
-        //                         <ContestCardSkeleton />
-        //                     </li>
-        //                     <li>
-        //                         <ContestCardSkeleton />
-        //                     </li>
-        //                     <li>
-        //                         <ContestCardSkeleton />
-        //                     </li>
-        //                     <li>
-        //                         <ContestCardSkeleton />
-        //                     </li>
-        //                 </>
-        //             )}
-        //         </>
-        //     )
-        // }
+        if (all.loading) {
+            return (
+                <>
+                    <li>
+                        <ContestCardSkeleton />
+                    </li>
+                    <li>
+                        <ContestCardSkeleton />
+                    </li>
+                    <li>
+                        <ContestCardSkeleton />
+                    </li>
+                    <li>
+                        <ContestCardSkeleton />
+                    </li>
+                    {windowWidth > 1440 && (
+                        <>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                            <li>
+                                <ContestCardSkeleton />
+                            </li>
+                        </>
+                    )}
+                </>
+            )
+        }
         if (allContests.length === 0) {
             return (
                 <li>

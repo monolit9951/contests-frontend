@@ -10,7 +10,7 @@ const ContestCardSkeleton = () => {
                 </div>
             </div>
             <div>
-                <Skeleton width={377} height={212} className='image' />
+                <Skeleton width={250} height={212} className='image' />
             </div>
             <div className='contest-title-box'>
                 <Skeleton className='contest-title' />
