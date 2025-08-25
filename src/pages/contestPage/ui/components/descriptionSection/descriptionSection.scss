@@ -60,22 +60,28 @@
             }
 
             .example-list {
-                // display: grid;
-                // grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
-                display: flex;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+                // display: flex;
+                // flex-wrap: wrap;
                 gap: 8px;
 
                 > li{
+                    width: 100%;
+                    
                     > button{
+                        width: 100%;
+                        // aspect-ratio: 135/132;
                         padding: 0;
                         background-color: transparent;
                         border: none;
                         outline: none;
 
                         > .example-media {
-                            width: 135px;
-                            height: 132px;
+                            // width: 135px;
+                            width: 100%;
+                            aspect-ratio: 135/132;
+                            // height: 132px;
                             border-radius: 8px;
                             overflow: hidden;
                             pointer-events: none;
