@@ -146,6 +146,7 @@ const ContestsSection: FC<Props> = (props) => {
         //         </>
         //     )
         // }
+        
         if (popularContests.length === 0) {
             return (
                 <li>

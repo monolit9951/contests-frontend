@@ -123,26 +123,28 @@ export const NotificationsButton = () => {
 
             {notifDataLoaded && dropList && notifications &&
                 <div className="notification_list">
-                    <div className="notification_list_header">
-                        <div className="notification_list_heading">Notifications</div>
-                        <button className="notification_list_cross" type='button' onClick={() => {setDropList(false)}}>
-                            <img src={cross} alt="cross" />
-                        </button>
-                    </div>
+                    <div className="notification_list_container">
+                        <div className="notification_list_header">
+                            <div className="notification_list_heading">Notifications</div>
+                            <button className="notification_list_cross" type='button' onClick={() => {setDropList(false)}}>
+                                <img src={cross} alt="cross" />
+                            </button>
+                        </div>
 
-                    {notifications.length > 0? <ul>
-                        {notifications.map((data: Notification, index: number) => (
-                            <NotificationItem key={index} notification={data}/>
-                        ))}
-                    </ul>
-                    :
-                    <div className="notification_list_empty">No notifications</div>
-                    }
+                        {notifications.length > 0? <ul>
+                            {notifications.map((data: Notification, index: number) => (
+                                <NotificationItem key={index} notification={data}/>
+                            ))}
+                        </ul>
+                        :
+                        <div className="notification_list_empty">No notifications</div>
+                        }
 
 
-                    <div className="notification_list_readAll">
-                        <button type='button' onClick={handleReadAll}>Mark all as read</button>
-                        {/* <Button  variant = 'primary' type='button' onClick={handleReadAll}>MARK ALL AS READ</Button> */}
+                        <div className="notification_list_readAll">
+                            <button type='button' onClick={handleReadAll}>Mark all as read</button>
+                            {/* <Button  variant = 'primary' type='button' onClick={handleReadAll}>MARK ALL AS READ</Button> */}
+                        </div>
                     </div>
                 </div>
             }
