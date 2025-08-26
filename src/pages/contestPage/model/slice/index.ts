@@ -1,5 +1,6 @@
 import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit'
 import { Prize } from 'entities/prize'
+import { Work } from 'entities/work'
 
 import {
     fetchMediaWorks,
@@ -34,7 +35,7 @@ const initialState: ContestWorksSchema = {
         new: [],
         popular: [],
 
-        page: 2,
+        page: 1,
 
         totalPages: 0,
         totalElements: 0,
@@ -67,6 +68,22 @@ const slice = createSlice({
                 new: [],
                 popular: [],
             }
+        },
+        updateWorkLike: (state, action: PayloadAction<any>) => {
+            const { workId, userLike, likeAmount } = action.payload
+
+            // функция для обновления массива
+            const updateArray = (arr: Work[]) => {
+                const index = arr.findIndex((w) => w.id === workId)
+                if (index !== -1) {
+                arr[index] = { ...arr[index], userLike, likeAmount }
+                }
+            }
+
+            updateArray(state.media.new)
+            updateArray(state.media.popular)
+            updateArray(state.text.new)
+            updateArray(state.text.popular)
         },
     },
     extraReducers: (builder) =>
