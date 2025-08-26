@@ -9,6 +9,7 @@ import UploadWorkMediaInput from "./components/uploadWorkMediaInput/uploadWorkMe
 import UploadWorkMediaItem, { MediaItem } from "./components/uploadWorkMediaItem/uploadWorkMediaItem";
 
 import './uploadWorkModal.scss';
+import { useNavigate } from "react-router-dom";
 
 interface UploadWorkModalInterface {
   contestId: string;
@@ -21,6 +22,7 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
   const [textareaError, setTextAreaError] = useState<string>('')
   const {showAlert, Alert} = useAlert()
   const [mediaArray, setMediaArray] = useState<MediaItem[]>([]);
+  const navigate = useNavigate()
 
 
   // отловить изменение текста
@@ -49,7 +51,6 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
   const handleRemoveMediaCallback = (id: string) => {
     setMediaArray((prev) => prev.filter((item) => item.id !== id));
   };
-
 
   // создание ворка
   const handleWorkSubmit = async () => {
@@ -83,6 +84,7 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
             },
           });
           onClose()
+          navigate(`/contests/${contestId}`)
         } catch (error){
           showAlert('Error', 'CHANGE THAT ERROR')
           if(error){

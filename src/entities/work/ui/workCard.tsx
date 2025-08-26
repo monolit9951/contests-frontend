@@ -57,11 +57,11 @@ const WorkCard: FC<Props> = (props) => {
         <li className='li'>
             <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
-                    <MediaOverlay
+                    {data.user &&<MediaOverlay
                         // prize={data.prize}
                         user={data.user}
                         handleReportCallback = {handleReportCallback}
-                    />
+                    />}
                     {data.media && data.media[0]?.typeMedia === 'VIDEO' && data.media?.[0]?.mediaLink && (
                         <Button
                             variant='div'

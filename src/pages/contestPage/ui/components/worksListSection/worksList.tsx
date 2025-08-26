@@ -82,33 +82,12 @@ export const WorksList: FC<Props> = (props) => {
 
         if (workType === 'media') {
             if (sort === 'new') {
-                if (!newMediaWorks.length) {
-                    return (
-                        <li className='participants-works__message media-works'>
-                            <Text Tag='p' size='xl'>
-                                No works yet.
-                            </Text>
-                        </li>
-                    )
-                }
                 return newMediaWorks?.map((item: Work) => (
                     <WorkCard key={item.id} data={item} />
-
                 ))
-            }
-
-            if (!popularMediaWorks.length) {
-                return (
-                    <li className='participants-works__message media-works'>
-                        <Text Tag='p' size='xl'>
-                            No popular works yet.
-                        </Text>
-                    </li>
-                )
             }
             return popularMediaWorks?.map((item: Work) => (
                 <WorkCard key={item.id} data={item} />
-
             ))
         }
 
@@ -176,9 +155,11 @@ export const WorksList: FC<Props> = (props) => {
                 <li><WorkCardSkeleton/></li>
                 <li><WorkCardSkeleton/></li>
             </ul>}
-            {(sort === 'new' && !newMediaWorks.length) || (sort=== 'popular' && !popularMediaWorks.length) && <div className="worksList_noWorks">No {sort === 'popular' && 'popular'} works</div>}
-            {(media.nextLoading || text.nextLoading) && <Spinner />}
 
+            {(sort === 'new' && !newMediaWorks.length) && <div className="worksList_noWorks">No works yet</div>}
+            {(sort === 'popular' && !popularMediaWorks.length) && <div className="worksList_noWorks">No popular works yet</div>}
+
+            {(media.nextLoading || text.nextLoading) && <Spinner />}
             {loadMoreCondition() ||
             (sort === 'new' && (
                 <Button variant='secondary' onClick={onLoadMore}>
