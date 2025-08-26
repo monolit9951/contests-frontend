@@ -37,7 +37,7 @@ const ModalWorkPage: FC = () => {
                 {!isLoading && data && 
                     <WorkPreview 
                         // onClose={handlePageClose} 
-                        work={data}
+                        workId={data.id}
                     />}
             </ModalWindow>
         </>

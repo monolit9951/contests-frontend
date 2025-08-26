@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import clsx from 'clsx'
-import { ContestWinners } from 'entities/contest/model/types'
-import { WorkCard } from 'entities/work'
+import { Work, WorkCard } from 'entities/work'
 // import { Prize } from 'entities/prize'
 // import { selectContestPrizes } from 'pages/contestPage/model/selectors'
 // import { useAppSelector } from 'shared/lib/store'
@@ -13,7 +12,7 @@ import './winnersSection.scss'
 
 interface Props {
     className?: string
-    winners: ContestWinners[]
+    winners: any[]
 }
 
 const WinnersSection: FC<Props> = (props, ) => {
@@ -34,11 +33,11 @@ const WinnersSection: FC<Props> = (props, ) => {
             </Text>
 
             <ul className='winners__list'>
-                {winners.map((work, index: number) => (
+                {winners.map((work: Work, index: number) => (
                     <WorkCard
                         key={index}
-                        // data={work}
-                        workId={work.workId}
+                        data={work}
+                        // workId={work.workId}
                         // prizeId={work.prizeId}
                         // openModal={openModal}
                         // className={clsx(idx === 0 && 'first-place')}

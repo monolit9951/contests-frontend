@@ -121,7 +121,7 @@ const WinnerWork: FC <WinnerWorkInterface> = ({work, options}) => {
                 <ControlledSelector error={placeError} maxWidth={200} options={options} onChange={onPlaceChange} value={placeValue}/>
             </div>
 
-            {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview work={work} /></ModalWindow>}
+            {modalWork && <ModalWindow isOpen onClose={() => setModalWork(false)}><WorkPreview workId={work.id} /></ModalWindow>}
 
             <Alert />
         </div>

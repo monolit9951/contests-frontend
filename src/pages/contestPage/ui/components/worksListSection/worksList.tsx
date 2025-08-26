@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { Work, WorkCard } from 'entities/work'
 import {
     selectContestMedia,
@@ -11,9 +12,11 @@ import {
 } from 'pages/contestPage/model/services'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
+import { ModalWindow } from 'shared/ui/modalWindow'
 // import { ModalWindow } from 'shared/ui/modalWindow'
 import Spinner from 'shared/ui/spinner'
 import { Text } from 'shared/ui/text'
+import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 // import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 import './worksList.scss'
@@ -88,8 +91,9 @@ export const WorksList: FC<Props> = (props) => {
                         </li>
                     )
                 }
-                return newMediaWorks?.map((item, index: number) => (
-                    <WorkCard key={index} workId={item.id} type='LINK'/>
+                return newMediaWorks?.map((item: Work) => (
+                    <WorkCard key={item.id} data={item} />
+
                 ))
             }
 
@@ -102,8 +106,9 @@ export const WorksList: FC<Props> = (props) => {
                     </li>
                 )
             }
-            return popularMediaWorks?.map((item) => (
-                <WorkCard key={item.id} workId={item.id} type='LINK'/>
+            return popularMediaWorks?.map((item: Work) => (
+                <WorkCard key={item.id} data={item} />
+
             ))
         }
 
@@ -116,10 +121,7 @@ export const WorksList: FC<Props> = (props) => {
                   </li>
               )) ||
                   newTextWorks?.map((item) => (
-                      <WorkCard
-                          key={item.id}
-                          workId={item.id}
-                      />
+                    <WorkCard key={item.id} data={item} />
                   ))
             : (!popularTextWorks.length && (
                   <li className='participants-works__message'>
@@ -129,36 +131,40 @@ export const WorksList: FC<Props> = (props) => {
                   </li>
               )) ||
                   popularTextWorks?.map((item) => (
-                      <WorkCard
-                          key={item.id}
-                          workId={item.id}
-                          type='LINK'
-                      />
+                    <WorkCard key={item.id} data={item} />
+
                   ))
     }
 
+    const [searchParams] = useSearchParams();
+
+    const location = useLocation()
+    const navigate = useNavigate()
+    const [openModal, setOpenModal] = useState<boolean>(false)
+    const [workPreviewId, setWorkPreviewId] = useState<string>('')
+
+    const handleCloseModal = () => {
+        const params = new URLSearchParams(location.search);
+        params.delete("workId");
+
+        navigate(`${location.pathname}?${params.toString()}`, { replace: true, preventScrollReset: true });
+    }
+
+    useEffect(() => {
+        const workId = searchParams.get("workId");
+
+        if (workId) {
+            setWorkPreviewId(workId)
+            setOpenModal(true)
+        } else {
+            setOpenModal(false)
+            setWorkPreviewId('')
+        }
+    }, [searchParams]); // отслеживаем изменения
+
     return (
-        // <VStack className='participants-works__list-wrapper align__center '>
-        //     <ul
-        //         className={clsx(
-        //             'participants-works__list',
-        //             (newTextWorks.length > 4 && `${workType}-works`) ||
-        //                 (popularTextWorks.length > 4 && `${workType}-works`)
-        //         )}>
-        //         {renderList()}
-        //     </ul>
-
-        //     {(media.nextLoading || text.nextLoading) && <Spinner />}
-        //     {loadMoreCondition() ||
-        //         (sort === 'new' && (
-        //             <Button variant='secondary' onClick={onLoadMore}>
-        //                 Show more works
-        //             </Button>
-        //         ))}
-        // </VStack>
-
         <div className="worksList">
-            <ul>{renderList()}</ul>
+            {(!media.nextLoading || !text.nextLoading) && <ul>{renderList()}</ul>}
             {(sort === 'new' && !newMediaWorks.length) || (sort=== 'popular' && !popularMediaWorks.length) && <div className="worksList_noWorks">No {sort === 'popular' && 'popular'} works</div>}
             {(media.nextLoading || text.nextLoading) && <Spinner />}
 
@@ -168,6 +174,9 @@ export const WorksList: FC<Props> = (props) => {
                     Show more works
                 </Button>
             ))}
+
+
+            {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview workId={workPreviewId}/></ModalWindow>}
         </div>
         
     )

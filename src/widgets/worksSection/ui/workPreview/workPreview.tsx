@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getWorkById } from 'entities/work/model/services/workServices'
-import { Work } from 'entities/work/model/types'
 import moment from 'moment'
 import dots from 'shared/assets/icons/tripleDot.svg'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
@@ -17,36 +16,21 @@ import UserProfileData from 'widgets/userProfileData/userProfileData'
 import './workPreview.scss'
 
 interface WorkProps {
-    work: Work
     contestLink?: boolean
+    workId: string
 }
 
-export const WorkPreview: React.FC<WorkProps> = ({ work, contestLink }) => {
+export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId }) => {
 
-    const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
     const [controller, setController] = useState<boolean>(false)
     const [modalReport, setModalReport] = useState<boolean>(false)
 
-    console.log(work)
-
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth)
-        }
-
-        window.addEventListener('resize', handleResize)
-
-        return () => window.removeEventListener('resize', handleResize)
-    }, [windowWidth])
-
-    const { media, workAddingDate, user } = work as Work
-
-    const timeAgo = moment.utc(workAddingDate).local().fromNow();
-    const loginedUser = useSelector((state: RootState) => state.user)
-
 
     // ПОЛУЧЕНИЕ ДАННЫХ ДЛЯ АКТУАЛЬНОГО ОТОБРАЖЕНИЯ ЛАЙКОВ (ПОКА ЗАПРОС НА ВСЮ ИНФУ)
-    const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(work.id), key: [], enabled: true})
+    const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(workId), key: [], enabled: true})
+
+    // const timeAgo = moment.utc(workData.workAddingDate).local().fromNow();
+    const loginedUser = useSelector((state: RootState) => state.user)
 
     const handleController = () => {
         setController(!controller)
@@ -61,9 +45,9 @@ export const WorkPreview: React.FC<WorkProps> = ({ work, contestLink }) => {
         <div className="workPreview">
             <div className="workPreview_container">
                 {workDataLoaded && workData.media.length !== 0 && <div className="workPreview_left">
-                    {media !== null && <MediaGalery media={media}/>}
+                    {workData.media !== null && <MediaGalery media={workData.media}/>}
                 </div>}
-                {!workDataLoaded &&  <div className="workPreview_left">
+                {!workDataLoaded && <div className="workPreview_left">
                     <Spinner center/>
                 </div>}
 
@@ -71,11 +55,11 @@ export const WorkPreview: React.FC<WorkProps> = ({ work, contestLink }) => {
                     <div className="workPreview_right_topSection">
                         <div>
                             <div className="leftPart">
-                                <Link to={loginedUser.userId === user.id? '/profile' : `/profile/${user.id}`}>
-                                    <UserProfileData user = {work.user}/>
-                                </Link>
+                                {workDataLoaded && <Link to={loginedUser.userId === workData.user.id? '/profile' : `/profile/${workData.user.id}`}>
+                                    <UserProfileData user = {workData.user}/>
+                                </Link>}
 
-                                <span>{timeAgo}</span>
+                                {workDataLoaded && <span>{moment.utc(workData.workAddingDate).local().fromNow()}</span>}
                             </div>
                             
                             <div className="rightPart">
@@ -91,16 +75,16 @@ export const WorkPreview: React.FC<WorkProps> = ({ work, contestLink }) => {
                             </div>
                         </div>
 
-                        <div className="workPreview_workText">{work.description}</div>
+                        {workDataLoaded && <div className="workPreview_workText">{workData.description}</div>}
 
-                        {/* <div className="active_contest">MAKE COMPONENT </div> */}
-                        {contestLink && <Link to={`/contests/${work.contestId}`}>contest</Link>}
+                        {/* <div className="active_contest">MAKE COMPONENT</div> */}
+                        {contestLink && <Link to={`/contests/${workData.contestId}`}>contest</Link>}
 
-                        {workDataLoaded && <MediaFeedback id={work.id} likes={workData.likeAmount} liked={workData.userLike}/>}
+                        {workDataLoaded && <MediaFeedback id={workId} likes={workData.likeAmount} liked={workData.userLike}/>}
                     </div>
 
                     <div className="workPreview_comments">
-                        <CommentsSection work workId={work.id}/>
+                        <CommentsSection work workId={workId}/>
                     </div>
                 </div>
             </div>

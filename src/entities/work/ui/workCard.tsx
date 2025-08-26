@@ -1,89 +1,50 @@
-import { FC, useEffect, useMemo, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-// import { useLocation, useNavigate } from 'react-router-dom'
+import { FC, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
-import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
 import { Button } from 'shared/ui/button'
 import { Image } from 'shared/ui/image'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import { VStack } from 'shared/ui/stack'
-// import { Text } from 'shared/ui/text'
-// import { UserIcon } from 'shared/ui/userIcon'
 import { Video } from 'shared/ui/videoPlayer'
 import ModalReport from 'widgets/modalReport'
-import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
-import { getWorkById } from '../model/services/workServices'
+import { Work } from '../model/types'
 
 import MediaOverlay from './overlay/mediaOverlay'
-import WorkCardSkeleton from './workCardSkeleton'
 
 import './workCard.scss'
 
 interface Props {
-    // data: Work
-    workId: string
+    data: Work
     // prizeId?: string
     className?: string,
-    type?: "MODAL" | "LINK"
 }
 
 
 const WorkCard: FC<Props> = (props) => {
     const { 
-        // prizeId,
+        data,
         className,
-        type = 'MODAL',
-        workId
         } = props
 
-    // const prizes = useAppSelector(selectContestPrizes) as Prize[]
-
-    // const prize = prizes.find((item) => item.id === prizeId)
-
-    const [openModal, setOpenModal] = useState<boolean>(false)
-    const [workKey, setWorkKey] = useState<number>(0)
     const navigate = useNavigate()
-    const location = useLocation()
 
-    const handleOpenModal = async () => {
-        if(type ==='MODAL'){
-            setOpenModal(true)
-        } else {
-            sessionStorage.setItem("contestScroll", String(window.scrollY));
-            navigate(`work/${workId}`, {preventScrollReset: true})
-        }
-        
+    const handleOpenModal = () => {
+        const params = new URLSearchParams();
+        params.set("workId", data.id);
+
+        navigate(`?${params.toString()}`, { replace: false, preventScrollReset: true });
     }
-
-    // при открытии модалки ворка БЕЗ ССЫЛКИ
-    const handleCloseModal = () => {
-        setOpenModal(false)
-        setWorkKey(workKey + 1)
-    }
-
-    // при открытии модалки ворка ЧЕРЕЗ ССЫЛКУ 
-    useEffect(() => {
-        // console.log(location.state)
-        if(location.state !== null && location.state.refreshWork && location.state.workId === workId){
-            setWorkKey(workKey + 1)
-        }
-    }, [location.state])
-
-    const {data: workData, isLoaded: workDataLoaded} = useGetRequest({fetchFunc: () => getWorkById(workId), key: [workKey], enabled: true})
 
     
     // мемоизация видео, необходимо из-за особенности ререндера Plyr-видео
     const videoBlock = useMemo(() => {
-        if (!workDataLoaded || !workData.media || workData.media.length === 0) return null;
+        if (!data?.media?.length) return null
 
-        const mediaItem = workData.media[0];
-
-
-        return <Video url={mediaItem.mediaLink} light />;
-        
-    }, [workDataLoaded, workData?.media?.[0]?.mediaLink]);
+        const mediaItem = data.media[0]
+        return <Video url={mediaItem.mediaLink} light />
+    }, [data?.media])
 
     const [reportModal, setReportModal] = useState<boolean>(false)
 
@@ -93,15 +54,14 @@ const WorkCard: FC<Props> = (props) => {
 
     return (
         <li className='li'>
-            {workDataLoaded && <VStack className={clsx('media-work', className)}>
+            <VStack className={clsx('media-work', className)}>
                 <div className='media-work__container'>
-                    {workDataLoaded && <MediaOverlay
-                        prize={workData.prize}
-                        user={workData.user}
-                        // imageCards={workData.typeWork === 'IMAGE'}
+                    <MediaOverlay
+                        // prize={data.prize}
+                        user={data.user}
                         handleReportCallback = {handleReportCallback}
-                    />}
-                    {workDataLoaded && workData.media && workData.media[0]?.typeMedia === 'VIDEO' && workData.media?.[0]?.mediaLink && (
+                    />
+                    {data.media && data.media[0]?.typeMedia === 'VIDEO' && data.media?.[0]?.mediaLink && (
                         <Button
                             variant='div'
                             onClick={handleOpenModal}
@@ -109,9 +69,9 @@ const WorkCard: FC<Props> = (props) => {
                             {videoBlock}
                         </Button>
                     )}
-                    {workDataLoaded && workData.media && workData.media[0]?.typeMedia === 'IMAGE'&& workData.media?.[0]?.mediaLink && (
+                    {data.media && data.media[0]?.typeMedia === 'IMAGE'&& data.media?.[0]?.mediaLink && (
                         <Image
-                            src={workData.media?.[0].mediaLink}
+                            src={data.media?.[0].mediaLink}
                             alt='media'
                             width={458}
                             height={612}
@@ -119,23 +79,20 @@ const WorkCard: FC<Props> = (props) => {
                             className='media-work__frame'
                         />
                     )}
-                    {
-                        workDataLoaded && workData.media.length === 0 && (<div>{workData.description}</div>)
-                    }
+
+                    {data.media?.length === 0 && <div>{data.description}</div>}
+
                 </div>
-                {workDataLoaded && <MediaFeedback
-                    id={workData.id}
-                    likes={workData.likeAmount}
-                    comments={workData.commentAmount}
+                <MediaFeedback
+                    id={data.id}
+                    likes={data.likeAmount}
+                    comments={data.commentAmount}
                     onCommentsClick={handleOpenModal}
-                    liked = {workData.userLike}
-                />}
-            </VStack>}
+                    liked = {data.userLike}
+                />
+            </VStack>
 
-            {!workDataLoaded && <WorkCardSkeleton media/>}
-
-            {reportModal && <ModalWindow isOpen onClose={() => setReportModal(false)}><ModalReport targetType='WORK' targetId={workData.id}/></ModalWindow>}
-            {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview work={workData} /></ModalWindow>}
+            {reportModal && <ModalWindow isOpen onClose={() => setReportModal(false)}><ModalReport targetType='WORK' targetId={data.id}/></ModalWindow>}
         </li>
     )
 }
