@@ -84,11 +84,11 @@ const FilterController = (props: IFilterController) => {
                 </Text>
             </Button>
             
-            <FilterModal
+            {showFilter && <FilterModal
                 ref={filterRef}
                 onClose={onFilterToggle}
                 className={clsx(!showFilter && 'filter-hidden')}
-            />
+            />}
         </div>
     )
 }

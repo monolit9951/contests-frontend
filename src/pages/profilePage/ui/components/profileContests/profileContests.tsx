@@ -62,7 +62,7 @@ const ProfileContests: FC<ProfileContestsInterface> = ({ userId }) => {
             <div className="profileContests_header">
                 <div className="profileContests_header_heading">
                     <span>Contests</span>
-                    <Link to="/contests">See more</Link>
+                    <Link to="/">See more</Link>
                 </div>
             </div>
 
