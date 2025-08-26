@@ -45,12 +45,16 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId }) => {
 
     const dispatch = useAppDispatch()
 
+    // проблема в передаче данного, которое не меняется, передавать стоит 
+    const [userLike, setUserLike] = useState<boolean>(true)
 
     const handleAddLike = () => {
+
+        setUserLike(!userLike)
         dispatch(contestWorksActions.updateWorkLike({
             workId: workData.id,
-            userLike: !workData.userLike,
-            likeAmount: workData.userLike 
+            userLike: !userLike,
+            likeAmount: userLike 
             ? workData.likeAmount - 1 
             : workData.likeAmount + 1
         }))

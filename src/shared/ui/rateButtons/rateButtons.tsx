@@ -25,7 +25,6 @@ interface Props {
 
 const RateButtons = (props: Props) => {
     const { id, border, likes, work, userLike } = props
-
     const [likesNum, setLikesNum] = useState<number>(likes)
     const [liked, setLiked] = useState<boolean>(userLike === 'LIKE')
     const [disliked, setDisliked] = useState<boolean>(userLike === 'DISLIKE')
