@@ -7,6 +7,7 @@ import { Video } from 'shared/ui/videoPlayer'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import './workComponent.scss'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
     work: Work
@@ -27,7 +28,14 @@ const WorkComponent: FC<Props> = ({ work }) => {
     } = work
     
     // const timeAgo = moment.utc(workAddingDate).local().fromNow();
+    const navigate = useNavigate()
 
+    const handleOpenModal = () => {
+        const params = new URLSearchParams();
+        params.set("workId", id);
+
+        navigate(`?${params.toString()}`, { replace: false, preventScrollReset: true });
+    }
 
     return (
         <div className="workComponent">
@@ -45,7 +53,7 @@ const WorkComponent: FC<Props> = ({ work }) => {
             </div>
 
 
-            <Button className="workComponent_container" variant='primary'>
+            <Button className="workComponent_container" variant='primary' onClick={handleOpenModal}>
                 {media && media[0].typeMedia === 'IMAGE' && <img src={media[0].mediaLink} alt='mediaWork' />}
                 {media && media[0].typeMedia === 'VIDEO' && <Video url={media[0].mediaLink} light/>}
             </Button>

@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { Work } from 'entities/work'
 import WorkComponent from 'entities/work/ui/workComponent'
 import {
@@ -17,13 +17,16 @@ import Spinner from 'shared/ui/spinner'
 import { Text } from 'shared/ui/text'
 
 import './worksSection.scss'
+import { ModalWindow } from 'shared/ui/modalWindow'
+import { WorkPreview } from './workPreview/workPreview'
 
 const WorksSection: React.FC = () => {
 
     const navigate = useNavigate()
-
+    const location = useLocation()
     const dispatch = useAppDispatch()
-
+    const [searchParams] = useSearchParams();
+    const [workPreviewId, setWorkPreviewId] = useState<string>('')
     const works = useAppSelector(selectWorks)
     const loading = useAppSelector(selectLoading)
     const error = useAppSelector(selectError)
@@ -54,6 +57,24 @@ const WorksSection: React.FC = () => {
     if (loading && !works.length) {
         return <Spinner center />
     }
+
+    const handleCloseModal = () => {
+        const params = new URLSearchParams(location.search);
+        params.delete("workId");
+
+        navigate(`${location.pathname}?${params.toString()}`, { replace: true, preventScrollReset: true });
+    }
+
+    useEffect(() => {
+        const workId = searchParams.get("workId");
+
+        if (workId) {
+            setWorkPreviewId(workId)
+        } else {
+            setWorkPreviewId('')
+        }
+    }, [searchParams]); // отслеживаем изменения
+
 
     if (error) {
         return (
@@ -88,6 +109,8 @@ const WorksSection: React.FC = () => {
                     })}
                 </ul>
             </div>
+
+            {workPreviewId !== '' && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview workId={workPreviewId}/></ModalWindow>}
         </div>
     )
 }
