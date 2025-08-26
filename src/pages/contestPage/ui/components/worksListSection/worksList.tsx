@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { Work, WorkCard } from 'entities/work'
+import { Work, WorkCard, WorkCardSkeleton } from 'entities/work'
 import {
     selectContestMedia,
     selectContestOwnerId,
@@ -165,6 +165,17 @@ export const WorksList: FC<Props> = (props) => {
     return (
         <div className="worksList">
             {(!media.nextLoading || !text.nextLoading) && <ul>{renderList()}</ul>}
+            {media.loading && <ul>
+                <li><WorkCardSkeleton/></li>
+                <li><WorkCardSkeleton/></li>
+                <li><WorkCardSkeleton/></li>
+                <li><WorkCardSkeleton/></li>
+                <li><WorkCardSkeleton/></li>
+                <li><WorkCardSkeleton/></li>
+                <li><WorkCardSkeleton/></li>
+                <li><WorkCardSkeleton/></li>
+                <li><WorkCardSkeleton/></li>
+            </ul>}
             {(sort === 'new' && !newMediaWorks.length) || (sort=== 'popular' && !popularMediaWorks.length) && <div className="worksList_noWorks">No {sort === 'popular' && 'popular'} works</div>}
             {(media.nextLoading || text.nextLoading) && <Spinner />}
 
