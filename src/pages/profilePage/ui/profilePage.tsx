@@ -37,7 +37,7 @@ const ProfilePage: FC = () => {
                     </div>
 
                     <div className="profilePage_rightContainer">
-                        <ProfileContests userId = {id ?? user.userId}/>
+                        <ProfileContests userId = {id ?? user.userId}/> 
                         <ProfileStatistics userId = {id ?? user.userId}/>
                     </div>
                     
