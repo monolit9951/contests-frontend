@@ -37,3 +37,9 @@
         }
     }
 }
+
+@media (max-width: 1000px) {
+    .createBtn{
+        display: none !important;
+    }
+}
