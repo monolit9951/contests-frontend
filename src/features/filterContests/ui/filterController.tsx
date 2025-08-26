@@ -27,9 +27,20 @@ const FilterController = (props: IFilterController) => {
     const filterRef = useRef<HTMLDivElement | null>(null)
     const filterBtnRef = useRef<HTMLButtonElement | null>(null)
 
-    const onFilterToggle = () => {
-        setShowFilter(!showFilter)
+const onFilterToggle = () => {
+    const newState = !showFilter
+    setShowFilter(newState)
+
+    // блкировка скролла на телефоне
+    if (window.innerWidth < 1000) {
+        if (newState) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = ''
+        }
     }
+}
+
 
     useEffect(() => {
         const onClickOutside = (event: MouseEvent) => {
