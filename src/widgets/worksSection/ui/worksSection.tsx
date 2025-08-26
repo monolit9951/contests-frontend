@@ -13,28 +13,30 @@ import {
 } from 'pages/feedPage'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
+import { ModalWindow } from 'shared/ui/modalWindow'
 import Spinner from 'shared/ui/spinner'
 import { Text } from 'shared/ui/text'
 
-import './worksSection.scss'
-import { ModalWindow } from 'shared/ui/modalWindow'
 import { WorkPreview } from './workPreview/workPreview'
 
-const WorksSection: React.FC = () => {
+import './worksSection.scss'
 
+const WorksSection: React.FC = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const dispatch = useAppDispatch()
-    const [searchParams] = useSearchParams();
-    const [workPreviewId, setWorkPreviewId] = useState<string>('')
+    const [searchParams] = useSearchParams()
+
+    // хуки должны быть ВСЕГДА вызваны первыми
     const works = useAppSelector(selectWorks)
     const loading = useAppSelector(selectLoading)
     const error = useAppSelector(selectError)
     const page = useAppSelector(selectPage)
     const hasMore = useAppSelector(selectHasMore)
 
-    const observer = useRef<IntersectionObserver | null>(null)
+    const [workPreviewId, setWorkPreviewId] = useState<string>('')
 
+    const observer = useRef<IntersectionObserver | null>(null)
     const lastWorkElementRef = useCallback(
         (node: any) => {
             if (loading) return
@@ -46,37 +48,28 @@ const WorksSection: React.FC = () => {
             })
             if (node) observer.current.observe(node)
         },
-        [loading, hasMore]
+        [loading, hasMore, dispatch]
     )
+
+    const handleCloseModal = () => {
+        const params = new URLSearchParams(location.search)
+        params.delete('workId')
+        navigate(`${location.pathname}?${params.toString()}`, { replace: true, preventScrollReset: true })
+    }
+
+    // безопасный useEffect для searchParams
+    useEffect(() => {
+        const workIdParam = searchParams.get('workId') ?? ''
+        setWorkPreviewId(workIdParam)
+    }, [searchParams.toString()])
 
     useEffect(() => {
         dispatch(fetchWorks(page))
     }, [dispatch, page])
 
-
-    if (loading && !works.length) {
-        return <Spinner center />
-    }
-
-    const handleCloseModal = () => {
-        const params = new URLSearchParams(location.search);
-        params.delete("workId");
-
-        navigate(`${location.pathname}?${params.toString()}`, { replace: true, preventScrollReset: true });
-    }
-
-    useEffect(() => {
-        const workId = searchParams.get("workId");
-
-        if (workId) {
-            setWorkPreviewId(workId)
-        } else {
-            setWorkPreviewId('')
-        }
-    }, [searchParams]); // отслеживаем изменения
-
-
-    if (error) {
+    // ранний return после всех хуков
+    if (loading && !works.length) return <Spinner center />
+    if (error)
         return (
             <div className='works-section__error-message'>
                 <Text Tag='p' bold size='xl'>
@@ -87,11 +80,10 @@ const WorksSection: React.FC = () => {
                 </Button>
             </div>
         )
-    }
 
     return (
-        <div className="worksSection">
-            <div className="worksSection_container">
+        <div className='worksSection'>
+            <div className='worksSection_container'>
                 <ul className='worksSection_list'>
                     {works.map((data: Work, index: number) => {
                         if (index === works.length - 1) {
@@ -101,16 +93,20 @@ const WorksSection: React.FC = () => {
                                 </li>
                             )
                         }
-                            return (
-                                <li key={data.id}>
-                                    <WorkComponent work={data} />
-                                </li>
-                            )
+                        return (
+                            <li key={data.id}>
+                                <WorkComponent work={data} />
+                            </li>
+                        )
                     })}
                 </ul>
             </div>
 
-            {workPreviewId !== '' && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview workId={workPreviewId}/></ModalWindow>}
+            {workPreviewId && (
+                <ModalWindow isOpen onClose={handleCloseModal}>
+                    <WorkPreview workId={workPreviewId} />
+                </ModalWindow>
+            )}
         </div>
     )
 }

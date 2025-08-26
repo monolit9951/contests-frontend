@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Work } from 'entities/work'
 import dots from 'shared/assets/icons/tripleDot.svg'
 import { Button } from 'shared/ui/button'
@@ -7,7 +8,6 @@ import { Video } from 'shared/ui/videoPlayer'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import './workComponent.scss'
-import { useNavigate } from 'react-router-dom'
 
 interface Props {
     work: Work
