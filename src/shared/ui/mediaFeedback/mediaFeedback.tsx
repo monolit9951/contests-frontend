@@ -12,8 +12,6 @@ import { HStack } from '../stack'
 import { Text } from '../text'
 
 import './mediaFeedback.scss'
-import { useAppDispatch } from 'shared/lib/store'
-import { contestWorksActions } from 'pages/contestPage'
 
 interface Props {
     id: string
@@ -22,21 +20,15 @@ interface Props {
     onCommentsClick?: () => void
     className?: string
     liked: null | string
+    handleLikeCallBack?: (action: any) => void
 }
 
 const MediaFeedback: FC<Props> = (props) => {
-    const { id, likes, comments, onCommentsClick, className, liked } = props
+    const { id, likes, comments, onCommentsClick, className, liked, handleLikeCallBack } = props
 
     const [shareModal, setShareModal] = useState<boolean>(false)
 
-    const dispatch = useAppDispatch()
-    const handleLikeCallBack = (action: any) => {
-        dispatch(contestWorksActions.updateWorkLike({
-            workId: id,
-            userLike: action.userLike,
-            likeAmount: action.likeAmount
-        }))
-    }
+
 
     return (
         <HStack className={clsx('feedback__wrapper', className)}>

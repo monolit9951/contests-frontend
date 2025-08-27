@@ -71,7 +71,7 @@ const slice = createSlice({
         },
         updateWorkLike: (state, action: PayloadAction<any>) => {
             const { workId, userLike, likeAmount } = action.payload
-            console.log(action.payload)
+
             // функция для обновления массива
             const updateArray = (arr: Work[]) => {
                 const index = arr.findIndex((w) => w.id === workId)
@@ -82,13 +82,9 @@ const slice = createSlice({
 
             updateArray(state.media.new)
             updateArray(state.media.popular)
-            // updateArray(state.text.new)
-            // updateArray(state.text.popular)
         },
         updateWorkComments: (state, action: PayloadAction<any>) => {
             const { workId, commentAmount } = action.payload
-            console.log(action.payload)
-
             // функция для обновления массива
             const updateArray = (arr: Work[]) => {
                 const index = arr.findIndex((w) => w.id === workId)
@@ -99,8 +95,7 @@ const slice = createSlice({
 
             updateArray(state.media.new)
             updateArray(state.media.popular)
-            // updateArray(state.text.new)
-            // updateArray(state.text.popular)
+
         },
     },
     extraReducers: (builder) =>

@@ -3,8 +3,11 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getWorkById } from 'entities/work/model/services/workServices'
 import moment from 'moment'
+import { contestWorksActions } from 'pages/contestPage'
+import { updateFeedWorkLike } from 'pages/feedPage/model/slice'
 import dots from 'shared/assets/icons/tripleDot.svg'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
+import { useAppDispatch } from 'shared/lib/store'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import Spinner from 'shared/ui/spinner'
@@ -18,9 +21,10 @@ import './workPreview.scss'
 interface WorkProps {
     contestLink?: boolean
     workId: string
+    isFeed?: boolean
 }
 
-export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId }) => {
+export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId, isFeed }) => {
 
     const [controller, setController] = useState<boolean>(false)
     const [modalReport, setModalReport] = useState<boolean>(false)
@@ -47,6 +51,36 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId }) => {
     //         commentAmount: 2
     //     }))
     // }
+
+    // const handleChangeLike = (action: any) => {
+    //     if(isFeed){
+    //         console.log('feed')
+    //     } else {
+    //         console.log('contest')
+    //     }
+    // }
+
+
+    const dispatch = useAppDispatch()
+
+    // смена лайка и дизлайка в фиде и ворках контеста
+    const handleLikeCallBack = (action: any) => {
+        if(isFeed){
+            dispatch(updateFeedWorkLike({
+                workId,
+                userLike: action.userLike,
+                likeAmount: action.likeAmount
+            }))
+        } else {
+            dispatch(contestWorksActions.updateWorkLike({
+                workId,
+                userLike: action.userLike,
+                likeAmount: action.likeAmount
+            }))
+        }
+
+    }
+
 
     return (
         <div className="workPreview">
@@ -87,7 +121,7 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId }) => {
                         {/* <div className="active_contest">MAKE COMPONENT</div> */}
                         {contestLink && <Link to={`/contests/${workData.contestId}`}>contest</Link>}
 
-                        {workDataLoaded && <MediaFeedback id={workId} likes={workData.likeAmount} liked={workData.userLike}/>}
+                        {workDataLoaded && <MediaFeedback id={workId} likes={workData.likeAmount} liked={workData.userLike} handleLikeCallBack={handleLikeCallBack}/>}
                     </div>
 
                     <div className="workPreview_comments">

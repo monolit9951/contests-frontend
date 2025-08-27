@@ -23,8 +23,6 @@ const WinnersSection: FC<Props> = (props, ) => {
 
     // const otherPrizes = data.length < prizes.reduce((acc, item) => acc + item.winnersAmount, 0)
 
-    console.log(winners.slice(0, 3))
-
 
     return (
         <section className={clsx('winners', className)}>

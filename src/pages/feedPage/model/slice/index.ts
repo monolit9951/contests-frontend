@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Work } from 'entities/work'
 
 import { fetchWorks } from '../services/fetchWorks'
 import { WorksState } from '../types'
@@ -18,6 +19,19 @@ const worksSlice = createSlice({
         incrementPage(state) {
             state.page += 1
             state.hasMore = false
+        },
+        updateFeedWorkLike: (state, action: PayloadAction<any>) => {
+            const { workId, userLike, likeAmount } = action.payload
+
+            // функция для обновления массива
+            const updateArray = (arr: Work[]) => {
+                const index = arr.findIndex((w) => w.id === workId)
+                if (index !== -1) {
+                    arr[index] = { ...arr[index], userLike, likeAmount }
+                }
+            }
+
+            updateArray(state.works)
         },
     },
     extraReducers: (builder) => {
@@ -39,6 +53,6 @@ const worksSlice = createSlice({
     },
 })
 
-export const { incrementPage } = worksSlice.actions
+export const { incrementPage, updateFeedWorkLike} = worksSlice.actions
 
 export default worksSlice.reducer

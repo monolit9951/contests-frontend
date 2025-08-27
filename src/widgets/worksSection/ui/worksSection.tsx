@@ -88,13 +88,13 @@ const WorksSection: React.FC = () => {
                     {works.map((data: Work, index: number) => {
                         if (index === works.length - 1) {
                             return (
-                                <li key={data.id} ref={lastWorkElementRef}>
+                                <li key={index} ref={lastWorkElementRef}>
                                     <WorkComponent work={data} />
                                 </li>
                             )
                         }
                         return (
-                            <li key={data.id}>
+                            <li key={index}>
                                 <WorkComponent work={data} />
                             </li>
                         )
@@ -104,7 +104,7 @@ const WorksSection: React.FC = () => {
 
             {workPreviewId && (
                 <ModalWindow isOpen onClose={handleCloseModal}>
-                    <WorkPreview workId={workPreviewId} />
+                    <WorkPreview workId={workPreviewId} isFeed/>
                 </ModalWindow>
             )}
         </div>

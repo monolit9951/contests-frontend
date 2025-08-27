@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import instance from "shared/api/api";
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import { Button } from "shared/ui/button";
@@ -9,7 +10,6 @@ import UploadWorkMediaInput from "./components/uploadWorkMediaInput/uploadWorkMe
 import UploadWorkMediaItem, { MediaItem } from "./components/uploadWorkMediaItem/uploadWorkMediaItem";
 
 import './uploadWorkModal.scss';
-import { useNavigate } from "react-router-dom";
 
 interface UploadWorkModalInterface {
   contestId: string;
