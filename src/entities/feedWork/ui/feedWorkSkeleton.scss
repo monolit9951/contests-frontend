@@ -1,0 +1,15 @@
+.feedWorkSkeleton{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    > .feedWorkSkeleton_profile{
+        display: flex;
+        gap: 10px;
+
+    }
+
+    > .feedWorkSkeleton_media{
+        // width: 100%;
+        aspect-ratio: 455/612;
+    }
+}

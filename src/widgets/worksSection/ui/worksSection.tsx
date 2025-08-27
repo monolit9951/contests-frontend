@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import FeedWorkSkeleton from 'entities/feedWork/ui/feedWorkSkeleton'
 import { Work } from 'entities/work'
 import WorkComponent from 'entities/work/ui/workComponent'
 import {
@@ -14,7 +15,7 @@ import {
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { ModalWindow } from 'shared/ui/modalWindow'
-import Spinner from 'shared/ui/spinner'
+// import Spinner from 'shared/ui/spinner'
 import { Text } from 'shared/ui/text'
 
 import { WorkPreview } from './workPreview/workPreview'
@@ -67,8 +68,7 @@ const WorksSection: React.FC = () => {
         dispatch(fetchWorks(page))
     }, [dispatch, page])
 
-    // ранний return после всех хуков
-    if (loading && !works.length) return <Spinner center />
+    // if (loading && !works.length) return <Spinner center />
     if (error)
         return (
             <div className='works-section__error-message'>
@@ -99,6 +99,13 @@ const WorksSection: React.FC = () => {
                             </li>
                         )
                     })}
+                    {(loading && !works.length && 
+                        <>
+                            <li><FeedWorkSkeleton /></li>
+                            <li><FeedWorkSkeleton /></li>
+                            <li><FeedWorkSkeleton /></li>
+                        </> 
+                    )}
                 </ul>
             </div>
 
