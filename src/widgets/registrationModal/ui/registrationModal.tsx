@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import instance from "shared/api/api";
 import googleSVG from 'shared/assets/icons/google.svg'
+import cross from 'shared/assets/icons/X.svg'
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import CustomCheckbox from "widgets/customCheckbox";
 
@@ -222,6 +223,8 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
                     <div className="registrationModal_controls_explain">Join thousands of adventurers on epic quests!</div>
                 </div>
             </div>
+
+            <button type="button" onClick={onClose}><img src={cross} alt="X" /></button>
 
             <Alert />
         </div>

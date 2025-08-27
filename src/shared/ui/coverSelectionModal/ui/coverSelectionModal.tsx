@@ -191,13 +191,13 @@ export const CoverSelectionModal = ({
             overlayClassName='cover_selection_overlay'
             modalContentClass='cover_selection_content'>
             <VStack className='cover_selection_container'>
-                <HStack className='header'>
-                    <Text Tag='h3' className='header_text'>
+                <HStack className='cover_selection_header'>
+                    <Text Tag='h3' className='cover_selection_header_text'>
                         Cover selection
                     </Text>
                     <Icon
                         Svg={X}
-                        className='header_icon'
+                        className='cover_selection_header_icon'
                         clickable
                         onClick={onCancel}
                         width={24}

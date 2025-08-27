@@ -1,15 +1,16 @@
 .registrationModal{
     width: 582px;
-    padding: 28px 14px 28px 32px;
+    padding: 28px 0 28px 32px;
     background-color: #1B2321;
     border-radius: 20px;
     position: relative;
     color: white;
     overflow: hidden;
+    position: relative;
 
     > .registrationModal_container{
         overflow-y: auto;
-        padding-right: 18px;
+        padding-right: 32px;
         max-height: 80dvh;
         scrollbar-width: thin;
         scrollbar-color: #393B3B transparent;
@@ -181,6 +182,30 @@
                 font-weight: 400;
                 text-align: center;
             }
+        }
+    }
+
+    > button{
+        display: none;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        border-radius: 50%;
+        cursor: pointer;
+        position: absolute;
+        top: 12px;
+        right: 12px;
+
+        > img{
+            height: 30px;
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .registrationModal{
+        > button{
+            display: block;
         }
     }
 }
