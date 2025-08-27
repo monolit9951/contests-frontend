@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback,useEffect, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { Work, WorkCard, WorkCardSkeleton } from 'entities/work'
 import {
@@ -11,14 +11,11 @@ import {
     fetchNextTextWorks,
 } from 'pages/contestPage/model/services'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
-import { Button } from 'shared/ui/button'
 import { ModalWindow } from 'shared/ui/modalWindow'
-// import { ModalWindow } from 'shared/ui/modalWindow'
 import Spinner from 'shared/ui/spinner'
 import { Text } from 'shared/ui/text'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
-// import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 import './worksList.scss'
 
 interface Props {
@@ -26,32 +23,22 @@ interface Props {
     sort: 'new' | 'popular'
 }
 
-export const WorksList: FC<Props> = (props) => {
-    const { sort, workType } = props
-
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
+export const WorksList: FC<Props> = ({ workType, sort }) => {
     const dispatch = useAppDispatch()
-
     const ownerId = useAppSelector(selectContestOwnerId)
     const media = useAppSelector(selectContestMedia)
     const text = useAppSelector(selectContestText)
 
     const popularTextWorks = text.popular as Work[]
     const newTextWorks = text.new as Work[]
-
     const popularMediaWorks = media.popular as Work[]
     const newMediaWorks = media.new as Work[]
 
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth)
-        }
-
-        window.addEventListener('resize', handleResize)
-
-        return () => window.removeEventListener('resize', handleResize)
-    }, [windowWidth])
+    const [searchParams] = useSearchParams()
+    const location = useLocation()
+    const navigate = useNavigate()
+    const [openModal, setOpenModal] = useState<boolean>(false)
+    const [workPreviewId, setWorkPreviewId] = useState<string>('')
 
     const loadMoreCondition = () => {
         if (
@@ -60,7 +47,9 @@ export const WorksList: FC<Props> = (props) => {
         ) {
             return true
         }
-        if (workType === 'text' && (text.nextLoading || text.loading || text.totalPages <= text.page || !text.totalElements)
+        if (
+            workType === 'text' &&
+            (text.nextLoading || text.loading || text.totalPages <= text.page || !text.totalElements)
         ) {
             return true
         }
@@ -68,7 +57,7 @@ export const WorksList: FC<Props> = (props) => {
     }
 
     const onLoadMore = () => {
-        loadMoreCondition()
+        if (loadMoreCondition()) return
 
         if (workType === 'media') {
             dispatch(fetchNextMediaWorks(ownerId))
@@ -77,61 +66,35 @@ export const WorksList: FC<Props> = (props) => {
         }
     }
 
-
     const renderList = () => {
-
         if (workType === 'media') {
-            if (sort === 'new') {
-                return newMediaWorks?.map((item: Work) => (
-                    <WorkCard key={item.id} data={item} />
-                ))
-            }
-            return popularMediaWorks?.map((item: Work) => (
+            return (sort === 'new' ? newMediaWorks : popularMediaWorks)?.map((item) => (
                 <WorkCard key={item.id} data={item} />
             ))
         }
 
-        return sort === 'new'
-            ? (!newTextWorks.length && (
-                  <li className='participants-works__message'>
-                      <Text Tag='p' size='xl'>
-                          No works yet.
-                      </Text>
-                  </li>
-              )) ||
-                  newTextWorks?.map((item) => (
-                    <WorkCard key={item.id} data={item} />
-                  ))
-            : (!popularTextWorks.length && (
-                  <li className='participants-works__message'>
-                      <Text Tag='p' size='xl'>
-                          No popular works yet.
-                      </Text>
-                  </li>
-              )) ||
-                  popularTextWorks?.map((item) => (
-                    <WorkCard key={item.id} data={item} />
+        const works = sort === 'new' ? newTextWorks : popularTextWorks
+        if (!works.length) {
+            return (
+                <li className='participants-works__message'>
+                    <Text Tag='p' size='xl'>
+                        {sort === 'new' ? 'No works yet.' : 'No popular works yet.'}
+                    </Text>
+                </li>
+            )
+        }
 
-                  ))
+        return works.map((item) => <WorkCard key={item.id} data={item} />)
     }
 
-    const [searchParams] = useSearchParams();
-
-    const location = useLocation()
-    const navigate = useNavigate()
-    const [openModal, setOpenModal] = useState<boolean>(false)
-    const [workPreviewId, setWorkPreviewId] = useState<string>('')
-
     const handleCloseModal = () => {
-        const params = new URLSearchParams(location.search);
-        params.delete("workId");
-
-        navigate(`${location.pathname}?${params.toString()}`, { replace: true, preventScrollReset: true });
+        const params = new URLSearchParams(location.search)
+        params.delete('workId')
+        navigate(`${location.pathname}?${params.toString()}`, { replace: true, preventScrollReset: true })
     }
 
     useEffect(() => {
-        const workId = searchParams.get("workId");
-
+        const workId = searchParams.get('workId')
         if (workId) {
             setWorkPreviewId(workId)
             setOpenModal(true)
@@ -139,37 +102,54 @@ export const WorksList: FC<Props> = (props) => {
             setOpenModal(false)
             setWorkPreviewId('')
         }
-    }, [searchParams]); // отслеживаем изменения
+    }, [searchParams])
+
+    // подгрузка по скроллу
+    const handleScroll = useCallback(() => {
+        const scrollTop = window.scrollY
+        const windowHeight = window.innerHeight
+        const fullHeight = document.documentElement.scrollHeight
+
+        if (scrollTop + windowHeight >= fullHeight * 0.8) {
+            onLoadMore()
+        }
+    }, [media, text, workType, sort, ownerId])
+
+    useEffect(() => {
+        const debounce = (func: () => void, wait = 200) => {
+            let timeout: ReturnType<typeof setTimeout>
+            return () => {
+                clearTimeout(timeout)
+                timeout = setTimeout(func, wait)
+            }
+        }
+
+        const debouncedScroll = debounce(handleScroll, 200)
+        window.addEventListener('scroll', debouncedScroll)
+        return () => window.removeEventListener('scroll', debouncedScroll)
+    }, [handleScroll])
 
     return (
         <div className="worksList">
-            {(!media.nextLoading || !text.nextLoading) && <ul>{renderList()}</ul>}
-            {media.loading && <ul>
-                <li><WorkCardSkeleton/></li>
-                <li><WorkCardSkeleton/></li>
-                <li><WorkCardSkeleton/></li>
-                <li><WorkCardSkeleton/></li>
-                <li><WorkCardSkeleton/></li>
-                <li><WorkCardSkeleton/></li>
-                <li><WorkCardSkeleton/></li>
-                <li><WorkCardSkeleton/></li>
-                <li><WorkCardSkeleton/></li>
-            </ul>}
+            <ul>{renderList()}</ul>
 
-            {(sort === 'new' && !newMediaWorks.length) && <div className="worksList_noWorks">No works yet</div>}
-            {(sort === 'popular' && !popularMediaWorks.length) && <div className="worksList_noWorks">No popular works yet</div>}
+            {(media.loading || text.loading) && (
+                <ul>
+                    {Array.from({ length: 9 }).map((_, idx) => (
+                        <li key={idx}>
+                            <WorkCardSkeleton />
+                        </li>
+                    ))}
+                </ul>
+            )}
 
             {(media.nextLoading || text.nextLoading) && <Spinner />}
-            {loadMoreCondition() ||
-            (sort === 'new' && (
-                <Button variant='secondary' onClick={onLoadMore}>
-                    Show more works
-                </Button>
-            ))}
 
-
-            {openModal && <ModalWindow isOpen onClose={handleCloseModal}><WorkPreview workId={workPreviewId}/></ModalWindow>}
+            {openModal && (
+                <ModalWindow isOpen onClose={handleCloseModal}>
+                    <WorkPreview workId={workPreviewId} />
+                </ModalWindow>
+            )}
         </div>
-        
     )
 }
