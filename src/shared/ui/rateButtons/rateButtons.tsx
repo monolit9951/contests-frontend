@@ -1,5 +1,5 @@
 /* eslint-disable no-return-assign */
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import instance from 'shared/api/api'
@@ -21,21 +21,24 @@ interface Props {
     work?: boolean
     border?: boolean
     userLike: string | null
+    handleLikeCallBack?: (action: any) => void
 }
 
-const RateButtons = (props: Props) => {
-    const { id, border, likes, work, userLike } = props
+const RateButtons: FC<Props> = (props) => {
+    const { id, border, likes, work, userLike, handleLikeCallBack } = props
     const [likesNum, setLikesNum] = useState<number>(likes)
     const [liked, setLiked] = useState<boolean>(userLike === 'LIKE')
     const [disliked, setDisliked] = useState<boolean>(userLike === 'DISLIKE')
     const {showAlert, Alert} = useAlert()
     const token = localStorage.getItem('userToken')
 
-    const onRate = async (action: string) => {
+    const onRate = async (action: string): Promise<"SUCCESS" | "ERROR"> => {
         try {
             await instance.patch(`${work ? 'works' : 'comment'}/addLike/${id}?likeType=${action}`, null, {headers: { Authorization: `Bearer ${token}` }})
+            return 'SUCCESS'
         } catch (err) {
             showAlert('ОШИБКА ПРИ ДОБАВЛЕНИИ, ЗАМЕНИТЬ ЭТОТ АЛЁРТ')
+            return 'ERROR'
         }
     }
 
@@ -56,24 +59,42 @@ const RateButtons = (props: Props) => {
         if(user.userId === null){
             showAlert("You not authorized")
         } else{
+
+            // если был дизлайк, а мы нажали лайк
             if (disliked) {
                 setDisliked(!disliked)
                 setLiked(true)
                 setLikesNum((_prev) => (_prev += 1))
+            
+                if(handleLikeCallBack){
+                    handleLikeCallBack({userLike: "LIKE", likeAmount: likesNum + 1})
+                }
 
-                await onRate('DISLIKE')
+                onRate('DISLIKE')
                 onRate('LIKE')
             }
+
+            // если был лайк и нажали опять сняв его
             if (liked) {
                 setLiked(!liked)
                 setLikesNum((_prev) => (_prev -= 1))
+                
+                if(handleLikeCallBack){
+                    handleLikeCallBack({userLike: null, likeAmount: likesNum - 1})
+                }
 
                 onRate('LIKE')
+            
+            // если не было реакции 
             } else if (!disliked && !liked) {
                 setLiked(!liked)
                 setLikesNum((_prev) => (_prev += 1))
 
                 onRate('LIKE')
+
+                if(handleLikeCallBack){
+                    handleLikeCallBack({userLike: "LIKE", likeAmount: likesNum + 1})
+                }
             }
         }
     }
@@ -82,24 +103,39 @@ const RateButtons = (props: Props) => {
         if(user.userId === null){
             showAlert("You not authorized")
         } else{
+
+            // если был лайк а мы нажали дизлайк
             if (liked) {
                 setLiked(!liked)
                 setDisliked(true)
                 setLikesNum((_prev) => (_prev -= 1))
 
-                await onRate('LIKE')
+                onRate('LIKE')
                 onRate('DISLIKE')
+
+                if(handleLikeCallBack){
+                    handleLikeCallBack({userLike: "DISLIKE", likeAmount: likesNum - 1})
+                }
             }
+            // если был дизлайк и мы его опять сняв его
             if (disliked) {
                 setDisliked(!disliked)
-                // setLikesNum((_prev) => (_prev += 1))
 
                 onRate('DISLIKE')
+
+                if(handleLikeCallBack){
+                    handleLikeCallBack({userLike: null, likeAmount: likesNum})
+                }
+            
+            // если не было реакции
             } else if (!disliked && !liked) {
                 setDisliked(!disliked)
-                // setLikesNum((_prev) => (_prev -= 1))
 
                 onRate('DISLIKE')
+
+                if(handleLikeCallBack){
+                    handleLikeCallBack({userLike: "DISLIKE", likeAmount: likesNum})
+                }
             }
         }
     }
@@ -124,7 +160,6 @@ const RateButtons = (props: Props) => {
                     height={20}
                 />
             </button>
-
             <Alert />
         </HStack>
     )

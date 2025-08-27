@@ -72,7 +72,6 @@ const slice = createSlice({
         updateWorkLike: (state, action: PayloadAction<any>) => {
             const { workId, userLike, likeAmount } = action.payload
             console.log(action.payload)
-
             // функция для обновления массива
             const updateArray = (arr: Work[]) => {
                 const index = arr.findIndex((w) => w.id === workId)

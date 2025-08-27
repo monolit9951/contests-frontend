@@ -53,7 +53,7 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId }) => {
         setUserLike(!userLike)
         dispatch(contestWorksActions.updateWorkLike({
             workId: workData.id,
-            userLike: !userLike,
+            userLike: "DISLIKE",
             likeAmount: userLike 
             ? workData.likeAmount - 1 
             : workData.likeAmount + 1
