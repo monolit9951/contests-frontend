@@ -244,7 +244,7 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                     </VStack>
                     
 
-                    {user.userId !== null && (user.userId === data.contestOwner.id || user.userRole === 'ADMIN') && <Button type='button' variant='primary' onClick={() => {navigate(`/chooseWinner/${data.id}`)}}>
+                    {user.userId !== null && (user.userId === data.contestOwner.id || user.userRole === 'ADMIN') && (data.status === 'ACTIVE' || data.status === 'SELECTION_IN_PROGRESS' || data.status === 'WINNER_CONFIRMATION' || data.status === 'REVIEW') && <Button type='button' variant='primary' onClick={() => {navigate(`/chooseWinner/${data.id}`)}}>
                         Choose winners
                     </Button>}
                 </VStack>
