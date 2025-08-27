@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import clsx from 'clsx'
 import filter from 'shared/assets/icons/filter.svg?react'
 import filterF from 'shared/assets/icons/filterF.svg?react'
@@ -27,51 +27,20 @@ const FilterController = (props: IFilterController) => {
     const filterRef = useRef<HTMLDivElement | null>(null)
     const filterBtnRef = useRef<HTMLButtonElement | null>(null)
 
-const onFilterToggle = () => {
-    const newState = !showFilter
-    setShowFilter(newState)
+    const onFilterToggle = () => {
 
-    // блкировка скролла на телефоне
-    if (window.innerWidth < 1000) {
-        if (newState) {
-            document.body.style.overflow = 'hidden'
-        } else {
-            document.body.style.overflow = ''
+        const newState = !showFilter
+        setShowFilter(newState)
+
+        // блкировка скролла на телефоне
+        if (window.innerWidth < 1000) {
+            if (newState) {
+                document.body.style.overflow = 'hidden'
+            } else {
+                document.body.style.overflow = ''
+            }
         }
     }
-}
-
-
-    useEffect(() => {
-        const onClickOutside = (event: MouseEvent) => {
-            const targetNode = event.target as Node
-
-            if (
-                filterRef.current &&
-                filterBtnRef.current &&
-                !filterRef.current.contains(targetNode) &&
-                !filterBtnRef.current.contains(targetNode)
-            ) {
-                setShowFilter(false)
-            }
-        }
-
-        const onKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                setShowFilter(false)
-            }
-        }
-
-        if (showFilter) {
-            document.addEventListener('keydown', onKeyDown)
-            document.addEventListener('mousedown', onClickOutside)
-        }
-
-        return () => {
-            document.removeEventListener('keydown', onKeyDown)
-            document.removeEventListener('mousedown', onClickOutside)
-        }
-    }, [showFilter])
 
     return (
         <div className={clsx('filter-controller', className)}>

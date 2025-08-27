@@ -79,51 +79,59 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
         }
 
         return (
-            <VStack ref={ref} className={clsx('filter-wrapper', className)}>
+            <>
+                <div className="filter-modal">
+                    <VStack ref={ref} className={clsx('filter-wrapper', className)}>
 
-                <HStack className='filter-wrapper__title-block justify__between'>
-                    <Text Tag='h3' size='l' bold>
-                        Filters
-                    </Text>
-                    <Icon
-                        Svg={cross}
-                        clickable
-                        onClick={onClose}
-                        className='close-icon'
-                    />
-                </HStack>
+                        <HStack className='filter-wrapper__title-block justify__between'>
+                            <Text Tag='h3' size='l' bold>
+                                Filters
+                            </Text>
+                            <Icon
+                                Svg={cross}
+                                clickable
+                                onClick={onClose}
+                                className='close-icon'
+                            />
+                        </HStack>
 
-                <hr />
+                        <hr />
 
-                <FilterBlock filter={status} />
+                        <FilterBlock filter={status} />
 
-                <FilterBlock filter={contestType} />
+                        <FilterBlock filter={contestType} />
 
-                <FilterBlock filter={prizeType} />
+                        <FilterBlock filter={prizeType} />
 
-                <FilterBlock rangeFilter='MONEY'/>
+                        <FilterBlock rangeFilter='MONEY'/>
 
-                <FilterBlock rangeFilter='COINS'/>
+                        <FilterBlock rangeFilter='COINS'/>
 
-                <FilterBlock filter={creators} />
+                        <FilterBlock filter={creators} />
 
-                <hr />
+                        <hr />
 
-                <HStack className='justify__between'>
-                    <Button
-                        variant='secondary'
-                        size='s'
-                        onClick={onFilterClear}>
-                        Clear all
-                    </Button>
-                    <Button
-                        variant='primary'
-                        size='s'
-                        onClick={onFilterConfirm}>
-                        Show contests
-                    </Button>
-                </HStack>
-            </VStack>
+                        <HStack className='justify__between'>
+                            <Button
+                                variant='secondary'
+                                size='s'
+                                onClick={onFilterClear}>
+                                Clear all
+                            </Button>
+                            <Button
+                                variant='primary'
+                                size='s'
+                                onClick={onFilterConfirm}>
+                                Show contests
+                            </Button>
+                        </HStack>
+
+                    </VStack>
+                </div>
+
+                {/* eslint-disable */}
+                <div className="filter_background" onClick={onClose}/>
+            </>
         )
     }
 )
