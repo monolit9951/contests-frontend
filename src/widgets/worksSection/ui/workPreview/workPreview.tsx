@@ -3,10 +3,8 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getWorkById } from 'entities/work/model/services/workServices'
 import moment from 'moment'
-import { contestWorksActions } from 'pages/contestPage'
 import dots from 'shared/assets/icons/tripleDot.svg'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
-import { useAppDispatch } from 'shared/lib/store'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import Spinner from 'shared/ui/spinner'
@@ -43,26 +41,12 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId }) => {
         setModalReport(true)
     }
 
-    const dispatch = useAppDispatch()
-
-    // проблема в передаче данного, которое не меняется, передавать стоит 
-    const [userLike, setUserLike] = useState<boolean>(true)
-
-    const handleAddLike = () => {
-
-        setUserLike(!userLike)
-        dispatch(contestWorksActions.updateWorkLike({
-            workId: workData.id,
-            userLike: "DISLIKE",
-            likeAmount: userLike 
-            ? workData.likeAmount - 1 
-            : workData.likeAmount + 1
-        }))
-    }
-
-    const handleChangeComment = () => {
-        console.log('comment')
-    }
+    // const handleChangeComment = () => {
+    //     dispatch(contestWorksActions.updateWorkComments({
+    //         workId: workData.id,
+    //         commentAmount: 2
+    //     }))
+    // }
 
     return (
         <div className="workPreview">
@@ -86,8 +70,6 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId }) => {
                             </div>
                             
                             <div className="rightPart">
-                                <button type='button' onClick={handleAddLike}>AddLike</button>
-                                <button type='button' onClick={handleChangeComment}>AddComment</button>
                                 <div className='rightPart_controller'>
                                     <button onClick={handleController} type='button'><img src={dots} alt="dots"/></button>
 
