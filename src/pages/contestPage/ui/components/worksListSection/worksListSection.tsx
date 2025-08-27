@@ -22,12 +22,12 @@ import './worksListSection.scss'
 type WorkType = 'media' | 'text'
 type WorkSort = 'new' | 'popular'
 
-interface Props {
-    worksAmount: number
-    // openModal: (work: Work) => void
-}
+// interface Props {
+//     worksAmount: number
+//     openModal: (work: Work) => void
+// }
 
-const WorksListSection = ({ worksAmount }: Props) => {
+const WorksListSection = () => {
     const [workType] = useState<WorkType>('media')
     const [selectedSort, setSelectedSort] = useState<WorkSort>('new')
 
@@ -37,7 +37,6 @@ const WorksListSection = ({ worksAmount }: Props) => {
     const { contestId } = useParams() as { contestId: string };
     const media = useAppSelector(selectContestMedia)
     const text = useAppSelector(selectContestText)
-
     const onFetch = (type: WorkType, sort: WorkSort) => {
         if (sort === 'popular') {
             if (type === 'media' && !media.popular.length) {
@@ -83,7 +82,7 @@ const WorksListSection = ({ worksAmount }: Props) => {
                 className='participants-works__title'>
                 Participants&apos; works
                 <Text Tag='span' size='xl'>
-                    ({worksAmount})
+                    ({media.totalElements})
                 </Text>
             </Text>
 

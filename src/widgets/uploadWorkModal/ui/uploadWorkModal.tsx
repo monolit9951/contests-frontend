@@ -1,7 +1,8 @@
 import { ChangeEvent, FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { fetchMediaWorks, fetchPopularMediaWorks } from "pages/contestPage/model/services";
 import instance from "shared/api/api";
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
+import { useAppDispatch } from "shared/lib/store";
 import { Button } from "shared/ui/button";
 import { Textarea } from "shared/ui/input";
 import { v4 as uuidv4 } from 'uuid';
@@ -22,8 +23,7 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
   const [textareaError, setTextAreaError] = useState<string>('')
   const {showAlert, Alert} = useAlert()
   const [mediaArray, setMediaArray] = useState<MediaItem[]>([]);
-  const navigate = useNavigate()
-
+  const dispatch = useAppDispatch()
 
   // отловить изменение текста
   const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -84,7 +84,9 @@ const UploadWorkModal: FC<UploadWorkModalInterface> = ({ contestId, onClose }) =
             },
           });
           onClose()
-          navigate(`/contests/${contestId}`)
+          dispatch(fetchMediaWorks(contestId))
+          dispatch(fetchPopularMediaWorks(contestId))
+          // navigate(`/contests/${contestId}`)
         } catch (error){
           showAlert('Error', 'CHANGE THAT ERROR')
           if(error){

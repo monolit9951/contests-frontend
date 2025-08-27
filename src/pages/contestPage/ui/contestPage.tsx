@@ -117,7 +117,7 @@ const ContestPage = () => {
 
         {data.winners && data.winners.length > 0 && <WinnersSection winners = {data.winners.slice(0, 3)}/>}
 
-        <WorksListSection worksAmount={data.participantAmount}/>
+        <WorksListSection />
         <CommentsSection workId={id} contest />
       </VStack>
 
