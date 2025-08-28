@@ -8,24 +8,8 @@ import './worksListSection.scss'
 
 type WorkSort = 'new' | 'popular'
 
-// interface Props {
-//     worksAmount: number
-//     openModal: (work: Work) => void
-// }
-
 const WorksListSection = () => {
     const [selectedSort, setSelectedSort] = useState<WorkSort>('new')
-
-
-
-    // const onWorkTypesClick = (type: WorkType) => {
-    //     if (type === workType) {
-    //         return
-    //     }
-    //     setWorkType(type)
-
-    //     onFetch(type, selectedSort)
-    // }
 
     const onSortClick = (sort: WorkSort) => {
         if (sort === selectedSort) {
@@ -47,24 +31,13 @@ const WorksListSection = () => {
                 </Text>
             </Text>
 
-            {/* <ul className='participants-works__types'>
-                <li>
-                    <button
-                        type='button'
-                        className={clsx(workType === 'media' && 'active')}
-                        onClick={() => onWorkTypesClick('media')}>
-                        Media
-                    </button>
-                </li>
-            </ul> */}
-
             <ul className='participants-works__sort'>
                 <li>
                     <button
                         type='button'
                         className={clsx(selectedSort === 'new' && 'active')}
                         onClick={() => onSortClick('new')}>
-                        New 100
+                        New (100)
                     </button>
                 </li>
                 <li>

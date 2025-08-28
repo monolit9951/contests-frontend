@@ -8,6 +8,7 @@ import { ModalWindow } from 'shared/ui/modalWindow'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 import './worksList.scss'
+import Spinner from 'shared/ui/spinner'
 
 interface Props {
     sort: 'new' | 'popular'
@@ -99,8 +100,7 @@ export const WorksList: FC<Props> = ({ sort }) => {
             </ul>
 
             <div ref={loaderRef} style={{ height: 40 }} />
-            {isFetchingNextPage && <p>LOADING...</p>}
-            {/* {!hasNextPage && <p>NO WORKS </p>} */}
+            {isFetchingNextPage && <Spinner />}
 
 
             {openModal && (
