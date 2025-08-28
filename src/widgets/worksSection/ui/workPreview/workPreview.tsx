@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+// eslint-disable-next-line
+import { useQueryClient } from '@tanstack/react-query'
+import { Work } from 'entities/work'
 import { getWorkById } from 'entities/work/model/services/workServices'
 import moment from 'moment'
-import { contestWorksActions } from 'pages/contestPage'
-import { updateFeedWorkLike } from 'pages/feedPage/model/slice'
 import dots from 'shared/assets/icons/tripleDot.svg'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
-import { useAppDispatch } from 'shared/lib/store'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import Spinner from 'shared/ui/spinner'
@@ -45,41 +45,27 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId, isFeed })
         setModalReport(true)
     }
 
-    // const handleChangeComment = () => {
-    //     dispatch(contestWorksActions.updateWorkComments({
-    //         workId: workData.id,
-    //         commentAmount: 2
-    //     }))
-    // }
+    const queryClient = useQueryClient();
 
-    // const handleChangeLike = (action: any) => {
-    //     if(isFeed){
-    //         console.log('feed')
-    //     } else {
-    //         console.log('contest')
-    //     }
-    // }
-
-
-    const dispatch = useAppDispatch()
-
-    // смена лайка и дизлайка в фиде и ворках контеста
+    // смена лайков в самом кеше
     const handleLikeCallBack = (action: any) => {
         if(isFeed){
-            dispatch(updateFeedWorkLike({
-                workId,
-                userLike: action.userLike,
-                likeAmount: action.likeAmount
-            }))
-        } else {
-            dispatch(contestWorksActions.updateWorkLike({
-                workId,
-                userLike: action.userLike,
-                likeAmount: action.likeAmount
-            }))
+            queryClient.setQueryData(['feedWorks'], (oldData: any) => {
+                if (!oldData) return oldData;
+    
+                return {
+                ...oldData,
+                pages: oldData.pages.map((page: any) => ({
+                    ...page,
+                    content: page.content.map((work: Work) =>
+                    work.id === workData.id ? { ...work, userLike: action.userLike, likeAmount: action.likeAmount } : work
+                    ),
+                })),
+                pageParams: oldData.pageParams,
+                };
+            });
         }
-
-    }
+    };
 
 
     return (
