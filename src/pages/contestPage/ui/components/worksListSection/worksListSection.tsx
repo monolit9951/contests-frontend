@@ -122,7 +122,6 @@ const WorksListSection = () => {
             </ul>
 
             <WorksList
-                workType='media'
                 sort={selectedSort}
             />
         </section>

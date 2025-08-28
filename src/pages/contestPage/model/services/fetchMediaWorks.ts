@@ -3,9 +3,6 @@ import instance from 'shared/api/api'
 
 import { selectContestMedia } from '../selectors'
 
-const token = localStorage.getItem('userToken')
-const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
 // получение всех медиаВорков
 export const fetchMediaWorks = createAsyncThunk(
     'works/fetchContestMedia',
@@ -13,6 +10,9 @@ export const fetchMediaWorks = createAsyncThunk(
         const { rejectWithValue } = thunkApi
 
         try {
+            const token = localStorage.getItem('userToken')
+            const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
             const response = await instance.get(
                 `/works/byContestId/${id}`, {headers}
             )
@@ -36,6 +36,9 @@ export const fetchNextMediaWorks = createAsyncThunk(
         const { page } = selectContestMedia(getState())
 
         try {
+            const token = localStorage.getItem('userToken')
+            const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
             const response = await instance.get(
                 `/works/byContestId/${id}?page=${page}&pageSize=9&sortDirection=ASC&sortBy=new`, {headers}
             )
@@ -57,6 +60,10 @@ export const fetchPopularMediaWorks = createAsyncThunk(
         const { rejectWithValue } = thunkApi
 
         try {
+
+            const token = localStorage.getItem('userToken')
+            const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
             const response = await instance.get(
                 `/works/popular/${id}?page=0&pageSize=9`, {headers}
             )
@@ -71,3 +78,36 @@ export const fetchPopularMediaWorks = createAsyncThunk(
         }
     }
 )
+
+export const fetchNewWorks = async (contestId: string, pageParam: number) => {
+    const token = localStorage.getItem('userToken');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+    const response = await instance.get(`/works/byContestId/${contestId}?page=${pageParam}&pageSize=9&sortDirection=ASC&sortBy=new`, { headers });
+
+    if (!response.data) throw new Error('No data');
+
+    return response.data;
+};
+
+
+
+
+export const fetchPopularWorks = async(id: string, pageParam: number) => {
+    try{
+        const token = localStorage.getItem('userToken')
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+
+        const response = await instance.get(`/works/byContestId/${id}?page=${pageParam}&pageSize=9&sortDirection=ASC&sortBy=popular`, {headers})
+
+        if (!response.data) {
+            throw new Error()
+        }
+
+        return response.data
+
+    } catch (error){    
+        return error
+    }
+}

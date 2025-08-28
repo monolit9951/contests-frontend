@@ -1,98 +1,37 @@
-import { FC, useCallback,useEffect, useState } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { Work, WorkCard, WorkCardSkeleton } from 'entities/work'
-import {
-    selectContestMedia,
-    selectContestOwnerId,
-    selectContestText,
-} from 'pages/contestPage/model/selectors'
-import {
-    fetchNextMediaWorks,
-    fetchNextTextWorks,
-} from 'pages/contestPage/model/services'
-import { useAppDispatch, useAppSelector } from 'shared/lib/store'
+import { FC,useCallback,useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { Work } from 'entities/work'
+import WorkComponent from 'entities/work/ui/workComponent'
+import { fetchNewWorks } from 'pages/contestPage/model/services/fetchMediaWorks'
 import { ModalWindow } from 'shared/ui/modalWindow'
-import Spinner from 'shared/ui/spinner'
-import { Text } from 'shared/ui/text'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 import './worksList.scss'
 
 interface Props {
-    workType: 'media' | 'text'
     sort: 'new' | 'popular'
 }
 
-export const WorksList: FC<Props> = ({ workType, sort }) => {
-    const dispatch = useAppDispatch()
-    const ownerId = useAppSelector(selectContestOwnerId)
-    const media = useAppSelector(selectContestMedia)
-    const text = useAppSelector(selectContestText)
+export const WorksList: FC<Props> = ({ sort }) => {
 
-    const popularTextWorks = text.popular as Work[]
-    const newTextWorks = text.new as Work[]
-    const popularMediaWorks = media.popular as Work[]
-    const newMediaWorks = media.new as Work[]
-
-    const [searchParams] = useSearchParams()
-    const location = useLocation()
     const navigate = useNavigate()
-    const [openModal, setOpenModal] = useState<boolean>(false)
+    const location = useLocation()
     const [workPreviewId, setWorkPreviewId] = useState<string>('')
+    const [openModal, setOpenModal] = useState<boolean>(false)
+    const [searchParams] = useSearchParams()
+    const loaderRef = useRef<HTMLDivElement | null>(null);
 
-    const loadMoreCondition = () => {
-        if (
-            workType === 'media' &&
-            (media.nextLoading || media.loading || media.totalPages <= media.page || !media.totalElements)
-        ) {
-            return true
-        }
-        if (
-            workType === 'text' &&
-            (text.nextLoading || text.loading || text.totalPages <= text.page || !text.totalElements)
-        ) {
-            return true
-        }
-        return false
-    }
+    console.log(sort)
 
-    const onLoadMore = () => {
-        if (loadMoreCondition()) return
-
-        if (workType === 'media') {
-            dispatch(fetchNextMediaWorks(ownerId))
-        } else {
-            dispatch(fetchNextTextWorks(ownerId))
-        }
-    }
-
-    const renderList = () => {
-        if (workType === 'media') {
-            return (sort === 'new' ? newMediaWorks : popularMediaWorks)?.map((item) => (
-                <WorkCard key={item.id} data={item} />
-            ))
-        }
-
-        const works = sort === 'new' ? newTextWorks : popularTextWorks
-        if (!works.length) {
-            return (
-                <li className='participants-works__message'>
-                    <Text Tag='p' size='xl'>
-                        {sort === 'new' ? 'No works yet.' : 'No popular works yet.'}
-                    </Text>
-                </li>
-            )
-        }
-
-        return works.map((item) => <WorkCard key={item.id} data={item} />)
-    }
-
+    // закрытие модалки и удаление квери
     const handleCloseModal = () => {
         const params = new URLSearchParams(location.search)
         params.delete('workId')
         navigate(`${location.pathname}?${params.toString()}`, { replace: true, preventScrollReset: true })
     }
 
+    // открытие модалки при наличии воркАйди в квери
     useEffect(() => {
         const workId = searchParams.get('workId')
         if (workId) {
@@ -104,46 +43,64 @@ export const WorksList: FC<Props> = ({ workType, sort }) => {
         }
     }, [searchParams])
 
-    // подгрузка по скроллу
-    const handleScroll = useCallback(() => {
-        const scrollTop = window.scrollY
-        const windowHeight = window.innerHeight
-        const fullHeight = document.documentElement.scrollHeight
+    const { contestId } = useParams<{ contestId: string }>();
 
-        if (scrollTop + windowHeight >= fullHeight * 0.8) {
-            onLoadMore()
-        }
-    }, [media, text, workType, sort, ownerId])
+    const { 
+        data: works, 
+        fetchNextPage, 
+        hasNextPage, 
+        isFetchingNextPage 
+    } = useInfiniteQuery({
+        queryKey: ['contestWorks', contestId],
+        queryFn: ({ pageParam = 0 }) => {
+            if (!contestId) return Promise.resolve({ content: [] });
+            return fetchNewWorks(contestId, pageParam);
+        },
+        initialPageParam: 0,
+        getNextPageParam: (lastPage, allPages) =>
+            lastPage.content.length === 9 ? allPages.length : undefined,
+        enabled: !!contestId,
+    });
+
+
+    // наблюдатель для скролла
+    const handleObserver = useCallback(
+        (entries: IntersectionObserverEntry[]) => {
+        const target = entries[0];
+
+            if (target.isIntersecting && hasNextPage && !isFetchingNextPage) {
+                fetchNextPage();
+            }
+        },
+        [hasNextPage, isFetchingNextPage, fetchNextPage]
+    );
 
     useEffect(() => {
-        const debounce = (func: () => void, wait = 200) => {
-            let timeout: ReturnType<typeof setTimeout>
-            return () => {
-                clearTimeout(timeout)
-                timeout = setTimeout(func, wait)
-            }
-        }
+        const option = { root: null, rootMargin: '20px', threshold: 0 };
+        const observer = new IntersectionObserver(handleObserver, option);
 
-        const debouncedScroll = debounce(handleScroll, 200)
-        window.addEventListener('scroll', debouncedScroll)
-        return () => window.removeEventListener('scroll', debouncedScroll)
-    }, [handleScroll])
+        if (loaderRef.current) observer.observe(loaderRef.current);
+            return () => {
+                if (loaderRef.current) observer.unobserve(loaderRef.current);
+            };
+    }, [handleObserver])
 
     return (
         <div className="worksList">
-            <ul>{renderList()}</ul>
-
-            {(media.loading || text.loading) && (
-                <ul>
-                    {Array.from({ length: 9 }).map((_, idx) => (
-                        <li key={idx}>
-                            <WorkCardSkeleton />
-                        </li>
+                <div>
+                    {works?.pages.map((page, pageIndex) => (
+                        <ul key={pageIndex}>
+                            {page.content.map((data: Work) => (
+                                <WorkComponent work={data} key={data.id} />
+                            ))}
+                        </ul>
                     ))}
-                </ul>
-            )}
 
-            {(media.nextLoading || text.nextLoading) && <Spinner />}
+                    <div ref={loaderRef} style={{ height: 40 }} />
+                    {isFetchingNextPage && <p>LOADING...</p>}
+                    {/* {!hasNextPage && <p>NO WORKS </p>} */}
+
+                </div>
 
             {openModal && (
                 <ModalWindow isOpen onClose={handleCloseModal}>

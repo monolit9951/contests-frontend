@@ -46,6 +46,8 @@ const WorksSection: React.FC = () => {
             lastPage.content.length === 3 ? allPages.length + 1 : undefined,
     });
 
+
+    // наблюдатель для скролла
     const handleObserver = useCallback(
         (entries: IntersectionObserverEntry[]) => {
         const target = entries[0];

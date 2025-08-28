@@ -61,7 +61,7 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId, isFeed })
                     work.id === workData.id ? { ...work, userLike: action.userLike, likeAmount: action.likeAmount } : work
                     ),
                 })),
-                pageParams: oldData.pageParams,
+                    pageParams: oldData.pageParams,
                 };
             });
         }

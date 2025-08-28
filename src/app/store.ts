@@ -2,7 +2,6 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { filterReducer } from 'features/filterContests'
 import { contestWorksReducer } from 'pages/contestPage'
 import { contestsPageReducer } from 'pages/contestsPage'
-import { worksReducer } from 'pages/feedPage'
 import {
     FLUSH,
     PAUSE,
@@ -19,7 +18,6 @@ import userReducer from "widgets/registrationModal/model/slice/userSlice"
 const rootReducer = combineReducers({
     contestsPage: contestsPageReducer,
     filter: filterReducer,
-    works: worksReducer,
     contestWorks: contestWorksReducer,
     user: userReducer
 })
