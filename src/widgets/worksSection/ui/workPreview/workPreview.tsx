@@ -67,7 +67,6 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId, isFeed })
             };
             });
         } else {
-            // Получаем все кэши, начинающиеся с 'contestWorks'
             const queries = queryClient.getQueriesData({queryKey: ['contestWorks']});
 
             queries.forEach(([queryKey, oldData]) => {
@@ -88,7 +87,6 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId, isFeed })
             });
         }
     };
-
 
 
     return (

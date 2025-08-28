@@ -1,25 +1,11 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
 import clsx from 'clsx'
-import {
-    selectContestMedia,
-    selectContestOwnerId,
-    selectContestText,
-} from 'pages/contestPage/model/selectors'
-import {
-    fetchMediaWorks,
-    fetchPopularMediaWorks,
-    fetchPopularTextWorks,
-    fetchTextWorks,
-} from 'pages/contestPage/model/services'
-import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Text } from 'shared/ui/text'
 
 import { WorksList } from './worksList'
 
 import './worksListSection.scss'
 
-type WorkType = 'media' | 'text'
 type WorkSort = 'new' | 'popular'
 
 // interface Props {
@@ -28,32 +14,9 @@ type WorkSort = 'new' | 'popular'
 // }
 
 const WorksListSection = () => {
-    const [workType] = useState<WorkType>('media')
     const [selectedSort, setSelectedSort] = useState<WorkSort>('new')
 
-    const dispatch = useAppDispatch()
 
-    const ownerId = useAppSelector(selectContestOwnerId)
-    const { contestId } = useParams() as { contestId: string };
-    const media = useAppSelector(selectContestMedia)
-    const text = useAppSelector(selectContestText)
-    const onFetch = (type: WorkType, sort: WorkSort) => {
-        if (sort === 'popular') {
-            if (type === 'media' && !media.popular.length) {
-                dispatch(fetchPopularMediaWorks(contestId))
-            }
-            if (type === 'text' && !text.popular.length) {
-                dispatch(fetchPopularTextWorks(contestId))
-            }
-        } else {
-            if (type === 'media' && !media.new.length) {
-                dispatch(fetchMediaWorks(ownerId))
-            }
-            if (type === 'text' && !text.new.length) {
-                dispatch(fetchTextWorks(ownerId))
-            }
-        }
-    }
 
     // const onWorkTypesClick = (type: WorkType) => {
     //     if (type === workType) {
@@ -69,8 +32,6 @@ const WorksListSection = () => {
             return
         }
         setSelectedSort(sort)
-
-        onFetch(workType, sort)
     }
 
     return (
@@ -82,7 +43,7 @@ const WorksListSection = () => {
                 className='participants-works__title'>
                 Participants&apos; works
                 <Text Tag='span' size='xl'>
-                    ({media.totalElements})
+                    (100)
                 </Text>
             </Text>
 
@@ -103,12 +64,7 @@ const WorksListSection = () => {
                         type='button'
                         className={clsx(selectedSort === 'new' && 'active')}
                         onClick={() => onSortClick('new')}>
-                        New
-                        {workType === 'media'
-                            ? !!media.totalElements &&
-                              ` (${media.totalElements})`
-                            : !!text.totalElements &&
-                              ` (${text.totalElements})`}
+                        New 100
                     </button>
                 </li>
                 <li>

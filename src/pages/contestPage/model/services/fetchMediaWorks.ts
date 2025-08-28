@@ -1,83 +1,82 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
 import instance from 'shared/api/api'
 
-import { selectContestMedia } from '../selectors'
+// import { selectContestMedia } from '../selectors'
 
 // получение всех медиаВорков
-export const fetchMediaWorks = createAsyncThunk(
-    'works/fetchContestMedia',
-    async (id: string, thunkApi) => {
-        const { rejectWithValue } = thunkApi
+// export const fetchMediaWorks = createAsyncThunk(
+//     'works/fetchContestMedia',
+//     async (id: string, thunkApi) => {
+//         const { rejectWithValue } = thunkApi
 
-        try {
-            const token = localStorage.getItem('userToken')
-            const headers = token ? { Authorization: `Bearer ${token}` } : {};
+//         try {
+//             const token = localStorage.getItem('userToken')
+//             const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-            const response = await instance.get(
-                `/works/byContestId/${id}`, {headers}
-            )
-            if (!response.data) {
-                throw new Error()
-            }
+//             const response = await instance.get(
+//                 `/works/byContestId/${id}`, {headers}
+//             )
+//             if (!response.data) {
+//                 throw new Error()
+//             }
 
-            return response.data
-        } catch (e) {
-            return rejectWithValue(`Request error: ${e as string}`)
-        }
-    }
-)
+//             return response.data
+//         } catch (e) {
+//             return rejectWithValue(`Request error: ${e as string}`)
+//         }
+//     }
+// )
 
 // получение всех медиаВорков
-export const fetchNextMediaWorks = createAsyncThunk(
-    'works/fetchNextContestMedia',
-    async (id: string, thunkApi) => {
-        const { rejectWithValue, getState } = thunkApi
+// export const fetchNextMediaWorks = createAsyncThunk(
+//     'works/fetchNextContestMedia',
+//     async (id: string, thunkApi) => {
+//         const { rejectWithValue, getState } = thunkApi
 
-        const { page } = selectContestMedia(getState())
+//         const { page } = selectContestMedia(getState())
 
-        try {
-            const token = localStorage.getItem('userToken')
-            const headers = token ? { Authorization: `Bearer ${token}` } : {};
+//         try {
+//             const token = localStorage.getItem('userToken')
+//             const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-            const response = await instance.get(
-                `/works/byContestId/${id}?page=${page}&pageSize=9&sortDirection=ASC&sortBy=new`, {headers}
-            )
-            if (!response.data) {
-                throw new Error()
-            }
+//             const response = await instance.get(
+//                 `/works/byContestId/${id}?page=${page}&pageSize=9&sortDirection=ASC&sortBy=new`, {headers}
+//             )
+//             if (!response.data) {
+//                 throw new Error()
+//             }
             
-            return response.data
-        } catch (e) {
-            return rejectWithValue(`Request error: ${e as string}`)
-        }
-    }
-)
+//             return response.data
+//         } catch (e) {
+//             return rejectWithValue(`Request error: ${e as string}`)
+//         }
+//     }
+// )
 
 // получение популярных медиаворков
-export const fetchPopularMediaWorks = createAsyncThunk(
-    'works/fetchPopularContestMedia',
-    async (id: string, thunkApi) => {
-        const { rejectWithValue } = thunkApi
+// export const fetchPopularMediaWorks = createAsyncThunk(
+//     'works/fetchPopularContestMedia',
+//     async (id: string, thunkApi) => {
+//         const { rejectWithValue } = thunkApi
 
-        try {
+//         try {
 
-            const token = localStorage.getItem('userToken')
-            const headers = token ? { Authorization: `Bearer ${token}` } : {};
+//             const token = localStorage.getItem('userToken')
+//             const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-            const response = await instance.get(
-                `/works/popular/${id}?page=0&pageSize=9`, {headers}
-            )
+//             const response = await instance.get(
+//                 `/works/popular/${id}?page=0&pageSize=9`, {headers}
+//             )
 
-            if (!response.data) {
-                throw new Error()
-            }
+//             if (!response.data) {
+//                 throw new Error()
+//             }
 
-            return response.data
-        } catch (e) {
-            return rejectWithValue(`Request error: ${e as string}`)
-        }
-    }
-)
+//             return response.data
+//         } catch (e) {
+//             return rejectWithValue(`Request error: ${e as string}`)
+//         }
+//     }
+// )
 
 export const fetchNewWorks = async (contestId: string, pageParam: number) => {
     const token = localStorage.getItem('userToken');

@@ -1,18 +1,12 @@
-import { useEffect } from 'react';
 import { Helmet } from "react-helmet";
-import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Contest } from 'entities/contest';
 import useAxios from 'shared/lib/hooks/useAxios';
-import { useAppDispatch, useAppSelector } from 'shared/lib/store';
 import { Button } from 'shared/ui/button';
 import Spinner from 'shared/ui/spinner';
 import { VStack } from 'shared/ui/stack';
 import { Text } from 'shared/ui/text';
 import { CommentsSection } from 'widgets/commentsSection';
-
-import { selectContestMedia, selectContestOwnerId } from '../model/selectors';
-import { fetchMediaWorks } from '../model/services';
-import { contestWorksActions } from '../model/slice';
 
 import DescriptionSection from './components/descriptionSection/descriptionSection';
 import HeroSection from './components/heroSection/heroSection';
@@ -24,45 +18,10 @@ import './contestPage.scss';
 
 const ContestPage = () => {
   const { contestId: id } = useParams<{ contestId: string }>();
-  const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
-
-  // для модалок
-
-  const ownerId = useAppSelector(selectContestOwnerId);
-  const media = useAppSelector(selectContestMedia);
 
   const { data, isLoading, error } = useAxios<Contest>(`contests/${id}`);
-
-  // пагинация ворков
-  useEffect(() => {
-    if (!id) return;
-    if (id !== ownerId) {
-      dispatch(contestWorksActions.setOwnerId(id));
-      dispatch(contestWorksActions.resetState());
-    }
-
-    if (id !== ownerId || !media.new.length) {
-      dispatch(fetchMediaWorks(id));
-    }
-  }, [dispatch, id, ownerId, media.new.length]);
-
-  useEffect(() => {
-    if (data) {
-      dispatch(contestWorksActions.setPrizes(data.prizes));
-    }
-  }, [dispatch, data]);
-
-  useEffect(() => {
-    if (!location.pathname.includes("/work/")) {
-      const savedScroll = sessionStorage.getItem("contestScroll");
-      if (savedScroll) {
-        window.scrollTo(0, parseInt(savedScroll, 10));
-      }
-    }
-  }, [location]);
 
   if (!id) {
     return (
