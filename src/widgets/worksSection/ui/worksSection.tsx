@@ -41,9 +41,9 @@ const WorksSection: React.FC = () => {
     } = useInfiniteQuery({
         queryKey: ['feedWorks'],
         queryFn: fetchFeedWorks,
-        initialPageParam: 1, 
+        initialPageParam: 0, 
         getNextPageParam: (lastPage, allPages) =>
-            lastPage.content.length === 3 ? allPages.length + 1 : undefined,
+            lastPage.content.length === 3 ? allPages.length : undefined,
     });
 
 

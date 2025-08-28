@@ -21,7 +21,7 @@ export const fetchWorks = createAsyncThunk(
     }
 )
 
-export const fetchFeedWorks = async ({ pageParam = 1 }) => {
+export const fetchFeedWorks = async ({ pageParam = 0 }) => {
   try {
     const token = localStorage.getItem('userToken');
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
