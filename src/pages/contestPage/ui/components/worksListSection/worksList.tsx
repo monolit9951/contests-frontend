@@ -1,7 +1,7 @@
 import { FC,useCallback,useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { Work } from 'entities/work'
+import { Work, WorkCard } from 'entities/work'
 import WorkComponent from 'entities/work/ui/workComponent'
 import { fetchNewWorks } from 'pages/contestPage/model/services/fetchMediaWorks'
 import { ModalWindow } from 'shared/ui/modalWindow'
@@ -87,20 +87,18 @@ export const WorksList: FC<Props> = ({ sort }) => {
 
     return (
         <div className="worksList">
-                <div>
-                    {works?.pages.map((page, pageIndex) => (
-                        <ul key={pageIndex}>
-                            {page.content.map((data: Work) => (
-                                <WorkComponent work={data} key={data.id} />
-                            ))}
-                        </ul>
-                    ))}
+            <ul>
+                {works?.pages.flatMap((page) =>
+                    page.content.map((data: Work) => (
+                    <WorkCard data={data} key={data.id} />
+                    ))
+                )}
+            </ul>
 
-                    <div ref={loaderRef} style={{ height: 40 }} />
-                    {isFetchingNextPage && <p>LOADING...</p>}
-                    {/* {!hasNextPage && <p>NO WORKS </p>} */}
+            <div ref={loaderRef} style={{ height: 40 }} />
+            {isFetchingNextPage && <p>LOADING...</p>}
+            {/* {!hasNextPage && <p>NO WORKS </p>} */}
 
-                </div>
 
             {openModal && (
                 <ModalWindow isOpen onClose={handleCloseModal}>

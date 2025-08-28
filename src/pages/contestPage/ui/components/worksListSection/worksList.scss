@@ -5,6 +5,7 @@
     gap: 20px;
 
     > ul{
+        // background-color: red;
         width: 100%;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
