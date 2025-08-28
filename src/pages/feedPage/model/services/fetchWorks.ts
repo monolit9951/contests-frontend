@@ -20,3 +20,23 @@ export const fetchWorks = createAsyncThunk(
         }
     }
 )
+
+export const fetchFeedWorks = async ({ pageParam = 1 }) => {
+  try {
+    const token = localStorage.getItem('userToken');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+    const response = await instance.get(
+      `works?page=${pageParam}&pageSize=3&sortDirection=ASC`, 
+      { headers }
+    );
+
+    if (!response.data) {
+      throw new Error('No data');
+    }
+
+    return response.data;
+  } catch (error) {
+    throw new Error('No data');
+  }
+};
