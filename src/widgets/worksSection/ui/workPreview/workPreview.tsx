@@ -49,23 +49,46 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId, isFeed })
 
     // смена лайков в самом кеше
     const handleLikeCallBack = (action: any) => {
-        if(isFeed){
+    if (isFeed) {
             queryClient.setQueryData(['feedWorks'], (oldData: any) => {
-                if (!oldData) return oldData;
-    
-                return {
+            if (!oldData) return oldData;
+
+            return {
                 ...oldData,
                 pages: oldData.pages.map((page: any) => ({
-                    ...page,
-                    content: page.content.map((work: Work) =>
-                    work.id === workData.id ? { ...work, userLike: action.userLike, likeAmount: action.likeAmount } : work
-                    ),
+                ...page,
+                content: page.content.map((work: Work) =>
+                    work.id === workData.id
+                    ? { ...work, userLike: action.userLike, likeAmount: action.likeAmount }
+                    : work
+                ),
                 })),
-                    pageParams: oldData.pageParams,
-                };
+                pageParams: oldData.pageParams,
+            };
+            });
+        } else {
+            // Получаем все кэши, начинающиеся с 'contestWorks'
+            const queries = queryClient.getQueriesData({queryKey: ['contestWorks']});
+
+            queries.forEach(([queryKey, oldData]) => {
+            if (!oldData) return;
+
+            queryClient.setQueryData(queryKey, (oldData: any) => ({
+                ...oldData,
+                pages: oldData.pages.map((page: any) => ({
+                ...page,
+                content: page.content.map((work: Work) =>
+                    work.id === workData.id
+                    ? { ...work, userLike: action.userLike, likeAmount: action.likeAmount }
+                    : work
+                ),
+                })),
+                pageParams: oldData.pageParams,
+            }));
             });
         }
     };
+
 
 
     return (
