@@ -25,7 +25,7 @@ const ContestPage = () => {
   
   return (
     <>
-      {!data && <div className="contest__error-message">
+      {!data && !isLoading && <div className="contest__error-message">
         <Text Tag="p" bold size="xl">
           Request error{`: ${error?.message}`}
         </Text>
@@ -68,7 +68,7 @@ const ContestPage = () => {
           {data.winners && data.winners.length > 0 && <WinnersSection winners = {data.winners.slice(0, 3)}/>}
 
           <WorksListSection />
-          
+
           {id && <CommentsSection workId={id} contest />}
         </VStack>
 

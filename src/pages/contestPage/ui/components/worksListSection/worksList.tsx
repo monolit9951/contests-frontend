@@ -5,10 +5,10 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { Work, WorkCard } from 'entities/work'
 import { fetchNewWorks, fetchPopularWorks } from 'pages/contestPage/model/services/fetchMediaWorks'
 import { ModalWindow } from 'shared/ui/modalWindow'
+import Spinner from 'shared/ui/spinner'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
 import './worksList.scss'
-import Spinner from 'shared/ui/spinner'
 
 interface Props {
     sort: 'new' | 'popular'

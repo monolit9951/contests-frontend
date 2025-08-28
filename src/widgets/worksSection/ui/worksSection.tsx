@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 // import Spinner from 'shared/ui/spinner'
 // eslint-disable-next-line
-import {useInfiniteQuery} from '@tanstack/react-query'
+import {useInfiniteQuery, useQueryClient} from '@tanstack/react-query'
 import { Work } from 'entities/work'
 import WorkComponent from 'entities/work/ui/workComponent'
 import { fetchFeedWorks } from 'pages/feedPage/model/services/fetchWorks'
@@ -70,10 +70,17 @@ const WorksSection: React.FC = () => {
     }, [handleObserver]);
 
 
+    const queryClient = useQueryClient()
+
+    const handleInvalidate = () =>{
+        queryClient.invalidateQueries({ queryKey: ['feedWorks'] })
+    }
+
+
     return (
         <div className='worksSection'>
-            
             <div className='worksSection_container'>
+                <button type='button' onClick={handleInvalidate} style={{width: "100%"}}>Invalidate</button>
                 <div>
                     {works?.pages.map((page, pageIndex) => (
                         <ul key={pageIndex}>
