@@ -1,9 +1,9 @@
 import { FC,useCallback,useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+// eslint-disable-next-line
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { Work, WorkCard } from 'entities/work'
-import WorkComponent from 'entities/work/ui/workComponent'
-import { fetchNewWorks } from 'pages/contestPage/model/services/fetchMediaWorks'
+import { fetchNewWorks, fetchPopularWorks } from 'pages/contestPage/model/services/fetchMediaWorks'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import { WorkPreview } from 'widgets/worksSection/ui/workPreview/workPreview'
 
@@ -21,8 +21,6 @@ export const WorksList: FC<Props> = ({ sort }) => {
     const [openModal, setOpenModal] = useState<boolean>(false)
     const [searchParams] = useSearchParams()
     const loaderRef = useRef<HTMLDivElement | null>(null);
-
-    console.log(sort)
 
     // закрытие модалки и удаление квери
     const handleCloseModal = () => {
@@ -51,10 +49,15 @@ export const WorksList: FC<Props> = ({ sort }) => {
         hasNextPage, 
         isFetchingNextPage 
     } = useInfiniteQuery({
-        queryKey: ['contestWorks', contestId],
+        queryKey: ['contestWorks', contestId, sort],
         queryFn: ({ pageParam = 0 }) => {
             if (!contestId) return Promise.resolve({ content: [] });
-            return fetchNewWorks(contestId, pageParam);
+
+            if (sort === 'new') return fetchNewWorks(contestId, pageParam);
+
+            if (sort === 'popular') return fetchPopularWorks(contestId, pageParam);
+
+            return Promise.resolve({ content: [] });
         },
         initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) =>
