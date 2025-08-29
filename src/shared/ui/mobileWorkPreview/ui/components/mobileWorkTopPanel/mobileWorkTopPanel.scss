@@ -1,0 +1,28 @@
+.mobileWorkPreview_topOverlay{
+    width: 100%;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 45px;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    > .mobileWorkPreview_topOverlay_contest{
+        padding: 0 10px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    > .workControls{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+}

@@ -1,0 +1,45 @@
+.workPreviewContest{
+    text-decoration: none;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 4px;
+    border-radius: 2px;
+    height: 24px;
+    gap: 4px;
+
+    > .workPreviewContest_img{
+        flex-shrink: 0;
+        background-color: #A65CEF;
+        height: 18px;
+        width: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        border-radius: 2px;
+
+        > img{
+            width: 14px;
+        }
+    }
+
+    > .workPreviewContest_name{
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    > div, span{
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0%;
+    }
+
+    > .workPreviewContest_status{
+        font-weight: 400;
+    }
+}
