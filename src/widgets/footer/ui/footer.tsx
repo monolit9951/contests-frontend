@@ -5,6 +5,7 @@ import FeedLink from 'shared/assets/controlledSVG/feedLink'
 import ProfileLink from 'shared/assets/controlledSVG/profileLink'
 
 import './footer.scss'
+import MessagesLink from 'shared/assets/controlledSVG/messagesLink'
 
 export const Footer = () => {
 
@@ -32,9 +33,15 @@ export const Footer = () => {
                     </Link>
                 </li>
                 <li>
+                    <Link to ='/messages'>
+                        <MessagesLink color={location.pathname === '/messages'? '#0BA486' : undefined} />
+                        <span style={location.pathname === '/messages'? {color: '#0BA486'} : {}}>Messages</span>
+                    </Link>
+                </li>
+                <li>
                     <Link to ='/profile'>
                         <ProfileLink color={location.pathname === '/profile'? '#0BA486' : undefined}/>
-                        <span style={location.pathname === '/profile'? {color: '#0BA486'} : {}}>Personal</span>
+                        <span style={location.pathname === '/profile'? {color: '#0BA486'} : {}}>Profile</span>
                     </Link>
                 </li>
             </ul>
