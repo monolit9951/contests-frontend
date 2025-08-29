@@ -126,7 +126,7 @@ export const WorkPreview: React.FC<WorkProps> = ({contestLink, workId, isFeed })
                         {workDataLoaded && <div className="workPreview_workText">{workData.description}</div>}
 
                         {/* <div className="active_contest">MAKE COMPONENT</div> */}
-                        {contestLink && <Link to={`/contests/${workData.contestId}`}>contest</Link>}
+                        {contestLink && workDataLoaded && <Link to={`/contests/${workData.contestId}`}>contest</Link>}
 
                         {workDataLoaded && <MediaFeedback id={workId} likes={workData.likeAmount} liked={workData.userLike} handleLikeCallBack={handleLikeCallBack}/>}
                     </div>
