@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Helmet } from "react-helmet";
+import { useQueryClient } from '@tanstack/react-query';
 import {
     selectActiveFilters,
     selectCategory,
@@ -22,14 +23,14 @@ export const ContestsPage = () => {
     const category = useAppSelector(selectCategory)
     const sortDirection = useAppSelector(selectSortDirection)
     const searchString = useAppSelector(selectSearchString)
+    const queryClient = useQueryClient()
 
     useEffect(() => {
+
+        // ИНВАЛИДАЦИЯ ДЛЯ КЕША ПО КЛЮЧУ 'CONTESTS'
+        queryClient.invalidateQueries({ queryKey: ['contests'] })
         dispatch(fetchContests())
     }, [dispatch, activeFilters, category, sortDirection, searchString])
-
-    // useEffect(() => {
-    //     dispatch(fetchPopularContests())
-    // }, [dispatch])
 
     return (
         <div className='contestsPage_container'>

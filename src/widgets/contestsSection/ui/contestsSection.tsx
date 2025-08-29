@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import {
     ContestCard,
-    ContestCardSkeleton,
     ContestPreview,
 } from 'entities/contest'
 import {
@@ -10,6 +10,7 @@ import {
     FilterController,
     selectActiveFilters,
     selectCategory,
+    selectSortDirection
 } from 'features/filterContests'
 import { FilterPayloadObj } from 'features/filterContests/model/types'
 import {
@@ -17,9 +18,9 @@ import {
     fetchNextContestsPage,
     selectAll,
     selectNextLoading,
-    selectPopular,
 } from 'pages/contestsPage'
 import { selectSearchString } from 'pages/contestsPage/model/selectors'
+import { fetchContestsCache } from 'pages/contestsPage/model/services/fetchContests'
 import cross from 'shared/assets/icons/X.svg?react'
 import { capitalizeStr } from 'shared/helpers'
 import useOnScreen from 'shared/lib/hooks/useOnScreen'
@@ -43,11 +44,8 @@ interface Props {
 const ContestsSection: FC<Props> = (props) => {
     const { section, className } = props
 
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
     const dispatch = useAppDispatch()
 
-    const popular = useAppSelector(selectPopular)
     const all = useAppSelector(selectAll)
     const searchString = useAppSelector(selectSearchString)
     const nextLoading = useAppSelector(selectNextLoading)
@@ -55,8 +53,6 @@ const ContestsSection: FC<Props> = (props) => {
     const filters = active.filtersList as FilterPayloadObj[]
 
     const allContests = all.contests as ContestPreview[]
-    const popularContests = popular.contests as ContestPreview[]
-    const category = useAppSelector(selectCategory)
 
     const { isIntersecting, measureRef, observer } = useOnScreen({
         threshold: 0.8,
@@ -77,20 +73,47 @@ const ContestsSection: FC<Props> = (props) => {
         }
     }, [isIntersecting])
 
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth)
-        }
 
-        window.addEventListener('resize', handleResize)
+    // кеширование
+    const direction = useAppSelector(selectSortDirection)
+    const searchStr = useAppSelector(selectSearchString)
+    const category = useAppSelector(selectCategory)
+    const activeFilters = useAppSelector(selectActiveFilters)
 
-        return () => window.removeEventListener('resize', handleResize)
-    }, [windowWidth])
+const {
+  data,
+//   fetchNextPage,
+//   hasNextPage,
+//   isFetchingNextPage,
+} = useInfiniteQuery({
+  queryKey: ['contests'], // ключ фиксированный
+  queryFn: ({ pageParam = 0 }) =>
+    fetchContestsCache({
+      direction,
+      searchStr,
+      category,
+      activeFilters,
+      pageParam,
+    }),
+  initialPageParam: 0,
+  getNextPageParam: (lastPage, allPages) =>
+    lastPage.length === 10 ? allPages.length : undefined,
+})
 
+
+
+    const handleCache = () =>{
+    console.log('cached data ', data)
+    }
+
+
+
+    // проверка, если в рендж денег не базовые значения - отображаем его в фильтрах
     const prizeRangeCondition = () => {
         return active.prizeRange[0] !== 0 || active.prizeRange[1] !== 100000
     }
 
+    // проверка, если в рендж коинов не базовые значения - отображаем его в фильтрах
     const coinRangeCondition = () => {
         return active.coinRange[0] !== 0 || active.coinRange[1] !== 100000
     }
@@ -111,99 +134,22 @@ const ContestsSection: FC<Props> = (props) => {
         }
     }
 
+    // очищение категории
     const handleCategoryDelete = () => {
         dispatch(filterActions.changeCategory(''))
     }
     
+    // очищение всех фильтров
     const onFilterClearClick = () => {
         dispatch(filterActions.clearFilters())
         dispatch(contestsPageActions.resetSearchString())
         handleCategoryDelete()
-    }
-
-    const onSeeAllClick = () => {}
-
-    const renderPopular = () => {
-        // if (popular.loading) {
-        //     return (
-        //         <>
-        //             <li>
-        //                 <ContestCardSkeleton />
-        //             </li>
-        //             <li>
-        //                 <ContestCardSkeleton />
-        //             </li>
-        //             {windowWidth > 1440 && (
-        //                 <>
-        //                     <li>
-        //                         <ContestCardSkeleton />
-        //                     </li>
-        //                     <li>
-        //                         <ContestCardSkeleton />
-        //                     </li>
-        //                 </>
-        //             )}
-        //         </>
-        //     )
-        // }
-        
-        if (popularContests.length === 0) {
-            return (
-                <li>
-                    <Text
-                        Tag='p'
-                        size='xl'
-                        className='contests-gallery__message'>
-                        No popular contests yet.
-                    </Text>
-                </li>
-            )
-        }
-        return popularContests.map((item, idx) => (
-            <li key={idx}>
-                <ContestCard {...item} />
-            </li>
-        ))
     }
     
 
 
     // скелеты 
     const renderAll = () => {
-        if (all.loading) {
-            return (
-                <>
-                    <li>
-                        <ContestCardSkeleton />
-                    </li>
-                    <li>
-                        <ContestCardSkeleton />
-                    </li>
-                    <li>
-                        <ContestCardSkeleton />
-                    </li>
-                    <li>
-                        <ContestCardSkeleton />
-                    </li>
-                    {windowWidth > 1440 && (
-                        <>
-                            <li>
-                                <ContestCardSkeleton />
-                            </li>
-                            <li>
-                                <ContestCardSkeleton />
-                            </li>
-                            <li>
-                                <ContestCardSkeleton />
-                            </li>
-                            <li>
-                                <ContestCardSkeleton />
-                            </li>
-                        </>
-                    )}
-                </>
-            )
-        }
         if (allContests.length === 0) {
             return (
                 <li>
@@ -227,6 +173,7 @@ const ContestsSection: FC<Props> = (props) => {
 
     return (
         <section className={clsx('contest-gallery__section', className)}>
+            <button type="button" onClick={handleCache}>handleCache</button>
             <HStack className='contest-gallery__head'>
                 <HStack>
                     <Text Tag='h2' size='title' bold>
@@ -244,8 +191,7 @@ const ContestsSection: FC<Props> = (props) => {
                 ) : (
                     <Button
                         variant='secondary'
-                        size='s'
-                        onClick={onSeeAllClick}>
+                        size='s'>
                         See all
                     </Button>
                 )}
@@ -352,7 +298,6 @@ const ContestsSection: FC<Props> = (props) => {
                 )}
 
             <ul className='contest-gallery__list'>
-                {section === 'popular' && renderPopular()}
 
                 {section === 'all' && (
                     <>
