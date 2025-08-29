@@ -2,10 +2,10 @@ import { Link, useLocation } from 'react-router-dom'
 import CreateContestLink from 'shared/assets/controlledSVG/contestCreateLink'
 import ContestsLink from 'shared/assets/controlledSVG/contestsLink'
 import FeedLink from 'shared/assets/controlledSVG/feedLink'
+import MessagesLink from 'shared/assets/controlledSVG/messagesLink'
 import ProfileLink from 'shared/assets/controlledSVG/profileLink'
 
 import './footer.scss'
-import MessagesLink from 'shared/assets/controlledSVG/messagesLink'
 
 export const Footer = () => {
 

@@ -15,13 +15,13 @@ export const BattlesPage = () => {
     return(
         <div className="battlesPage">
             <Helmet>
-                <title>DareBay | All contests</title>
+                <title>DareBay | Battles</title>
                 <meta property="og:title" content="All contestsm, main page" />
             </Helmet>
 
             <h2>BattlesPage</h2>
 
-            {isMobile && <MobileWorkPreview />}
+            {isMobile && <MobileWorkPreview/>}
         </div>
     )
 }

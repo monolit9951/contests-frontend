@@ -1,11 +1,17 @@
 .mobileWorkPreview{
     position: fixed;
     width: 100dvw;
-    height: calc(100dvh - 65px);
-    bottom: 65px; //footer height
+    height: calc(100dvh - 53px);
+    bottom: 53px; //footer height
     left: 0;
-    // background-color: red;
+    background-color: black;
     z-index: 10000;
+
+
+    &.feed{
+        height: 100dvh !important;
+        bottom: 0;
+    }
 
     > .mobileWorkPreview_container{
         position: relative;
@@ -19,68 +25,166 @@
             width: 100%;
         }
 
-        > .mobileWorkPreview_description{
-            padding: 0px 0px 24px 16px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            > a{
-                text-decoration: none;
-                color: white;
+        > .mobileWorkPreview_inner{
+            // position: relative;
+            gap: 10px;
+            padding: 0px 16px 24px 16px;    
+            align-items: flex-start;
+            
+            > .mobileWorkPreview_description{
+                position: absolute;
+                padding: 0px 0 24px 16px;    
+                bottom: 0;
+                left: 0;
+                width: calc(100dvw - 56px - 10px);
 
-                // переопределение стилей userProfileData
-                > .userProfileData{
-                    gap: 6px;
+                > a{
+                    text-decoration: none;
+                    color: white;
 
-                    > img{
-                        height: 32px;
-                        width: 32px;
-                    }
+                    // переопределение стилей userProfileData
+                    > .userProfileData{
+                        gap: 6px;
 
-                    > .userProfileData_container{
-                        > .userProfileData_headerGroup{
-                            > span{
-                                font-size: 14px;
-                                line-height: 20px;
-                                
+                        > img{
+                            height: 32px;
+                            width: 32px;
+                        }
+
+                        > .userProfileData_container{
+                            > .userProfileData_headerGroup{
+                                > span{
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            > .mobileWorkPreview_description_container{
-                width: 100%;
-                
-                > .mobileWorkPreview_description_text{
+                > .mobileWorkPreview_description_container{
                     width: 100%;
-                    max-height: 150px;
-                    overflow-y: auto;
-                    color: #FFFFFF;
-                    font-weight: 400px;
-                    font-size: 14px;
-                    line-height: 20px;
-
-                    &.short{
-                        display: -webkit-box;
-                        -webkit-box-orient: vertical;
-                        -webkit-line-clamp: 2;       /* Максимум 2 строки */
-                        overflow: hidden;
-                        text-overflow: ellipsis;
+                    
+                    > .mobileWorkPreview_description_text{
                         width: 100%;
+                        max-height: 150px;
+                        overflow-y: auto;
+                        color: #FFFFFF;
+                        font-weight: 400px;
+                        font-size: 14px;
+                        line-height: 20px;
+
+                        &.short{
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 2;       /* Максимум 2 строки */
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            width: 100%;
+                        }
+                    }
+
+                    > button{
+                        background-color: transparent;
+                        padding: 0;
+                        border: none;
+                        outline: none;
+                        color: white;
+                        font-family: Manrope;
+                        font-weight: 600;
                     }
                 }
+            }
+            
+            > .mobileWorkPreview_controls{
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 56px;
+                padding: 0 16px 24px 0;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                // background-color: red;
+                
+                > li{
+                    display: flex;
+                    flex-direction: column;
+                    width: 40px;
+                    align-items: center;
+                    gap: 4px;
+                    
+                    > button{
+                        background-color: transparent;
+                        border: none;
+                        outline: none;
+                        padding: none;
+                        > img{
+                            height: 24px;
+                        }
 
-                > button{
-                    background-color: transparent;
-                    padding: 0;
-                    border: none;
-                    outline: none;
-                    color: white;
-                    font-family: Manrope;
-                    font-weight: 600;
+                        > div{
+                            color: white;
+                            font-family: Manrope;
+                            font-size: 12px;
+                            font-weight: 600;
+                            line-height: 16px;
+                            letter-spacing: 0%;
+                        }
+                    }
                 }
+            }
+        }
+
+        >.mobileWorkPreview_commentsSection{
+            > .mobileWorkPreview_commentsSection_comments{
+                z-index: 2;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                max-height: 80dvh;
+                background-color: #02140E;
+                padding: 16px;
+                height: 800px;
+                border-radius: 16px 16px 0 0;
+
+                > .mobileWorkPreview_commentsSection_header{
+                    padding: 8px 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border-bottom: #393B3B 1px solid;
+
+                    > span{
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 24px;
+                        letter-spacing: 0%;
+                        color: #F8F8F8;
+                    }
+
+                    > button{
+                        padding: 0;
+                        background-color: transparent;
+                        border: none;
+                        outline: none;
+                    }
+                }
+            }
+            
+            > .mobileWorkPreview_commentsSection_background{
+                background-color: transparent;
+                position: absolute;
+                height: 100dvh;
+                width: 100dvw;
+                top: 0;
+                left: 0;
+                z-index:1;
+                border: none;
+                outline: none;
             }
         }
     }
