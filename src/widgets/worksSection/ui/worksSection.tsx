@@ -99,7 +99,7 @@ const WorksSection: React.FC = () => {
 
             {workPreviewId && (
                 <ModalWindow isOpen onClose={handleCloseModal}>
-                    <WorkPreview workId={workPreviewId} isFeed/>
+                    <WorkPreview workId={workPreviewId} isFeed contestLink/>
                 </ModalWindow>
             )}
         </div>
