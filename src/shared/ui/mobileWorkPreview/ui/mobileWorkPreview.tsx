@@ -18,12 +18,13 @@ import './mobileWorkPreview.scss'
 
 interface Props {
     isFeed?: boolean
+    workId: string
 }
 
 
-const MobileWorkPreview: FC <Props> = ({isFeed}) => {
+const MobileWorkPreview: FC <Props> = ({isFeed, workId}) => {
     const {showAlert, Alert} = useAlert()
-    const {data: work, isLoaded: workLoaded} = useGetRequest({fetchFunc: () => getWorkById('68ac653d4437153ad8d08a7f'), enabled: true, key: []})
+    const {data: work, isLoaded: workLoaded} = useGetRequest({fetchFunc: () => getWorkById(workId), enabled: true, key: []})
     const [commentsShow, setCommentsShow] = useState<boolean>(false)
 
     const longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -81,10 +82,10 @@ const MobileWorkPreview: FC <Props> = ({isFeed}) => {
 
                     <ul className="mobileWorkPreview_controls">
                         <li className="like">
-                            <button type='button'>
+                            {workLoaded && <button type='button'>
                                 <img src={like} alt="like" />
-                                <div>100.5k</div>
-                            </button>
+                                <div>{work.likeAmount}</div>
+                            </button>}
                         </li>
                         <li className="dislike">
                             <button type='button'>
@@ -93,10 +94,10 @@ const MobileWorkPreview: FC <Props> = ({isFeed}) => {
                             </button>
                         </li>
                         <li className="comms">
-                             <button type='button' onClick={handleComments}>
+                             {workLoaded && <button type='button' onClick={handleComments}>
                                 <img src={comments} alt="comms" />
-                                <div>600</div>
-                            </button>
+                                <div>{work.commentAmount}</div>
+                            </button>}
                         </li>
                         <li className="share">
                             <button type='button' onClick={handleMobileShare}>
