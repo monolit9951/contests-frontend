@@ -16,6 +16,7 @@ import { Text } from '../text'
 import './rateButtons.scss'
 
 interface Props {
+    mobile?: boolean
     id?: string
     likes: number
     work?: boolean
@@ -25,7 +26,7 @@ interface Props {
 }
 
 const RateButtons: FC<Props> = (props) => {
-    const { id, border, likes, work, userLike, handleLikeCallBack } = props
+    const { id, border, likes, work, userLike, handleLikeCallBack, mobile } = props
     const [likesNum, setLikesNum] = useState<number>(likes)
     const [liked, setLiked] = useState<boolean>(userLike === 'LIKE')
     const [disliked, setDisliked] = useState<boolean>(userLike === 'DISLIKE')
@@ -142,7 +143,7 @@ const RateButtons: FC<Props> = (props) => {
 
     return (
         <HStack
-            className={clsx('rate-wrapper', border && 'rate-wrapper__border')}>
+            className={clsx('rate-wrapper', border && 'rate-wrapper__border', mobile && 'mobile')}>
             <button type='button' aria-label='like' onClick={onLikeClick}>
                 <Icon Svg={liked ? likeActive : like} width={20} height={20} />
             </button>
@@ -159,6 +160,8 @@ const RateButtons: FC<Props> = (props) => {
                     width={20}
                     height={20}
                 />
+
+                <span>Dislike</span>
             </button>
             <Alert />
         </HStack>

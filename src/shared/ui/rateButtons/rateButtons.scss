@@ -8,6 +8,14 @@
         border-radius: 26px;
     }
 
+    &.mobile{
+        flex-direction: column;
+        
+        > span{
+            width: 20px;
+        }
+    }
+    
     > button {
         width: 20px;
         height: 20px;

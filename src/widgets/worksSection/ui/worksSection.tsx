@@ -182,7 +182,7 @@ const WorksSection: React.FC = () => {
                                 if (info.offset.y > 100) handleSwipe("down")
                             }}
                         >
-                            <MobileWorkPreview workId={posts[index]} />
+                            <MobileWorkPreview workId={posts[index]}/>
                         </motion.div>
                         </AnimatePresence>
                     </div>

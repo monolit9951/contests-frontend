@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 import { getWorkById } from 'entities/work/model/services/workServices'
 import comments from 'shared/assets/icons/commentsF.svg'
 import dislike from 'shared/assets/icons/dislike.svg'
+import dislikeF from 'shared/assets/icons/dislikeF.svg'
 import like from 'shared/assets/icons/like.svg'
+import likeF from 'shared/assets/icons/likeF.svg'
 import share from 'shared/assets/icons/shareF.svg'
 import cross from 'shared/assets/icons/X.svg'
 import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
@@ -14,6 +16,7 @@ import UserProfileData from 'widgets/userProfileData/userProfileData'
 import MobileWorkTopPanel from './components/mobileWorkTopPanel/mobileWorkTopPanel'
 
 import './mobileWorkPreview.scss'
+import { RateButtons } from 'shared/ui/rateButtons'
 
 
 interface Props {
@@ -31,16 +34,17 @@ const MobileWorkPreview: FC <Props> = ({isFeed, workId}) => {
 
     const [moreDescription, setMoreDescription] = useState<boolean>(false)
 
+    // открыть весь текст (недоделано)
     const handleMore = () => {
         setMoreDescription(!moreDescription)
     }
 
-
-
+    // открыть модалку комментов
     const handleComments = () => {
         setCommentsShow(!commentsShow)
     }
 
+    // share
     const handleMobileShare = async () => {
         const text = 'some share text'
         const url = 'http://localhost:3000/battles or any else url'
@@ -56,6 +60,22 @@ const MobileWorkPreview: FC <Props> = ({isFeed, workId}) => {
            showAlert("ERRPR", "Web Share API CANT WORK")
         }
     }
+
+
+    // ЕСЛИ ВОРК ОТ КОНТЕСТА, ТО ТАКЖЕ МЕНЯЕМ КЕШ
+    const handleLike = () => {
+        // если было лайкнуто, то снимаем лайк
+        // если было дизлайкнуто, то добавляем лайк и снимаем диз
+        // если не было ничего, просто лайкаем
+    }
+
+    const handleDislike = () => {
+        // если было лайкнуто, то снимаем лайк и добаляем диз
+        // если было дизлайкнуто, то убираем диз
+        // если ничего не было, то просто дизлайкаем
+    }
+
+
 
     return( 
         <div className={`mobileWorkPreview ${isFeed && 'feed'}`}>
@@ -77,22 +97,23 @@ const MobileWorkPreview: FC <Props> = ({isFeed, workId}) => {
                             <button type='button' onClick={handleMore}>{moreDescription? 'Less' : 'More'}</button>
                         </div>
 
-                        <Link to='/'><WorkPreviewContest /></Link>
+                        <Link to={`/contests/${work.contestId}`}><WorkPreviewContest /></Link>
                     </div>}
 
                     <ul className="mobileWorkPreview_controls">
-                        <li className="like">
-                            {workLoaded && <button type='button'>
-                                <img src={like} alt="like" />
+                        {/* <li className="like">
+                            {workLoaded && <button type='button' onClick={handleLike}>
+                                <img src={work.userLike === 'LIKE'? likeF : like} alt="like" />
                                 <div>{work.likeAmount}</div>
                             </button>}
                         </li>
                         <li className="dislike">
-                            <button type='button'>
-                                <img src={dislike} alt="dislike" />
+                            {workLoaded && <button type='button' onClick={handleDislike}>
+                                <img src={work.userLike === 'DISLIKE'? dislikeF : dislike} alt="like" />
                                 <div>dislike</div>
-                            </button>
-                        </li>
+                            </button>}
+                        </li> */}
+                        {workLoaded && <RateButtons work id={work.id} userLike={work.userLike} likes={work.likeAmount} mobile/>}
                         <li className="comms">
                              {workLoaded && <button type='button' onClick={handleComments}>
                                 <img src={comments} alt="comms" />

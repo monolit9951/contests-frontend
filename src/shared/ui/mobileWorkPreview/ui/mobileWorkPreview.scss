@@ -7,12 +7,6 @@
     background-color: black;
     z-index: 10000;
 
-
-    &.feed{
-        height: 100dvh !important;
-        bottom: 0;
-    }
-
     > .mobileWorkPreview_container{
         position: relative;
         width: 100%;
