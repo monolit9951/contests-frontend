@@ -3,13 +3,10 @@ import { FC, useEffect, useState } from 'react'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import instance from 'shared/api/api'
-import dislike from 'shared/assets/icons/dislike.svg?react'
-import dislikeActive from 'shared/assets/icons/dislikeF.svg?react'
-import like from 'shared/assets/icons/like.svg?react'
-import likeActive from 'shared/assets/icons/likeF.svg?react'
+import Dislike from 'shared/assets/controlledSVG/dislike'
+import Like from 'shared/assets/controlledSVG/like'
 import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 
-import { Icon } from '../icon'
 import { HStack } from '../stack'
 import { Text } from '../text'
 
@@ -145,7 +142,8 @@ const RateButtons: FC<Props> = (props) => {
         <HStack
             className={clsx('rate-wrapper', border && 'rate-wrapper__border', mobile && 'mobile')}>
             <button type='button' aria-label='like' onClick={onLikeClick}>
-                <Icon Svg={liked ? likeActive : like} width={20} height={20} />
+                {/* <Icon Svg={liked ? likeActive : like} width={20} height={20} /> */}
+                <Like active = {liked}/>
             </button>
             {likesNum > 0 && (
                 <Text Tag='span' size='sm'>
@@ -155,13 +153,13 @@ const RateButtons: FC<Props> = (props) => {
                 </Text>
             )}
             <button type='button' aria-label='dislike' onClick={onDislikeClick}>
-                <Icon
+                {/* <Icon
                     Svg={disliked ? dislikeActive : dislike}
                     width={20}
                     height={20}
-                />
+                /> */}
 
-                <span>Dislike</span>
+                <Dislike active={disliked}/> 
             </button>
             <Alert />
         </HStack>
