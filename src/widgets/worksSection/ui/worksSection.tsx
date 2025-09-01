@@ -5,7 +5,9 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import {useInfiniteQuery, useQueryClient} from '@tanstack/react-query'
 import { Work } from 'entities/work'
 import WorkComponent from 'entities/work/ui/workComponent'
+import { AnimatePresence, motion } from "framer-motion";
 import { fetchFeedWorks } from 'pages/feedPage/model/services/fetchWorks'
+import { MobileWorkPreview } from 'shared/ui/mobileWorkPreview'
 import { ModalWindow } from 'shared/ui/modalWindow'
 
 import { WorkPreview } from './workPreview/workPreview'
@@ -17,8 +19,42 @@ const WorksSection: React.FC = () => {
     const location = useLocation()
     const [searchParams] = useSearchParams()
     const loaderRef = useRef<HTMLDivElement | null>(null);
-
+    const [isMobile, setIsMobile] = useState<boolean>(false)
     const [workPreviewId, setWorkPreviewId] = useState<string>('')
+
+      const variants = {
+        enter: (dir: "up" | "down") => ({
+            y: dir === "up" ? "100%" : "-100%",
+        }),
+        center: { y: 0 },
+        exit: (dir: "up" | "down") => ({
+            y: dir === "up" ? "-100%" : "100%",
+        }),
+    };
+
+    const posts = [
+        "68ad936c4437153ad8d1c544",
+        "68af10974437153ad8d1c631",
+        "68aefd0d4437153ad8d1c5d9",
+        "68ac653d4437153ad8d08d14",
+        "68ac653d4437153ad8d08d60",
+    ];
+
+    const currentWorkId = searchParams.get("workId");
+    const initialIndex = posts.findIndex((p) => p === currentWorkId);
+    const startIndex = initialIndex !== -1 ? initialIndex : 0;
+    const [[index, direction], setIndex] = useState<[number, "up" | "down"]>([
+        startIndex,
+        "up",
+    ]);
+
+    const handleSwipe = (dir: "up" | "down") => {
+        if (dir === "up" && index < posts.length - 1) {
+            setIndex([index + 1, "up"]);
+        } else if (dir === "down" && index > 0) {
+            setIndex([index - 1, "down"]);
+        }
+    };
 
     // если закрываем модалку - очищаем квери
     const handleCloseModal = () => {
@@ -26,6 +62,11 @@ const WorksSection: React.FC = () => {
         params.delete('workId')
         navigate(`${location.pathname}?${params.toString()}`, { replace: true, preventScrollReset: true })
     }
+
+
+    useEffect(() => {
+    navigate(`/feed?workId=${posts[index]}`, { replace: true });
+  }, [index, navigate]);
 
     // если есть воркАйди в квери, то открываем модалку
     useEffect(() => {
@@ -76,6 +117,12 @@ const WorksSection: React.FC = () => {
         queryClient.invalidateQueries({ queryKey: ['feedWorks'] })
     }
 
+    useEffect(() => {
+        const handler = () => setIsMobile(window.innerWidth < 700);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, []);
+
 
     return (
         <div className='worksSection'>
@@ -97,10 +144,37 @@ const WorksSection: React.FC = () => {
             </div>
             
 
-            {workPreviewId && (
+            {!isMobile && workPreviewId && (
                 <ModalWindow isOpen onClose={handleCloseModal}>
                     <WorkPreview workId={workPreviewId} isFeed contestLink/>
                 </ModalWindow>
+            )}
+
+            {isMobile && (
+                <div className="feed_wrapper">
+                    <div className="feed">
+                        <AnimatePresence initial={false} custom={direction}>
+                        <motion.div
+                            key={posts[index]}
+                            className="post"
+                            custom={direction}
+                            variants={variants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{ duration: 0.35 }}
+                            drag="y"
+                            dragConstraints={{ top: 0, bottom: 0 }}
+                            onDragEnd={(_, info) => {
+                            if (info.offset.y < -100) handleSwipe("up");
+                            if (info.offset.y > 100) handleSwipe("down");
+                            }}
+                        >
+                            <MobileWorkPreview workId={posts[index]} />
+                        </motion.div>
+                        </AnimatePresence>
+                    </div>
+                </div>
             )}
         </div>
     )

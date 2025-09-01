@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import { useNavigate,useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useSearchParams, useNavigate } from "react-router-dom";
 import { MobileWorkPreview } from "shared/ui/mobileWorkPreview";
 
 import "./battlesPage.scss";
@@ -33,7 +33,6 @@ export const BattlesPage = () => {
     "68ac653d4437153ad8d08d60",
   ];
 
-  // --- работа с query ---
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -46,7 +45,7 @@ export const BattlesPage = () => {
     "up",
   ]);
 
-  // обновляем query при смене поста
+  
   useEffect(() => {
     navigate(`/battles?workId=${posts[index]}`, { replace: true });
   }, [index, navigate]);
