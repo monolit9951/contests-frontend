@@ -82,9 +82,9 @@ const ContestsSection: FC<Props> = (props) => {
 
     const {
         data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
+        // fetchNextPage,
+        // hasNextPage,
+        // isFetchingNextPage,
     } = useInfiniteQuery({
     queryKey: ['contests'],
     queryFn: ({ pageParam = 0 }) =>

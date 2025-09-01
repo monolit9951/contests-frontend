@@ -9,6 +9,11 @@
     top: 0;
     left: 0;
 
+    > .mobileWorkPreview_topOverlay_back{
+        display: flex;
+        align-items: center;
+    }
+
     > .mobileWorkPreview_topOverlay_contest{
         padding: 0 10px;
         font-weight: 700;

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import { AnimatePresence,motion } from "framer-motion";
 import { MobileWorkPreview } from "shared/ui/mobileWorkPreview";
-import { motion, AnimatePresence } from "framer-motion";
+
 import "./battlesPage.scss"
 
 export const BattlesPage = () => {
