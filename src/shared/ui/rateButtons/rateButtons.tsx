@@ -151,6 +151,8 @@ const RateButtons: FC<Props> = (props) => {
                         : likesNum}
                 </Text>
             )}
+
+            {likesNum === 0 && mobile && <Text Tag='span' size='sm'>0</Text>}
             <button type='button' aria-label='dislike' onClick={onDislikeClick}>
                 <Dislike active={disliked}/> 
             </button>
