@@ -95,10 +95,9 @@ const WorksSection: React.FC = () => {
         const workIdParam = searchParams.get('workId') ?? ''
         
         if (isMobile) {
-            // на мобиле, если query пустая, ставим первый пост
+            // если квери пустой, то ставим первый пост
             setWorkPreviewId(workIdParam || posts[0] || '')
         } else {
-            // на десктопе открываем только если есть query
             setWorkPreviewId(workIdParam)
         }
     }, [searchParams.toString(), isMobile, posts])

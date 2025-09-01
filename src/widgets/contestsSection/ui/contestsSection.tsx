@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useCallback, useEffect, useRef } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import {
@@ -15,15 +15,12 @@ import {
 import { FilterPayloadObj } from 'features/filterContests/model/types'
 import {
     contestsPageActions,
-    fetchNextContestsPage,
     selectAll,
-    selectNextLoading,
 } from 'pages/contestsPage'
 import { selectSearchString } from 'pages/contestsPage/model/selectors'
 import { fetchContestsCache } from 'pages/contestsPage/model/services/fetchContests'
 import cross from 'shared/assets/icons/X.svg?react'
 import { capitalizeStr } from 'shared/helpers'
-import useOnScreen from 'shared/lib/hooks/useOnScreen'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Button } from 'shared/ui/button'
 import { Icon } from 'shared/ui/icon'
@@ -48,31 +45,10 @@ const ContestsSection: FC<Props> = (props) => {
 
     const all = useAppSelector(selectAll)
     const searchString = useAppSelector(selectSearchString)
-    const nextLoading = useAppSelector(selectNextLoading)
     const active = useAppSelector(selectActiveFilters)
     const filters = active.filtersList as FilterPayloadObj[]
-
+    const loaderRef = useRef<HTMLDivElement | null>(null)
     const allContests = all.contests as ContestPreview[]
-
-    const { isIntersecting, measureRef, observer } = useOnScreen({
-        threshold: 0.8,
-    })
-
-    useEffect(() => {
-        if (
-            nextLoading ||
-            all.loading ||
-            all.totalPages <= all.page ||
-            !all.totalElements
-        ) {
-            return
-        }
-        if (isIntersecting && observer) {
-            dispatch(fetchNextContestsPage())
-            observer.disconnect()
-        }
-    }, [isIntersecting])
-
 
     // кеширование
     const direction = useAppSelector(selectSortDirection)
@@ -82,9 +58,9 @@ const ContestsSection: FC<Props> = (props) => {
 
     const {
         data,
-        // fetchNextPage,
-        // hasNextPage,
-        // isFetchingNextPage,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
     } = useInfiniteQuery({
     queryKey: ['contests'],
     queryFn: ({ pageParam = 0 }) =>
@@ -96,16 +72,10 @@ const ContestsSection: FC<Props> = (props) => {
         pageParam,
         }),
     initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages) =>
-        lastPage.length === 16 ? allPages.length : undefined,
-    })
-
-
-
-    const handleCache = () =>{
-        console.log('cached data ', data)
-    }
-
+    getNextPageParam: (lastPage, allPages) => {
+        const nextPage = allPages.length;
+        return nextPage < lastPage.totalPages ? nextPage : undefined;
+    }})
 
 
     // проверка, если в рендж денег не базовые значения - отображаем его в фильтрах
@@ -146,7 +116,27 @@ const ContestsSection: FC<Props> = (props) => {
         handleCategoryDelete()
     }
     
+    // наблюдатель для подгрузки новых страниц
+    const handleObserver = useCallback(
+        (entries: IntersectionObserverEntry[]) => {
+            const target = entries[0]
+            if (target.isIntersecting && hasNextPage && !isFetchingNextPage) {
+                fetchNextPage()
+            }
+        },
+        [hasNextPage, isFetchingNextPage, fetchNextPage]
+    )
 
+    // наблюдатель
+    useEffect(() => {
+        const observer = new IntersectionObserver(handleObserver, {
+            root: null,
+            rootMargin: '20px',
+            threshold: 0
+        });
+        if (loaderRef.current) observer.observe(loaderRef.current)
+        return () => observer.disconnect() // безопаснее
+    }, [handleObserver])
 
     // скелеты 
     const renderAll = () => {
@@ -162,18 +152,17 @@ const ContestsSection: FC<Props> = (props) => {
                 </li>
             )
         }
-        return allContests.map((item, idx) => (
-            <li
-                key={idx}
-                ref={idx === allContests.length - 1 ? measureRef : null}>
-                <ContestCard {...item} />
-            </li>
-        ))
+        return data?.pages.map((page) => 
+            page.content.map((item: any, itemIndex: number) => (
+                <li key={itemIndex}>
+                    <ContestCard {...item} />
+                </li>  
+            ))
+        )
     }
 
     return (
         <section className={clsx('contest-gallery__section', className)}>
-            <button type="button" onClick={handleCache}>handleCache</button>
             <HStack className='contest-gallery__head'>
                 <HStack>
                     <Text Tag='h2' size='title' bold>
@@ -302,8 +291,8 @@ const ContestsSection: FC<Props> = (props) => {
                 {section === 'all' && (
                     <>
                         {renderAll()}
-
-                        {nextLoading && <Spinner bottom />}
+                        <div ref={loaderRef} style={{ height: 100, background: 'transparent' }} />
+                        {isFetchingNextPage && <Spinner bottom />}
                     </>
                 )}
             </ul>
