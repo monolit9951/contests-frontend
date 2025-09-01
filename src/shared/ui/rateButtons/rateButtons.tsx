@@ -142,7 +142,6 @@ const RateButtons: FC<Props> = (props) => {
         <HStack
             className={clsx('rate-wrapper', border && 'rate-wrapper__border', mobile && 'mobile')}>
             <button type='button' aria-label='like' onClick={onLikeClick}>
-                {/* <Icon Svg={liked ? likeActive : like} width={20} height={20} /> */}
                 <Like active = {liked}/>
             </button>
             {likesNum > 0 && (
@@ -153,14 +152,9 @@ const RateButtons: FC<Props> = (props) => {
                 </Text>
             )}
             <button type='button' aria-label='dislike' onClick={onDislikeClick}>
-                {/* <Icon
-                    Svg={disliked ? dislikeActive : dislike}
-                    width={20}
-                    height={20}
-                /> */}
-
                 <Dislike active={disliked}/> 
             </button>
+            {/* <span>Dislike</span> */}
             <Alert />
         </HStack>
     )

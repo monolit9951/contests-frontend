@@ -10,9 +10,28 @@
 
     &.mobile{
         flex-direction: column;
-        
+        gap: 0;
+        padding: 0;
+
+        > button{
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 36px;
+
+            > svg{
+                width: 28px !important;
+                height: 28px !important;
+            }
+
+        }
+
         > span{
-            width: 20px;
+            margin-top: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 16px;
         }
     }
     
@@ -34,6 +53,18 @@
         font-variant-numeric: tabular-nums;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 .dark {
     .rate-wrapper {
