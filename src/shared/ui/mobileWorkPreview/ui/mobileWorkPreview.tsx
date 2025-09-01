@@ -2,21 +2,17 @@ import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getWorkById } from 'entities/work/model/services/workServices'
 import comments from 'shared/assets/icons/commentsF.svg'
-import dislike from 'shared/assets/icons/dislike.svg'
-import dislikeF from 'shared/assets/icons/dislikeF.svg'
-import like from 'shared/assets/icons/like.svg'
-import likeF from 'shared/assets/icons/likeF.svg'
 import share from 'shared/assets/icons/shareF.svg'
 import cross from 'shared/assets/icons/X.svg'
 import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
+import { RateButtons } from 'shared/ui/rateButtons'
 import { WorkPreviewContest } from 'shared/ui/workPreviewContest'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import MobileWorkTopPanel from './components/mobileWorkTopPanel/mobileWorkTopPanel'
 
 import './mobileWorkPreview.scss'
-import { RateButtons } from 'shared/ui/rateButtons'
 
 
 interface Props {
@@ -60,22 +56,6 @@ const MobileWorkPreview: FC <Props> = ({isFeed, workId}) => {
            showAlert("ERRPR", "Web Share API CANT WORK")
         }
     }
-
-
-    // ЕСЛИ ВОРК ОТ КОНТЕСТА, ТО ТАКЖЕ МЕНЯЕМ КЕШ
-    const handleLike = () => {
-        // если было лайкнуто, то снимаем лайк
-        // если было дизлайкнуто, то добавляем лайк и снимаем диз
-        // если не было ничего, просто лайкаем
-    }
-
-    const handleDislike = () => {
-        // если было лайкнуто, то снимаем лайк и добаляем диз
-        // если было дизлайкнуто, то убираем диз
-        // если ничего не было, то просто дизлайкаем
-    }
-
-
 
     return( 
         <div className={`mobileWorkPreview ${isFeed && 'feed'}`}>
