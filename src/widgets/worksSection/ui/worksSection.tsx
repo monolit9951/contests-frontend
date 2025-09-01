@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo,useRef, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
 import { Work } from 'entities/work'
@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { fetchFeedWorks } from 'pages/feedPage/model/services/fetchWorks'
 import { MobileWorkPreview } from 'shared/ui/mobileWorkPreview'
 import { ModalWindow } from 'shared/ui/modalWindow'
+
 import { WorkPreview } from './workPreview/workPreview'
 
 import './worksSection.scss'
@@ -19,6 +20,7 @@ const WorksSection: React.FC = () => {
     const [isMobile, setIsMobile] = useState<boolean>(false)
     const [workPreviewId, setWorkPreviewId] = useState<string>('')
 
+    // анимации для мобильной версии
     const variants = {
         enter: (dir: "up" | "down") => ({
             y: dir === "up" ? "100%" : "-100%",
@@ -83,16 +85,23 @@ const WorksSection: React.FC = () => {
 
     // обновляем URL при свайпах
     useEffect(() => {
-        if (posts.length > 0) {
+        if (isMobile && posts.length > 0) {
             navigate(`/feed?workId=${posts[index]}`, { replace: true })
         }
     }, [index, navigate, posts])
 
-    // если есть workId в квери, то открываем модалку
+    // если такой ворк есть в кеше, то открываем модалку
     useEffect(() => {
         const workIdParam = searchParams.get('workId') ?? ''
-        setWorkPreviewId(workIdParam)
-    }, [searchParams.toString()])
+        
+        if (isMobile) {
+            // на мобиле, если query пустая, ставим первый пост
+            setWorkPreviewId(workIdParam || posts[0] || '')
+        } else {
+            // на десктопе открываем только если есть query
+            setWorkPreviewId(workIdParam)
+        }
+    }, [searchParams.toString(), isMobile, posts])
 
     // наблюдатель для подгрузки новых страниц
     const handleObserver = useCallback(
@@ -105,6 +114,7 @@ const WorksSection: React.FC = () => {
         [hasNextPage, isFetchingNextPage, fetchNextPage]
     )
 
+    // наблюдатель
     useEffect(() => {
         const option = { root: null, rootMargin: '20px', threshold: 0 }
         const observer = new IntersectionObserver(handleObserver, option)
@@ -114,11 +124,13 @@ const WorksSection: React.FC = () => {
         }
     }, [handleObserver])
 
+    // инвалидация, если юзер хочет новые ворки
     const queryClient = useQueryClient()
     const handleInvalidate = () =>{
         queryClient.invalidateQueries({ queryKey: ['feedWorks'] })
     }
 
+    // отловить мобильную версию
     useEffect(() => {
         const handler = () => setIsMobile(window.innerWidth < 700)
         setIsMobile(window.innerWidth < 700)
