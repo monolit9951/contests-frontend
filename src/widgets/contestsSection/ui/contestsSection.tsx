@@ -80,30 +80,30 @@ const ContestsSection: FC<Props> = (props) => {
     const category = useAppSelector(selectCategory)
     const activeFilters = useAppSelector(selectActiveFilters)
 
-const {
-  data,
-//   fetchNextPage,
-//   hasNextPage,
-//   isFetchingNextPage,
-} = useInfiniteQuery({
-  queryKey: ['contests'], // ключ фиксированный
-  queryFn: ({ pageParam = 0 }) =>
-    fetchContestsCache({
-      direction,
-      searchStr,
-      category,
-      activeFilters,
-      pageParam,
-    }),
-  initialPageParam: 0,
-  getNextPageParam: (lastPage, allPages) =>
-    lastPage.length === 10 ? allPages.length : undefined,
-})
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+    } = useInfiniteQuery({
+    queryKey: ['contests'],
+    queryFn: ({ pageParam = 0 }) =>
+        fetchContestsCache({
+        direction,
+        searchStr,
+        category,
+        activeFilters,
+        pageParam,
+        }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) =>
+        lastPage.length === 16 ? allPages.length : undefined,
+    })
 
 
 
     const handleCache = () =>{
-    console.log('cached data ', data)
+        console.log('cached data ', data)
     }
 
 
