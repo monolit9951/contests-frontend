@@ -142,7 +142,7 @@ const WorksSection: React.FC = () => {
             <div className='worksSection_container'>
                 <button type='button' onClick={handleInvalidate} style={{width: "100%"}}>Invalidate</button>
                 <div>
-                    {works?.pages.map((page, pageIndex) => (
+                    {!isMobile && works?.pages.map((page, pageIndex) => (
                         <ul key={pageIndex}>
                             {page.content.map((data: Work) => (
                                 <WorkComponent work={data} key={data.id} />
@@ -151,7 +151,7 @@ const WorksSection: React.FC = () => {
                     ))}
                 </div>
 
-                <div ref={loaderRef} style={{ height: 40 }} />
+                {!isMobile && <div ref={loaderRef} style={{ height: 40 }} />}
                 {isFetchingNextPage && <p>Загрузка...</p>}
                 {!hasNextPage && <p>Больше новостей нет</p>}
             </div>
