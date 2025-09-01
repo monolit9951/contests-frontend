@@ -156,7 +156,7 @@ const RateButtons: FC<Props> = (props) => {
             <button type='button' aria-label='dislike' onClick={onDislikeClick}>
                 <Dislike active={disliked}/> 
             </button>
-            <span>Dislike</span>
+            {mobile && <span>Dislike</span>}
             <Alert />
         </HStack>
     )
