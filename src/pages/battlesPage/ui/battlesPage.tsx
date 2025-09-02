@@ -36,8 +36,8 @@ export const BattlesPage = () => {
 
   const {
     data,
-    // fetchNextPage,
-    // hasNextPage,
+    fetchNextPage,
+    hasNextPage,
     // isFetchNextPageError,
     isLoading
   } = useInfiniteQuery({
@@ -58,15 +58,25 @@ export const BattlesPage = () => {
   ]);
 
 
-const handleSwipe = (dir: "up" | "down") => {
-  if (!works?.length) return; // 🔹 защита от undefined
-  if (dir === "up" && index < works.length - 1) {
-    setIndex([index + 1, "up"]);
-  } else if (dir === "down" && index > 0) {
-    setIndex([index - 1, "down"]);
-  }
-};
+  const handleSwipe = (dir: "up" | "down") => {
+    if (!works?.length) return; // 🔹 защита от undefined
+    if (dir === "up" && index < works.length - 1) {
+      setIndex([index + 1, "up"]);
+    } else if (dir === "down" && index > 0) {
+      setIndex([index - 1, "down"]);
+    }
+  };
 
+  useEffect(() => {
+    if (!works) return;
+
+    // индекс предпоследнего элемента
+    const penultimateIndex = works.length - 2;
+
+    if (index >= penultimateIndex && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [index, works, hasNextPage, fetchNextPage]);
 
   return (
     <div className="battlesPage">
@@ -82,7 +92,7 @@ const handleSwipe = (dir: "up" | "down") => {
           <div className="feed">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
-                key={works[index].id}
+                key={works[index]}
                 className="post"
                 custom={direction}
                 variants={variants}
@@ -91,9 +101,10 @@ const handleSwipe = (dir: "up" | "down") => {
                 exit="exit"
                 transition={{ duration: 0.35 }}
                 drag="y"
+                dragConstraints={{ top: 0, bottom: 0 }}
                 onDragEnd={(_, info) => {
-                  if (info.offset.y < -50) handleSwipe("up");
-                  if (info.offset.y > 50) handleSwipe("down");
+                  if (info.offset.y < -100) handleSwipe("up");
+                  if (info.offset.y > 100) handleSwipe("down");
                 }}
               >
                 <MobileWorkPreview work={works[index]} />
