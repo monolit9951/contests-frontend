@@ -82,7 +82,7 @@ const handleSwipe = (dir: "up" | "down") => {
           <div className="feed">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
-                key={works[index]}
+                key={works[index].id}
                 className="post"
                 custom={direction}
                 variants={variants}
@@ -91,10 +91,9 @@ const handleSwipe = (dir: "up" | "down") => {
                 exit="exit"
                 transition={{ duration: 0.35 }}
                 drag="y"
-                dragConstraints={{ top: 0, bottom: 0 }}
                 onDragEnd={(_, info) => {
-                  if (info.offset.y < -100) handleSwipe("up");
-                  if (info.offset.y > 100) handleSwipe("down");
+                  if (info.offset.y < -50) handleSwipe("up");
+                  if (info.offset.y > 50) handleSwipe("down");
                 }}
               >
                 <MobileWorkPreview work={works[index]} />
