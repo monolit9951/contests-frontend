@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useNavigate,useSearchParams } from "react-router-dom";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
+import { fetchFeedWorks } from "pages/feedPage/model/services/fetchWorks";
 import { MobileWorkPreview } from "shared/ui/mobileWorkPreview";
 
 import "./battlesPage.scss";
@@ -25,38 +26,47 @@ export const BattlesPage = () => {
     }),
   };
 
-  const posts = [
-    "68ad936c4437153ad8d1c544",
-    "68af10974437153ad8d1c631",
-    "68aefd0d4437153ad8d1c5d9",
-    "68ac653d4437153ad8d08d14",
-    "68ac653d4437153ad8d08d60",
-  ];
+  // const posts = [
+  //   "68ad936c4437153ad8d1c544",
+  //   "68af10974437153ad8d1c631",
+  //   "68aefd0d4437153ad8d1c5d9",
+  //   "68ac653d4437153ad8d08d14",
+  //   "68ac653d4437153ad8d08d60",
+  // ];
 
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const {
+    data,
+    // fetchNextPage,
+    // hasNextPage,
+    // isFetchNextPageError,
+    isLoading
+  } = useInfiniteQuery({
+    queryKey:['feedWorks'],
+    queryFn: fetchFeedWorks,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) =>
+      lastPage.content.length === 3 ? allPages.length : undefined,
+  })
 
-  const currentWorkId = searchParams.get("workId");
-  const initialIndex = posts.findIndex((p) => p === currentWorkId);
-  const startIndex = initialIndex !== -1 ? initialIndex : 0;
+  const works = data?.pages.flatMap(page => page.content);
+
+  console.log(works)
 
   const [[index, direction], setIndex] = useState<[number, "up" | "down"]>([
-    startIndex,
+    0,
     "up",
   ]);
 
-  
-  useEffect(() => {
-    navigate(`/battles?workId=${posts[index]}`, { replace: true });
-  }, [index, navigate]);
 
-  const handleSwipe = (dir: "up" | "down") => {
-    if (dir === "up" && index < posts.length - 1) {
-      setIndex([index + 1, "up"]);
-    } else if (dir === "down" && index > 0) {
-      setIndex([index - 1, "down"]);
-    }
-  };
+const handleSwipe = (dir: "up" | "down") => {
+  if (!works?.length) return; // 🔹 защита от undefined
+  if (dir === "up" && index < works.length - 1) {
+    setIndex([index + 1, "up"]);
+  } else if (dir === "down" && index > 0) {
+    setIndex([index - 1, "down"]);
+  }
+};
+
 
   return (
     <div className="battlesPage">
@@ -67,12 +77,12 @@ export const BattlesPage = () => {
 
       <h2>BattlesPage</h2>
 
-      {isMobile && (
+      {isMobile && !isLoading && works && (
         <div className="feed_wrapper">
           <div className="feed">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
-                key={posts[index]}
+                key={works[index]}
                 className="post"
                 custom={direction}
                 variants={variants}
@@ -87,7 +97,7 @@ export const BattlesPage = () => {
                   if (info.offset.y > 100) handleSwipe("down");
                 }}
               >
-                <MobileWorkPreview workId={posts[index]} />
+                <MobileWorkPreview work={works[index]} />
               </motion.div>
             </AnimatePresence>
           </div>

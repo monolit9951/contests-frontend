@@ -1,11 +1,10 @@
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getWorkById } from 'entities/work/model/services/workServices'
+import { Work } from 'entities/work'
 import comments from 'shared/assets/icons/commentsF.svg'
 import share from 'shared/assets/icons/shareF.svg'
 import cross from 'shared/assets/icons/X.svg'
 import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
-import { useGetRequest } from 'shared/lib/hooks/useGetRequest'
 import { RateButtons } from 'shared/ui/rateButtons'
 import { WorkPreviewContest } from 'shared/ui/workPreviewContest'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
@@ -17,13 +16,14 @@ import './mobileWorkPreview.scss'
 
 interface Props {
     isFeed?: boolean
-    workId: string
+    work: Work
 }
 
 
-const MobileWorkPreview: FC <Props> = ({isFeed, workId}) => {
+const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
     const {showAlert, Alert} = useAlert()
-    const {data: work, isLoaded: workLoaded} = useGetRequest({fetchFunc: () => getWorkById(workId), enabled: true, key: []})
+
+    // const {data: work, isLoaded: workLoaded} = useGetRequest({fetchFunc: () => getWorkById(workId), enabled: true, key: []})
     const [commentsShow, setCommentsShow] = useState<boolean>(false)
 
     const longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -60,13 +60,13 @@ const MobileWorkPreview: FC <Props> = ({isFeed, workId}) => {
     return( 
         <div className={`mobileWorkPreview ${isFeed && 'feed'}`}>
             <div className="mobileWorkPreview_container">
-                {workLoaded && work && work.media.length > 0 && <img src={work.media[0].mediaLink} alt="media" />}
+                { work.media && work.media.length > 0 && <img src={work.media[0].mediaLink} alt="media" />}
 
                 <MobileWorkTopPanel />
 
 
                 <div className="mobileWorkPreview_inner">
-                    {workLoaded && work && <div className="mobileWorkPreview_description">
+                    {work && <div className="mobileWorkPreview_description">
                         <Link to='/'><UserProfileData user = {work.user}/></Link>
 
                         <div className="mobileWorkPreview_description_container">
@@ -93,12 +93,12 @@ const MobileWorkPreview: FC <Props> = ({isFeed, workId}) => {
                                 <div>dislike</div>
                             </button>}
                         </li> */}
-                        {workLoaded && <RateButtons work id={work.id} userLike={work.userLike} likes={work.likeAmount} mobile/>}
+                        <RateButtons work id={work.id} userLike={work.userLike} likes={work.likeAmount} mobile/>
                         <li className="comms">
-                             {workLoaded && <button type='button' onClick={handleComments}>
+                             <button type='button' onClick={handleComments}>
                                 <img src={comments} alt="comms" />
                                 <div>{work.commentAmount === null? 0 : work.commentAmount}</div>
-                            </button>}
+                            </button>
                         </li>
                         <li className="share">
                             <button type='button' onClick={handleMobileShare}>
