@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { fetchFeedWorks } from "pages/feedPage/model/services/fetchWorks";
 import { MobileWorkPreview } from "shared/ui/mobileWorkPreview";
 
 import "./battlesPage.scss";
+import { useSearchParams } from "react-router-dom";
 
 export const BattlesPage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
@@ -90,26 +91,24 @@ export const BattlesPage = () => {
       {isMobile && !isLoading && works && (
         <div className="feed_wrapper">
           <div className="feed">
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.div
-                key={works[index]}
-                className="post"
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.35 }}
-                drag="y"
-                dragConstraints={{ top: 0, bottom: 0 }}
-                onDragEnd={(_, info) => {
-                  if (info.offset.y < -100) handleSwipe("up");
-                  if (info.offset.y > 100) handleSwipe("down");
-                }}
-              >
-                <MobileWorkPreview work={works[index]} />
-              </motion.div>
-            </AnimatePresence>
+<motion.div
+  key={works[index].id} // вместо works[index]
+  className="post"
+  custom={direction}
+  variants={variants}
+  initial="enter"
+  animate="center"
+  exit="exit"
+  transition={{ duration: 0.35 }}
+  drag="y"
+  dragConstraints={{ top: 0, bottom: 0 }}
+  onDragEnd={(_, info) => {
+    if (info.offset.y < -100) handleSwipe("up")
+    if (info.offset.y > 100) handleSwipe("down")
+  }}
+>
+  <MobileWorkPreview work={works[index]} />
+</motion.div>
           </div>
         </div>
       )}
