@@ -5,7 +5,7 @@ import { Work } from 'entities/work'
 import WorkComponent from 'entities/work/ui/workComponent'
 import { AnimatePresence, motion } from "framer-motion"
 import { fetchFeedWorks } from 'pages/feedPage/model/services/fetchWorks'
-import { MobileWorkPreview } from 'shared/ui/mobileWorkPreview'
+// import { MobileWorkPreview } from 'shared/ui/mobileWorkPreview'
 import { ModalWindow } from 'shared/ui/modalWindow'
 
 import { WorkPreview } from './workPreview/workPreview'
@@ -182,7 +182,7 @@ const WorksSection: React.FC = () => {
                                 if (info.offset.y > 100) handleSwipe("down")
                             }}
                         >
-                            <MobileWorkPreview workId={posts[index]}/>
+                            {/* <MobileWorkPreview workId={posts[index]}/> */}
                         </motion.div>
                         </AnimatePresence>
                     </div>
