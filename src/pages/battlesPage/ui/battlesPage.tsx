@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
-import { AnimatePresence, motion } from "framer-motion";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import {  motion } from "framer-motion";
 import { fetchFeedWorks } from "pages/feedPage/model/services/fetchWorks";
 import { MobileWorkPreview } from "shared/ui/mobileWorkPreview";
 
 import "./battlesPage.scss";
-import { useSearchParams } from "react-router-dom";
 
 export const BattlesPage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
