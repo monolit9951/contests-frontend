@@ -36,18 +36,18 @@ export const BattlesPage = () => {
   const works = data?.pages.flatMap(page => page.content);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleDragStart = (event: any, info: any) => {
+  const handleDragStart = (info: any) => {
     setIsDragging(true);
     dragStartY.current = info.point.y;
   };
 
-  const handleDrag = (event: any, info: any) => {
+  const handleDrag = (info: any) => {
     const currentDragY = info.point.y - dragStartY.current;
     setDragY(currentDragY);
     direction.current = currentDragY > 0 ? 1 : -1;
   };
 
-  const handleDragEnd = (event: any, info: any) => {
+  const handleDragEnd = (info: any) => {
     setIsDragging(false);
     const dragDistance = info.point.y - dragStartY.current;
     const dragVelocity = info.velocity.y;
@@ -61,17 +61,13 @@ export const BattlesPage = () => {
         if (currentIndex > 0) {
           setCurrentIndex(prev => prev - 1);
         }
-      } else {
-        // Свайп ВВЕРХ = переходим к СЛЕДУЮЩЕМУ посту
-        if (currentIndex < works.length - 1) {
-          setCurrentIndex(prev => prev + 1);
-          
-          // Загружаем следующую страницу, если приближаемся к концу
-          if (currentIndex >= works.length - 2 && hasNextPage) {
-            fetchNextPage();
-          }
-        }
-      }
+} else if (currentIndex < works.length - 1) {
+  setCurrentIndex(prev => prev + 1);
+
+  if (currentIndex >= works.length - 2 && hasNextPage) {
+    fetchNextPage();
+  }
+}
     }
     
     setDragY(0);
