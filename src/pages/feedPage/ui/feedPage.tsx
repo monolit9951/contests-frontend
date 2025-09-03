@@ -20,6 +20,7 @@ export const FeedPage: React.FC = () => {
             </Helmet>
 
             <WorksSection />
+            
         </VStack>
     )
 }

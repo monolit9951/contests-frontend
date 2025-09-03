@@ -47,35 +47,35 @@ export const BattlesPage = () => {
     direction.current = currentDragY > 0 ? 1 : -1;
   };
 
-  const handleDragEnd = (_: any, info: any) => {
-    // console.log(event)
-    setIsDragging(false);
-    const dragDistance = info.point.y - dragStartY.current;
-    const dragVelocity = info.velocity.y;
-    
-    // Определяем, был ли это полноценный свайп
-    const isFullSwipe = Math.abs(dragDistance) > window.innerHeight * 0.2 || Math.abs(dragVelocity) > 300;
-    
-    if (isFullSwipe && works) {
-      if (direction.current > 0) {
-        // Свайп ВНИЗ = переходим к ПРЕДЫДУЩЕМУ посту
-        if (currentIndex > 0) {
-          setCurrentIndex(prev => prev - 1);
+const handleDragEnd = (_: any, info: any) => {
+  setIsDragging(false);
+  const dragDistance = info.point.y - dragStartY.current;
+  const dragVelocity = info.velocity.y;
+  
+  // Уменьшаем пороговые значения для более легкого свайпа
+  const isFullSwipe = Math.abs(dragDistance) > window.innerHeight * 0.1 || Math.abs(dragVelocity) > 150;
+  
+  if (isFullSwipe && works) {
+    if (direction.current > 0) {
+      // Свайп ВНИЗ = переходим к ПРЕДЫДУЩЕМУ посту
+      if (currentIndex > 0) {
+        setCurrentIndex(prev => prev - 1);
+      }
+    } else {
+      // Свайп ВВЕРХ = переходим к СЛЕДУЮЩЕМУ посту
+      if (currentIndex < works.length - 1) {
+        setCurrentIndex(prev => prev + 1);
+        
+        // Загружаем следующую страницу, если приближаемся к концу
+        if (currentIndex >= works.length - 2 && hasNextPage) {
+          fetchNextPage();
         }
-      } else 
-        // Свайп ВВЕРХ = переходим к СЛЕДУЮЩЕМУ посту
-        if (currentIndex < works.length - 1) {
-          setCurrentIndex(prev => prev + 1);
-          
-          // Загружаем следующую страницу, если приближаемся к концу
-          if (currentIndex >= works.length - 2 && hasNextPage) {
-            fetchNextPage();
-          }
-        }
+      }
     }
-    
-    setDragY(0);
-  };
+  }
+  
+  setDragY(0);
+};
 
   const dragProgress = Math.min(Math.abs(dragY) / (window.innerHeight * 0.4), 1);
 
@@ -108,7 +108,7 @@ export const BattlesPage = () => {
           <motion.div
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={0.1}
+            dragElastic={0.3}
             onDragStart={handleDragStart}
             onDrag={handleDrag}
             onDragEnd={handleDragEnd}
