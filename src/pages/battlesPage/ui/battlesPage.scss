@@ -1,31 +1,47 @@
+.battlesPage {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100dvh;
+  z-index: 100;
+  .vertical-feed {
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    background: #000;
+    touch-action: none;
+  }
 
-.feed_wrapper{
-    position: fixed;
+  .feed-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .post-wrapper {
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100dvw;
-    height: 100dvh;
-    z-index: 100;
-}
+    width: 100%;
+    height: 100%;
+  }
 
-.feed {
-  position: relative;
-  width: 100dvw;
-  height: 100dvh;
-  overflow: hidden;
-  background: black;
-}
-
-.post {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
+  .feed-post {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    
+    &.dragging {
+      transition: none;
+    }
+  }
 }

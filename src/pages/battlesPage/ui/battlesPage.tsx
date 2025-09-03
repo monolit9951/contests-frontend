@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef,useState } from "react";
 import { Helmet } from "react-helmet";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import {  motion } from "framer-motion";
+import { AnimatePresence,motion } from "framer-motion";
 import { fetchFeedWorks } from "pages/feedPage/model/services/fetchWorks";
 import { MobileWorkPreview } from "shared/ui/mobileWorkPreview";
 
@@ -9,6 +9,10 @@ import "./battlesPage.scss";
 
 export const BattlesPage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragY, setDragY] = useState(0);
+  const dragStartY = useRef(0);
+  const direction = useRef<number>(0);
 
   useEffect(() => {
     const handler = () => setIsMobile(window.innerWidth < 700);
@@ -16,29 +20,10 @@ export const BattlesPage = () => {
     return () => window.removeEventListener("resize", handler);
   }, []);
 
-  const variants = {
-    enter: (dir: "up" | "down") => ({
-      y: dir === "up" ? "100%" : "-100%",
-    }),
-    center: { y: 0 },
-    exit: (dir: "up" | "down") => ({
-      y: dir === "up" ? "-100%" : "100%",
-    }),
-  };
-
-  // const posts = [
-  //   "68ad936c4437153ad8d1c544",
-  //   "68af10974437153ad8d1c631",
-  //   "68aefd0d4437153ad8d1c5d9",
-  //   "68ac653d4437153ad8d08d14",
-  //   "68ac653d4437153ad8d08d60",
-  // ];
-
   const {
     data,
     fetchNextPage,
     hasNextPage,
-    // isFetchNextPageError,
     isLoading
   } = useInfiniteQuery({
     queryKey:['feedWorks'],
@@ -46,37 +31,68 @@ export const BattlesPage = () => {
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) =>
       lastPage.content.length === 3 ? allPages.length : undefined,
-  })
+  });
 
   const works = data?.pages.flatMap(page => page.content);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  console.log(works)
-
-  const [[index, direction], setIndex] = useState<[number, "up" | "down"]>([
-    0,
-    "up",
-  ]);
-
-
-  const handleSwipe = (dir: "up" | "down") => {
-    if (!works?.length) return; // 🔹 защита от undefined
-    if (dir === "up" && index < works.length - 1) {
-      setIndex([index + 1, "up"]);
-    } else if (dir === "down" && index > 0) {
-      setIndex([index - 1, "down"]);
-    }
+  const handleDragStart = (event: any, info: any) => {
+    setIsDragging(true);
+    dragStartY.current = info.point.y;
   };
 
-  useEffect(() => {
-    if (!works) return;
+  const handleDrag = (event: any, info: any) => {
+    const currentDragY = info.point.y - dragStartY.current;
+    setDragY(currentDragY);
+    direction.current = currentDragY > 0 ? 1 : -1;
+  };
 
-    // индекс предпоследнего элемента
-    const penultimateIndex = works.length - 2;
-
-    if (index >= penultimateIndex && hasNextPage) {
-      fetchNextPage();
+  const handleDragEnd = (event: any, info: any) => {
+    setIsDragging(false);
+    const dragDistance = info.point.y - dragStartY.current;
+    const dragVelocity = info.velocity.y;
+    
+    // Определяем, был ли это полноценный свайп
+    const isFullSwipe = Math.abs(dragDistance) > window.innerHeight * 0.2 || Math.abs(dragVelocity) > 300;
+    
+    if (isFullSwipe && works) {
+      if (direction.current > 0) {
+        // Свайп ВНИЗ = переходим к ПРЕДЫДУЩЕМУ посту
+        if (currentIndex > 0) {
+          setCurrentIndex(prev => prev - 1);
+        }
+      } else {
+        // Свайп ВВЕРХ = переходим к СЛЕДУЮЩЕМУ посту
+        if (currentIndex < works.length - 1) {
+          setCurrentIndex(prev => prev + 1);
+          
+          // Загружаем следующую страницу, если приближаемся к концу
+          if (currentIndex >= works.length - 2 && hasNextPage) {
+            fetchNextPage();
+          }
+        }
+      }
     }
-  }, [index, works, hasNextPage, fetchNextPage]);
+    
+    setDragY(0);
+  };
+
+  const dragProgress = Math.min(Math.abs(dragY) / (window.innerHeight * 0.4), 1);
+
+  const slideVariants = {
+    enter: (direction: number) => ({
+      y: direction > 0 ? '-100%' : '100%',
+      opacity: 0.5
+    }),
+    center: {
+      y: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      y: direction > 0 ? '100%' : '-100%',
+      opacity: 0.5
+    })
+  };
 
   return (
     <div className="battlesPage">
@@ -85,30 +101,42 @@ export const BattlesPage = () => {
         <meta property="og:title" content="All contests, main page" />
       </Helmet>
 
-      <h2>BattlesPage</h2>
+      {/* <h2>BattlesPage</h2> */}
 
-      {isMobile && !isLoading && works && (
-        <div className="feed_wrapper">
-          <div className="feed">
-<motion.div
-  key={works[index].id} // вместо works[index]
-  className="post"
-  custom={direction}
-  variants={variants}
-  initial="enter"
-  animate="center"
-  exit="exit"
-  transition={{ duration: 0.35 }}
-  drag="y"
-  dragConstraints={{ top: 0, bottom: 0 }}
-  onDragEnd={(_, info) => {
-    if (info.offset.y < -100) handleSwipe("up")
-    if (info.offset.y > 100) handleSwipe("down")
-  }}
->
-  <MobileWorkPreview work={works[index]} />
-</motion.div>
-          </div>
+      {isMobile && !isLoading && works && works.length > 0 && (
+        <div className="vertical-feed">
+          <motion.div
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={0.1}
+            onDragStart={handleDragStart}
+            onDrag={handleDrag}
+            onDragEnd={handleDragEnd}
+            className="feed-container"
+            style={{ y: dragY }}
+          >
+            <AnimatePresence initial={false} custom={direction.current}>
+              <motion.div
+                key={currentIndex}
+                custom={direction.current}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.3 }}
+                className="post-wrapper"
+              >
+                <div 
+                  className={`feed-post ${isDragging ? 'dragging' : ''}`}
+                  style={{
+                    opacity: 1 - dragProgress * 0.3
+                  }}
+                >
+                  <MobileWorkPreview work={works[currentIndex]} />
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
         </div>
       )}
     </div>
