@@ -66,6 +66,14 @@ const FilterModal = forwardRef<HTMLDivElement, FilterModalProps>(
                     }
                 }
             }
+            for (const item of contestType.items) {
+                for (const [key, value] of Object.entries(data)) {
+                    if (item.apiKey.toUpperCase() === key) {
+                        item.number = Number(value)
+                    }
+                }
+            }
+
         }
 
         const onFilterClear = () => {
