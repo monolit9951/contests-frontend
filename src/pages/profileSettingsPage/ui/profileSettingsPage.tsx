@@ -1,27 +1,28 @@
 import { FC } from 'react';
 // eslint-disable-next-line
 import { Helmet } from "react-helmet-async";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'shared/ui/button';
-import { Input, Textarea } from 'shared/ui/input';
-import { clearUser } from 'widgets/registrationModal/model/slice/userSlice';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import { Button } from 'shared/ui/button';
+// import { clearUser } from 'widgets/registrationModal/model/slice/userSlice';
 
 import './profileSettingsPage.scss'
+// import { Input, Textarea } from 'shared/ui/input';
+import SettingsMainInfo from './components/settingsMainInfo/settingsMainInfo';
 
 const ProfileSettingsPage: FC = () => {
 
-  const disaptch = useDispatch()
-  const navigate = useNavigate()
+  // const disaptch = useDispatch()
+  // const navigate = useNavigate()
 
-  const handleLogout = () =>{
-    localStorage.removeItem("userToken")
+  // const handleLogout = () =>{
+  //   localStorage.removeItem("userToken")
 
-    disaptch(clearUser())
-    navigate('/')
-  }
+  //   disaptch(clearUser())
+  //   navigate('/')
+  // }
 
-  const user = useSelector((state: RootState) => state.user)
+  // const user = useSelector((state: RootState) => state.user)
 
   return (
     <div className='profileSettingsPage'>
@@ -40,7 +41,7 @@ const ProfileSettingsPage: FC = () => {
         <div className="profileSettingsPage_header_desc">Manage your account settings</div>
       </div>
 
-      <div className="profileSettingsPage_container">
+      {/* <div className="profileSettingsPage_container">
         
         <div className="profileSettingsPage_avatar">
 
@@ -80,7 +81,9 @@ const ProfileSettingsPage: FC = () => {
           <Button variant='primary' type='button' onClick={handleLogout}>Logout</Button>
           <Button variant='primary' type='button' onClick={handleLogout}>Delete account</Button>
         </div>
-      </div>
+      </div> */}
+
+      <SettingsMainInfo />
 
     </div>
   );
