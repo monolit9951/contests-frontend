@@ -15,7 +15,6 @@ import {
 import { FilterPayloadObj } from 'features/filterContests/model/types'
 import {
     contestsPageActions,
-    selectAll,
 } from 'pages/contestsPage'
 import { selectSearchString } from 'pages/contestsPage/model/selectors'
 import { fetchContestsCache } from 'pages/contestsPage/model/services/fetchContests'
@@ -43,7 +42,6 @@ const ContestsSection: FC<Props> = (props) => {
 
     const dispatch = useAppDispatch()
 
-    const all = useAppSelector(selectAll)
     const searchString = useAppSelector(selectSearchString)
     const active = useAppSelector(selectActiveFilters)
     const filters = active.filtersList as FilterPayloadObj[]

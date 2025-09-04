@@ -162,7 +162,7 @@ const WorksSection: React.FC = () => {
                 </ModalWindow>
             )}
 
-            {isMobile && posts.length > 0 && (
+            {false && isMobile && posts.length > 0 && (
                 <div className="feed_wrapper">
                     <div className="feed">
                         <AnimatePresence initial={false} custom={direction}>
