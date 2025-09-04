@@ -57,6 +57,10 @@ const DescriptionSection: FC<Props> = ({ data }) => {
 
     const onParticipateClick = () => {
         // проверка на всякий случай
+        if((user.userRole === 'ADMIN' || user.userId === data.contestOwner.id) && (data.status === 'ACTIVE' || data.status === 'SELECTION_IN_PROGRESS' || data.status === 'WINNER_CONFIRMATION' || data.status === 'REVIEW')){
+            navigate(`/chooseWinner/${data.id}`)
+        }
+        
         if(data.status === 'FINISHED'){
             return
         }
@@ -109,10 +113,15 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                 
                 <Button
                     variant='primary'
-                    disabled={contestStatus() !== 'Active'}
+                    // disabled={contestStatus() !== 'Active'}
+                    disabled = {
+                        !((contestStatus() !== 'Completed' && (user.userRole === 'ADMIN' || user.userId === data.contestOwner.id))
+                            ||
+                        ((user.userId !== data.contestOwner.id && user.userRole !== 'ADMIN') && contestStatus() === 'Active'))
+                    }
                     onClick={onParticipateClick}
                     className='participate-btn'>
-                    <Text Tag='span'>Participate</Text>
+                    <Text Tag='span'>{user.userId === data.contestOwner.id || user.userRole === 'ADMIN'? 'Choose winners' : 'Participate'}</Text>
                 </Button>
             </HStack>
             
@@ -243,10 +252,6 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                         </HStack>
                     </VStack>
                     
-
-                    {user.userId !== null && (user.userId === data.contestOwner.id || user.userRole === 'ADMIN') && (data.status === 'ACTIVE' || data.status === 'SELECTION_IN_PROGRESS' || data.status === 'WINNER_CONFIRMATION' || data.status === 'REVIEW') && <Button type='button' variant='primary' onClick={() => {navigate(`/chooseWinner/${data.id}`)}}>
-                        Choose winners
-                    </Button>}
                 </VStack>
             </HStack>
 
