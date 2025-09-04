@@ -1,7 +1,8 @@
 import { FC } from "react";
-import './settingsPasswords.scss'
-import { Input } from "shared/ui/input";
 import { Button } from "shared/ui/button";
+import { Input } from "shared/ui/input";
+
+import './settingsPasswords.scss'
 
 const SettingsPasswords: FC = () => {
     return(

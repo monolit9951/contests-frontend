@@ -38,6 +38,10 @@
 
             &:last-child{
                 background-color: #EB5533;
+                
+                &:hover{
+                    background-color: #e67259;
+                }
             }
         }
     }
