@@ -62,7 +62,7 @@ export const WorksList: FC<Props> = ({ sort }) => {
         },
         initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) =>
-            lastPage.content.length === 9 ? allPages.length : undefined,
+            lastPage.content.length === 6 ? allPages.length : undefined,
         enabled: !!contestId,
     });
 

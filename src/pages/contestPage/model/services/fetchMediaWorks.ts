@@ -82,7 +82,7 @@ export const fetchNewWorks = async (contestId: string, pageParam: number) => {
     const token = localStorage.getItem('userToken');
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-    const response = await instance.get(`/works/byContestId/${contestId}?page=${pageParam}&pageSize=9&sortDirection=ASC&sortBy=new`, { headers });
+    const response = await instance.get(`/works/byContestId/${contestId}?page=${pageParam}&pageSize=6&sortDirection=ASC&sortBy=new`, { headers });
 
     if (!response.data) throw new Error('No data');
 
@@ -98,7 +98,7 @@ export const fetchPopularWorks = async(id: string, pageParam: number) => {
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
 
-        const response = await instance.get(`/works/byContestId/${id}?page=${pageParam}&pageSize=9&sortDirection=ASC&sortBy=popular`, {headers})
+        const response = await instance.get(`/works/byContestId/${id}?page=${pageParam}&pageSize=6&sortDirection=ASC&sortBy=popular`, {headers})
 
         if (!response.data) {
             throw new Error()
