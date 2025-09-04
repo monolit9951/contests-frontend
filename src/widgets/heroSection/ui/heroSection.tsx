@@ -1,6 +1,7 @@
+import background from 'shared/assets/img/bg@1x.jpg'
 import { CategoryFilter } from "shared/ui/categoryFilter"
 import { Text } from "shared/ui/text";
-import background from 'shared/assets/img/bg@1x.jpg'
+
 import "./heroSection.scss"
 
 export const HeroSection = () => {

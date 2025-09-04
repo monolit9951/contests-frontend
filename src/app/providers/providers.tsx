@@ -1,9 +1,9 @@
 import { FC } from 'react'
+import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux'
 import store, { persistor } from 'app/store'
 import { ThemeProvider } from 'entities/theme'
 import { PersistGate } from 'redux-persist/integration/react'
-import { HelmetProvider } from 'react-helmet-async'
 
 interface IProviders {
     readonly children: JSX.Element

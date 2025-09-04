@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { User } from "entities/user";
+
 import './userProfileData.scss'
 
 interface Props {

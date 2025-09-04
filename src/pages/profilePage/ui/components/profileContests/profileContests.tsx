@@ -123,7 +123,6 @@ const ProfileContests: FC<ProfileContestsInterface> = ({ userId }) => {
                 </div>
             </div>
 
-            
             <div className="profileContests_showMore">
                 <Button variant="secondary" type="button" onClick={handleMore} disabled = {!(contestsLoaded && contests && contests.totalPages - 1 !== listPage && contests.totalPages !== 0)}>
                     More

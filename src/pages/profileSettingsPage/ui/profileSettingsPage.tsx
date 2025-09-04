@@ -1,8 +1,10 @@
 import { FC } from 'react';
+// eslint-disable-next-line
 import { Helmet } from "react-helmet-async";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'shared/ui/button';
+import { Input, Textarea } from 'shared/ui/input';
 import { clearUser } from 'widgets/registrationModal/model/slice/userSlice';
 
 import './profileSettingsPage.scss'
@@ -18,6 +20,8 @@ const ProfileSettingsPage: FC = () => {
     disaptch(clearUser())
     navigate('/')
   }
+
+  const user = useSelector((state: RootState) => state.user)
 
   return (
     <div className='profileSettingsPage'>
@@ -39,10 +43,45 @@ const ProfileSettingsPage: FC = () => {
       <div className="profileSettingsPage_container">
         
         <div className="profileSettingsPage_avatar">
-          <Button variant='primary' type='button' onClick={handleLogout}>Logout</Button>
+
+          <div className="profileSettingsPage_avatar_current">
+            <img src={user.userProfileImg} alt="profileImg" />
+          </div>
+
+          <div className="profileSettingsPage_avatar_addInfo">
+            <div className="profileSettingsPage_avatar_addInfo_main">Profile photo</div>
+            <div className="profileSettingsPage_avatar_addInfo_desc">JPG, PNG або GIF. Maximum size 5MB</div>
+            <div className="profileSettingsPage_avatar_addInfo_add">
+              <span>Add new avatar</span>
+              <input type="file" />
+            </div>
+          </div>
+
         </div>
 
+        <div className="profileSettingsPage_mainInfo">
+          <Input type='text' placeholder='Username' label='Username'/>
+          <Input type='text' placeholder='Email' label='Email'/>
+          <Button variant='primary' type='button'>Submit Main info</Button>
+        </div>
+        
+        <div className="profileSettingsPage_passwordInfo">
+          <Input placeholder='Enter a old password' type='password' label='Old Password'/>
+          <Input placeholder='Enter a new password' type='password' label='New password'/>
+          <Input placeholder='Enter a new password again' type='password' label='Confirm new password'/>
+          <Button variant='primary' type='button'>Submit</Button>
+        </div>
+
+        <div className="profileSettingsPage_extraInfo">
+          <Textarea name='Extra' label='Enter bio' placeholder='Enter bio'/>
+        </div>
+
+        <div className="profileSettingsPage_exitDelete">
+          <Button variant='primary' type='button' onClick={handleLogout}>Logout</Button>
+          <Button variant='primary' type='button' onClick={handleLogout}>Delete account</Button>
+        </div>
       </div>
+
     </div>
   );
 };
