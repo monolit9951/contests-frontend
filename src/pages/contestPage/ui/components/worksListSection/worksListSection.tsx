@@ -10,12 +10,21 @@ type WorkSort = 'new' | 'popular'
 
 const WorksListSection = () => {
     const [selectedSort, setSelectedSort] = useState<WorkSort>('new')
+    const [worksNum, setWorksNum] = useState<undefined | number>(0)
 
     const onSortClick = (sort: WorkSort) => {
         if (sort === selectedSort) {
             return
         }
         setSelectedSort(sort)
+    }
+
+    // передавать количество ворков из даты контеста нельзя, так как
+    // при создании ворка, мы делаем инвалидейт кеша всех ворков контеста
+    // если в базу данных другие пользователи заносили ворки за время после 
+    // создания кеша, у нас отобразится неверное число ворков
+    const handleActualWorksNum = (worksAmount: number) =>{
+        setWorksNum(worksAmount)
     }
 
     return (
@@ -27,7 +36,7 @@ const WorksListSection = () => {
                 className='participants-works__title'>
                 Participants&apos; works
                 <Text Tag='span' size='xl'>
-                    (100)
+                    ({worksNum})
                 </Text>
             </Text>
 
@@ -37,7 +46,7 @@ const WorksListSection = () => {
                         type='button'
                         className={clsx(selectedSort === 'new' && 'active')}
                         onClick={() => onSortClick('new')}>
-                        New (100)
+                        New ({worksNum})
                     </button>
                 </li>
                 <li>
@@ -52,6 +61,7 @@ const WorksListSection = () => {
 
             <WorksList
                 sort={selectedSort}
+                handleActualWorksNum = {handleActualWorksNum}
             />
         </section>
     )

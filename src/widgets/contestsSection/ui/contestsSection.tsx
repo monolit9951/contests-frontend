@@ -165,9 +165,10 @@ const ContestsSection: FC<Props> = (props) => {
                     <Text Tag='h2' size='title' bold>
                         {section === 'all' ? 'All contests' : 'TOP in popular'}
                     </Text>
-                    <Text Tag='span' className='title__span'>
-                        {section === 'all' ? `(${all.totalElements})` : '(24)'}
-                    </Text>
+                    {data && <Text Tag='span' className='title__span'>
+                        {/* {section === 'all' ? `(${all.totalElements})` : '(24)'} */}
+                        {`(${data?.pages[0].totalElements})`}
+                    </Text>}
                 </HStack>
                 {section === 'all' ? (
                     <HStack className='align__center'>

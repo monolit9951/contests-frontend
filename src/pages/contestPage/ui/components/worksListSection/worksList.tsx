@@ -12,9 +12,10 @@ import './worksList.scss'
 
 interface Props {
     sort: 'new' | 'popular'
+    handleActualWorksNum: (worksAmount: number) => void
 }
 
-export const WorksList: FC<Props> = ({ sort }) => {
+export const WorksList: FC<Props> = ({ sort, handleActualWorksNum }) => {
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -78,6 +79,12 @@ export const WorksList: FC<Props> = ({ sort }) => {
         },
         [hasNextPage, isFetchingNextPage, fetchNextPage]
     );
+
+    useEffect(() =>{
+        if(works){
+            handleActualWorksNum(works.pages[0].totalElements)
+        }
+    }, [works])
 
     useEffect(() => {
         const option = { root: null, rootMargin: '20px', threshold: 0 };
