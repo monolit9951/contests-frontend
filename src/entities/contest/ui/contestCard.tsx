@@ -81,22 +81,8 @@ const ContestCard: React.FC<Props> = (props) => {
 
             <div className='contest-card-body'>
                 <VStack className='image-box align__center'>
-                    {/* <Image
-                        alt='Contest preview image'
-                        // src={rest.previewImage ?? contestImg}
-                        src={testImage}
-                        width={377}
-                        height={212}
-                        onClick={onDetailsClick}
-                        onError={(e) => {
-                            e.currentTarget.src = contestImg
-                            e.currentTarget.onerror = null
-                        }}
-                    /> */}
-
                     {/* eslint-disable-next-line */}
                     <img src={rest.previewImage} alt="contest preview img" role='button' onClick={onDetailsClick} />
-                    {/* <img src={rest.previewImage ?? contestImg} alt="contest preview img" /> */}
 
                     <div className='prize' style={{ background: getBgColor() }}>
                         <PrizeIcon />
@@ -111,7 +97,7 @@ const ContestCard: React.FC<Props> = (props) => {
 
             <div className='contest-card-title'>
                 <Text Tag='h4' bold size='l'>
-                    {rest.name}
+                    {rest.name} 
                 </Text>
 
                 <Flex className='segments align__center contest-card-tags'>

@@ -1,5 +1,5 @@
 .text.tag {
-    align-self: flex-start;
+    align-self: center;
     padding: 0 12px;
     border-radius: 14px;
     height: 28px;
@@ -9,6 +9,7 @@
     line-height: 1.25;
     letter-spacing: -0.011rem;
     background-color: transparent;
+    flex-shrink: 0;
 
     &.light {
         color: var(--text-light);

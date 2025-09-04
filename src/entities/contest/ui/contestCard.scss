@@ -69,6 +69,14 @@
     }
     .contest-card-title {
         width: 100%;
+        
+        >h4{
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            text-overflow: ellipsis;
+        }
 
         .segments {
             width: 100%;
