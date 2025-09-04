@@ -1,5 +1,5 @@
 import { useEffect, useRef,useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { AnimatePresence,motion } from "framer-motion";
 import { fetchFeedWorks } from "pages/feedPage/model/services/fetchWorks";

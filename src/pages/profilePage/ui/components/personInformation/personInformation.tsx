@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Link, useParams } from 'react-router-dom'
 import { User } from 'entities/user'
 import moment from 'moment'

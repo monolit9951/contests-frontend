@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Contest } from 'entities/contest';
 import useAxios from 'shared/lib/hooks/useAxios';

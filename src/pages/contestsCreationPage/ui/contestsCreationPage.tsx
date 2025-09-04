@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { CreateContestForm } from 'features/createContest'
 import { ContestPaymentModal } from 'shared/ui/contestPaymentModal'
 import { VStack } from 'shared/ui/stack'

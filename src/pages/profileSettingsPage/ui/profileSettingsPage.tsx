@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'shared/ui/button';
