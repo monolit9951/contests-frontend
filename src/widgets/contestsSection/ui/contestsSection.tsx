@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import {
     ContestCard,
-    ContestPreview,
+    ContestCardSkeleton,
 } from 'entities/contest'
 import {
     filterActions,
@@ -48,7 +48,7 @@ const ContestsSection: FC<Props> = (props) => {
     const active = useAppSelector(selectActiveFilters)
     const filters = active.filtersList as FilterPayloadObj[]
     const loaderRef = useRef<HTMLDivElement | null>(null)
-    const allContests = all.contests as ContestPreview[]
+    // const allContests = all.contests as ContestPreview[]
 
     // кеширование
     const direction = useAppSelector(selectSortDirection)
@@ -139,27 +139,24 @@ const ContestsSection: FC<Props> = (props) => {
     }, [handleObserver])
 
     // скелеты 
-    const renderAll = () => {
-        if (allContests.length === 0) {
-            return (
-                <li>
-                    <Text
-                        Tag='p'
-                        size='xl'
-                        className='contests-gallery__message'>
-                        No contests yet.
-                    </Text>
+        const renderAll = () => {
+            if (!data) {
+                // пока нет данных, показываем скелеты
+                return Array.from({ length: 16 }).map((_, i) => (
+                <li key={i}>
+                    <ContestCardSkeleton />
                 </li>
-            )
-        }
-        return data?.pages.map((page) => 
-            page.content.map((item: any, itemIndex: number) => (
+                ));
+            }
+
+            return data.pages.map((page) =>
+                page.content.map((item: any, itemIndex: number) => (
                 <li key={itemIndex}>
                     <ContestCard {...item} />
-                </li>  
-            ))
-        )
-    }
+                </li>
+                ))
+            );
+        };
 
     return (
         <section className={clsx('contest-gallery__section', className)}>
@@ -291,7 +288,7 @@ const ContestsSection: FC<Props> = (props) => {
                 {section === 'all' && (
                     <>
                         {renderAll()}
-                        <div ref={loaderRef} style={{ height: 100, background: 'transparent' }} />
+                        <div ref={loaderRef} style={{ height: 100, background: 'transparent', position: 'absolute', bottom: '0'}} />
                         {isFetchingNextPage && <Spinner bottom />}
                     </>
                 )}

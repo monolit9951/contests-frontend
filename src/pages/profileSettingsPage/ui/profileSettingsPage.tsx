@@ -1,11 +1,11 @@
 import { FC } from 'react';
 // eslint-disable-next-line
 import { Helmet } from "react-helmet-async";
+
 // import { useDispatch} from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 // import { Button } from 'shared/ui/button';
 // import { clearUser } from 'widgets/registrationModal/model/slice/userSlice';
-
 import SettingsMainInfo from './components/settingsMainInfo/settingsMainInfo';
 import SettingsPasswords from './components/settingsPasswords/settingsPasswords';
 

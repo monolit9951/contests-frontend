@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { filterActions } from 'features/filterContests'
 import { contestsPageActions } from 'pages/contestsPage'
