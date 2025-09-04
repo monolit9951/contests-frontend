@@ -29,6 +29,7 @@ import { userByToken } from 'widgets/registrationModal/model/service/registratio
 import { clearUser, setUser } from 'widgets/registrationModal/model/slice/userSlice'
 
 import '../styles/index.scss'
+import LogoutPage from 'pages/logoutPage/logoutPage'
 
 export const AppRouter = () => {
   const { theme, categoryTheme } = useTheme()
@@ -39,7 +40,6 @@ export const AppRouter = () => {
   const [userAuth, setUserAuth] = useState(false)
 
   const [currentSearch, setCurrentSearch] = useState(window.location.search)
-
 
 
   useEffect(() => {
@@ -53,13 +53,6 @@ export const AppRouter = () => {
   }, [currentSearch])
 
 
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(currentSearch)
-    if (searchParams.get('auth') === 'false') {
-      setUserAuth(true)
-    }
-  }, [currentSearch])
 
 
 
@@ -128,6 +121,7 @@ const routes = createRoutesFromElements(
       <Route path='/profile' element={<ProfilePage />} />
       <Route path='/chooseWinner/:id' element={<ChooseWinnerPage />} />
       <Route path='/profile/settings' element={<ProfileSettingsPage />} />
+      <Route path='/logout' element = {<LogoutPage />}/>
     </Route>
 
     <Route path='*' element={<Navigate to='/' replace />} />

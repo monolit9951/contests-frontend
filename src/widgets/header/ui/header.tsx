@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { filterActions } from 'features/filterContests'
 import { contestsPageActions } from 'pages/contestsPage'
@@ -14,7 +14,6 @@ import './header.scss'
 
 export const Header = () => {
     const [inputData, setInputData] = useState('')
-
     const dispatch = useAppDispatch()
 
     const onSearchSubmit = () => {
@@ -26,7 +25,6 @@ export const Header = () => {
         dispatch(contestsPageActions.setSearchString(inputData.trim()))
         setInputData('')
     }
-
     // открытие навигационного меню
     // const [sidebar, setSideBar] = useState<boolean>(false)
 
