@@ -77,16 +77,13 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
                 </div>
             </div>}
 
-            <div className="personInformation_bio">
+            {data?.aboutMe && <div className="personInformation_bio">
                 <div className="personInformation_bio_heading">About me</div>
 
                 <div className="personInformation_bio_text">
-                    This section is still under construction. More information about my activities, 
-                    experience, goals and interests will be available soon.I am working on presenting 
-                    myself as honestly and openly as possible, so please be patient:An 
-                    update will be coming soon — thanks for stopping by!
+                    {data.aboutMe}
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }
