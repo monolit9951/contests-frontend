@@ -45,7 +45,7 @@ const MediaOverlay = ({ prize, user, handleReportCallback }: Props) => {
             /> */}
             <Link to={loginedUser.userId === user.id? '/profile' : `/profile/${user.id}`}>
                 <UserIcon
-                    src={user.profileImage}
+                    src={user.profileImage? user.profileImage : ''}
                     size={40}
                     userName={user.name}
                     wrapperClassName='media__overlay__3'

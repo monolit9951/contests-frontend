@@ -17,7 +17,7 @@ const CurrentWinner: FC<Props> = ({winnerData}) => {
         <div className="currentWinner">
             <div className="currentWinner_left">
                 <img src={cup} alt="win" />
-                <img src={winnerData.user.profileImage} alt="avatar" className="currentWinner_avatar"/>
+                <img src={winnerData.user.profileImage? winnerData.user.profileImage : ''} alt="avatar" className="currentWinner_avatar"/>
                 <div className="currentWinner_left_container">
                     <div className="currentWinner_content">{winnerData.description}</div>
                     <div className="currentWinner_name">{winnerData.user.name}</div>

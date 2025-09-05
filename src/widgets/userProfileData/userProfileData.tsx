@@ -10,7 +10,7 @@ interface Props {
 const UserProfileData: FC<Props> = ({user}) => {
     return(
         <div className="userProfileData">
-            <img src={user.profileImage} alt="userAvatar" />
+            <img src={user.profileImage? user.profileImage : ''} alt="userAvatar" />
 
             <div className="userProfileData_container">
                 <div className="userProfileData_headerGroup">

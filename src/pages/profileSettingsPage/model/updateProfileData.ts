@@ -19,6 +19,24 @@ export const updateUserPasswords = async (data: any) => {
     try{
         await instance.put('/users/change-password', data, {headers})
     } catch(error){
+        console.log(error)
+        throw error
+    }
+}
+
+export const getUserById = async(userId: string) => {
+    const token = localStorage.getItem('userToken')
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    
+    try{
+        const response = await instance.get(`/users/${userId}`, {headers})
+
+        
+
+        return response.data
+
+    } catch (error){
+        console.log(error)
         throw error
     }
 }

@@ -42,7 +42,7 @@ const PersonInformation: FC <PersonInformationInterface>= ({userId}) =>{
 
             {!isLoading && data && <div className="personInformation_content">
                 <div className="personInformation_logoGroup">
-                    <img src={data.profileImage} alt="avatar" />
+                    <img src={data.profileImage? data.profileImage : ''} alt="avatar" />
                 </div>
 
                 <div className="personInformation_data">

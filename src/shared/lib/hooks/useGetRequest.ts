@@ -13,7 +13,6 @@ interface UseGetRequestInterface<T> {
     fetchFunc: () => Promise<T>
 }
 
-// ОТСУТСТВУЕТ ДЖЕНЕРИК, ПОКА НЕ ПЕРЕДАЁТСЯ 
 export const useGetRequest = <T>({enabled, key, fetchFunc, mutationFunc}: UseGetRequestInterface<T>) => {
     const [data, setData] = useState<T | undefined>(undefined)
     const [isLoaded, setIsLoaded] = useState<boolean>(false)

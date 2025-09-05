@@ -163,7 +163,7 @@ const CommentEl: FC<Props> = (props) => {
     return (
         <HStack className='comment__wrapper'>
 
-            <Link to={loginedUser.userId === user.id? '/profile' : `/profile/${user.id}`}><UserIcon src={user.profileImage} size={40} /></Link>
+            <Link to={loginedUser.userId === user.id? '/profile' : `/profile/${user.id}`}><UserIcon src={user.profileImage? user.profileImage : ''} size={40} /></Link>
             <VStack className='comment__body'>
                 <HStack className='comment-info'>
                     <Link to={`/profile/${user.id}`}>

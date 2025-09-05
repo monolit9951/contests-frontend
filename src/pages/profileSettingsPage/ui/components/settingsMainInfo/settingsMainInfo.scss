@@ -85,12 +85,20 @@
         margin-top: 20px;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        row-gap: 20px;
-        column-gap: 35px;
-        
+        gap: 35px;
+        width: 100%;
+    }
+
+    > .profileSettingsPage_additional{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
         > button{
-            height: 50px;
-            align-self: flex-end;
+            width: 300px;
+            justify-content: space-around;
+            align-self: self-end;
         }
     }
 }
