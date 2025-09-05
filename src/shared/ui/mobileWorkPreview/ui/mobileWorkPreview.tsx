@@ -97,7 +97,7 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
                         <li className="comms">
                              <button type='button' onClick={handleComments}>
                                 <img src={comments} alt="comms" />
-                                <div>{work.commentAmount === null? 0 : work.commentAmount}</div>
+                                <div>{work.commentAmount ?? 0}</div>
                             </button>
                         </li>
                         <li className="share">

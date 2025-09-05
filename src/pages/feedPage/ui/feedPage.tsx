@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import VStack from 'shared/ui/stack/vStack/vStack'
+import { MobileFeedSection } from "widgets/mobileFeedSection";
 import WorksSection from "widgets/worksSection/ui/worksSection";
 
 import "./feedPage.scss"
-import { MobileFeedSection } from "widgets/mobileFeedSection";
 
 export const FeedPage: React.FC = () => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+
+    useEffect(() => {
+        const handler = () => setIsMobile(window.innerWidth < 700);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, []);
 
     return (
         <VStack className="feed-page-wrapper">
@@ -20,8 +27,8 @@ export const FeedPage: React.FC = () => {
                 <meta property="og:description" content='Feed page, all participants works' />
             </Helmet>
 
-            <WorksSection />
-            <MobileFeedSection />
+            {!isMobile && <WorksSection />}
+            {isMobile && <MobileFeedSection />}
         </VStack>
     )
 }

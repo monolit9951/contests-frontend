@@ -61,16 +61,14 @@ const handleDragEnd = (_: any, info: any) => {
       if (currentIndex > 0) {
         setCurrentIndex(prev => prev - 1);
       }
-    } else {
+    } else if (currentIndex < works.length - 1) {
       // Свайп ВВЕРХ = переходим к СЛЕДУЮЩЕМУ посту
-      if (currentIndex < works.length - 1) {
         setCurrentIndex(prev => prev + 1);
         
-        // Загружаем следующую страницу, если приближаемся к концу
+        // Загружаем следующую страницу, если приближаемся предпоследнему элементу
         if (currentIndex >= works.length - 2 && hasNextPage) {
-          fetchNextPage();
+            fetchNextPage();
         }
-      }
     }
   }
   
