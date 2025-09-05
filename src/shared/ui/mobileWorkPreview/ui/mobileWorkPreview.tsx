@@ -12,6 +12,7 @@ import UserProfileData from 'widgets/userProfileData/userProfileData'
 import MobileWorkTopPanel from './components/mobileWorkTopPanel/mobileWorkTopPanel'
 
 import './mobileWorkPreview.scss'
+import { CommentsSection } from 'widgets/commentsSection'
 
 
 interface Props {
@@ -118,6 +119,8 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
 
                             <button type='button' onClick={handleComments}><img src={cross} alt="cross" /></button>
                         </div>
+
+                        <CommentsSection work workId={work.id}/>
                     </div>
 
                     <button className="mobileWorkPreview_commentsSection_background" onClick={handleComments} type='button' aria-label='background' />

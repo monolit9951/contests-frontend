@@ -49,6 +49,7 @@ interface IInput extends HTMLInputProps {
     info?: string
     wrapperClassName?: string
     className?: string
+    isPassword?: boolean
 }
 
 const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
@@ -64,6 +65,7 @@ const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
         onBlur,
         wrapperClassName,
         className,
+        isPassword, 
         ...rest
     } = props
 
@@ -81,7 +83,7 @@ const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
         />
     )
 
-    if (label ?? info ?? error) {
+    if (label ?? info ?? error ?? isPassword) {
         return (
             <VStack className={clsx('input-wrapper', wrapperClassName)}>
                 {label && (
