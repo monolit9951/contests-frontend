@@ -10,6 +10,9 @@ import { ModalWindow } from 'shared/ui/modalWindow'
 import { WorkPreview } from './workPreview/workPreview'
 
 import './worksSection.scss'
+import { Button } from 'shared/ui/button'
+import Spinner from 'shared/ui/spinner'
+import FeedWorkSkeleton from 'entities/feedWork/ui/feedWorkSkeleton'
 
 const WorksSection: React.FC = () => {
     const navigate = useNavigate()
@@ -85,19 +88,24 @@ const WorksSection: React.FC = () => {
     return (
         <div className='worksSection'>
             <div className='worksSection_container'>
-                <button type='button' onClick={handleInvalidate} style={{width: "100%"}}>Invalidate</button>
+                <Button variant='secondary' type='button' onClick={handleInvalidate} style={{width: "100%"}}>Show new works</Button>
                 <div>
-                    {works?.pages.map((page, pageIndex) => (
-                        <ul key={pageIndex}>
-                            {page.content.map((data: Work) => (
-                                <WorkComponent work={data} key={data.id} />
-                            ))}
-                        </ul>
-                    ))}
+                    <ul>
+                        {works? works.pages.map((page) =>
+                            page.content.map((data: Work) => (
+                                <li><WorkComponent work={data} key={data.id} /></li>
+                            ))
+                        ): 
+                        Array.from({ length: 3 }).map((_, i) => (
+                            <li key={i}>
+                                <FeedWorkSkeleton />
+                            </li>
+                        ))}
+                    </ul>
                 </div>
 
-                <div ref={loaderRef} style={{ height: 40 }} />
-                {isFetchingNextPage && <p>Загрузка...</p>}
+                <div ref={loaderRef} style={{ height: 500, position: "absolute", bottom: '0px'}} />
+                {isFetchingNextPage  && <Spinner bottom/> }
                 {!hasNextPage && <p>Больше новостей нет</p>}
             </div>
             

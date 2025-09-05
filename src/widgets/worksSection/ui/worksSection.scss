@@ -6,6 +6,11 @@
         max-width: 500px;
         width: 100%;
         padding: 0 20px;
+        position: relative;
+
+        > button{
+            margin: 10px 0 10px 0;
+        }
         
         > .worksSection_list{
             display: flex;
