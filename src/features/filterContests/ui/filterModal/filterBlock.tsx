@@ -88,6 +88,27 @@ export default function FilterBlock(props: FilterBlockProps) {
         setBlockShown(!blockShown)
     }
 
+    const onTrackClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect()
+        const clickPos = e.clientX - rect.left
+        const clickValue = (clickPos / rect.width) * maxLimit
+
+        const distanceToLower = Math.abs(clickValue - sliderValue[0])
+        const distanceToUpper = Math.abs(clickValue - sliderValue[1])
+
+        if (distanceToLower < distanceToUpper) {
+            setLowerBound(Math.round(clickValue / 100) * 100) // округление по шагу
+            const newValue = [Math.round(clickValue / 100) * 100, sliderValue[1]]
+            setSliderValue(newValue)
+            updateRange(newValue)
+        } else {
+            setUpperBound(Math.round(clickValue / 100) * 100)
+            const newValue = [sliderValue[0], Math.round(clickValue / 100) * 100]
+            setSliderValue(newValue)
+            updateRange(newValue)
+        }
+    }
+
     function renderUI() {
         if (filter) {
             return (
@@ -190,17 +211,19 @@ export default function FilterBlock(props: FilterBlockProps) {
                                 {/* <Text Tag='span'>{isMoney ? '$' : 'С'}</Text> */}
                             </HStack>
                         </HStack>
-                        <Slider
-                            range
-                            allowCross={false}
-                            draggableTrack
-                            min={0}
-                            max={maxLimit}
-                            step={100}
-                            pushable={100}
-                            value={sliderValue}
-                            onChange={onSliderChange}
-                        />
+                            <div onClick={onTrackClick} style={{ width: '100%' }}>
+                                <Slider
+                                    range
+                                    allowCross={false}
+                                    draggableTrack
+                                    min={0}
+                                    max={maxLimit}
+                                    step={100}
+                                    pushable={100}
+                                    value={sliderValue}
+                                    onChange={onSliderChange}
+                                />
+                            </div>
                     </VStack>
                 </>
             )
