@@ -4,6 +4,7 @@ import VStack from 'shared/ui/stack/vStack/vStack'
 import WorksSection from "widgets/worksSection/ui/worksSection";
 
 import "./feedPage.scss"
+import { MobileFeedSection } from "widgets/mobileFeedSection";
 
 export const FeedPage: React.FC = () => {
 
@@ -20,7 +21,7 @@ export const FeedPage: React.FC = () => {
             </Helmet>
 
             <WorksSection />
-            
+            <MobileFeedSection />
         </VStack>
     )
 }
