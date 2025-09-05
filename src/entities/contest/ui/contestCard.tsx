@@ -2,18 +2,11 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
-// import moment from 'moment'
-// import Verified from 'shared/assets/icons/SealCheck.svg?react'
-// import Star from 'shared/assets/icons/Star.svg?react'
 import PrizeIcon from 'shared/assets/icons/trophyF.svg?react'
 import { capitalizeStr } from 'shared/helpers'
-// import { capitalizeStr } from 'shared/helpers'
-// import { Button } from 'shared/ui/button'
 import { Flex, VStack } from 'shared/ui/stack'
 import { Tag } from 'shared/ui/tag'
 import { Text } from 'shared/ui/text'
-// import { TopUser } from 'shared/ui/topUser'
-// import { UserIcon } from 'shared/ui/userIcon'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import { ContestPreview } from '../model/types'
@@ -26,14 +19,8 @@ interface Props extends ContestPreview {
 
 const ContestCard: React.FC<Props> = (props) => {
     const { className, contestOwner, prizesPreviews, ...rest } = props
-
     const navigate = useNavigate()
-
-    // const startline = moment.utc(rest.dateStart).local().format('DD.MM.YYYY')
-
     const tagType = rest.contestType
-
-
     const { currency, prizeAmount, prizeType } = prizesPreviews[0]
 
     const getBgColor = () => {
@@ -50,24 +37,7 @@ const ContestCard: React.FC<Props> = (props) => {
         navigate(`contests/${rest.id}`)
     }
 
-    // const contestStatus = () => {
-    //     switch (rest.status) {
-    //         case 'FINISHED':
-    //             return 'Completed'
-    //         case 'UPCOMING':
-    //             return 'Upcoming'
-    //         case "ACTIVE":
-    //             return 'Active'
-    //         case "MODERATOR_SELECTION":
-    //             return 'Finished'
-    //         case "SELECTION_IN_PROGRESS":
-    //             return 'Finished'
-    //         case "WINNER_CONFIRMATION":
-    //             return 'Finished'
-    //         default:
-    //             return 'Inactive'
-    //     }
-    // }
+
 
     const user = useSelector((state: RootState) => state.user)
 
@@ -101,29 +71,10 @@ const ContestCard: React.FC<Props> = (props) => {
                 </Text>
 
                 <Flex className='segments align__center contest-card-tags'>
-                    {/* <div>{rest.status === 'UPCOMING'? `From ${startline}` : contestStatus()}</div> */}
                     <div>{capitalizeStr(rest.contestType)}</div>
-                    {/* <div>{capitalizeStr(rest.subcategory)}</div> */}
                     <div>{rest.participantAmount} participants</div>
                 </Flex>
             </div>
-            {/* <Flex className='btn-box align__center justify__between'>
-                <VStack className='date'>
-                    <Text Tag='p' bold size='sm'>
-                        Completing the task
-                    </Text>
-                    <Text Tag="span" size="xs">
-                    {
-                        (rest.status === "FINISHED" && `End date ${deadline}`) ||
-                        (rest.status === "ACTIVE" && `Up to ${deadline}`) ||
-                        `To ${deadline}`
-                    }
-                    </Text>
-                </VStack>
-                <Button variant='secondary' onClick={onDetailsClick}>
-                    See details
-                </Button>
-            </Flex> */}
         </div>
     )
 }
