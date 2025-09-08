@@ -3,16 +3,15 @@ import { Link } from 'react-router-dom'
 import { Work } from 'entities/work'
 import comments from 'shared/assets/icons/commentsF.svg'
 import share from 'shared/assets/icons/shareF.svg'
-import cross from 'shared/assets/icons/X.svg'
 import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 import { RateButtons } from 'shared/ui/rateButtons'
 import { WorkPreviewContest } from 'shared/ui/workPreviewContest'
+import { CommentsSection } from 'widgets/commentsSection'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import MobileWorkTopPanel from './components/mobileWorkTopPanel/mobileWorkTopPanel'
 
 import './mobileWorkPreview.scss'
-import { CommentsSection } from 'widgets/commentsSection'
 
 
 interface Props {

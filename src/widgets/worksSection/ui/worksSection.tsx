@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect, useMemo,useRef, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
+import FeedWorkSkeleton from 'entities/feedWork/ui/feedWorkSkeleton'
 import { Work } from 'entities/work'
 import WorkComponent from 'entities/work/ui/workComponent'
 import { fetchFeedWorks } from 'pages/feedPage/model/services/fetchWorks'
+import { Button } from 'shared/ui/button'
 // import { MobileWorkPreview } from 'shared/ui/mobileWorkPreview'
 import { ModalWindow } from 'shared/ui/modalWindow'
+import Spinner from 'shared/ui/spinner'
 
 import { WorkPreview } from './workPreview/workPreview'
 
 import './worksSection.scss'
-import { Button } from 'shared/ui/button'
-import Spinner from 'shared/ui/spinner'
-import FeedWorkSkeleton from 'entities/feedWork/ui/feedWorkSkeleton'
 
 const WorksSection: React.FC = () => {
     const navigate = useNavigate()
