@@ -72,7 +72,7 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
 
                         <div className="mobileWorkPreview_description_container">
                             <div className={`mobileWorkPreview_description_text ${!moreDescription && 'short'}`}>
-                                {longDescription}
+                                {`${longDescription} ${moreDescription? "Less" : "More"}`}
                             </div>
 
                             <button type='button' onClick={handleMore}>{moreDescription? 'Less' : 'More'}</button>

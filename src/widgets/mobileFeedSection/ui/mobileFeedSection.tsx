@@ -96,7 +96,7 @@ const MobileFeedSection = () => {
           <motion.div
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={0.3}
+            dragElastic={0}
             onDragStart={handleDragStart}
             onDrag={handleDrag}
             onDragEnd={handleDragEnd}
