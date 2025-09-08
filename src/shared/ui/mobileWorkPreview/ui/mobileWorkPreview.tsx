@@ -115,11 +115,11 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
                 {commentsShow && <div className="mobileWorkPreview_commentsSection">
 
                     <div className="mobileWorkPreview_commentsSection_comments">
-                        <div className="mobileWorkPreview_commentsSection_header">
+                        {/* <div className="mobileWorkPreview_commentsSection_header">
                             <span>3.2k Comments</span>
 
                             <button type='button' onClick={handleComments}><img src={cross} alt="cross" /></button>
-                        </div>
+                        </div> */}
 
                         <CommentsSection work workId={work.id}/>
                     </div>

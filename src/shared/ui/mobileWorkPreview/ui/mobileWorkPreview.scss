@@ -2,10 +2,9 @@
     position: fixed;
     width: 100dvw;
     height: calc(100dvh - 53px);
-    bottom: 53px; //footer height
+    bottom: 53px;
     left: 0;
     background-color: black;
-    z-index: 10000;
 
     > .mobileWorkPreview_container{
         position: relative;
@@ -134,12 +133,13 @@
             > .mobileWorkPreview_commentsSection_comments{
                 z-index: 2;
                 position: fixed;
-                bottom: 0;
+                bottom: 53px;
                 left: 0;
                 width: 100%;
-                max-height: 80dvh;
+                max-height: 70dvh;
                 background-color: #02140E;
-                padding: 16px;
+                // background-color: red;
+                // padding: 16px;
                 height: 800px;
                 border-radius: 16px 16px 0 0;
 
@@ -192,7 +192,7 @@
             background: linear-gradient(
                 to bottom, 
                 rgba(0, 0, 0, 0) 0%,      /* сверху прозрачный */
-                rgba(0, 0, 0, 1) 100%   /* снизу полупрозрачный чёрный */
+                rgba(0, 0, 0, ) 100%   /* снизу полупрозрачный чёрный */
             );
         }
     }
