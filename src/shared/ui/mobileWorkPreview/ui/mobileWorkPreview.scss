@@ -20,7 +20,6 @@
         }
 
         > .mobileWorkPreview_inner{
-            // position: relative;
             gap: 10px;
             padding: 0px 16px 24px 16px;    
             align-items: flex-start;
@@ -101,7 +100,6 @@
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
-                // background-color: red;
                 
                 > li{
                     display: flex;
@@ -180,6 +178,22 @@
                 border: none;
                 outline: none;
             }
+        }
+
+        > .mobileWorkPreview_shadow{
+            position: absolute;
+            content: '';
+            opacity: 0.5;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45%;
+            pointer-events: all;
+            background: linear-gradient(
+                to bottom, 
+                rgba(0, 0, 0, 0) 0%,      /* сверху прозрачный */
+                rgba(0, 0, 0, 1) 100%   /* снизу полупрозрачный чёрный */
+            );
         }
     }
 }

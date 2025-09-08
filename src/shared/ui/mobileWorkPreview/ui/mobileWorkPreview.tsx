@@ -64,7 +64,7 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
                 { work.media && work.media.length > 0 && <img src={work.media[0].mediaLink} alt="media" />}
 
                 <MobileWorkTopPanel />
-
+                <div className="mobileWorkPreview_shadow" />
 
                 <div className="mobileWorkPreview_inner">
                     {work && <div className="mobileWorkPreview_description">
@@ -108,6 +108,7 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
                             </button>
                         </li>
                     </ul>
+
                 </div>
 
 
@@ -126,7 +127,10 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
                     <button className="mobileWorkPreview_commentsSection_background" onClick={handleComments} type='button' aria-label='background' />
 
                 </div>}
+
             </div>
+
+
 
             <Alert />
         </div>
