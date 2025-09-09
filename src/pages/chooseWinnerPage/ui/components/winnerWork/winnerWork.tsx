@@ -24,7 +24,7 @@ interface WinnerWorkInterface {
 
 const WinnerWork: FC <WinnerWorkInterface> = ({work, options}) => {
 
-    const [placeValue, setPlaceValue] = useState<string>('EMPTY')
+    const [placeValue, setPlaceValue] = useState<string>(work.place? `Place №${work.place}` : 'EMPTY')
 
     const [modalWork, setModalWork] = useState<boolean>(false)
     const [prizeId, setPrizeId] = useState<string>('')
