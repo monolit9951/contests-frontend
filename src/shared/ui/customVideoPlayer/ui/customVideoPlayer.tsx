@@ -30,33 +30,33 @@ const CustomVideoPlayer: FC<Props>= ({src, light}) => {
         }
     }
 
-    // const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-
-    //     if(!videoMainRef.current || !videoSecRef.current){
-    //         return
-    //     }
-
-    //     const value = Number(event.target.value)
-    //     videoMainRef.current.currentTime = ((videoMainRef.current.duration * value) / 100)
-    //     videoSecRef.current.currentTime = ((videoMainRef.current.duration * value) / 100)
-    // }
-
+    // оптимизированный listener
     useEffect(() => {
         const video = videoMainRef.current;
         if (!video) return () => {};
 
+        let frameId: number;
+
         const updateProgress = () => {
             if (video.duration) {
-                setProgress((video.currentTime / video.duration) * 100);
+            setProgress((video.currentTime / video.duration) * 100);
             }
+            frameId = requestAnimationFrame(updateProgress);
         };
 
-        video.addEventListener("timeupdate", updateProgress);
+        video.addEventListener("play", () => {
+            frameId = requestAnimationFrame(updateProgress);
+        });
 
-        return () => {
-            video.removeEventListener("timeupdate", updateProgress);
-        };
-        
+        video.addEventListener("pause", () => {
+            cancelAnimationFrame(frameId);
+        });
+
+        video.addEventListener("ended", () => {
+            cancelAnimationFrame(frameId);
+        });
+
+        return () => cancelAnimationFrame(frameId);
     }, []);
 
     return(
