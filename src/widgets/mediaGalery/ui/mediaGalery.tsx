@@ -1,8 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Media } from "entities/work/model/types";
 import navLeft from 'shared/assets/icons/navLeft.svg';
 import navRight from 'shared/assets/icons/navRight.svg';
-import { Video } from "shared/ui/videoPlayer";
+import { CustomVideoPlayer } from "shared/ui/customVideoPlayer";
 
 import GaleryNavButton from "./components/galeryNavButton/galeryNavButton";
 import GaleryNavDots from "./components/galeryNavDots/galeryNavDots";
@@ -28,7 +28,13 @@ interface Prop {
 const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
     const [currentIndex, setCurrentIndex] = useState(index);
     const [direction, setDirection] = useState<'next' | 'prev'>('next');
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
+    useEffect(() => {
+        const handler = () => setIsMobile(window.innerWidth < 700);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, []);
     const handleNext = () => {
         setDirection('next');
         setCurrentIndex(prev => (prev < media.length - 1 ? prev + 1 : 0));
@@ -54,9 +60,8 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
                 key={currentMedia.id}
             >
                 {currentMedia.typeMedia === 'VIDEO' ? (
-                    <Video 
-                        url={currentMedia.mediaLink} 
-                        key={currentMedia.id}
+                    <CustomVideoPlayer 
+                        src={currentMedia.mediaLink}
                     />
                 ) : (
                     <img
@@ -70,16 +75,16 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
 
             {media.length !== 1 && 
             <>
-                <GaleryNavButton
+                {!isMobile && <GaleryNavButton
                     imgSrc={navLeft}
                     handleFunc={handlePrev}
                     classname="mediaGalery_navigationDataLeft"
-                />
-                <GaleryNavButton
+                />}
+                {!isMobile && <GaleryNavButton
                     imgSrc={navRight}
                     handleFunc={handleNext}
                     classname="mediaGalery_navigationDataRight"
-                />
+                />}
                 <GaleryNavDots
                     classname="mediaGalery_navigationDataInfo"
                     setMediaIndex={setMediaIndex}

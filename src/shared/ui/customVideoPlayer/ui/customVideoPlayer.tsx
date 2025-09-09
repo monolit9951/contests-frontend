@@ -1,6 +1,7 @@
-import { type FC, useEffect, useRef, useState, useCallback } from "react";
-import './customVideoPlayer.scss'
+import { type FC, useCallback,useEffect, useRef, useState } from "react";
 import Spinner from "shared/ui/spinner";
+
+import './customVideoPlayer.scss'
 
 interface Props {
     src: string
@@ -46,7 +47,7 @@ const CustomVideoPlayer: FC<Props> = ({
     // Функция очисктки буфера (мемо)
     const manageBuffer = useCallback(() => {
         const video = videoMainRef.current;
-        if (!video || !video.seekable.length) return;
+        if (!video?.seekable.length) return;
 
         // Вичесляет размер текущего буфера
         let bufferSize = 0;

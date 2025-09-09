@@ -7,13 +7,12 @@ import { useAlert } from 'shared/lib/hooks/useAlert/useAlert'
 import { RateButtons } from 'shared/ui/rateButtons'
 import { WorkPreviewContest } from 'shared/ui/workPreviewContest'
 import { CommentsSection } from 'widgets/commentsSection'
+import MediaGalery from 'widgets/mediaGalery'
 import UserProfileData from 'widgets/userProfileData/userProfileData'
 
 import MobileWorkTopPanel from './components/mobileWorkTopPanel/mobileWorkTopPanel'
 
 import './mobileWorkPreview.scss'
-import { CustomVideoPlayer } from 'shared/ui/customVideoPlayer'
-import { MediaGalery } from 'shared/ui/mediaGalery'
 
 
 interface Props {
@@ -63,8 +62,8 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
         <div className={`mobileWorkPreview ${isFeed && 'feed'}`}>
             <div className="mobileWorkPreview_container">
                 {/* { work.media && work.media.length > 0 && <img src={work.media[0].mediaLink} alt="media" />} */}
-                { work.media && work.media.length > 0 && <CustomVideoPlayer src='https://ia800400.us.archive.org/23/items/youtube-bQ08lJ7BZ0k/bQ08lJ7BZ0k.webm'/>}
-                {/* <MediaGalery /> */}
+                {/* { work.media && work.media.length > 0 && <CustomVideoPlayer src='https://ia800400.us.archive.org/23/items/youtube-bQ08lJ7BZ0k/bQ08lJ7BZ0k.webm'/>} */}
+                {work.media && work.media.length > 0 && <MediaGalery media={work.media}/>}
 
                 <MobileWorkTopPanel />
                 <div className="mobileWorkPreview_shadow" />
@@ -85,18 +84,6 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
                     </div>}
 
                     <ul className="mobileWorkPreview_controls">
-                        {/* <li className="like">
-                            {workLoaded && <button type='button' onClick={handleLike}>
-                                <img src={work.userLike === 'LIKE'? likeF : like} alt="like" />
-                                <div>{work.likeAmount}</div>
-                            </button>}
-                        </li>
-                        <li className="dislike">
-                            {workLoaded && <button type='button' onClick={handleDislike}>
-                                <img src={work.userLike === 'DISLIKE'? dislikeF : dislike} alt="like" />
-                                <div>dislike</div>
-                            </button>}
-                        </li> */}
                         <RateButtons work id={work.id} userLike={work.userLike} likes={work.likeAmount} mobile/>
                         <li className="comms">
                              <button type='button' onClick={handleComments}>
@@ -118,11 +105,6 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
                 {commentsShow && <div className="mobileWorkPreview_commentsSection">
 
                     <div className="mobileWorkPreview_commentsSection_comments">
-                        {/* <div className="mobileWorkPreview_commentsSection_header">
-                            <span>3.2k Comments</span>
-
-                            <button type='button' onClick={handleComments}><img src={cross} alt="cross" /></button>
-                        </div> */}
 
                         <CommentsSection work workId={work.id}/>
                     </div>
