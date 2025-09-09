@@ -14,7 +14,7 @@ const CustomVideoPlayer: FC<Props> = ({
     src, 
     light, 
     preload = 'auto',
-    maxBufferSize = 10 //  ОБЯЗАТЕЛЬНО В МЕГАБАЙТАХ, НЕ УКАЗЫВАТЬ МНОГО
+    maxBufferSize = 2 //  ОБЯЗАТЕЛЬНО В МЕГАБАЙТАХ, НЕ УКАЗЫВАТЬ МНОГО
 }) => {
     const videoMainRef = useRef<HTMLVideoElement>(null)
     const videoSecRef = useRef<HTMLVideoElement>(null)
