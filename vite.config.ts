@@ -7,18 +7,18 @@ export default defineConfig({
   plugins: [
     react(),
     svgr({
-      include: ['**/*.svg?react', "**/*.webp?react", '**/*.png?react', '**/*.jpg?react',]
+      include: ['**/*.svg?react'],
     }),
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, '/src'),
-      app: '/src/app',
-      entities: '/src/entities',
-      features: '/src/features',
-      pages: '/src/pages',
-      shared: '/src/shared',
-      widgets: '/src/widgets',
+      "@": path.resolve(__dirname, 'src'),
+      app: path.resolve(__dirname, 'src/app'),
+      entities: path.resolve(__dirname, 'src/entities'),
+      features: path.resolve(__dirname, 'src/features'),
+      pages: path.resolve(__dirname, 'src/pages'),
+      shared: path.resolve(__dirname, 'src/shared'),
+      widgets: path.resolve(__dirname, 'src/widgets'),
     },
   },
   // define: {
