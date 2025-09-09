@@ -53,10 +53,10 @@ const WorkComponent: FC<Props> = ({ work }) => {
             </div>
 
 
-            <Button className="workComponent_container" variant='primary' onClick={handleOpenModal}>
-                {media && media[0].typeMedia === 'IMAGE' && <img src={media[0].mediaLink} alt='mediaWork' />}
-                {media && media[0].typeMedia === 'VIDEO' && <Video url={media[0].mediaLink} light/>}
-            </Button>
+            {media && media.length > 0 && <Button className="workComponent_container" variant='primary' onClick={handleOpenModal}>
+                {media[0].typeMedia === 'IMAGE' && <img src={media[0].mediaLink} alt='mediaWork' />}
+                {media[0].typeMedia === 'VIDEO' && <Video url={media[0].mediaLink} light/>}
+            </Button>}
 
             <MediaFeedback
                 id={id}

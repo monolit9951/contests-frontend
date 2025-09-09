@@ -13,7 +13,7 @@ const CustomVideoPlayer: FC<Props> = ({
     src, 
     light, 
     preload = 'auto',
-    maxBufferSize = 50 // 50 мегабайт
+    maxBufferSize = 10 //  ОБЯЗАТЕЛЬНО В МЕГАБАЙТАХ, НЕ УКАЗЫВАТЬ МНОГО
 }) => {
     const videoMainRef = useRef<HTMLVideoElement>(null)
     const videoSecRef = useRef<HTMLVideoElement>(null)
@@ -22,7 +22,7 @@ const CustomVideoPlayer: FC<Props> = ({
     const [isBuffering, setIsBuffering] = useState(false)
     const progressRef = useRef(0)
 
-  // Используем useCallback для мемоизации функций
+  // мемоизированный онПлей
     const onPlay = useCallback(() => {
         if (!videoMainRef.current || !videoSecRef.current) return;
 
@@ -43,7 +43,7 @@ const CustomVideoPlayer: FC<Props> = ({
         }
     }, [isActive]);
 
-    // Функция очисктки буфера
+    // Функция очисктки буфера (мемо)
     const manageBuffer = useCallback(() => {
         const video = videoMainRef.current;
         if (!video || !video.seekable.length) return;

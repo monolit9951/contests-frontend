@@ -69,6 +69,8 @@ const WorksSection: React.FC = () => {
         [hasNextPage, isFetchingNextPage, fetchNextPage]
     )
 
+    console.log(works)
+
     // наблюдатель
     useEffect(() => {
         const option = { root: null, rootMargin: '20px', threshold: 0 }
