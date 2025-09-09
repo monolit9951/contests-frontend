@@ -13,6 +13,7 @@ import MobileWorkTopPanel from './components/mobileWorkTopPanel/mobileWorkTopPan
 
 import './mobileWorkPreview.scss'
 import { CustomVideoPlayer } from 'shared/ui/customVideoPlayer'
+import { MediaGalery } from 'shared/ui/mediaGalery'
 
 
 interface Props {
@@ -63,6 +64,7 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
             <div className="mobileWorkPreview_container">
                 {/* { work.media && work.media.length > 0 && <img src={work.media[0].mediaLink} alt="media" />} */}
                 { work.media && work.media.length > 0 && <CustomVideoPlayer src='https://ia800400.us.archive.org/23/items/youtube-bQ08lJ7BZ0k/bQ08lJ7BZ0k.webm'/>}
+                {/* <MediaGalery /> */}
 
                 <MobileWorkTopPanel />
                 <div className="mobileWorkPreview_shadow" />

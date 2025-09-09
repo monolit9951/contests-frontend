@@ -21,9 +21,8 @@ export interface MediaInterface {
 
 interface Prop {
     media: Media[];
-    // type?: 'TYPED' | 'ARRAYOFLINKS'
-    className?: string
-    index?: number
+    className?: string;
+    index?: number;
 }
 
 const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
@@ -41,6 +40,7 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
     };
 
     const setMediaIndex = (idx: number) => {
+        setDirection(idx > currentIndex ? 'next' : 'prev');
         setCurrentIndex(idx);
     };
 
@@ -50,18 +50,20 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
         <div className={`mediaGalery ${className}`}>
             
             <div
-                className={
-                    `mediaGalery_media ${  direction === 'next' ? "slideInNext" : "slideInPrev"}`
-                }
+                className={`mediaGalery_media ${direction === 'next' ? "slideInNext" : "slideInPrev"}`}
                 key={currentMedia.id}
             >
                 {currentMedia.typeMedia === 'VIDEO' ? (
-                    <Video url={currentMedia.mediaLink} />
+                    <Video 
+                        url={currentMedia.mediaLink} 
+                        key={currentMedia.id}
+                    />
                 ) : (
                     <img
                         src={currentMedia.mediaLink}
                         className="mediaGalery_media_image"
                         alt="workImg"
+                        key={currentMedia.id}
                     />
                 )}
             </div>
