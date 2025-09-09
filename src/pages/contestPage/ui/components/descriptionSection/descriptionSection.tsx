@@ -85,6 +85,38 @@ const DescriptionSection: FC<Props> = ({ data }) => {
         setExampleGaleryModal(false)
     }
 
+    console.log(contestStatus())
+
+    const participateEnabled = () =>{
+
+        // если юзер не зареган
+        if(user.userId === null){
+            return true
+        }
+
+        // если юзер есть админом либо создателем
+        // допускаем только если не апкоминг или финишед
+        if(user.userId === data.contestOwner.id || user.userRole === 'ADMIN'){
+            if(contestStatus() === 'Completed' || contestStatus() === 'Upcoming'){
+                return true
+            }
+            return false
+        }
+
+        // юзер есть простым пользователем
+        // а потому может видеть кнопку только если статус активный 
+        if (user.userId !== data.contestOwner.id || user.userRole !== 'ADMIN'){
+            if (contestStatus() !=='Active'){
+                return true
+            } 
+
+            return false
+        }
+
+        return false
+    }
+
+
     return (
         <section className='contest-description'>
             <HStack className='justify__between align__start'>
@@ -114,11 +146,7 @@ const DescriptionSection: FC<Props> = ({ data }) => {
                 <Button
                     variant='primary'
                     // disabled={contestStatus() !== 'Active'}
-                    disabled = {
-                        !((contestStatus() !== 'Completed' && (user.userRole === 'ADMIN' || user.userId === data.contestOwner.id))
-                            ||
-                        ((user.userId !== data.contestOwner.id && user.userRole !== 'ADMIN') && contestStatus() === 'Active'))
-                    }
+                    disabled = {participateEnabled()}
                     onClick={onParticipateClick}
                     className='participate-btn'>
                     <Text Tag='span'>{user.userId === data.contestOwner.id || user.userRole === 'ADMIN'? 'Choose winners' : 'Participate'}</Text>

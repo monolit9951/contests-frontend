@@ -28,6 +28,8 @@ const ChooseWinnerPage: FC = () => {
 
     const navigate = useNavigate()
 
+    console.log(contest?.status)
+
     // защита при рендере страницы
     useEffect(() => {
         if(!contestIsLoading){
@@ -48,10 +50,9 @@ const ChooseWinnerPage: FC = () => {
                 case 'WINNER_CONFIRMATION':
                     setContestAccess(true)
                     setContestAccessPending(false)
-                    // ПОКА НЕ ЗНАЮ КАК ЭТО БУДЕТ РЕАЛИЗОВАНО
                     break
                 case 'REVIEW':
-                    if(user.userRole === 'admin'){
+                    if(user.userRole === 'ADMIN'){
                         setContestAccess(true)
                         setContestAccessPending(false)
                     } else {
