@@ -124,19 +124,19 @@ const CustomVideoPlayer: FC<Props> = ({
             <button onClick={onPlay} type="button" aria-label="VideoControl">
                 {/* eslint-disable jsx-a11y/media-has-caption */}
                 <video
-                src={src}
-                ref={videoMainRef}
-                className="video_main"
-                preload={light ? "metadata" : preload}
-                playsInline
+                    src={src}
+                    ref={videoMainRef}
+                    className="video_main"
+                    preload={light ? "metadata" : preload}
+                    playsInline
                 />
                 <video
-                src={src}
-                ref={videoSecRef}
-                className="video_secondary"
-                preload={light ? "metadata" : preload}
-                muted
-                playsInline
+                    src={src}
+                    ref={videoSecRef}
+                    className="video_secondary"
+                    preload={light ? "metadata" : preload}
+                    muted
+                    playsInline
                 />
             </button>
 
