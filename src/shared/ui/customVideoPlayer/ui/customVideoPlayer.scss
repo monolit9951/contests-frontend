@@ -70,6 +70,13 @@
             height: 3px;
             z-index: 1000;
         }
+
+        > input{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            opacity: 0;
+        }
     }
 
 }
