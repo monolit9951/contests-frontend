@@ -9,6 +9,8 @@ export const getRuledWorks = async(contestId: string, page: number, pageSize: nu
             throw new Error("No data received")
         }
 
+        console.log(response.data)
+
         return response.data
     } catch (error) {
         if (error instanceof Error) {
@@ -27,6 +29,8 @@ export const getPossibleWinners = async(contestId: string, page: number, pageSiz
         if (!response.data) {
             throw new Error("No data received")
         }
+
+        console.log(response.data)
 
         return response.data
     } catch (error) {

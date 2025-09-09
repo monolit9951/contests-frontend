@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
-import videoSample from 'shared/assets/testVideos/testVideo.mp4'
-import "./battlesPage.scss";
 import { CustomVideoPlayer } from "shared/ui/customVideoPlayer";
+
+import "./battlesPage.scss";
 
 export const BattlesPage = () => {
  
@@ -15,7 +15,7 @@ export const BattlesPage = () => {
 
       {/* <h2>BattlesPage</h2> */}
       <div style={{width: '600px', height: '600px'}}>
-        <CustomVideoPlayer src={videoSample}/>
+        <CustomVideoPlayer src='https://ia800400.us.archive.org/23/items/youtube-bQ08lJ7BZ0k/bQ08lJ7BZ0k.webm'/>
       </div>
     </div>
   );

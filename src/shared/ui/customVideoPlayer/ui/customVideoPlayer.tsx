@@ -1,4 +1,5 @@
 import { type FC, useEffect, useRef, useState } from "react";
+
 import './customVideoPlayer.scss'
 
 interface Props {
@@ -28,7 +29,7 @@ const CustomVideoPlayer: FC<Props> = ({ src, light }) => {
 
   useEffect(() => {
     const video = videoMainRef.current;
-    if (!video) return;
+    if (!video) return () => {};
 
     const updateProgress = () => {
       if (video.duration) {

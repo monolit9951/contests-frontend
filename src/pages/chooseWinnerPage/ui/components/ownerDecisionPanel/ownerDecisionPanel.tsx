@@ -28,8 +28,8 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
     // eslint-disable-next-line
     // const [currentPage, setCurrentPage] = useState<number>(0)
 
-    const {data: works, isLoaded: worksIsLoaded} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id), 0, 3), key: [worksKey], enabled: true})
-    const {data: winners, isLoaded: winnersLoaded} = useGetRequest({fetchFunc: () => getPossibleWinners((contest.id), 0, 3), key: [winnersKey], enabled: true})
+    const {data: works} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id), 0, 3), key: [worksKey], enabled: true})
+    const {data: winners} = useGetRequest({fetchFunc: () => getPossibleWinners((contest.id), 0, 3), key: [winnersKey], enabled: true})
 
     // создаём опции
     const options = [
@@ -80,10 +80,10 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
             </div>
 
             <div className="winnersList">
-                {currentFilter === 'allWorks' && worksIsLoaded && works.content.map((data: Work, index: number) => (
+                {currentFilter === 'allWorks' && works?.content?.map((data: Work, index: number) => (
                     <WinnerWork work = {data} key={index} options = {options} />
                 ))}
-                {currentFilter === 'winWorks' && winnersLoaded && winners.map((data: Work, index: number) => (
+                {currentFilter === 'winWorks' && winners?.map((data: Work, index: number) => (
                     <WinnerWork work = {data} key={index} options = {options} />
                 ))}
                 
