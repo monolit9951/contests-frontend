@@ -90,7 +90,7 @@ const MobileFeedSection = () => {
     if (!isDragging) return;
 
     const diff = currentY - startY;
-    const threshold = window.innerHeight / 4;
+    const threshold = window.innerHeight / 6;
 
     setTransition("transform 0.3s ease");
 
