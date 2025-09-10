@@ -6,15 +6,19 @@
     top: 0;
     left: 0;
     z-index: 100;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 .tiktok-feed {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  background-color: #000;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #000;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
 }
 
 .tiktok-feed::-webkit-scrollbar {
