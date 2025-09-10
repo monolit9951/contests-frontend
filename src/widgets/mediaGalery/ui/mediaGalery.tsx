@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useRef } from "react";
+import { FC, useEffect, useRef,useState } from "react";
 import { Media } from "entities/work/model/types";
 import navLeft from 'shared/assets/icons/navLeft.svg';
 import navRight from 'shared/assets/icons/navRight.svg';

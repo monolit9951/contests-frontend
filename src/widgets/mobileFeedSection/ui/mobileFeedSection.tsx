@@ -1,7 +1,8 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useCallback, useEffect,useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import "./mobileFeedSection.scss";
 import { fetchFeedWorks } from "pages/feedPage/model/services/fetchWorks";
+
+import "./mobileFeedSection.scss";
 
 const MobileFeedSection = () => {
   const {
@@ -26,7 +27,7 @@ const MobileFeedSection = () => {
   const [transition, setTransition] = useState("none");
   const [visiblePosts, setVisiblePosts] = useState([0, 1, 2]);
 
-  const feedRef = useRef(null);
+  const feedRef = useRef<HTMLDivElement >(null);
 
   // Получаем все посты из всех страниц
   const allPosts = data?.pages.flatMap(page => page.content) ?? [];
@@ -128,20 +129,22 @@ const MobileFeedSection = () => {
     setCurrentY(0);
   }, [isDragging, currentY, startY, currentIndex, allPosts.length]);
 
-  useEffect(() => {
+    useEffect(() => {
     const feedElement = feedRef.current;
-    if (feedElement) {
-      feedElement.addEventListener("touchstart", handleTouchStart, { passive: true });
-      feedElement.addEventListener("touchmove", handleTouchMove, { passive: true });
-      feedElement.addEventListener("touchend", handleTouchEnd, { passive: true });
+        if (feedElement) {
+            feedElement.addEventListener("touchstart", handleTouchStart, { passive: true });
+            feedElement.addEventListener("touchmove", handleTouchMove, { passive: true });
+            feedElement.addEventListener("touchend", handleTouchEnd, { passive: true });
 
-      return () => {
-        feedElement.removeEventListener("touchstart", handleTouchStart);
-        feedElement.removeEventListener("touchmove", handleTouchMove);
-        feedElement.removeEventListener("touchend", handleTouchEnd);
-      };
-    }
-  }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
+            return () => {
+            feedElement.removeEventListener("touchstart", handleTouchStart);
+            feedElement.removeEventListener("touchmove", handleTouchMove);
+            feedElement.removeEventListener("touchend", handleTouchEnd);
+            };
+        }
+
+    return undefined; // 🔥 явный возврат
+    }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
 
   // Отображаем загрузку
   if (isLoading) {
