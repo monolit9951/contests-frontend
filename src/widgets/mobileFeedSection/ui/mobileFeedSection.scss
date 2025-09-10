@@ -1,5 +1,14 @@
+.tiktok_fixed{
+    position: fixed;
+    height: 100dvh;
+    width: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
 .tiktok-feed {
-  z-index: 100;
   position: relative;
   width: 100%;
   overflow: hidden;

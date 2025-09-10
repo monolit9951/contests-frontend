@@ -156,44 +156,46 @@ const MobileFeedSection = () => {
   }
 
   return (
-    <div className="tiktok-feed" ref={feedRef}>
-      <div
-        className="posts-container"
-        style={{
-          transform: `translateY(calc(${translate}dvh - ${currentIndex * 100}dvh))`,
-          transition,
-        }}
-      >
-        {visiblePosts.map((index) => {
-          const post = allPosts[index];
-          if (!post) return null; // На случай если пост еще не загружен
-          
-          return (
-            <div 
-              key={post.id || index} 
-              className="post"
-              style={{ 
-                height: '100dvh',
-                position: 'absolute',
-                top: `${index * 100}dvh`,
-                width: '100%'
-              }}
-            >
-              <div className="post-content">
-                <h3>ID поста: {post.id}</h3>
-                {post.title && <p>Название: {post.title}</p>}
-                {post.description && <p>Описание: {post.description}</p>}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {isFetchingNextPage && (
-        <div className="loading-indicator">
-          Загрузка следующих постов...
+    <div className="tiktok_fixed">
+        <div className="tiktok-feed" ref={feedRef}>
+        <div
+            className="posts-container"
+            style={{
+            transform: `translateY(calc(${translate}dvh - ${currentIndex * 100}dvh))`,
+            transition,
+            }}
+        >
+            {visiblePosts.map((index) => {
+            const post = allPosts[index];
+            if (!post) return null; // На случай если пост еще не загружен
+            
+            return (
+                <div 
+                key={post.id || index} 
+                className="post"
+                style={{ 
+                    height: '100dvh',
+                    position: 'absolute',
+                    top: `${index * 100}dvh`,
+                    width: '100%'
+                }}
+                >
+                <div className="post-content">
+                    <h3>ID поста: {post.id}</h3>
+                    {post.title && <p>Название: {post.title}</p>}
+                    {post.description && <p>Описание: {post.description}</p>}
+                </div>
+                </div>
+            );
+            })}
         </div>
-      )}
+
+        {isFetchingNextPage && (
+            <div className="loading-indicator">
+            Загрузка следующих постов...
+            </div>
+        )}
+        </div>
     </div>
   );
 };
