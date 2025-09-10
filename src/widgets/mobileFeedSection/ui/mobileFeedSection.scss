@@ -3,9 +3,10 @@
     height: calc(100dvh - 53px);
     width: 100%;
     // overflow: hidden;
+    background-color: black;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 100000;
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
 }
