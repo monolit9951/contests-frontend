@@ -1,134 +1,187 @@
-import { useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { AnimatePresence, motion } from 'framer-motion';
 import { fetchFeedWorks } from 'pages/feedPage/model/services/fetchWorks';
 import { MobileWorkPreview } from 'shared/ui/mobileWorkPreview';
-
+import { Work } from 'entities/work';
 import './mobileFeedSection.scss'
 
 const MobileFeedSection = () => {
-
-    const [isDragging, setIsDragging] = useState(false);
-    const [dragY, setDragY] = useState(0);
-    const dragStartY = useRef(0);
-    const direction = useRef<number>(0);
+    const [currentIndex, setCurrentIndex] = useState<number>(0)
+    const [startY, setStartY] = useState<number>(0)
+    const [currentY, setCurrentY] = useState<number>(0);
+    const [isDragging, setIsDragging] = useState<boolean>(false)
+    const [translate, setTranslate] = useState<number>(0)
+    const [transition, setTransition] = useState<any>("none")
+    const [visiblePosts, setVisiblePosts] = useState<number[]>([])
+    const feedRef = useRef<HTMLDivElement>(null)
 
     const {
         data,
         fetchNextPage,
         hasNextPage,
-        isLoading
+        isLoading,
+        isFetchingNextPage
     } = useInfiniteQuery({
         queryKey:['feedWorks'],
         queryFn: fetchFeedWorks,
         initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) =>
-        lastPage.content.length === 3 ? allPages.length : undefined,
+            lastPage.content.length === 3 ? allPages.length : undefined,
     });
 
-      const works = data?.pages.flatMap(page => page.content);
-  const [currentIndex, setCurrentIndex] = useState(0);
+    const works = data?.pages.flatMap(page => page.content) ?? [];
 
-  const handleDragStart = (_: any, info: any) => {
-    setIsDragging(true);
-    dragStartY.current = info.point.y;
-  };
+    // Загрузка следующей страницы при достижении конца
+    useEffect(() => {
+        if (currentIndex >= works.length - 2 && hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+        }
+    }, [currentIndex, works.length, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const handleDrag = (_: any, info: any) => {
-    const currentDragY = info.point.y - dragStartY.current;
-    setDragY(currentDragY);
-    direction.current = currentDragY > 0 ? 1 : -1;
-  };
+    // начало нажатия
+    const handleTouchStart = useCallback((e: TouchEvent) => {
+        setStartY(e.touches[0].clientY);
+        setCurrentY(e.touches[0].clientY);
+        setIsDragging(true);
+        setTransition("none");
+    }, []);
 
-    const handleDragEnd = (_: any, info: any) => {
-        setIsDragging(false);
-        const dragDistance = info.point.y - dragStartY.current;
-        const dragVelocity = info.velocity.y;
-        
-        // Уменьшаем пороговые значения для более легкого свайпа
-        const isFullSwipe = Math.abs(dragDistance) > window.innerHeight * 0.1 || Math.abs(dragVelocity) > 150;
-        
-        if (isFullSwipe && works) {
-            if (direction.current > 0) {
-                // Свайп ВНИЗ = переходим к ПРЕДЫДУЩЕМУ посту
-                if (currentIndex > 0) {
-                setCurrentIndex(prev => prev - 1);
-                }
-            } else if (currentIndex < works.length - 1) {
-            // Свайп ВВЕРХ = переходим к СЛЕДУЮЩЕМУ посту
-                setCurrentIndex(prev => prev + 1);
-                
-                // Загружаем следующую страницу, если приближаемся предпоследнему элементу
-                if (currentIndex >= works.length - 2 && hasNextPage) {
-                    fetchNextPage();
-                }
+    // движение нажатия
+    const handleTouchMove = useCallback(
+        (e: TouchEvent) => {
+            if (!isDragging) return;
+            setCurrentY(e.touches[0].clientY);
+            const diff = e.touches[0].clientY - startY;
+            setTranslate((diff / window.innerHeight) * 100);
+        },
+        [isDragging, startY]
+    );
+
+    // окончание нажатия
+    const handleTouchEnd = useCallback(() => {
+        if (!isDragging) return;
+
+        const diff = currentY - startY;
+        const threshold = window.innerHeight / 4;
+
+        setTransition("transform 0.3s ease");
+
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0 && currentIndex > 0) {
+                // свайп вниз - переходим к предыдущему посту
+                setTranslate(100);
+                setTimeout(() => {
+                    setCurrentIndex((prev) => prev - 1);
+                    setTransition("none");
+                    setTranslate(0);
+                }, 300);
+            } else if (diff < 0 && currentIndex < works.length - 1) {
+                // свайп вверх - переходим к следующему посту
+                setTranslate(-100);
+                setTimeout(() => {
+                    setCurrentIndex((prev) => prev + 1);
+                    setTransition("none");
+                    setTranslate(0);
+                }, 300);
+            } else {
+                setTranslate(0);
             }
-            
+        } else {
+            setTranslate(0);
         }
 
-        setDragY(0);
-    };
+        setIsDragging(false);
+        setStartY(0);
+        setCurrentY(0);
+    }, [isDragging, currentY, startY, currentIndex, works.length]);
 
-    const dragProgress = Math.min(Math.abs(dragY) / (window.innerHeight * 0.4), 1);
+    useEffect(() => {
+        const feedElement = feedRef.current;
+        if (feedElement) {
+            feedElement.addEventListener("touchstart", handleTouchStart, { passive: true });
+            feedElement.addEventListener("touchmove", handleTouchMove, { passive: true });
+            feedElement.addEventListener("touchend", handleTouchEnd, { passive: true });
+        }
 
-    const slideVariants = {
-        enter: (direction: number) => ({
-                y: direction > 0 ? '-100%' : '100%',
-                opacity: 0.5
-        }),
-        center: {
-            y: 0,
-            opacity: 1
-        },
-        exit: (direction: number) => ({
-            y: direction > 0 ? '100%' : '-100%',
-            opacity: 0.5
-        })
-    };
+            return () => {
+                feedElement.removeEventListener("touchstart", handleTouchStart);
+                feedElement.removeEventListener("touchmove", handleTouchMove);
+                feedElement.removeEventListener("touchend", handleTouchEnd);
+            };
+    }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
 
-  return (
-    <div className="battlesPage">
+    useEffect(() => {
+        const newVisiblePosts = [];
+        
+        // Всегда показываем текущий пост
+        newVisiblePosts.push(currentIndex);
+        
+        // Добавляем предыдущий пост, если он существует
+        if (currentIndex > 0) {
+            newVisiblePosts.push(currentIndex - 1);
+        }
+        
+        // Добавляем следующий пост, если он существует
+        if (currentIndex < works.length - 1) {
+            newVisiblePosts.push(currentIndex + 1);
+        }
+        
+        // Если у нас меньше 3 постов, добавляем еще один с нужной стороны
+        if (newVisiblePosts.length < 3) {
+            if (currentIndex === 0) {
+                // Если мы на первом посте, добавляем второй следующий
+                if (currentIndex + 2 < works.length) {
+                    newVisiblePosts.push(currentIndex + 2);
+                }
+            } else if (currentIndex === works.length - 1) {
+                // Если мы на последнем посте, добавляем второй предыдущий
+                if (currentIndex - 2 >= 0) {
+                    newVisiblePosts.push(currentIndex - 2);
+                }
+            }
+        }
+        
+        setVisiblePosts(newVisiblePosts.sort((a, b) => a - b));
+    }, [currentIndex, works.length]);
 
-      {/* <h2>BattlesPage</h2> */}
+    if (isLoading && works.length === 0) {
+        return <div className="worksList">Загрузка...</div>;
+    }
 
-      {!isLoading && works && works.length > 0 && (
-        <div className="vertical-feed">
-          <motion.div
-            drag="y"
-            dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={0}
-            onDragStart={handleDragStart}
-            onDrag={handleDrag}
-            onDragEnd={handleDragEnd}
-            className="feed-container"
-            style={{ y: dragY }}
-          >
-            <AnimatePresence initial={false} custom={direction.current}>
-              <motion.div
-                key={currentIndex}
-                custom={direction.current}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.3 }}
-                className="post-wrapper"
-              >
-                <div 
-                  className={`feed-post ${isDragging ? 'dragging' : ''}`}
-                  style={{
-                    opacity: 1 - dragProgress * 0.3
-                  }}
-                >
-                  <MobileWorkPreview work={works[currentIndex]} />
+    if (works.length === 0) {
+        return <div className="worksList">Нет работ для отображения</div>;
+    }
+
+    return (
+        <div className="worksList" ref={feedRef}>
+            <div 
+                className="worksList_container" 
+                style={{
+                    transform: `translateY(calc(${translate}vh - ${currentIndex * 100}vh))`,
+                    transition,
+                }}
+            >
+                {visiblePosts.map((index) => (
+                    <div 
+                        key={index} 
+                        className="work-slide"
+                        style={{
+                            height: '100vh',
+                            position: 'relative'
+                        }}
+                    >
+                        <MobileWorkPreview work={works[index]} />
+                    </div>
+                ))}
+            </div>
+            
+            {isFetchingNextPage && (
+                <div className="loading-indicator">
+                    Загрузка следующих работ...
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    )
 }
 
 export default MobileFeedSection
