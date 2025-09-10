@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useRef } from "react";
 import { Media } from "entities/work/model/types";
 import navLeft from 'shared/assets/icons/navLeft.svg';
 import navRight from 'shared/assets/icons/navRight.svg';
@@ -29,12 +29,26 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
     const [currentIndex, setCurrentIndex] = useState(index);
     const [direction, setDirection] = useState<'next' | 'prev'>('next');
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+    
+    const touchStartX = useRef<number>(0);
+    const touchEndX = useRef<number>(0);
+    const mediaContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handler = () => setIsMobile(window.innerWidth < 700);
         window.addEventListener("resize", handler);
         return () => window.removeEventListener("resize", handler);
     }, []);
+
+    // Функции для обработки свайпов
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        touchEndX.current = e.touches[0].clientX;
+    };
+
     const handleNext = () => {
         setDirection('next');
         setCurrentIndex(prev => (prev < media.length - 1 ? prev + 1 : 0));
@@ -43,6 +57,26 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
     const handlePrev = () => {
         setDirection('prev');
         setCurrentIndex(prev => (prev > 0 ? prev - 1 : media.length - 1));
+    };
+
+
+    const handleTouchEnd = () => {
+        if (!touchStartX.current || !touchEndX.current) return;
+
+        const diffX = touchStartX.current - touchEndX.current;
+        const minSwipeDistance = 50;
+
+        if (Math.abs(diffX) > minSwipeDistance) {
+            if (diffX > 0) {
+                handleNext();
+            } else {
+                handlePrev();
+            }
+        }
+
+        // Сброс 
+        touchStartX.current = 0;
+        touchEndX.current = 0;
     };
 
     const setMediaIndex = (idx: number) => {
@@ -56,8 +90,14 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
         <div className={`mediaGalery ${className}`}>
             
             <div
+                ref={mediaContainerRef}
                 className={`mediaGalery_media ${direction === 'next' ? "slideInNext" : "slideInPrev"}`}
                 key={currentMedia.id}
+                {...(isMobile && {
+                    onTouchStart: handleTouchStart,
+                    onTouchMove: handleTouchMove,
+                    onTouchEnd: handleTouchEnd
+                })}
             >
                 {currentMedia.typeMedia === 'VIDEO' ? (
                     <CustomVideoPlayer 
