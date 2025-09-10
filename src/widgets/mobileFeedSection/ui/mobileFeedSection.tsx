@@ -140,6 +140,14 @@ const MobileFeedSection = () => {
     return undefined;
     }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
 
+    useEffect(() => {
+        document.body.style.overscrollBehavior = "none"
+
+        return () => {
+            document.body.style.overscrollBehavior = ""
+        }
+    }, [])
+
     // ЗАМЕНИТЬ НА ЛОАДЕР
     if (isLoading) {
         return (
@@ -148,14 +156,6 @@ const MobileFeedSection = () => {
         </div>
         );
     }
-
-    useEffect(() => {
-        document.body.style.overscrollBehavior = "none"
-
-        return () => {
-            document.body.style.overscrollBehavior = ""
-        }
-    }, [])
 
     return (
         <div className="tiktok_fixed">
