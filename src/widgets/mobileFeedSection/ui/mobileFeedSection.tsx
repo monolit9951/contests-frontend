@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchFeedWorks } from 'pages/feedPage/model/services/fetchWorks';
 import { MobileWorkPreview } from 'shared/ui/mobileWorkPreview';
-import { Work } from 'entities/work';
 import './mobileFeedSection.scss'
 
 const MobileFeedSection = () => {
@@ -104,9 +103,9 @@ const MobileFeedSection = () => {
         }
 
             return () => {
-                feedElement.removeEventListener("touchstart", handleTouchStart);
-                feedElement.removeEventListener("touchmove", handleTouchMove);
-                feedElement.removeEventListener("touchend", handleTouchEnd);
+                feedElement?.removeEventListener("touchstart", handleTouchStart);
+                feedElement?.removeEventListener("touchmove", handleTouchMove);
+                feedElement?.removeEventListener("touchend", handleTouchEnd);
             };
     }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
 
