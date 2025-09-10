@@ -5,6 +5,8 @@
     bottom: 53px;
     left: 0;
     background-color: black;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
 
     > .mobileWorkPreview_container{
         position: relative;

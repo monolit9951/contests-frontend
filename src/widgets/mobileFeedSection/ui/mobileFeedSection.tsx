@@ -67,19 +67,21 @@ const MobileFeedSection = () => {
     setVisiblePosts(newVisiblePosts.sort((a, b) => a - b));
   }, [currentIndex, allPosts.length]);
 
-  const handleTouchStart = useCallback((e: any) => {
-    setStartY(e.touches[0].clientY);
-    setCurrentY(e.touches[0].clientY);
-    setIsDragging(true);
-    setTransition("none");
-  }, []);
+    const handleTouchStart = useCallback((e: any) => {
+        e.preventDefault();
+        setStartY(e.touches[0].clientY);
+        setCurrentY(e.touches[0].clientY);
+        setIsDragging(true);
+        setTransition("none");
+    }, []);
 
   const handleTouchMove = useCallback(
     (e: any) => {
-      if (!isDragging) return;
-      setCurrentY(e.touches[0].clientY);
-      const diff = e.touches[0].clientY - startY;
-      setTranslate((diff / window.innerHeight) * 100);
+        e.preventDefault();
+        if (!isDragging) return;
+        setCurrentY(e.touches[0].clientY);
+        const diff = e.touches[0].clientY - startY;
+        setTranslate((diff / window.innerHeight) * 100);
     },
     [isDragging, startY]
   );
