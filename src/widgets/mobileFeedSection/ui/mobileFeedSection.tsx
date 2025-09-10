@@ -176,7 +176,7 @@ const MobileFeedSection = () => {
                         key={post.id || index} 
                         className="post"
                         style={{ 
-                            height: '100dvh',
+                            height: 'calc(100dvh - 53px)',
                             position: 'absolute',
                             top: `${index * 100}dvh`,
                             width: '100%'
