@@ -100,8 +100,7 @@
 // В БУДУЩЕМ ОБЯЗАТЕЛЬНО ПОМЕНЯТЬ, БЛОКИРУЕТ ОБНОВЛЕНИЕ СВАЙПОМ ВВЕРХ НА ВСЁМ САЙТЕ
 body {
   overscroll-behavior: none;
-  position: fixed;
+//   position: fixed;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
