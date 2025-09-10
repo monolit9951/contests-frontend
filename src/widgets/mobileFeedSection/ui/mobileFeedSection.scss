@@ -1,13 +1,85 @@
-.worksList{
-    position: relative;
-    height: 100dvh;
-    overflow: hidden;
-    background-color: black;
+.tiktok-feed {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: #000;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
 
-    > .worksList{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
+.tiktok-feed::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.posts-container {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.post {
+  width: 100%;
+  height: 100dvh;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 3px yellow solid;
+  box-sizing: border-box;
+}
+
+.post-content {
+  width: 90%;
+  max-width: 600px;
+  color: white;
+  font-size: 24px;
+  line-height: 1.5;
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+}
+
+.post-indicators {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.indicator.active {
+  background-color: white;
+  transform: scale(1.2);
+}
+
+/* Для десктопной версии */
+@media (hover: hover) {
+  .tiktok-feed {
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+  }
+  
+  .posts-container {
+    transform: none !important;
+  }
+  
+  .post {
+    scroll-snap-align: start;
+  }
 }

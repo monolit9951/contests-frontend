@@ -1,186 +1,198 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { fetchFeedWorks } from 'pages/feedPage/model/services/fetchWorks';
-import { MobileWorkPreview } from 'shared/ui/mobileWorkPreview';
-import './mobileFeedSection.scss'
+import { useState, useRef, useCallback, useEffect } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import "./mobileFeedSection.scss";
+import { fetchFeedWorks } from "pages/feedPage/model/services/fetchWorks";
 
 const MobileFeedSection = () => {
-    const [currentIndex, setCurrentIndex] = useState<number>(0)
-    const [startY, setStartY] = useState<number>(0)
-    const [currentY, setCurrentY] = useState<number>(0);
-    const [isDragging, setIsDragging] = useState<boolean>(false)
-    const [translate, setTranslate] = useState<number>(0)
-    const [transition, setTransition] = useState<any>("none")
-    const [visiblePosts, setVisiblePosts] = useState<number[]>([])
-    const feedRef = useRef<HTMLDivElement>(null)
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['feedWorks'],
+    queryFn: fetchFeedWorks,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) =>
+      lastPage.content.length === 3 ? allPages.length : undefined,
+  });
 
-    const {
-        data,
-        fetchNextPage,
-        hasNextPage,
-        isLoading,
-        isFetchingNextPage
-    } = useInfiniteQuery({
-        queryKey:['feedWorks'],
-        queryFn: fetchFeedWorks,
-        initialPageParam: 0,
-        getNextPageParam: (lastPage, allPages) =>
-            lastPage.content.length === 3 ? allPages.length : undefined,
-    });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [startY, setStartY] = useState(0);
+  const [currentY, setCurrentY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [translate, setTranslate] = useState(0);
+  const [transition, setTransition] = useState("none");
+  const [visiblePosts, setVisiblePosts] = useState([0, 1, 2]);
 
-    const works = data?.pages.flatMap(page => page.content) ?? [];
+  const feedRef = useRef(null);
 
-    // Загрузка следующей страницы при достижении конца
-    useEffect(() => {
-        if (currentIndex >= works.length - 2 && hasNextPage && !isFetchingNextPage) {
-            fetchNextPage();
+  // Получаем все посты из всех страниц
+  const allPosts = data?.pages.flatMap(page => page.content) ?? [];
+
+  // Загружаем следующую страницу, когда доходим до конца
+  useEffect(() => {
+    if (currentIndex >= allPosts.length - 2 && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [currentIndex, allPosts.length, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  useEffect(() => {
+    const newVisiblePosts = [];
+    
+    newVisiblePosts.push(currentIndex);
+    
+    if (currentIndex > 0) {
+      newVisiblePosts.push(currentIndex - 1);
+    }
+    
+    if (currentIndex < allPosts.length - 1) {
+      newVisiblePosts.push(currentIndex + 1);
+    }
+    
+    if (newVisiblePosts.length < 3) {
+      if (currentIndex === 0) {
+        if (currentIndex + 2 < allPosts.length) {
+          newVisiblePosts.push(currentIndex + 2);
         }
-    }, [currentIndex, works.length, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-    // начало нажатия
-    const handleTouchStart = useCallback((e: TouchEvent) => {
-        setStartY(e.touches[0].clientY);
-        setCurrentY(e.touches[0].clientY);
-        setIsDragging(true);
-        setTransition("none");
-    }, []);
-
-    // движение нажатия
-    const handleTouchMove = useCallback(
-        (e: TouchEvent) => {
-            if (!isDragging) return;
-            setCurrentY(e.touches[0].clientY);
-            const diff = e.touches[0].clientY - startY;
-            setTranslate((diff / window.innerHeight) * 100);
-        },
-        [isDragging, startY]
-    );
-
-    // окончание нажатия
-    const handleTouchEnd = useCallback(() => {
-        if (!isDragging) return;
-
-        const diff = currentY - startY;
-        const threshold = window.innerHeight / 4;
-
-        setTransition("transform 0.3s ease");
-
-        if (Math.abs(diff) > threshold) {
-            if (diff > 0 && currentIndex > 0) {
-                // свайп вниз - переходим к предыдущему посту
-                setTranslate(100);
-                setTimeout(() => {
-                    setCurrentIndex((prev) => prev - 1);
-                    setTransition("none");
-                    setTranslate(0);
-                }, 300);
-            } else if (diff < 0 && currentIndex < works.length - 1) {
-                // свайп вверх - переходим к следующему посту
-                setTranslate(-100);
-                setTimeout(() => {
-                    setCurrentIndex((prev) => prev + 1);
-                    setTransition("none");
-                    setTranslate(0);
-                }, 300);
-            } else {
-                setTranslate(0);
-            }
-        } else {
-            setTranslate(0);
+      } else if (currentIndex === allPosts.length - 1) {
+        if (currentIndex - 2 >= 0) {
+          newVisiblePosts.push(currentIndex - 2);
         }
+      }
+    }
+    
+    setVisiblePosts(newVisiblePosts.sort((a, b) => a - b));
+  }, [currentIndex, allPosts.length]);
 
-        setIsDragging(false);
-        setStartY(0);
-        setCurrentY(0);
-    }, [isDragging, currentY, startY, currentIndex, works.length]);
+  const handleTouchStart = useCallback((e: any) => {
+    setStartY(e.touches[0].clientY);
+    setCurrentY(e.touches[0].clientY);
+    setIsDragging(true);
+    setTransition("none");
+  }, []);
 
-    useEffect(() => {
-        const feedElement = feedRef.current;
-        if (feedElement) {
-            feedElement.addEventListener("touchstart", handleTouchStart, { passive: true });
-            feedElement.addEventListener("touchmove", handleTouchMove, { passive: true });
-            feedElement.addEventListener("touchend", handleTouchEnd, { passive: true });
-        }
+  const handleTouchMove = useCallback(
+    (e: any) => {
+      if (!isDragging) return;
+      setCurrentY(e.touches[0].clientY);
+      const diff = e.touches[0].clientY - startY;
+      setTranslate((diff / window.innerHeight) * 100);
+    },
+    [isDragging, startY]
+  );
 
-            return () => {
-                feedElement?.removeEventListener("touchstart", handleTouchStart);
-                feedElement?.removeEventListener("touchmove", handleTouchMove);
-                feedElement?.removeEventListener("touchend", handleTouchEnd);
-            };
-    }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
+  const handleTouchEnd = useCallback(() => {
+    if (!isDragging) return;
 
-    useEffect(() => {
-        const newVisiblePosts = [];
-        
-        // Всегда показываем текущий пост
-        newVisiblePosts.push(currentIndex);
-        
-        // Добавляем предыдущий пост, если он существует
-        if (currentIndex > 0) {
-            newVisiblePosts.push(currentIndex - 1);
-        }
-        
-        // Добавляем следующий пост, если он существует
-        if (currentIndex < works.length - 1) {
-            newVisiblePosts.push(currentIndex + 1);
-        }
-        
-        // Если у нас меньше 3 постов, добавляем еще один с нужной стороны
-        if (newVisiblePosts.length < 3) {
-            if (currentIndex === 0) {
-                // Если мы на первом посте, добавляем второй следующий
-                if (currentIndex + 2 < works.length) {
-                    newVisiblePosts.push(currentIndex + 2);
-                }
-            } else if (currentIndex === works.length - 1) {
-                // Если мы на последнем посте, добавляем второй предыдущий
-                if (currentIndex - 2 >= 0) {
-                    newVisiblePosts.push(currentIndex - 2);
-                }
-            }
-        }
-        
-        setVisiblePosts(newVisiblePosts.sort((a, b) => a - b));
-    }, [currentIndex, works.length]);
+    const diff = currentY - startY;
+    const threshold = window.innerHeight / 4;
 
-    if (isLoading && works.length === 0) {
-        return <div className="worksList">Загрузка...</div>;
+    setTransition("transform 0.3s ease");
+
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0 && currentIndex > 0) {
+        // свайп вниз - переходим к предыдущему посту
+        setTranslate(100);
+        setTimeout(() => {
+          setCurrentIndex((prev) => prev - 1);
+          setTransition("none");
+          setTranslate(0);
+        }, 300);
+      } else if (diff > 0 && currentIndex === 0) {
+        // свайп вниз на первом элементе (предыдущего нет)
+        console.log("Попытка свайпа вниз на первом элементе - предыдущего поста нет");
+        setTranslate(0);
+      } else if (diff < 0 && currentIndex < allPosts.length - 1) {
+        // свайп вверх - переходим к следующему посту
+        setTranslate(-100);
+        setTimeout(() => {
+          setCurrentIndex((prev) => prev + 1);
+          setTransition("none");
+          setTranslate(0);
+        }, 300);
+      } else if (diff < 0 && currentIndex === allPosts.length - 1) {
+        // свайп вверх на последнем элементе (следующего нет)
+        console.log("Попытка свайпа вверх на последнем элементе - следующего поста нет");
+        setTranslate(0);
+      } else {
+        setTranslate(0);
+      }
+    } else {
+      setTranslate(0);
     }
 
-    if (works.length === 0) {
-        return <div className="worksList">Нет работ для отображения</div>;
-    }
+    setIsDragging(false);
+    setStartY(0);
+    setCurrentY(0);
+  }, [isDragging, currentY, startY, currentIndex, allPosts.length]);
 
+  useEffect(() => {
+    const feedElement = feedRef.current;
+    if (feedElement) {
+      feedElement.addEventListener("touchstart", handleTouchStart, { passive: true });
+      feedElement.addEventListener("touchmove", handleTouchMove, { passive: true });
+      feedElement.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+      return () => {
+        feedElement.removeEventListener("touchstart", handleTouchStart);
+        feedElement.removeEventListener("touchmove", handleTouchMove);
+        feedElement.removeEventListener("touchend", handleTouchEnd);
+      };
+    }
+  }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
+
+  // Отображаем загрузку
+  if (isLoading) {
     return (
-        <div className="worksList" ref={feedRef}>
-            <div 
-                className="worksList_container" 
-                style={{
-                    transform: `translateY(calc(${translate}vh - ${currentIndex * 100}vh))`,
-                    transition,
-                }}
-            >
-                {visiblePosts.map((index) => (
-                    <div 
-                        key={index} 
-                        className="work-slide"
-                        style={{
-                            height: '100vh',
-                            position: 'relative'
-                        }}
-                    >
-                        <MobileWorkPreview work={works[index]} />
-                    </div>
-                ))}
-            </div>
-            
-            {isFetchingNextPage && (
-                <div className="loading-indicator">
-                    Загрузка следующих работ...
-                </div>
-            )}
-        </div>
-    )
-}
+      <div className="tiktok-feed">
+        <div className="loading">Загрузка...</div>
+      </div>
+    );
+  }
 
-export default MobileFeedSection
+  return (
+    <div className="tiktok-feed" ref={feedRef}>
+      <div
+        className="posts-container"
+        style={{
+          transform: `translateY(calc(${translate}dvh - ${currentIndex * 100}dvh))`,
+          transition,
+        }}
+      >
+        {visiblePosts.map((index) => {
+          const post = allPosts[index];
+          if (!post) return null; // На случай если пост еще не загружен
+          
+          return (
+            <div 
+              key={post.id || index} 
+              className="post"
+              style={{ 
+                height: '100dvh',
+                position: 'absolute',
+                top: `${index * 100}dvh`,
+                width: '100%'
+              }}
+            >
+              <div className="post-content">
+                <h3>ID поста: {post.id}</h3>
+                {post.title && <p>Название: {post.title}</p>}
+                {post.description && <p>Описание: {post.description}</p>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {isFetchingNextPage && (
+        <div className="loading-indicator">
+          Загрузка следующих постов...
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default MobileFeedSection;
