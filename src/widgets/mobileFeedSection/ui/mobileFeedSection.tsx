@@ -101,10 +101,6 @@ const MobileFeedSection = () => {
           setTransition("none");
           setTranslate(0);
         }, 300);
-      } else if (diff > 0 && currentIndex === 0) {
-        // свайп вниз на первом элементе (предыдущего нет)
-        console.log("Попытка свайпа вниз на первом элементе - предыдущего поста нет");
-        setTranslate(0);
       } else if (diff < 0 && currentIndex < allPosts.length - 1) {
         // свайп вверх - переходим к следующему посту
         setTranslate(-100);
@@ -113,10 +109,6 @@ const MobileFeedSection = () => {
           setTransition("none");
           setTranslate(0);
         }, 300);
-      } else if (diff < 0 && currentIndex === allPosts.length - 1) {
-        // свайп вверх на последнем элементе (следующего нет)
-        console.log("Попытка свайпа вверх на последнем элементе - следующего поста нет");
-        setTranslate(0);
       } else {
         setTranslate(0);
       }
