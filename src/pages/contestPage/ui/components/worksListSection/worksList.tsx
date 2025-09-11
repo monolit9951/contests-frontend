@@ -99,9 +99,9 @@ export const WorksList: FC<Props> = ({ sort, handleActualWorksNum }) => {
     return (
         <div className="worksList">
             <ul>
-                {works?.pages.flatMap((page) =>
+                {works?.pages.map((page) =>
                     page.content.map((data: Work, index: number) => (
-                    <WorkCard data={data} key={index} />
+                        <WorkCard data={data} key={index} />
                     ))
                 )}
             </ul>
