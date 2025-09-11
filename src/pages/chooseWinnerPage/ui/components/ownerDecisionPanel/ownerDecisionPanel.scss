@@ -11,9 +11,16 @@
         gap: 10px;
     }
 
-    .chooseWinnerPage_paginationBtn{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
+    // .chooseWinnerPage_paginationBtn{
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: space-around;
+    // }
+
+    > .ownerDecosonPanel_observer{
+        content: '';
+        height: 30px;
+        background-color: red;
+        width: 100%;
     }
 }

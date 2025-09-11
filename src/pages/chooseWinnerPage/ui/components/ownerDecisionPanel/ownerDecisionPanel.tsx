@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Contest } from "entities/contest";
 import { Prize } from "entities/prize";
 import { Work } from "entities/work";
@@ -28,8 +28,10 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
     // eslint-disable-next-line
     // const [currentPage, setCurrentPage] = useState<number>(0)
 
-    const {data: works} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id), 0, 3), key: [worksKey], enabled: true})
-    const {data: winners} = useGetRequest({fetchFunc: () => getPossibleWinners((contest.id), 0, 3), key: [winnersKey], enabled: true})
+    const {data: works} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id), 0, 6), key: [worksKey], enabled: true})
+    const {data: winners} = useGetRequest({fetchFunc: () => getPossibleWinners((contest.id), 0, 6), key: [winnersKey], enabled: true})
+
+    const observerRef = useRef<HTMLDivElement | null>(null)
 
     // создаём опции
     const options = [
@@ -55,16 +57,13 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
         }
     }
 
-    // const handleLoadMore = () => {
-    //     console.log('loadMore')
-    // }
-
+    // окончательный сабмит пользователем
     const handleFinalSubmit = async () => {
         try{
             const token = localStorage.getItem('userToken')
             const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-            await instance.post(`/winners/confirm/${contest.id}}`, null, {headers})
+            await instance.post(`/winners/confirm/${contest.id}`, null, {headers})
 
             showAlert('SUCCESS', "WINNERS CONFIRMED")
         
@@ -72,6 +71,37 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
             showAlert("ERROR", "CANNOT CONFIRM WINNERS")
         }
     }
+
+    useEffect(() =>{
+        if(!observerRef.current){
+            console.log(1)
+            return () => {}
+        }
+
+        console.log(1)
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if(entry.isIntersecting){
+                        if(currentFilter === 'allWorks'){
+                            console.log('allWorks')
+                        } else {
+                            console.log('winners')
+                        }
+                    }
+                })
+            }
+        )
+
+        observer.observe(observerRef.current);
+
+        return () => {
+            if(observerRef.current){
+                observer.unobserve(observerRef.current)
+            }
+        }
+    }, [currentFilter])
     
     return(
         <div className="ownerDecosonPanel">
@@ -94,9 +124,7 @@ const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
                 }
             </div>
 
-            <div className="chooseWinnerPage_paginationBtn">
-                <Button variant="primary" type="button">Load more</Button>
-            </div>
+            <div className="ownerDecosonPanel_observer" ref={observerRef}/>
             
             <Alert />
         </div>
