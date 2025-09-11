@@ -19,113 +19,110 @@ interface Props {
 
 
 
-const OwnerDecisionPanel: FC<Props> = ({contest}) =>{
-
-    const [worksKey, setWorksKey] = useState<number>(0)
-    const [winnersKey, setWinnersKey] = useState<number>(0)
+const OwnerDecisionPanel: FC<Props> = ({ contest }) => {
+    const [works, setWorks] = useState<Work[]>([])
+    const [winners, setWinners] = useState<Work[]>([])
     const [currentFilter, setCurrentFilter] = useState<string>('allWorks')
-    const {showAlert, Alert} = useAlert()
-    // eslint-disable-next-line
-    // const [currentPage, setCurrentPage] = useState<number>(0)
-
-    const {data: works} = useGetRequest({fetchFunc: () => getRuledWorks((contest.id), 0, 6), key: [worksKey], enabled: true})
-    const {data: winners} = useGetRequest({fetchFunc: () => getPossibleWinners((contest.id), 0, 6), key: [winnersKey], enabled: true})
-
+    const [currentPage, setCurrentPage] = useState<number>(0)
+    const [hasMore, setHasMore] = useState<boolean>(true) // чтобы остановить, если данных больше нет
+    const { showAlert, Alert } = useAlert()
     const observerRef = useRef<HTMLDivElement | null>(null)
 
-    // создаём опции
-    const options = [
-    ...contest.prizes.map((prize: Prize) => ({
+    const options = contest.prizes.map((prize: Prize) => ({
         label: `Place №${prize.place}`,
         value: prize.id,
-    }))]
+    }))
 
-    // отловить значение селектора (все ворки / победители)
+    const fetchWorks = async (page: number) => {
+        const data = await getRuledWorks(contest.id, page, 6)
+        if (data.content?.length) {
+            setWorks(prev => [...prev, ...data.content])
+        } else {
+            setHasMore(false)
+        }
+    }
+
+    const fetchWinners = async (page: number) => {
+        const data = await getPossibleWinners(contest.id, page, 6)
+        if (data?.length) {
+        setWinners(prev => [...prev, ...data])
+        } else {
+        setHasMore(false)
+        }
+    }
+
+    const loadMore = () => {
+        setCurrentPage(prev => prev + 1)
+    }
+
+    useEffect(() => {
+        if (!hasMore) return
+        if (currentFilter === 'allWorks') fetchWorks(currentPage)
+        else fetchWinners(currentPage)
+    }, [currentPage, currentFilter])
+
     const chooseSelectorCallback = (key: string) => {
-
-        switch (key){
-            case 'allWorks':
-                setWorksKey(worksKey + 1)
-                setCurrentFilter(key)
-                break
-            case 'winWorks':
-                setWinnersKey(winnersKey + 1)
-                setCurrentFilter(key)
-                break
-            default:
-                break
-        }
+        setCurrentFilter(key)
+        setCurrentPage(0)
+        setHasMore(true)
+        if (key === 'allWorks') setWorks([])
+        else setWinners([])
     }
 
-    // окончательный сабмит пользователем
-    const handleFinalSubmit = async () => {
-        try{
-            const token = localStorage.getItem('userToken')
-            const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
-            await instance.post(`/winners/confirm/${contest.id}`, null, {headers})
-
-            showAlert('SUCCESS', "WINNERS CONFIRMED")
-        
-        } catch (error) {
-            showAlert("ERROR", "CANNOT CONFIRM WINNERS")
-        }
-    }
-
-    useEffect(() =>{
-        if(!observerRef.current){
-            console.log(1)
-            return () => {}
-        }
-
-        console.log(1)
+    useEffect(() => {
+        if (!observerRef.current) return () => {}
 
         const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if(entry.isIntersecting){
-                        if(currentFilter === 'allWorks'){
-                            console.log('allWorks')
-                        } else {
-                            console.log('winners')
-                        }
-                    }
+            entries => {
+                entries.forEach(entry => {
+                if (entry.isIntersecting && hasMore) loadMore()
                 })
-            }
+            },
+            { threshold: 1.0 }
         )
 
-        observer.observe(observerRef.current);
+        observer.observe(observerRef.current)
+        return () => observer.disconnect()
+    }, [hasMore])
 
-        return () => {
-            if(observerRef.current){
-                observer.unobserve(observerRef.current)
-            }
+    const handleFinalSubmit = async () => {
+        try {
+            const token = localStorage.getItem('userToken')
+            const headers = token ? { Authorization: `Bearer ${token}` } : {}
+            await instance.post(`/winners/confirm/${contest.id}`, null, { headers })
+            showAlert('SUCCESS', 'WINNERS CONFIRMED')
+        } catch (error) {
+            showAlert('ERROR', 'CANNOT CONFIRM WINNERS')
         }
-    }, [currentFilter])
-    
-    return(
+    }
+
+    return (
         <div className="ownerDecosonPanel">
             <div className="chooseWinnerPage_selectors">
-                <WinnerSelectors chooseSelectorCallback = {chooseSelectorCallback}/>
+                <WinnerSelectors chooseSelectorCallback={chooseSelectorCallback} />
             </div>
 
             <div className="winnersList">
-                {currentFilter === 'allWorks' && works?.content?.map((data: Work, index: number) => (
-                    <WinnerWork work = {data} key={index} options = {options} />
+                {currentFilter === 'allWorks' &&
+                works.map((data: Work, index: number) => (
+                    <WinnerWork work={data} key={index} options={options} />
                 ))}
-                {currentFilter === 'winWorks' && winners?.map((data: Work, index: number) => (
-                    <WinnerWork work = {data} key={index} options = {options} />
+                {currentFilter === 'winWorks' &&
+                winners.map((data: Work, index: number) => (
+                    <WinnerWork work={data} key={index} options={options} />
                 ))}
-                
-                {currentFilter === 'winWorks' && 
-                    <div className="chooseWinnerPage_paginationBtn">
-                        <Button type="button" variant="primary" onClick={handleFinalSubmit}>Final Submit</Button>
-                    </div>
-                }
+
+                {currentFilter === 'winWorks' && (
+                <div className="chooseWinnerPage_paginationBtn">
+                    <Button type="button" variant="primary" onClick={handleFinalSubmit}>
+                    Final Submit
+                    </Button>
+                </div>
+                )}
             </div>
 
-            <div className="ownerDecosonPanel_observer" ref={observerRef}/>
-            
+            <div className="ownerDecosonPanel_observer" ref={observerRef} />
+
             <Alert />
         </div>
     )
