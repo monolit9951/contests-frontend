@@ -31,7 +31,9 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
     const touchStartX = useRef<number>(0);
+    const touchStartY = useRef<number>(0);
     const touchEndX = useRef<number>(0);
+    const touchEndY = useRef<number>(0);
     const mediaContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -43,10 +45,12 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
     // Функции для обработки свайпов
     const handleTouchStart = (e: React.TouchEvent) => {
         touchStartX.current = e.touches[0].clientX;
+        touchStartY.current = e.touches[0].clientY;
     };
 
     const handleTouchMove = (e: React.TouchEvent) => {
         touchEndX.current = e.touches[0].clientX;
+        touchEndY.current = e.touches[0].clientY;
     };
 
     const handleNext = () => {
@@ -61,12 +65,13 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
 
 
     const handleTouchEnd = () => {
-        if (!touchStartX.current || !touchEndX.current) return;
-
         const diffX = touchStartX.current - touchEndX.current;
+        const diffY = touchStartY.current - touchEndY.current;
+
         const minSwipeDistance = 50;
 
-        if (Math.abs(diffX) > minSwipeDistance) {
+        // проверка на направление скролла, если больше по х чем по у, то скролл по х
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minSwipeDistance) {
             if (diffX > 0) {
                 handleNext();
             } else {
@@ -74,9 +79,11 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
             }
         }
 
-        // Сброс 
+        // сброс
         touchStartX.current = 0;
         touchEndX.current = 0;
+        touchStartY.current = 0;
+        touchEndY.current = 0;
     };
 
     const setMediaIndex = (idx: number) => {
