@@ -28,8 +28,6 @@ const ChooseWinnerPage: FC = () => {
 
     const navigate = useNavigate()
 
-    console.log(contest?.status)
-
     // защита при рендере страницы
     useEffect(() => {
         if(!contestIsLoading){

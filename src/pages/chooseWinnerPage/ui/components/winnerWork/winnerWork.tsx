@@ -67,14 +67,14 @@ const WinnerWork: FC <WinnerWorkInterface> = ({work, options}) => {
 
     // МЕМОИЗАЦИЯ ДЛЯ ПРЕДОТВРАЩЕНИЯ ПЕРЕРЕНДЕРА
     const videoBlock = useMemo(() => {
-        if(work.media !== null){
+        if(work.media !== null && work.media.length > 0){
             if (work.media !== null && work.media[0].typeMedia === 'IMAGE') {
                 return <img src={work.media[0].mediaLink} alt="workImage" />;
             } 
                 return <Video url={work.media[0].mediaLink} light />;
         }
 
-        return <div>no media</div>
+        return null
         
     }, [work.media]);
 
