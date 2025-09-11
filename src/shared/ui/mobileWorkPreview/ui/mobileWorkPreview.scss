@@ -1,8 +1,9 @@
 .mobileWorkPreview{
     position: fixed;
     width: 100dvw;
-    height: calc(100dvh - 53px);
-    bottom: 53px;
+    height: calc(100dvh);
+    z-index: 100000;
+    top: 0;
     left: 0;
     background-color: black;
 
