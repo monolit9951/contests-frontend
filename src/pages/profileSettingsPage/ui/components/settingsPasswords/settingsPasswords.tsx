@@ -1,8 +1,8 @@
-import { ChangeEvent, FC, useState } from "react";
+import { FC, useState } from "react";
 import { updateUserPasswords } from "pages/profileSettingsPage/model/updateProfileData";
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
 import { Button } from "shared/ui/button";
-import { Input } from "shared/ui/input";
+import PasswordInput from "shared/ui/passwordInput";
 
 import './settingsPasswords.scss'
 
@@ -14,16 +14,16 @@ const SettingsPasswords: FC = () => {
     const [passwordsError, setPasswordsError] = useState<string>('')
     const {showAlert, Alert} = useAlert()
 
-    const handleOldPassword = (event: ChangeEvent<HTMLInputElement>) =>{
-        setOldPassword(event.target.value)
+    const handleOldPassword = (value: string) =>{
+        setOldPassword(value)
     }
 
-    const handleNewPassword = (event: ChangeEvent<HTMLInputElement>) =>{
-        setNewPassword(event.target.value)
+    const handleNewPassword = (value: string) =>{
+        setNewPassword(value)
     }
 
-    const handleConfirmPassword = (event: ChangeEvent<HTMLInputElement>) =>{
-        setConfirmPassword(event.target.value)
+    const handleConfirmPassword = (value: string) =>{
+        setConfirmPassword(value)
     }
 
     const data2 = {
@@ -47,9 +47,10 @@ const SettingsPasswords: FC = () => {
 
     return(
         <div className="settingsPasswords">
-            <Input placeholder='Enter a old password' error={passwordsError} type='password' label='Old Password'onChange={handleOldPassword} value={oldPassword}/>
-            <Input placeholder='Enter a new password' error={passwordsError} type='password' label='New password' onChange={handleNewPassword} value={newPassword}/>
-            <Input placeholder='Enter a new password again' error={passwordsError} type='password' label='Confirm new password' onChange={handleConfirmPassword} value={confirmPassword}/>
+            <PasswordInput validationText={passwordsError} type="password" changeCallBack = {handleOldPassword} value={oldPassword} placeholder="Enter old password" label="Old Password"/>
+            <PasswordInput validationText={passwordsError} type="password" changeCallBack = {handleNewPassword} value={newPassword} placeholder="Enter new password" label="New Password"/>
+            <PasswordInput validationText={passwordsError} type="password" changeCallBack = {handleConfirmPassword} value={confirmPassword} placeholder="Enter new password again" label="Confirm new Password"/>
+
             <Button variant='primary' type='button' onClick={handleSumbitPassords}>Submit</Button>
 
             <Alert />
