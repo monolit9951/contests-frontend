@@ -27,17 +27,18 @@ const PasswordInput: FC <RegistrationInputInterface>= ({placeholder, label, type
     }
 
     return(
-        <div className="registrationInput">
-            <div className="registrationInput_explain">
-                {label && <div className={validationText === ''? "registrationInput_labbel" : "registrationInput_labbel validation"}>{label}</div>}
+        <div className="passwordInput">
+            <div className="passwordInput_explain">
+                {label && <div className={validationText === ''? "passwordInput_labbel" : "passwordInput_labbel validation"}>{label}</div>}
             </div>
-            <div className={validationText === ''? "registrationInput_container": "registrationInput_container validation"}>
+            <div className={validationText === ''? "passwordInput_container": "passwordInput_container validation"}>
                 <input type={passwordVisibility? 'text' : type} value={value} placeholder={placeholder} onChange={handleInput}/>
+                
                 {type === "password" && !passwordVisibility && <button onClick={handleTogglePasswordVisible} type="button"><img src={eye} alt="type"/></button>}
                 {type === "password" && passwordVisibility && <button onClick={handleTogglePasswordVisible} type="button"><img src={eyeClosed} alt="type"/></button>}
             </div>
 
-            {validationText !== '' && <div className="registrationInput_validation">
+            {validationText !== '' && <div className="passwordInput_validation">
                 <img src={iValidation} alt="valid" />
                 <span>{validationText}</span>
             </div>}
