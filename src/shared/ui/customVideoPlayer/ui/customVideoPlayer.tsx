@@ -139,7 +139,7 @@ const CustomVideoPlayer: FC<Props> = ({
                 />
             </button>
 
-            {light && <div className="video_progressBar">
+            {!light && <div className="video_progressBar">
                 <div className="video_progressBar_line" />
                 <div
                 className="video_progressBar_progress"
