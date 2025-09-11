@@ -67,7 +67,7 @@ const WorkCard: FC<Props> = (props) => {
                             variant='div'
                             onClick={handleOpenModal}
                             className='media-work__video'>
-                            <CustomVideoPlayer src={ data.media[0].mediaLink} light preload='metadata' maxBufferSize={0.002}/>
+                            <CustomVideoPlayer src={ data.media[0].mediaLink} light preload='metadata' maxBufferSize={0.02}/>
                         </Button>
                     )}
                     {data.media && data.media[0]?.typeMedia === 'IMAGE'&& data.media?.[0]?.mediaLink && (
