@@ -137,7 +137,7 @@
             left: 0;
             height: 100dvh;
             width: 100dvw;
-
+            z-index: 100000;
             > .mobileWorkPreview_commentsSection_comments{
                 z-index: 2;
                 position: fixed;
