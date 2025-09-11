@@ -29,7 +29,7 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
     const [currentIndex, setCurrentIndex] = useState(index);
     const [direction, setDirection] = useState<'next' | 'prev'>('next');
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-    
+
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
     const mediaContainerRef = useRef<HTMLDivElement>(null);
@@ -108,7 +108,9 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
                         src={currentMedia.mediaLink}
                         className="mediaGalery_media_image"
                         alt="workImg"
+                       
                         key={currentMedia.id}
+
                     />
                 )}
             </div>

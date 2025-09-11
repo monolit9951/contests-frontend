@@ -132,6 +132,12 @@
         }
 
         >.mobileWorkPreview_commentsSection{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 100dvh;
+            width: 100dvw;
+
             > .mobileWorkPreview_commentsSection_comments{
                 z-index: 2;
                 position: fixed;

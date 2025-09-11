@@ -16,12 +16,13 @@ import './mobileWorkPreview.scss'
 
 
 interface Props {
+    handleBlockScroll?: (value: boolean) => void
     isFeed?: boolean
     work: Work
 }
 
 
-const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
+const MobileWorkPreview: FC <Props> = ({isFeed, work, handleBlockScroll}) => {
     const {showAlert, Alert} = useAlert()
 
     // const {data: work, isLoaded: workLoaded} = useGetRequest({fetchFunc: () => getWorkById(workId), enabled: true, key: []})
@@ -39,6 +40,9 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
     // открыть модалку комментов
     const handleComments = () => {
         setCommentsShow(!commentsShow)
+        if (handleBlockScroll){
+            handleBlockScroll(!commentsShow)
+        }
     }
 
     // share
@@ -63,7 +67,7 @@ const MobileWorkPreview: FC <Props> = ({isFeed, work}) => {
             <div className="mobileWorkPreview_container">
                 {/* { work.media && work.media.length > 0 && <img src={work.media[0].mediaLink} alt="media" />} */}
                 {/* { work.media && work.media.length > 0 && <CustomVideoPlayer src='https://ia800400.us.archive.org/23/items/youtube-bQ08lJ7BZ0k/bQ08lJ7BZ0k.webm'/>} */}
-                {work.media && work.media.length > 0 && <MediaGalery media={work.media}/>}
+                {/* {work.media && work.media.length > 0 && <MediaGalery media={work.media}/>} */}
 
                 <MobileWorkTopPanel />
                 <div className="mobileWorkPreview_shadow" />

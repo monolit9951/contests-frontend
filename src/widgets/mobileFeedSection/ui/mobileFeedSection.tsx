@@ -12,6 +12,8 @@ const MobileFeedSection = () => {
     const [dragY, setDragY] = useState(0);
     const dragStartY = useRef(0);
     const direction = useRef<number>(0);
+    const [blockScroll, setBlockScroll] = useState<boolean>(false)
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     const {
         data,
@@ -26,19 +28,18 @@ const MobileFeedSection = () => {
         lastPage.content.length === 3 ? allPages.length : undefined,
     });
 
-      const works = data?.pages.flatMap(page => page.content);
-  const [currentIndex, setCurrentIndex] = useState(0);
+    const works = data?.pages.flatMap(page => page.content);
 
-  const handleDragStart = (_: any, info: any) => {
-    setIsDragging(true);
-    dragStartY.current = info.point.y;
-  };
+    const handleDragStart = (_: any, info: any) => {
+        setIsDragging(true);
+        dragStartY.current = info.point.y;
+    };
 
-  const handleDrag = (_: any, info: any) => {
-    const currentDragY = info.point.y - dragStartY.current;
-    setDragY(currentDragY);
-    direction.current = currentDragY > 0 ? 1 : -1;
-  };
+    const handleDrag = (_: any, info: any) => {
+        const currentDragY = info.point.y - dragStartY.current;
+        setDragY(currentDragY);
+        direction.current = currentDragY > 0 ? 1 : -1;
+    };
 
     const handleDragEnd = (_: any, info: any) => {
         setIsDragging(false);
@@ -50,15 +51,15 @@ const MobileFeedSection = () => {
         
         if (isFullSwipe && works) {
             if (direction.current > 0) {
-                // Свайп ВНИЗ = переходим к ПРЕДЫДУЩЕМУ посту
+                // если есть прошлый пост - переходим
                 if (currentIndex > 0) {
                 setCurrentIndex(prev => prev - 1);
                 }
             } else if (currentIndex < works.length - 1) {
-            // Свайп ВВЕРХ = переходим к СЛЕДУЮЩЕМУ посту
+                // если есть след пост то переходим
                 setCurrentIndex(prev => prev + 1);
                 
-                // Загружаем следующую страницу, если приближаемся предпоследнему элементу
+                // подзагрузка следующих постов на предпоследнем элементе
                 if (currentIndex >= works.length - 2 && hasNextPage) {
                     fetchNextPage();
                 }
@@ -69,29 +70,29 @@ const MobileFeedSection = () => {
         setDragY(0);
     };
 
-    // const dragProgress = Math.min(Math.abs(dragY) / (window.innerHeight * 0.4), 1);
 
     const slideVariants = {
         enter: (direction: number) => ({
                 y: direction > 0 ? '-100%' : '100%',
-                // opacity: 0.5
         }),
         center: {
             y: 0,
-            // opacity: 1
         },
         exit: (direction: number) => ({
             y: direction > 0 ? '100%' : '-100%',
-            // opacity: 0.5
         })
     };
+
+    const handleBlockScroll = (value: boolean) =>{
+        setBlockScroll(value)
+    }
 
     return (
         <div className="mobileFeed">
             {!isLoading && works && works.length > 0 && (
                 <div className="vertical-feed">
                 <motion.div
-                    drag="y"
+                    drag={blockScroll? undefined : "y"}
                     dragConstraints={{ top: 0, bottom: 0 }}
                     dragElastic={0}
                     onDragStart={handleDragStart}
@@ -114,7 +115,7 @@ const MobileFeedSection = () => {
                             <div 
                                 className={`feed-post ${isDragging ? 'dragging' : ''}`}
                             >
-                                <MobileWorkPreview work={works[currentIndex]} />
+                                <MobileWorkPreview work={works[currentIndex]}handleBlockScroll = {handleBlockScroll}/>
                             </div>
                         </motion.div>
                     </AnimatePresence>
