@@ -3,7 +3,7 @@ import eyeClosed from 'shared/assets/icons/eyeClosed.svg'
 import eye from 'shared/assets/icons/eyePassword.svg'
 import iValidation from 'shared/assets/icons/iValidation.svg'
 
-import './registrationInput.scss'
+import './passwordInput.scss'
 
 interface RegistrationInputInterface {
     placeholder: string
@@ -14,7 +14,7 @@ interface RegistrationInputInterface {
     validationText: string
 }
 
-const RegistrationInput: FC <RegistrationInputInterface>= ({placeholder, label, type, changeCallBack, value, validationText}) => {
+const PasswordInput: FC <RegistrationInputInterface>= ({placeholder, label, type, changeCallBack, value, validationText}) => {
 
     const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
 
@@ -45,4 +45,4 @@ const RegistrationInput: FC <RegistrationInputInterface>= ({placeholder, label, 
     )
 }
 
-export default RegistrationInput
+export default PasswordInput

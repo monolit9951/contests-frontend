@@ -9,11 +9,10 @@ import CustomCheckbox from "widgets/customCheckbox";
 
 import { userByToken } from "../model/service/registrationModalService";
 import { setUser } from "../model/slice/userSlice";
-
-import RegistrationInput from "./components/registrationInput/registrationInput";
 import Switcher from "./components/switcher/switcher";
 
 import './registrationModal.scss'
+import PasswordInput from "shared/ui/passwordInput";
 
 interface RegistrationModalInterface {
     onClose: () => void
@@ -196,10 +195,10 @@ const RegistrationModal: FC <RegistrationModalInterface> = ({onClose, auth}) => 
                 </div>
 
                 <div className="registrationModal_inputs">
-                    <RegistrationInput validationText={loginError} value = {login} type="email" changeCallBack = {handleLoginCallback} placeholder="Enter your email" label="Email" />
-                    {authType === 'SIGNUP' && <RegistrationInput validationText={nicknameError} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Enter your username" label="Username" />}
-                    <RegistrationInput validationText={passwordError} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
-                    {authType === 'SIGNUP' && <RegistrationInput validationText={checkPasswordError} value={checkPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
+                    <PasswordInput validationText={loginError} value = {login} type="email" changeCallBack = {handleLoginCallback} placeholder="Enter your email" label="Email" />
+                    {authType === 'SIGNUP' && <PasswordInput validationText={nicknameError} value = {nickname} type="text" changeCallBack = {handleNicknameCallback} placeholder="Enter your username" label="Username" />}
+                    <PasswordInput validationText={passwordError} value={password} type="password" changeCallBack = {handlePasswordCallback} placeholder="Enter your password" label="Password"/>
+                    {authType === 'SIGNUP' && <PasswordInput validationText={checkPasswordError} value={checkPassword} type="password" changeCallBack = {handleCheckPasswordCallback} placeholder="Confirm your password" label="Confirm Password"/>}
 
                     <div className="registrationModal_inputs_special">
                         <CustomCheckbox value="Remember me" checked={false} handleCheckbox = {handleCheckbox}/>
