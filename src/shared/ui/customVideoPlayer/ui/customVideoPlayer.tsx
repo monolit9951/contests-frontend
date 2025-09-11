@@ -1,4 +1,5 @@
 import { type FC, useCallback,useEffect, useRef, useState } from "react";
+import play from 'shared/assets/icons/videoPlay.svg'
 import Spinner from "shared/ui/spinner";
 
 import './customVideoPlayer.scss'
@@ -119,9 +120,6 @@ const CustomVideoPlayer: FC<Props> = ({
 
     return (
         <div className="videoContainer">
-            {isBuffering && (
-                <Spinner center />
-            )}
             <button onClick={onPlay} type="button" aria-label="VideoControl">
                 {/* eslint-disable jsx-a11y/media-has-caption */}
                 <video
@@ -141,7 +139,7 @@ const CustomVideoPlayer: FC<Props> = ({
                 />
             </button>
 
-            <div className="video_progressBar">
+            {light && <div className="video_progressBar">
                 <div className="video_progressBar_line" />
                 <div
                 className="video_progressBar_progress"
@@ -156,7 +154,15 @@ const CustomVideoPlayer: FC<Props> = ({
                     value={progress}
                     onChange={handleSeek}
                 />
-            </div>
+            </div>}
+            
+            {light && <div className="video_play">
+                <img src={play} alt="play" />
+            </div>}
+
+            {isBuffering && (
+                <Spinner center />
+            )}
         </div>
     )
 }

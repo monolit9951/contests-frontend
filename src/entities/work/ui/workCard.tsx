@@ -1,12 +1,12 @@
-import { FC, useMemo, useState } from 'react'
+import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { Button } from 'shared/ui/button'
+import { CustomVideoPlayer } from 'shared/ui/customVideoPlayer'
 import { Image } from 'shared/ui/image'
 import { MediaFeedback } from 'shared/ui/mediaFeedback'
 import { ModalWindow } from 'shared/ui/modalWindow'
 import { VStack } from 'shared/ui/stack'
-import { Video } from 'shared/ui/videoPlayer'
 import ModalReport from 'widgets/modalReport'
 
 import { Work } from '../model/types'
@@ -39,12 +39,12 @@ const WorkCard: FC<Props> = (props) => {
 
     
     // мемоизация видео, необходимо из-за особенности ререндера Plyr-видео
-    const videoBlock = useMemo(() => {
-        if (!data?.media?.length) return null
+    // const videoBlock = useMemo(() => {
+    //     if (!data?.media?.length) return null
 
-        const mediaItem = data.media[0]
-        return <Video url={mediaItem.mediaLink} light />
-    }, [data?.media])
+    //     const mediaItem = data.media[0]
+    //     return <CustomVideoPlayer src={mediaItem.mediaLink} light />
+    // }, [data?.media])
 
     const [reportModal, setReportModal] = useState<boolean>(false)
 
@@ -67,7 +67,7 @@ const WorkCard: FC<Props> = (props) => {
                             variant='div'
                             onClick={handleOpenModal}
                             className='media-work__video'>
-                            {videoBlock}
+                            <CustomVideoPlayer src={ data.media[0].mediaLink} light preload='metadata' maxBufferSize={0.002}/>
                         </Button>
                     )}
                     {data.media && data.media[0]?.typeMedia === 'IMAGE'&& data.media?.[0]?.mediaLink && (
