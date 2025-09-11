@@ -87,46 +87,40 @@ const MobileFeedSection = () => {
     };
 
     return (
-        <div className="battlesPage">
-
-        {/* <h2>BattlesPage</h2> */}
-
-        {!isLoading && works && works.length > 0 && (
-            <div className="vertical-feed">
-            <motion.div
-                drag="y"
-                dragConstraints={{ top: 0, bottom: 0 }}
-                dragElastic={0}
-                onDragStart={handleDragStart}
-                onDrag={handleDrag}
-                onDragEnd={handleDragEnd}
-                className="feed-container"
-                style={{ y: dragY }}
-            >
-                <AnimatePresence initial={false} custom={direction.current}>
-                    <motion.div
-                        key={currentIndex}
-                        custom={direction.current}
-                        variants={slideVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{ duration: 0.3 }}
-                        className="post-wrapper"
-                    >
-                        <div 
-                        className={`feed-post ${isDragging ? 'dragging' : ''}`}
-                        style={{
-                            // opacity: 1 - dragProgress * 0.3
-                        }}
+        <div className="mobileFeed">
+            {!isLoading && works && works.length > 0 && (
+                <div className="vertical-feed">
+                <motion.div
+                    drag="y"
+                    dragConstraints={{ top: 0, bottom: 0 }}
+                    dragElastic={0}
+                    onDragStart={handleDragStart}
+                    onDrag={handleDrag}
+                    onDragEnd={handleDragEnd}
+                    className="feed-container"
+                    style={{ y: dragY }}
+                >
+                    <AnimatePresence initial={false} custom={direction.current}>
+                        <motion.div
+                            key={currentIndex}
+                            custom={direction.current}
+                            variants={slideVariants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{ duration: 0.3 }}
+                            className="post-wrapper"
                         >
-                            <MobileWorkPreview work={works[currentIndex]} />
-                        </div>
-                    </motion.div>
-                </AnimatePresence>
-            </motion.div>
-            </div>
-        )}
+                            <div 
+                                className={`feed-post ${isDragging ? 'dragging' : ''}`}
+                            >
+                                <MobileWorkPreview work={works[currentIndex]} />
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
+                </motion.div>
+                </div>
+            )}
         </div>
     );
 }

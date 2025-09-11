@@ -1,6 +1,49 @@
-.vertical-feed{
-    position: fixed !important;
-    top: 0;
+.mobileFeed{
+    position: fixed;
     height: calc(100dvh - 53px);
-    z-index: 10000;
+    background-color: red;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+}
+
+.vertical-feed{
+    width: 100%;
+    height: calc(100dvh - 53px);
+    overflow: hidden;
+    background: #000;
+    touch-action: none;
+}
+ 
+
+.feed-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+.post-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.feed-post {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &.dragging {
+        transition: none;
+    }
 }
