@@ -1,129 +1,88 @@
-.videoContainer {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+.customVideo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden; /* блюр не «выпирает» */
+}
 
-    > .video_play{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        height: 56px;
-        width: 56px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        background-color: #00000066;
-    }
+/* фоновое размазанное видео */
+.customVideo_bgVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* заполняем фон */
+  filter: blur(12px);
+  transform: scale(1.06); /* прячем края блюра */
+  will-change: transform, filter;
+  z-index: 0;
+  background: #000;
+}
 
-    .video_buffering {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 4px;
-        z-index: 1000;
-    }
+/* основное видео */
+.customVideo_mainVideo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+//   background: #000;
+  object-fit: contain; /* или cover — как нужно по дизайну */
+}
 
-    button {
-        position: relative;
-        height: 100%;
-        width: 100%;
-        background-color: transparent;
-        border: none;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transform: translateZ(0);
-        -webkit-tap-highlight-color: transparent;
+/* прогресс поверх всего */
+.customVideo_progress {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 8px 10px 12px;
+  box-sizing: border-box;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+  user-select: none;
+  z-index: 2;
+}
 
-        > .video_main {
-            width: 100%;
-            height: 100%;
-            z-index: 100;
+.customVideo_progress_container {
+  position: relative;
+  width: 100%;
+  height: 6px;
+}
 
-            // Улучшение производительности
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            perspective: 1000;
-        }
+.customVideo_progress_duration {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 9999px;
+}
 
-        > .video_secondary {
-            position: absolute;
-            object-fit: cover;
-            object-position: center;
-            z-index: -10;
-            background-color: black;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            filter: blur(10px);
+.customVideo_progress_buffer {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background-color: rgba(255,255,255,0.35);
+  border-radius: 9999px;
+  width: 0%;
+}
 
-            // улучшение производительности
-            transform: scale(1.05);
-            backface-visibility: hidden;
-            perspective: 1000;
-        }
-    }
+.customVideo_progress_current {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: #fff;
+  border-radius: 9999px;
+  width: 0%;
+}
 
-    > .video_progressBar {
-        position: absolute;
-        z-index: 100;
-        width: 100%;
-        height: 3px;
-        bottom: 0;
-        left: 0;
-        
-        // Плавные переходы
-        transition: opacity 0.3s ease;
-        
-        &:hover {
-            height: 6px;
-        }
-
-        > .video_progressBar_line {
-            position: absolute;
-            content: '';
-            background-color: #FFFFFF1A;
-            height: 100%;
-            width: 100%;
-            top: 0;
-            left: 0;
-        }
-
-        > .video_progressBar_progress {
-            border-radius: 9999px;
-            content: '';
-            background-color: #FFFFFF80;
-            height: 100%;
-            z-index: 1000;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: width 0.2s ease;
-        }
-
-        > .video_progressBar_input {
-            position: absolute;
-            top: -5px;
-            transform: translateY(-50%);
-            width: 100%;
-            opacity: 0;
-            height: 20px;
-            margin: 0;
-            cursor: pointer;
-            z-index: 1001;
-        }
-    }
+/* невидимый кликабельный инпут поверх треков */
+.customVideo_progress_container > input {
+  position: absolute;
+  left: 0; right: 0;
+  top: -6px; bottom: -6px; /* увеличить зону попадания */
+  width: 100%;
+  height: 18px;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  opacity: 0;                 /* как просили — 0 */
+  z-index: 2147483647;        /* максимально возможный */
 }
