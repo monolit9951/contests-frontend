@@ -4,7 +4,6 @@ import { Prize } from "entities/prize";
 import { Work } from "entities/work";
 import instance from "shared/api/api";
 import { useAlert } from "shared/lib/hooks/useAlert/useAlert";
-import { useGetRequest } from "shared/lib/hooks/useGetRequest";
 import { Button } from "shared/ui/button";
 
 import { getPossibleWinners, getRuledWorks } from "../../model/services/contestService";
