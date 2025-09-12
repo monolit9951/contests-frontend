@@ -9,17 +9,19 @@ interface Props {
     light?: boolean
     preload?: 'none' | 'metadata' | 'auto'
     maxBufferSize?: number 
+    autoPlay?: boolean
 }
 
 const CustomVideoPlayer: FC<Props> = ({ 
     src, 
     light, 
     preload = 'auto',
+    autoPlay = false,
     maxBufferSize = 2 //  ОБЯЗАТЕЛЬНО В МЕГАБАЙТАХ, НЕ УКАЗЫВАТЬ МНОГО
 }) => {
     const videoMainRef = useRef<HTMLVideoElement>(null)
     const videoSecRef = useRef<HTMLVideoElement>(null)
-    const [isActive, setIsActive] = useState(false)
+    const [isActive, setIsActive] = useState(autoPlay)
     const [progress, setProgress] = useState(0)
     const [isBuffering, setIsBuffering] = useState(false)
     const progressRef = useRef(0)
@@ -118,6 +120,23 @@ const CustomVideoPlayer: FC<Props> = ({
         setProgress(value);
     }, []);
 
+    useEffect(() => {
+        if (autoPlay && videoMainRef.current && videoSecRef.current) {
+            videoMainRef.current.play().catch(e => {
+                console.warn("Autoplay blocked by browser:", e);
+            });
+
+            setTimeout(() => {
+                videoSecRef.current?.play().catch(e => {
+                    console.warn("Secondary autoplay blocked:", e);
+                });
+            }, 100);
+
+            setIsActive(true);
+        }
+    }, [autoPlay]);
+
+
     return (
         <div className="videoContainer">
             <button onClick={onPlay} type="button" aria-label="VideoControl">
@@ -128,6 +147,7 @@ const CustomVideoPlayer: FC<Props> = ({
                     className="video_main"
                     preload={light ? "metadata" : preload}
                     playsInline
+                    // muted
                 />
                 <video
                     src={src}

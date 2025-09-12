@@ -107,7 +107,8 @@ const MediaGalery: FC<Prop> = ({ media, className, index = 0 }) => {
                 })}
             >
                 {currentMedia.typeMedia === 'VIDEO' ? (
-                    <CustomVideoPlayer 
+                    <CustomVideoPlayer
+                    autoPlay
                         src={currentMedia.mediaLink}
                     />
                 ) : (

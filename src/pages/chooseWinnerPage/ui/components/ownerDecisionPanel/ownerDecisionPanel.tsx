@@ -24,7 +24,7 @@ const OwnerDecisionPanel: FC<Props> = ({ contest }) => {
     const [winners, setWinners] = useState<Work[]>([])
     const [currentFilter, setCurrentFilter] = useState<string>('allWorks')
     const [currentPage, setCurrentPage] = useState<number>(0)
-    const [hasMore, setHasMore] = useState<boolean>(true) // чтобы остановить, если данных больше нет
+    const [hasMore, setHasMore] = useState<boolean>(true)
     const { showAlert, Alert } = useAlert()
     const observerRef = useRef<HTMLDivElement | null>(null)
 
