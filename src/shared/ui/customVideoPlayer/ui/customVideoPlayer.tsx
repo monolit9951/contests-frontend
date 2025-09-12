@@ -10,6 +10,7 @@ interface Props {
     preload?: 'none' | 'metadata' | 'auto'
     maxBufferSize?: number 
     autoPlay?: boolean
+    loop?: boolean
 }
 
 const CustomVideoPlayer: FC<Props> = ({ 
@@ -17,6 +18,7 @@ const CustomVideoPlayer: FC<Props> = ({
     light, 
     preload = 'auto',
     autoPlay = false,
+    loop,
     maxBufferSize = 2 //  ОБЯЗАТЕЛЬНО В МЕГАБАЙТАХ, НЕ УКАЗЫВАТЬ МНОГО
 }) => {
     const videoMainRef = useRef<HTMLVideoElement>(null)
@@ -148,6 +150,7 @@ const CustomVideoPlayer: FC<Props> = ({
                     preload={light ? "metadata" : preload}
                     playsInline
                     // muted
+                    loop = {loop}
                 />
                 <video
                     src={src}
@@ -156,6 +159,7 @@ const CustomVideoPlayer: FC<Props> = ({
                     preload={light ? "metadata" : preload}
                     muted
                     playsInline
+                    loop = {loop}
                 />
             </button>
 
